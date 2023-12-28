@@ -1,0 +1,1545 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@thts	mapflag	noteleport
+1@thts	mapflag	nosave	SavePoint
+1@thts	mapflag	nomemo
+1@thts	mapflag	nobranch
+1@thts	mapflag	noicewall
+1@thts	mapflag	restricted	6
+1@thts	mapflag	monster_noteleport
+1@thts	mapflag	partylock
+1@thts	mapflag	novending
+1@thts	mapflag	nochat
+
+2@thts	mapflag	noteleport
+2@thts	mapflag	nosave	SavePoint
+2@thts	mapflag	nomemo
+2@thts	mapflag	nobranch
+2@thts	mapflag	noicewall
+2@thts	mapflag	restricted	6
+2@thts	mapflag	monster_noteleport
+2@thts	mapflag	partylock
+2@thts	mapflag	novending
+2@thts	mapflag	nochat
+
+3@thts	mapflag	noteleport
+3@thts	mapflag	nosave	SavePoint
+3@thts	mapflag	nomemo
+3@thts	mapflag	nobranch
+3@thts	mapflag	noicewall
+3@thts	mapflag	restricted	6
+3@thts	mapflag	monster_noteleport
+3@thts	mapflag	partylock
+3@thts	mapflag	novending
+3@thts	mapflag	nochat
+
+4@thts	mapflag	noteleport
+4@thts	mapflag	nosave	SavePoint
+4@thts	mapflag	nomemo
+4@thts	mapflag	nobranch
+4@thts	mapflag	noicewall
+4@thts	mapflag	restricted	6
+4@thts	mapflag	monster_noteleport
+4@thts	mapflag	partylock
+4@thts	mapflag	novending
+4@thts	mapflag	nochat
+
+5@thts	mapflag	noteleport
+5@thts	mapflag	nosave	SavePoint
+5@thts	mapflag	nomemo
+5@thts	mapflag	nobranch
+5@thts	mapflag	noicewall
+5@thts	mapflag	restricted	6
+5@thts	mapflag	monster_noteleport
+5@thts	mapflag	partylock
+5@thts	mapflag	novending
+5@thts	mapflag	nochat
+
+6@thts	mapflag	noteleport
+6@thts	mapflag	nosave	SavePoint
+6@thts	mapflag	nomemo
+6@thts	mapflag	nobranch
+6@thts	mapflag	noicewall
+6@thts	mapflag	restricted	6
+6@thts	mapflag	monster_noteleport
+6@thts	mapflag	partylock
+6@thts	mapflag	novending
+6@thts	mapflag	nochat
+
+7@thts	mapflag	noteleport
+7@thts	mapflag	nosave	SavePoint
+7@thts	mapflag	nomemo
+7@thts	mapflag	nobranch
+7@thts	mapflag	noicewall
+7@thts	mapflag	restricted	6
+7@thts	mapflag	monster_noteleport
+7@thts	mapflag	partylock
+7@thts	mapflag	novending
+7@thts	mapflag	nochat
+
+8@thts	mapflag	noteleport
+8@thts	mapflag	nosave	SavePoint
+8@thts	mapflag	nomemo
+8@thts	mapflag	nobranch
+8@thts	mapflag	noicewall
+8@thts	mapflag	restricted	6
+8@thts	mapflag	monster_noteleport
+8@thts	mapflag	partylock
+8@thts	mapflag	novending
+8@thts	mapflag	nochat
+
+amatsu,127,163,3	script	[副本]死亡之塔	512,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "死亡之塔";
+	// 最小挑戰等級
+	.ins_MinLv = 180;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 41;
+
+//
+	waitingroom "[副本]死亡之塔",0;
+	setnpcicon getnpcid(0),22,"[副本]死亡之塔";
+	end;
+}
+
+//=============================================================
+//--------------------第0層----------------------------------
+//============================================================
+
+//**167,371
+1@thts,167,371,3	script	露西#LUCILE	4_F_LUCILE,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		mes "[露西]";
+		mes ".....";
+		mes ".........？";
+		npctalk "露西：........？";
+		cutin "tnm_lucile01",2;
+		next;
+		mes "[露西]";
+		mes "你們好我叫做露西，因為一些原因";
+		mes "我只能提供給你們一些情報,";
+		mes "沒有辦法給予你們太多的幫助。";
+		npctalk "露西：你們好我叫做露西，因為一些原因，我只能提供給你們一些情報，沒有辦法給予你們太多的幫助";
+		cutin "tnm_lucile02",2;
+		next;
+		mes "[露西]";
+		mes "首先要達到頂層必須先通過六個樓層。";
+		npctalk "露西：首先要達到頂層必須先通過六個樓層。";
+		mes "而除了第一層外每一層都有達納托斯的記憶手下鎮守";
+		npctalk "露西：而除了第一層外每一層都有達納托斯的記憶手下鎮守'.";
+		mes "打倒手下後可獲得元素碎片，記住這些碎片是要拿來開啟通往頂樓的魔法陣。";
+		npctalk "露西：打倒手下後可獲得元素碎片，記住這些碎片是要拿來開啟通往頂樓的魔法陣。";
+		next;
+		mes "[露西]";
+		mes "那麼希望你們能安然的抵達最上層並打倒達納托斯的記憶。";
+		npctalk "露西：那麼希望你們能安然的抵達最上層並打倒達納托斯的記憶。";
+		next;
+		cutin "tnm_lucile02",255;
+		set .@party_id,getcharid(1);
+		set 'partyleeaderaccount,getpartyleader(.@party_id,1);
+		donpcevent instance_npcname("監視者#Watcher")+"::OnEnable";
+		disablenpc instance_npcname("TowerWarps#02");
+		disablenpc instance_npcname("TowerWarps#04");
+		disablenpc instance_npcname("TowerWarps#06");
+		disablenpc instance_npcname("TowerWarps#08");
+		disablenpc instance_npcname("TowerWarps#10");
+		disablenpc instance_npcname("TowerWarps#12");
+		
+		hideonnpc instance_npcname("露西#LUCILE01");
+		
+		mapwarp instance_mapname("1@thts"),instance_mapname("2@thts"),30,171;
+		//**mapwarp instance_mapname("1@thts"),instance_mapname("7@thts"),129,80;
+		end;
+	}else{
+		mes "[露西]";
+		mes "麻煩請叫隊長來找我。";
+	}
+	close;
+}
+
+//============================================================
+//原始傳點
+1@thts,174,287,0	warp	TowerWarps#03	1,1,5@thts,155,100//2-3
+1@thts,16,15,0	warp	TowerWarps#05	1,1,4@thts,18,97//3-4
+1@thts,183,165,0	warp	TowerWarps#07	1,1,3@thts,26,43//4-5
+1@thts,33,165,0	warp	TowerWarps#09	1,1,6@thts,51,16//5-6
+1@thts,182,15,0	warp	TowerWarps#11	1,1,7@thts,118,16//6-7
+2@thts,114,166,0	warp	TowerWarps#02	1,1,1@thts,72,288
+5@thts,170,138,0	warp	TowerWarps#04	1,1,1@thts,15,73
+4@thts,92,146,0	warp	TowerWarps#06	1,1,1@thts,181,224
+3@thts,114,43,0	warp	TowerWarps#08	1,1,1@thts,31,224
+6@thts,91,36,0	warp	TowerWarps#10	1,1,1@thts,181,73
+7@thts,129,52,0	warp	TowerWarps#12	1,1,8@thts,136,121
+//============================================================
+
+//=============================================================
+//--------------------第一層----------------------------------
+//============================================================
+
+
+
+/*2@thts,45,172,0	script	#TowerTouch01	-1,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("監視者#Watcher")+"::OnEnable";
+	hideonnpc instance_npcname("TowerWarps#02");
+	end;
+}*/
+
+2@thts,57,172,3	script	監視者#Watcher	20788,{
+	mes "[監視者]";
+	mes "請停下您的腳步吧。";
+	close;
+OnEnable:
+	initnpctimer;
+	npctalk "";
+	end;
+OnTimer4000:
+	npctalk "監視者：冒險家們不要再繼續前進了";
+	end;
+OnTimer6000:
+	stopnpctimer;
+	npctalk "監視者：這座塔充滿了達納托斯的怨念";
+	donpcevent instance_npcname("#Thanatos_zone1")+"::OnEnable";
+	hideonnpc instance_npcname("監視者#Watcher");
+	specialeffect 215;
+	enablenpc instance_npcname("監視者#Watcher");
+	
+
+	end;
+
+}
+
+
+
+2@thts,0,0,4	script	#Thanatos_zone1	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone1");
+	donpcevent instance_npcname("#Thanatos_zone1")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("2@thts");
+	set .@label$, instance_npcname("#Thanatos_zone1")+"::OnKillMob";
+	
+	set 'Mr_mob1,50;
+	areamonster .@map$,43,176,50,169,"幸福贈與者",20788,5,.@label$;
+	areamonster .@map$,54,178,60,170,"幸福贈與者",20788,5,.@label$;
+	
+	areamonster .@map$,26,155,65,108,"幸福贈與者",20788,10,.@label$;
+	areamonster .@map$,30,103,67,26,"幸福贈與者",20788,10,.@label$;
+	areamonster .@map$,74,103,109,28,"幸福贈與者",20788,10,.@label$;
+	
+	areamonster .@map$,74,185,111,110,"幸福贈與者",20788,5,.@label$;
+	areamonster .@map$,87,174,99,161,"幸福贈與者",20788,5,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob1,'Mr_mob1-1;
+	set .@map$, instance_mapname("2@thts");
+	if('Mr_mob1){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob1+"隻",bc_map;
+	}else{
+		enablenpc instance_npcname("TowerWarps#02");
+		donpcevent instance_npcname("#Thanatos_zone2")+"::OnEnable";
+		mapannounce .@map$, "通往上層的大門已開啟。",bc_blue;
+	}
+	end;
+}
+
+//=============================================================
+//--------------------第二層----------------------------------
+//=============================================================
+5@thts,0,0,4	script	#Thanatos_zone2	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone2");
+	donpcevent instance_npcname("Tower2Ftrap#00")+"::OnEnable";
+	donpcevent instance_npcname("#Thanatos_zone2")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("5@thts");
+	set .@label$, instance_npcname("#Thanatos_zone2")+"::OnKillMob";
+	set 'Mr_mob2,50;
+	areamonster .@map$,163,90,94,167,"笑容贈與者",20791,50,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob2,'Mr_mob2-1;
+	set .@map$, instance_mapname("5@thts");
+	if('Mr_mob2){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob2+"隻",bc_map;
+	}else{
+		donpcevent instance_npcname("#Thanatos_zone2_BOSS")+"::OnEnable";
+		donpcevent instance_npcname("Tower2Ftrap#00")+"::OnStoptime";
+		mapannounce .@map$, "達納托斯的怨恨以化身。",bc_blue;
+	}
+	end;
+}
+
+5@thts,0,0,4	script	#Thanatos_zone2_BOSS	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone2_BOSS");
+	donpcevent instance_npcname("#Thanatos_zone2_BOSS")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("5@thts");
+	set .@label$, instance_npcname("#Thanatos_zone2_BOSS")+"::OnKillMob";
+	monster .@map$,130,157,"達納托斯的怨恨",20798,1,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set .@map$,instance_mapname("5@thts");
+	enablenpc instance_npcname("TowerWarps#04");
+	mapannounce .@map$, "通往上層的大門已開啟。",bc_blue;
+	getitem 7436,1,'partyleeaderaccount;
+	donpcevent instance_npcname("#Thanatos_zone3")+"::OnEnable";
+
+	end;
+}
+
+
+//陷阱
+5@thts,0,0,3	script	Tower2Ftrap#00	20788,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer5000:
+	set .@map$, instance_mapname("5@thts");
+	donpcevent instance_npcname("Tower2Ftrap#01")+"::OnStart";
+	mapannounce .@map$, "達納托斯的怨恨啟動了西邊的詛咒。",bc_blue;
+	end;
+OnTimer10000:
+	set .@map$, instance_mapname("5@thts");
+	stopnpctimer;
+	donpcevent instance_npcname("Tower2Ftrap#02")+"::OnStart";
+	mapannounce .@map$, "達納托斯的怨恨啟動了東邊的詛咒。",bc_blue;
+	initnpctimer;
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+}
+
+5@thts,0,0,0	script	Tower2Ftrap#01	3142,9,9,{
+	end;
+OnStart:
+	set .@map$, instance_mapname("5@thts");
+	.@x = 106;
+	.@y = 112;
+	
+	monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;		
+	.@id[0] = $@mobid[0];
+	monster .@map$,.@x,.@y-8,"--ja--",3095,1,.@label$;
+	.@id[1] = $@mobid[0];
+	monster .@map$,.@x,.@y+8,"--ja--",3095,1,.@label$;
+	.@id[2] = $@mobid[0];
+	for(.@i = 0; .@i < 3; .@i++) {
+		unitskilluseid .@id[.@i], 353, 1;
+	}
+	unitskillusepos .@id[0],89,10,.@x,.@y,1;
+	unitskillusepos .@id[1],89,10,.@x,.@y-8,1;
+	unitskillusepos .@id[2],89,10,.@x,.@y+8,1;
+	end;
+}
+5@thts,0,0,0	script	Tower2Ftrap#02	3142,9,9,{
+	end;
+OnStart:
+	set .@map$, instance_mapname("5@thts");
+	.@x = 146;
+	.@y = 125;
+	
+	monster .@map$,.@x,.@y,"--ja--",3095,1,.@label$;		
+	.@id[0] = $@mobid[0];
+	monster .@map$,.@x-8,.@y,"--ja--",3095,1,.@label$;
+	.@id[1] = $@mobid[0];
+	monster .@map$,.@x-16,.@y,"--ja--",3095,1,.@label$;
+	.@id[2] = $@mobid[0];
+	monster .@map$,.@x,.@y+8,"--ja--",3095,1,.@label$;
+	.@id[3] = $@mobid[0];
+	monster .@map$,.@x,.@y+16,"--ja--",3095,1,.@label$;
+	.@id[4] = $@mobid[0];
+	for(.@i = 0; .@i < 5; .@i++) {
+		unitskilluseid .@id[.@i], 353, 1;
+	}
+	unitskillusepos .@id[0],89,10,.@x,.@y,1;
+	unitskillusepos .@id[1],89,10,.@x-8,.@y,1;
+	unitskillusepos .@id[2],89,10,.@x-16,.@y,1;
+	unitskillusepos .@id[3],89,10,.@x,.@y+8,1;
+	unitskillusepos .@id[4],89,10,.@x,.@y+16,1;
+	end;
+}
+//=============================================================
+//--------------------第三層----------------------------------
+//=============================================================
+4@thts,0,0,4	script	#Thanatos_zone3	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone3");
+	donpcevent instance_npcname("#Thanatos_zone3")+"::OnStart";
+	donpcevent instance_npcname("Tower3Ftrap#00")+"::OnEnable";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("4@thts");
+	set .@label$, instance_npcname("#Thanatos_zone3")+"::OnKillMob";
+	set 'Mr_mob3,50;
+	areamonster .@map$,14,92,88,163,"庇護贈與者",20790,50,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob3,'Mr_mob3-1;
+	set .@map$, instance_mapname("4@thts");
+	if('Mr_mob3){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob3+"隻",bc_map;
+	}else{
+		donpcevent instance_npcname("#Thanatos_zone3_BOSS")+"::OnEnable";
+		donpcevent instance_npcname("Tower3Ftrap#00")+"::OnStoptime";
+		mapannounce .@map$, "達納托斯的恐懼以化身。",bc_blue;
+	}
+	end;
+}
+
+4@thts,0,0,4	script	#Thanatos_zone3_BOSS	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone3_BOSS");
+	donpcevent instance_npcname("#Thanatos_zone3_BOSS")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("4@thts");
+	set .@label$, instance_npcname("#Thanatos_zone3_BOSS")+"::OnKillMob";
+	monster .@map$,22,155,"達納托斯的恐懼",20799,1,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set .@map$,instance_mapname("4@thts");
+	enablenpc instance_npcname("TowerWarps#06");
+	mapannounce .@map$, "通往上層的大門已開啟。",bc_blue;
+	getitem 7437,1,'partyleeaderaccount;
+	donpcevent instance_npcname("#Thanatos_zone4")+"::OnEnable";
+
+	end;
+}
+
+
+//陷阱
+4@thts,0,0,3	script	Tower3Ftrap#00	20788,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer10000:
+	set .@map$, instance_mapname("4@thts");
+	donpcevent instance_npcname("Tower3Ftrap#01")+"::OnStart";
+	mapannounce .@map$, "達納托斯的恐懼啟動了火牆。",bc_blue;
+	end;
+OnTimer15000:
+	set .@map$, instance_mapname("4@thts");
+	stopnpctimer;
+	donpcevent instance_npcname("Tower3Ftrap#02")+"::OnStart";
+	initnpctimer;
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+}
+
+4@thts,0,0,0	script	Tower3Ftrap#01	3142,9,9,{
+	end;
+OnStart:
+	set .@map$, instance_mapname("4@thts");
+	.@x = 86;
+	.@y = 162;
+	.@xx = .@x;
+	.@yy = .@y;
+	for(.@i = 0; .@i < 70; .@i++) {
+		monster .@map$,.@xx,.@yy,"--ja--",3095,1,.@label$;		
+		.@id[.@i] = $@mobid[0];
+		.@xx = .@xx-1;
+		.@yy = .@yy-1;
+	}
+	for(.@i = 0; .@i < 70; .@i++) {
+		unitskilluseid .@id[.@i], 353, 1;
+	}
+	.@xx = .@x;
+	.@yy = .@y;
+	for(.@i = 0; .@i < 70; .@i++) {
+		unitskillusepos .@id[.@i],18,10,.@xx,.@yy,1;
+		.@xx = .@xx-1;
+		.@yy = .@yy-1;
+		sleep 50;
+	}
+	end;
+}
+4@thts,0,0,0	script	Tower3Ftrap#02	3142,9,9,{
+	end;
+OnStart:
+	set .@map$, instance_mapname("4@thts");
+	.@x = 40;
+	.@y = 136;
+	.@xx = .@x;
+	.@yy = .@y;
+	for(.@i = 0; .@i < 20; .@i++) {
+		monster .@map$,.@xx,.@yy,"--ja--",3095,1,.@label$;		
+		.@id[.@i] = $@mobid[0];
+		.@xx = .@xx+1;
+		.@yy = .@yy-1;
+	}
+	for(.@i = 0; .@i < 20; .@i++) {
+		unitskilluseid .@id[.@i], 353, 1;
+	}
+	.@xx = .@x;
+	.@yy = .@y;
+	for(.@i = 0; .@i < 20; .@i++) {
+		unitskillusepos .@id[.@i],18,10,.@xx,.@yy,1;
+		.@xx = .@xx+1;
+		.@yy = .@yy-1;
+		//sleep 100;
+	}
+	end;
+}
+
+//=============================================================
+//--------------------第四層----------------------------------
+//=============================================================
+3@thts,0,0,4	script	#Thanatos_zone4	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone4");
+	donpcevent instance_npcname("#Thanatos_zone4")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("3@thts");
+	set .@label$, instance_npcname("#Thanatos_zone4")+"::OnKillMob";
+	set 'Mr_mob4,70;
+	areamonster .@map$,28,31,111,179,"幸福贈與者",20788,35,.@label$;
+	areamonster .@map$,28,31,111,179,"同情者",20787,35,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob4,'Mr_mob4-1;
+	set .@map$, instance_mapname("3@thts");
+	if('Mr_mob4){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob4+"隻",bc_map;
+	}else{
+		donpcevent instance_npcname("#Thanatos_zone4_BOSS")+"::OnEnable";
+		
+		mapannounce .@map$, "達納托斯的憤怒以化身。",bc_blue;
+	}
+	end;
+}
+
+3@thts,0,0,4	script	#Thanatos_zone4_BOSS	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone4_BOSS");
+	donpcevent instance_npcname("#Thanatos_zone4_BOSS")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("3@thts");
+	set .@label$, instance_npcname("#Thanatos_zone4_BOSS")+"::OnKillMob";
+	monster .@map$,60,98,"達納托斯的憤怒",20792,1,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set .@map$,instance_mapname("3@thts");
+	enablenpc instance_npcname("TowerWarps#08");
+	mapannounce .@map$, "通往上層的大門已開啟。",bc_blue;
+	getitem 7438,1,'partyleeaderaccount;
+	donpcevent instance_npcname("#Thanatos_zone5")+"::OnEnable";
+
+	end;
+}
+
+
+
+//=============================================================
+//--------------------第五層----------------------------------
+//=============================================================
+6@thts,0,0,4	script	#Thanatos_zone5	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone5");
+	donpcevent instance_npcname("#Thanatos_zone5")+"::OnStart";
+	donpcevent instance_npcname("Tower5Ftrap#00")+"::OnEnable";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("6@thts");
+	set .@label$, instance_npcname("#Thanatos_zone5")+"::OnKillMob";
+	set 'Mr_mob5,50;
+	areamonster .@map$,12,16,84,84,"祈禱贈與者",20789,50,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob5,'Mr_mob5-1;
+	set .@map$, instance_mapname("6@thts");
+	if('Mr_mob5){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob5+"隻",bc_map;
+	}else{
+		donpcevent instance_npcname("#Thanatos_zone5_BOSS")+"::OnEnable";
+		donpcevent instance_npcname("Tower5Ftrap#00")+"::OnStoptime";
+		mapannounce .@map$, "達納托斯的絕望以化身。",bc_blue;
+		
+	}
+	end;
+}
+
+6@thts,0,0,4	script	#Thanatos_zone5_BOSS	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone5_BOSS");
+	donpcevent instance_npcname("#Thanatos_zone5_BOSS")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("6@thts");
+	set .@label$, instance_npcname("#Thanatos_zone5_BOSS")+"::OnKillMob";
+	monster .@map$,82,83,"達納托斯的絕望",20797,1,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set .@map$,instance_mapname("6@thts");
+	enablenpc instance_npcname("TowerWarps#10");
+	mapannounce .@map$, "通往上層的大門已開啟。",bc_blue;
+	donpcevent instance_npcname("#towercheckkill")+"::OnEnable";
+	getitem 7439,1,'partyleeaderaccount;
+	
+	//隱藏火焰
+
+	end;
+}
+
+
+
+//陷阱
+6@thts,0,0,3	script	Tower5Ftrap#00	20788,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer10000:
+	set .@map$, instance_mapname("6@thts");
+	donpcevent instance_npcname("Tower5Ftrap#01")+"::OnStart";
+	mapannounce .@map$, "達納托斯的絕望啟動了地震。",bc_blue;
+	end;
+OnTimer11000:
+	stopnpctimer;
+	initnpctimer;
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+}
+
+6@thts,0,0,0	script	Tower5Ftrap#01	3142,9,9,{
+	end;
+OnStart:
+	set .@map$, instance_mapname("6@thts");
+	
+	monster .@map$,26,79,"--ja--",3095,1,.@label$;		
+	.@id[0] = $@mobid[0];
+	monster .@map$,73,76,"--ja--",3095,1,.@label$;
+	.@id[1] = $@mobid[0];
+	monster .@map$,46,54,"--ja--",3095,1,.@label$;
+	.@id[2] = $@mobid[0];
+	monster .@map$,24,31,"--ja--",3095,1,.@label$;
+	.@id[3] = $@mobid[0];
+	monster .@map$,71,34,"--ja--",3095,1,.@label$;
+	.@id[4] = $@mobid[0];
+	
+	for(.@i = 0; .@i < 5; .@i++) {
+		unitskilluseid .@id[.@i], 353, 1;
+	}
+	for(.@i = 0; .@i < 5; .@i++) {
+		unitskilluseid .@id[.@i], 653, 1;
+	}
+	end;
+}
+//=============================================================
+//--------------------第六層(入口)----------------------------------
+//=============================================================
+7@thts,104,18,1	script	神秘雕像#5-1	CLEAR_NPC,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		if(countitem(7436)>=  1 ) {
+			delitem 7436,1;
+			set .@map$, instance_mapname("7@thts");
+			mapannounce .@map$, "害怕嗎？",bc_blue;
+			hideonnpc instance_npcname("神秘雕像#5-1");
+			specialeffect 215;
+			donpcevent instance_npcname("#Thanatos_zone6_1")+"::OnEnable";
+			mes "把碎片放入雕像的中央後";
+			mes "便發出了明亮的光芒";
+			end;
+		}
+	}
+}
+7@thts,96,58,1	script	神秘雕像#5-2	CLEAR_NPC,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		if(countitem(7437)>=  1 ) {
+			delitem 7437,1;
+			set .@map$, instance_mapname("7@thts");
+			mapannounce .@map$, "憤怒吧！憤怒吧！",bc_blue;
+			hideonnpc instance_npcname("神秘雕像#5-2");
+			specialeffect 215;
+			donpcevent instance_npcname("#Thanatos_zone6_2")+"::OnEnable";
+			mes "把碎片放入雕像的中央後";
+			mes "便發出了明亮的光芒";
+			end;
+		}
+	}
+}
+7@thts,161,58,1	script	神秘雕像#5-3	CLEAR_NPC,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		if(countitem(7438)>=  1 ) {
+			delitem 7438,1;
+			set .@map$, instance_mapname("7@thts");
+			mapannounce .@map$, "你痛恨這個命運嗎？",bc_blue;
+			hideonnpc instance_npcname("神秘雕像#5-3");
+			specialeffect 215;
+			donpcevent instance_npcname("#Thanatos_zone6_3")+"::OnEnable";
+			mes "把碎片放入雕像的中央後";
+			mes "便發出了明亮的光芒";
+			end;
+		}
+	}
+}
+7@thts,154,18,1	script	神秘雕像#5-4	CLEAR_NPC,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		if(countitem(7439)>=  1 ) {
+			delitem 7439,1;
+			set .@map$, instance_mapname("7@thts");
+			mapannounce .@map$, "後悔選過的選擇嗎？",bc_blue;
+			hideonnpc instance_npcname("神秘雕像#5-4");
+			specialeffect 215;
+			donpcevent instance_npcname("#Thanatos_zone6_4")+"::OnEnable";
+			mes "把碎片放入雕像的中央後";
+			mes "便發出了明亮的光芒";
+			end;
+		}
+	}
+}
+
+7@thts,0,0,4	script	#Thanatos_zone6_1	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone6_1");
+	donpcevent instance_npcname("#Thanatos_zone6_1")+"::OnStart";
+	end;
+OnStart:
+	set .@map$,instance_mapname("7@thts");
+	set .@label$, instance_npcname("#Thanatos_zone6_1")+"::OnKillMob";
+	monster .@map$,129,51,"達納托斯的恐懼",20799,3,.@label$;
+	set 'F7_BOSS,3;
+	end;
+OnKillMob:
+	set 'F7_BOSS,'F7_BOSS-1;
+	if('F7_BOSS){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob7+"隻",bc_map,"0xFFFF00";
+	}else{
+		donpcevent instance_npcname("#towercheckkill")+"::OnEnd";
+	}
+	
+	end;
+}
+7@thts,0,0,4	script	#Thanatos_zone6_2	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone6_2");
+	donpcevent instance_npcname("#Thanatos_zone6_2")+"::OnStart";
+	end;
+OnStart:
+	set .@map$,instance_mapname("7@thts");
+	set .@label$, instance_npcname("#Thanatos_zone6_2")+"::OnKillMob";
+	monster .@map$,129,51,"達納托斯的憎恨",20796,3,.@label$;
+	set 'F7_BOSS1,3;
+	end;
+OnKillMob:
+	set 'F7_BOSS1,'F7_BOSS1-1;
+	if('F7_BOSS1){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob7+"隻",bc_map,"0xFFFF00";
+	}else{
+		donpcevent instance_npcname("#towercheckkill")+"::OnEnd";
+	}
+	end;
+}
+7@thts,0,0,4	script	#Thanatos_zone6_3	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone6_3");
+	donpcevent instance_npcname("#Thanatos_zone6_3")+"::OnStart";
+	end;
+OnStart:
+	set .@map$,instance_mapname("7@thts");
+	set .@label$, instance_npcname("#Thanatos_zone6_3")+"::OnKillMob";
+	monster .@map$,129,51,"達納托斯的後悔",20795,3,.@label$;
+	set 'F7_BOSS2,3;
+	end;
+OnKillMob:
+	set 'F7_BOSS2,'F7_BOSS2-1;
+	if('F7_BOSS2){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob7+"隻",bc_map,"0xFFFF00";
+	}else{
+		donpcevent instance_npcname("#towercheckkill")+"::OnEnd";
+	}
+	end;
+}
+7@thts,0,0,4	script	#Thanatos_zone6_4	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Thanatos_zone6_4");
+	donpcevent instance_npcname("#Thanatos_zone6_4")+"::OnStart";
+	end;
+OnStart:
+	set .@map$,instance_mapname("7@thts");
+	set .@label$, instance_npcname("#Thanatos_zone6_4")+"::OnKillMob";
+	monster .@map$,129,51,"達納托斯的怨恨",20798,3,.@label$;
+	set 'F7_BOSS3,3;
+	end;
+OnKillMob:
+	set 'F7_BOSS3,'F7_BOSS3-1;
+	if('F7_BOSS3){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob7+"隻",bc_map,"0xFFFF00";
+	}else{
+		donpcevent instance_npcname("#towercheckkill")+"::OnEnd";
+	}
+	end;
+}
+
+//-----------判定兩邊清除結束--------------
+7@thts,0,2,4	script	#towercheckkill	-1,{
+OnEnable:
+	enablenpc instance_npcname("#towercheckkill");
+	hideonnpc instance_npcname("神秘雕像#5-5");
+	set 'checkkillcheck,4;
+	end;
+OnEnd:
+	set 'checkkillcheck,'checkkillcheck-1;
+	if('checkkillcheck){
+	}else{
+		set .@map$, instance_mapname("7@thts");
+		mapannounce .@map$, "巨大的石雕像發出了喀！喀！的聲響。",bc_blue;
+		hideoffnpc instance_npcname("神秘雕像#5-5");
+	}
+	end;
+}
+
+
+7@thts,128,85,1	script	神秘雕像#5-5	CLEAR_NPC,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		hideonnpc instance_npcname("神秘雕像#5-5");
+		specialeffect 215;
+		donpcevent instance_npcname("#Firepost")+"::OnEnable";
+		
+	}
+}
+//-----開啟中間傳點
+7@thts,0,0,3	script	#Firepost	-1,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("#Firepost01")+"::OnEnable";
+	end;
+OnTimer4000:
+	donpcevent instance_npcname("#Firepost02")+"::OnEnable";
+	end;
+OnTimer5000:
+	donpcevent instance_npcname("#Firepost03")+"::OnEnable";
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("#Firepost04")+"::OnEnable";
+	end;
+OnTimer7000:
+	donpcevent instance_npcname("#Firepost05")+"::OnEnable";
+	donpcevent instance_npcname("#Callboss")+"::OnEnable";
+	enablenpc instance_npcname("TowerWarps#12");
+	hideoffnpc instance_npcname("TowerWarps#12");
+	mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),162,190;
+	stopnpctimer;
+	end;
+}
+
+
+7@thts,127,47,4	script	#Firepost01	802,{
+	end;
+OnEnable:
+	specialeffect 221;
+	end;
+}
+7@thts,132,47,4	script	#Firepost02	802,{
+	end;
+OnEnable:
+	specialeffect 221;
+	end;
+}
+7@thts,134,52,4	script	#Firepost03	802,{
+	end;
+OnEnable:
+	specialeffect 221;
+	end;
+}
+7@thts,129,56,4	script	#Firepost04	802,{
+	end;
+OnEnable:
+	specialeffect 221;
+	end;
+}
+7@thts,125,52,4	script	#Firepost05	802,{
+	end;
+OnEnable:
+	specialeffect 221;
+	end;
+}
+//=============================================================
+//--------------------最上層----------------------------------
+//=============================================================
+8@thts,0,0,3	script	#Callboss	-1,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer10000:
+	donpcevent instance_npcname("#Thtseffect_01")+"::OnEffect";
+	end;
+OnTimer12000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "露西：達納托斯的封印開始解除了....",bc_blue;
+	donpcevent instance_npcname("#Thtseffect_01")+"::OnEffect";
+	end;
+OnTimer14000:
+	donpcevent instance_npcname("#Thtseffect_01")+"::OnEffect";
+	end;
+OnTimer16000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "露西：達納托斯的封印非常脆弱了，請各位小心警戒!",bc_blue;
+	donpcevent instance_npcname("#Thtseffect_01")+"::OnEffect";
+	end;
+OnTimer20000:
+	set .@map$, instance_mapname("8@thts");
+	donpcevent instance_npcname("#Thtseffect_01")+"::OnEffect";
+	mapannounce .@map$, "露西：達納托斯的封印崩壞了！！",bc_blue;
+	end;
+OnTimer22000:
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Callboss")+"::OnKillMob";
+	setarray .@lastBoss,20784,20785;
+	monster .@map$,135,139,"--ja--",.@lastBoss[rand(getarraysize(.@lastBoss))],1,.@label$;
+	'BossID = $@mobid[0];
+	'bossf2 = 0;
+	'Bosskill = 0;
+	mapannounce .@map$, "露西：你們要記得將周圍的結界破壞掉，否則達納托斯記憶的手下會一直大量湧入。",bc_blue;
+	donpcevent instance_npcname("#BossTalk")+"::OnEnable";
+	donpcevent instance_npcname("#BossSkill")+"::OnEnable";
+	donpcevent instance_npcname("#Callboss")+"::OnBarrier";
+	stopnpctimer;
+	end;
+	
+OnKillMob:
+	hideoffnpc instance_npcname("露西#LUCILE01");
+	donpcevent instance_npcname("#BossSkill")+"::Onstoptime";
+	'bossf2 = 1;
+	set 'Bosskill,1;
+donpcevent instance_npcname("#Barrier01")+"::OnStoptime";
+donpcevent instance_npcname("#Barrier02")+"::OnStoptime";
+donpcevent instance_npcname("#Barrier03")+"::OnStoptime";
+donpcevent instance_npcname("#Barrier04")+"::OnStoptime";
+donpcevent instance_npcname("#Barrier05")+"::OnStoptime";
+	end;
+	
+OnBarrier:
+	set 'Barriertime,3;
+	setarray .@Barrierarray[0], 0,0,0;
+	for (.@i = 0; .@i < 3; .@i++)    {
+        .@Barrierarray[.@i] = rand(1, 5); 
+        for (.@j = 0; .@j < .@i; .@j++) 
+        {
+            while (.@Barrierarray[.@j] == .@Barrierarray[.@i])  
+            {
+                .@j = 0;  
+                .@Barrierarray[.@i] = rand(1, 5);  
+            }
+        }
+    }
+	
+	for (.@i = 0; .@i < 3; .@i++)    {
+		if(.@Barrierarray[.@i] == 1){
+			donpcevent instance_npcname("#Barrier01")+"::OnStart";
+			set 'Barrierboss[0],1;
+		}
+		if(.@Barrierarray[.@i] == 2){
+			donpcevent instance_npcname("#Barrier02")+"::OnStart";
+			set 'Barrierboss[1],1;
+		}
+		if(.@Barrierarray[.@i] == 3){
+			donpcevent instance_npcname("#Barrier03")+"::OnStart";
+			set 'Barrierboss[2],1;
+		}
+		if(.@Barrierarray[.@i] == 4){
+			donpcevent instance_npcname("#Barrier04")+"::OnStart";
+			set 'Barrierboss[3],1;
+		}
+		if(.@Barrierarray[.@i] == 5){
+			donpcevent instance_npcname("#Barrier05")+"::OnStart";
+			set 'Barrierboss[4],1;
+		}
+    }
+	end;
+}
+
+8@thts,0,0,3	script	#BossSkill	-1,{
+OnEnable:
+	initnpctimer;
+	end;
+Onstoptime:
+	stopnpctimer;
+	end;
+OnTimer5000:
+	if ('bossf2 != 1){
+	getunitdata 'BossID,'amdaraisdata;//取得怪物數據
+	.@label$ = instance_npcname("#BossSkill") + "::OnSkillunit";
+	.@x = 'amdaraisdata[6];
+	.@y = 'amdaraisdata[7];
+	.@skill = rand(1,4);
+	//.@skill = 1;
+
+	set .@map$,instance_mapname("8@thts");
+	switch(.@skill) {
+	case 1:  //廣範圍
+		unittalk 'BossID, "痛苦吧！";
+		sleep 1000;
+		monster .@map$,.@x+4,.@y-4,"--ja--",3095,1,.@label$;		
+		.@id[0] = $@mobid[0];
+		monster .@map$,.@x+8,.@y-4,"--ja--",3095,1,.@label$;
+		.@id[1] = $@mobid[0];
+		monster .@map$,.@x+4,.@y+4,"--ja--",3095,1,.@label$;
+		.@id[2] = $@mobid[0];
+		monster .@map$,.@x+8,.@y+4,"--ja--",3095,1,.@label$;
+		.@id[3] = $@mobid[0];
+		for(.@i = 0; .@i < 4; .@i++) {
+			unitskilluseid .@id[.@i], 353, 1;
+		}
+		sleep 500;
+		for(.@i = 0; .@i <= 18; .@i=.@i+2){
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],21,5,.@x+.@i,.@y+.@i,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],21,5,.@x+.@i,.@y-.@i,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],21,5,.@x-.@i,.@y-.@i,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],21,5,.@x-.@i,.@y+.@i,1;
+			sleep 500;
+		}
+		sleep 1000;
+			break;
+	case 2: //十字地震術
+		unittalk 'BossID, "!！";
+		sleep 1000;
+		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+		.@id[0] = $@mobid[0];
+		monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+		.@id[1] = $@mobid[0];
+		monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+		.@id[2] = $@mobid[0];
+		monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+		.@id[3] = $@mobid[0];
+		for(.@i = 0; .@i < 4; .@i++) {
+			setunitdata .@id[.@i], 29, 1;
+			unitskilluseid .@id[.@i], 353, 1;
+		}
+		sleep 500;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+2,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-2,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+2,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-2,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+6,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-6,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+6,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-6,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+4,.@y+4,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-4,.@y-4,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-4,.@y+4,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+4,.@y-4,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+9,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-9,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+9,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-9,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+7,.@y+7,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-7,.@y-7,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-7,.@y+7,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+7,.@y-7,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+13,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-13,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+13,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-13,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+10,.@y+10,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-10,.@y-10,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-10,.@y+10,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+10,.@y-10,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+16,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-16,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+16,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-16,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+13,.@y+13,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-13,.@y-13,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-13,.@y+13,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+13,.@y-13,1;
+		sleep 1000;
+		break;
+	case 3: //擴散地震
+		unittalk 'BossID, "赫！！";
+		sleep 500;
+		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
+		.@id[0] = $@mobid[0];
+		monster .@map$,.@x-9,.@y-3,"--ja--",3095,1,.@label$;
+		.@id[1] = $@mobid[0];
+		monster .@map$,.@x-3,.@y+9,"--ja--",3095,1,.@label$;
+		.@id[2] = $@mobid[0];
+		monster .@map$,.@x+3,.@y-9,"--ja--",3095,1,.@label$;
+		.@id[3] = $@mobid[0];
+		for(.@i = 0; .@i < 4; .@i++) {
+			setunitdata .@id[.@i], 29, 1;
+			unitskilluseid .@id[.@i], 353, 1;
+		}
+		sleep 500;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+2,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-2,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+2,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-2,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+6,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-6,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+6,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-6,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+4,.@y+4,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-4,.@y-4,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-4,.@y+4,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+4,.@y-4,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+9,.@y,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-9,.@y,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x,.@y+9,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x,.@y-9,1;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+7,.@y+7,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-7,.@y-7,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x-7,.@y+7,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x+7,.@y-7,1;
+		sleep 10;
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],91,5,.@x+4,.@y+6,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],91,5,.@x-4,.@y+6,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],91,5,.@x+4,.@y-6,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],91,5,.@x-4,.@y-6,1;
+		sleep 1000;
+		break;
+	case 4: //交叉火牆
+		unittalk 'BossID, "!！";
+		sleep 1000;
+		monster .@map$,.@x+1,.@y+1,"--ja--",3095,1,.@label$;
+		.@id[0] = $@mobid[0];
+		monster .@map$,.@x-1,.@y-1,"--ja--",3095,1,.@label$;
+		.@id[1] = $@mobid[0];
+		monster .@map$,.@x-1,.@y+1,"--ja--",3095,1,.@label$;
+		.@id[2] = $@mobid[0];
+		monster .@map$,.@x+1,.@y-1,"--ja--",3095,1,.@label$;
+		.@id[3] = $@mobid[0];
+		for(.@i = 0; .@i < 4; .@i++) {
+			setunitdata .@id[.@i], 29, 1;
+			unitskilluseid .@id[.@i], 353, 1;
+		}
+		sleep 500;
+		for(.@i = 0; .@i <= 8; .@i++){
+			if(unitexists(.@id[0]) == true)
+				unitskillusepos .@id[0],18,5,.@x+.@i,.@y+.@i,1;
+			if(unitexists(.@id[1]) == true)
+				unitskillusepos .@id[1],18,5,.@x+.@i,.@y-.@i,1;
+			if(unitexists(.@id[2]) == true)
+				unitskillusepos .@id[2],18,5,.@x-.@i,.@y-.@i,1;
+			if(unitexists(.@id[3]) == true)
+				unitskillusepos .@id[3],18,5,.@x-.@i,.@y+.@i,1;
+			sleep 10;
+		}
+		break;
+	
+	}
+	sleep 1000;
+	killmonster .@map$,.@label$;
+	if(!'bossf2)
+		initnpctimer;
+	end;
+	}
+}
+
+8@thts,0,0,3	script	#BossTalk	-1,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……被遺忘的記憶的碎片……",bc_map,"0xFF0000";
+	end;
+OnTimer4000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……破裂……破碎……散落……變成了一滴眼淚……",bc_map,"0xFF0000";
+	end;
+OnTimer6000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……被揉爛得支離破碎……深深地吸一口氣……",bc_map,"0xFF0000";
+	end;
+OnTimer8000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……濃濃的血腥味……變成匕首插進胸膛……",bc_map,"0xFF0000";
+	end;
+OnTimer10000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……想要再次侵犯這片土地的人……滅亡吧……！！！",bc_map,"0xFF0000";
+	end;
+OnTimer12000:
+	set .@map$, instance_mapname("8@thts");
+	mapannounce .@map$, "……我是……達納托斯！……滅亡……魔族的人……",bc_map,"0xFF0000";
+	stopnpctimer;
+	end;
+}
+
+8@thts,135,139,6	script	#Thtseffect_01	10045,{ end;
+OnEffect:
+	specialeffect 897;
+	end;
+}
+
+
+//------------------------------
+8@thts,192,86,6	script	結界之石#01	1905,{ end;}
+8@thts,205,162,6	script	結界之石#02	1905,{ end;}
+8@thts,141,213,6	script	結界之石#03	1905,{ end;}
+8@thts,68,168,6	script	結界之石#04	1905,{ end;}
+8@thts,89,86,6	script	結界之石#05	1905,{ end;}
+
+
+8@thts,0,0,3	script	#Barrier01	-1,{
+OnStart:
+	hideonnpc instance_npcname("結界之石#01");
+	donpcevent instance_npcname("#Barrier01")+"::OnEnable";
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Barrier01")+"::OnStop";
+	monster .@map$,192,86,"結界之石",1905,1,.@label$;
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer1000:
+	set .@map$, instance_mapname("8@thts");
+	if ('Bosskill != 1){
+	set .@label$, instance_npcname("#Barrier01")+"::OnEnable";
+	monster .@map$,135,139,"達納托斯的後悔",20795,5,.@label$;}
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	set 'Barriertime,'Barriertime-1;
+	if ('Barriertime == 0 ){
+		set .@map$, instance_mapname("8@thts");
+		set 'Bosskill ,1;
+		mapannounce .@map$, "露西：結界都破壞了！快將達納托斯的記憶擊敗吧！....",bc_blue;
+	}
+	end;
+}
+8@thts,0,0,3	script	#Barrier02	-1,{
+OnStart:
+	hideonnpc instance_npcname("結界之石#02");
+	donpcevent instance_npcname("#Barrier02")+"::OnEnable";
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Barrier02")+"::OnStop";
+	monster .@map$,205,162,"結界之石",1905,1,.@label$;
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer1000:
+	set .@map$, instance_mapname("8@thts");
+	if ('Bosskill != 1){
+	set .@label$, instance_npcname("#Barrier02")+"::OnEnable";
+	monster .@map$,135,139,"達納托斯的憎恨",20796,5,.@label$;}
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	set 'Barriertime,'Barriertime-1;
+	if ('Barriertime == 0 ){
+		set .@map$, instance_mapname("8@thts");
+		set 'Bosskill ,1;
+		mapannounce .@map$, "露西：結界都破壞了！快將達納托斯的記憶擊敗吧！....",bc_blue;
+	}
+	end;
+}
+
+8@thts,0,0,3	script	#Barrier03	-1,{
+OnStart:
+	hideonnpc instance_npcname("結界之石#03");
+	donpcevent instance_npcname("#Barrier03")+"::OnEnable";
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Barrier03")+"::OnStop";
+	monster .@map$,141,213,"結界之石",1905,1,.@label$;
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer1000:
+	set .@map$, instance_mapname("8@thts");
+	if ('Bosskill != 1){
+	set .@label$, instance_npcname("#Barrier03")+"::OnEnable";
+	monster .@map$,135,139,"達納托斯的絕望",20797,5,.@label$;}
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	set 'Barriertime,'Barriertime-1;
+	if ('Barriertime == 0 ){
+		set .@map$, instance_mapname("8@thts");
+		set 'Bosskill ,1;
+		mapannounce .@map$, "露西：結界都破壞了！快將達納托斯的記憶擊敗吧！....",bc_blue;
+	}
+	end;
+}
+
+8@thts,0,0,3	script	#Barrier04	-1,{
+OnStart:
+	hideonnpc instance_npcname("結界之石#04");
+	donpcevent instance_npcname("#Barrier04")+"::OnEnable";
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Barrier04")+"::OnStop";
+	monster .@map$,68,168,"結界之石",1905,1,.@label$;
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer1000:
+	set .@map$, instance_mapname("8@thts");
+	if ('Bosskill != 1){
+	set .@label$, instance_npcname("#Barrier04")+"::OnEnable";
+	monster .@map$,135,139,"達納托斯的悲哀",20798,5,.@label$;}
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	set 'Barriertime,'Barriertime-1;
+	if ('Barriertime == 0 ){
+		set .@map$, instance_mapname("8@thts");
+		set 'Bosskill ,1;
+		mapannounce .@map$, "露西：結界都破壞了！快將達納托斯的記憶擊敗吧！....",bc_blue;
+	}
+	end;
+}
+
+8@thts,0,0,3	script	#Barrier05	-1,{
+OnStart:
+	hideonnpc instance_npcname("結界之石#05");
+	donpcevent instance_npcname("#Barrier05")+"::OnEnable";
+	set .@map$, instance_mapname("8@thts");
+	set .@label$, instance_npcname("#Barrier05")+"::OnStop";
+	monster .@map$,89,86,"結界之石",1905,1,.@label$;
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer1000:
+	set .@map$, instance_mapname("8@thts");
+	if ('Bosskill != 1){
+	set .@label$, instance_npcname("#Barrier05")+"::OnEnable";
+	monster .@map$,135,139,"達納托斯的苦惱",20799,5,.@label$;}
+	end;
+OnStoptime:
+	stopnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	set 'Barriertime,'Barriertime-1;
+	if ('Barriertime == 0 ){
+		set .@map$, instance_mapname("8@thts");
+		set 'Bosskill ,1;
+		mapannounce .@map$, "露西：結界都破壞了！快將達納托斯的記憶擊敗吧！....",bc_blue;
+	}
+	end;
+}
+
+/******************************
+ - 離場 NPC
+ ******************************/
+8@thts,140,131,3	script	露西#LUCILE01	4_F_LUCILE,{
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我對話。",getcharid(3),SELF;
+		end;
+	}
+	mes "[露西]";
+	mes "恭喜各位完成副本";
+	next;
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#8@thts")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("露西#LUCILE01");
+	end;
+}
+
+8@thts,0,0,0	script	副本寶箱#8@thts	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940041,10;
+	getitem 930000,5;
+	getitem 1000257,10;	
+	getitem 6909,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

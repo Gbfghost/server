@@ -1,0 +1,128 @@
+uttycty,64,179,5	trader	[製作]研究所	600,{
+	disable_items;
+	
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]研究所";
+	waitingroom "[製作]研究所",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+
+	sellitem(1290, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1291, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1392, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1393, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1435, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1584, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1659, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(13069, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(13070, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(16017, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(18109, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(18110, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(18111, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(2160, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(2161, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(2162, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(2892, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(15044, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	sellitem(1490, 100000, -1);
+	sellitemcurrency(6499, 50);
+	sellitemcurrency(6470, 100);	
+	sellitemcurrency(6471, 35);
+	endsellitem();
+	
+	end;
+OnBuyItem:
+end;
+}

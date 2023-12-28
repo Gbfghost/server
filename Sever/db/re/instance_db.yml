@@ -1,0 +1,513 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Instance Database
+###########################################################################
+#
+# Instance Settings
+#
+###########################################################################
+# - Id                Instance ID.
+#   Name              Instance Name.
+#   TimeLimit         Total lifetime of instance in seconds. Use 0 to define infinite time. (Default: 3600)
+#   IdleTimeOut       Time before an idle instance is destroyed in seconds. Use 0 to define infinite idle time. (Default: 300)
+#   NoNpc             Prevent copying NPCs from the source map. (Default: false)
+#   NoMapFlag         Prevent copying Mapflags from the source map. (Default: false)
+#   Destroyable       Toggles the ability to destroy the instance using instance 'Destroy' button. (Default: true)
+#                     Note: the button is displayed based on parties. For any mode, it requires the party leader to be the instance owner to destroy it.
+#   Enter:            Instance entrance coordinates.
+#     Map             Map Name where players start.
+#     X               X Coordinate where players start.
+#     Y               Y Coordinate where players start.
+#   AdditionalMaps:   List of maps that are part of an instance. (Optional)
+###########################################################################
+
+Header:
+  Type: INSTANCE_DB
+  Version: 2
+
+Body:
+  - Id: 1
+    Name: 儀式之屋
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@mir
+      X: 100
+      Y: 10
+  - Id: 2
+    Name: 封印的神殿
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@cata
+      X: 100
+      Y: 224
+    AdditionalMaps:
+      2@cata: true
+  - Id: 3
+    Name: 獸人的記憶
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@orcs 
+      X: 179
+      Y: 15
+    AdditionalMaps:
+      2@orcs: true
+  - Id: 4
+    Name: 無限之塔
+    TimeLimit: 7200
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@tower
+      X: 50
+      Y: 355
+    AdditionalMaps:
+      2@tower: true
+      3@tower: true
+      4@tower: true
+      5@tower: true
+      6@tower: true
+  - Id: 5
+    Name: 無限空間
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@infi
+      X: 30
+      Y: 6
+  - Id: 6
+    Name: 尼德霍格的巢穴
+    Enter:
+      Map: 1@nyd
+      X: 32
+      Y: 36
+    AdditionalMaps:
+      2@nyd: true
+  - Id: 7
+    Name: 綿綿島排水溝
+    Enter:
+      Map: 1@pump
+      X: 63
+      Y: 98
+    AdditionalMaps:
+      2@pump: true
+  - Id: 8
+    Name: 章魚洞穴
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@cash
+      X: 199
+      Y: 99
+  - Id: 9
+    Name: 迷霧森林
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@mist
+      X: 89
+      Y: 29
+  - Id: 10
+    Name: 噩夢醫院
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ma_h
+      X: 40
+      Y: 157
+  - Id: 11
+    Name: 寶箱巨鱷
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ma_c
+      X: 35
+      Y: 57
+  - Id: 12
+    Name: 巴庫暴龍
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ma_b
+      X: 64
+      Y: 51
+  - Id: 13
+    Name: 保羅協夫研究室
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@lhz
+      X: 45
+      Y: 148
+  - Id: 14
+    Name: 舊古城副本
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@gl_k
+      X: 150
+      Y: 20
+    AdditionalMaps:
+      2@gl_k: true
+  - Id: 15
+    Name: 幽靈皇宮
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@spa
+      X: 42
+      Y: 196
+  - Id: 16
+    Name: 吉芬魔法大賽
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ge_st
+      X: 102
+      Y: 48
+  - Id: 17
+    Name: 魔神之塔
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@tnm1
+      X: 50
+      Y: 104
+    AdditionalMaps:
+      1@tnm2: true
+      1@tnm3: true
+  - Id: 18
+    Name: 莎拉的記憶
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@sara
+      X: 250
+      Y: 155
+  - Id: 19
+    Name: 驚駭森靈巢穴
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@face
+      X: 112
+      Y: 370
+  - Id: 20
+    Name: 魔神殿
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@eom
+      X: 101
+      Y: 16
+  - Id: 21
+    Name: 恐怖玩具工廠
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@xm_d
+      X: 111
+      Y: 22
+  - Id: 22
+    Name: 摩洛斯洞穴
+    TimeLimit: 1800
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@rev
+      X: 26
+      Y: 181
+  - Id: 23
+    Name: 拜歐斯之島
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@dth1
+      X: 17
+      Y: 93
+    AdditionalMaps:
+      1@dth2: true
+      1@dth3: true
+  - Id: 24
+    Name: 飛空艇襲擊事件
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@air1
+      X: 244
+      Y: 73
+    AdditionalMaps:
+      1@air2: true
+  - Id: 25
+    Name: 潘利爾與莎拉
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@glast
+      X: 367
+      Y: 304
+  - Id: 26
+    Name: 查理斯頓工廠
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@mcd
+      X: 127
+      Y: 282
+  - Id: 27
+    Name: 斬真假顏良
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@gl_kh
+      X: 150
+      Y: 20
+    AdditionalMaps:
+      2@gl_kh: true
+  - Id: 28
+    Name: 中央實驗室
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@lab
+      X: 121
+      Y: 28
+  - Id: 29
+    Name: 最後房間
+    Enter:
+      Map: 1@uns
+      X: 145
+      Y: 35
+  - Id: 30
+    Name: 空中要塞
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@sthb
+      X: 55
+      Y: 67
+    AdditionalMaps:
+      1@sthc: true
+      1@sthd: true
+  - Id: 31
+    Name: 中樞室
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@slw
+      X: 187
+      Y: 24
+  - Id: 32
+    Name: 邪心獵人軍事基地
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@swat
+      X: 73
+      Y: 118
+  - Id: 33
+    Name: 柯爾記憶迷宮
+    Enter:
+      Map: 1@cor
+      X: 176
+      Y: 169
+  - Id: 34
+    Name: 第二次搜查歐斯
+    Enter:
+      Map: 1@os_a
+      X: 335
+      Y: 34
+  - Id: 35
+    Name: 施密特國王副本
+    Enter:
+      Map: 1@gl_prq
+      X: 14
+      Y: 16
+  - Id: 36
+    Name: 遠征之途
+    Enter:
+      Map: 1@gol1
+      X: 198
+      Y: 35
+    AdditionalMaps:
+      1@gol2: true
+  - Id: 37
+    Name: 被遺忘的農場
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@lost
+      X: 161
+      Y: 43
+  - Id: 38
+    Name: 水上花園
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ghg
+      X: 68
+      Y: 68
+  - Id: 39
+    Name: 嘿!斯威蒂
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@bamq
+      X: 124
+      Y: 42
+    AdditionalMaps:
+      1@bamn: true
+  - Id: 40
+    Name: 祕密花園
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@herbs
+      X: 45
+      Y: 206
+  - Id: 41
+    Name: 死亡之塔
+    TimeLimit: 3600
+    IdleTimeOut: 300   
+    Enter:
+      Map: 1@thts
+      X: 70
+      Y: 372
+    AdditionalMaps:
+      2@thts: true
+      3@thts: true
+      4@thts: true
+      5@thts: true
+      6@thts: true
+      7@thts: true
+      8@thts: true
+  - Id: 42
+    Name: 夜間吉芬魔法大賽
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@ge_sn
+      X: 88
+      Y: 48
+  - Id: 43
+    Name: 墜落的飛空艇
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@mjo1
+      X: 219
+      Y: 377
+    AdditionalMaps:
+      1@mjo2: true
+  - Id: 44
+    Name: 悔恨之墓
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@spa2
+      X: 51
+      Y: 197
+  - Id: 45
+    Name: 欺詐別墅
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@advs
+      X: 112
+      Y: 19
+  - Id: 46
+    Name: 聖域淨化
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@nyr
+      X: 196
+      Y: 31
+    AdditionalMaps:
+      2@nyr: true
+  - Id: 47
+    Name: 古城挑戰副本
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@gl_he
+      X: 150
+      Y: 31
+  - Id: 48
+    Name: 星座之塔
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@ch_t
+      X: 51
+      Y: 11
+    AdditionalMaps:
+      2@ch_t: true
+      3@ch_t: true
+  - Id: 49
+    Name: 惡夢吉特巴
+    IdleTimeOut: 150
+    Enter:
+      Map: 1@jtb
+      X: 16
+      Y: 17
+  - Id: 50
+    Name: 飛空艇破壞行動
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@whl
+      X: 31
+      Y: 53
+  - Id: 51
+    Name: 亂蛇巢穴
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@jorchs
+      X: 276
+      Y: 18
+  - Id: 52
+    Name: 朱希婭模擬作戰
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@jorlab
+      X: 57
+      Y: 45
+  - Id: 53
+    Name: 週五副本
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@md_gef
+      X: 106
+      Y: 132
+  - Id: 54
+    Name: 正午的弦月
+    IdleTimeOut: 150
+    TimeLimit: 3600
+    Enter:
+      Map: 1@pop1
+      X: 47
+      Y: 133
+    AdditionalMaps:
+      1@pop2: true
+      1@pop3: true
+  - Id: 994
+    Name: 波士尼亞
+    TimeLimit: 7200
+    Enter:
+      Map: bossnia_04
+      X: 203
+      Y: 200
+  - Id: 995
+    Name: 道館挑戰[初階]
+    Enter:
+      Map: guild_vs1
+      X: 50
+      Y: 50
+  - Id: 996
+    Name: 道館挑戰[中階]
+    Enter:
+      Map: guild_vs2
+      X: 50
+      Y: 50
+  - Id: 997
+    Name: 道館挑戰[高階]
+    Enter:
+      Map: guild_vs3
+      X: 50
+      Y: 50
+  - Id: 998
+    Name: 道館挑戰[夢魘]
+    Enter:
+      Map: guild_vs4
+      X: 50
+      Y: 50
+  - Id: 999
+    Name: 道館挑戰[終極夢魘]
+    TimeLimit: 7200
+    Enter:
+      Map: guild_vs5
+      X: 50
+      Y: 50

@@ -1,0 +1,187 @@
+// 悔恨之墓附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+function	script	hueihen_ENCHANT	{
+	function	RandomOPTchflo	{
+		.@idx = rand(getarg(1,getarraysize(getarg(0))));
+		if(.@idx%2 == 0)
+			return .@idx;
+		else return .@idx-1;
+	}
+	disable_items;
+	setarray .@itemid,500019,500020,510027,510028,530010,540014,540015,550019,550020,560012,560013,570013,580013,590016,590017,600014,610016,620006,630009,640014,640015,700022,700023,700024,700025,460013;
+	for(.@i = 0; .@i < getarraysize(.@itemid); .@i++)
+		//.@menu$ += ((getequipid(EQI_HAND_R) == .@itemid[.@i]) ? getitemname(.@itemid[.@i]) : "^888888"+getitemname(.@itemid[.@i])+"^000000") + ":";
+	.@menu$ += ((getequipid(EQI_HAND_R) == .@itemid[.@i] || getequipid(EQI_HAND_L) == .@itemid[.@i]) ? getitemname(.@itemid[.@i]) : "^888888"+getitemname(.@itemid[.@i])+"^000000") + ":";
+	.@nameid = .@itemid[select(.@menu$)-1];
+	if ( getequipid(EQI_HAND_R) == .@nameid )
+		.@part = EQI_HAND_R;
+	else if ( getequipid(EQI_HAND_L) == .@nameid )
+		.@part = EQI_HAND_L;
+	else
+	{
+		dispbottom "尚未裝備"+getitemname(.@nameid),0xFF0000;
+		end;
+	}
+	switch(getarg(0))
+	{
+		// 薩克萊憤怒(1~2物理)
+		case 100479:
+			setarray .@type,
+			RDMOPT_VAR_MAXHPAMOUNT,rand(200,500),
+			RDMOPT_VAR_VAR_MAXSPAMOUNT,rand(30,120),
+			RDMOPT_VAR_CRITICALSUCCESSVALUE,rand(3,10),
+			RDMOPT_VAR_AVOIDSUCCESSVALUE,rand(10,30),
+			RDMOPT_VAR_HITSUCCESSVALUE,rand(10,30),
+			RDMOPT_VAR_PLUSASPD,rand(1,2),
+			RDMOPT_VAR_ATTPOWER,rand(20,70);
+			
+			setarray .@type2,
+			RDMOPT_VAR_PLUSASPDPERCENT,rand(10,18),
+			RDMOPT_VAR_ATKPERCENT,rand(5,10),
+			RDMOPT_RANGE_ATTACK_DAMAGE_TARGET,rand(5,15),
+			RDMOPT_MELEE_ATTACK_DAMAGE_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_NOTHING_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_GROUND_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_FIRE_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_WATER_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_WIND_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_POISON_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_SAINT_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_DARKNESS_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_TELEKINESIS_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_UNDEAD_TARGET,rand(5,15);
+			break;
+		
+		// 精華薩克萊憤怒(1~3物理)
+		case 100480:
+			setarray .@type,
+			RDMOPT_VAR_MAXHPAMOUNT,rand(200,500),
+			RDMOPT_VAR_VAR_MAXSPAMOUNT,rand(30,120),
+			RDMOPT_VAR_CRITICALSUCCESSVALUE,rand(3,10),
+			RDMOPT_VAR_AVOIDSUCCESSVALUE,rand(10,30),
+			RDMOPT_VAR_HITSUCCESSVALUE,rand(10,30),
+			RDMOPT_VAR_PLUSASPD,rand(1,2),
+			RDMOPT_VAR_ATTPOWER,rand(20,70);
+			
+			setarray .@type2,
+			RDMOPT_VAR_PLUSASPDPERCENT,rand(10,18),
+			RDMOPT_VAR_ATKPERCENT,rand(5,10),
+			RDMOPT_RANGE_ATTACK_DAMAGE_TARGET,rand(5,15),
+			RDMOPT_MELEE_ATTACK_DAMAGE_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_NOTHING_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_GROUND_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_FIRE_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_WATER_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_WIND_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_POISON_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_SAINT_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_DARKNESS_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_TELEKINESIS_TARGET,rand(5,15),
+			RDMOPT_DAMAGE_PROPERTY_UNDEAD_TARGET,rand(5,15);
+			
+			setarray .@type3,
+			RDMOPT_VAR_ITEMDEFPOWER,rand(30,100),
+			RDMOPT_VAR_MDEFPOWER,rand(10,40),
+			RDMOPT_VAR_MAXHPPERCENT,rand(1,5),
+			RDMOPT_VAR_MAXSPPERCENT,rand(1,5),
+			RDMOPT_DAMAGE_SIZE_SMALL_TARGET,rand(5,10),
+			RDMOPT_DAMAGE_SIZE_MIDIUM_TARGET,rand(5,10),
+			RDMOPT_DAMAGE_SIZE_LARGE_TARGET,rand(5,10),
+			RDMOPT_CLASS_DAMAGE_NORMAL_TARGET,rand(5,10),
+			RDMOPT_CLASS_DAMAGE_BOSS_TARGET,rand(5,10),
+			break;
+			
+		// 薩克萊悔恨(1~2魔法)
+		case 100485:
+			setarray .@type,
+			RDMOPT_VAR_MAXHPAMOUNT,rand(200,500),
+			RDMOPT_VAR_VAR_MAXSPAMOUNT,rand(30,120),
+			RDMOPT_VAR_ITEMDEFPOWER,rand(10,50),
+			RDMOPT_VAR_AVOIDSUCCESSVALUE,rand(10,30),
+			RDMOPT_HEAL_VALUE,rand(10,30),
+			RDMOPT_VAR_PLUSASPD,rand(1,2),
+			RDMOPT_VAR_ATTMPOWER,rand(20,70);
+			
+			setarray .@type2,
+			RDMOPT_VAR_PLUSASPDPERCENT,rand(10,18),
+			RDMOPT_VAR_MAGICATKPERCENT,rand(5,10),
+			RDMOPT_DEC_SPELL_CAST_TIME,rand(5,15),
+			DEC_SP_CONSUMPTION,rand(5,10),
+			RDMOPT_MDAMAGE_PROPERTY_NOTHING_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_GROUND_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_FIRE_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_WATER_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_WIND_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_POISON_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_SAINT_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_DARKNESS_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_TELEKINESIS_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_UNDEAD_TARGET,rand(5,15);
+			
+			setarray .@type3,
+			RDMOPT_VAR_ITEMDEFPOWER,rand(30,100),
+			RDMOPT_VAR_MDEFPOWER,rand(10,40),
+			RDMOPT_VAR_MAXHPPERCENT,rand(1,5),
+			RDMOPT_VAR_MAXSPPERCENT,rand(1,5),
+			RDMOPT_MDAMAGE_SIZE_SMALL_TARGET,rand(5,10),
+			RDMOPT_MDAMAGE_SIZE_MIDIUM_TARGET,rand(5,10),
+			RDMOPT_MDAMAGE_SIZE_LARGE_TARGET,rand(5,10),
+			RDMOPT_CLASS_MDAMAGE_NORMAL_TARGET,rand(5,10),
+			RDMOPT_CLASS_MDAMAGE_BOSS_TARGET,rand(5,10),
+			break;
+			
+		// 薩克萊悔恨(1~3魔法)
+		case 100486:
+			setarray .@type,
+			RDMOPT_VAR_MAXHPAMOUNT,rand(200,500),
+			RDMOPT_VAR_VAR_MAXSPAMOUNT,rand(30,120),
+			RDMOPT_VAR_ITEMDEFPOWER,rand(10,50),
+			RDMOPT_VAR_AVOIDSUCCESSVALUE,rand(10,30),
+			RDMOPT_HEAL_VALUE,rand(10,30),
+			RDMOPT_VAR_PLUSASPD,rand(1,2),
+			RDMOPT_VAR_ATTMPOWER,rand(20,70);
+			
+			setarray .@type2,
+			RDMOPT_VAR_PLUSASPDPERCENT,rand(10,18),
+			RDMOPT_VAR_MAGICATKPERCENT,rand(5,10),
+			RDMOPT_DEC_SPELL_CAST_TIME,rand(5,15),
+			DEC_SP_CONSUMPTION,rand(5,10),
+			RDMOPT_MDAMAGE_PROPERTY_NOTHING_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_GROUND_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_FIRE_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_WATER_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_WIND_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_POISON_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_SAINT_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_DARKNESS_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_TELEKINESIS_TARGET,rand(5,15),
+			RDMOPT_MDAMAGE_PROPERTY_UNDEAD_TARGET,rand(5,15);
+			
+			setarray .@type3,
+			RDMOPT_VAR_ITEMDEFPOWER,rand(30,100),
+			RDMOPT_VAR_MDEFPOWER,rand(10,40),
+			RDMOPT_VAR_MAXHPPERCENT,rand(1,5),
+			RDMOPT_VAR_MAXSPPERCENT,rand(1,5),
+			RDMOPT_MDAMAGE_SIZE_SMALL_TARGET,rand(5,10),
+			RDMOPT_MDAMAGE_SIZE_MIDIUM_TARGET,rand(5,10),
+			RDMOPT_MDAMAGE_SIZE_LARGE_TARGET,rand(5,10),
+			RDMOPT_CLASS_MDAMAGE_NORMAL_TARGET,rand(5,10),
+			RDMOPT_CLASS_MDAMAGE_BOSS_TARGET,rand(5,10),
+			break;
+	}
+	specialeffect2 154;
+	.@refine_cnt = getequiprefinerycnt(.@part);
+	.@card0 = getequipcardid(.@part, 0);
+	.@card1 = getequipcardid(.@part, 1);
+	.@card2 = getequipcardid(.@part, 2);
+	.@card3 = getequipcardid(.@part, 3);
+	setarray .@RDMOPT[0], .@type[.@i=RandomOPTchflo(.@type)], .@type2[.@j=RandomOPTchflo(.@type2)], .@type3[.@n=RandomOPTchflo(.@type3)];
+	setarray .@VALUE[0],.@type[.@i+1],.@type2[.@j+1],.@type3[.@n+1];
+	setarray .@Param[0],0;
+	delequip .@part;
+	delitem getarg(0), 1;
+	getitem3 .@nameid, 1, 1, .@refine_cnt, 0, .@card0, .@card1, .@card2, .@card3, .@RDMOPT, .@VALUE, .@Param;
+	end;
+}

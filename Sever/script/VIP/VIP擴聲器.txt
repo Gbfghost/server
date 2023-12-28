@@ -1,0 +1,53 @@
+//	到 db \ item_db.txt 找 到 編 號 12221 的 物 品 然 後 整 段 改 成 這 個
+
+//	12221,Megaphone_,擴聲器,2,2,,10,,,,,0xFFFFFFFF,15,2,,,,,,{ callfunc "Megaphone_announce"; },{},{}
+
+-	script	VIP擴聲器	-1,{
+OnInit:
+	set $Time_Cold,10; //再次使用時間(單位：秒，預設：60秒)
+	end;
+}
+function	script	Megaphone_announcevip	{
+
+	if(gettimetick(2)<Time_Over)
+	{
+	dispbottom $Time_Cold+"秒內不能重複使用。";
+	end;
+	}
+	input @string$;
+	callfunc "Megaphone_colorvip";
+	callfunc "My_Megaphonevip",@color$;
+	goto L_end;
+L_end:
+
+        set Time_Over,gettimetick(2)+$Time_Cold;
+	end;
+}
+function	script	My_Megaphonevip	{
+	announce "[ 決 戰 V I P ] " + strcharinfo(0) + " 先生/小姐呼叫 : " + @string$ + "。",15,getarg(0);
+	return;
+}
+function	script	Megaphone_colorvip	{
+	switch(select(	"^FF0000紅色^000000",
+			"^00FF7F綠色^000000",
+			"^FF96F0粉色^000000",
+			"^FFFF00黃色^000000",
+			"^00FFFF藍色^000000",
+			"^781E78紫色^000000",
+			"^001E00黑色^000000")){
+	case 1:	set @color$,"0xFF0000";
+		break;
+	case 2:	set @color$,"0x00FF7F";
+		break;
+	case 3:	set @color$,"0xFF96F0";
+		break;
+	case 4:	set @color$,"0xFFFF00";
+		break;
+	case 5:	set @color$,"0x00FFFF";
+		break;
+	case 6:	set @color$,"0x781E78";
+		break;
+	case 7:	set @color$,"0x001E00";
+		break;
+	}return @color$;
+}

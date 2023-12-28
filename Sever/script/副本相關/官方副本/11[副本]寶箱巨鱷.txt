@@ -1,0 +1,377 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@ma_c	mapflag	noteleport
+1@ma_c	mapflag	nosave	SavePoint
+1@ma_c	mapflag	nomemo
+1@ma_c	mapflag	nobranch
+1@ma_c	mapflag	noicewall
+1@ma_c	mapflag	restricted	6
+1@ma_c	mapflag	monster_noteleport	//魔物無法瞬移
+1@ma_c	mapflag	partylock			//無法加入組隊
+1@ma_c	mapflag	novending			//無法開露天商店
+1@ma_c	mapflag	nochat				//無法開聊天室
+
+
+amatsu,103,138,5	script	[副本]寶箱巨鱷	809,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "寶箱巨鱷";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 11;
+
+//
+	waitingroom "[副本]寶箱巨鱷",0;
+	setnpcicon getnpcid(0),22,"[副本]寶箱巨鱷";
+	end;
+}
+
+1@ma_c,29,110,5	script	被綁架的村民#1	575,{
+	mes "[被綁架的村民]";
+	mes "寶箱巨鱷到處抓人，";
+	mes "很多人都被抓來這邊。";
+	mes "看來我們要死在這裡了…";
+	next;
+	switch(select("讓我離開這裡阿阿阿!!:不…不要啊")) {
+	case 1:
+		mes "[被綁架的村民]";
+		mes "我們沒有太多力量可以來消滅它，";
+		mes "但他有一個弱點…";
+		mes "看到那面牆了嗎？";
+		mes "如果你敲那裡，";
+		mes "寶箱巨鱷會感到疼痛然後把你吐出去…";
+		donpcevent instance_npcname("box_mob_call")+"::OnEnable";
+		close2;
+		disablenpc instance_npcname("被綁架的村民#1");
+		end;
+	case 2:
+		mes "[被綁架的村民]";
+		mes "事情不是憨人想的那麼簡單…";
+		mes "你真的明白嗎？";
+		close;
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("被綁架的村民#1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("被綁架的村民#1");
+	donpcevent instance_npcname("box_mob_call")+"::OnDisable";
+	end;
+}
+
+1@ma_c,36,110,5	script	被綁架的村民#2	574,{
+	mes "[被綁架的村民]";
+	mes "啊啊啊，我真希望我有更多一點力量…";
+	mes "我知道他的弱點…";
+	next;
+	switch(select("告訴我:你真的知道？")) {
+	case 1:
+		mes "[被綁架的村民]";
+		mes "哼，跟你說了你也不一定能做得到";
+		mes "好吧，聽清楚啦，";
+		mes "弱點就是…";
+		next;
+		mes "[被綁架的村民]";
+		mes "…在我們身後的牆壁上。";
+		sc_start SC_ATKPOTION,60000,45;
+		sc_start SC_MATKPOTION,60000,45;
+		disablenpc instance_npcname("被綁架的村民#2");
+		close;
+	case 2:
+		mes "[被綁架的村民]";
+		mes "什麼！？";
+		mes "你不相信我？";
+		mes "只因為我被困在這邊？";
+		close;
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("被綁架的村民#2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("被綁架的村民#2");
+	end;
+}
+
+1@ma_c,3,3,0	script	box_mob_call	139,1,1,{
+	end;
+OnInstanceInit:
+	setcell instance_mapname("1@ma_c"),30,118,35,118,cell_shootable,1; //custom
+	disablenpc instance_npcname("box_mob_call");
+	end;
+OnEnable:
+	enablenpc instance_npcname("box_mob_call");
+	set .@label$, instance_npcname("box_mob_call")+"::OnMyMobDead";
+	set .@map$, instance_mapname("1@ma_c");
+	monster .@map$,30,117,"寶箱巨鱷的弱點",2333,1,.@label$;
+	monster .@map$,37,117,"寶箱巨鱷的弱點",2333,1,.@label$;
+	end;
+OnDisable:
+	killmonster instance_mapname("1@ma_c"),instance_npcname("box_mob_call")+"::OnMyMobDead";
+	disablenpc instance_npcname("box_mob_call");
+	end;
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@ma_c"),instance_npcname("box_mob_call")+"::OnMyMobDead") < 1)
+		donpcevent instance_npcname("box_out")+"::OnEnable";
+	end;
+}
+
+1@ma_c,39,114,0	script	box_out	45,2,2,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("box_out");
+	end;
+OnEnable:
+	enablenpc instance_npcname("box_out");
+	end;
+OnTouch:
+	set .@x, rand(1,20) + 97;
+	set .@y, rand(1,20) + 74;
+	warp instance_mapname("1@ma_c"),.@x,.@y;
+	end;
+}
+
+1@ma_c,97,74,0	script	#box_call	139,50,50,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#box_call");
+	initnpctimer;
+	end;
+OnTimer30000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：我會把你放進我的寶箱裡面～",bc_map,"0x00ff99";
+	// Should execute OnTimer33000, but client doesn't render the effect fast enough.
+	for(set .@i,1; .@i<=9; set .@i,.@i+1)
+		donpcevent instance_npcname("yunobi"+.@i)+"::OnEnable";
+	end;
+OnTimer33000:
+	donpcevent instance_npcname("box_out")+"::OnDisable";
+	donpcevent instance_npcname("box_mob_call")+"::OnDisable";
+	donpcevent instance_npcname("被綁架的村民#1")+"::OnEnable";
+	donpcevent instance_npcname("被綁架的村民#2")+"::OnEnable";
+	end;
+OnTimer34000:
+	enablenpc instance_npcname("#box_call");
+	end;
+OnTimer35000:
+	stopnpctimer;
+	initnpctimer;
+	disablenpc instance_npcname("#box_call");
+	end;
+OnTouch:
+	specialeffect2 EF_GUIDEDATTACK;
+	warp instance_mapname("1@ma_c"),33,112;
+	end;
+OnDisable:
+	stopnpctimer;
+	disablenpc instance_npcname("#box_call");
+	end;
+}
+
+1@ma_c,97,74,0	script	yunobi1	139,{
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEnable:
+	specialeffect EF_MAPPILLAR2;
+	end;
+}
+1@ma_c,97,94,0	duplicate(yunobi1)	yunobi2	139
+1@ma_c,117,94,0	duplicate(yunobi1)	yunobi3	139
+1@ma_c,117,74,0	duplicate(yunobi1)	yunobi4	139
+1@ma_c,117,54,0	duplicate(yunobi1)	yunobi5	139
+1@ma_c,97,54,0	duplicate(yunobi1)	yunobi6	139
+1@ma_c,77,54,0	duplicate(yunobi1)	yunobi7	139
+1@ma_c,77,74,0	duplicate(yunobi1)	yunobi8	139
+1@ma_c,77,94,0	duplicate(yunobi1)	yunobi9	139
+
+1@ma_c,1,1,0	script	#bunshin	139,{
+	end;
+OnInstanceInit:
+	initnpctimer;
+	end;
+OnTimer58000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：實在忍無可忍了，我們就走著瞧！",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer61000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：這是…",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer62000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：這是…我的！",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer63000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：這是…我的…必殺的",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer64000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：這是…我的…必殺的！分身術！！！",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer65000:
+	set .@label$, instance_npcname("#bunshin")+"::OnMyMobDead";
+	set .@map$, instance_mapname("1@ma_c");
+	areamonster .@map$,112,89,122,99,"寶箱巨鱷",2332,1,.@label$;
+	areamonster .@map$,112,49,122,59,"寶箱巨鱷",2332,1,.@label$;
+	areamonster .@map$,72,49,82,59,"寶箱巨鱷",2332,1,.@label$;
+	areamonster .@map$,72,89,82,99,"寶箱巨鱷",2332,1,.@label$;
+	end;
+OnTimer66000:
+	mapannounce instance_mapname("1@ma_c"),"寶箱巨鱷：你害怕了嗎？",bc_map,"0x00ff99"; //FW_NORMAL 12 0 0
+	end;
+OnTimer105000:
+	killmonster instance_mapname("1@ma_c"),instance_npcname("#bunshin")+"::OnMyMobDead";
+	stopnpctimer;
+	initnpctimer;
+	end;
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@ma_c"),instance_npcname("#bunshin")+"::OnMyMobDead") < 1) {
+		stopnpctimer;
+		initnpctimer;
+	}
+	end;
+OnDisable:
+	stopnpctimer;
+	killmonster instance_mapname("1@ma_c"),instance_npcname("#bunshin")+"::OnMyMobDead";
+	disablenpc instance_npcname("#bunshin");
+	end;
+}
+
+1@ma_c,2,2,0	script	#buwaya_con	139,{
+	end;
+OnInstanceInit:
+	areamonster instance_mapname("1@ma_c"),90,67,104,81,"寶箱巨鱷",2319,1,instance_npcname("#buwaya_con")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@ma_c");
+	if (mobcount(.@map$,instance_npcname("#buwaya_con")+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("#box_call")+"::OnDisable";
+		donpcevent instance_npcname("#bunshin")+"::OnDisable";
+		donpcevent instance_npcname("#exit_mob")+"::OnDisable";
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("離開副本#1@ma_c")+"::OnEnable";
+		'ClearInatance = 1;
+	}
+	end;
+}
+
+1@ma_c,3,3,0	script	#exit_mob	139,{
+	end;
+OnInstanceInit:
+	initnpctimer;
+	end;
+OnTimer60000:
+	set .@label$, instance_npcname("#exit_mob")+"::OnMyMobDead";
+	set .@map$, instance_mapname("1@ma_c");
+	if (mobcount(.@map$,.@label$) < 30)
+		set .@amount,10;
+	else
+		set .@amount,1;
+	areamonster .@map$,43,58,47,60,"水草",2331,.@amount,.@label$;
+	areamonster .@map$,43,58,47,60,"蛋",2329,.@amount,.@label$;
+	stopnpctimer;
+	initnpctimer;
+	end;
+OnMyMobDead:
+	end;
+OnDisable:
+	stopnpctimer;
+	killmonster instance_mapname("1@ma_c"),instance_npcname("#exit_mob")+"::OnMyMobDead";
+	disablenpc instance_npcname("#exit_mob");
+	end;
+}
+
+
+1@ma_c,1,1,0	script	#buwaya_spawn_mobs	-1,{
+OnInstanceInit:
+	set .@map$, instance_mapname("1@ma_c");
+	areamonster .@map$,73,81,93,101,"海藻",2331,18;
+	areamonster .@map$,110,97,116,103,"海藻",2331,8;
+	areamonster .@map$,59,63,63,67,"海藻",2331,8;
+	areamonster .@map$,73,55,77,59,"海藻",2331,4;
+	areamonster .@map$,103,69,107,73,"海藻",2331,4;
+	areamonster .@map$,108,45,122,63,"海藻",2331,15;
+	areamonster .@map$,73,81,93,101,"寶箱巨鱷的蛋",2329,10;
+	areamonster .@map$,110,97,116,103,"寶箱巨鱷的蛋",2329,8;
+	areamonster .@map$,59,63,63,67,"寶箱巨鱷的蛋",2329,4;
+	areamonster .@map$,73,55,77,59,"寶箱巨鱷的蛋",2329,3;
+	areamonster .@map$,103,69,107,73,"寶箱巨鱷的蛋",2329,3;
+	areamonster .@map$,108,45,122,63,"寶箱巨鱷的蛋",2329,15;
+	monster .@map$,0,0,"海藻",2331,5;
+	monster .@map$,0,0,"寶箱巨鱷的小兵",2330,5;
+	end;
+}
+
+1@ma_c,0,0,0	script	離開副本#1@ma_c	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 940011,10;
+	getitem 930000,5;
+	Instance_PassAnnounce;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

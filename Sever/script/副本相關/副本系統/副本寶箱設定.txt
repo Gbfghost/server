@@ -1,0 +1,123 @@
+/*
+-- ----------------------------
+-- Table structure for `Instance_Limit`
+-- ----------------------------
+DROP TABLE IF EXISTS `Instance_Limit`;
+CREATE TABLE `Instance_Limit` (
+  `aid` int(11) unsigned NOT NULL DEFAULT 0,
+  `count` int(11) unsigned NOT NULL DEFAULT 0,
+  PRIMARY KEY (`aid`)
+) ENGINE=MyISAM DEFAULT CHARSET=big5;
+
+-- ----------------------------
+-- Records of Instance_Limit
+-- ----------------------------
+*/
+//
+//多開額外設定的資料庫 -> 自行導入
+//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+function	script	Get_Instance_Prize	{
+	disable_items;
+	
+	if(!instance_id())
+		end;
+		
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+			
+	if ( 'InstanceReward )
+	{
+		showscript "已經領取過獎勵了。",getcharid(3),SELF;
+		end;
+	}
+	
+	'InstanceReward = 1;
+	
+	query_logsql ("SELECT `count` FROM `Instance_Limit` WHERE `aid` != 0",.@count);
+	
+
+	setarray .@Instancename$,"儀式之屋","封印的神殿","獸人的記憶","無限之塔","無限空間","尼德霍格的巢穴","綿綿島排水溝","章魚洞穴","迷霧森林","噩夢醫院","寶箱巨鱷","巴庫暴龍","保羅協夫研究室","舊古城副本","幽靈皇宮","吉芬魔法大賽","魔神之塔","莎拉的記憶","驚駭森靈巢穴","魔神殿","恐怖玩具工廠","摩洛斯洞穴","拜歐斯島","飛空艇襲擊","潘利爾與莎拉","國王的鞋跟","覺醒古城副本","中央實驗室","最後房間","空中要塞","中樞室","邪心獵人軍事基地","柯爾記憶迷宮","第二次搜查歐斯","淨化古城副本","遠征之途","被遺忘的農場","水上花園","嘿!斯威蒂","祕密花園","達納托斯塔台","克雷斯特漢姆挑戰模式","夜間吉芬魔法大賽","墜落的飛空艇","欺詐別墅","悔恨之墓","星座之塔","聖域淨化","惡夢吉特巴","飛空艇破壞行動","亂蛇巢穴","朱希婭模擬作戰";
+
+	setarray .@Reward,501,80801,80802,80803,80804,80805,80806,80807,80808,80809,80810,80811,80812,80813,80814,80815,80816,80817,80818,80819,80820,80821,80822,80823,80824,80825,80826,80827,80828,80829,80830,80831,80832,80833,80834,80835,80836,80837,80838,80839,80840,80845,80855,80856,80861,80863,80864,80865,80799,80866,80869,80870;
+
+	setarray .@Amount,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1;
+
+	.@PassTrue = inarray(.@Instancename$,'md_name$);
+	
+	.@map$ = strcharinfo(3);
+	
+	getpartymember getcharid(1),0;
+	getpartymember getcharid(1),1;
+	getpartymember getcharid(1),2;
+	
+	.@partymembercount = $@partymembercount;
+		
+	copyarray .@partymembername$,$@partymembername$[0],.@partymembercount;
+	copyarray .@partymembercid,$@partymembercid[0],.@partymembercount;
+	copyarray .@partymemberaid,$@partymemberaid[0],.@partymembercount;
+	
+
+	for ( .@i = 0; .@i < .@partymembercount; .@i++ )
+	{
+		if ( isloggedin(.@partymemberaid[.@i],.@partymembercid[.@i]) )
+		{
+			if ( strcharinfo(3,.@partymembercid[.@i]) == .@map$ )
+			{
+				if ( inarray(.@count,.@partymemberaid[.@i]) > -1 )
+				{
+					if ( .@PassTrue > -1 )
+					{
+						if ( .@Reward[.@PassTrue] && .@Amount[.@PassTrue] )
+							getitem .@Reward[.@PassTrue],.@Amount[.@PassTrue],.@partymemberaid[.@i];
+					}
+					
+					warp "SavePoint",0,0,.@partymembercid[.@i];
+				}
+				else if ( inarray('InstanceRewardAddress_1$,getcharip(.@partymembercid[.@i])) < 0 )
+				{
+					'InstanceRewardAddress_1$[getarraysize('InstanceRewardAddress_1$)] = getcharip(.@partymembercid[.@i]);
+					
+					if ( .@PassTrue > -1 )
+					{
+						if ( .@Reward[.@PassTrue] && .@Amount[.@PassTrue] )
+							getitem .@Reward[.@PassTrue],.@Amount[.@PassTrue],.@partymemberaid[.@i];
+					}
+					
+					warp "SavePoint",0,0,.@partymembercid[.@i];
+				}
+				else if ( inarray('InstanceRewardAddress_2$,getcharip(.@partymembercid[.@i])) < 0 )
+				{
+					'InstanceRewardAddress_2$[getarraysize('InstanceRewardAddress_2$)] = getcharip(.@partymembercid[.@i]);
+					
+					if ( .@PassTrue > -1 )
+					{
+						if ( .@Reward[.@PassTrue] && .@Amount[.@PassTrue] )
+							getitem .@Reward[.@PassTrue],.@Amount[.@PassTrue],.@partymemberaid[.@i];
+					}
+
+					warp "SavePoint",0,0,.@partymembercid[.@i];
+				}
+				else
+				{
+					warp "SavePoint",0,0,.@partymembercid[.@i];
+				}
+			}
+		}
+	}
+	
+	sleep3 2000;
+	instance_destroy;
+	end;
+}
+
+// 通關廣播
+function	script	Instance_PassAnnounce	{
+	disable_items;
+	messagecolor "["+'ins_name$+"] 由 [ "+'partymnl$[0]+" ] 帶領的隊伍 [ "+getpartyname('party_id)+" ] 通關成功 。","95CACA",bc_all;
+	getitem 950000,1;
+	return;
+}

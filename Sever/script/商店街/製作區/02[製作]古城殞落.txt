@@ -1,0 +1,47 @@
+uttycty,75,179,5	trader	[製作]古城殞落	10306,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),2,"[製作]古城殞落";
+	waitingroom "[製作]古城殞落",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(15388, 10000, -1);
+	sellitemcurrency(25739,5);
+	sellitemcurrency(6607,10);
+	endsellitem();
+	sellitem(15389, 10000, -1);
+	sellitemcurrency(25739,5);
+	sellitemcurrency(6607,10);
+	endsellitem();
+	sellitem(32228, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+	sellitem(32229, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+	sellitem(32230, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+	sellitem(32231, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+	sellitem(32232, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+	sellitem(32233, 10000, -1);
+	sellitemcurrency(25740,10);
+	sellitemcurrency(6608,5);
+	endsellitem();
+
+
+OnBuyItem:
+end;
+}
+

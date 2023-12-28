@@ -1,0 +1,994 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@mjo1	mapflag	noteleport
+1@mjo1	mapflag	nosave	SavePoint
+1@mjo1	mapflag	nomemo
+1@mjo1	mapflag	nobranch
+1@mjo1	mapflag	noicewall
+1@mjo1	mapflag	restricted	6
+1@mjo1	mapflag	monster_noteleport
+1@mjo1	mapflag	partylock
+1@mjo1	mapflag	novending
+1@mjo1	mapflag	nochat
+
+1@mjo2	mapflag	noteleport
+1@mjo2	mapflag	nosave	SavePoint
+1@mjo2	mapflag	nomemo
+1@mjo2	mapflag	nobranch
+1@mjo2	mapflag	noicewall
+1@mjo2	mapflag	restricted	6
+1@mjo2	mapflag	monster_noteleport
+1@mjo2	mapflag	partylock
+1@mjo2	mapflag	novending
+1@mjo2	mapflag	nochat
+
+
+amatsu,127,148,3s	script	[副本]墜落的飛空艇	21062,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "墜落的飛空艇";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 2;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 43;
+
+//
+	waitingroom "[副本]墜落的飛空艇",0;
+	setnpcicon getnpcid(0),22,"[副本]墜落的飛空艇";
+	end;
+}
+
+//------------------獎勵設定
+1@mjo1,360,368,0	script	#BlindAc01	-1,2,2,{
+	end;
+OnInstanceInit:
+	//隱藏NPC
+	hideonnpc instance_npcname("救援小組隊長#AC1");
+	hideonnpc instance_npcname("救援小組隊長#AC2");
+	hideonnpc instance_npcname("救援小組隊長#AC3");
+	hideonnpc instance_npcname("救援小組隊長#AC4");
+	hideonnpc instance_npcname("救援小組隊長#AC5");
+	end;
+}
+1@mjo2,355,368,0	script	#BlindAc02	-1,2,2,{
+	end;
+OnInstanceInit:
+	set 'Rescue,0;
+	set 'QusetType,0;
+	set 'professor,0;
+
+	setarray 'item[0],1000363;//任務回報獎勵物品設定
+	setarray 'amount1[1],1,2,3;//任務回報獎勵數量設定，依序為100,200以此類推....
+
+	//目前設定BOSS1(未知生物)機率性取得鞋子+魔力珠子*5 or *7
+	//BOSS2(身份不明的生物)機率性取得鞋子+魔力珠子*5 or *7 or *10
+	setarray 'Bossitem[0],470071,470072,470073,470074,470076,470077;//獎勵物品設定
+	setarray 'Bossamount[1],5,7,10;
+	setarray 'BossAwarditem[0],100476;//獎勵物品設定
+	set 'getShoes1,20;				//設定取得鞋子機率BOSS1(0.7%)
+	set 'getShoes2,40;				//設定取得鞋子機率BOSS2(1.5%)
+
+	set 'Mobamount,300;//每隻的怪物產生數量
+	
+	set 'itemAc4,1000364;//討伐領袖物品設定
+	set 'checkitem1,55;//討伐領袖物品數量設定
+
+	//隱藏NPC
+	hideonnpc instance_npcname("札克#ACBOSS");
+	hideonnpc instance_npcname("#AC_Call_BOSS2");
+	hideonnpc instance_npcname("寶箱#AC01");
+	end;
+}
+
+
+1@mjo1,223,374,4	script	受到驚嚇的居民#AC1	4_M_DEWBOY,{
+
+	mes "[受到驚嚇的居民]";
+	mes "你是從那飛空艇上活下來的人嗎？";
+	next;
+	select("不是");
+	mes "[受到驚嚇的居民]";
+	mes "我剛在睡夢中突然聽到了巨大的爆炸聲，隨後我便看到失火的飛空艇墜落在中間的山洞中";
+	next;
+	mes "[受到驚嚇的居民]";
+	mes "但是那個山洞在我們這島嶼上，是出了名的危險，因為那裡面有非常多強悍的怪物。";
+	next;
+	mes "[受到驚嚇的居民]";
+	mes "不過幸好的是就在墜落的沒多久附近的研究團隊便快速地前往該處了。";
+	next;
+	mes "[受到驚嚇的居民]";
+	mes "你要不要也去看看？";
+	mes "研究團隊們似乎在9點鐘方向那裡。";
+	viewpoint 1,273,253,1,0xFFFFFF;
+	close;
+	OnInit:
+		npctalk "哇！嚇了我一跳";
+		end;
+}
+1@mjo1,280,256,4	script	研究生#AC2	4_M_01,{
+
+	mes "[研究生]";
+	mes "阿...前輩跟教授們都瘋拉！";
+	next;
+	select("為什麼？發生了甚麼事？");
+	mes "[研究生]";
+	mes "你看一下旁邊，有一處的土壤崩塌了，如果你順著崩塌處可以下降到一個奇怪的地方。";
+	next;
+	mes "[研究生]";
+	mes "而教授和前輩們在那發現了一個巨大的隧道，他們說這是一個全新巨大的新發現";
+	next;
+	mes "[研究生]";
+	mes "於是我便跟著前輩和教授們前往深處探險，但卻發生了一個大問題......";
+	mes "可是我卻甚麼也無能為力.....只能在那邊發抖看著";
+	next;
+	mes "[研究生]";
+	mes "如果再這樣下去會怎麼樣呢....";
+	mes "我越來越會怕了!!!";
+	close;
+	OnInit:
+		npctalk "痾…阿阿阿";
+		end;
+}
+//---------------------------------------------------
+//----------------------島嶼1------------------------
+//----------------------------------------------------
+1@mjo1,71,343,3	script	船長裴陸#AC1	4_M_REINDEER,{
+	mes "[船長裴陸]";
+	mes "阿....我的肚子...好痛..";
+	next;
+	switch(select("你在進行救援工作嗎？","飛空艇為何墜落了？","是不是你害飛空艇墜落的？")){
+	case 1:
+		mes "[船長裴陸]";
+		mes "就如你所看到的，我的身上已經負傷了";
+		mes "如今還要我去救援其他乘客，根本就是自身難保了。";
+		next;
+		mes "[船長裴陸]";
+		mes "但我怎麼說也是這艘船的船長";
+		mes "所以我在飛空艇一墜落後，我便呼叫基地，請基地那邊派遣了救護隊前來。";
+		next;
+		mes "[船長裴陸]";
+		mes "不過因為這裡實在是有點太偏僻";
+		mes "救護隊前來的人還不是很多，如果可以的話，冒險家我能麻煩你嗎？";
+		next;
+		mes "[船長裴陸]";
+		mes "請你在發現受傷的乘客時候，大聲呼喊，這樣救護隊的人就會前往去處理了，那麼就萬事拜託了。";
+		end;
+	case 2:
+		mes "[船長裴陸]";
+		mes "你沒有在船上可能不是很理解，就在我們前往目的地的途中，我們遭遇了大量怪獸的襲擊。";
+		next;
+		mes "[船長裴陸]";
+		mes "雖然我已經展現出我高超的操作，躲過了不少飛龍，但部分的飛龍還是破壞了飛空艇的引擎。";
+		next;
+		mes "[船長裴陸]";
+		mes "就在我努力的不讓飛空艇墜落到海裡時，我發現了這座島，雖然我使出吃奶的力氣想讓飛空艇完整的降落在這裡，但不幸的是方向舵也被摧毀，最後就如你所看到的這樣了。";
+		end;
+	case 3:
+		mes "[船長裴陸]";
+		mes "你說的這是甚麼話！！！";
+		mes "我乃飛空艇的船長，怎會做出這種動作！！";
+		next;
+		mes "[船長裴陸]";
+		mes "你有時間在這閒聊，怎不快去幫忙救援？";
+		end;
+	}
+}
+
+1@mjo1,75,338,4	script	倖存的有錢人#AC	1_M_JOBTESTER,{
+	mes "[救援小組隊長]";
+	mes "保鑣！你在哪裡！保鑣！";
+	close;
+}
+
+1@mjo1,81,157,4	script	維修工人#AC	4W_M_03,{
+	mes "[維修工人]";
+	mes "這下子該怎辦.....所有的東西都壞了。";
+	close;
+}
+
+1@mjo1,139,319,4	script	搭便車的吟遊詩人#AC	1_M_BARD,{
+	mes "[搭便車的吟遊詩人]";
+	mes "哦~太棒了~太棒拉";
+	mes "爆炸真的是太帥拉！難怪他是一門藝術~";
+	close;
+}
+//-------------------
+1@mjo1,256,160,4	script	昏倒的乘客#AC1	4_F_MD_KATRINN_D,{
+	mes "-你發現一位受傷的乘客-";
+	mes "-要呼叫救援拯救他嗎？-";
+	next;
+	if(.passenger == 1) {
+		mes "-同時間只能一人在對話-";
+		close;
+		}
+	if(select("好！", "不要！") == 2) {
+		mes "-他看起來快死了-";
+		close;
+		}
+	set .passenger,1;
+	mes "-呼叫救援中-";
+	sleep2 2000;
+	
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC1");
+	hideoffnpc instance_npcname("救援小組隊長#AC1");
+	
+	next;
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	hideonnpc instance_npcname("救援小組隊長#AC1");
+	hideonnpc instance_npcname("昏倒的乘客#AC1");
+	specialeffect 215;
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC1");
+	set 'Rescue,'Rescue+1;
+	sleep2 1000;
+	close;
+	end;
+}
+
+1@mjo1,212,139,4	script	昏倒的乘客#AC2	4_F_CECILIA_D,{
+	mes "-你發現一位受傷的乘客-";
+	mes "-要呼叫救援拯救他嗎？-";
+	next;
+	if(.passenger == 1) {
+		mes "-同時間只能一人在對話-";
+		close;
+		}
+	if(select("好！", "不要！") == 2) {
+		mes "-他看起來快死了-";
+		close2;
+		}
+	set .passenger,1;
+	mes "-呼叫救援中-";
+	sleep2 2000;
+	
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC2");
+	hideoffnpc instance_npcname("救援小組隊長#AC2");
+	
+	next;
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	hideonnpc instance_npcname("救援小組隊長#AC2");
+	hideonnpc instance_npcname("昏倒的乘客#AC2");
+	specialeffect 215;
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC2");
+	set 'Rescue,'Rescue+1;
+	sleep2 1000;
+	close;
+	end;
+}
+
+1@mjo1,167,143,4	script	昏倒的乘客#AC3	4_M_ANDREA_D,{
+	mes "-你發現一位受傷的乘客-";
+	mes "-要呼叫救援拯救他嗎？-";
+	next;
+	if(.passenger == 1) {
+		mes "-同時間只能一人在對話-";
+		close;
+		}
+	if(select("好！", "不要！") == 2) {
+		mes "-他看起來快死了-";
+		close;
+		}
+	set .passenger,1;
+	mes "-呼叫救援中-";
+	sleep2 2000;
+	
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC3");
+	hideoffnpc instance_npcname("救援小組隊長#AC3");
+	
+	next;
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	hideonnpc instance_npcname("救援小組隊長#AC3");
+	hideonnpc instance_npcname("昏倒的乘客#AC3");
+	specialeffect 215;
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC3");
+	set 'Rescue,'Rescue+1;
+	sleep2 1000;
+	close;
+	end;
+}
+
+1@mjo1,164,187,4	script	昏倒的乘客#AC4	4_F_MD_MAGALETA_D,{
+	mes "-你發現一位受傷的乘客-";
+	mes "-要呼叫救援拯救他嗎？-";
+	next;
+	if(.passenger == 1) {
+		mes "-同時間只能一人在對話-";
+		close;
+		}
+	if(select("好！", "不要！") == 2) {
+		mes "-他看起來快死了-";
+		close;
+		}
+	set .passenger,1;
+	mes "-呼叫救援中-";
+	sleep2 2000;
+	
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC4");
+	hideoffnpc instance_npcname("救援小組隊長#AC4");
+	
+	next;
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	hideonnpc instance_npcname("救援小組隊長#AC4");
+	hideonnpc instance_npcname("昏倒的乘客#AC4");
+	specialeffect 215;
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC4");
+	set 'Rescue,'Rescue+1;
+	sleep2 1000;
+	close;
+	end;
+}
+
+1@mjo1,190,246,4	script	昏倒的乘客#AC5	4_M_MD_HARWORD_D,{
+	mes "-你發現一位受傷的乘客-";
+	mes "-要呼叫救援拯救他嗎？-";
+	next;
+	if(.passenger == 1) {
+		mes "-同時間只能一人在對話-";
+		close;
+		}
+	if(select("好！", "不要！") == 2) {
+		mes "-他看起來快死了-";
+		close;
+		}
+	set .passenger,1;
+	mes "-呼叫救援中-";
+	sleep2 2000;
+	
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC5");
+	hideoffnpc instance_npcname("救援小組隊長#AC5");
+	
+	next;
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	hideonnpc instance_npcname("救援小組隊長#AC5");
+	hideonnpc instance_npcname("昏倒的乘客#AC5");
+	specialeffect 215;
+	specialeffect 215, AREA, instance_npcname("救援小組隊長#AC5");
+	set 'Rescue,'Rescue+1;
+	sleep2 1000;
+	close;
+	end;
+}
+
+-	script	#Ac_c	4_M_DST_TOUGH,{ 
+	mes "[救援小組隊長]";
+	mes "冒險者，是你呼叫我們的嗎？";
+	mes "哇！原來這裡還有一位乘客";
+	next;
+	mes "[救援小組隊長]";
+	mes "我們這就趕緊把他送去治療";
+	mes "^0000ff"+strcharinfo(0)+"^000000感謝您的通知。";
+	close;
+	end; 
+}
+1@mjo1,259,161,4	duplicate(#Ac_c)	救援小組隊長#AC1	4_4JOB_ROBIN
+1@mjo1,214,142,4	duplicate(#Ac_c)	救援小組隊長#AC2	4_4JOB_ROBIN
+1@mjo1,164,144,6	duplicate(#Ac_c)	救援小組隊長#AC3	4_4JOB_ROBIN
+1@mjo1,166,190,4	duplicate(#Ac_c)	救援小組隊長#AC4	4_4JOB_ROBIN
+1@mjo1,187,245,6	duplicate(#Ac_c)	救援小組隊長#AC5	4_4JOB_ROBIN
+
+//---------------------------------------------------
+//----------------------洞穴------------------------
+//----------------------------------------------------
+
+1@mjo2,363,363,4	script	陶教授#AC1	4_M_DOCTOR,{
+	if('professor == 1){
+		mes "[陶教授]";
+		mes "詳細的任務就去問我旁邊的徒弟吧。";
+		close;
+	}
+	mes "[陶教授]";
+	mes "第一次見面的路人.....你也在調查這個洞穴嗎？";
+	next;
+	if(select("是的。", "我只是路過的居民") == 2) {
+		mes "[陶教授]";
+		mes "趕快離開這裡，這裡很危險。";
+		close;
+	}
+	mes "[陶教授]";
+	mes "這樣啊.....我們已經在這島上一陣子了";
+	mes "在這之前我們還很煩惱要如何下來這個洞穴，但就在不久之前，有一處的土壤鬆動，導致地層下陷，才有了你身後的井洞。";
+	next;
+	mes "[陶教授]";
+	mes "我們一下來後就發現洞穴的深處傳來了一堆怪物聲";
+	mes "但深處的洞穴實在不利於我們研究。";
+	next;
+	mes "[陶教授]";
+	mes "而這洞穴的怪物本來都在深處活動，但似乎是墜落的飛船上「伊米爾」吸引了他們";
+	mes "導致現在大量的怪物全部都跑了出來。";
+	next;
+	mes "[陶教授]";
+	mes "「伊米爾」是一種稀有的原石，這種石頭他能夠發出極小量的特殊能量";
+	mes "而把當把「伊米爾」大量聚集在一起時候，他便能推動飛船引擎";
+	next;
+	mes "[陶教授]";
+	mes "但就在飛船墜落後，這些「伊米爾」便四處地飛散落了";
+	next;
+	mes "[陶教授]";
+	mes "神奇的是，這個洞穴的怪物卻很異常地喜歡「伊米爾」這東西";
+	mes "導致飛船上的「伊米爾」都被他們吞噬了。";
+	next;
+	mes "[陶教授]";
+	mes "我剛剛注意到，但是看到你勇敢地進入洞中，你一定是一個冒險家囉？";
+	mes "就我看起來，你似乎很想要「伊米爾」這東西....？";
+	next;
+	mes "[陶教授]";
+	mes "那麼要不要來參加我的研究團？";
+	mes "由你負責討伐那些怪物，而我們則將怪物身上的「伊米爾」提供給你。";
+	mes "如何？";
+	next;
+	if(select("沒問題！", "讓我思考一下....") == 2) {
+		mes "[陶教授]";
+		mes "好，你想好了在跟我們說。";
+		close;
+	}
+	if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "[陶教授]";
+		mes "只有隊長可以接受任務。";
+		close;
+	}
+	mes "[陶教授]";
+	mes "那麼我就先把那先怪物引誘出來囉？";
+	mes "詳細的任務資訊就到旁邊去找我的弟子吧！";
+	donpcevent instance_npcname("#AC_Main")+"::OnStart";//呼叫怪物
+	set 'professor,1;
+	close;
+
+}
+1@mjo2,356,365,4	script	米茲#AC1	4_LGTSCIENCE,{
+	if('professor != 1){
+		mes "[米茲]";
+		mes "請先去找我的教授一下吧。";
+		close;
+	}
+	if(checkquest(5912, HUNTING) == 2 || checkquest(5913, HUNTING) == 2 || checkquest(5914, HUNTING) == 2) {
+	mes "[米茲]";
+	mes "哦...你達成任務了阿！";
+	mes "我確認一下哦......";
+	next;
+	mes "[米茲]";
+	mes "沒錯！";
+	mes "確實完成了，那我這就把獎勵發給你！";
+		if(checkquest(5912, HUNTING) == 2 ) {
+			erasequest 5912;
+			getitem 'item[0],'amount1[1];
+			set 'QusetType,2;
+			
+		}
+		if(checkquest(5913, HUNTING) == 2 ) {
+			erasequest 5913;
+			getitem 'item[0],'amount1[2];
+			set 'QusetType,3;
+			
+		}
+		if(checkquest(5914, HUNTING) == 2 ) {
+			erasequest 5914;
+			getitem 'item[0],'amount1[3];
+			
+		}
+	close;
+	}
+	mes "[米茲]";
+	mes "你願意幫忙參加我們的調查了嗎？";
+	mes "真的是太感謝你了！";
+	next;
+	set .@typeChoice, select("我想聽取說明！","[任務]擊殺【50】隻怪物","[任務]擊殺【100】隻怪物","[任務]擊殺【150】隻怪物","我想想看...");
+	switch(.@typeChoice) {
+	case 1:
+		mes "[米茲]";
+		mes "基本上剛剛教授都已經跟你說明的差不多了。";
+		mes "我應該不需要做太多的解釋了。";
+		next;
+		mes "[米茲]";
+		mes "阿！不過教授沒有說到一點，就是這裡的怪物，似乎很畏懼地圖12點鐘方向的地方";
+		mes "雖然我們已經有嘗試尋找這個問題，但似乎無解。";
+		next;
+		mes "[米茲]";
+		mes "另外就是你有看到旁邊那個學者嗎？他是負責研究這個洞穴內的首領，有時間你們可以去找他看看。";
+		next;
+		mes "[米茲]";
+		mes "對了對了，擊殺的任務是以『個人』為單位，並不是『組隊』擊殺，所以是必須要每個人都接受任務，且攻擊的怪物不會共同計算，這點還請多加注意！";
+		close;
+		break;
+	case 2:
+		mes "[米茲]";
+		mes "確定要選擇接受擊殺【50】隻怪物嗎？";
+		next;
+			if(select("是的！", "讓我思考一下....") == 2) {
+			mes "[米茲]";
+			mes "好，你想好了在跟我們說。";
+			close;
+			}
+			if(checkquest(5912, HUNTING) == 0 || checkquest(5912, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您的任務還沒完成呢！";
+			close;
+			}
+			if(checkquest(5913, HUNTING) == 0 || checkquest(5913, HUNTING) == 1 || checkquest(5914, HUNTING) == 0 || checkquest(5914, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您一次只能接受一種任務！！";
+			close;
+			}
+		setquest 5912;
+		close;
+		break;
+	case 3:
+		if('QusetType < 2) {
+			mes "[米茲]";
+			mes "必須要先完成過擊殺【50】隻怪物才可以接受此任務。";
+			close;
+		}
+		mes "[米茲]";
+		mes "確定要選擇接受擊殺【100】隻怪物嗎？";
+		next;
+			if(select("是的！", "讓我思考一下....") == 2) {
+			mes "[米茲]";
+			mes "好，你想好了在跟我們說。";
+			close;
+			}
+			if(checkquest(5913, HUNTING) == 0 || checkquest(5913, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您的任務還沒完成呢！";
+			close;
+			}
+			if(checkquest(5912, HUNTING) == 0 || checkquest(5912, HUNTING) == 1 || checkquest(5914, HUNTING) == 0 || checkquest(5914, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您一次只能接受一種任務！！";
+			close;
+			}
+		setquest 5913;
+		close;
+		break;
+	case 4:
+		if('QusetType < 3) {
+			mes "[米茲]";
+			mes "必須要先完成過擊殺【100】隻怪物才可以接受此任務。";
+			close;
+		}
+		mes "[米茲]";
+		mes "確定要選擇接受擊殺【150】隻怪物嗎？";
+		next;
+			if(select("是的！", "讓我思考一下....") == 2) {
+			mes "[米茲]";
+			mes "好，你想好了在跟我們說。";
+			close;
+			}
+			if(checkquest(5914, HUNTING) == 0 || checkquest(5914, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您的任務還沒完成呢！";
+			close;
+			}
+			if(checkquest(5912, HUNTING) == 0 || checkquest(5912, HUNTING) == 1 || checkquest(5913, HUNTING) == 0 || checkquest(5913, HUNTING) == 1) {
+			mes "[米茲]";
+			mes "您一次只能接受一種任務！！";
+			close;
+			}
+		setquest 5914;
+		close;
+		break;
+	case 5:
+		mes "[米茲]";
+		mes "等你想好再跟我說吧！。";
+		close;
+	}
+}
+1@mjo2,172,203,4	script	#AC_Main	-1,{
+
+OnStart:
+	initnpctimer;
+	set 'map$,instance_mapname("1@mjo2");
+	instance_announce 0, "陶教授：5秒後大量怪物將出現，請小心。",bc_map,"0xFFFF33";
+	end;
+OnTimer5000:
+	stopnpctimer;
+	areamonster 'map$,381,366,18,21,"--ja--",20886,'Mobamount,instance_npcname("#AC_Main")+"::OnMyMobDead";
+	areamonster 'map$,381,366,18,21,"--ja--",20887,'Mobamount,instance_npcname("#AC_Main")+"::OnMyMobDead1";
+	areamonster 'map$,381,366,18,21,"--ja--",20888,'Mobamount,instance_npcname("#AC_Main")+"::OnMyMobDead2";
+	areamonster 'map$,381,366,18,21,"--ja--",20889,'Mobamount,instance_npcname("#AC_Main")+"::OnMyMobDead3";
+	areamonster 'map$,381,366,18,21,"--ja--",20890,'Mobamount,instance_npcname("#AC_Main")+"::OnMyMobDead4";
+	end;
+OnMyMobDead:
+	areamonster 'map$,381,366,18,21,"--ja--",20886,1;
+	end;
+OnMyMobDead1:
+	areamonster 'map$,381,366,18,21,"--ja--",20887,1;
+	end;
+OnMyMobDead2:
+	areamonster 'map$,381,366,18,21,"--ja--",20888,1;
+	end;
+OnMyMobDead3:
+	areamonster 'map$,381,366,18,21,"--ja--",20889,1;
+	end;
+OnMyMobDead4:
+	areamonster 'map$,381,366,18,21,"--ja--",20890,1;
+	end;
+}
+
+
+1@mjo2,358,358,4	script	研究生#AC3	4_M_SAGE_C,{
+	mes "[研究生]";
+	mes "首先，你有看到我身旁的梯子嗎？";
+	next;
+	select("有！");
+	mes "[研究生]";
+	mes "好！因為這個洞穴實在過於狹窄，所以【蒼蠅翅膀】再這裡是無法使用的";
+	mes "但你也別太擔心，為了怕研究人員受傷，我們已經再洞穴內的四處放置了逃生梯";
+	mes "這個逃生梯可以把人們瞬間移動到入口，如有需要還請多善加利用。";
+	next;
+	mes "[研究生]";
+	mes "需要我在地圖上幫你坐上標記嗎？";
+	next;
+		if(select("是的！", "不用，我自己有辦法！") == 2) {
+		mes "[研究生]";
+		mes "好吧，你說的算。";
+		close;
+		}
+	mes "[研究生]";
+	mes "那麼我就直接幫你在你的地圖上做標記囉！";
+	viewpoint 1,359,357,1,0xFFFFFF;
+	viewpoint 1,258,299,2,0xFFFFFF;
+	viewpoint 1,172,371,3,0xFFFFFF;
+	viewpoint 1,126,341,4,0xFFFFFF;
+	viewpoint 1,20,384,5,0xFFFFFF;
+	viewpoint 1,65,271,6,0xFFFFFF;
+	viewpoint 1,123,136,7,0xFFFFFF;
+	viewpoint 1,17,25,8,0xFFFFFF;
+	viewpoint 1,158,71,9,0xFFFFFF;
+	viewpoint 1,234,73,10,0xFFFFFF;
+	viewpoint 1,256,126,11,0xFFFFFF;
+	viewpoint 1,346,122,12,0xFFFFFF;
+	viewpoint 1,313,84,13,0xFFFFFF;
+	viewpoint 1,343,32,14,0xFFFFFF;
+	viewpoint 1,354,234,15,0xFFFFFF;
+	viewpoint 1,221,219,16,0xFFFFFF;
+	close;
+}
+
+1@mjo2,372,371,4	script	札克#AC4	4_EP17_KAYA,{
+
+	mes "[札克]";
+	mes "甚麼？哦，你是冒險家阿！是透過時間魔力進來的嗎？太棒了！我剛好需要一個人來提升我的實績。";
+	next;
+	mes "[札克]";
+	mes "^0000ff"+strcharinfo(0)+"^000000聽著，你必須要來幫助我";
+	mes "我聽說你們冒險家都喜歡挑戰強大的魔物，是嗎？";
+	next;
+	mes "[札克]";
+	mes "如果你們請隊長，提供給我<ITEM>"+getitemname('itemAc4)+"<INFO>"+'itemAc4+"</INFO></ITEM>*55個";
+	mes "我將會開始召集各研究人員。";
+	next;
+	mes "[札克]";
+	mes "之後我將帶領你們整個隊伍前往這個洞穴的領袖位置";
+	mes "你怎麼認為呢？，我覺得這是一個很棒的行動。";
+	next;
+	mes "[札克]";
+	mes "要參加討伐領袖嗎？";
+	mes "※討伐期間洞穴內的怪物還是會繼續存在。";
+	next;
+		if(select("是的！", "不用！") == 2) {
+		mes "[札克]";
+		mes "好吧，你說的算。";
+		close;
+		}
+		if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "[札克]";
+		mes "只有隊長可以接受參加討伐任務。";
+		close;
+		}
+		if(countitem('itemAc4) <  'checkitem1 ) {
+			mes "[札克]";
+			mes "你身上的^ff0000"+getitemname('itemAc4)+"不足…^000000";
+			close;
+		}
+	mes "[札克]";
+	mes "那麼我們就直接出發吧！";
+	delitem 'itemAc4,'checkitem1;
+	mapwarp instance_mapname("1@mjo2"),instance_mapname("1@mjo2"),205,353;
+	hideoffnpc instance_npcname("札克#ACBOSS");
+	hideonnpc instance_npcname("札克#AC4");
+	close;
+}
+
+1@mjo2,208,365,4	script	札克#ACBOSS	4_EP17_KAYA,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "[札克]";
+		mes "請呼叫隊長。";
+		close;
+	}
+	if(.Bossready != 1){
+	mes "[札克]";
+	mes "這裡就是原本首領沉睡的地方，但就如你所看到的。";
+	npctalk "札克：這裡就是原本首領沉睡的地方，但就如你所看到的。";
+	next;
+	mes "[札克]";
+	mes "因為飛空艇的船頭掉落在此，便將首領逼迫至地底下。";
+	npctalk "札克：因為飛空艇的船頭掉落在此，便將首領逼迫至地底下。";
+	next;
+	mes "[札克]";
+	mes "如今要呼喚牠出現，就只能依靠一些C4來處理。";
+	npctalk "札克：如今要呼喚牠出現，就只能依靠一些C4來處理。";
+	next;
+	}
+	mes "[札克]";
+	mes "那麼你們都準備好了嗎？";
+	next;
+		if(select("是的！", "還沒！") == 2) {
+		mes "[札克]";
+		mes "好了再跟我說一下。";
+		set .Bossready,1;
+		close;
+		}
+	donpcevent instance_npcname("#AC_Boss")+"::OnEnable";
+
+	close;
+}
+
+
+//============================================================
+1@mjo2,172,203,4	script	#AC_Boss	-1,{
+
+OnEnable:
+	hideonnpc instance_npcname("札克#ACBOSS");
+	donpcevent instance_npcname("#AcBossEffect")+"::OnStrat";
+
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@mjo2");
+	set .@killboss$, instance_npcname("#AC_Boss")+"::OnKillMob";
+	
+	monster .@map$,205,365,"未知生物",20891,1,.@killboss$;
+	end;
+	
+OnKillMob:
+	if('Rescue >= 5){
+		hideoffnpc instance_npcname("#AC_Call_BOSS2");
+	}else{
+		set 'Diff,1;
+		hideoffnpc instance_npcname("寶箱#AC01");
+	}
+	end;
+}
+
+1@mjo2,205,365,4	script	#AC_Call_BOSS2	4_TRACE,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "--請呼叫隊長--";
+		close;
+	}
+	mes "-要打算注入島上的人類靈氣來復活死亡的首領嗎？-";
+	mes "-※如選擇不要則將領取第一階段獎勵。-";
+	next;
+		if(select("復活！", "不要！") == 2) {
+		mes "--你搖了搖頭--";
+		set 'Diff,1;
+		hideonnpc instance_npcname("#AC_Call_BOSS2");
+		hideoffnpc instance_npcname("寶箱#AC01");
+		close;
+		}
+	specialeffect 236;
+	specialeffect 1066;
+	donpcevent instance_npcname("#AC_Boss2")+"::OnEnable";
+	hideonnpc instance_npcname("#AC_Call_BOSS2");
+	close;
+}
+
+
+
+1@mjo2,172,203,4	script	#AC_Boss2	-1,{
+
+OnEnable:
+	donpcevent instance_npcname("#AcBoss2Effect")+"::OnStrat";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@mjo2");
+	set .@killboss$, instance_npcname("#AC_Boss2")+"::OnKillMob";
+	
+	monster .@map$,205,365,"身份不明的生物",21062,1,.@killboss$;
+	end;
+	
+OnKillMob:
+	set 'Diff,2;
+	hideoffnpc instance_npcname("寶箱#AC01");
+	end;
+}
+
+1@mjo2,205,365,1	script	#AcBossEffect	139,{//
+end;
+OnStrat:
+	initnpctimer;
+	specialeffect 12;
+	specialeffect 8;
+	end;
+OnTimer2000:
+	specialeffect 17;
+	end;
+OnTimer4000:
+	specialeffect 090;
+	end;
+OnTimer10000:
+	specialeffect 585;
+	stopnpctimer;
+	donpcevent instance_npcname("#AC_Boss")+"::OnStart";
+	end;
+}
+
+1@mjo2,205,365,1	script	#AcBoss2Effect	139,{//
+end;
+OnStrat:
+	initnpctimer;
+	specialeffect 12;
+	specialeffect 8;
+	end;
+OnTimer2000:
+	specialeffect 17;
+	end;
+OnTimer4000:
+	specialeffect 090;
+	end;
+OnTimer10000:
+	specialeffect 585;
+	stopnpctimer;
+	donpcevent instance_npcname("#AC_Boss2")+"::OnStart";
+	end;
+}
+1@mjo2,205,365,5	script	寶箱#AC01	10005,{
+	if ('Diff == 2)
+	{
+		getitem 'BossAwarditem[0],'Bossamount[rand(3)];
+		if(rand(1000) < 'getShoes2) 
+		{
+			getitem 'Bossitem[rand(6)],1;
+		}			
+	}
+		else
+	{
+		getitem 'BossAwarditem[0],'Bossamount[rand(2)];	
+		if(rand(1000) < 'getShoes1) 
+		{
+			getitem 'Bossitem[rand(6)],1;
+		}
+	}
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@mjo2")+"::OnEnable";	
+	'ClearInatance = 1;
+	disablenpc instance_npcname("寶箱#AC01");
+	end;
+}
+
+//寶箱
+1@mjo2,0,0,0	script	副本寶箱#1@mjo2	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940043,10;
+	getitem 6909,1;
+	getitem 930000,5;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}
+
+//------------------逃生梯設置--------------------
+-	script	#AC_c	4_ROPEPILE,{ 
+	mes "要使用逃生梯移動到入口嗎？";
+	if(select("不需要", "好！") == 2) {
+		warp instance_mapname("1@mjo2"),360,367;
+		close;
+	}
+	close;
+end; 
+}
+
+1@mjo2,359,357,4	duplicate(#AC_c)	逃生梯#AC1 	4_ROPEPILE
+1@mjo2,258,299,4	duplicate(#AC_c)	逃生梯#AC2 	4_ROPEPILE
+1@mjo2,172,371,4	duplicate(#AC_c)	逃生梯#AC3 	4_ROPEPILE
+1@mjo2,126,341,4	duplicate(#AC_c)	逃生梯#AC4 	4_ROPEPILE
+1@mjo2,20,384,4	duplicate(#AC_c)	逃生梯#AC5 	4_ROPEPILE
+1@mjo2,65,271,4	duplicate(#AC_c)	逃生梯#AC6 	4_ROPEPILE
+1@mjo2,123,136,4	duplicate(#AC_c)	逃生梯#AC7 	4_ROPEPILE
+1@mjo2,17,25,4	duplicate(#AC_c)	逃生梯#AC8 	4_ROPEPILE
+1@mjo2,158,71,4	duplicate(#AC_c)	逃生梯#AC9 	4_ROPEPILE
+1@mjo2,234,73,4	duplicate(#AC_c)	逃生梯#AC10	4_ROPEPILE
+1@mjo2,256,126,4	duplicate(#AC_c)	逃生梯#AC11	4_ROPEPILE
+1@mjo2,346,122,4	duplicate(#AC_c)	逃生梯#AC12	4_ROPEPILE
+1@mjo2,313,84,4	duplicate(#AC_c)	逃生梯#AC13	4_ROPEPILE
+1@mjo2,343,32,4	duplicate(#AC_c)	逃生梯#AC14	4_ROPEPILE
+1@mjo2,354,234,4	duplicate(#AC_c)	逃生梯#AC15	4_ROPEPILE
+1@mjo2,221,219,4	duplicate(#AC_c)	逃生梯#AC16	4_ROPEPILE
+
+
+//------------------傳點設置--------------------
+1@mjo1,273,253,0	warp	AC_c8-1	1,1,1@mjo2,361,373
+1@mjo2,361,380,0	warp	AC_c8-2	1,1,1@mjo1,279,254

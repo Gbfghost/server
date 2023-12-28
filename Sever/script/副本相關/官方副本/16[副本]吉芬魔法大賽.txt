@@ -1,0 +1,766 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@ge_st	mapflag	monster_noteleport
+1@ge_st	mapflag	partylock
+1@ge_st	mapflag	noteleport
+1@ge_st	mapflag	nosave	SavePoint
+1@ge_st	mapflag	nomemo
+1@ge_st	mapflag	nobranch
+1@ge_st	mapflag	noicewall
+1@ge_st	mapflag	restricted	6
+1@ge_st	mapflag	novending			//無法開露天商店
+1@ge_st	mapflag	nochat				//無法開聊天室
+
+amatsu,103,113,5	script	[副本]吉芬魔法大賽	862,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "吉芬魔法大賽";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 1;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 16;
+
+//
+	waitingroom "[副本]吉芬魔法大賽",0;
+	setnpcicon getnpcid(0),22,"[副本]吉芬魔法大賽";
+	end;
+}
+
+
+1@ge_st,0,0,0	script	#吉芬魔法大賽主持	-1,{   
+	end;
+OnInstanceInit:
+	'map$ = instance_mapname("1@ge_st");
+	//先關掉所有NPC
+	disablenpc instance_npcname("艾魯比#gef2");
+	disablenpc instance_npcname("阿涅莫斯#gef2");
+	disablenpc instance_npcname("比利克魯利斯#gef2");
+	disablenpc instance_npcname("比比亞斯內基#gef2");
+	disablenpc instance_npcname("黑色金絲雀#gef2");
+	disablenpc instance_npcname("菲蒙#gef2");
+	disablenpc instance_npcname("奧德爾#gef2");
+	disablenpc instance_npcname("菲爾德海瑟#gef2");
+	disablenpc instance_npcname("黑魔#gef2");
+	disablenpc instance_npcname("伊弗德斯#gef2");
+	disablenpc instance_npcname("蕾切妮#gef2");
+	disablenpc instance_npcname("夢姬#gef2");
+	disablenpc instance_npcname("喬伊#gef2");
+	disablenpc instance_npcname("黛惠#gef2");
+	disablenpc instance_npcname("菲卡納比安#gef2");
+	disablenpc instance_npcname("亂入的挑戰者#gef2");
+	disablenpc instance_npcname("潘利爾#gef2");	
+	//先關掉所有NPC
+	end;	
+}
+
+
+//副本開始
+
+1@ge_st,109,62,4	script	吉芬魔法大賽主持#ge01	853,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "[吉芬魔法大賽主持]";
+		mes "請呼叫你們隊長。";
+		end;
+	}
+	instance_announce 0, "吉芬魔法大賽主持：你們好，我是本次黑夜吉芬魔法大賽的主持人",bc_map,"0xFFFF33";
+	instance_announce 0, "吉芬魔法大賽主持：在開始前先跟你們說明一下部分規則。",bc_map,"0xFFFF33";
+	instance_announce 0, "吉芬魔法大賽主持：首先至總冠軍賽前一共擁有『10』回合",bc_map,"0xFFFF33";
+	instance_announce 0, "吉芬魔法大賽主持：每一回合都有限制攻擊時間，如果時間內沒有將對方擊倒",bc_map,"0xFFFF33";
+	instance_announce 0, "吉芬魔法大賽主持：則算是挑戰失敗。",bc_map,"0xFFFF33";
+	instance_announce 0, "吉芬魔法大賽主持：如果挑戰失敗的話會將在此之前所贏得的獎勵通通回收",bc_map,"0xFFFF33";
+	mes "[吉芬魔法大賽主持]";
+	mes "那麼，第一回合要開始了嗎？";
+	next;
+	if(select("等等！", "開始比賽吧！") == 1) {
+		mes "[吉芬魔法大賽主持]";
+		mes "好了再跟我說一下。";
+		close;
+	}
+	specialeffect 215;
+	set '1gef_round,1;
+	set 'start,1;
+	enablenpc instance_npcname("艾魯比#gef2");
+	disablenpc instance_npcname("吉芬魔法大賽主持#ge01");
+	end;
+OnInstanceInit: 
+	set 'fail,0;
+	set 'start2,1;
+	end;
+}
+
+//NPC
+1@ge_st,120,48,4	script	艾魯比#gef2	670,{
+	if (!'start2 ){ end;}
+	set 'map$,instance_mapname("1@ge_st");
+	if('start == 2) { end; }
+	monster 'map$,114,50,"--ja--",2549,1,instance_npcname("艾魯比#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：比賽開始!!",bc_map,"0xFFFF33";
+	end; 
+	OnKillMob:
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 2) enablenpc instance_npcname("阿涅莫斯#gef2");
+	disablenpc instance_npcname("艾魯比#gef2");
+	end;
+}
+
+1@ge_st,121,48,4	script	阿涅莫斯#gef2	669,{ 
+	if (!'start2 ){ end;}
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 3) { end; }
+	monster 'map$,114,50,"--ja--",2550,1,instance_npcname("阿涅莫斯#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 3) enablenpc instance_npcname("比利克魯利斯#gef2");
+	disablenpc instance_npcname("阿涅莫斯#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	比利克魯利斯#gef2	671,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 4) { end; }
+	monster 'map$,114,50,"--ja--",2553,1,instance_npcname("比利克魯利斯#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 4) enablenpc instance_npcname("比比亞斯內基#gef2");
+	disablenpc instance_npcname("比利克魯利斯#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	比比亞斯內基#gef2	681,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 5) { end; }
+	monster 'map$,114,50,"--ja--",2552,1,instance_npcname("比比亞斯內基#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 5) enablenpc instance_npcname("黑色金絲雀#gef2");
+	disablenpc instance_npcname("比比亞斯內基#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	黑色金絲雀#gef2	682,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 6) { end; }
+	monster 'map$,114,50,"--ja--",2551,1,instance_npcname("黑色金絲雀#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 6) enablenpc instance_npcname("菲蒙#gef2");
+	disablenpc instance_npcname("黑色金絲雀#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	菲蒙#gef2	672,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 7) { end; }
+	monster 'map$,114,50,"--ja--",2554,1,instance_npcname("菲蒙#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 7) enablenpc instance_npcname("奧德爾#gef2");
+	disablenpc instance_npcname("菲蒙#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	奧德爾#gef2	4_GEFFEN_05,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 8) { end; }
+	monster 'map$,114,50,"--ja--",2555,1,instance_npcname("奧德爾#gef2")+"::OnKillMob";
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	set 'start,'start+1;
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 8) enablenpc instance_npcname("菲爾德海瑟#gef2");
+	disablenpc instance_npcname("奧德爾#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	菲爾德海瑟#gef2	674,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 9) { end; }
+	monster 'map$,114,50,"--ja--",2556,1,instance_npcname("菲爾德海瑟#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 9) enablenpc instance_npcname("黑魔#gef2");
+	disablenpc instance_npcname("菲爾德海瑟#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	黑魔#gef2	675,{ 	
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 10) { end; }
+	monster 'map$,114,50,"--ja--",2557,1,instance_npcname("黑魔#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 10) enablenpc instance_npcname("伊弗德斯#gef2");
+	disablenpc instance_npcname("黑魔#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	伊弗德斯#gef2	676,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 11) { end; }
+	monster 'map$,114,50,"--ja--",2558,1,instance_npcname("伊弗德斯#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 11) enablenpc instance_npcname("蕾切妮#gef2");
+	disablenpc instance_npcname("伊弗德斯#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	蕾切妮#gef2	677,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 12) { end; }
+	monster 'map$,114,50,"--ja--",2559,1,instance_npcname("蕾切妮#gef2")+"::OnKillMob";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		set 'fail,1;
+		sleep3 1000;
+		instance_destroy;
+		end;
+	OnKillMob:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 12) enablenpc instance_npcname("夢姬#gef2");
+	disablenpc instance_npcname("蕾切妮#gef2");
+	end;
+}
+1@ge_st,121,48,4	script	夢姬#gef2	678,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 13) { end; }
+	monster 'map$,114,50,"--ja--",2560,1,instance_npcname(strnpcinfo(0))+"::On2560die";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+OnTimer60000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+On2560die:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 13) enablenpc instance_npcname("喬伊#gef2");
+	disablenpc instance_npcname("夢姬#gef2");
+end;
+}
+1@ge_st,121,48,4	script	喬伊#gef2	679,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 14) { end; }
+	monster 'map$,114,50,"--ja--",2561,1,instance_npcname(strnpcinfo(0))+"::On2561die";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+OnTimer60000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+On2561die:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 14) enablenpc instance_npcname("黛惠#gef2");
+	disablenpc instance_npcname("喬伊#gef2");
+end;
+}
+1@ge_st,121,48,4	script	黛惠#gef2	680,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 15) { end; }
+	monster 'map$,114,50,"--ja--",2562,1,instance_npcname(strnpcinfo(0))+"::On2562die";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+OnTimer60000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+On2562die:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 15) enablenpc instance_npcname("菲卡納比安#gef2");
+	disablenpc instance_npcname("黛惠#gef2");
+end;
+}
+1@ge_st,121,48,4	script	菲卡納比安#gef2	665,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 16) { end; }
+	monster 'map$,114,50,"--ja--",2563,1,instance_npcname(strnpcinfo(0))+"::On2563die";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+OnTimer60000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+On2563die:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 16) enablenpc instance_npcname("亂入的挑戰者#gef2");
+	disablenpc instance_npcname("菲卡納比安#gef2");
+end;
+}
+1@ge_st,121,48,4	script	亂入的挑戰者#gef2	2567,{ 
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 17) { end; }
+	monster 'map$,114,50,"--ja--",2567,1,instance_npcname(strnpcinfo(0))+"::On2567die";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+OnTimer60000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+On2567die:
+	stopnpctimer;
+	set '1gef_round,'1gef_round+1;
+	if('1gef_round == 17) enablenpc instance_npcname("潘利爾#gef2");
+	disablenpc instance_npcname("亂入的挑戰者#gef2");
+end;
+}
+
+//觀眾
+-	script	#gd_q	4_M_DST_TOUGH,{ end; }
+1@ge_st,100,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb0	4_M_DST_TOUGH
+1@ge_st,101,61,6	duplicate(#gd_q)	魔法大賽觀眾#gb41	4_F_04
+1@ge_st,102,61,6	duplicate(#gd_q)	魔法大賽觀眾#gb42	4_F_TRAINEE
+1@ge_st,103,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb43	1_M_SIGNART
+1@ge_st,104,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb44	1_M_SIGNMCNT
+1@ge_st,105,61,6	duplicate(#gd_q)	魔法大賽觀眾#gb45	1_M_SIGNMONK2
+1@ge_st,113,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb34	1_F_ORIENT_03
+1@ge_st,114,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb36	1_M_SIGN1
+1@ge_st,115,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb37	2_F_MAGICMASTER
+1@ge_st,116,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb38	4_F_01
+1@ge_st,117,61,4	duplicate(#gd_q)	魔法大賽觀眾#gb39	4_F_02
+1@ge_st,118,61,6	duplicate(#gd_q)	魔法大賽觀眾#gb40	4_F_03
+
+1@ge_st,98,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb22	1_F_04
+1@ge_st,99,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb23	1_F_GYPSY
+1@ge_st,100,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb24	1_M_BARD
+1@ge_st,101,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb25	1_F_LIBRARYGIRL
+1@ge_st,102,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb26	1_M_HOF
+1@ge_st,103,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb27	1_M_02
+1@ge_st,104,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb28	1_F_MERCHANT_01
+1@ge_st,105,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb29	1_F_MERCHANT_02
+1@ge_st,106,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb30	1_M_JOBGUIDER
+1@ge_st,107,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb31	1_M_LIBRARYMASTER
+1@ge_st,108,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb32	1_F_ORIENT_01
+1@ge_st,109,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb33	1_F_ORIENT_02
+1@ge_st,110,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb9	1_M_PASTOR
+1@ge_st,111,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb10	1_F_PRIEST
+1@ge_st,112,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb11	1_M_INNKEEPER
+1@ge_st,113,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb12	1_M_SIZ
+1@ge_st,114,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb13	1_M_PAY_ELDER
+1@ge_st,115,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb14	1_M_PRON_KING
+1@ge_st,116,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb15	4_F_01
+1@ge_st,117,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb17	1_M_JOBTESTER
+1@ge_st,118,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb18	1_M_KNIGHTMASTER
+1@ge_st,119,64,6	duplicate(#gd_q)	魔法大賽觀眾#gb19	1_ETC_01
+1@ge_st,120,64,4	duplicate(#gd_q)	魔法大賽觀眾#gb20	1_F_01
+1@ge_st,121,194,4	duplicate(#gd_q)	魔法大賽觀眾#gb21	1_F_03
+
+1@ge_st,89,56,4	duplicate(#gd_q)	魔法大賽告示牌#gb01	4_BOARD3
+1@ge_st,89,41,4	duplicate(#gd_q)	魔法大賽告示牌#gb02	4_BOARD3
+1@ge_st,98,34,4	duplicate(#gd_q)	魔法大賽告示牌#gb03	4_BOARD3
+1@ge_st,116,34,4	duplicate(#gd_q)	魔法大賽告示牌#gb04	4_BOARD3
+1@ge_st,129,41,4	duplicate(#gd_q)	魔法大賽告示牌#gb05	4_BOARD3
+1@ge_st,129,54,4	duplicate(#gd_q)	魔法大賽告示牌#gb06	4_BOARD3
+1@ge_st,122,62,4	duplicate(#gd_q)	魔法大賽告示牌#gb07	4_BOARD3
+1@ge_st,96,62,4	duplicate(#gd_q)	魔法大賽告示牌#gb08	4_BOARD3
+
+1@ge_st,93,58,4	duplicate(#gd_q)	#1GeEndEffect01	4_BOARD3
+1@ge_st,100,58,4	duplicate(#gd_q)	#1GeEndEffect02	4_BOARD3
+1@ge_st,109,58,4	duplicate(#gd_q)	#1GeEndEffect03	4_BOARD3
+1@ge_st,118,58,4	duplicate(#gd_q)	#1GeEndEffect04	4_BOARD3
+1@ge_st,124,58,4	duplicate(#gd_q)	#1GeEndEffect05	4_BOARD3
+1@ge_st,124,51,4	duplicate(#gd_q)	#1GeEndEffect06	4_BOARD3
+1@ge_st,124,45,4	duplicate(#gd_q)	#1GeEndEffect07	4_BOARD3
+1@ge_st,124,38,4	duplicate(#gd_q)	#1GeEndEffect08	4_BOARD3
+1@ge_st,118,38,4	duplicate(#gd_q)	#1GeEndEffect09	4_BOARD3
+1@ge_st,93,58,4	duplicate(#gd_q)	#1GeEndEffect10	4_BOARD3
+1@ge_st,109,38,4	duplicate(#gd_q)	#1GeEndEffect11	4_BOARD3
+1@ge_st,100,38,4	duplicate(#gd_q)	#1GeEndEffect12	4_BOARD3
+1@ge_st,94,38,4	duplicate(#gd_q)	#1GeEndEffect13	4_BOARD3
+1@ge_st,94,45,4	duplicate(#gd_q)	#1GeEndEffect14	4_BOARD3
+1@ge_st,94,51,4	duplicate(#gd_q)	#1GeEndEffect15	4_BOARD3
+//觀眾
+
+1@ge_st,121,48,4	script	潘利爾#gef2	664,{
+	if('fail == 1)
+	{
+		mes "[吉芬魔法大賽主持]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[吉芬魔法大賽主持]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		end;
+	}
+	if('start == 18) { end; }
+	monster 'map$,114,50,"--ja--",2564,1,instance_npcname(strnpcinfo(0))+"::OnMVPdie";
+	set 'start,'start+1;
+	instance_announce 0, "吉芬魔法大賽主持：第『"+'1gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	initnpctimer;
+	end; 
+OnTimer180000:
+	stopnpctimer;
+	instance_announce 0, "吉芬魔法大賽主持：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+	set 'fail,1;
+	sleep3 1000;
+	instance_destroy;
+	end;
+OnMVPdie:
+	stopnpctimer;
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@ge_st")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("潘利爾#gef2");
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+//寶箱
+1@ge_st,0,0,0	script	副本寶箱#1@ge_st	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940016,10;
+	getitem 930000,5;
+	getitem 6671,60;
+	getitem 6909,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

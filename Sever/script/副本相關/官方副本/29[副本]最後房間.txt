@@ -1,0 +1,627 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@uns	mapflag	noteleport
+1@uns	mapflag	nosave	SavePoint
+1@uns	mapflag	nomemo
+1@uns	mapflag	nobranch
+1@uns	mapflag	noicewall
+1@uns	mapflag	restricted	6
+1@uns	mapflag	monster_noteleport
+1@uns	mapflag	partylock
+1@uns	mapflag	novending
+1@uns	mapflag	nochat
+
+
+amatsu,108,138,5	script	[副本]最後房間	866,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "最後房間";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 29;
+
+//
+	waitingroom "[副本]最後房間",0;
+	setnpcicon getnpcid(0),22,"[副本]最後房間";
+	end;
+}
+
+
+// 1st step
+1@uns,139,41,3	script	馬克#room1	4_M_BLUEMAN,{
+	mes "[馬克]";
+	mes "有些事情感覺不太對，我們必須謹慎行事。";
+	cutin "bu_mark4.bmp",0;
+	close3;
+}
+
+1@uns,145,32,5	script	阿魯普#room1	4_M_BLACKMAN,{
+	mes "[阿魯普]";
+	mes "到處都有可疑的痕跡。";
+	mes "看起來像是某種重型機器通過…";
+	cutin "bu_alp1.bmp",2;
+	close3;
+}
+
+1@uns,145,37,3	script	塔莫琳#room1	4_M_TAMARIN,{
+	mes "[塔莫琳]";
+	mes "貝莉蒂，你沒事吧?";
+	mes "你看起來狀況不是很好…";
+	cutin "ep143_taang.bmp",2;
+	close3;
+}
+
+1@uns,143,38,5	script	杜爾#room1	4_M_REDMAN,{
+	mes "[杜爾]";
+	mes "對此我有一種不好的感覺…";
+	cutin "bu_du1.bmp",2;
+	close3;
+}
+
+1@uns,143,39,5	script	瑪吉#room1	4_F_PINKWOMAN,{
+	mes "[瑪吉]";
+	mes "唔…";
+	cutin "bu_maggi4.bmp",2;
+	close3;
+}
+
+1@uns,144,37,3	script	貝莉蒂#room1	4_F_BERRYTEA,{
+	if ('protocole < 2) {
+		mes "[貝莉蒂]";
+		mes "唔…突然有不好的預感!";
+		cutin "EP15_2_brt_6.bmp",2;
+		if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+			mes "我想和你們的隊長談談。";
+			close3;
+		}
+		npctalk "貝莉蒂：唔…突然有不好的預感!";
+		next;
+		mes "[貝莉蒂]";
+		mes "頭一直隱隱作痛…唔…";
+		npctalk "貝莉蒂：頭一直隱隱作痛…唔…";
+		next;
+		mes "[貝莉蒂]";
+		mes "…唔…";
+		npctalk "貝莉蒂：…唔…";
+		next;
+		mes "[杜爾]";
+		mes "大姊姊!你沒事吧?!";
+		cutin "bu_du5.bmp",2;
+		npctalk "杜爾：大姊姊!你沒事吧?!", instance_npcname("杜爾#room1");
+		next;
+		mes "[貝莉蒂]";
+		mes "…我要回…";
+		cutin "EP15_2_brt_7.bmp",2;
+		npctalk "貝莉蒂：…我要回…";
+		next;
+		mes "[塔莫琳]";
+		mes "貝莉蒂，你還好嗎?";
+		mes "可以走路嗎?";
+		cutin "ep143_tahuk.bmp",2;
+		npctalk "塔莫琳：貝莉蒂，你還好嗎?可以走路嗎?", instance_npcname("塔莫琳#room1");
+		next;
+		mes "[貝莉蒂]";
+		mes "唔…";
+		cutin "EP15_2_brt_6.bmp",2;
+		npctalk "貝莉蒂：唔…";
+		next;
+		mes "[杜爾]";
+		mes "" + strcharinfo(0) + "! 我看大姊姊還是回去比較好!";
+		cutin "bu_du5.bmp",2;
+		npctalk "杜爾：" + strcharinfo(0) + "! 我看大姊姊還是回去比較好!", instance_npcname("杜爾#room1");
+		next;
+		mes "[貝莉蒂]";
+		mes "不…我很快就會跟上大家，你們先走吧!";
+		cutin "EP15_2_brt_4.bmp",2;
+		npctalk "貝莉蒂：不…我很快就會跟上大家，你們先走吧!";
+		next;
+		mes "[塔莫琳]";
+		mes "那我留下來陪貝莉蒂巴!你們先走!";
+		cutin "ep143_tahuk.bmp",2;
+		npctalk "塔莫琳：那我留下來陪貝莉蒂巴!你們先走!";
+		close2;
+		'protocole = 1;
+		cutin "",255;
+	}
+	end;
+}
+
+1@uns,140,45,0	script	#lrdoor2	HIDDEN_WARP_NPC,6,6,{
+	end;
+OnTouch:
+	if ('protocole == 0)
+		warp 'map_name$,142,30;
+	else if ('protocole == 1) {
+		'protocole = 2;
+		disablenpc instance_npcname("#lrdoor2");
+		disablenpc instance_npcname("馬克#room1");
+		disablenpc instance_npcname("杜爾#room1");
+		disablenpc instance_npcname("塔莫琳#room1");
+		disablenpc instance_npcname("貝莉蒂#room1");
+		disablenpc instance_npcname("瑪吉#room1");
+		disablenpc instance_npcname("阿魯普#room1");
+		mapannounce 'map_name$, "-----------------嗶---------------------",bc_map,"0xFF0000";
+		sleep 2000;
+		mapannounce 'map_name$, "-----嗶---嘰--------------------------",bc_map,"0xFF0000";
+		sleep 2000;
+		mapannounce 'map_name$, "--------------嘰嘰嘰-----------------",bc_map,"0xFF0000";
+		sleep 2000;
+		mapannounce 'map_name$, "-----滋--------滋滋------------------",bc_map,"0xFF0000";
+		sleep 2000;
+		mapannounce 'map_name$, "系統訊息：偵測到入侵者。",bc_map,"0xFF0000";
+		sleep 2000;
+		mapannounce 'map_name$, "系統訊息：現在將根據協定封鎖入口並清除入侵者。",bc_map,"0xFF0000";
+		donpcevent instance_npcname("protocole1") + "::OnStart";
+	}
+	end;
+}
+
+1@uns,1,1,0	script	protocole1	-1,{
+	end;
+OnStart:
+	enablenpc instance_npcname("protocole1");
+	monster 'map_name$,47,49,"系統訊息",3253,1, instance_npcname("protocole1") + "::OnMyMobDead2";
+	callsub S_Spawn;
+OnTimer300000:
+	mapannounce 'map_name$, "系統訊息：清除入侵者。",bc_map,"0xFF0000";
+	callsub S_Spawn;
+S_Spawn:
+	initnpctimer;
+	.@npc_name$ = instance_npcname("protocole1");
+	// don't kill 系統訊息
+	killmonster 'map_name$, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$,118,56,131,67, "機械零件",3251,6, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$, 62,82, 61,67, "機械零件",3251,6, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$, 46,89, 64,96, "機械零件",3251,6, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$,118,56,131,67, "機械零件",3252,6, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$, 62,82, 61,67, "機械零件",3252,6, .@npc_name$ + "::OnMyMobDead";
+	areamonster 'map_name$, 46,89, 64,96, "機械零件",3252,6, .@npc_name$ + "::OnMyMobDead";
+	end;
+OnMyMobDead:
+OnMyMobDead2:
+	.@count = mobcount( 'map_name$, instance_npcname("protocole1") + "::OnMyMobDead" ) + mobcount( 'map_name$, instance_npcname("protocole1") + "::OnMyMobDead2" );
+	if (.@count < 1) {
+		mapannounce 'map_name$, "系統訊息：第一項協定失敗，實施下一項協定。",bc_map,"0xFF0000";
+		stopnpctimer;
+		enablenpc instance_npcname("塔莫琳#room2");
+		disablenpc instance_npcname("protocole1");
+	}
+	end;
+}
+
+1@uns,67,97,3	script	塔莫琳#room2	4_M_TAMARIN,{
+	mes "[塔莫琳]";
+	mes "呼呼…貝莉蒂剛才明明連站都站不穩…呼呼…";
+	cutin "ep143_tahuk.bmp",2;
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		next;
+		mes "[塔莫琳]";
+		mes "我不認為透過我們的對談可以解決這個問題。";
+		mes "你們先問看看隊長的意見吧。";
+		close3;
+	}
+	npctalk "塔莫琳：呼呼…貝莉蒂剛才明明連站都站不穩…呼呼…";
+	next;
+	mes "[塔莫琳]";
+	mes "現在卻一溜煙地跑掉了，我…呼呼…幾乎追不上他…呼呼…";
+	npctalk "塔莫琳：現在卻一溜煙地跑掉了，我…呼呼…幾乎追不上他…呼呼…";
+	next;
+	mapannounce 'map_name$, "系統訊息：不明物體正快速從第一區移動至第二區。",bc_map,"0xFF0000";
+	mes "[塔莫琳]";
+	mes "呼呼…貝莉蒂該不會跑到那裡吧!?";
+	npctalk "塔莫琳：呼呼…貝莉蒂該不會跑到那裡吧!?";
+	next;
+	mapannounce 'map_name$, "系統訊息：實施緊急協定。",bc_map,"0xFF0000";
+	mes "[塔莫琳]";
+	mes "還在幹嘛呢!得快點找到貝莉蒂才行!";
+	npctalk "塔莫琳：還在幹嘛呢!得快點找到貝莉蒂才行!";
+	next;
+	mes "[塔莫琳]";
+	mes "就只有一條往上的路，快去看看吧!";
+	npctalk "塔莫琳：就只有一條往上的路，快去看看吧!";
+	close2;
+	if ('protocole == 2) {
+		'protocole = 3;
+		enablenpc instance_npcname("#lrdoor4");
+		for ( .@i = 1; .@i < 16; ++.@i )
+			enablenpc instance_npcname( "#lrboom" + .@i );
+		enablenpc instance_npcname("貝莉蒂#room2");
+		enablenpc instance_npcname("貝莉蒂#room3");
+	}
+	cutin "",255;
+	end;
+}
+
+// 2nd step
+1@uns,100,121,0	warp2	#lrdoor4	3,3,1@uns,145,107
+
+1@uns,157,94,0	script	#lrboom1	4_CRACK,2,2,{
+	end;
+OnTouch:
+	.@npc_name$ = instance_npcname( strnpcinfo(0) );
+	areamonster 'map_name$,176,26,196,52, "機械零件", (3251 + rand(2)), 3, .@npc_name$ + "::OnMyMobDead";
+	mapannounce 'map_name$, "系統訊息：第二區域偵測到入侵者。",bc_map,"0xFF0000";
+	disablenpc .@npc_name$;
+	end;
+OnMyMobDead:
+	end;
+}
+1@uns,164,97,0	duplicate(#lrboom1)	#lrboom2	4_CRACK,2,2
+1@uns,166,92,0	duplicate(#lrboom1)	#lrboom3	4_CRACK,2,2
+1@uns,170,96,0	duplicate(#lrboom1)	#lrboom4	4_CRACK,2,2
+1@uns,175,93,0	duplicate(#lrboom1)	#lrboom5	4_CRACK,2,2
+1@uns,190,97,0	duplicate(#lrboom1)	#lrboom6	4_CRACK,2,2
+1@uns,194,94,0	duplicate(#lrboom1)	#lrboom7	4_CRACK,2,2
+1@uns,199,96,0	duplicate(#lrboom1)	#lrboom8	4_CRACK,2,2
+1@uns,206,93,0	duplicate(#lrboom1)	#lrboom9	4_CRACK,2,2
+1@uns,217,91,0	duplicate(#lrboom1)	#lrboom10	4_CRACK,2,2
+1@uns,224,79,0	duplicate(#lrboom1)	#lrboom11	4_CRACK,2,2
+1@uns,227,73,0	duplicate(#lrboom1)	#lrboom12	4_CRACK,2,2
+1@uns,227,69,0	duplicate(#lrboom1)	#lrboom13	4_CRACK,2,2
+1@uns,220,63,0	duplicate(#lrboom1)	#lrboom14	4_CRACK,2,2
+1@uns,201,60,0	duplicate(#lrboom1)	#lrboom15	4_CRACK,2,2
+
+1@uns,224,29,3	script	貝莉蒂#room2	4_F_BERRYTEA,{
+	mes "[貝莉蒂]";
+	mes "唔…我怎麼會在這裡…";
+	mes "這是怎麼回事?";
+	cutin "EP15_2_brt_6.bmp",2;
+	next;
+	mes "[貝莉蒂]";
+	mes "我的頭…好痛…";
+	mes "門內一直…有聲音…";
+	next;
+	if (select( "放棄", "進到裡面" ) == 1) {
+		mes "[貝莉蒂]";
+		mes "回去…我要回去…";
+		cutin "EP15_2_brt_7.bmp",2;
+		close3;
+	}
+	mes "[貝莉蒂]";
+	mes "得盡快…回去…";
+	cutin "EP15_2_brt_7.bmp",2;
+	close2;
+	warp 'map_name$,240,255;
+	cutin "",255;
+	end;
+}
+
+// Last step
+1@uns,242,253,3	script	貝莉蒂#room3	4_F_BERRYTEA,{
+	mes "[貝莉蒂]";
+	mes "終於…我們回來了…";
+	mes "終於……";
+	cutin "EP15_2_brt_7.bmp",2;
+	close2;
+	cutin "",255;
+	if ('protocole == 3) {
+		'protocole = 4;
+		disablenpc instance_npcname("貝莉蒂#room3");
+		donpcevent instance_npcname("protocole3") + "::OnStart";
+	}
+	end;
+}
+
+1@uns,1,1,0	script	protocole3	-1,{
+	end;
+OnStart:
+	enablenpc instance_npcname("protocole3");
+	initnpctimer;
+	mapannounce 'map_name$, "系統訊息：在母體房間偵測到入侵者。",bc_map,"0xFF0000";
+	monster 'map_name$,247,270,"T_W_O",3254,1, instance_npcname("protocole3") + "::OnMyMobDead";
+	areamonster 'map_name$,222,250,267,281, "系統訊息",3253,5, instance_npcname("protocole3") + "::OnMyMobDead2";
+	end;
+OnTimer2000:
+	mapannounce 'map_name$, "系統訊息：實施最後協定。",bc_map,"0xFF0000";
+	end;
+OnTimer4000:
+	mapannounce 'map_name$, "系統訊息：所有系統從維持模式變更為戰鬥模式。",bc_map,"0xFF0000";
+	end;
+OnTimer6000:
+	mapannounce 'map_name$, "系統訊息：此為守護…的最終協定，請非相關者盡速迴避。",bc_map,"0xFF0000";
+	end;
+OnTimer9000:
+	mapannounce 'map_name$, "T_W_O：我要回去…不是這個地方…",bc_map,"0xFF0000";
+	end;
+OnTimer28000:
+	mapannounce 'map_name$, "系統訊息：發生系統損壞。",bc_map,"0xFF0000";
+	areamonster 'map_name$,222,250,267,281, "系統訊息",3253,3, instance_npcname("protocole3") + "::OnMyMobDead2";
+	end;
+OnTimer30000:
+	mapannounce 'map_name$, "T_W_O：我是誰?我怎麼會在這裡?",bc_map,"0xFF0000";
+	end;
+OnTimer58000:
+	mapannounce 'map_name$, "系統訊息：請注意，當系統損壞時，區域內可能會產生致命性的傷害。",bc_map,"0xFF0000";
+	end;
+OnTimer88000:
+	mapannounce 'map_name$, "系統訊息：發生系統損壞。",bc_map,"0xFF0000";
+	areamonster 'map_name$,222,250,267,281, "系統訊息",3253,3, instance_npcname("protocole3") + "::OnMyMobDead2";
+	end;
+OnTimer98000:
+	mapannounce 'map_name$, "T_W_O：什麼也沒留下…",bc_map,"0xFF0000";
+	end;
+OnTimer108000:
+	mapannounce 'map_name$, "T_W_O：我…和他們都是…",bc_map,"0xFF0000";
+	end;
+OnTimer148000:
+	mapannounce 'map_name$, "系統訊息：發生系統損壞。",bc_map,"0xFF0000";
+	areamonster 'map_name$,222,250,267,281, "系統訊息",3253,3, instance_npcname("protocole3") + "::OnMyMobDead2";
+	end;
+OnTimer208000:
+	mapannounce 'map_name$, "系統訊息：發生系統損壞。",bc_map,"0xFF0000";
+	areamonster 'map_name$,222,250,267,281, "系統訊息",3253,3, instance_npcname("protocole3") + "::OnMyMobDead2";
+	stopnpctimer;
+	end;
+OnMyMobDead:
+	stopnpctimer;
+	killmonster 'map_name$, instance_npcname("protocole3") + "::OnMyMobDead2";
+	mapannounce 'map_name$, "系統訊息：所有協定失敗，開始封鎖區域。",bc_map,"0xFF0000";
+	enablenpc instance_npcname("阿魯普#room4");
+	enablenpc instance_npcname("塔莫琳#room4");
+	enablenpc instance_npcname("瑪吉#room4");
+	enablenpc instance_npcname("杜爾#room4");
+	enablenpc instance_npcname("馬克#room4");
+	enablenpc instance_npcname("貝莉蒂#room4");
+	disablenpc instance_npcname("protocole3");
+	end;
+OnMyMobDead2:
+	end;
+}
+	
+1@uns,236,258,1	script	阿魯普#room4	4_M_BLACKMAN,{
+	mes "[阿魯普]";
+	mes "現在放鬆還太早了…";
+	cutin "bu_alp1.bmp",2;
+	close3;
+}
+
+1@uns,244,257,3	script	塔莫琳#room4	4_M_TAMARIN,{
+	mes "[塔莫琳]";
+	mes "貝莉蒂!!!";
+	mes "振作起來!";
+	cutin "ep143_tahuk.bmp",2;
+	close3;
+}
+
+1@uns,245,254,3	script	瑪吉#room4	4_F_PINKWOMAN,{
+	mes "[瑪吉]";
+	mes "貝莉蒂，你還好嗎?";
+	cutin "bu_maggi4.bmp",2;
+	close3;
+}
+
+1@uns,244,254,3	script	杜爾#room4	4_M_REDMAN,{
+	mes "[杜爾]";
+	mes "大姊姊!";
+	mes "發生什麼事了?!";
+	mes "你還好嗎?";
+	cutin "bu_du5.bmp",2;
+	close3;
+}
+
+1@uns,242,255,5	script	馬克#room4	4_M_BLUEMAN,{
+	mes "[馬克]";
+	mes "每個人都走開!";
+	mes "我要施展治癒術!!!";
+	cutin "bu_mark4.bmp",0;
+	close3;
+}
+
+1@uns,242,253,3	script	貝莉蒂#room4	4_F_BERRYTEA,{
+	mes "[杜爾]";
+	mes "大姊姊!";
+	mes "發生什麼事了?!";
+	mes "你還好嗎?";
+	cutin "bu_du5.bmp",2;
+	npctalk "杜爾：大姊姊!發生什麼事了?!你還好嗎?", instance_npcname("杜爾#room4");
+	next;
+	mes "[塔莫琳]";
+	mes "貝莉蒂!!!";
+	mes "振作起來!";
+	cutin "ep143_tahuk.bmp",2;
+	npctalk "塔莫琳：貝莉蒂!!!振作起來!", instance_npcname("塔莫琳#room4");
+	next;
+	mes "[馬克]";
+	mes "每個人都走開!";
+	mes "我要施展治癒術!!!";
+	cutin "bu_mark4.bmp",0;
+	npctalk "馬克：每個人都走開!我要施展治癒術!!!", instance_npcname("馬克#room4");
+	next;
+	mes "[貝莉蒂]";
+	mes "唔…唔…";
+	cutin "EP15_2_brt_4.bmp",2;
+	npctalk "貝莉蒂：唔…唔…";
+	next;
+	mes "[貝莉蒂]";
+	mes "噢…";
+	mes "這是怎麼一回事。";
+	cutin "EP15_2_brt_5.bmp",2;
+	npctalk "貝莉蒂：噢…這是怎麼一回事。";
+	next;
+	mes "[杜爾]";
+	mes "你覺得呢!";
+	mes "你不記得了?";
+	cutin "bu_du4.bmp",2;
+	npctalk "杜爾：你覺得呢!你不記得了?", instance_npcname("杜爾#room4");
+	next;
+	mes "[貝莉蒂]";
+	mes "記得?";
+	cutin "EP15_2_brt_5.bmp",2;
+	npctalk "貝莉蒂：記得?";
+	next;
+	mes "[貝莉蒂]";
+	mes "…想想我在哪裡？";
+	cutin "EP15_2_brt_3.bmp",2;
+	npctalk "貝莉蒂：…想想我在哪裡?";
+	next;
+	mes "[塔莫琳]";
+	mes "貝莉蒂你真的不記得任何事了?";
+	mes "之前…";
+	cutin "ep143_tahuk.bmp",2;
+	npctalk "塔莫琳：貝莉蒂你真的不記得任何事了? 之前…", instance_npcname("塔莫琳#room4");
+	next;
+	mes "[貝莉蒂]";
+	mes "唔…";
+	mes "自從我去到地下後，腦袋開始像撕裂般的疼痛…";
+	npctalk "貝莉蒂：自從我去到地下後，腦袋開始像撕裂般的疼痛…";
+	cutin "EP15_2_brt_3.bmp",2;
+	next;
+	mes "[貝莉蒂]";
+	mes "在那之後我什麼都不記得了。";
+	npctalk "貝莉蒂：在那之後我什麼都不記得了。";
+	cutin "EP15_2_brt_5.bmp",2;
+	next;
+	mes "[杜爾]";
+	mes "好像有什麼巨大的東西…";
+	cutin "bu_du4.bmp",2;
+	npctalk "杜爾：好像有什麼巨大的東西…", instance_npcname("杜爾#room4");
+	next;
+	mes "[阿魯普]";
+	mes "嘿…我不認為這種情況下，還適合在這裡聊天。";
+	cutin "bu_alp3.bmp",2;
+	npctalk "阿魯普：嘿…我不認為這種情況下，還適合在這裡聊天。", instance_npcname("阿魯普#room4");
+	next;
+	mes "[杜爾]";
+	mes "你以為我們還在聊天嗎?";
+	mes "有個巨大的東西在前面好嗎?";
+	cutin "bu_du4.bmp",2;
+	npctalk "杜爾：你以為我們還在聊天嗎?有個巨大的東西在前面好嗎?", instance_npcname("杜爾#room4");
+	next;
+	mes "[阿魯普]";
+	mes "你聽到了嗎?";
+	mes "有東西來了…";
+	cutin "bu_alp1.bmp",2;
+	npctalk "阿魯普：你聽到了嗎?有東西來了…", instance_npcname("阿魯普#room4");
+	next;
+	mes "[塔莫琳]";
+	mes "現在…現在我看到地面的是…，稍微在晃動，對吧?";
+	cutin "ep143_tahuk.bmp",2;
+	npctalk "塔莫琳：現在…現在我看到地面的是…，稍微在晃動，對吧?", instance_npcname("塔莫琳#room4");
+	next;
+	mes "[杜爾]";
+	mes "什麼…這是什麼?";
+	cutin "bu_du4.bmp",2;
+	npctalk "杜爾：什麼…這是什麼?", instance_npcname("杜爾#room4");
+	next;
+	mes "[阿魯普]";
+	mes "這很…危險";
+	mes "這不是我們可以處理的等級…";
+	cutin "bu_alp2.bmp",2;
+	npctalk "阿魯普：這很…危險!這不是我們可以處理的等級…", instance_npcname("阿魯普#room4");
+	next;
+	mes "[馬克]";
+	mes "快…快離開!!!";
+	cutin "bu_mark4.bmp",0;
+	npctalk "馬克：快…快離開!!!", instance_npcname("馬克#room4");
+	getitem 6827,1;
+	close2;	
+	cutin "",255;
+	next;
+	disablenpc instance_npcname("貝莉蒂#room4");
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@uns")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+
+OnInstanceInit:
+	'map_name$ = instance_mapname("1@uns");
+	'protocole = 0;
+
+	// 1st step
+	disablenpc instance_npcname("protocole1");
+	disablenpc instance_npcname("塔莫琳#room2");
+	disablenpc instance_npcname("#lrdoor4");
+
+	// 2nd step
+	disablenpc instance_npcname("貝莉蒂#room2");
+	for ( .@i = 1; .@i < 16; ++.@i )
+		disablenpc instance_npcname( "#lrboom" + .@i );
+
+	// Last step
+	disablenpc instance_npcname("貝莉蒂#room3");
+	disablenpc instance_npcname("protocole3");
+	disablenpc instance_npcname("阿魯普#room4");
+	disablenpc instance_npcname("塔莫琳#room4");
+	disablenpc instance_npcname("瑪吉#room4");
+	disablenpc instance_npcname("杜爾#room4");
+	disablenpc instance_npcname("馬克#room4");
+	disablenpc instance_npcname("貝莉蒂#room4");
+	end;
+}
+
+1@uns,0,0,0	script	離開副本#1@uns	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940029,10;
+	Instance_PassAnnounce;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

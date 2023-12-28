@@ -1,0 +1,127 @@
+uttycty,100,167,4	script	★ 獼猴桃購買/兌換 ★	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"獼猴桃兌換購買商";
+	waitingroom "★ 獼猴桃購買/兌換 ★",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+	
+    sellitem(6417,500000,-1);
+	sellitem(100340,0,-1);  //
+    sellitemcurrency(6417,2);
+    endsellitem();
+    sellitem(100465, 0, -1);	
+	sellitemcurrency(6417,3);
+    endsellitem();
+    // (服飾)強化石箱子(披肩)
+    sellitem(100465, 0, -1);	
+	sellitemcurrency(6417,3);
+    endsellitem();
+	sellitem(100496, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    sellitem(100498, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    sellitem(100500, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    // end
+    // 撘(服飾)強化石箱子II(頭下)
+    sellitem(100501, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    sellitem(100499, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    sellitem(100497, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    sellitem(100495, 0, -1);	
+	sellitemcurrency(6417,3);
+    endsellitem();
+    // 影子技能套裝箱
+    sellitem(100198, 0, -1);	
+	sellitemcurrency(6417,2);
+    endsellitem();
+    //
+    // 影子套裝箱
+    sellitem(22827, 0, -1);	
+	sellitemcurrency(6417,1);
+    endsellitem();
+    //
+    // 古代武器箱
+    sellitem(23806, 0, -1);	
+	sellitemcurrency(6417,2);
+    endsellitem();
+    //
+    // 影子時間套裝箱
+	sellitem(100054, 0, -1);	
+	sellitemcurrency(6417,10);
+    endsellitem();
+    // 波4尼亞入場捲
+    sellitem(7227, 250000, -1);	
+	sellitemcurrency(6417,2);
+    endsellitem();
+    sellitem(950016, 0, -1);	    // lv7影子槌
+	sellitemcurrency(6909,15); 
+    endsellitem();
+    sellitem(6872, 0, -1);	    // 15武捲
+	sellitemcurrency(6909,150); 
+    endsellitem();
+    sellitem(6878, 0, -1);	    // 15防捲
+	sellitemcurrency(6909,150); 
+    endsellitem();
+    sellitem(6873, 0, -1);	    // 16武捲
+	sellitemcurrency(6909,300); 
+    endsellitem();
+    sellitem(6879, 0, -1);	    // 16防捲
+	sellitemcurrency(6909,300); 
+    endsellitem();
+    sellitem(6874, 0, -1);	    // 17武捲
+	sellitemcurrency(6909,450); 
+    endsellitem();
+    sellitem(6880, 0, -1);	    // 17防捲
+	sellitemcurrency(6909,450); 
+    endsellitem();
+    sellitem(6875, 0, -1);	    // 18武捲
+	sellitemcurrency(6909,600); 
+    endsellitem();
+    sellitem(6881, 0, -1);	    // 18防捲
+	sellitemcurrency(6909,600); 
+    endsellitem(); 
+    sellitem(6864, 0, -1);	    // 武捲+19
+	sellitemcurrency(6909,850);
+    endsellitem();
+    sellitem(6865, 0, -1);	    // 防捲+19
+	sellitemcurrency(6909,850);
+    endsellitem();
+    sellitem(950012, 0, -1);	    // 武捲+20
+	sellitemcurrency(6909,999);
+	sellitemcurrency(950014,75);
+    endsellitem();
+    sellitem(950013, 0, -1);	    // 防捲+20
+	sellitemcurrency(6909,999);
+	sellitemcurrency(950015,75);
+    endsellitem();
+
+
+
+
+
+    sellitem(920003, 0, -1);	//B大左
+	sellitemcurrency(6909,300);
+    endsellitem();
+    sellitem(920004, 0, -1);	//B大右
+	sellitemcurrency(6909,300);
+    endsellitem();
+
+    // 副本冷卻消除捲
+    sellitem(99999, 2000000000, -1);	
+	sellitemcurrency(6417,100);
+    endsellitem();
+
+OnBuyItem:
+end;
+}

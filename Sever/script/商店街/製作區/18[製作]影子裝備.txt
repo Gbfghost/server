@@ -1,0 +1,324 @@
+//===== eAthena Script =======================================
+//= Euphy's Quest Shop
+//===== By: ==================================================
+//= Euphy
+//===== Current Version: =====================================
+//= 1.4a - eAthena
+//===== Description: =========================================
+//= A dynamic quest shop based on Lunar's, with easier config.
+//= Includes support for multiple shops & cashpoints.
+//= Item Preview script by ToastOfDoom.
+//============================================================
+uttycty,80,171,5	script	影子裝備製作	10346,{
+	disable_items;
+function str2 {
+	setarray .@a,0,40,34;
+	setarray .@b,1,2,1;
+	function GetCopyStr {
+		for(set .@i,getarg(0);.@i>0;set .@i,.@i-1)set .@h$,.@h$+" ";
+		return .@h$;
+	}
+	return GetCopyStr((.@a[getarg(1,0)]-(getstrlen(getarg(0))-(getarg(2,0)*7)))/.@b[getarg(1,0)]) + getarg(0);
+}
+	function refine_7;
+	function Add;
+	function Chk;
+	function Chk2;
+	function Slot;
+	if(!.Allow) end;
+	if(.Shops$ != "") set .@i,1;
+	else{
+		mes "["+strnpcinfo(1)+"]";
+		mes "^FF00001.^000000 請一次製作一種道具";
+		mes "^FF00002.^000000 查看道具材料並不會扣除金錢";
+		mes "^FF00003.^000000 攜帶所有材料即可製作";
+		set .@menu$,"";
+		for(set .@i,1; .@i<=getarraysize(.Shops$); set .@i,.@i+1) 
+			set .@menu$, .@menu$+(.Shops$[.@i])+":";
+		set .@i, select(.@menu$);
+		close2;
+		callshop "qshop_shadow_"+.@i,1;
+		npcshopattach "qshop_shadow_"+.@i;
+	}
+	end;
+	
+function refine_7 {
+	setarray .@refine_7,2401;
+	.@index = inarray(.@refine_7,getarg(0));
+	if(.@index > -1) return .@index;
+	else return -1;
+}
+
+function Add {
+	if (getitemname(getarg(1))=="null") {
+		debugmes "道具編號 #"+getarg(1)+" 出現錯誤 (略過).";
+		return;
+	}
+	for(set .@n,5; .@n<127; set .@n,.@n+2) {
+		if (!getarg(.@n,0)) break;
+		if (getitemname(getarg(.@n))=="null") {
+			debugmes "製作材料超過最大值, 編號#"+getarg(.@n)+" (略過)."; return;
+		}
+	}
+	for(set .@i,2; .@i<.@n; set .@i,.@i+1)
+		set getd(".q_"+getarg(1)+"["+(.@i-2)+"]"), getarg(.@i);
+	npcshopadditem "qshop_shadow_"+getarg(0),getarg(1),((.ShowZeny)?getarg(3):0);
+	sleep 1;
+	return;
+}
+
+function Chk {
+	if (getarg(0)<getarg(1)){
+		set @qe0,1;
+		return "(^999999未完成^000000)";
+	} else return "(^D2691E已完成^000000)";
+}
+
+function Chk2 {
+	if(countitem2(getarg(0),1,9,0,0,0,0,0) < getarg(1)){
+		set @qe0,1;
+		return "(^999999未完成^000000)";
+	} else return "(^D2691E已完成^000000)";
+}
+
+function Slot {
+	set .@s$,getitemname(getarg(0));
+	if(refine_7(getarg(0)) > -1)
+		if(getarg(1,0) == 0) .@s$ = "+7 "+.@s$;
+	switch(.ShowSlot){
+		case 1: if (!getitemslots(getarg(0))) return .@s$;
+		case 2: if (getiteminfo(getarg(0),11)>0) return ""+.@s$+"["+getitemslots(getarg(0))+"]";
+		default: return .@s$;
+	}
+}
+
+OnBuyItem:
+	set .@q[0],@bought_nameid;
+	copyarray .@q[1],getd(".q_"+@bought_nameid+"[0]"),getarraysize(getd(".q_"+@bought_nameid+"[0]"));
+	if (!.@q[1]) {
+		message strcharinfo(0),"An error has occurred.";
+		end;
+	}
+	mes "[影子裝備製作]";
+	mes "- 製作 ^FF0000"+((.@q[1]>1)?.@q[1]+"x ":"")+Slot(.@q[0])+"^000000";
+	mes "- 請準備好下面材料 :";
+	if (.@q[2]) mes "- ^FF1493製作費用 "+.@q[2]+" Zeny "+Chk(Zeny,.@q[2])+"^000000";
+	if (.@q[3]) mes "- ^009900製作P點 "+.@q[3]+" "+.Points$[1]+"^000000 ["+getd(.Points$[0])+"/"+.@q[3]+"] "+Chk(getd(.Points$[0]),.@q[3]);
+	if (.@q[4]) for(set .@i,4; .@i<getarraysize(.@q); set .@i,.@i+2){
+		if(refine_7(.@q[.@i]) > -1)
+			mes "- "+Slot(.@q[.@i])+" x "+.@q[.@i+1]+" [^009900"+countitem2(.@q[.@i],1,9,0,0,0,0,0)+"^000000/^FF6600"+.@q[.@i+1]+"^000000] "+Chk2(.@q[.@i],.@q[.@i+1]);
+		else
+			mes "- "+Slot(.@q[.@i])+" x "+.@q[.@i+1]+" [^009900"+countitem(.@q[.@i])+"^000000/^FF6600"+.@q[.@i+1]+"^000000] "+Chk(countitem(.@q[.@i]),.@q[.@i+1]);
+	}
+	set @qe1, getiteminfo(.@q[0],5);
+	set @qe2, getiteminfo(.@q[0],11);
+	addtimer 1000, strnpcinfo(1)+"::OnEnd";
+	while(1){
+		switch(select(" ~ 製作 ^FF0000"+getitemname(.@q[0])+"^000000:"+((((@qe1&1) || (@qe1&256) || (@qe1&512)) && @qe2>0 && !@qe6)?" ~ 查看外觀...":"")+": ~ ^777777結束對話^000000")) {
+			case 1:
+				clear;
+				if (@qe0) { 
+					mes "[影子裝備製作]";
+					mes "材料不足，無法製作！";
+					close;
+				}
+				if (!checkweight(.@q[0],.@q[1])) {
+					mes "[影子裝備製作]";
+					mes "^FF0000你需要 "+(((.@q[1]*getiteminfo(.@q[0],6))+Weight-MaxWeight)/10)+" 的負重量才能玩成此次交易.^000000";
+					close;
+				}
+				if (.@q[2]) set Zeny, Zeny-.@q[2];
+				if (.@q[3]) setd .Points$[0], getd(.Points$[0])-.@q[3];
+				if (.@q[4]){
+					for(set .@i,4; .@i<getarraysize(.@q); set .@i,.@i+2){
+						if(refine_7(.@q[.@i]) > -1)
+							delitem2 .@q[.@i],.@q[.@i+1],1,9,0,0,0,0,0;
+						else
+							delitem .@q[.@i],.@q[.@i+1];
+					}
+				}
+				getitem .@q[0],.@q[1];
+				specialeffect2 699;
+				mes "[影子裝備製作]";
+				mes "製作完成!";
+				close;
+			case 2:
+				set @qe3, getlook(3);
+				set @qe4, getlook(4);
+				set @qe5, getlook(5);
+				if (@qe1&1) atcommand "@changelook 3 "+@qe2;
+				if (@qe1&256) atcommand "@changelook 1 "+@qe2;
+				if (@qe1&512) atcommand "@changelook 2 "+@qe2;
+				set @qe6,1;
+				break;
+			case 3:
+				close;
+		}
+	}
+OnEnd:
+	if (@qe6) {
+		atcommand "@changelook 3 "+@qe3;
+		atcommand "@changelook 1 "+@qe4;
+		atcommand "@changelook 2 "+@qe5;
+	}
+	for(set .@i,0; .@i<7; set .@i,.@i+1) setd "@qe"+.@i,0;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]影子裝備";
+	waitingroom "[製作]影子裝備",0;
+// --------------------- Config ---------------------
+// 自定義變數, 新增方法 : "變數","變數名稱"
+
+	setarray .Points$[0],"#CASHPOINTS","CASH";
+
+	set .Announce,0;	// 是否廣播製作? (1: 是 / 0: 否)
+	set .ShowSlot,2;	// 是否顯示道具洞數? (2: 一律顯示 / 1: 洞數 > 0 才顯示 / 0: 不顯示)
+	set .DisplayID,0;	// 是否顯示道具編號? (1: 是 / 0: 否)
+	set .ShowZeny,1;	// 是否在商店顯示道具製作金錢? (1: 是 / 0: 否)
+	
+	setarray .Shops$[1],"一轉影子耳環",
+	                    "一轉影子墜飾",
+	                    "二轉影子鎧甲",
+	                    "二轉影子戰靴",
+	                    "三轉影子手套",
+	                    "三轉影子盾牌",
+	                    "影子擴充職業";
+
+// Add(<shop number>,<reward ID>,<reward amount>,<Zeny cost>,<point cost>,<required item ID>,<required item amount>{,...});
+// Add(<分類>,<製作道具編號>,<製作道具數量>,<所需金錢>,<所需商城點數>,<所需材料編號>,<所需材料數量>{,...});
+
+	//===[ 一轉影子耳環 ]===
+	//2622,智力耳環 7347,研究員紀錄表 6245,黑色粉末
+	Add(1,24246,1,0,0,6417,1);//影子劍士耳環
+	Add(1,24247,1,0,0,6417,1);//影子商人耳環
+	Add(1,24248,1,0,0,6417,1);//影子服事耳環
+	Add(1,24249,1,0,0,6417,1);//影子魔法師耳環
+	Add(1,28391,1,0,0,6417,1);//影子盜賊耳環
+	Add(1,28392,1,0,0,6417,1);//影子弓箭手耳環
+	
+	//===[ 一轉影子墜飾 ]===
+	Add(2,24250,1,0,0,6417,1);//影子劍士墜子
+	Add(2,24251,1,0,0,6417,1);//影子商人墜子
+	Add(2,24252,1,0,0,6417,1);//影子服事墜子
+	Add(2,24253,1,0,0,6417,1);//影子盜賊墜子
+	Add(2,24254,1,0,0,6417,1);//影子魔法師墜子
+	Add(2,24255,1,0,0,6417,1);//影子弓箭手墜子
+	
+	//===[ 二轉影子鎧甲 ]===
+	Add(3,24269,1,0,0,6417,1);//影子騎士鎧甲
+	Add(3,24270,1,0,0,6417,1);//影子十字軍鎧甲
+	Add(3,24271,1,0,0,6417,1);//影子鐵匠鎧甲
+	Add(3,24272,1,0,0,6417,1);//影子鍊金術師鎧甲
+	Add(3,24273,1,0,0,6417,1);//影子祭司鎧甲
+	Add(3,24274,1,0,0,6417,1);//影子武道家鎧甲
+	Add(3,24275,1,0,0,6417,1);//影子刺客鎧甲
+	Add(3,24276,1,0,0,6417,1);//影子流氓鎧甲
+	Add(3,24277,1,0,0,6417,1);//影子巫師鎧甲
+	Add(3,24278,1,0,0,6417,1);//影子賢者鎧甲
+	Add(3,24279,1,0,0,6417,1);//影子獵人鎧甲
+	Add(3,24280,1,0,0,6417,1);//影子吟遊詩人鎧甲
+	Add(3,24281,1,0,0,6417,1);//影子舞孃鎧甲
+	
+	//===[ 二轉影子戰靴 ]===
+	Add(4,24256,1,0,0,6417,1);//影子騎士戰靴
+	Add(4,24257,1,0,0,6417,1);//影子十字軍戰靴
+	Add(4,24258,1,0,0,6417,1);//影子鐵匠戰靴
+	Add(4,24259,1,0,0,6417,1);//影子鍊金術師戰靴
+	Add(4,24260,1,0,0,6417,1);//影子祭司戰靴
+	Add(4,24261,1,0,0,6417,1);//影子武道家戰靴
+	Add(4,24262,1,0,0,6417,1);//影子刺客戰靴
+	Add(4,24263,1,0,0,6417,1);//影子流氓戰靴
+	Add(4,24264,1,0,0,6417,1);//影子巫師戰靴
+	Add(4,24265,1,0,0,6417,1);//影子賢者戰靴
+	Add(4,24266,1,0,0,6417,1);//影子獵人戰靴
+	Add(4,24267,1,0,0,6417,1);//影子吟遊詩人戰靴
+	Add(4,24268,1,0,0,6417,1);//影子舞孃戰靴
+	
+	
+	//===[ 三轉影子手套 ]===
+	Add(5,24288,1,0,0,6417,1);//影子盧恩騎士手套
+	Add(5,24289,1,0,0,6417,1);//影子皇家禁衛軍手套
+	Add(5,24290,1,0,0,6417,1);//影子機械工匠手套
+	Add(5,24291,1,0,0,6417,1);//影子基因學者手套
+	Add(5,24292,1,0,0,6417,1);//影子大主教手套
+	Add(5,24293,1,0,0,6417,1);//影子修羅手套
+	Add(5,24294,1,0,0,6417,1);//影子十字斬首者手套
+	Add(5,24295,1,0,0,6417,1);//影子魅影追縱者手套
+	Add(5,24296,1,0,0,6417,1);//影子咒術師手套
+	Add(5,24297,1,0,0,6417,1);//影子妖術師手套
+	Add(5,24298,1,0,0,6417,1);//影子遊俠手套
+	Add(5,24299,1,0,0,6417,1);//影子宮廷樂師手套
+	Add(5,24300,1,0,0,6417,1);//影子浪跡舞者手套
+
+	//===[ 三轉影子手套 ]===
+	Add(6,24301,1,0,0,6417,1);//影子盧恩騎士神盾
+	Add(6,24302,1,0,0,6417,1);//影子皇家禁衛軍神盾
+	Add(6,24303,1,0,0,6417,1);//影子機械工匠神盾
+	Add(6,24304,1,0,0,6417,1);//影子基因學者神盾
+	Add(6,24305,1,0,0,6417,1);//影子大主教神盾
+	Add(6,24306,1,0,0,6417,1);//影子修羅神盾
+	Add(6,24307,1,0,0,6417,1);//影子十字斬首者神盾
+	Add(6,24308,1,0,0,6417,1);//影子魅影追縱者神盾
+	Add(6,24309,1,0,0,6417,1);//影子咒術師神盾
+	Add(6,24310,1,0,0,6417,1);//影子妖術師神盾
+	Add(6,24311,1,0,0,6417,1);//影子遊俠手神盾
+	Add(6,24312,1,0,0,6417,1);//影子宮廷樂師神盾
+	Add(6,24313,1,0,0,6417,1);//影子浪跡舞者神盾
+	
+	//===[ 影子擴充職業 ]===
+
+	Add(7,24284,1,0,0,6417,1);//影子跆拳手套
+	Add(7,24315,1,0,0,6417,1);//影子跆拳神盾
+
+	Add(7,24285,1,0,0,6417,1);//影子忍者手套
+	Add(7,24314,1,0,0,6417,1);//影子忍者神盾
+
+	Add(7,24283,1,0,0,6417,1);//影子神槍手手套
+	Add(7,24319,1,0,0,6417,1);//影子神槍手神盾
+
+	Add(7,24286,1,0,0,6417,1);//影子喵族魔力手套
+	Add(7,24410,1,0,0,6417,1);//影子喵族魔力鎧甲
+	Add(7,24317,1,0,0,6417,1);//影子喵族魔力神盾
+	Add(7,24411,1,0,0,6417,1);//影子喵族魔力戰靴
+
+	Add(7,24408,1,0,0,6417,1);//影子喵族天然鎧甲
+	Add(7,24409,1,0,0,6417,1);//影子喵族天然戰靴
+	Add(7,24287,1,0,0,6417,1);//影子喵族天然手套
+	Add(7,24316,1,0,0,6417,1);//影子喵族天然神盾
+
+	Add(7,24404,1,0,0,6417,1);//影子月影忍者鎧甲
+	Add(7,24407,1,0,0,6417,1);//影子月影忍者戰靴
+
+	Add(7,24403,1,0,0,6417,1);//影子日影忍者鎧甲
+	Add(7,24406,1,0,0,6417,1);//影子日影忍者戰靴
+
+	Add(7,24282,1,0,0,6417,1);//影子超級初學者手套
+	Add(7,24318,1,0,0,6417,1);//影子超級初學者神盾
+
+	Add(7,24414,1,0,0,6417,1);//影子獵靈士鎧甲
+	Add(7,24415,1,0,0,6417,1);//影子獵靈士戰靴
+
+	Add(7,24412,1,0,0,6417,1);//影子拳皇鎧甲
+	Add(7,24413,1,0,0,6417,1);//影子拳皇戰靴
+
+	Add(7,24402,1,0,0,6417,1);//影子叛亂者鎧甲
+	Add(7,24405,1,0,0,6417,1);//影子叛亂者戰靴
+
+
+
+	
+// --------------------------------------------------
+	for(set .@i,1; .@i<=getarraysize(.Shops$); set .@i,.@i+1) npcshopdelitem "qshop_shadow_"+.@i,909;
+	set .Allow,1;
+	end;
+}
+
+// -------- Dummy data (duplicate as needed) --------
+-	shop	qshop_shadow_1	-1,909:-1
+-	shop	qshop_shadow_2	-1,909:-1
+-	shop	qshop_shadow_3	-1,909:-1
+-	shop	qshop_shadow_4	-1,909:-1
+-	shop	qshop_shadow_5	-1,909:-1
+-	shop	qshop_shadow_6	-1,909:-1
+-	shop	qshop_shadow_7	-1,909:-1
+

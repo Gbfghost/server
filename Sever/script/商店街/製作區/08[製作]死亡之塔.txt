@@ -1,0 +1,280 @@
+uttycty,70,175,5	trader	[製作]死亡之塔	4_EP17_AS,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]死亡之塔";
+	waitingroom "[製作]死亡之塔",0;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	//
+	sellitem(1000257, 10000, -1);
+	sellitemcurrency(1000243,1);
+	sellitemcurrency(1000244,1);
+	sellitemcurrency(1000245,1);
+	sellitemcurrency(1000255,1);
+	sellitemcurrency(1000256,1);
+	endsellitem();
+
+	sellitem(1000263, 10000, -1);
+	sellitemcurrency(1000258,1);
+	sellitemcurrency(1000259,1);
+	sellitemcurrency(1000260,1);
+	sellitemcurrency(1000261,1);
+	sellitemcurrency(1000262,1);
+	endsellitem();	
+	
+	sellitem(490044, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490045, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490046, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490047, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490048, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490049, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490050, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490051, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490052, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490053, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490054, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490055, 10000000, -1);	
+	sellitemcurrency(1000257, 50);	
+	endsellitem();
+	sellitem(490056, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490057, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490058, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490059, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490060, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490061, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490062, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490063, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490064, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490065, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490066, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+	sellitem(490067, 10000000, -1);	
+	sellitemcurrency(1000263, 50);	
+	endsellitem();
+
+	//
+	sellitem(100579, 10000, -1);
+	sellitemcurrency(1000263, 25);
+	sellitemcurrency(1000257, 25);	
+	endsellitem();	
+
+	sellitem(100580, 10000, -1);
+	sellitemcurrency(1000263, 50);
+	sellitemcurrency(1000257, 50);
+	endsellitem();
+
+OnBuyItem:
+end;
+}
+
+//吊墜精工用原石
+Function	script	100579_main	{
+	function	RandomOPT	{
+		.@idx = rand(getarg(1,getarraysize(getarg(0))));
+		if(.@idx%2 == 0)
+			return .@idx;
+		else return .@idx-1;
+	}
+	disable_items;
+	getinventorylist;
+	// 可被偵測到的物品
+	setarray .@list,490099;
+	
+	//亂數
+	.@r = rand(100);
+	
+	//變成紅色陽剛吊墜,藍色心靈吊墜的機率
+	.@susses = 20;	
+	
+	//變成的道具
+	.@sussesitem = callfunc("F_Rand",490100,490101);	
+	
+	messagecolor "附魔必定成功。轉換裝備成功機率 "+.@susses+" %。","FFAAD5",bc_self;
+	
+	for ( .@i = 0; .@i < @inventorylist_count; .@i++ )
+		if ( inarray(.@list,@inventorylist_id[.@i]) >= 0 && @inventorylist_refine[.@i] >= 0 )
+			.@menu$ = .@menu$ +""+getitemname(@inventorylist_id[.@i])+":";
+		else
+			.@menu$ = .@menu$ + ":";
+	.@idx = @inventorylist_idx[select(.@menu$)-1];
+	setarray .@ItemInFo,getinventoryinfo(.@idx,0),getinventoryinfo(.@idx,3),getinventoryinfo(.@idx,6),getinventoryinfo(.@idx,7),getinventoryinfo(.@idx,8),getinventoryinfo(.@idx,9);
+	delinventory .@idx,1;
+
+	// 第一欄
+	setarray .@type,
+	
+		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
+		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
+		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
+		
+		//抗性
+		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_GROUND,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_ALLBUTNOTHING,rand(1,3),
+		//		
+		RDMOPT_DEC_SP_CONSUMPTION,rand(3,5),
+		RDMOPT_VAR_MAXHPPERCENT,rand(1,3),
+		RDMOPT_VAR_MAXSPPERCENT,rand(1,3),
+		RDMOPT_VAR_ATKPERCENT,rand(1,3),
+		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
+		
+	// 第二欄
+	setarray .@type2,
+	
+		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
+		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
+		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
+		
+		//抗性
+		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_GROUND,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_ALLBUTNOTHING,rand(1,3),
+		//		
+		RDMOPT_DEC_SP_CONSUMPTION,rand(3,5),
+		RDMOPT_VAR_MAXHPPERCENT,rand(1,3),
+		RDMOPT_VAR_MAXSPPERCENT,rand(1,3),
+		RDMOPT_VAR_ATKPERCENT,rand(1,3),
+		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
+		
+		
+	delitem 100579,1;
+	
+	
+	if(.@r > .@susses)
+	{	
+		specialeffect2 131;
+		setarray .@OptID, .@type[.@q=RandomOPT(.@type)], .@type2[.@w=RandomOPT(.@type2)];
+		setarray .@OptVal, .@type[.@q+1], .@type2[.@w+1];
+		setarray .@OptParam, 0;
+		getitem3 .@ItemInFo[0],1,1,.@ItemInFo[1],0,.@ItemInFo[2],.@ItemInFo[3],.@ItemInFo[4],.@ItemInFo[5],.@OptID,.@OptVal,.@OptParam;
+
+	}
+		else
+	{	
+		specialeffect2 622;
+		getitem .@sussesitem,1;
+		announce "恭喜 [ "+strcharinfo(0)+" ] 成功轉換 ("+getitemname(.@sussesitem)+") 。",bc_all,"0xFF82FF";
+	}
+	end;
+}
+
+//神奇黑石
+Function	script	100580_main	{
+	function	RandomOPT	{
+		.@idx = rand(getarg(1,getarraysize(getarg(0))));
+		if(.@idx%2 == 0)
+			return .@idx;
+		else return .@idx-1;
+	}
+	disable_items;
+	getinventorylist;
+	
+	// 可被偵測到的物品
+	setarray .@list,490100,490101;
+		
+	for ( .@i = 0; .@i < @inventorylist_count; .@i++ )
+		if ( inarray(.@list,@inventorylist_id[.@i]) >= 0 && @inventorylist_refine[.@i] >= 0 )
+			.@menu$ = .@menu$ +""+getitemname(@inventorylist_id[.@i])+":";
+		else
+			.@menu$ = .@menu$ + ":";
+	.@idx = @inventorylist_idx[select(.@menu$)-1];
+	setarray .@ItemInFo,getinventoryinfo(.@idx,0),getinventoryinfo(.@idx,3),getinventoryinfo(.@idx,6),getinventoryinfo(.@idx,7),getinventoryinfo(.@idx,8),getinventoryinfo(.@idx,9);
+	delinventory .@idx,1;
+
+
+	// 第一欄
+	setarray .@type,
+		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
+		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
+		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
+		//抗性
+		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_GROUND,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_ALLBUTNOTHING,rand(1,3),
+		//		
+		RDMOPT_DEC_SP_CONSUMPTION,rand(3,5),
+		RDMOPT_VAR_MAXHPPERCENT,rand(1,3),
+		RDMOPT_VAR_MAXSPPERCENT,rand(1,3),
+		RDMOPT_VAR_ATKPERCENT,rand(1,3),
+		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
+		
+	// 第二欄
+	setarray .@type2,
+
+		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
+		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
+		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
+		
+		//抗性
+		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
+		RDMOPT_ATTR_TOLERACE_GROUND,rand(3,5),
+		RDMOPT_ATTR_TOLERACE_ALLBUTNOTHING,rand(1,3),
+		//		
+		RDMOPT_DEC_SP_CONSUMPTION,rand(3,5),
+		RDMOPT_VAR_MAXHPPERCENT,rand(1,3),
+		RDMOPT_VAR_MAXSPPERCENT,rand(1,3),
+		RDMOPT_VAR_ATKPERCENT,rand(1,3),
+		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
+
+
+	//刪除腳本道具
+	delitem 100580,1;			
+	specialeffect2 131;
+	setarray .@OptID, .@type[.@q=RandomOPT(.@type)], .@type2[.@w=RandomOPT(.@type2)];
+	setarray .@OptVal, .@type[.@q+1], .@type2[.@w+1];
+	setarray .@OptParam, 0;
+	getitem3 .@ItemInFo[0],1,1,.@ItemInFo[1],0,.@ItemInFo[2],.@ItemInFo[3],.@ItemInFo[4],.@ItemInFo[5],.@OptID,.@OptVal,.@OptParam;
+	end;
+}

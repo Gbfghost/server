@@ -1,0 +1,18 @@
+
+
+
+//===== Description: ==============================
+//
+//[附魔]幻象OSAD
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,42,123,3	script	[附魔]幻象OSAD	4_m_uncleknight,{
+	disable_items;
+	item_enchant(33);
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]幻象OSAD";
+	waitingroom "[附魔]幻象OSAD",0;
+}

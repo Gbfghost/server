@@ -1,0 +1,63 @@
+-	shop	#VIPLV2	-1,512:-1 //生成商店，腳本名字需要和下面腳本中名字叫對應
+//腳本開始
+uttycty,155,128,3	script	VIP尊榮	10210,{
+	message strcharinfo(0),"此商店只能使用[ VIP尊榮 ]進行交易."; //此處告訴玩家此商店使用什麼作為商店貨幣
+	dispbottom "您現在有[ "+ #VIPLV2 +" ] VIP尊榮."; //有多少點數
+	callshop "#VIPLV2",1; //開啟商店
+	npcshopattach "#VIPLV2"; //關聯腳本
+	end;
+//購買事件
+OnBuyItem:
+	set .@i,0; //初始化購買個數為0
+	while (.@i < getarraysize(@bought_nameid)) {
+		set .@j, 0;
+		while (.@j < getarraysize(.Commodity)) {
+			if(.Commodity[.@j] == @bought_nameid[.@i]) {
+				set @itemcost, .Price[.@j] * @bought_quantity[.@i];
+				set @totalcost, @totalcost + @itemcost;
+				break; 
+			}
+			set .@j, .@j+1; 
+		}
+		set .@i, .@i+1; 
+	}
+	if (@totalcost > #VIPLV2) dispbottom "你沒用足夠的[ VIP尊榮 ].";
+	else {
+		set .@i,0;
+		while (.@i < getarraysize(@bought_nameid)) {
+			getitem @bought_nameid[.@i], @bought_quantity[.@i];
+			dispbottom "成功購買[ "+@bought_quantity[.@i]+" ]個[ "+getitemname(@bought_nameid[.@i])+" ]";
+			set .@i, .@i+1; 
+		}
+		//購買成功，扣除點數
+		set #VIPLV2,#VIPLV2 - @totalcost; 
+		dispbottom "您消費了[ "+@totalcost+" ]VIP尊榮.還剩[ "+ #VIPLV2 +" ]VIP尊榮";
+	}
+	//初始化玩家變量
+	set @totalcost, 0;
+	deletearray @bought_nameid[0],128;
+	deletearray @bought_quantity[0],128;
+	end;
+OnInit:
+//---------------------------------------------------
+	//設置商品的ID
+	setarray .Commodity[0],7650,36202,99999,23926,6875,6881;
+	//設置商品價格[對應商品ID]
+	setarray .Price[0],1,15,10,20,25,30;
+// --------------------------------------------------
+//初始化商店中物品
+	set .@j,0;
+	if (getarraysize(.Commodity) != getarraysize(.Price))
+	{
+		debugmes "[錯誤],您設置的商品ID與商品價格不對應";
+		debugmes "[錯誤],商品ID共["+getarraysize(.Commodity)+"],商品價格["+getarraysize(.Price)+"]";
+		debugmes "//========================================//";
+		end;
+	}
+	while (.@j < getarraysize(.Commodity)) {
+		npcshopdelitem "#VIPLV2",512;
+		npcshopadditem "#VIPLV2",.Commodity[.@j],.Price[.@j];
+		set .@j,.@j+1; 
+	}
+	end;
+}

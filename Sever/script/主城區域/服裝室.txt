@@ -1,0 +1,185 @@
+uttycty,99,134,4	script	造型師	878,{
+
+    mes "^000079[造型師]^000000";
+    mes "今天想要什麼造型呢~";
+    mes "今天也要是漂亮的一天唷~";
+	mes "快換個造型吧~";
+	next;
+    switch (select(
+        "預覽造型",
+        "髮型服務",
+		"髮色服務",
+		"染色服務",
+		"^FF0000外觀服務^000000"
+		
+    )) {
+        case 1:
+            opendressroom(0);
+			end;
+        case 2:
+			if (zeny < 10000){
+				goto NONO1;
+			} else {
+				mes "^000079[造型師]^000000";
+				mes "改變這項造型需要";
+				mes "^00A6001.10,000Zeny^000000";
+				}
+            next;	
+			    switch (select(
+				"確定",
+				"取消"
+				)){
+				case 1:
+				HairStyle:
+					mes "^000079[造型師]^000000";
+					mes "範圍是 0 ~ 42";
+					switch (select(
+					"以編號選擇",
+					"滿意"
+					)){
+					case 1:
+						input .@hairstyle;
+						if ( .@hairstyle <= 42 ) {
+						setlook LOOK_HAIR,.@hairstyle;
+						}
+						next;
+						goto Hairstyle;
+					case 2:
+						next;
+						goto Check;
+						}
+				case 2:
+					goto NONO2;
+			  }
+					
+        case 3:
+			if (zeny < 10000){
+				goto NONO1;
+			} else {
+				mes "^000079[造型師]^000000";
+				mes "改變這項造型需要";
+				mes "^00A6001.10,000Zeny^000000";
+				}
+            next;	
+			    switch (select(
+				"確定",
+				"取消"
+				)){
+				case 1:
+				HairColor:
+					mes "^000079[造型師]^000000";
+					mes "範圍是 0 ~ 8";
+					switch (select(
+					"以編號選擇",
+					"滿意"
+					)){
+					case 1:
+						input .@hairdye;
+						if ( .@hairdye <= 8 ) {
+						setlook LOOK_HAIR_COLOR,.@hairdye;
+						}
+						next;
+						goto HairColor;
+					case 2:
+						next;
+						goto Check;
+						}
+				case 2:
+					goto NONO2;
+			  }
+				
+        case 4:
+			if (zeny < 10000){
+				goto NONO1;
+			} else {
+				mes "^000079[造型師]^000000";
+				mes "改變這項造型需要";
+				mes "^00A6001.10,000Zeny^000000";
+				}
+            next;	
+			    switch (select(
+				"確定",
+				"取消"
+				)){
+				case 1:
+				CLOTHES_COLOR:
+					mes "^000079[造型師]^000000";
+					mes "範圍是 0 ~ 3";
+					switch (select(
+					"以編號選擇",
+					"滿意"
+					)){
+					case 1:
+						input .@clothcolor;
+						if ( .@clothcolor <= 3 ) {
+						setlook LOOK_CLOTHES_COLOR,.@clothcolor;
+						}
+						next;
+						goto CLOTHES_COLOR;
+					case 2:
+						next;
+						goto Check;
+						}
+				case 2:
+					goto NONO2;
+			  }
+		case 5:
+			if ( (eaclass()&EAJL_THIRD) && !(eaclass()&EAJL_FOURTH)) { 
+				if ( getlook(LOOK_BODY2) == 0 ) {
+					mes "^000079[造型師]^000000";
+					mes "你的服裝目前是^FF0000基本服裝^000000，";
+					mes "你要換成^0000FF三轉職進階服裝^000000嗎？";
+					next;
+					if (select( "取消", "變更") == 1 ){
+						goto NONO2;
+					}else{
+						setlook LOOK_BODY2,1;
+						mes "^000079[造型師]^000000";
+						mes "換好了，";
+						mes "如何？";
+						mes "希望這套服裝你會喜歡。";
+						close;
+					}
+					}else{
+						mes "^000079[造型師]^000000";
+						mes "你的服裝目前是^FF0000三轉職進階服裝^000000，";
+						mes "你要換成^0000FF基本服裝^000000嗎？";
+						next;
+							if (select( "取消", "變更") == 1 ){
+							end;
+							}else{
+								setlook LOOK_BODY2,0;
+								mes "^000079[造型師]^000000";
+								mes "換好了，";
+								mes "如何？";
+								mes "希望這套服裝你會喜歡。";
+								close;
+							}
+					}
+				
+			}else{
+				mes "^000079[造型師]^000000";
+				mes "很抱歉，外觀服務只支援三轉系統喔。";
+				close;
+			}
+		
+			
+			break;
+    }
+NONO1:
+	mes "^000079[造型師]^000000";
+	mes "改變這項造型需要";
+	mes "^0000791.10,000Zeny^000000";
+	mes "尚有條件未達成，無法改變造型";
+	end;
+NONO2:
+	mes "^000079[造型師]^000000";
+	mes "感謝您的使用，歡迎您下次再來";	
+	end;
+Check:
+	mes "^000079[造型師]^000000";
+	mes "有需要記得再來找我唷~";
+	set Zeny , Zeny - 10000;
+	end;
+
+}

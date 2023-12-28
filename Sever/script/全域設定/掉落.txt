@@ -1,0 +1,7 @@
+-	script	RandomItem	-1,{
+OnNPCKillEvent:
+    .@m = killedrid;
+    addmonsterdrop .@m,920001,100;
+    addmonsterdrop .@m,920002,100;
+   	end;
+}

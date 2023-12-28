@@ -1,0 +1,987 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Skill Database
+###########################################################################
+#
+# Skill Settings
+#
+###########################################################################
+# - Id                        Unique skill ID.
+#   Name                      Skill Aegis name.
+#   Description               Skill description.
+#   MaxLevel                  Max skill level.
+#   Type                      Skill type. (Default: None)
+#   TargetType                Skill target type. (Default: Passive)
+#   DamageFlags:              Skill damage properties.
+#   Flags:                    Skill information flags.
+#   Range:                    Skill range. (Default: 0)
+#     - Level                 Skill level.
+#       Size                  Range at specific skill level.
+#   Hit                       Skill hit type. (Default: Normal)
+#   HitCount:                 Skill hit count. (Default: 0)
+#     - Level                 Skill level.
+#       Count                 Number of hits at specific skill level.
+#   Element:                  Skill element. (Default: Neutral)
+#     - Level                 Skill level.
+#       Element               Element at specific skill level.
+#   SplashArea:               Skill splash area of effect. (Default: 0)
+#     - Level                 Skill level.
+#       Area                  Splash area at specific skill level.
+#   ActiveInstance:           Maximum amount of active skill instances that can be on the ground. (Default: 0)
+#     - Level                 Skill level.
+#       Max                   Active instances at specific skill level.
+#   Knockback:                Amount of tiles the skill knockbacks. (Default: 0)
+#     - Level                 Skill level.
+#       Amount                Knockback count at specific skill level.
+#   GiveAp:                   Gives AP on successful skill cast. (Default: 0)
+#     - Level                 Skill level.
+#       Amount                AP gained at specific skill level.
+#   CopyFlags:                Determines if the skill is copyable. (Optional)
+#     Skill:                  Type of skill that can copy.
+#     RemoveRequirement:      Remove a requirement type. (Optional)
+#   NoNearNPC:                Determines if the skill can be used near a NPC. (Optional)
+#     AdditionalRange         Number of cells from an NPC where the skill can be cast. (Optional)
+#     Type:                   Type of NPC.
+#   CastCancel                Cancel cast when hit. (Default: false)
+#   CastDefenseReduction      Defense reduction rate during skill cast. (Default: 0)
+#   CastTime:                 Time to cast the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Cast time at specific skill level in milliseconds.
+#   AfterCastActDelay:        Time the character cannot use skills in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast action delay at specific skill level in milliseconds.
+#   AfterCastWalkDelay:       Time before the character can move again in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast walk delay at specific skill level in milliseconds.
+#   Duration1:                Duration of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Skill duration at specific skill level in milliseconds.
+#   Duration2:                Duration of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Skill duration at specific skill level in milliseconds.
+#   Cooldown:                 Time before the character can use the same skill again in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Cooldown at specific skill level in milliseconds.
+#   FixedCastTime:            Time that is fixed during cast of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast action delay at specific skill level in milliseconds.
+#   CastTimeFlags:            Effects of the skill's cast time. (Optional)
+#   CastDelayFlags:           Effects of the skill's delay. (Optional)
+#   Requires:                 List of requirements to cast the skill. (Optional)
+#     HpCost:                 HP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              HP required at specific skill level.
+#     SpCost:                 SP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              SP required at specific skill level.
+#     ApCost:                 AP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              AP required at specific skill level.
+#     HpRateCost:             HP rate required to cast. If positive, uses current HP, else uses Max HP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              HP rate required at specific skill level.
+#     SpRateCost:             SP rate required to cast. If positive, uses current SP, else uses Max SP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              SP rate required at specific skill level.
+#     ApRateCost:             AP rate required to cast. If positive, uses current AP, else uses Max AP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              AP rate required at specific skill level.
+#     MaxHpTrigger:           Maximum amount of HP to cast the skill. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Maximum HP trigger required at specific skill level.
+#     ZenyCost:               Zeny required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Zeny required at specific skill level.
+#     Weapon:                 Weapon required to cast. (Default: All)
+#     Ammo:                   Ammo required to cast. (Default: None)
+#     AmmoAmount:             Ammo amount required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Ammo amount required at specific skill level.
+#     State                   Special state required to cast. (Default: None)
+#     Status:                 Status change required to cast. (Default: nullptr)
+#     SpiritSphereCost:       Spirit sphere required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Spirit sphere required at specific skill level.
+#     ItemCost:               Item required to cast. (Default: 0)
+#       - Item                Item name.
+#         Amount              Item amount.
+#         Level               Skill level. Makes the skill item check become level dependent if supplied. (Default: applies to all levels)
+#     Equipment:              Equipped item required to cast. (Default: nullptr)
+#   Unit:                     Skill unit values. (Optional)
+#     Id                      Skill unit ID.
+#     AlternateId:            Alternate skill unit ID. (Default: 0)
+#     Layout:                 Skill unit layout. (Default: 0)
+#       - Level               Skill level.
+#         Size                Unit layout at specific skill level.
+#     Range:                  Skill unit range. (Default: 0)
+#       - Level               Skill level.
+#         Size                Unit range at specific skill level.
+#     Interval                Skill unit interval in milliseconds. (Default: 0)
+#     Target                  Skill unit target type. (Default: All)
+#     Flag:                   Skill unit flags. (Default: None)
+#   Status                    Status Change that is associated to the skill. (Optional)
+###########################################################################
+
+Header:
+  Type: SKILL_DB
+  Version: 3
+
+#擴充生命體技能
+
+Body:
+  - Id: 8044
+    Name: MH_BLAST_FORGE
+    Description: 高爐鍛造
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    DamageFlags:
+      Splash: true
+    Range: 1
+    Hit: Single
+    HitCount: 1
+    Element: Fire
+    ActiveInstance: 1
+    CastTime:
+      - Level: 1
+        Time: 5000
+      - Level: 2
+        Time: 5000
+      - Level: 3
+        Time: 5000
+      - Level: 4
+        Time: 4500
+      - Level: 5
+        Time: 4500
+      - Level: 6
+        Time: 4500
+      - Level: 7
+        Time: 4000
+      - Level: 8
+        Time: 4000
+      - Level: 9
+        Time: 4000
+      - Level: 10
+        Time: 3500
+    AfterCastActDelay: 1000
+    Duration1: 5000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 52
+        - Level: 2
+          Amount: 59
+        - Level: 3
+          Amount: 66
+        - Level: 4
+          Amount: 73
+        - Level: 5
+          Amount: 80
+        - Level: 6
+          Amount: 87
+        - Level: 7
+          Amount: 94
+        - Level: 8
+          Amount: 101
+        - Level: 9
+          Amount: 108
+        - Level: 10
+          Amount: 115
+    Unit:
+      Id: Blast_Forge
+      Layout:
+        - Level: 1
+          Size: 1
+        - Level: 2
+          Size: 1
+        - Level: 3
+          Size: 1
+        - Level: 4
+          Size: 1
+        - Level: 5
+          Size: 2
+        - Level: 6
+          Size: 2
+        - Level: 7
+          Size: 2
+        - Level: 8
+          Size: 2
+        - Level: 9
+          Size: 3
+        - Level: 10
+          Size: 3
+      Interval: 1000
+      Target: Enemy
+      Flag:
+        NoReiteration: true
+        NoOverlap: true
+        PathCheck: true
+  - Id: 8045
+    Name: MH_TEMPERING
+    Description: 回火淬硬
+    MaxLevel: 10
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    CastTime:
+      - Level: 1
+        Time: 1000
+      - Level: 2
+        Time: 1500
+      - Level: 3
+        Time: 2000
+      - Level: 4
+        Time: 2500
+      - Level: 5
+        Time: 3000
+      - Level: 6
+        Time: 3500
+      - Level: 7
+        Time: 4000
+      - Level: 8
+        Time: 4500
+      - Level: 9
+        Time: 5000
+      - Level: 10
+        Time: 5500
+    AfterCastActDelay: 1000
+    Duration1:
+      - Level: 1
+        Time: 45000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 75000
+      - Level: 4
+        Time: 90000
+      - Level: 5
+        Time: 105000
+      - Level: 6
+        Time: 120000
+      - Level: 7
+        Time: 135000
+      - Level: 8
+        Time: 150000
+      - Level: 9
+        Time: 165000
+      - Level: 10
+        Time: 180000
+    FixedCastTime: 200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 83
+        - Level: 2
+          Amount: 91
+        - Level: 3
+          Amount: 99
+        - Level: 4
+          Amount: 107
+        - Level: 5
+          Amount: 115
+        - Level: 6
+          Amount: 123
+        - Level: 7
+          Amount: 131
+        - Level: 8
+          Amount: 139
+        - Level: 9
+          Amount: 147
+        - Level: 10
+          Amount: 155
+    Status: Tempering
+  - Id: 8046
+    Name: MH_CLASSY_FLUTTER
+    Description: 優雅鼓翼
+    MaxLevel: 10
+    DamageFlags:
+      NoDamage: true
+  - Id: 8047
+    Name: MH_TWISTER_CUTTER
+    Description: 旋風切割
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      IgnoreDefense: true
+    Range: 7
+    Element: Wind
+    Hit: Multi_Hit
+    HitCount: -2
+    CastCancel: true
+    CastTime: # !TODO: Confirm cast time
+      - Level: 1
+        Time: 600
+      - Level: 2
+        Time: 700
+      - Level: 3
+        Time: 800
+      - Level: 4
+        Time: 900
+      - Level: 5
+        Time: 1000
+      - Level: 6
+        Time: 1100
+      - Level: 7
+        Time: 1200
+      - Level: 8
+        Time: 1300
+      - Level: 9
+        Time: 1400
+      - Level: 10
+        Time: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 106
+        - Level: 2
+          Amount: 112
+        - Level: 3
+          Amount: 118
+        - Level: 4
+          Amount: 124
+        - Level: 5
+          Amount: 130
+        - Level: 6
+          Amount: 136
+        - Level: 7
+          Amount: 142
+        - Level: 8
+          Amount: 148
+        - Level: 9
+          Amount: 154
+        - Level: 10
+          Amount: 160
+  - Id: 8048
+    Name: MH_ABSOLUTE_ZEPHYR
+    Description: 絕對微風
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+      IgnoreDefense: true
+    Range: 7
+    Hit: Multi_Hit
+    HitCount: -6
+    Element: Wind
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 4
+    CastTime: # !TODO: Confirm cast time
+      - Level: 1
+        Time: 600
+      - Level: 2
+        Time: 700
+      - Level: 3
+        Time: 800
+      - Level: 4
+        Time: 900
+      - Level: 5
+        Time: 1000
+      - Level: 6
+        Time: 1100
+      - Level: 7
+        Time: 1200
+      - Level: 8
+        Time: 1300
+      - Level: 9
+        Time: 1400
+      - Level: 10
+        Time: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 122
+        - Level: 2
+          Amount: 129
+        - Level: 3
+          Amount: 136
+        - Level: 4
+          Amount: 143
+        - Level: 5
+          Amount: 150
+        - Level: 6
+          Amount: 157
+        - Level: 7
+          Amount: 164
+        - Level: 8
+          Amount: 171
+        - Level: 9
+          Amount: 178
+        - Level: 10
+          Amount: 185
+  - Id: 8049
+    Name: MH_BRUSHUP_CLAW
+    Description: 抓撓複習
+    MaxLevel: 10
+    DamageFlags:
+      NoDamage: true
+  - Id: 8050
+    Name: MH_BLAZING_AND_FURIOUS
+    Description: 炙烈狂怒
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Support
+    DamageFlags:
+      NoDamage: true
+      IgnoreDefense: true
+      Splash: true
+    Range: 7
+    Hit: Multi_Hit
+    HitCount: 1
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 1
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 2
+      - Level: 8
+        Area: 2
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 3
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 103
+        - Level: 2
+          Amount: 108
+        - Level: 3
+          Amount: 113
+        - Level: 4
+          Amount: 118
+        - Level: 5
+          Amount: 123
+        - Level: 6
+          Amount: 128
+        - Level: 7
+          Amount: 133
+        - Level: 8
+          Amount: 138
+        - Level: 9
+          Amount: 143
+        - Level: 10
+          Amount: 148
+      SpiritSphereCost: 1
+  - Id: 8051
+    Name: MH_THE_ONE_FIGHTER_RISES
+    Description: 戰士崛起
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      IgnoreDefense: true
+      Splash: true
+    Range: 7
+    Hit: Single
+    HitCount: 1
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 1
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 2
+      - Level: 8
+        Area: 2
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 3
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 100
+        - Level: 2
+          Amount: 106
+        - Level: 3
+          Amount: 112
+        - Level: 4
+          Amount: 118
+        - Level: 5
+          Amount: 124
+        - Level: 6
+          Amount: 130
+        - Level: 7
+          Amount: 136
+        - Level: 8
+          Amount: 142
+        - Level: 9
+          Amount: 148
+        - Level: 10
+          Amount: 154
+  - Id: 8052
+    Name: MH_POLISHING_NEEDLE
+    Description: 研磨細針
+    MaxLevel: 10
+    DamageFlags:
+      NoDamage: true
+  - Id: 8053
+    Name: MH_TOXIN_OF_MANDARA
+    Description: 曼陀羅之毒
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      IgnoreDefense: true
+      Splash: true
+    Range: 2
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime:
+      - Level: 1
+        Time: 1000
+      - Level: 2
+        Time: 1000
+      - Level: 3
+        Time: 1000
+      - Level: 4
+        Time: 1100
+      - Level: 5
+        Time: 1100
+      - Level: 6
+        Time: 1100
+      - Level: 7
+        Time: 1200
+      - Level: 8
+        Time: 1200
+      - Level: 9
+        Time: 1200
+      - Level: 10
+        Time: 1300
+    Duration1:
+      - Level: 1
+        Time: 2500
+      - Level: 2
+        Time: 3000
+      - Level: 3
+        Time: 3500
+      - Level: 4
+        Time: 4000
+      - Level: 5
+        Time: 4500
+      - Level: 6
+        Time: 5000
+      - Level: 7
+        Time: 5500
+      - Level: 8
+        Time: 6000
+      - Level: 9
+        Time: 6500
+      - Level: 10
+        Time: 7000
+    FixedCastTime:
+      - Level: 1
+        Time: 500
+      - Level: 2
+        Time: 500
+      - Level: 3
+        Time: 500
+      - Level: 4
+        Time: 400
+      - Level: 5
+        Time: 400
+      - Level: 6
+        Time: 400
+      - Level: 7
+        Time: 300
+      - Level: 8
+        Time: 300
+      - Level: 9
+        Time: 300
+      - Level: 10
+        Time: 200
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 4
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 60
+        - Level: 2
+          Amount: 65
+        - Level: 3
+          Amount: 70
+        - Level: 4
+          Amount: 75
+        - Level: 5
+          Amount: 80
+        - Level: 6
+          Amount: 85
+        - Level: 7
+          Amount: 90
+        - Level: 8
+          Amount: 95
+        - Level: 9
+          Amount: 100
+        - Level: 10
+          Amount: 105
+    Status: Toxin_of_Mandara
+  - Id: 8054
+    Name: MH_NEEDLE_STINGER
+    Description: 細針螫刺
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      IgnoreDefense: true
+    Range: 7
+    Hit: Single
+    HitCount: 1
+    Element: Poison
+    CastTime:
+      - Level: 1
+        Time: 1000
+      - Level: 2
+        Time: 1000
+      - Level: 3
+        Time: 1000
+      - Level: 4
+        Time: 1100
+      - Level: 5
+        Time: 1100
+      - Level: 6
+        Time: 1100
+      - Level: 7
+        Time: 1200
+      - Level: 8
+        Time: 1200
+      - Level: 9
+        Time: 1200
+      - Level: 10
+        Time: 1300
+    FixedCastTime:
+      - Level: 1
+        Time: 500
+      - Level: 2
+        Time: 500
+      - Level: 3
+        Time: 500
+      - Level: 4
+        Time: 400
+      - Level: 5
+        Time: 400
+      - Level: 6
+        Time: 400
+      - Level: 7
+        Time: 300
+      - Level: 8
+        Time: 300
+      - Level: 9
+        Time: 300
+      - Level: 10
+        Time: 200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 74
+        - Level: 2
+          Amount: 82
+        - Level: 3
+          Amount: 90
+        - Level: 4
+          Amount: 98
+        - Level: 5
+          Amount: 106
+        - Level: 6
+          Amount: 114
+        - Level: 7
+          Amount: 122
+        - Level: 8
+          Amount: 130
+        - Level: 9
+          Amount: 138
+        - Level: 10
+          Amount: 146
+  - Id: 8055
+    Name: MH_LICHT_GEHORN
+    Description: 光明之角
+    MaxLevel: 10
+    DamageFlags:
+      NoDamage: true
+  - Id: 8056
+    Name: MH_GLANZEN_SPIES
+    Description: 閃光間諜
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      IgnoreDefense: true
+    Range: 3
+    Element: Holy
+    Hit: Single
+    HitCount: 1
+    FixedCastTime: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 60
+        - Level: 2
+          Amount: 65
+        - Level: 3
+          Amount: 70
+        - Level: 4
+          Amount: 75
+        - Level: 5
+          Amount: 80
+        - Level: 6
+          Amount: 85
+        - Level: 7
+          Amount: 90
+        - Level: 8
+          Amount: 95
+        - Level: 9
+          Amount: 100
+        - Level: 10
+          Amount: 105
+  - Id: 8057
+    Name: MH_HEILIGE_PFERD
+    Description: 神聖之馬
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+      IgnoreDefense: true
+    Hit: Single
+    HitCount: 1
+    Element: Holy
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 1
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 2
+      - Level: 8
+        Area: 2
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 3
+    CastTime: # !TODO: Confirm cast time
+      - Level: 1
+        Time: 600
+      - Level: 2
+        Time: 700
+      - Level: 3
+        Time: 800
+      - Level: 4
+        Time: 900
+      - Level: 5
+        Time: 1000
+      - Level: 6
+        Time: 1100
+      - Level: 7
+        Time: 1200
+      - Level: 8
+        Time: 1300
+      - Level: 9
+        Time: 1400
+      - Level: 10
+        Time: 1500
+    FixedCastTime:
+      - Level: 1
+        Time: 2000
+      - Level: 2
+        Time: 1800
+      - Level: 3
+        Time: 1600
+      - Level: 4
+        Time: 1400
+      - Level: 5
+        Time: 1200
+      - Level: 6
+        Time: 1000
+      - Level: 7
+        Time: 800
+      - Level: 8
+        Time: 600
+      - Level: 9
+        Time: 400
+      - Level: 10
+        Time: 200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 122
+        - Level: 2
+          Amount: 129
+        - Level: 3
+          Amount: 136
+        - Level: 4
+          Amount: 143
+        - Level: 5
+          Amount: 150
+        - Level: 6
+          Amount: 157
+        - Level: 7
+          Amount: 164
+        - Level: 8
+          Amount: 171
+        - Level: 9
+          Amount: 178
+        - Level: 10
+          Amount: 185
+  - Id: 8058
+    Name: MH_GOLDENE_TONE
+    Description: 金色聲調
+    MaxLevel: 10
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    CastTime:
+      - Level: 1
+        Time: 1000
+      - Level: 2
+        Time: 1500
+      - Level: 3
+        Time: 2000
+      - Level: 4
+        Time: 2500
+      - Level: 5
+        Time: 3000
+      - Level: 6
+        Time: 3500
+      - Level: 7
+        Time: 4000
+      - Level: 8
+        Time: 4500
+      - Level: 9
+        Time: 5000
+      - Level: 10
+        Time: 5500
+    AfterCastActDelay: 1000
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 40000
+      - Level: 3
+        Time: 50000
+      - Level: 4
+        Time: 60000
+      - Level: 5
+        Time: 70000
+      - Level: 6
+        Time: 80000
+      - Level: 7
+        Time: 90000
+      - Level: 8
+        Time: 100000
+      - Level: 9
+        Time: 110000
+      - Level: 10
+        Time: 120000
+    FixedCastTime: 200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 124
+        - Level: 2
+          Amount: 133
+        - Level: 3
+          Amount: 142
+        - Level: 4
+          Amount: 151
+        - Level: 5
+          Amount: 160
+        - Level: 6
+          Amount: 169
+        - Level: 7
+          Amount: 178
+        - Level: 8
+          Amount: 187
+        - Level: 9
+          Amount: 196
+        - Level: 10
+          Amount: 205
+    Status: Goldene_Tone
+  - Id: 8059
+    Name: MH_BLAZING_LAVA
+    Description: 炙熱熔岩
+    MaxLevel: 10
+    DamageFlags:
+      NoDamage: true
+

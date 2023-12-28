@@ -1,0 +1,76 @@
+
+
+
+//===== Description: ==============================
+//
+//[附魔]灰狼裝備
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,42,137,3	script	[附魔]灰狼裝備	4_m_yoyorogue,{
+	disable_items;
+
+	setarray .@Mentlist[0],
+	450177,450178,480091,480090,
+	470087,470088,490106,490108,
+	490107,490109;
+	
+	.@list = itemlist(.@Mentlist);
+	switch(.@list)
+	{
+		case 450177:
+			disable_items;
+			item_enchant(1);
+			end;
+
+		case 450178:
+			disable_items;
+			item_enchant(1);
+			end;
+
+		case 480091:
+			disable_items;
+			item_enchant(2);
+			end;
+
+		case 480090:
+			disable_items;
+			item_enchant(2);
+			end;
+
+		case 470087:
+			disable_items;
+			item_enchant(3);
+			end;
+
+		case 470088:
+			disable_items;
+			item_enchant(3);
+			end;
+
+		case 490106:
+			disable_items;
+			item_enchant(4);
+			end;
+
+		case 490108:
+			disable_items;
+			item_enchant(4);
+			end;
+
+		case 490107:
+			disable_items;
+			item_enchant(5);
+			end;
+
+		case 490109:
+			disable_items;
+			item_enchant(5);
+			end;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]灰狼裝備";
+	waitingroom "[附魔]灰狼裝備",0;
+}

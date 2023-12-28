@@ -1,0 +1,68 @@
+uttycty,110,117,3	script	新手專員	715,{
+
+mes "[小丑Buda]";
+mes "^FF44AAMEGA歡迎您的光臨^000000";
+
+next;
+menu "- 我要領取新手獎品",LGET,"- 退出",LCLOSE;
+
+//開始
+LGET:
+        if (g==2) goto OREADY;
+        set g,2;
+	set Zeny,Zeny + 100000;
+	rentitem 62008,259200;	//覺醒伊甸園圓帽Ⅱ(新手)
+	rentitem 62009,259200;	//覺醒伊甸園制服Ⅴ(新手)
+	rentitem 62010,259200;	//覺醒伊甸園斗篷Ⅲ(新手)
+	rentitem 62011,259200;	//覺醒伊甸園短靴Ⅴ(新手)
+	rentitem 62012,259200;	//伊甸園戒指(魔法)Ⅴ(新手)
+	rentitem 62013,259200;	//伊甸園項鍊(魔法)Ⅴ(新手)
+	rentitem 62014,259200;	//伊甸園戒指(力量)Ⅴ(新手)
+	rentitem 62015,259200;	//伊甸園項鍊(力量)Ⅴ(新手)
+	rentitem 62050,259200;	//弓
+	rentitem 62051,259200;	//短劍
+	rentitem 62052,259200;	//錘
+	rentitem 62053,259200;	//狐尾草
+	rentitem 920006,259200;	//傳奇的B大(左)租賃
+	rentitem 920007,259200;	//傳奇的B大(右)租賃
+	getitem 60750,1;	//VIP至尊啟用卷23267
+	getitem 23267,1; // 練功寶箱22522
+	getitem 22522,1; // 練功寶箱(100)
+	getitem2 13079,1,1,20,0,0,0,0,0; // 超合金短劍
+	getitem2 1588,1,1,20,0,0,0,0,0; // 超合金天書
+	getitem2 13125,1,1,20,0,0,0,0,0; // 超合金手槍
+	getitem2 1296,1,1,20,0,0,0,0,0;
+	getitem2 1398,1,1,20,0,0,0,0,0;
+	getitem2 1493,1,1,20,0,0,0,0,0;
+	getitem2 2018,1,1,20,0,0,0,0,0;
+	getitem2 13322,1,1,20,0,0,0,0,0;
+	getitem2 16023,1,1,20,0,0,0,0,0;
+	getitem2 18116,1,1,20,0,0,0,0,0;
+	getitem2 21005,1,1,20,0,0,0,0,0;
+	
+	specialeffect2 18;
+        goto LOK;
+
+OREADY:
+        mes "[小丑Buda]";
+        mes "每個人只能領取一次哦";
+        goto LCLOSE;
+
+LOK:
+        mes "[小丑Buda]";
+        mes "希望你玩得愉快";
+        goto LCLOSE;    
+LCLOSE:
+
+        close;
+    end;
+Oninit:
+OnTimer2000:
+showscript "★ 新手裝備發放 ★ ";
+//setnpcicon getnpcid(0),1018,"新人專區";
+initnpctimer;
+end;
+}
+
+
+	

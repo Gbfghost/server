@@ -1,0 +1,877 @@
+//===== rAthena Script =======================================
+//= Instance Ritual of Blessing.
+//===== Description: =========================================
+//- [Walkthrough conversion].
+//- Required in Banquet main quest.
+//===== Changelogs: ==========================================
+//= 1.0 First version. [Capuche]
+//============================================================
+
+prt_lib,94,86,3	script	祝福儀式#02	837,{
+
+	mes "----------------------------";	
+	mes ">> 副本獎勵清單";
+	mes "----------------------------";
+	mes "<ITEM>榮譽之證<INFO>6919</INFO></ITEM>";
+	mes "<ITEM>閃耀聖水瓶<INFO>11600</INFO></ITEM>";
+	mes "<ITEM>監獄鑰匙<INFO>22847</INFO></ITEM>";
+	mes "<ITEM>市中心地圖卷軸<INFO>22848</INFO></ITEM>";
+	mes "<ITEM>可疑的藍寶箱<INFO>22849</INFO></ITEM>";
+	mes "<ITEM>普隆德拉徽章<INFO>22901</INFO></ITEM>";
+	mes "<ITEM>(服飾)時間配件<INFO>28356</INFO></ITEM>";
+	mes "<ITEM>(服飾)命運的黑手<INFO>20247</INFO></ITEM>";
+	mes "<ITEM>市中心地圖 [1]<INFO>28354</INFO></ITEM>";
+	mes "<ITEM>閃耀聖水 [1]<INFO>28355</INFO></ITEM>";
+	mes "<ITEM>禁衛兵盾牌<INFO>28900</INFO></ITEM>";
+	mes "<ITEM>奉承外袍<INFO>15146</INFO></ITEM>";
+	mes "<ITEM>惡言外袍<INFO>15147</INFO></ITEM>";
+	mes "----------------------------";
+	close2;
+	cutin "",255;
+	end;
+}
+
+prt_lib,91,85,3	script	魔法師 邁倫#ep16_warp	4_M_JOB_WIZARD,{
+	
+	if (getcharid(1) == 0 || is_party_leader() == false) {// solo instance
+		mes "^4d4dff這是一個副本活動。";
+		mes "只有隊伍的領導才能進行副本活動。在組建隊伍後再試一次。^000000";
+		close;
+	}
+	mes "[邁倫]";
+	mes "你看到了嗎？我們是最後";
+	mes "看來其他人都入場了。";
+	next;
+	if (select( "入場", "不入場" ) == 2) {
+		mes "[邁倫]";
+		mes "哈哈，這已經不太好了......";
+		close;
+	}
+	if (instance_create("祝福儀式") < 0) {
+		mes "[邁倫]";
+		mes "歐...等等...";
+		mes "讓我再次收集我的力量......";
+		next;
+		mes "[邁倫]";
+		mes ".....我會讓它工作，等一下。";
+		close;
+	}
+	mes "[邁倫]";
+	mes "哇-!開啟了前往下一區的大門~~~";
+	mes "好，入場吧！";
+	classchange( PORTAL, "儀式之屋#e", bc_self );
+	close;
+	
+}
+
+prt_lib,88,90,1	script	儀式之屋#e	HIDDEN_WARP_NPC,{
+	if (getcharid(1) == 0 || is_party_leader() == false) {
+		mes "^4d4dff只有隊長才能進入[祝福儀式].^000000";
+		close;
+	}
+	mes "你可以移動到舉行祝福儀式的地方。";
+	next;
+	if (select( "進入.", "不進入" ) == 2) {
+		mes "[邁倫]";
+		mes "嗯......這個門只是暫時打開，因此它不會持續很長時間，趕快吧。";
+		close;
+	}
+	if (getcharid(1) == 0 || is_party_leader() == false) {
+		mes "^4d4dff只有隊長才能進入[祝福儀式].^000000";
+		close;
+	}
+	set .@playtime, checkquest(7700,PLAYTIME);
+	if (.@playtime == 0 || .@playtime == 1) {
+		mes "祝福儀式現在還沒辦法進入，";
+		mes "請晚點再來。";
+		close;
+	}
+	switch( instance_enter("祝福儀式") ) {
+	case IE_OTHER:
+		mes "出現未知錯誤。";
+		close;
+	case IE_NOINSTANCE:// todo
+		end;
+	case IE_NOMEMBER:
+		end;
+	case IE_OK:
+		mapannounce "prt_lib", "隊伍 " + getpartyname( getcharid(1) ) + " 的 " + strcharinfo(0)  + " 正在進入[祝福儀式]", bc_map,0xFF99,FW_NORMAL,12;
+		set getvariableofinstance('party_id, instance_id(IM_PARTY)), getcharid(1);
+		//warp "2@mir",101,12;
+		setquest 7700;
+		end;
+	}
+	end;
+}
+		
+2@mir,100,17,5	script	斯基亞#skia01	4_EP16_SKIA,{
+	mes "[斯基亞]";
+	mes "你來了阿!";
+	mes "還想說你甚麼時候會到。";
+	next;
+	mes "[尼西]";
+	mes "來拉！";
+	mes "其他家族的人已經入座了。";
+	next;
+	mes "[尼西]";
+	mes "但是.........";
+	mes "我剛才離開宴會之後，";
+	mes "....沒事、沒事。";
+	next;
+	mes "[尼西]";
+	mes "在讓他等下去，一定會有怨言，我們先換位置吧！";
+	next;
+	mes "[斯基亞]";
+	mes "^4d4dff理查大功子旁的位置是空的，那個位置好像是分配給觀禮著的位置。^000000";
+	next;
+	mes "[斯基亞]";
+	mes "好了好了，快點移動吧！";
+	close2;
+	enablenpc instance_npcname("斯基亞#skia02");
+	enablenpc instance_npcname("尼希爾海恩#nihil02");
+	disablenpc instance_npcname("斯基亞#skia01");
+	disablenpc instance_npcname("尼西#nihil01");
+	end;
+}
+2@mir,103,17,3	duplicate(斯基亞#skia01)	尼西#nihil01	4_EP16_NIHIL
+
+2@mir,107,77,0	script	#royal_evt02	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#royal_evt02") + "::OnEvent";// player can move
+	end;
+OnEvent:
+	disablenpc instance_npcname("斯基亞#skia01");	// not disabled on official
+	disablenpc instance_npcname("尼西#nihil01");
+	enablenpc instance_npcname("斯基亞#skia02");
+	enablenpc instance_npcname("尼希爾海恩#nihil02");
+
+	disablenpc instance_npcname("#royal_evt02");
+	mapannounce instance_mapname("2@mir"), "克羅內克: 雖然儀式暫時延遲，但會繼續舉行。", bc_map,0xFF99;
+	mapannounce instance_mapname("2@mir"), "克羅內克: 根據王室傳統留下來的王位條例。", bc_map,0xFF99;
+	sleep 6000;
+	npctalk "海涅", instance_npcname("弗里德林 海因#stol_1");
+	npctalk "海涅", instance_npcname("尼希爾海恩#nihil02");
+	sleep 2500;
+	npctalk "奈里烏思", instance_npcname("斯基亞#skia02");
+	npctalk "奈里烏思", instance_npcname("斯皮卡內里斯#spica01");
+	sleep 2500;
+	npctalk "巴特", instance_npcname("森豪納#eisen");
+	npctalk "巴特", instance_npcname("伊恩瓦爾特#ian01");
+	sleep 2500;
+	npctalk "魏格納", instance_npcname("萊維爾 威爾納#louvier1");
+	npctalk "魏格納", instance_npcname("約根 維格納#jurgen01");
+	npctalk "魏格納", instance_npcname("艾薩克維格納#isaac01");
+	npctalk "魏格納", instance_npcname("卡特琳 維格納#kath01");
+	sleep 2500;
+	npctalk "凱渥保樂格", instance_npcname("卡瑟琳 喬伯樂格#ca1");
+	npctalk "凱渥保樂格", instance_npcname("恩斯特 戈博格#ernst01");
+	sleep 2500;
+	npctalk "理查", instance_npcname("寶理查德#po01");
+	sleep 3000;
+	npctalk "雷根佛賴格", instance_npcname("馬克希姆麗蓮 #m1");
+	npctalk "雷根佛賴格", instance_npcname("莫爾夫 羅根保#wolf01");
+	npctalk "雷根佛賴格", instance_npcname("赫爾穆特#helmu");
+	npctalk "雷根佛賴格", instance_npcname("艾格尼絲羅根堡#agnes0_1");
+	mapannounce instance_mapname("2@mir"), "克羅內克: 接受支撐盧恩 米德加茲七大王室的意旨。", bc_map,0xFF99;
+	mapannounce instance_mapname("2@mir"), "克羅內克: 在這裡挑出新的代理者。", bc_map,0xFF99;
+	mapannounce instance_mapname("2@mir"), "克羅內克: 祈望在大地的光榮上實現祝福的星光。", bc_map,0xFF99;
+	sleep 10000;
+	npctalk "與允許所有事物存在的根源之力。", instance_npcname("弗里德林 海因#stol_1");
+	npctalk "與允許所有事物存在的根源之力。", instance_npcname("尼希爾海恩#nihil02");
+	sleep 2500;
+	npctalk "與不卻步勇敢向前走，朝向敵人插上匕首的存在根源之力。", instance_npcname("卡瑟琳 喬伯樂格#ca1");
+	npctalk "與不卻步勇敢向前走，朝向敵人插上匕首的存在根源之力。", instance_npcname("恩斯特 戈博格#ernst01");
+	sleep 2500;
+	npctalk "與能包容世上萬物的心。", instance_npcname("斯基亞#skia02");
+	npctalk "與能包容世上萬物的心。", instance_npcname("斯皮卡內里斯#spica01");
+	sleep 2500;
+	npctalk "與能保護懷中所有事務的強悍決心。", instance_npcname("寶理查德#po01");
+	sleep 3000;
+	npctalk "與不論發生甚麼事，正義與信念也不會改變的完美驕傲心。", instance_npcname("森豪納#eisen");
+	npctalk "與不論發生甚麼事，正義與信念也不會改變的完美驕傲心。", instance_npcname("伊恩瓦爾特#ian01");
+	sleep 2500;
+	npctalk "與懂得謙讓，抬舉別人的美德，", instance_npcname("馬克希姆麗蓮 #m1");
+	npctalk "與懂得謙讓，抬舉別人的美德，", instance_npcname("莫爾夫 羅根保#wolf01");
+	npctalk "與懂得謙讓，抬舉別人的美德，", instance_npcname("赫爾穆特#helmu");
+	npctalk "與懂得謙讓，抬舉別人的美德，", instance_npcname("艾格尼絲羅根堡#agnes0_1");
+	sleep 2500;
+	npctalk "懂得檢視自我的智慧。", instance_npcname("萊維爾 威爾納#louvier1");
+	npctalk "懂得檢視自我的智慧。", instance_npcname("約根 維格納#jurgen01");
+	npctalk "懂得檢視自我的智慧。", instance_npcname("艾薩克維格納#isaac01");
+	npctalk "懂得檢視自我的智慧。", instance_npcname("卡特琳 維格納#kath01");
+	mapannounce instance_mapname("2@mir"), "克羅內克: 得到新王的允許吧！", bc_map,0xFF99;
+	mapannounce instance_mapname("2@mir"), "雖然現在正有趣當中，但還是很抱歉妨礙到你。", bc_map,0xDDDDDD;
+	sleep 5000;
+	specialeffect EF_SCREEN_QUAKE, AREA, instance_npcname("派特#peter01");
+	disablenpc instance_npcname("派特#peter01");
+	enablenpc instance_npcname("墮落的派特#peter02");
+	mapannounce instance_mapname("2@mir"), "克羅內克: 派特!!!", bc_map,0xFF99;
+	sleep 1000;
+	disablenpc instance_npcname("克羅內克#gran1");
+	enablenpc instance_npcname("克羅內克#gran2");
+	sleep 400;
+	enablenpc instance_npcname("入侵者#hunter01");
+	npctalk "歐，嗨! 你一定是那位賢者!", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "你在做什麼!!!", instance_npcname("克羅內克#gran2");
+	sleep 3000;
+	npctalk "不，沒什麼。 反正在這裡沒有什麼值得我做的事情。", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "我聽說這裡隱藏著一些非常好的東西......", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "但這是什麼？ 這是假的！", instance_npcname("入侵者#hunter01");
+	specialeffect EF_BEGINSPELL,AREA,instance_npcname("克羅內克#gran2");
+	specialeffect EF_BEGINSPELL6,AREA,instance_npcname("入侵者#hunter01");
+	specialeffect EF_LEVEL99,AREA,instance_npcname("入侵者#hunter01");
+	sleep 2000;
+	npctalk "你這位老人，以及身後的貴族......", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "請不要動，這不好玩，我有可能會幹掉甚麼。", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "例如...", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "仿伊美樂的心臟這假東西！", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "...你想要甚麼？", instance_npcname("克羅內克#gran2");
+	sleep 3000;
+	npctalk "伊美樂的心臟碎片，我聽說那東西在這裡，怎麼沒看到？", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "...那是甚麼意思？", instance_npcname("克羅內克#gran2");
+	sleep 3000;
+	npctalk "哦~?你不知道嗎?", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "也是拉，你要是知道，就不會把這個埋在地裡祭祀了...", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "但是怎麼辦老頭？這是假的啊！", instance_npcname("入侵者#hunter01");
+	sleep 2000;
+	npctalk "...囂張的傢伙...", instance_npcname("克羅內克#gran2");
+	sleep 2000;
+	npctalk "你沒必要瞪我，我也是白費力氣了的意思", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "不過我這是就乖乖地離咖。", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "真是的，擁有力氣卻不懂得利用，不需要了對吧？", instance_npcname("入侵者#hunter01");
+	sleep 3000;
+	npctalk "仿伊美樂的心臟就此退場！", instance_npcname("入侵者#hunter01");
+	sleep 600;
+	specialeffect EF_BEGINSPELL3,AREA, instance_npcname("入侵者#hunter01");
+	sleep 400;
+	specialeffect EF_SCREEN_QUAKE,AREA, instance_npcname("派特#peter01");
+	specialeffect EF_LORD,AREA, instance_npcname("克羅內克#gran2");
+	specialeffect EF_LORD,AREA, instance_npcname("萊維爾 威爾納#louvier1");
+	specialeffect EF_LORD,AREA, instance_npcname("卡瑟琳 喬伯樂格#ca1");
+
+	disablenpc instance_npcname("伊恩瓦爾特#ian01");
+	disablenpc instance_npcname("萊維爾 威爾納#louvier1");
+	disablenpc instance_npcname("約根 維格納#jurgen01");
+	disablenpc instance_npcname("卡瑟琳 喬伯樂格#ca1");
+	enablenpc instance_npcname("伊恩瓦爾特#ian02");
+	enablenpc instance_npcname("萊維爾 威爾納#louvier2");
+	enablenpc instance_npcname("約根 維格納#jurgen02");
+	enablenpc instance_npcname("卡特琳 維格納#kath02");
+	sleep 500;
+	specialeffect EF_LORD,AREA, instance_npcname("馬克希姆麗蓮 #m1");
+	disablenpc instance_npcname("恩斯特 戈博格#ernst01");
+	disablenpc instance_npcname("馬克希姆麗蓮 #m1");
+	disablenpc instance_npcname("莫爾夫 羅根保#wolf01");
+	disablenpc instance_npcname("艾格尼絲羅根堡#agnes0_1");
+	disablenpc instance_npcname("艾薩克維格納#isaac01");
+	disablenpc instance_npcname("卡特琳 維格納#kath01");
+	disablenpc instance_npcname("寶理查德#po01");
+	disablenpc instance_npcname("派特#peter01");
+	disablenpc instance_npcname("斯皮卡內里斯#spica01");
+	disablenpc instance_npcname("森豪納#eisen");
+	disablenpc instance_npcname("弗里德林 海因#stol_1");
+	disablenpc instance_npcname("赫爾穆特#helmu");
+	disablenpc instance_npcname("斯基亞#skia02");
+	disablenpc instance_npcname("尼希爾海恩#nihil02");
+
+	enablenpc instance_npcname("艾格尼絲羅根堡#agnes0_2");
+	enablenpc instance_npcname("斯基亞#skia03");
+	enablenpc instance_npcname("尼希爾海恩#nihil03");
+	enablenpc instance_npcname("斯皮卡內里斯#spica02");
+	enablenpc instance_npcname("寶理查德#po02");
+	enablenpc instance_npcname("馬克希姆麗蓮 #m2");
+	enablenpc instance_npcname("莫爾夫 羅根保#wolf02");
+	enablenpc instance_npcname("恩斯特 戈博格#ernst02");
+	enablenpc instance_npcname("卡瑟琳 喬伯樂格#ca2");
+	enablenpc instance_npcname("艾薩克維格納#isaac02");
+
+	specialeffect EF_LORD,AREA, instance_npcname("艾格尼絲羅根堡#agnes0_2");
+	mapannounce instance_mapname("2@mir"), "作戰組就此撤退！", bc_map,0xDDDDDD;
+	disablenpc instance_npcname("入侵者#hunter01");
+	donpcevent instance_npcname("入侵者#hunter02") + "::OnEvent";
+	donpcevent instance_npcname("入侵者#hunter03") + "::OnEvent";
+	donpcevent instance_npcname("入侵者#hunter04") + "::OnEvent";
+	donpcevent instance_npcname("入侵者#hunter06") + "::OnEvent";
+	end;
+}
+
+2@mir,87,79,5	script	入侵者#hunter02	3454,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("入侵者#hunter02");
+	initnpctimer;
+	donpcevent instance_npcname("入侵者#hunter05") + "::OnEvent";	// timer + enable
+	donpcevent instance_npcname("赫爾穆特#helmu2") + "::OnEvent";
+	donpcevent instance_npcname("森豪納#eisen2") + "::OnEvent";
+	monster instance_mapname("2@mir"),107,73,"可疑的入侵者",3454,1, instance_npcname("入侵者#hunter02") + "::OnMobDead";// HEART_HUNTER_N
+	end;
+OnMobDead:
+	stopnpctimer;
+	hideonnpc instance_npcname("入侵者#hunter02");
+	donpcevent instance_npcname("入侵者#hunter05") + "::OnMobDead";	// stop timer + disable
+	donpcevent instance_npcname("赫爾穆特#helmu2") + "::OnMobDead";
+	donpcevent instance_npcname("森豪納#eisen2") + "::OnMobDead";
+	'intruder_count++;
+	if ('intruder_count == 3) {
+		mapannounce instance_mapname("2@mir"), "研究員！ 我們離開這個地方吧！", bc_map,0xDDDDDD;
+		donpcevent instance_npcname("入侵者#hunter02") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter05") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter03") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter06") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter04") + "::OnLeave";
+	}
+	end;
+OnLeave:
+	specialeffect EF_TEIHIT3;
+	disablenpc instance_npcname("入侵者#hunter02");
+	end;
+OnTimer1500:
+	specialeffect EF_PIERCE;
+	end;
+OnTimer3500:
+	specialeffect EF_HOLYCROSS;
+	end;
+OnTimer4500:
+	npctalk "這沒有用！";
+	end;
+OnTimer6500:
+	specialeffect EF_SHIELDCHARGE;
+	end;
+OnTimer8000:
+	initnpctimer;
+	end;
+}
+
+2@mir,91,84,5	script	入侵者#hunter03	3454,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("入侵者#hunter03");
+	initnpctimer;
+	donpcevent instance_npcname("入侵者#hunter06") + "::OnEvent";	// timer + enable
+	donpcevent instance_npcname("寶理查德#po02") + "::OnEvent";
+	donpcevent instance_npcname("斯基亞#skia03") + "::OnEvent";
+	monster instance_mapname("2@mir"),98,73,"可疑的入侵者",3454,1, instance_npcname("入侵者#hunter03") + "::OnMobDead";// HEART_HUNTER_N
+	end;
+OnMobDead:
+	stopnpctimer;
+	hideonnpc instance_npcname("入侵者#hunter03");
+	donpcevent instance_npcname("入侵者#hunter06") + "::OnMobDead";	// stop timer + disable
+	donpcevent instance_npcname("寶理查德#po02") + "::OnMobDead";
+	donpcevent instance_npcname("斯基亞#skia03") + "::OnMobDead";
+	'intruder_count++;
+	if ('intruder_count == 3) {
+		mapannounce instance_mapname("2@mir"), "Fellows! Let's leave this place!", bc_map,0xDDDDDD;
+		donpcevent instance_npcname("入侵者#hunter02") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter05") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter03") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter06") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter04") + "::OnLeave";
+	}
+	end;
+OnLeave:
+	specialeffect EF_TEIHIT3;
+	disablenpc instance_npcname("入侵者#hunter03");
+	end;
+OnTimer1500:
+	specialeffect EF_MAGICALATTHIT;
+	end;
+OnTimer4000:
+	specialeffect EF_HIT5;
+	end;
+OnTimer7000:
+	specialeffect EF_HIT2;
+	end;
+OnTimer8000:
+	npctalk "這沒有用！";
+	end;
+OnTimer10500:
+	specialeffect EF_HOLYCROSS;
+	end;
+OnTimer11500:
+	initnpctimer;
+	end;
+}
+
+2@mir,94,86,5	script	入侵者#hunter04	3454,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("入侵者#hunter04");
+	initnpctimer;
+	donpcevent instance_npcname("弗里德林 海因#stol_2") + "::OnEvent";	// timer + enable
+	monster instance_mapname("2@mir"),101,83,"可疑的入侵者",3454,1, instance_npcname("入侵者#hunter04") + "::OnMobDead";// HEART_HUNTER_N
+	end;
+OnMobDead:
+	stopnpctimer;
+	hideonnpc instance_npcname("入侵者#hunter04");
+	donpcevent instance_npcname("弗里德林 海因#stol_2") + "::OnMobDead";	// timer
+	'intruder_count++;
+	if ('intruder_count == 3) {
+		mapannounce instance_mapname("2@mir"), "夥伴們! 我們走吧!", bc_map,0xDDDDDD;
+		donpcevent instance_npcname("入侵者#hunter02") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter05") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter03") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter06") + "::OnLeave";
+		donpcevent instance_npcname("入侵者#hunter04") + "::OnLeave";
+	}
+	end;
+OnLeave:
+	specialeffect EF_TEIHIT3;
+	disablenpc instance_npcname("入侵者#hunter04");
+	end;
+OnTimer1500:
+	specialeffect EF_MAGICALATTHIT;
+	end;
+OnTimer3500:
+	specialeffect EF_HIT5;
+	end;
+OnTimer4500:
+	npctalk "哼!";
+	end;
+OnTimer7500:
+	specialeffect EF_HIT2;
+	end;
+OnTimer12000:
+	specialeffect EF_HOLYCROSS;
+	end;
+OnTimer14000:
+	initnpctimer;
+	end;
+}
+
+2@mir,107,86,5	script	入侵者#hunter05	3454,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("入侵者#hunter05");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	hideonnpc instance_npcname("入侵者#hunter05");
+	end;
+OnLeave:
+	specialeffect EF_TEIHIT3;
+	disablenpc instance_npcname("入侵者#hunter05");
+	end;
+OnTimer1500:
+	specialeffect EF_MAGICALATTHIT;
+	end;
+OnTimer3500:
+	npctalk "死吧!!!";
+	specialeffect EF_HIT5;
+	end;
+OnTimer6500:
+	specialeffect EF_HIT2;
+	end;
+OnTimer9500:
+	specialeffect EF_HOLYCROSS;
+	initnpctimer;
+	end;
+}
+
+2@mir,110,85,5	script	入侵者#hunter06	3454,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("入侵者#hunter06");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	hideonnpc instance_npcname("入侵者#hunter06");
+	end;
+OnLeave:
+	specialeffect EF_TEIHIT3;
+	disablenpc instance_npcname("入侵者#hunter06");
+	end;
+OnTimer1500:
+	specialeffect EF_HITDARK;
+	end;
+OnTimer3500:
+	npctalk "死吧!!!";
+	specialeffect EF_LIGHTBOLT;
+	end;
+OnTimer6000:
+	specialeffect EF_COMBOATTACK1;
+	end;
+OnTimer9000:
+	specialeffect EF_NAPALMBEAT;
+	end;
+OnTimer14000:
+	initnpctimer;
+	end;
+}
+
+2@mir,88,78,2	script	森豪納#eisen2	4_M_1STPRIN1,{
+	if ('intruder_count < 3) {
+		npctalk "我們沒時間聊天了！";
+		end;
+	}
+	mes "[森豪納]";
+	mes "到底是怎麼回事...";
+	mes "我們先離開這個地方吧。";
+	next;
+	mes "[森豪納]";
+	mes "大家都還好嗎......";
+	close2;
+	disablenpc instance_npcname("森豪納#eisen2");
+	disablenpc instance_npcname("伊恩瓦爾特#ian02");
+	end;
+OnEvent:
+	enablenpc instance_npcname("森豪納#eisen2");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	end;
+OnTime1500:
+	npctalk "嘿...";
+	end;
+OnTime3000:
+	specialeffect EF_CONCENTRATION;
+	end;
+OnTime5500:
+	specialeffect EF_TEIHIT1X;
+	end;
+OnTime8500:
+	specialeffect EF_CHAINCOMBO;
+	end;
+OnTime10000:
+	npctalk "我們沒時間聊天了！";
+	initnpctimer;
+	end;
+}
+
+2@mir,106,85,7	script	赫爾穆特#helmu2	4_EP16_HELMUT,{
+	if ('intruder_count < 3)
+		end;
+	mes "[赫爾穆特]";
+	mes "一切似乎都很好。";
+	mes "...我得走了。 其他兄弟們看起來不那麼好。";
+	close2;
+	disablenpc instance_npcname("赫爾穆特#helmu2");
+	disablenpc instance_npcname("莫爾夫 羅根保#wolf02");
+	disablenpc instance_npcname("馬克希姆麗蓮 #m2");
+	disablenpc instance_npcname("艾格尼絲羅根堡#agnes0_2");
+	end;
+OnEvent:
+	enablenpc instance_npcname("赫爾穆特#helmu2");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	end;
+OnTime1500:
+	specialeffect EF_TEIHIT1X;
+	end;
+OnTimer3500:
+	npctalk "看看誰在說話！！！";
+	specialeffect EF_HIT6;
+	end;
+OnTimer7000:
+	specialeffect EF_HIT1;
+	end;
+OnTimer9000:
+	specialeffect EF_AUTOCOUNTER;
+	npctalk "哎呀！";
+	initnpctimer;
+	end;
+}
+
+2@mir,92,83,2	script	斯基亞#skia03	4_EP16_SKIA,{
+	if ('intruder_count < 3) {
+		npctalk "...恩... 他們從哪裡來的？";
+		end;
+	}
+	mes "[斯基亞]";
+	mes "嗯，我們離開這裡吧。";
+	mes "姐姐，我們趕緊離開吧！";
+	mes "尼西，你應該跟我們一起來！";
+	next;
+	mes "[斯基亞]";
+	mes "其他人自己會出去的！";
+	close2;
+	disablenpc instance_npcname("斯基亞#skia03");
+	disablenpc instance_npcname("斯皮卡內里斯#spica02");
+	end;
+OnEvent:
+	enablenpc instance_npcname("斯基亞#skia03");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	end;
+OnTime2000:
+	specialeffect EF_TEIHIT1X;
+	end;
+OnTimer4500:
+	specialeffect EF_HIT6;
+	end;
+OnTimer7500:
+	specialeffect EF_HIT1;
+	end;
+OnTimer12000:
+	specialeffect EF_HIT1;
+	end;
+OnTimer12500:
+	initnpctimer;
+	end;
+}
+
+2@mir,109,84,7	script	寶理查德#po02	4_M_6THPRIN1,{
+	if ('intruder_count < 3) {
+		npctalk "......哈哈，我沒想到我會在這裡打架！";
+		end;
+	}
+	npctalk "看來大廳似乎已被清除，我現在要離開了。 這一次真是個麻煩！";
+	sleep 2000;
+	disablenpc instance_npcname("寶理查德#po02");
+	end;
+OnEvent:
+	enablenpc instance_npcname("寶理查德#po02");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	end;
+OnTime1500:
+	npctalk "Oh, this doesn't look good.";
+	end;
+OnTimer5500:
+	specialeffect EF_HIT6;
+	end;
+OnTimer7500:
+	specialeffect EF_HIT1;
+	end;
+OnTimer17500:
+	specialeffect EF_HIT1;
+	end;
+OnTimer19000:
+	initnpctimer;
+	end;
+}
+
+2@mir,95,85,1	script	弗里德林 海因#stol_2	4_EP16_STOLZ,{
+	if ('intruder_count < 3) {
+		npctalk "請照顧其他人。";
+		end;
+	}
+	mes "[弗里德林 海因]";
+	mes "...好像沒有人死了。";
+	npctalk "你在等什麼！ 和受傷的人一起離開這裡！";
+	close2;
+OnDisable:
+	disablenpc instance_npcname("斯基亞#skia03");
+	disablenpc instance_npcname("斯皮卡內里斯#spica02");
+	disablenpc instance_npcname("森豪納#eisen2");
+	disablenpc instance_npcname("伊恩瓦爾特#ian02");
+	disablenpc instance_npcname("萊維爾 威爾納#louvier2");
+	disablenpc instance_npcname("約根 維格納#jurgen02");
+	disablenpc instance_npcname("卡特琳 維格納#kath02");
+	disablenpc instance_npcname("恩斯特 戈博格#ernst02");
+	disablenpc instance_npcname("卡瑟琳 喬伯樂格#ca2");
+	disablenpc instance_npcname("寶理查德#po02");
+	disablenpc instance_npcname("馬克希姆麗蓮 #m2");
+	disablenpc instance_npcname("莫爾夫 羅根保#wolf02");
+	disablenpc instance_npcname("赫爾穆特#helmu2");
+	disablenpc instance_npcname("艾格尼絲羅根堡#agnes0_2");
+	disablenpc instance_npcname("弗里德林 海因#stol_2");
+	disablenpc instance_npcname("艾薩克維格納#isaac02");
+	end;
+OnEvent:
+	enablenpc instance_npcname("弗里德林 海因#stol_2");
+	initnpctimer;
+	end;
+OnMobDead:
+	stopnpctimer;
+	end;
+OnTime1500:
+	specialeffect EF_TEIHIT1X;
+	end;
+OnTimer4000:
+	specialeffect EF_HIT6;
+	end;
+OnTimer11500:
+	specialeffect EF_AUTOCOUNTER;
+	npctalk "...這些混蛋從哪裡來？";
+	end;
+OnTimer12000:
+	initnpctimer;
+	end;
+}
+
+2@mir,101,93,7	script	克羅內克#gran2	4_EP16_GRANZ,{
+	if ('intruder_count < 3) {
+		mes "[克羅內克]";
+		mes "派特處於危急狀態。";
+		mes "...你願意為我們打擊入侵者嗎？";
+		close;
+	}
+	if (isbegin_quest(7692) == 1) {
+		mes "[克羅內克]";
+		mes "....";
+		mes ".... ^4d4dff泰拉 葛洛麗雅^000000 不見了...";
+		next;
+		select("泰拉 葛洛麗雅?");
+		mes "[克羅內克]";
+		mes "是盧恩 米德加茲 王室傳下來的王冠。";
+		mes "與一般的王冠不同，他擁有它獨特的意義。";
+		next;
+		mes "[克羅內克]";
+		mes "該不會是被剛才那個傢伙拿走的！";
+		mes "豈有此理...!";
+		next;
+		mes "[克羅內克]";
+		mes "這裡有甚麼？除了七大王室之外，誰有不知道這個地方...！";
+		next;
+		mes "[克羅內克]";
+		mes "該不會...";
+		mes "...不過這樣要打聽的事很多，";
+		next;
+		mes "[克羅內克]";
+		mes "我們現在離開這裡吧.";
+		mes "還有很多東西可供查找。";
+		erasequest 7692;
+		setquest 7693;// Surprise Attack
+		banquet_main_quest = 9;
+		next;
+		mes "[克羅內克]";
+		mes "先離開這個地方吧！";
+		mes "我們要打聽很多事。";		
+		donpcevent instance_npcname("弗里德林 海因#stol_2") + "::OnDisable";
+		disablenpc instance_npcname("尼希爾海恩#nihil03");
+		close;
+	}
+	mes "[克羅內克]";
+	mes "派特受傷了。";
+	mes "我們需要趕緊治療他。";
+	next;
+	mes "[克羅內克]";
+	mes "我會在外面那裡見到你。";
+	mes "你可以通過你進入的門離開。";
+	mes "讓我們在過去的皇室回憶中相遇吧。";
+	close;
+}
+
+2@mir,93,80,2	script	尼希爾海恩#nihil03	4_EP16_NIHIL,4,4,{
+	if ('intruder_count < 3) {
+		npctalk "...歐... 我...";
+		end;
+	}
+	mes "[尼希爾海恩]";
+	mes "......這......都是......我的錯......";
+	close;
+OnTouch:
+	npctalk ".....我會幫忙嗎？";
+	npcskill "AL_HEAL",11,99,60;
+	npcskill "PR_KYRIE",10,99,60;
+	end;
+}
+
+2@mir,97,65,5	script	約根 維格納#jurgen02	4_M_4THPRIN1,{
+	npctalk "我指望著你！";
+	npcskill "AL_INCAGI",10,99,60;
+	end;
+}
+
+2@mir,111,66,4	script	卡瑟琳 喬伯樂格#ca2	4_EP16_EGEO,{
+	npctalk "...我希望它對你有所幫助。";
+	npcskill "AL_HEAL",10,130,115;
+	end;
+}
+
+2@mir,107,61,6	script	艾薩克維格納#isaac02	4_EP16_ISAAC,{
+	npctalk "開心點！";
+	npcskill "AL_BLESSING",10,99,60;
+	end;
+}
+
+2@mir,112,71,1	script	艾格尼絲羅根堡#agnes0_2	4_EP16_AGNES,{
+	npctalk "哎呀！ 小心！";
+	end;
+}
+
+2@mir,96,83,2	script	斯皮卡內里斯#spica02	4_EP16_SPICA,{
+	npctalk "...ㄓ... ㄨ... 一...";
+	end;
+}
+
+
+2@mir,102,97,3	script	入侵者#hunter01	3454,{
+	end;
+OnInstanceInit:
+	'intruder_count = 0;// init on reload
+	disablenpc instance_npcname("入侵者#hunter01");
+	disablenpc instance_npcname("斯皮卡內里斯#spica02");
+	disablenpc instance_npcname("艾格尼絲羅根堡#agnes0_2");
+	disablenpc instance_npcname("艾薩克維格納#isaac02");
+	disablenpc instance_npcname("卡瑟琳 喬伯樂格#ca2");
+	disablenpc instance_npcname("約根 維格納#jurgen02");
+	disablenpc instance_npcname("克羅內克#gran2");
+	disablenpc instance_npcname("入侵者#hunter02");
+	disablenpc instance_npcname("入侵者#hunter03");
+	disablenpc instance_npcname("入侵者#hunter04");
+	disablenpc instance_npcname("入侵者#hunter05");
+	disablenpc instance_npcname("入侵者#hunter06");
+	disablenpc instance_npcname("森豪納#eisen2");
+	disablenpc instance_npcname("赫爾穆特#helmu2");
+	disablenpc instance_npcname("寶理查德#po02");
+	disablenpc instance_npcname("弗里德林 海因#stol_2");
+	disablenpc instance_npcname("斯基亞#skia03");
+	disablenpc instance_npcname("尼希爾海恩#nihil03");
+	end;
+}
+
+2@mir,96,83,0	script	dummy_npc_rituel_disabled	-1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname( strnpcinfo(0) );
+	end;
+}
+2@mir,88,74,3	duplicate(dummy_npc_rituel_disabled)	伊恩瓦爾特#ian02	1_M_JOBTESTER
+2@mir,86,70,4	duplicate(dummy_npc_rituel_disabled)	萊維爾 威爾納#louvier2	4_EP16_LOUVIERE
+2@mir,94,72,3	duplicate(dummy_npc_rituel_disabled)	卡特琳 維格納#kath02	4_EP16_POE
+2@mir,112,66,3	duplicate(dummy_npc_rituel_disabled)	恩斯特 戈博格#ernst02	4_M_2NDPRIN1
+2@mir,91,69,7	duplicate(dummy_npc_rituel_disabled)	馬克希姆麗蓮 #m2	4_EP16_MAX
+2@mir,94,66,3	duplicate(dummy_npc_rituel_disabled)	莫爾夫 羅根保#wolf02	4_EP16_WOLF
+2@mir,100,80,7	duplicate(dummy_npc_rituel_disabled)	尼希爾海恩#nihil02	4_EP16_NIHIL
+2@mir,101,95,3	duplicate(dummy_npc_rituel_disabled)	墮落的派特#peter02	4_EP16_PETER
+2@mir,97,77,7	duplicate(dummy_npc_rituel_disabled)	斯基亞#skia02	4_EP16_SKIA
+
+
+2@mir,96,83,0	script	dummy_npc_rituel	-1,{ end; }
+2@mir,101,88,4	duplicate(dummy_npc_rituel)	克羅內克#gran1	4_EP16_GRANZ
+2@mir,97,71,7	duplicate(dummy_npc_rituel)	萊維爾 威爾納#louvier1	4_EP16_LOUVIERE
+2@mir,100,71,7	duplicate(dummy_npc_rituel)	約根 維格納#jurgen01	4_M_4THPRIN1
+2@mir,97,68,7	duplicate(dummy_npc_rituel)	艾薩克維格納#isaac01	4_EP16_ISAAC
+2@mir,100,68,7	duplicate(dummy_npc_rituel)	卡特琳 維格納#kath01	4_EP16_POE
+2@mir,103,80,2	duplicate(dummy_npc_rituel)	卡瑟琳 喬伯樂格#ca1	4_EP16_EGEO
+2@mir,106,80,2	duplicate(dummy_npc_rituel)	恩斯特 戈博格#ernst01	4_M_2NDPRIN1
+2@mir,103,77,2	duplicate(dummy_npc_rituel)	寶理查德#po01	4_M_6THPRIN1
+2@mir,103,74,2	duplicate(dummy_npc_rituel)	馬克希姆麗蓮 #m1	4_EP16_MAX
+2@mir,106,74,2	duplicate(dummy_npc_rituel)	莫爾夫 羅根保#wolf01	4_EP16_WOLF
+2@mir,101,94,0	duplicate(dummy_npc_rituel)	派特#peter01	4_M_3RDPRIN1
+2@mir,100,77,7	duplicate(dummy_npc_rituel)	斯皮卡內里斯#spica01	4_EP16_SPICA
+2@mir,106,71,2	duplicate(dummy_npc_rituel)	艾格尼絲羅根堡#agnes0_1	4_EP16_AGNES
+2@mir,97,80,7	duplicate(dummy_npc_rituel)	弗里德林 海因#stol_1	4_EP16_STOLZ
+2@mir,100,74,7	duplicate(dummy_npc_rituel)	伊恩瓦爾特#ian01	1_M_JOBTESTER
+2@mir,97,74,7	duplicate(dummy_npc_rituel)	森豪納#eisen	4_M_1STPRIN1
+2@mir,103,71,2	duplicate(dummy_npc_rituel)	赫爾穆特#helmu	4_EP16_HELMUT
+
+2@mir,101,10,0	script	to_prt_lib	WARPNPC,1,1,{
+	mes "[" + strcharinfo(0) + "]";
+	mes "我們應該看完祝福的儀式。";
+	mes "再離開出去。";
+	close;
+}

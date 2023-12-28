@@ -1,0 +1,155 @@
+//修改者:雨藤 ROlab rainvine
+//多功能卡普拉
+-	shop	ashop1	-1,501:100
+//
+uttycty,90,107,4	script	卡普拉	861,{
+	npctalk "請多利用拍賣系統哦!";
+	mes "[卡普拉]";
+        //mes "【目前人數"+ getusers(1) +"】";
+	//mes "現在是:^FF0000"+ gettimestr("%Y年%m月%d日 %H:%M:%S",50) +"^000000";
+        mes "^0088FF"+strcharinfo(0)+"^000000，您好。";
+	mes "我是克維納仙境 ^3355FF服務人員^000000";
+	mes "請問你需要什麼樣的服務呢？";
+	mes "您的商城點數: ^0000FF"+#CASHPOINTS+ "^000000 ";
+	switch(select("^FF0000儲存服務","^990033自動賣物","^0F00F0倉庫服務","^996699公會倉庫","^CC6666信箱服務","^FF0000拍賣系統","^0088FF銀行服務"))
+	{
+		
+		case 1: //儲存服務
+			savepoint "doubrius",51,143; cutin "",255;
+			next;
+			mes "[卡普拉]";
+			mes "已幫您儲存完成";
+			close;
+		case 2:
+		  next;
+		  mes "^0000FF[自動賣雜物]^000000";
+		  mes "這邊可以設定你要自動賣出的物品";
+		  mes "一次可以讓你順利賣出物品的最大數量";
+		  mes "請先去商店選項賣出該物品的1個";
+		  mes "就可以自動被記錄";
+		  mes "下次要批量賣點擊第一選項即可";
+		  mes "注意 這無法使用技能高賣低買哦";
+		  next;
+			if(select("賣出所有您設定的物品:設定販賣物品")==1){
+	    mes "將會賣出以下物品^FF0000最大數量^000000";
+	    mes "並且高價賣出^FF0000無效^000000";
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) 
+		  mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
+	    if(select("取消:確定")==1)close;
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
+		  set .@sellnum,countitem(@sold_nameid[.@a]);
+		  
+		  set .@sprice,.@sellnum*getiteminfo(@sold_nameid[.@a],1);
+		  if((Zeny+.@sprice) >= 2108298148){next;goto maxZeny;}else{delitem @sold_nameid[.@a],.@sellnum;set Zeny,Zeny+.@sprice;}
+		  
+		  mes "賣出^FF0000"+getitemname(@sold_nameid[.@a])+"^000000 [^0000FF"+.@sellnum+"^000000] 個 ^5599FF"+.@sprice+"^000000z";
+		  set .@asprice,.@asprice+.@sprice;
+	    }
+	    mes "共^5599FF"+.@asprice+"Zeny";
+	    close;
+	    }
+	    callshop "ashop1", 2;
+	    npcshopattach "ashop1";
+	    end;	
+      OnSellItem:
+	    mes "紀錄拍賣物品";
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
+		  mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
+	    }
+	    close;
+			
+		case 3: //倉庫
+			next;
+			mes "已幫您開啟倉庫";
+			openstorage();
+			close;
+		case 4:
+			next;
+			if (!getcharid(2)){ mes "[卡普拉]"; mes "您尚未擁有公會，無法使用這個功能。"; close; }
+			mes "已幫您開啟公會倉庫";
+			guildopenstorage();
+			close;
+                case 5: //信箱
+			next;
+			mes "已幫您開啟信箱";
+			openmail;
+			close;
+		case 6:
+			next;
+			mes "點選拍賣右鍵即可競標";
+			mes "競標成功請至卡普拉信箱領收";
+			mes "拍賣登陸物品";
+			mes "請把所要的拍賣物品丟入框框內";
+			mes "輸入金錢與時間按登入即可完成";
+			OpenAuction;
+			close;
+		case 7:
+			mes "[卡普拉 銀行]";
+			mes "^0088FF"+strcharinfo(0)+"^000000你好~";
+			mes "請問需要什麼服務呢?";
+			next;
+			menu	"存款",savezeny,	"提款",takezeny;
+
+		savezeny:
+			mes "[卡普拉 銀行]";
+			mes "請問你要存多少錢呢";
+			next;
+			input .@szeny;
+			if (.@szeny > Zeny) {
+			mes "[卡普拉 銀行]";
+			mes "你身上並沒有那麼多錢唷。";
+		close;	}
+			mes "[卡普拉 銀行]";
+			mes "馬上幫你處理。";
+			mes "請稍候..。";
+			next;
+			mes "..";
+			set Zeny,Zeny-.@szeny;
+			next;
+			mes "....";
+			set #SaveZeny,#SaveZeny+.@szeny;
+			next;
+			mes "[卡普拉 銀行]";
+			mes "已經幫你處理好了，";
+			mes "你目前的存款為 ^0000FF" +#SaveZeny+ "^000000 Zeny，";
+			mes "歡迎再次蒞臨。";
+			close;
+		}	
+		takezeny:
+			mes "[卡普拉 銀行]";
+			mes "你目前的存款為 ^0000FF" +#SaveZeny+ "^000000 Zeny，";
+			mes "請問你要提領多少錢呢";
+			next;
+			input .@tzeny;
+			if (.@tzeny > #SaveZeny) {
+			mes "[卡普拉 銀行]";
+			mes "你的存款並沒有那麼多錢唷。";
+			close;	}
+			mes "[卡普拉 銀行]";
+			mes "馬上幫你處理。";
+			mes "請稍候..。";
+			next;
+			mes "..";
+			set #SaveZeny,#SaveZeny-.@tzeny;
+			next;
+			mes "....";
+			set Zeny,Zeny+.@tzeny;
+			next;
+			mes "[卡普拉 銀行]";
+			mes "已經幫你處理好了，";
+			mes "你目前的存款為 ^0000FF" +#SaveZeny+ "^000000 Zeny，";
+			mes "歡迎再次蒞臨。";
+			close;
+			maxZeny:
+			mes "你目前賣的東西總價格已達到上限！";
+			mes "建議分批販賣，謝謝。";		
+			close;
+
+OnInit:
+	setarray .ycd$,"星期日","星期一","星期二","星期三","星期四","星期五","星期六";
+OnTimer1000:
+	delwaitingroom;
+	waitingroom .ycd$[gettime(4)]+" "+gettime(3)+":"+gettime(2)+":"+(gettime(1)<10?"0"+gettime(1):gettime(1)), 0;
+	initnpctimer;
+	end;
+}

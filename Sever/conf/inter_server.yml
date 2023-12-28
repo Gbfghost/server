@@ -1,0 +1,41 @@
+﻿# This file is a part of rAthena.
+#   Copyright(C) 2017 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+##########################################################################
+#	- ID                       (數值類型) 倉庫的唯一編號, 用於 'openstorage2' 腳本指令, 這樣地圖服務器才知道應該打開哪個倉庫.
+#	  Name                     (字符串類型) 倉庫的名稱, 這個名稱會顯示在客戶端倉庫窗口的標題欄中.
+#	  Table                    (字符串類型) 此倉庫對應的數據庫表名稱. 附加數據表的格式與自帶的 storage 表一樣.
+#	  Type                     (字符串類型) 倉庫對應 STORAGE_DB, 背包對應 INVENTORY_DB, 省略默認為 STORAGE_DB
+#	  Max                      (數值類型) *可選* 用來設置倉庫能存放的物品種類上限. 若未設置的話, 則會采用源代碼中 MAX_STORAGE 宏定
+###########################################################################
+# To access the premium storage, use script command 'openstorage2'.
+# If more premium storages are added, copy the structure of the storage table and match the table name in this config.
+# The 'Max' of premium storages are not adjusted by 'vip_storage_increase' config nor MIN_STORAGE.
+###########################################################################
+
+Header:
+  Type: INTER_SERVER_DB
+  Version: 1
+
+Body:
+  - ID: 0
+    Name: "個人倉庫"
+    Table: storage
+
+Footer:
+  Imports:
+    - Path: conf/import/inter_server.yml

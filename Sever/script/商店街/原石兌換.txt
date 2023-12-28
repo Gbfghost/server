@@ -1,0 +1,45 @@
+uttycty,110,172,4	script	精煉物品兌換	4_f_agentkafra,{
+
+
+	mes "^000079[精煉升階材料商]^000000";
+    mes "請選擇您想要的功能";
+	next;
+    switch (select(
+        "精煉物品兌換",
+        "寶石精製",
+		"寶石升級",
+		"評級材料兌換"
+    )) {
+	case 1:
+		mes "^000079[精煉升階材料商]^000000";
+		mes "您已選擇精煉物品兌換";
+		close2;
+		callshop "精煉物品",1;
+		end;
+	case 2:
+		mes "^000079[精煉升階材料商]^000000";
+		mes "您已選擇寶石精製";
+		close2;
+		callshop "寶石精製",1;
+		end;
+	case 3:
+		mes "^000079[精煉升階材料商]^000000";
+		mes "您已選擇寶石升級";
+		close2;
+		callshop "寶石升級",1;
+		end;
+	case 4:
+		mes "^000079[精煉升階材料商]^000000";
+		mes "您已選擇評級材料兌換";
+		close2;
+		callshop "評級材料兌換",1;
+		end;
+	
+	
+	}
+		
+	OnInit:
+        waitingroom "★ 精煉/升階物品 ★",0;
+        end;
+	}
+

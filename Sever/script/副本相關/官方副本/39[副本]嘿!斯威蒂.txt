@@ -1,0 +1,276 @@
+
+
+
+//===== Description: ==============================
+//
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@bamq	mapflag	noteleport
+1@bamq	mapflag	nosave	SavePoint
+1@bamq	mapflag	nomemo
+1@bamq	mapflag	nobranch
+1@bamq	mapflag	noicewall
+1@bamq	mapflag	restricted	6
+1@bamq	mapflag	monster_noteleport
+1@bamq	mapflag	partylock
+1@bamq	mapflag	novending
+1@bamq	mapflag	nochat
+
+1@bamn	mapflag	noteleport
+1@bamn	mapflag	nosave	SavePoint
+1@bamn	mapflag	nomemo
+1@bamn	mapflag	nobranch
+1@bamn	mapflag	noicewall
+1@bamn	mapflag	restricted	6
+1@bamn	mapflag	monster_noteleport
+1@bamn	mapflag	partylock
+1@bamn	mapflag	novending
+1@bamn	mapflag	nochat
+
+
+amatsu,108,88,5	script	[副本]嘿!斯威蒂	602,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "嘿!斯威蒂";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 39;
+
+//
+	waitingroom "[副本]嘿!斯威蒂",0;
+	setnpcicon getnpcid(0),22,"[副本]嘿!斯威蒂";
+	end;
+}
+
+
+/******************************
+ - 傳送點設定
+******************************/
+1@bamq,100,39,0	warp	#Bamnq_1	2,2,1@bamn,37,220
+1@bamn,37,224,0	warp	#Bamnq_2	2,2,1@bamq,103,39
+
+/******************************
+ - 甜心
+******************************/
+1@bamq,124,49,3	script	甜心	4_EP17_SWEETY,{
+	if(is_party_leader() == false) end;
+	cutin "ep172_sweety01",2;
+	mes "["+strnpcinfo(1)+"]";
+	mes "嘿, 你準備好了嗎?";
+	mes "我想~如果你打敗我的話你隨時都能叫我笨蛋~";
+	next;
+	if(select("等等.:來吧!") == 2)
+	{
+		npctalk "這次我不會再輸給你了!";
+		hideonnpc instance_npcname(strnpcinfo(0));
+		monster instance_mapname("1@bamq"),124,49,"--ja--",20642,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		close3;
+	}
+	mes "["+strnpcinfo(1)+"]";
+	mes "你是要去探索花園嗎?";
+	close3;
+	
+OnMyMobDead:
+if ('SWEETIE_DEAD == 1){end;}
+	'SWEETIE_DEAD = 1;
+addrid(2,0,getcharid(1));
+if (strcharinfo(3)==instance_mapname("1@bamq")){
+set #hunter,#hunter+1;
+if (getequipid(EQI_COSTUME_HEAD_MID) == 31900||getequipid(EQI_HEAD_TOP) == 31600){set #hunter,#hunter+1;}
+dispbottom "<系統訊息> 副本點數增加！";
+}
+	mapannounce instance_mapname("1@bamq"),"甜心 : 來吧 ~ 用你的全力來跟我打吧~~",bc_all,0x00FF00;
+	enablenpc instance_npcname("甜心#2");
+	specialeffect EF_NPC_STOP, AREA, instance_npcname("甜心#2");
+	end;
+OnInstanceInit:
+	end;
+}
+
+1@bamq,124,49,3	script	甜心#2	4_EP17_SWEETY,{
+	mes "["+strnpcinfo(1)+"]";
+	mes "這突如其來的攻擊使我分心了!";
+	mes "真是太傻眼了.";
+	showscript " … … ",getnpcid(0);
+	close;
+	
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@bamq,129,59,3	script	巴洛門特宅邸管家	4_EP17_BASIC_B,{
+	cutin "ep172_beta",2;
+	if('SWEETIE_DEAD)
+	{
+		mes "["+strnpcinfo(1)+"]";
+		mes "我會好好照顧這已經被嚇到的甜心的.";
+		mes "請問您要離開了嗎?";
+		mes " ";
+		mes 'SWEETIE_DEAD ? "^0000FF打敗甜心(1/1)^000000" : "^888888打敗甜心(0/1)000000";
+		mes (countitem(1000226) >= 9? "^0000FF" : "^888888")+"蒐集"+getitemname(1000226)+"9個("+countitem(1000226)+"/9)^000000";
+		mes (countitem(1000226) >= 9? "^0000FF" : "^888888")+"所有任務完成:獎勵巴米爾券六張^000000";
+		next;
+		if(select("離開.:我想待在這裡繼續晃晃.") == 2)
+		{
+			mes "["+strnpcinfo(1)+"]";
+			mes "好的，請幫我四處看看還有沒有遺留的零件在外面.";
+			close3;
+		}
+		if(inarray('Instance_reward, getcharid(3)) == -1) 
+		{
+			if(countitem(1000226) >= 9)
+			{
+				delitem 1000226, countitem(1000226);
+				getitem 1000103,6;
+			}
+			'Instance_reward[getarraysize('Instance_reward)] = getcharid(3);
+		}
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#1@bamq")+"::OnEnable";
+		'ClearInatance = 1;
+		end;
+	}
+	mes "["+strnpcinfo(1)+"]";
+	mes "我真是不懂.";
+	mes "甜心總是把喜歡把事情搞得很極限.";
+	next;
+	mes "["+strnpcinfo(1)+"]";
+	mes "治癒修理那些已經損壞的零件是好事沒錯";
+	mes "但就要麻煩你幫我蒐集9個"+getitemname(1000226)+".";
+	close3;
+}
+
+1@bamn,37,220,0	script	#ViewPoint	139,1,1,{
+	end;
+OnTouch:
+	if(is_party_leader() == false) end;
+	viewpoint 1,70,255,1,0xffffff;
+	viewpoint 1,130,197,2,0xffffff;
+	viewpoint 1,150,147,3,0xffffff;
+	viewpoint 1,208,277,4,0xffffff;
+	viewpoint 1,273,313,5,0xffffff;
+	viewpoint 1,338,267,6,0xffffff;
+	viewpoint 1,314,146,7,0xffffff;
+	viewpoint 1,208,97,8,0xffffff;
+	viewpoint 1,60,178,9,0xffffff;
+	end;
+	
+OnInstanceInit:
+	areamonster instance_mapname("1@bamn"),54,168,75,140,"--ja--",20688,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),114,254,129,239,"--ja--",20681,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),119,184,136,170,"--ja--",20681,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),115,86,127,62,"--ja--",20681,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),115,86,127,62,"--ja--",20681,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),192,263,207,244,"--ja--",20688,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),186,70,201,52,"--ja--",20688,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),226,144,236,120,"--ja--",20681,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),290,255,300,225,"--ja--",20688,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	areamonster instance_mapname("1@bamn"),194,51,207,31,"--ja--",20688,3,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+	
+OnMyMobDead:
+	end;
+}
+
+1@bamn,60,178,3	script	壞掉的守衛機器人#1	4_EP17_BROKENBETA,{
+	if(getd("'Core_Part_"+atoi(strnpcinfo(2))))
+	{
+		mes "這個零件身體的部分已經是空的了.";
+		end;
+	}
+	mes "在隱蔽的地方發現一個零件四散的機器人";
+	next;
+	mes "我會告訴巴洛門特宅邸維護員盡可能修復這個身體零件損壞的機器人.";
+	setd "'Core_Part_"+atoi(strnpcinfo(2)),1;
+	getitem 1000226, 1;
+	close;
+	
+OnEnable:
+	showevent QTYPE_CLICKME, QMARK_YELLOW;
+	end;
+}
+
+1@bamn,70,255,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#2	4_EP17_BROKENBETA
+1@bamn,130,197,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#3	4_EP17_BROKENBETA
+1@bamn,150,147,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#4	4_EP17_BROKENBETA
+1@bamn,208,277,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#5	4_EP17_BROKENBETA
+1@bamn,273,313,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#6	4_EP17_BROKENBETA
+1@bamn,338,267,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#7	4_EP17_BROKENBETA
+1@bamn,314,146,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#8	4_EP17_BROKENBETA
+1@bamn,208,97,3	duplicate(壞掉的守衛機器人#1)	壞掉的守衛機器人#9	4_EP17_BROKENBETA
+
+
+1@bamq,0,0,0	script	副本寶箱#1@bamq	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940039,10;
+	getitem 930000,5;
+	getitem 1000226, 1;	
+	getitem 6909,1;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}
+

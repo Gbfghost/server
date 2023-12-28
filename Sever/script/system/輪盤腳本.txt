@@ -1,0 +1,6 @@
+-	script	Roul_Event	-1,{
+end;
+OnPCOpenRouletteFilter:
+	processhalt;
+	end;
+}

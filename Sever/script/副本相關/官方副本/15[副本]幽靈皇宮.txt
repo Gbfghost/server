@@ -1,0 +1,851 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@spa	mapflag	noteleport
+1@spa	mapflag	nosave	SavePoint
+1@spa	mapflag	nomemo
+1@spa	mapflag	nobranch
+1@spa	mapflag	noicewall
+1@spa	mapflag	restricted	6
+1@spa	mapflag	monster_noteleport
+1@spa	mapflag	partylock
+1@spa	mapflag	novending
+1@spa	mapflag	nochat
+
+amatsu,103,118,5	script	[副本]幽靈皇宮	868,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "幽靈皇宮";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 15;
+
+//
+	waitingroom "[副本]幽靈皇宮",0;
+	setnpcicon getnpcid(0),22,"[副本]幽靈皇宮";
+	end;
+}
+
+//Floor Start
+1@spa,42,201,7	script	黃土皇家禁衛軍#1F	686,{
+	if('talk) end;
+	set 'talk,1;
+	mes "[國王]";
+	mes "你將被任命為提亞拉公主的直屬皇家禁衛軍。我相信你優秀的劍術還有忠心。好好輔佐公主吧!";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk1";
+	next;
+	mes "[黃土皇家禁衛軍]";
+	mes "就算犧牲性命我也會守護公主的。";
+	npctalk "黃土皇家禁衛軍：就算犧牲性命我也會守護公主的。";
+	next;
+	mes "[國王]";
+	mes "還好和鄰國王子的婚事似乎會成事，他說要很快就會來看公主，快去準備準備吧!";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk2";
+	next;
+	mes "[黃土皇家禁衛軍]";
+	mes "…遵命，陛下。";
+	npctalk "黃土皇家禁衛軍：…遵命，陛下。";
+	next;
+	mes "[國王]";
+	mes "城裡怎麼會有怪物!快將他們消滅，快!";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk3";
+	close2;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	hideonnpc instance_npcname("國王#spa");
+	monster 'map$,50,194,"--ja--",2948,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,38,209,"--ja--",2948,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,37,182,"--ja--",2948,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,53,215,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,27,196,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,33,178,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	monster 'map$,44,183,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+	end;
+OnLevel1:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnLevel1")) end;
+	set 'Level1,'Level1+1;
+	switch('Level1){
+		case 1:
+			monster 'map$,46,184,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+			monster 'map$,38,183,"--ja--",2948,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+			monster 'map$,53,198,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+			monster 'map$,51,197,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+			monster 'map$,33,199,"--ja--",2948,1,instance_npcname(strnpcinfo(0))+"::OnLevel1";
+			end;
+		case 2:
+			mapannounce 'map$,"幽靈皇宮 2樓通道已開啟。",bc_map,0xFFFF00;
+			enablenpc instance_npcname("幽靈皇宮2F");
+			end;
+	}
+	end;
+OnInstanceInit:
+	set 'map$,instance_mapname("1@spa");
+	end;
+}
+
+1@spa,41,204,5	script	國王#spa	965,{
+	end;
+OnTalk1:
+	npctalk "國王：你將被任命為提亞拉公主的直屬皇家禁衛軍。我相信你優秀的劍術還有忠心。好好輔佐公主吧!";
+	end;
+OnTalk2:
+	npctalk "國王：還好和鄰國王子的婚事似乎會成事，他說要很快就會來看公主，快去準備準備吧!";
+	end;
+OnTalk3:
+	npctalk "國王：城裡怎麼會有怪物!快將他們消滅，快!";
+	end;
+OnTalk4:
+	npctalk "國王：原來讓怪物進來這裡的就是你!你是想除掉我獨占公主嗎!?";
+	end;
+OnTalk5:
+	npctalk "國王：閉嘴!我這麼相信你，你竟然還背叛我…我會讓你付出代價的!";
+	end;
+OnTalk6:
+	npctalk "國王：你就在這無聲無光的地方，背負著人命，一輩子痛苦吧!";
+	end;
+}
+
+// ============================================================================
+// 第 二 張 地 圖
+// ============================================================================
+1@spa,132,122,0	script	黃土皇家禁衛軍#2F	686,{
+	if('talk1) end;
+	set 'talk1,1;
+	cutin "npc-tiara.bmp",2;
+	mes "[皇家黃土禁衛軍]";
+	mes "公主殿下，國王已經邀請鄰國王子來談結婚的事，請您做好準備。";
+	npctalk "黃土皇家禁衛軍：公主殿下，國王已經邀請鄰國王子來談結婚的事，請您做好準備。";
+	next;
+	mes "[提亞拉公主]";
+	mes "婚事…萬一婚事談城的話…會變成怎麼樣呢?";
+	donpcevent instance_npcname("提亞拉公主")+"::OnTalk1";
+	next;
+	mes "[皇家黃土禁衛軍]";
+	mes "我能做的就只有…守護公主而已。";
+	npctalk "黃土皇家禁衛軍：我能做的就只有…守護公主而已。";
+	next;
+	mes "[提亞拉公主]";
+	mes "那我能做的是什麼呢?";
+	donpcevent instance_npcname("提亞拉公主")+"::OnTalk2";
+	next;
+	mes "[皇家黃土禁衛軍]";
+	mes "… 請成為受人民愛戴的鄰國王妃。算是為了陛下，為了我…";
+	npctalk "黃土皇家禁衛軍：… 請成為受人民愛戴的鄰國王妃。算是為了陛下，為了我…";
+	next;
+	mes "[提亞拉公主]";
+	mes "我到陌生的地方和陌生的人結婚真的是為你好嗎?";
+	donpcevent instance_npcname("提亞拉公主")+"::OnTalk3";
+	next;
+	mes "[皇家黃土禁衛軍]";
+	mes "我會每天都在公主身邊的。無論何時都會守護著妳。妳就安心的在我身邊休息吧!";
+	npctalk "黃土皇家禁衛軍：我會每天都在公主身邊的。無論何時都會守護著妳。妳就安心的在我身邊休息吧!";
+	cutin "",255;
+	next;
+	mes "[提亞拉公主]";
+	mes "那個…這裡怎麼會有怪物?";
+	donpcevent instance_npcname("提亞拉公主")+"::OnTalk4";
+	next;
+	mes "[皇家黃土禁衛軍]";
+	mes "請向後退，上!";
+	npctalk "黃土皇家禁衛軍：請向後退，上!";
+	close2;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	hideonnpc instance_npcname("提亞拉公主");
+	monster 'map$,136,117,"--ja--",2950,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+	monster 'map$,108,120,"--ja--",2950,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+	monster 'map$,121,133,"--ja--",2951,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+	monster 'map$,122,129,"--ja--",2952,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+	end;
+OnLevel2:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnLevel2")) end;
+	set 'Level2,'Level2+1;
+	switch('Level2){
+		case 1:
+			monster 'map$,119,103,"--ja--",2950,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			monster 'map$,96,128,"--ja--",2952,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			monster 'map$,129,140,"--ja--",2951,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			end;
+		case 2:
+			monster 'map$,97,123,"--ja--",2951,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			monster 'map$,95,120,"--ja--",2951,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			monster 'map$,102,108,"--ja--",2952,1,instance_npcname(strnpcinfo(0))+"::OnLevel2";
+			end;
+		case 3:
+			mapannounce 'map$,"幽靈皇宮 3樓通道已開啟。",bc_map,0xFFFF00;
+			movenpc instance_npcname("國王#spa"),32,54,2;
+			hideoffnpc instance_npcname("國王#spa");
+			enablenpc instance_npcname("幽靈皇宮3F");
+			enablenpc instance_npcname("國王的侍衛#1");
+			enablenpc instance_npcname("國王的侍衛#2");
+			enablenpc instance_npcname("國王的侍衛#3");
+			enablenpc instance_npcname("國王的侍衛#4");
+			end;
+	}
+	end;
+}
+1@spa,135,125,4	script	提亞拉公主	640,{
+	end;
+OnTalk1:
+	npctalk "提亞拉公主：婚事…萬一婚事談城的話…會變成怎麼樣呢?";
+	end;
+OnTalk2:
+	npctalk "提亞拉公主：那我做的是什麼呢?";
+	end;
+OnTalk3:
+	npctalk "提亞拉公主：我到陌生的地方和陌生的人結婚真的是為你好嗎?";
+	end;
+OnTalk4:
+	npctalk "提亞拉公主：那個…這裡怎麼會有怪物?";
+	end;
+OnTalk5:
+	npctalk "提亞拉公主：你…遵守了約定!";
+	end;
+OnTalk6:
+	npctalk "提亞拉公主：謝謝你，現在我可以安心地…在你身邊…休息了…";
+	end;
+OnTalk7:
+	npctalk "提亞拉公主：我們約定在可以幸福的地方永遠不分開!";
+	end;
+OnTalk8:
+	npctalk "提亞拉公主：我愛你…";
+	end;
+OnTalk9:
+	npctalk "提亞拉公主：我能夠…為你做些什麼呢?";
+	end;
+}
+
+// ============================================================================
+// 第 三 張 地 圖
+// ============================================================================
+ 1@spa,30,58,5	script	皇家黃土禁衛軍#3F	10018,{
+	if('talk2) end;
+	set 'talk2,1;
+	mes "[國王]";
+	mes "原來讓怪物進來這裡的就是你!你是想除掉我獨占公主嗎!?";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk4";
+	next;
+	mes "[皇家黃土禁衛軍]";
+	mes "我是被陷害的，陛下。請相信我!";
+	npctalk "皇家黃土禁衛軍：我是被陷害的，陛下。請相信我!";
+	next;
+	mes "[國王]";
+	mes "閉嘴!我這麼相信你，你竟然還背叛我…我會讓你付出代價的!";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk5";
+	next;
+	mes "[國王]";
+	mes "你就在這無聲無光的地方，背負著人命，一輩子痛苦吧!";
+	donpcevent instance_npcname("國王#spa")+"::OnTalk6";
+	close2;
+	hideonnpc instance_npcname("國王#spa");
+	hideonnpc instance_npcname("國王的侍衛#1");
+	hideonnpc instance_npcname("國王的侍衛#2");
+	hideonnpc instance_npcname("國王的侍衛#3");
+	hideonnpc instance_npcname("國王的侍衛#4");
+	enablenpc instance_npcname("不詳的聲音");
+	sleep 300;
+	donpcevent instance_npcname("不詳的聲音")+"::OnTalk1";
+	sleep 300;
+	donpcevent instance_npcname("不詳的聲音")+"::OnTalk2";
+	sleep 300;
+	npctalk "皇家黃土禁衛軍：是誰!快現出原形!";
+	sleep 300;
+	donpcevent instance_npcname("不詳的聲音")+"::OnTalk3";
+	sleep 300;
+	npctalk "皇家黃土禁衛軍：…?";
+	sleep 300;
+	donpcevent instance_npcname("不詳的聲音")+"::OnTalk4";
+	sleep 300;
+	npctalk "皇家黃土禁衛軍：我…我…";
+	sleep 300;
+	donpcevent instance_npcname("不詳的聲音")+"::OnTalk5";
+	hideonnpc instance_npcname(strnpcinfo(0));
+	hideonnpc instance_npcname("不詳的聲音");
+	sleep 300;
+	monster 'map$,31,58,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+	monster 'map$,54,45,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+	monster 'map$,26,39,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+	monster 'map$,27,20,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+	monster 'map$,59,24,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+	end;
+OnLevel3:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnLevel3")) end;
+	set 'Level3,'Level3+1;
+	switch('Level3){
+		case 1:
+			monster 'map$,55,45,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,54,26,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,29,53,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			end;
+		case 2:
+			mapannounce 'map$,"幽靈皇宮 4樓通道已開啟。",bc_map,0xFFFF00;
+			enablenpc instance_npcname("幽靈皇宮4F");
+			monster 'map$,215,194,"--ja--",2956,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			monster 'map$,194,178,"--ja--",2956,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			monster 'map$,192,181,"--ja--",2956,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			monster 'map$,189,216,"--ja--",2956,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			monster 'map$,209,220,"--ja--",2949,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			monster 'map$,185,203,"--ja--",2949,1,instance_npcname("黃土皇家禁衛軍#4F")+"::OnLevel4";
+			sleep 300;
+			monster 'map$,36,54,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,30,54,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,24,54,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,24,49,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,20,43,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,18,41,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,22,41,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,43,60,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,42,54,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,29,30,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,29,24,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,51,48,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,59,36,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,56,44,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,61,37,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,62,48,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,51,25,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,45,20,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,38,20,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,30,26,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,34,22,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,66,45,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,51,66,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,47,67,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,52,54,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,57,67,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,58,65,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,60,66,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,62,63,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,65,67,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,65,64,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,66,58,"--ja--",2955,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			monster 'map$,65,54,"--ja--",2953,1,instance_npcname(strnpcinfo(0))+"::OnLevel3";
+			end;
+		case 3:
+			monster 'map$,36,54,"--ja--",2953,1;
+			monster 'map$,30,54,"--ja--",2954,1;
+			monster 'map$,24,54,"--ja--",2955,1;
+			monster 'map$,24,49,"--ja--",2953,1;
+			monster 'map$,20,43,"--ja--",2953,1;
+			monster 'map$,18,41,"--ja--",2953,1;
+			monster 'map$,22,41,"--ja--",2953,1;
+			monster 'map$,43,60,"--ja--",2954,1;
+			monster 'map$,42,54,"--ja--",2955,1;
+			monster 'map$,29,30,"--ja--",2953,1;
+			monster 'map$,29,24,"--ja--",2954,1;
+			monster 'map$,51,48,"--ja--",2953,1;
+			monster 'map$,59,36,"--ja--",2953,1;
+			monster 'map$,56,44,"--ja--",2955,1;
+			monster 'map$,61,37,"--ja--",2954,1;
+			monster 'map$,62,48,"--ja--",2954,1;
+			monster 'map$,51,25,"--ja--",2955,1;
+			monster 'map$,45,20,"--ja--",2954,1;
+			monster 'map$,38,20,"--ja--",2953,1;
+			monster 'map$,30,26,"--ja--",2954,1;
+			monster 'map$,34,22,"--ja--",2955,1;
+			monster 'map$,66,45,"--ja--",2953,1;
+			monster 'map$,51,66,"--ja--",2954,1;
+			monster 'map$,47,67,"--ja--",2955,1;
+			monster 'map$,52,54,"--ja--",2954,1;
+			monster 'map$,57,67,"--ja--",2954,1;
+			monster 'map$,58,65,"--ja--",2955,1;
+			monster 'map$,60,66,"--ja--",2953,1;
+			monster 'map$,62,63,"--ja--",2953,1;
+			monster 'map$,65,67,"--ja--",2953,1;
+			monster 'map$,65,64,"--ja--",2954,1;
+			monster 'map$,66,58,"--ja--",2955,1;
+			monster 'map$,65,54,"--ja--",2953,1;
+			monster 'map$,17,60,"--ja--",2953,1;
+			end;
+	}
+end;
+}
+
+1@spa,36,56,0	script	不詳的聲音	649,{
+	end;
+OnTalk1:
+	npctalk "不詳的聲音：忠心的皇家禁衛軍遭受陷害!";
+	end;
+OnTalk2:
+	npctalk "不詳的聲音：甚至連你的公主都因為蒙蔽皇宮的陰謀而受波及，呵呵呵…";
+	end;
+OnTalk3:
+	npctalk "不詳的聲音：哦哦，聽得到我的聲音嗎?真是開心!";
+	end;
+OnTalk4:
+	npctalk "不詳的聲音：你要不要和我簽訂契約呢?用你的靈魂讓我獲得自由，你則能得到無限的力量。";
+	end;
+OnTalk5:
+	npctalk "不詳的聲音：呵呵呵…如何呀?";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// ============================================================================
+// 第 四 張 地 圖
+// ============================================================================
+1@spa,199,214,2	script	黃土皇家禁衛軍#4F	686,{
+	if('talk3) end;
+	set 'talk3,1;
+	mes "[黃土皇家禁衛軍]";
+	mes "提亞拉公主在哪裡!";
+	npctalk "黃土皇家禁衛軍：提亞拉公主在哪裡!";
+	next;
+	mes "[鄰國王子]";
+	mes "你來得有點遲喔!還帶來我正在找的東西呢!多謝你讓我省了麻煩。";
+	donpcevent instance_npcname("鄰國王子")+"::OnTalk1";
+	next;
+	mes "[鄰國王子]";
+	mes "受阻咒的魔劍","塔拉塔諾斯，準備好要迎接新主人了嗎?";
+	donpcevent instance_npcname("鄰國王子")+"::OnTalk2";
+	next;
+	cutin "tartanos.bmp",2;
+	mes "[塔拉塔諾斯]";
+	mes "你這傢伙竟敢瞧不起我!";
+	donpcevent instance_npcname("塔拉塔諾斯")+"::OnTalk1";
+	next;
+	mes "[鄰國王子]";
+	mes "呃啊啊啊啊啊!";
+	donpcevent instance_npcname("鄰國王子")+"::OnTalk3";
+	close2;
+	cutin "",255;
+	hideonnpc instance_npcname("國王#spa");
+	hideonnpc instance_npcname("鄰國王子");
+	hideonnpc instance_npcname("黃土皇家禁衛軍#4F");
+	hideonnpc instance_npcname("塔拉塔諾斯");
+	hideonnpc instance_npcname("倒下的侍衛#1");
+	hideonnpc instance_npcname("倒下的侍衛#2");
+	hideonnpc instance_npcname("倒下的侍衛#3");
+	hideonnpc instance_npcname("倒下的侍衛#4");
+	hideonnpc instance_npcname("倒下的侍衛#5");
+	hideonnpc instance_npcname("倒下的侍衛#6");
+	monster 'map$,197,218,"--ja--",2959,1,instance_npcname(strnpcinfo(0))+"::OnLevel4";
+	end;
+OnLevel4:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnLevel4")) end;
+	set 'Level4,'Level4+1;
+	switch('Level4){
+		case 1:
+			monster 'map$,190,190,"--ja--",2949,1,instance_npcname(strnpcinfo(0))+"::OnLevel4";
+			monster 'map$,213,208,"--ja--",2956,1,instance_npcname(strnpcinfo(0))+"::OnLevel4";
+			end;
+		case 2:
+			monster 'map$,207,216,"--ja--",2956,1;
+			enablenpc instance_npcname("倒下的侍衛#1");
+			enablenpc instance_npcname("倒下的侍衛#2");
+			enablenpc instance_npcname("倒下的侍衛#3");
+			enablenpc instance_npcname("倒下的侍衛#4");
+			enablenpc instance_npcname("倒下的侍衛#5");
+			enablenpc instance_npcname("倒下的侍衛#6");
+			movenpc instance_npcname("國王#spa"),194,214,6;
+			setnpcdisplay(instance_npcname("國王#spa"),"倒下的國王",956);
+			hideoffnpc instance_npcname("國王#spa");
+			hideoffnpc instance_npcname("黃土皇家禁衛軍#4F");
+			enablenpc instance_npcname("鄰國王子");
+			enablenpc instance_npcname("塔拉塔諾斯");
+			end;
+		case 3:
+			mapannounce 'map$,"幽靈皇宮 5樓通道已開啟。",bc_map,0xFFFF00;
+			enablenpc instance_npcname("幽靈皇宮5F");
+			movenpc instance_npcname("提亞拉公主"),216,43,4;
+			hideoffnpc instance_npcname("提亞拉公主");
+			end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@spa,197,218,5	script	鄰國王子	470,{
+	end;
+OnTalk1:
+	npctalk "鄰國王子：你來得有點遲喔!還帶來我正在找的東西呢!多謝你讓我省了麻煩。";
+	end;
+OnTalk2:
+	npctalk "鄰國王子：受阻咒的魔劍　　　塔拉塔諾斯，準備好要迎接新主人了嗎?";
+	end;
+OnTalk3:
+	npctalk "鄰國王子：呃啊啊啊啊啊!";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@spa,201,214,0	script	塔拉塔諾斯	844,{
+	end;
+OnTalk1:
+	npctalk "塔拉塔諾斯：你這傢伙竟敢瞧不起我!";
+	end;
+OnTalk2:
+	npctalk "塔拉塔諾斯：我需要更多的血!薩克萊，將那個人的血獻給我。";
+	end;
+OnTalk3:
+	npctalk "塔拉塔諾斯：薩克萊，快將他的血獻給我，快!";
+	end;
+OnTalk4:
+	npctalk "塔拉塔諾斯：薩克萊，別忘了我們的血盟約。";
+	end;
+OnTalk5:
+	npctalk "塔拉塔諾斯：在找到令我滿意的血前，你的靈魂都是我的。哇哈哈哈哈哈…";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// ============================================================================
+// 第 五 張 地 圖
+// ============================================================================
+1@spa,213,42,8	script	黃土皇家禁衛軍#5F	686,{
+	switch('Change){
+		// 變身前的皇家禁衛軍
+		case 0:
+			if('talk4) end;
+			set 'talk4,1;
+			mes "[提亞拉公主]";
+			mes "你…遵守了約定!";
+			donpcevent instance_npcname("提亞拉公主")+"::OnTalk5";
+			next;
+			mes "[黃土皇家禁衛軍]";
+			mes "公主!";
+			npctalk "黃土皇家禁衛軍：公主!";
+			next;
+			cutin "npc-tiara.bmp",2;
+			mes "[提亞拉公主]";
+			mes "謝謝你，現在我可以安心地…在你身邊…休息了…";
+			donpcevent instance_npcname("提亞拉公主")+"::OnTalk6";
+			next;
+			mes "[黃土皇家禁衛軍]";
+			mes "不可以…不可以…";
+			npctalk "黃土皇家禁衛軍：不可以…不可以…";
+			next;
+			mes "[提亞拉公主的聲音]";
+			mes "我們約定在可以幸福的地方永遠不分開!";
+			donpcevent instance_npcname("提亞拉公主")+"::OnTalk7";
+			next;
+			cutin "b-tiara.bmp",2;
+			mes "[黃土皇家禁衛軍]";
+			mes "呃啊啊啊啊~!";
+			npctalk "黃土皇家禁衛軍：呃啊啊啊啊~!";
+			next;
+			cutin "",255;
+			mes "[提亞拉公主的聲音]";
+			mes "我愛你…";
+			donpcevent instance_npcname("提亞拉公主")+"::OnTalk8";
+			close2;
+			hideonnpc instance_npcname("提亞拉公主");
+			hideonnpc instance_npcname(strnpcinfo(0));
+			monster 'map$,218,53,"--ja--",2957,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,197,48,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,212,28,"--ja--",2958,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,190,22,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			end;
+		// 變身後的皇家禁衛軍
+		case 1:
+			if('talk5) end;
+			set 'talk,5;
+			cutin "sakray.bmp",2;
+			mes "[黃土皇家禁衛軍]";
+			mes "滿意了嗎?塔拉塔諾斯!";
+			npctalk "黃土皇家禁衛軍：滿意了嗎?塔拉塔諾斯!";
+			next;
+			mes "[塔拉塔諾斯]";
+			mes "我需要更多的血!薩克萊，將那個人的血獻給我。";
+			donpcevent instance_npcname("塔拉塔諾斯")+"::OnTalk2";
+			next;
+			setnpcdisplay(instance_npcname("黃土皇家禁衛軍#5F"),"薩克萊");
+			mes "[薩克萊]";
+			mes "好，那也不錯!旅行家，看到了嗎?";
+			npctalk "薩克萊：好，那也不錯!旅行家，看到了嗎?";
+			next;
+			mes "["+strcharinfo(0)+"]";
+			mes "薩克萊，你有什麼企圖?是想要我的同情，還是這是抓我的陷阱?";
+			unittalk getcharid(3),"薩克萊，你有什麼企圖?是想要我的同情，還是這是抓我的陷阱?";
+			next;
+			mes "[薩克萊]";
+			mes "兩者皆非。要抓你這種新手，跟本不需要下這種功夫。";
+			npctalk "薩克萊：兩者皆非。要抓你這種新手，跟本不需要下這種功夫。";
+			next;
+			mes "["+strcharinfo(0)+"]";
+			mes "那到底是為什麼…";
+			unittalk getcharid(3),"那到底是為什麼…";
+			next;
+			cutin "cry-b.bmp",2;
+			mes "[薩克萊]";
+			mes "我要透過你，消除在我體內殘留的人性。";
+			npctalk "薩克萊：我要透過你，消除在我體內殘留的人性。";
+			next;
+			mes "[薩克萊]";
+			mes "結果很令人滿意。";
+			npctalk "薩克萊：結果很令人滿意。";
+			next;
+			mes "[塔拉塔諾斯]";
+			mes "薩克萊，快將他的血獻給我，快!";
+			donpcevent instance_npcname("塔拉塔諾斯")+"::OnTalk3";
+			next;
+			mes "[薩克萊]";
+			mes "旅行家，若你是我，你會怎麼做呢?";
+			npctalk "薩克萊：旅行家，若你是我，你會怎麼做呢?";
+			next;
+			mes "[薩克萊]";
+			mes "你能從這詛咒裡獲得自由嗎?";
+			npctalk "薩克萊：你能從這詛咒裡獲得自由嗎?";
+			next;
+			mes "["+strcharinfo(0)+"]";
+			mes "…";
+			unittalk getcharid(3),"…";
+			next;
+			mes "[薩克萊]";
+			mes "呵呵呵…我會好好看住你的!直到你充分茁壯的那天!";
+			npctalk "薩克萊：呵呵呵…我會好好看住你的!直到你充分茁壯的那天!";
+			next;
+			cutin "",255;
+			mes "[薩克萊]";
+			mes "到時候我會找到你，並且將你獻給塔拉塔諾斯當食物。";
+			npctalk "薩克萊：到時候我會找到你，並且將你獻給塔拉塔諾斯當食物。";
+			next;
+			mes "[薩克萊]";
+			mes "我們到時候再見吧!";
+			npctalk "薩克萊：我們到時候再見吧!";
+			close2;
+			hideonnpc instance_npcname("黃土皇家禁衛軍#5F");
+			hideonnpc instance_npcname("塔拉塔諾斯");
+			movenpc instance_npcname("塔拉塔諾斯"),196,41;
+			hideoffnpc instance_npcname("塔拉塔諾斯");
+			enablenpc instance_npcname("薩克萊的聲音");
+			movenpc instance_npcname("提亞拉公主"),196,46;
+			setnpcdisplay(instance_npcname("提亞拉公主"),"提亞拉公主的聲音",844);
+			hideoffnpc instance_npcname("提亞拉公主");
+			sleep 300;
+			donpcevent instance_npcname("提亞拉公主")+"::OnTalk9";
+			sleep 300;
+			donpcevent instance_npcname("薩克萊的聲音")+"::OnTalk1";
+			sleep 300;
+			donpcevent instance_npcname("塔拉塔諾斯")+"::OnTalk4";
+			sleep 300;
+			donpcevent instance_npcname("塔拉塔諾斯")+"::OnTalk5";
+			sleep 300;
+			donpcevent instance_npcname("薩克萊的聲音")+"::OnTalk2";
+			sleep 300;
+			donpcevent instance_npcname("薩克萊的聲音")+"::OnTalk3";
+			sleep 300;
+			
+			hideonnpc instance_npcname("薩克萊的聲音");
+			hideonnpc instance_npcname("提亞拉公主");
+			hideonnpc instance_npcname("塔拉塔諾斯");
+			mapannounce 'map$,"是時候離開幽靈皇宮，出口已開啟。",bc_map,0xFFFF00;
+			enablenpc instance_npcname("幽靈皇宮出口");
+			end;
+	}
+close;
+OnLevel5:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnLevel5")) end;
+	set 'Level5,'Level5+1;
+	switch('Level5){
+		case 1:
+			monster 'map$,192,24,"--ja--",2957,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,196,57,"--ja--",2958,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,217,43,"--ja--",2957,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,216,60,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			end;
+		case 2:
+			monster 'map$,213,34,"--ja--",2957,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,193,39,"--ja--",2957,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			monster 'map$,175,46,"--ja--",2958,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			end;
+		case 3:
+			monster 'map$,218,55,"--ja--",2954,1,instance_npcname(strnpcinfo(0))+"::OnLevel5";
+			end;
+		case 4:
+			set 'gid,bg_monster(0,'map$,200,44,"--ja--",2959);
+			sleep 3500;
+			if(unitexists('gid))
+				unitkill 'gid;
+			set 'Change,1;
+			movenpc instance_npcname("黃土皇家禁衛軍#5F"),196,44,5;
+			setnpcdisplay(instance_npcname("黃土皇家禁衛軍#5F"),"薩克萊",685);
+			hideoffnpc instance_npcname("黃土皇家禁衛軍#5F");
+			movenpc instance_npcname("塔拉塔諾斯"),195,41,0;
+			hideoffnpc instance_npcname("塔拉塔諾斯");
+			end;
+	}
+end;
+}
+1@spa,198,43,5	script	薩克萊的聲音	844,{
+	end;
+OnTalk1:
+	npctalk "薩克萊的聲音：我會永遠在公主身邊，請在我身邊安歇吧!";
+	end;
+OnTalk2:
+	npctalk "薩克萊的聲音：在我的影子裡安心休息吧!";
+	end;
+OnTalk3:
+	npctalk "薩克萊的聲音：在永遠的黑暗中…";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+// ============================================================================
+// 副 本 傳 送 點
+// ============================================================================
+1@spa,41,217,0	script	幽靈皇宮2F	45,2,2,{
+	end;
+OnTouch:
+	warp 'map$,114,120;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@spa,117,137,0	script	幽靈皇宮3F	45,2,2,{
+	end;
+OnTouch:
+	warp 'map$,60,43;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@spa,53,29,0	script	幽靈皇宮4F	45,2,2,{
+	end;
+OnTouch:
+	warp 'map$,218,186;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@spa,178,186,0	script	幽靈皇宮5F	45,2,2,{
+	end;
+OnTouch:
+	warp 'map$,186,57;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// ============================================================================
+// 副 本 無 用 NPC
+// ============================================================================
+1@spa,0,0,0	script	::DeadBody	-1,{
+	end;
+OnInstanceInit:
+	if(atoi(strnpcinfo(2))) disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@spa,206,209,2	duplicate(DeadBody)	倒下的侍衛#1	849
+1@spa,201,198,8	duplicate(DeadBody)	倒下的侍衛#2	849
+1@spa,191,207,2	duplicate(DeadBody)	倒下的侍衛#3	849
+1@spa,196,182,8	duplicate(DeadBody)	倒下的侍衛#4	849
+1@spa,189,165,8	duplicate(DeadBody)	倒下的侍衛#5	849
+1@spa,211,194,6	duplicate(DeadBody)	倒下的侍衛#6	887
+
+1@spa,0,0,0	script	::KingGuard	-1,{
+	end;
+OnInstanceInit:
+	if(atoi(strnpcinfo(2))) disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@spa,34,53,2	duplicate(KingGuard)	國王的侍衛#1	413
+1@spa,30,52,0	duplicate(KingGuard)	國王的侍衛#2	417
+1@spa,28,52,0	duplicate(KingGuard)	國王的侍衛#3	418
+1@spa,25,53,0	duplicate(KingGuard)	國王的侍衛#4	413
+
+
+1@spa,210,28,0	script	幽靈皇宮出口	4_M_KNIGHT_SILVER,{
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@spa")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+//寶箱
+1@spa,0,0,0	script	副本寶箱#1@spa	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940015,10;
+	getexp 900000,500000;
+	getitem 6672,30;// 黃土髓片獎勵
+	getitem    6909,1;
+	getitem 930000,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

@@ -1,0 +1,48 @@
+uttycty,70,179,5	trader	[製作]吉特巴	629,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]吉特巴";
+	waitingroom "[製作]吉特巴",0;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	//
+	sellitem(2992, 10000, -1);
+	sellitemcurrency(2990,1);
+	sellitemcurrency(2991,1);	
+	endsellitem();
+	sellitem(1935, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(1990, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(18122, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(18123, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(15100, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(15101, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(2988, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(2989, 10000, -1);
+	sellitemcurrency(6719,35);
+	endsellitem();
+	sellitem(2990, 10000, -1);
+	sellitemcurrency(6719,50);
+	endsellitem();
+	sellitem(2991, 10000, -1);
+	sellitemcurrency(6719,50);
+	endsellitem();
+
+OnBuyItem:
+end;
+}
+

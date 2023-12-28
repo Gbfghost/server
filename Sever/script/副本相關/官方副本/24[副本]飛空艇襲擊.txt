@@ -1,0 +1,2420 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@air1	mapflag	noteleport
+1@air1	mapflag	nosave	SavePoint
+1@air1	mapflag	nomemo
+1@air1	mapflag	nobranch
+1@air1	mapflag	noicewall
+1@air1	mapflag	restricted	6
+1@air1	mapflag	monster_noteleport
+1@air1	mapflag	partylock
+1@air1	mapflag	novending
+1@air1	mapflag	nochat
+
+1@air2	mapflag	noteleport
+1@air2	mapflag	nosave	SavePoint
+1@air2	mapflag	nomemo
+1@air2	mapflag	nobranch
+1@air2	mapflag	noicewall
+1@air2	mapflag	restricted	6
+1@air2	mapflag	monster_noteleport
+1@air2	mapflag	partylock
+1@air2	mapflag	novending
+1@air2	mapflag	nochat
+
+amatsu,108,163,5	script	[副本]飛空艇襲擊事件	873,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "飛空艇襲擊事件";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 360;
+	// 冷卻編號
+	.ins_collnum = 24;
+
+//
+	waitingroom "[副本]飛空艇襲擊事件",0;
+	setnpcicon getnpcid(0),22,"[副本]飛空艇襲擊事件";
+	end;
+}
+	
+1@air1,240,57,3	script	洛奇#air1	512,{
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "...這個地方沒有麻煩的傢伙，不錯...";
+	close2;
+	cutin "ep14_roki02.bmp",255;
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("洛奇#air1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("洛奇#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("洛奇#air1");
+	end;
+}
+	
+1@air1,235,57,5	script	芬裡爾#air1	664,{
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "可以借助科技的力量飛翔於天空之中...科學技術的發展真令人驚訝！";
+	next;
+	mes "[芬裡爾]";
+	mes "但可以感覺到一股強烈的能量...可能這飛艇能夠飛翔不僅僅是依靠於技術的力量。";
+	close2;
+	cutin "fenrir_a.bmp",255;
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("芬裡爾#air1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("芬裡爾#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("芬裡爾#air1");
+	end;
+}
+
+1@air1,235,57,5	script	芬裡爾#air11	664,{
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "這裡的傢伙我來對付， 艾瑞絲你們去飛艇內部！";
+	close2;
+	cutin "fenrir_b.bmp",255;
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("芬裡爾#air11")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("芬裡爾#air11");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("芬裡爾#air11");
+	end;
+}
+
+1@air1,215,67,5	script	艾瑞絲#air1	666,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("艾瑞絲#air1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("艾瑞絲#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("艾瑞絲#air1");
+	end;
+}
+
+1@air1,214,66,5	script	卡奧斯#air1	683,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("卡奧斯#air1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("卡奧斯#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("卡奧斯#air1");
+	end;
+}
+
+1@air1,217,67,3	script	菲爾洛克#air1	873,{
+	cutin "h_iris02.bmp",2;
+	mes "[艾瑞絲]";
+	mes "哇~真不錯！風好涼快~！！";
+	mes "OHO~ 我們竟然能夠在天上飛，而且是免費的！";
+	next;
+	mes "[艾瑞絲]";
+	mes "不用魔法，這麼龐大的物體居然能在空中飛翔，真是神奇啊！";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "......";
+	next;
+	cutin "h_iris02.bmp",2;
+	mes "[艾瑞絲]";
+	mes "...？？卡奧斯？";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "......大賢者...";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "不聽我說話，在幹什麼啊？！！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "呃！啊啊啊啊~！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "哼！你魂飛哪去了？！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "艾...艾瑞絲！！你，你想謀殺我麼~！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "哼！管你死活呢...";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "嘿！！你們，在船內不要做危險的動作！！";
+	mes "所以我說，人類都沒有基本的規矩，再這樣就把你們扔出去了！！";
+	next;
+	cutin "h_iris02.bmp",2;
+	mes "[艾瑞絲]";
+	mes "呃...但是船長，這麼大的飛艇，怎麼才能在天上飛啊？真的很神奇！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "嗯？不錯的問題！";
+	mes "用大型的鍋爐加熱水，產生的蒸汽推動活塞，從而提供動力。";
+	next;
+	cutin "h_iris02.bmp",2;
+	mes "[艾瑞絲]";
+	mes "嘿嘿...原來如此，但是好像沒有什麼神秘感了呢...原來還以為會用什麼新科技，有點失望呢...";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "當然了，只用蒸汽怎麼可能把這麼大一艘船送上天空，所以我們還使用了輪機增加壓力。";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "輪機？那是什麼？";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "一個利用魔法石的裝置。";
+	mes "那塊魔法石是傳說中從什麼創世神的心臟中掉出來的碎片，聽起來好像很荒唐，但...";
+	next;
+	mes "[菲爾洛克]";
+	mes "所以，這個魔法石稱為伊米爾的眼淚，把這個石頭安裝在蒸汽機上，可以大幅度提高蒸汽機的能量。";
+	next;
+	mes "[菲爾洛克]";
+	mes "其實，用那大拇指大小的石頭就可以讓這艘巨大的船飛上天空，還真是難以置信。";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "那麼小的石頭啊...！！！";
+	next;
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "......恩？";
+	mes "好像有什麼在靠近我們...";
+	next;
+	cutin "ep14_roki02.bmp",255;
+	mes "[觀測兵]";
+	mes "注意！！注意！！7點發向發現飛龍部隊！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "什麼？！";
+	next;
+	cutin "fly_felrock2.bmp",255;
+	mes "[觀測兵]";
+	mes "小，小妖精！！從飛龍部隊上下來了小妖精！！";
+	donpcevent instance_npcname("小妖精#1air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#2air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#3air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#4air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#5air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#6air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#7air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#8air1")+"::OnEnable";
+	donpcevent instance_npcname("直升機哥布靈#1air1")+"::OnEnable";
+	donpcevent instance_npcname("直升機哥布靈#2air1")+"::OnEnable";
+	donpcevent instance_npcname("黃俄希托斯#1air1")+"::OnEnable";
+	donpcevent instance_npcname("灰俄希托斯#2air1")+"::OnEnable";
+	donpcevent instance_npcname("雙足飛龍#air1")+"::OnEnable";
+	next;
+	cutin "h_chaos01.bmp",2;
+	mes "[卡奧斯]";
+	mes "嗯...？這些是什麼？";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "哈哈哈哈~久等了！！";
+	mes "天才少女 阿卡納 給你們獻上空中怪獸表演，驚訝吧！！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "表...表演？";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "...快開始吧！小妖精們~！！";
+	mes "PARTY TIME~！！";
+	next;
+	cutin "h_arcana02.bmp",255;
+	mes "[觀測兵]";
+	mes "船...船長！出大事了！";
+	mes "小妖精進入了船艙各處，開始破壞設備了！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "什麼？！小妖精們！";
+	mes "你們這些傢伙！！趕快下來！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "船長，不用那麼激動。";
+	mes "小妖精只是對機器比較感興趣的魔獸...";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "我不這樣認為！！";
+	mes "這裡是高度8000英尺的空中！哪怕再小的故障，我們也會沒命！";
+	next;
+	cutin "fly_felrock2.bmp",255;
+	mes "[觀測兵]";
+	mes "哇！！1號引擎危險了！！";
+	mes "...那些傢伙們想進入機關室，我們必須守住！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "該死...我的武器在哪裡...";
+	mes "人類們！我去船長室拿武器，在我回來之前，防止它們進入機關室！！";
+	next;
+	mes "[菲爾洛克]";
+	mes "特別是防止它們接近輪機室，如果那裡被破壞了，船就無法再飛了！！";
+	next;
+	mes "[菲爾洛克]";
+	mes "該死...只要我有武器的話...";
+	next;
+	donpcevent instance_npcname("菲爾洛克#air1")+"::OnDisable";
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "艾瑞絲！！我們去輪機室那一層吧！洛奇和芬裡爾在這裡留守！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "嗯...！知道了...走吧！！";
+	sleep3 500;
+	donpcevent instance_npcname("艾瑞絲#air1")+"::OnDisable";
+	donpcevent instance_npcname("卡奧斯#air1")+"::OnDisable";
+	donpcevent instance_npcname("芬裡爾#air1")+"::OnDisable";
+	donpcevent instance_npcname("芬裡爾#air11")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob1")+"::OnEnable";
+	close2;
+	cutin "h_iris01.bmp",255;
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "飛艇上突然出現了敵人。",bc_map,"0xFFFF00";
+	sleep3 1000;
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "請從飛艇尾部進入船艙內，打倒敵人。",bc_map,"0xFFFF00";
+	sleep 1000;
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "只有消滅全部的敵人，才能進行下一階段。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("warp1#air1")+"::OnEnable";
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("菲爾洛克#air1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("菲爾洛克#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("菲爾洛克#air1");
+	end;
+}
+	
+1@air1,236,57,3	script	小妖精#1air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#1air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#1air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#1air1");
+	end;
+}
+
+1@air1,239,57,5	script	小妖精#2air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#2air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#2air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#2air1");
+	end;
+}
+
+1@air1,230,50,5	script	小妖精#3air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#3air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#3air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#3air1");
+	end;
+}
+
+1@air1,226,62,3	script	小妖精#4air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#4air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#4air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#4air1");
+	end;
+}
+
+1@air1,241,48,3	script	小妖精#5air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#5air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#5air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#5air1");
+	end;
+}
+
+1@air1,225,40,7	script	小妖精#6air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#6air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#6air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#6air1");
+	end;
+}
+
+1@air1,236,48,7	script	小妖精#7air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#7air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#7air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#7air1");
+	end;
+}
+
+1@air1,224,66,5	script	小妖精#8air1	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#8air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#8air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#8air1");
+	end;
+}
+
+//Warportals.
+1@air1,253,54,0	script	warp1#air1	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp1#air1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp1#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp1#air1");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air1");
+	warp .@map$,91,68;
+	end;
+}
+
+1@air1,104,72,0	script	warp2a#air1	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp2a#air1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp2a#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp2a#air1");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air1");
+	warp .@map$,101,200;
+	end;
+}
+
+1@air1,104,52,0	script	warp2b#air1	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp2b#air1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp2b#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp2b#air1");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air1");
+	warp .@map$,101,176;
+	end;
+}
+
+1@air1,103,200,0	script	warp3a#air1	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp3a#air1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp3a#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp3a#air1");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air2");
+	warp .@map$,104,72;
+	end;
+}
+
+1@air1,103,176,0	script	warp3b#air1	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp3b#air1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp3b#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp3b#air1");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air2");
+	warp .@map$,104,52;
+	end;
+}
+
+1@air2,88,67,0	script	warp4a#air2	45,1,2,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("warp4a#air2")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("warp4a#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("warp4a#air2");
+	end;
+OnTouch:
+	set .@map$, instance_mapname("1@air2");
+	warp .@map$,247,53;
+	end;
+}
+
+
+
+//Monsters Spawn.
+1@air1,0,0,0	script	#airshipputmob1	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("#airshipputmob1")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("#airshipputmob1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#airshipputmob1");
+	set .@map$, instance_mapname("1@air1");
+	set .@label$, instance_npcname("#airshipputmob1")+"::OnMyMobDead";
+	areamonster .@map$,36,49,98,77,"直升機哥布靈",3175,9,.@label$;
+	areamonster .@map$,36,49,98,77,"惡魔之眼",3177,10,.@label$;
+	
+	monster .@map$,62,92,"直升機哥布靈",3175,1,.@label$;
+	monster .@map$,61,88,"小妖精",3177,1,.@label$;
+	
+	monster .@map$,62,32,"直升機哥布靈",3175,1,.@label$;
+	monster .@map$,60,36,"小妖精",3177,1,.@label$;
+	
+	monster .@map$,19,66,"直升機哥布靈",3175,1,.@label$;
+	monster .@map$,19,64,"直升機哥布靈",3175,1,.@label$;
+	monster .@map$,19,62,"直升機哥布靈",3175,1,.@label$;
+	monster .@map$,19,60,"直升機哥布靈",3175,1,.@label$;
+	areamonster .@map$,102,68,117,54,"惡魔之眼",3177,3,.@label$;
+	set 'MyMobs,30;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@air1");
+	set 'MyMobs, 'MyMobs-1;
+	mapannounce .@map$, "剩餘數量: "+'MyMobs+"",bc_map,"0xFFFF00";
+	if ('MyMobs <= 0) {
+		donpcevent instance_npcname("#airshipputmob1")+"::OnComplete";
+	}
+	end;
+OnComplete:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "已經打倒了所有敵人，請進入下一區域。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("warp2a#air1")+"::OnEnable";
+	donpcevent instance_npcname("warp2b#air1")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob2")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob1")+"::OnDisable";
+	stopnpctimer;
+	end;
+}
+
+1@air1,0,0,0	script	#airshipputmob2	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("#airshipputmob2")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("#airshipputmob2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#airshipputmob2");
+	set .@map$, instance_mapname("1@air1");
+	set .@label$, instance_npcname("#airshipputmob2")+"::OnMyMobDead";
+	monster .@map$,97,201,"小妖精",3176,1,.@label$;
+	monster .@map$,97,198,"小妖精",3176,1,.@label$;
+	monster .@map$,97,177,"小妖精",3176,1,.@label$;
+	monster .@map$,97,174,"小妖精",3176,1,.@label$;
+	
+	monster .@map$,18,192,"灰俄希托斯",3179,1,.@label$;
+	monster .@map$,18,190,"灰俄希托斯",3179,1,.@label$;
+	monster .@map$,18,188,"灰俄希托斯",3179,1,.@label$;
+	monster .@map$,18,186,"灰俄希托斯",3179,1,.@label$;
+	
+	monster .@map$,65,215,"小妖精",3176,1,.@label$;
+	monster .@map$,65,215,"灰俄希托斯",3179,1,.@label$;
+	monster .@map$,65,160,"小妖精",3176,1,.@label$;
+	monster .@map$,65,160,"灰俄希托斯",3179,1,.@label$;
+	
+	areamonster .@map$,108,198,119,180,"灰俄希托斯",3179,2,.@label$;
+	areamonster .@map$,108,198,119,180,"小妖精",3176,2,.@label$;
+	
+	areamonster .@map$,87,209,30,171,"灰俄希托斯",3179,7,.@label$;
+	areamonster .@map$,87,209,30,171,"小妖精",3176,7,.@label$;
+	set 'MyMobs,30;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@air1");
+	set 'MyMobs, 'MyMobs-1;
+	mapannounce .@map$, "剩餘數量: "+'MyMobs+"",bc_map,"0xFFFF00";
+	if ('MyMobs <= 0) {
+		donpcevent instance_npcname("#airshipputmob2")+"::OnComplete";
+	}
+	end;
+OnComplete:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "已經打倒了所有敵人，去找艾瑞絲他們吧。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("艾瑞絲#2air1")+"::OnEnable";
+	donpcevent instance_npcname("卡奧斯#2air1")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#2aair")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob2")+"::OnDisable";
+	stopnpctimer;
+	end;
+}
+
+1@air2,0,0,0	script	#airshipputmob3	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("#airshipputmob3")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("#airshipputmob3");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#airshipputmob3");
+	set .@map$, instance_mapname("1@air2");
+	set .@label$, instance_npcname("#airshipputmob3")+"::OnMyMobDead";
+	areamonster .@map$,36,49,98,77,"黃俄希托斯",3178,9,.@label$;
+	areamonster .@map$,36,49,98,77,"惡魔之眼",3177,10,.@label$;
+	
+	monster .@map$,62,92,"黃俄希托斯",3178,1,.@label$;
+	monster .@map$,61,88,"灰俄希托斯",3177,1,.@label$;
+	
+	monster .@map$,62,32,"黃俄希托斯",3178,1,.@label$;
+	monster .@map$,60,36,"灰俄希托斯",3177,1,.@label$;
+	
+	monster .@map$,19,66,"黃俄希托斯",3178,1,.@label$;
+	monster .@map$,19,64,"黃俄希托斯",3178,1,.@label$;
+	monster .@map$,19,62,"黃俄希托斯",3178,1,.@label$;
+	monster .@map$,19,60,"黃俄希托斯",3178,1,.@label$;
+	areamonster .@map$,102,68,117,54,"惡魔之眼",3177,3,.@label$;
+	set 'MyMobs,30;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@air2");
+	set 'MyMobs, 'MyMobs-1;
+	mapannounce .@map$, "剩餘數量: "+'MyMobs+"",bc_map,"0xFFFF00";
+	if ('MyMobs == 0) {
+		donpcevent instance_npcname("#airshipputmob3")+"::OnComplete";
+	}
+	end;
+OnComplete:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("1@air2");
+	mapannounce .@map$, "已經打倒了所有敵人，請回到甲板上。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("warp4a#air2")+"::OnEnable";
+	donpcevent instance_npcname("艾瑞絲#air2")+"::OnEnable";
+	donpcevent instance_npcname("芬裡爾#air2")+"::OnEnable";
+	donpcevent instance_npcname("雙足飛龍#2air2")+"::OnEnable";
+	donpcevent instance_npcname("雙足飛龍#3air2")+"::OnEnable";
+	donpcevent instance_npcname("firecontrol2#air2")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob3")+"::OnDisable";
+	stopnpctimer;
+	end;
+}
+
+1@air2,0,0,0	script	#airshipputmob4	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("#airshipputmob4")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("#airshipputmob4");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#airshipputmob4");
+	set .@map$, instance_mapname("1@air2");
+	set .@label$, instance_npcname("#airshipputmob4")+"::OnMyMobDead";
+	set .@g1,monster (.@map$,235,49,"雙足飛龍",3180,1,.@label$);
+	//getmobdata .@g1,'airbossdata1;
+	//setmobdata .@g1,32,'airbossdata1[31]*1949/1000;
+	end;
+OnMyMobDead:
+	donpcevent instance_npcname("#airshipputmob4")+"::OnComplete";
+	end;
+	
+OnComplete:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("1@air2");
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#4air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#5air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#6air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#7air2")+"::OnEnable";
+	donpcevent instance_npcname("小妖精#8air2")+"::OnEnable";
+	donpcevent instance_npcname("艾瑞絲#2air2")+"::OnEnable";
+	donpcevent instance_npcname("菲爾洛克#air2")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob4")+"::OnDisable";
+	stopnpctimer;
+	end;
+}
+
+1@air2,229,54,5	script	芬裡爾#air2	664,{
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "...這些傢伙到底有多少隻，一直不停的出現。";
+	next;
+	cutin "h_guardian2.bmp",1;
+	mes "[?????]";
+	mes "看來我們的直覺沒有錯。沿著混亂的波動來到這裡，果然有所收穫。";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "...？？你們是誰！！";
+	next;
+	cutin "h_guardian2.bmp",1;
+	mes "[?????]";
+	mes "自我介紹一下...";
+	next;
+	mes "[?????]";
+	mes "希瓦！巴撒拉！克拉希米！";
+	mes "我們是無敵的遊俠隊！";
+	next;
+	cutin "h_guardian1.bmp",1;
+	mes "[黃金英雄]";
+	mes "黃金英雄！！";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "......";
+	next;
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "......";
+	next;
+	cutin "h_guardian1.bmp",1;
+	mes "[希瓦]";
+	mes "嗯？大家的反應怎麼這麼冷淡呢？是我們太誇張了嗎？";
+	next;
+	mes "[巴撒拉]";
+	mes "不是，不是，肯定是因為我們的閃亮登場，大家都驚訝得說不出話了。";
+	next;
+	mes "[克拉希米]";
+	mes "對，對，英雄們的登場當然要這種程度啦！";
+	next;
+	cutin "h_iris02.bmp",2;
+	mes "[艾瑞絲]";
+	mes "哦...";
+	mes "哦哈哈哈哈";
+	next;
+	mes "[艾瑞絲]";
+	mes "什麼呀？這群笨蛋是？！";
+	mes "你看她們穿的衣服！！";
+	mes "是舞台裝麼？不是英雄而是演藝人員吧！";
+	next;
+	cutin "h_guardian3.bmp",1;
+	mes "[希瓦]";
+	mes "哼，真沒品味！";
+	mes "你知道這衣服要多少錢嗎？所以說不知道流行趨勢的人，真難以交流~！";
+	next;
+	mes "[巴撒拉]";
+	mes "大家！我們現在沒有時間和他們爭執了，讓我們消滅邪惡吧！";
+	next;
+	mes "[希瓦]";
+	mes "收到, 巴撒拉！讓我們趕快開始吧！！";
+	mes "風魔手裡劍！！呀！";
+	next;
+	cutin "h_iris02.bmp",255;
+	mes "- 砰！砰砰！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	sleep3 200;
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "呀，這是什麼招式啊...真是奇怪...";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "哎喲？";
+	mes "還有意想不到的協助者呢？";
+	mes "看來這次比預想中的更有意思~";
+	next;
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "慢著！";
+	mes "難道是芙蕾雅派你過來的？";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "你難道不害怕麼？";
+	mes "一個卑賤的人類，竟然敢直呼神的名字。";
+	next;
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "果然，是芙蕾雅的走狗。";
+	next;
+	cutin "h_arcana01.bmp",2;
+	mes "[阿卡納]";
+	mes "...小心，你會遭到天譴 ...";
+	next;
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "...！！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	sleep3 200;
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "我就休息一下，讓你們看看好東西吧~";
+	next;
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "難, 難道...龍息？！！";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "B.I.N.G.O ~";
+	next;
+	cutin "fenrir_b.bmp",255;
+	mes "[雙足飛龍]";
+	mes "嗷嗷噢噢噢...！！";
+	next;
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "啊...小心！！飛艇！！";
+	next;
+	donpcevent instance_npcname("洛奇#air2")+"::OnEnable";
+	cutin "fenrir_b.bmp",255;
+	mes "- 砰！！！";
+	next;
+	cutin "fenrir_a.bmp",2;
+	mes "[芬裡爾]";
+	mes "...？！洛奇！！";
+	next;
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "哼...";
+	mes "新衣服壞了...";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "什麼...竟然接下了雙足飛龍的吐息...到底是有多強啊？";
+	next;
+	cutin "ep14_roki02.bmp",255;
+	mes "[雙足飛龍]";
+	mes "嗷噢噢噢...！！";
+	next;
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "來了一群麻煩的傢伙...";
+	mes "讓我對付這個傢伙，你去消滅其他的嘍囉...";
+	close2;
+	cutin "ep14_roki02.bmp",255;
+	donpcevent instance_npcname("芬裡爾#air2")+"::OnDisable";
+	donpcevent instance_npcname("洛奇#air2")+"::OnDisable";
+	donpcevent instance_npcname("艾瑞絲#air2")+"::OnDisable";
+	donpcevent instance_npcname("雙足飛龍#2air2")+"::OnDisable";
+	donpcevent instance_npcname("雙足飛龍#3air2")+"::OnDisable";
+	donpcevent instance_npcname("#airshipputmob4")+"::OnEnable";
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("芬裡爾#air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("芬裡爾#air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("芬裡爾#air2");
+	end;
+}
+
+1@air2,229,56,5	script	洛奇#air2	512,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("洛奇#air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("洛奇#air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("洛奇#air2");
+	initnpctimer;
+	end;
+OnTimer1000:
+	specialeffect EF_SUI_EXPLOSION;
+	stopnpctimer;
+	end;
+}
+
+1@air2,241,54,3	script	艾瑞絲#air2	666,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("艾瑞絲#air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("艾瑞絲#air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("艾瑞絲#air2");
+	end;
+}
+
+1@air2,235,59,3	script	雙足飛龍#2air2	3180,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("雙足飛龍#2air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("雙足飛龍#2air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("雙足飛龍#2air2");
+	end;
+}
+
+1@air2,235,49,3	script	雙足飛龍#3air2	3180,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("雙足飛龍#3air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("雙足飛龍#3air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("雙足飛龍#3air2");
+	end;
+}
+
+//NPC Historia.
+
+1@air1,88,189,5	script	艾瑞絲#2air1	666,{
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "...真是多虧你們了！守住了輪機室。";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "啊...有一隻小妖精溜進去了！！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "......！！一定要阻止它！！";
+	next;
+	cutin "h_chaos03.bmp",255;
+	mes "[小妖精]";
+	mes "嗷嗷...！！";
+	//disablenpc "warp3a#air1_0op"
+	next;
+	donpcevent instance_npcname("小妖精#2aair")+"::OnEffect";
+	mes "- 砰！砰砰！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "呀啊啊！！";
+	next;
+	cutin "h_iris01.bmp",255;
+	mes "[船員]";
+	mes "呀啊啊啊！輪機室被破壞了！！引擎失火！！消防隊快來滅火！！";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "這個地方太危險了！！我們先想辦法離開吧！艾瑞絲~快！！";
+	close2;
+	donpcevent instance_npcname("艾瑞絲#2air1")+"::OnDisable";
+	donpcevent instance_npcname("卡奧斯#2air1")+"::OnDisable";
+	donpcevent instance_npcname("#airshipputmob3")+"::OnEnable";
+	donpcevent instance_npcname("firecontrol#air2")+"::OnEnable";
+	sleep3 1000;
+	set .@map$, instance_mapname("1@air1");
+	mapannounce .@map$, "請一路打倒敵人，回到飛艇甲板上。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("warp3a#air1")+"::OnEnable";
+	donpcevent instance_npcname("warp3b#air1")+"::OnEnable";
+	cutin "h_chaos02.bmp",255;
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("艾瑞絲#2air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("艾瑞絲#2air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("艾瑞絲#2air1");
+	end;
+}
+
+1@air1,88,187,5	script	卡奧斯#2air1	683,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("卡奧斯#2air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("卡奧斯#2air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("卡奧斯#2air1");
+	end;
+}
+
+1@air1,93,188,5	script	小妖精#2aair	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#2aair")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#2aair");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#2aair");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	donpcevent instance_npcname("小妖精#2aair")+"::OnDisable";
+	end;
+}
+
+1@air2,232,51,5	script	艾瑞絲#2air2	666,{
+	mes "[小妖精]";
+	mes "...噢噢噢噢噢~！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "啊！怎麼現在還有這麼多傢伙！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "找到了！我的武器！哈哈哈哈！";
+	next;
+	mes "[菲爾洛克]";
+	mes "竟敢在我的船上搗亂，讓你們體會一下這樣做的恐怖下場！";
+	next;
+	mes "[菲爾洛克]";
+	mes "特別製作的！";
+	mes "EXODUS JOKER XIII";
+	mes "這就用它幹掉你們！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "慢，慢著...";
+	mes "真的要用這把武器嗎？！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "當然了！";
+	mes "哈哈哈哈哈哈哈！";
+	next;
+	cutin "h_iris01.bmp",255;
+	mes "- 砰！砰砰！砰！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnDisable";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnDisable";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnDisable";
+	mes "[小妖精]";
+	mes "哇哇哇哇哇！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "哈哈哈哈！";
+	mes "怎麼樣！！";
+	mes "嘗到這把武器的滋味了嗎？";
+	next;
+	cutin "h_iris01.bmp",255;
+	mes "- 砰！砰砰！砰！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	mes "[觀測兵]";
+	mes "怎麼辦...引擎！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "什麼？！那些傢伙破壞了引擎？！我更加生氣了！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "是你自己弄壞的！！！";
+	next;
+	cutin "h_iris01.bmp",255;
+	mes "- 砰！砰砰！？！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "這些傢伙！殺死你們！";
+	mes "哈哈哈哈哈！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "再這樣下去的話，這艘船就要被船長毀滅了，好可怕！誰去阻止一下他...";
+	next;
+	mes "[艾瑞絲]";
+	mes "怎麼才能阻止他呢？...嗯，打個半死應該就可以了吧...拜託了！！";
+	close2;
+	cutin "h_iris01.bmp",255;
+	donpcevent instance_npcname("小妖精#4air2")+"::OnDisable";
+	donpcevent instance_npcname("小妖精#5air2")+"::OnDisable";
+	donpcevent instance_npcname("小妖精#6air2")+"::OnDisable";
+	donpcevent instance_npcname("小妖精#7air2")+"::OnDisable";
+	donpcevent instance_npcname("小妖精#8air2")+"::OnDisable";
+	donpcevent instance_npcname("菲爾洛克#air2")+"::OnDisable";
+	donpcevent instance_npcname("#airshipputmob5")+"::OnEnable";
+	donpcevent instance_npcname("艾瑞絲#2air2")+"::OnDisable";
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("艾瑞絲#2air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("艾瑞絲#2air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("艾瑞絲#2air2");
+	end;
+}
+
+1@air2,247,51,3	script	菲爾洛克#air2	873,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("菲爾洛克#air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("菲爾洛克#air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("菲爾洛克#air2");
+	end;
+}
+
+1@air2,239,58,5	script	卡奧斯#air2	683,{
+	mes "[菲爾洛克]";
+	mes "啊...好像我有點得意忘形了？不過小妖精們少了不少！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "因為你，船這下真的損壞了！！";
+	next;
+	cutin "h_arcana02.bmp",2;
+	mes "[阿卡納]";
+	mes "謝謝你，幫我們做了本來該做的事，這個程度就足夠了。";
+	next;
+	mes "[阿卡納]";
+	mes "那我們就先退場了...";
+	next;
+	cutin "h_guardian1.bmp",1;
+	mes "[克拉希米]";
+	mes "嗯？...那個,巴撒拉，他們要撤退了...";
+	next;
+	mes "[巴撒拉]";
+	mes "當然了~！！見識到了我們的實力之後，他們嚇跑了！！呵呵呵~";
+	next;
+	mes "[巴撒拉]";
+	mes "那麼，最後再來一次風魔手裡劍！！";
+	next;
+	cutin "fly_felrock2.bmp",255;
+	mes "- 砰砰！砰！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "啊！！要掉下去了！！";
+	next;
+	mes "[芬裡爾]";
+	mes "...難道就要在這裡結束了麼？";
+	mes "...像那個時候一樣...";
+	mes "卡奧斯...";
+	next;
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "...抓住";
+	next;
+	cutin "fenrir_b.bmp",2;
+	mes "[芬裡爾]";
+	mes "洛...奇？";
+	next;
+	cutin "ep14_roki02.bmp",2;
+	mes "[洛奇]";
+	mes "驚訝什麼呢？趕快上來...";
+	next;
+	cutin "fly_felrock2.bmp",255;
+	mes "[觀測兵]";
+	mes "所有引擎停止工作！！";
+	mes "準備撤離！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "混帳...";
+	mes "大家都上救生艇！";
+	mes "乘客優先！船艙滿了就可以直接出發！！";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "慢著！！還有人沒有過來！！";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "沒辦法了！";
+	mes "現在這種情況，再不出發的話，剩下的人也會陷入危險之中。我們已經盡力了！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "但是，剩下的人的生命也很重要，難道要拋棄他們麼？";
+	next;
+	cutin "fly_felrock2.bmp",2;
+	mes "[菲爾洛克]";
+	mes "是, 你的話是對的...";
+	mes "那我先走了，你在這裡等他們吧！！";
+	donpcevent instance_npcname("菲爾洛克#2air2")+"::OnDisable";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "什麼！你去哪啊！啊啊啊！！";
+	mes "不要再被我碰到，我要殺了你！！";
+	next;
+	cutin "h_guardian1.bmp",1;
+	mes "[巴撒拉]";
+	mes "我們現在沒有時間對付這些小妖精們了。";
+	next;
+	mes "[巴撒拉]";
+	mes "感受到了更強大的邪惡氣息。";
+	mes "這些小嘍囉就交給他們吧，我們走！";
+	next;
+	mes "[克拉希米&希瓦]";
+	mes "收到！！遊俠飛行形態！！";
+	next;
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "啊？呀！！";
+	mes "你們把船弄成這樣，這就跑了？！";
+	next;
+	mes "[艾瑞絲]";
+	mes "下次看到你們，絕不放過你們！知道了麼？！你們這些鄉巴佬！！";
+	next;
+	cutin "h_guardian3.bmp",1;
+	mes "[女王的守護者]";
+	mes "...鄉巴佬！？(憤怒)";
+	next;
+	mes "[女王的守護者]";
+	mes "為了正義，審判你們...";
+	next;
+	mes "[女王的守護者]";
+	mes "死吧！！惡魔！風魔手裡劍！！";
+	next;
+	cutin "h_iris01.bmp",255;
+	mes "- 砰！砰砰！砰！";
+	next;
+	donpcevent instance_npcname("小妖精#1air2")+"::OnEffect";
+	donpcevent instance_npcname("小妖精#2air2")+"::OnEffect";
+	sleep3 300;
+	donpcevent instance_npcname("小妖精#3air2")+"::OnEffect";
+	cutin "h_iris01.bmp",2;
+	mes "[艾瑞絲]";
+	mes "啊啊啊啊！！";
+	next;
+	cutin "h_guardian1.bmp",1;
+	mes "[女王的守護者]";
+	mes "啊哈哈哈哈！！";
+	mes "活該~走吧！！";
+	next;
+	cutin "h_chaos03.bmp",2;
+	mes "[卡奧斯]";
+	mes "艾瑞絲！！快過來！！";
+	mes "我們去找芬裡爾和洛奇，然後逃跑吧！！";
+	next;
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "你們也快逃跑吧，這艘船不行了！！";
+	close2;
+	cutin "h_chaos02.bmp",255;
+	end;
+
+OnInstanceInit:
+	donpcevent instance_npcname("卡奧斯#air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("卡奧斯#air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("卡奧斯#air2");
+	end;
+}
+
+1@air2,239,58,5	script	卡奧斯#1air2	683,{
+	cutin "h_chaos02.bmp",2;
+	mes "[卡奧斯]";
+	mes "你們也快逃跑吧，這艘船不行了！！";
+	close2;
+	cutin "h_chaos02.bmp",255;
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("卡奧斯#1air2")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("卡奧斯#1air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("卡奧斯#1air2");
+	end;
+}
+
+1@air2,243,58,3	script	菲爾洛克#2air2	873,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("菲爾洛克#2air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("菲爾洛克#2air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("菲爾洛克#2air2");
+	end;
+}
+
+//NPC Basura.
+
+1@air1,120,62,3	script	旅行中的騎士#air1	733,{
+	mes "[旅行中的騎士]";
+	mes "什麼？這些傢伙？";
+	mes "我來殺掉他們麼？...算了，也沒有報酬...";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("旅行中的騎士#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("旅行中的騎士#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("旅行中的騎士#air1");
+	end;
+}
+
+1@air1,95,47,3	script	倒下的醉鬼#air1	887,{
+	mes "[倒下的醉鬼]";
+	mes "呼呼...要醉了...嗝";
+	mes "....呼呼...Zzz";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("倒下的醉鬼#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("倒下的醉鬼#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("倒下的醉鬼#air1");
+	end;
+}
+
+1@air1,75,71,5	script	用餐中的富翁#air1	55,{
+	mes "[用餐中的富翁]";
+	mes "什麼...這些怪物是什麼？！";
+	mes "竟然打擾我寶貴的進餐時間！警衛人員呢！在哪裡！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("用餐中的富翁#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("用餐中的富翁#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("用餐中的富翁#air1");
+	end;
+}
+
+1@air1,61,88,5	script	無票乘車的吟遊詩人#air	51,{
+	mes "[無票乘車的吟遊詩人]";
+	mes "哇哦...Gorgeous~Fantastic~";
+	mes "我要寫出能描述這個場景的歌詞~";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("無票乘車的吟遊詩人#air")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("無票乘車的吟遊詩人#air");
+	end;
+OnEnable:
+	enablenpc instance_npcname("無票乘車的吟遊詩人#air");
+	end;
+}
+
+1@air1,46,61,5	script	偏心的餐廳經理#air1	61,{
+	mes "[偏心的餐廳經理]";
+	mes "雖然長得很可怕，但是也是來食堂的客人。";
+	mes "你們需要什麼？怪物客人們？";
+	next;
+	mes "[偏心的餐廳經理]";
+	mes "呃...呃啊！救命啊！！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("偏心的餐廳經理#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("偏心的餐廳經理#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("偏心的餐廳經理#air1");
+	end;
+}
+
+1@air1,28,67,5	script	好賭的惡棍#air1	853,{
+	mes "[好賭的惡棍]";
+	mes "嘿！不要碰我的牌！";
+	mes "打斷你的手噢！";
+	next;
+	mes "[好賭的惡棍]";
+	mes "嗯..？！";
+	mes "現在開始手感才來，但這些怪物是什麼？剛贏了一點錢就想來搶走嗎？！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("好賭的惡棍#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("好賭的惡棍#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("好賭的惡棍#air1");
+	end;
+}
+
+1@air1,93,193,3	script	飛空艇船員#1air1	852,{
+	mes "[飛空艇船員]";
+	mes "這個地方是通往輪機室的入口，請不要讓怪物接近！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("飛空艇船員#1air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("飛空艇船員#1air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("飛空艇船員#1air1");
+	end;
+}
+
+1@air1,22,182,7	script	飛空艇船員#2air1	852,{
+	mes "[飛空艇船員]";
+	mes "可惡...怪物太多了，守不住了！！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("飛空艇船員#2air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("飛空艇船員#2air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("飛空艇船員#2air1");
+	end;
+}
+
+1@air1,39,191,4	script	皇家衛兵#2air1	105,{
+	mes "[皇家衛兵]";
+	mes "不管發生什麼事，都不能打擾到熟睡的國王！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("皇家衛兵#2air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("皇家衛兵#2air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("皇家衛兵#2air1");
+	end;
+}
+
+1@air1,43,191,4	script	皇家衛兵#1air1	105,{
+	mes "[皇家衛兵]";
+	mes "不管發生什麼事，都不能打擾到熟睡的國王！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("皇家衛兵#1air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("皇家衛兵#1air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("皇家衛兵#1air1");
+	end;
+}
+
+1@air1,49,169,5	script	遊客#2air1	887,{
+	mes "[遊客]";
+	mes "....呼呼...Zzz";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("遊客#2air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("遊客#2air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("遊客#2air1");
+	end;
+}
+
+1@air1,58,197,3	script	遊客#1air1	887,{
+	mes "[遊客]";
+	mes "....呼呼...Zzz";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("遊客#1air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("遊客#1air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("遊客#1air1");
+	end;
+}
+
+1@air1,42,205,3	script	一個小國的國王#air1	956,{
+	mes "[一個小國的國王]";
+	mes "....呼呼...Zzz";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("一個小國的國王#air1")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("一個小國的國王#air1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("一個小國的國王#air1");
+	end;
+}
+
+1@air2,120,62,3	script	旅行中的騎士#air2	733,{
+	mes "[旅行中的騎士]";
+	mes "呃...呃啊！！";
+	mes "要爆炸了！快點過去...逃到旁邊的飛船上！！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("旅行中的騎士#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("旅行中的騎士#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("旅行中的騎士#air2");
+	end;
+}
+
+1@air2,95,47,3	script	倒下的醉鬼#air2	887,{
+	mes "[倒下的醉鬼]";
+	mes "呃啊...要醉了...";
+	mes "....呼呼...Zzz";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("倒下的醉鬼#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("倒下的醉鬼#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("倒下的醉鬼#air2");
+	end;
+}
+
+1@air2,61,88,5	script	無票乘車的吟遊詩人#air2	51,{
+	mes "[無票乘車的吟遊詩人]";
+	mes "哇哦...Gorgeous~Fantastic~";
+	mes "爆炸的船，真是帥阿~";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("無票乘車的吟遊詩人#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("無票乘車的吟遊詩人#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("無票乘車的吟遊詩人#air2");
+	end;
+}
+
+1@air2,75,71,5	script	用餐中的富翁#air2	55,{
+	mes "[用餐中的富翁]";
+	mes "救命啊！！";
+	mes "要多少錢我都給！帶我離開這裡！警衛人員呢？！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("用餐中的富翁#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("用餐中的富翁#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("用餐中的富翁#air2");
+	end;
+}
+
+1@air2,28,67,5	script	好賭的惡棍#air2	853,{
+	mes "[好賭的惡棍]";
+	mes "什麼？火嗎？";
+	mes "呃啊啊啊啊~";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("好賭的惡棍#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("好賭的惡棍#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("好賭的惡棍#air2");
+	end;
+}
+
+1@air2,46,61,5	script	偏心的餐廳經理#air2	61,{
+	mes "[偏心的餐廳經理]";
+	mes "這艘船要墜落了嗎？";
+	mes "但是我會與這個食堂共同存亡的！這艘船和我是一體的！";
+	next;
+	mes "[偏心的餐廳經理]";
+	mes "呃...啊啊！救命啊！！";
+	close;
+OnInstanceInit:
+	donpcevent instance_npcname("偏心的餐廳經理#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("偏心的餐廳經理#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("偏心的餐廳經理#air2");
+	end;
+}
+
+//Explosiones!!
+//=====================
+
+1@air2,113,52,0	script	fire1#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire1#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire1#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire1#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,115,68,0	script	fire2#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire2#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire2#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire2#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,96,58,0	script	fire3#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire3#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire3#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire3#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,90,75,0	script	fire4#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire4#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire4#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire4#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,92,51,0	script	fire5#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire5#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire5#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire5#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,77,42,0	script	fire6#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire6#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire6#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire6#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,69,77,0	script	fire7#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire7#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire7#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire7#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,50,49,0	script	fire8#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire8#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire8#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire8#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,44,61,0	script	fire9#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire9#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire9#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire9#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,31,53,0	script	fire10#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire10#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire10#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire10#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,24,74,0	script	fire11#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire11#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire11#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire11#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,43,45,0	script	fire12#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire12#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire12#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire12#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,73,65,0	script	fire13#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire13#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire13#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire13#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,53,72,0	script	fire14#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire14#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire14#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire14#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,82,62,0	script	fire15#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire15#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire15#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire15#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,234,70,0	script	fire21#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire21#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire21#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire21#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,247,64,0	script	fire22#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire22#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire22#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire22#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,230,33,0	script	fire23#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire23#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire23#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire23#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,277,39,0	script	fire25#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire25#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire25#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire25#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,223,50,0	script	fire26#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire26#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire26#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire26#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,238,70,0	script	fire29#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire29#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire29#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire29#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,238,32,0	script	fire30#air2	139,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("fire30#air2")+"::OnEnable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("fire30#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("fire30#air2");
+	end;
+OnEffect:
+	specialeffect EF_BLASTMINEBOMB;
+	end;
+}
+
+1@air2,0,0,0	script	firecontrol#air2	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("firecontrol#air2")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("firecontrol#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("firecontrol#air2");
+	donpcevent instance_npcname("firecontrol#air2")+"::OnReplay";
+	end;
+OnReplay:
+	initnpctimer;
+	end;
+OnTimer1000:
+	donpcevent instance_npcname("fire1#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire8#air2")+"::OnEffect";
+	end;
+OnTimer1400:
+	donpcevent instance_npcname("fire2#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire9#air2")+"::OnEffect";
+	end;
+OnTimer1800:
+	donpcevent instance_npcname("fire3#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire10#air2")+"::OnEffect";
+	end;
+OnTimer2200:
+	donpcevent instance_npcname("fire4#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire11#air2")+"::OnEffect";
+	end;
+OnTimer2600:
+	donpcevent instance_npcname("fire5#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire12#air2")+"::OnEffect";
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("fire6#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire13#air2")+"::OnEffect";
+	end;
+OnTimer3400:
+	donpcevent instance_npcname("fire7#air2")+"::OnEffect";
+	donpcevent instance_npcname("fire14#air2")+"::OnEffect";
+	end;
+OnTimer3800:
+	donpcevent instance_npcname("fire15#air2")+"::OnEffect";
+	stopnpctimer;
+	donpcevent instance_npcname("firecontrol#air2")+"::OnReplay";
+	end;
+}
+
+1@air2,0,0,0	script	firecontrol2#air2	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("firecontrol2#air2")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("firecontrol2#air2");
+	end;
+OnEnable:
+	enablenpc instance_npcname("firecontrol2#air2");
+	donpcevent instance_npcname("firecontrol2#air2")+"::OnReplay";
+	end;
+OnReplay:
+	initnpctimer;
+	end;
+OnTimer1000:
+	donpcevent instance_npcname("fire21#air2")+"::OnEffect";
+	end;
+OnTimer1400:
+	donpcevent instance_npcname("fire22#air2")+"::OnEffect";
+	end;
+OnTimer1800:
+	donpcevent instance_npcname("fire23#air2")+"::OnEffect";
+	end;
+OnTimer2200:
+	donpcevent instance_npcname("fire25#air2")+"::OnEffect";
+	end;
+OnTimer2600:
+	donpcevent instance_npcname("fire26#air2")+"::OnEffect";
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("fire29#air2")+"::OnEffect";
+	end;
+OnTimer3400:
+	donpcevent instance_npcname("fire30#air2")+"::OnEffect";
+	stopnpctimer;
+	donpcevent instance_npcname("firecontrol2#air2")+"::OnReplay";
+	end;
+}
+
+//EFECTO FINAL!
+	
+1@air2,236,57,3	script	小妖精#1air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#1air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#1air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#1air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,239,57,5	script	小妖精#2air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#2air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#2air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#2air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,230,50,5	script	小妖精#3air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#3air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#3air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#3air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,226,62,3	script	小妖精#4air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#4air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#4air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#4air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,241,48,3	script	小妖精#5air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#5air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#5air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#5air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,225,40,7	script	小妖精#6air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#6air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#6air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#6air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,236,48,7	script	小妖精#7air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#7air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#7air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#7air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air2,224,66,5	script	小妖精#8air2	3176,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("小妖精#8air2")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("小妖精#8air2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("小妖精#8air2");
+	end;
+OnEffect:
+	specialeffect EF_SUI_EXPLOSION;
+	end;
+}
+
+1@air1,213,75,5	script	雙足飛龍#air1	3180,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("雙足飛龍#air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("雙足飛龍#air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("雙足飛龍#air1");
+	end;
+}
+
+1@air1,218,78,3	script	黃俄希托斯#1air1	3178,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("黃俄希托斯#1air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("黃俄希托斯#1air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("黃俄希托斯#1air1");
+	end;
+}
+
+1@air1,208,78,5	script	灰俄希托斯#2air1	3179,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("灰俄希托斯#2air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("灰俄希托斯#2air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("灰俄希托斯#2air1");
+	end;
+}
+
+1@air1,200,78,5	script	直升機哥布靈#1air1	3175,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("直升機哥布靈#1air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("直升機哥布靈#1air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("直升機哥布靈#1air1");
+	end;
+}
+
+1@air1,223,78,3	script	直升機哥布靈#2air1	3175,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("直升機哥布靈#2air1")+"::OnDisable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("直升機哥布靈#2air1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("直升機哥布靈#2air1");
+	end;
+}
+
+1@air2,0,0,0	script	#airshipputmob5	-1,{
+	end;
+OnInstanceInit:
+	donpcevent instance_npcname("#airshipputmob5")+"::OnDisable";
+	end;
+OnDisable:
+	disablenpc instance_npcname("#airshipputmob5");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#airshipputmob5");
+	set .@map$, instance_mapname("1@air2");
+	set .@label$, instance_npcname("#airshipputmob5")+"::OnMyMobDead";
+	set .@g1,monster (.@map$,247,51,"佩爾洛克",3181,1,.@label$);
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@air2");
+	if (mobcount(.@map$,instance_npcname("#airshipputmob5")+"::OnMyMobDead") < 1) {
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#1@air2")+"::OnEnable";
+		'ClearInatance = 1;
+		donpcevent instance_npcname("#airshipputmob5")+"::OnComplete";
+	}
+	end;
+OnComplete:
+	initnpctimer;
+	end;
+OnTimer2000:
+	set .@map$, instance_mapname("1@air2");
+	donpcevent instance_npcname("卡奧斯#air2")+"::OnEnable";
+	sleep3 500;
+	donpcevent instance_npcname("菲爾洛克#2air2")+"::OnEnable";
+	donpcevent instance_npcname("#airshipputmob5")+"::OnDisable";
+	stopnpctimer;
+	end;
+}
+
+//寶箱
+1@air2,0,0,0	script	離開副本#1@air2	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 940024,10;
+	getitem 930000,5;
+	Instance_PassAnnounce;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

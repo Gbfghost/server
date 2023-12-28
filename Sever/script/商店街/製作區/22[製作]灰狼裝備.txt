@@ -1,0 +1,53 @@
+uttycty,59,167,5	trader	[製作]灰狼裝備	4_ep18_gw_woman02,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]灰狼裝備";
+	waitingroom "[製作]灰狼裝備",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+
+	startsellitem(450177, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(450178, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+	
+	startsellitem(470087, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+	
+	startsellitem(470088, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+	
+	startsellitem(480090, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(480091, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(490106, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(490107, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(490108, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+
+	startsellitem(490109, 100000, -1);
+	sellitemcurrency(1000405, 50);
+	endsellitem();
+	
+	end;
+OnBuyItem:
+end;
+}

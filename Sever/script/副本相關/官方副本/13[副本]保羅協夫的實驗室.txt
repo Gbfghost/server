@@ -1,0 +1,1266 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@lhz	mapflag	noteleport
+1@lhz	mapflag	nosave	SavePoint
+1@lhz	mapflag	nomemo
+1@lhz	mapflag	nobranch
+1@lhz	mapflag	noicewall
+1@lhz	mapflag	restricted	6
+1@lhz	mapflag	monster_noteleport
+1@lhz	mapflag	partylock
+1@lhz	mapflag	novending
+1@lhz	mapflag	nochat
+
+amatsu,103,128,5	script	[副本]保羅協夫研究室	866,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "保羅協夫研究室";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 13;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 13;
+
+//
+	waitingroom "[副本]保羅協夫研究室",0;
+	setnpcicon getnpcid(0),22,"[副本]保羅協夫研究室";
+	end;
+}
+
+
+// The Lab No.1 : System 1_1
+//============================================================
+1@lhz,35,108,4	script	實驗室1#1_1	CLEAR_NPC,{
+	end;
+
+OnInstanceInit:
+	initnpctimer;
+	end;
+
+OnDisable:
+	stopnpctimer;
+	end;
+
+OnType_02:
+	donpcevent instance_npcname("文件#1_1")+"::OnEnable";
+	donpcevent instance_npcname("閥#1_2")+"::OnEnable";
+	donpcevent instance_npcname("閥#1_3")+"::OnEnable";
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 有關人士訪問與緊急存取方法",bc_map,"0xff9977";
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 這是一個警告通知!警告提示!入侵偵測.",bc_map,"0xff9977";
+	end;
+
+OnTimer2000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 該實驗室1號的安全系統將被啟動.",bc_map,"0xff9977";
+	end;
+
+OnTimer7000:
+	donpcevent instance_npcname("怪物控制1#mob01")+"::OnEnable";
+	end;
+}
+
+// The Lab No.1 Monster Control
+//============================================================
+1@lhz,37,108,4	script	怪物控制1#mob01	CLEAR_NPC,{
+	end;
+
+OnEnable:
+	.@map$ = instance_mapname("1@lhz");
+	mapannounce .@map$,"[安全系統] 安全系統啟動!實驗動物被釋放.有關人員必須撤離.",bc_map,"0xff9977";
+	areamonster .@map$,35,159,50,169,"饑餓的動物實驗",2242,rand(10,15),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	initnpctimer;
+	end;
+
+OnDisable:
+	killmonster instance_mapname("1@lhz"),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+
+OnTimer180000:
+	stopnpctimer;
+	if (mobcount(instance_mapname("1@lhz"), instance_npcname(strnpcinfo(0))+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("實驗室1#1_1")+"::OnType_02";
+		mapannounce instance_mapname("1@lhz"),"[安全系統] 該實驗室1號的安全系統已經停止.",bc_map,"0xff9977";
+	} else {
+		initnpctimer;
+	}
+	end;
+
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@lhz"), instance_npcname(strnpcinfo(0))+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("實驗室1#1_1")+"::OnType_02";
+		mapannounce instance_mapname("1@lhz"),"[安全系統] 該實驗室1號的安全系統已經停止.",bc_map,"0xff9977";
+		stopnpctimer;
+	}
+	end;
+}
+
+// Emergency Access Valve Manual
+//============================================================
+1@lhz,39,168,0	script	文件#1_1	CLEAR_NPC,{
+	mes "一疊散落在地上的文件.";
+	next;
+	if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		mes "你開始閱讀使用說明書.";
+		next;
+		mes "[手動閥門說明書]";
+		switch(lght_duk02) {
+		case 0:
+			switch(rand(1,6)) {
+			case 1:
+				lght_duk02 = 1;
+				mes "打開左側閥門順時針兩次, 一次逆時針, 順時針一次";
+				break;
+			case 2:
+				lght_duk02 = 2;
+				mes "打開左側閥門順時針一次, 兩次逆時針, 順時針一次";
+				break;
+			case 3:
+				lght_duk02 = 3;
+				mes "旋轉左邊的閥門一次順時針, 逆時針一次, 兩次順時針";
+				break;
+			case 4:
+				lght_duk02 = 4;
+				mes "打開右側閥逆時針兩次, 一次順時針, 逆時針一次";
+				break;
+			case 5:
+				lght_duk02 = 5;
+				mes "打開右側閥逆時針一次, 兩次順時針, 逆時針一次";
+				break;
+			case 6:
+				lght_duk02 = 6;
+				mes "打開右側閥逆時針一次, 一次順時針, 逆時針兩次";
+				break;
+			default:
+				mes "這是一個未知的錯誤.如果您嘗試一次後得到了同樣的問題, 聯繫GM ";
+				break;
+			}
+			break;
+		case 1:
+			mes "打開左側閥門順時針兩次, 一次逆時針, 順時針一次";
+			break;
+		case 2:
+			mes "打開左側閥門順時針一次, 兩次逆時針, 順時針一次";
+			break;
+		case 3:
+			mes "旋轉左邊的閥門一次順時針, 逆時針一次, 兩次順時針";
+			break;
+		case 4:
+			mes "打開右側閥逆時針兩次, 一次順時針, 逆時針一次";
+			break;
+		case 5:
+			mes "打開右側閥逆時針一次, 兩次順時針, 逆時針一次";
+			break;
+		case 6:
+			mes "打開右側閥逆時針一次, 一次順時針, 逆時針兩次";
+			break;
+		default:
+			mes "這是一個未知的錯誤.如果您嘗試一次後得到了同樣的問題, 聯繫GM.";
+			break;
+		}
+	} else {
+		mes "讓你們的隊長來控制閥門.";
+	}
+	close;
+
+OnInstanceInit:
+	disablenpc instance_npcname("文件#1_1");
+	end;
+
+OnEnable:
+	specialeffect EF_LIGHTSPHERE;
+	enablenpc instance_npcname("文件#1_1");
+	end; 
+}
+
+// Left Valve
+//============================================================
+1@lhz,41,172,0	script	閥#1_2	CLEAR_NPC,{
+	.@open_portal = 0;
+	mes "這是左側手動閥的緊急開關";
+	if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		next;
+		mes "你要向哪個方向轉?";
+		next;
+		if (lght_duk02 < 1 || lght_duk02 > 3) {
+			for(.@i = 1; .@i <= 4; .@i++) {
+				select("順時針", "逆時針");
+				mes "-金屬的聲音-";
+				if (.@i != 4)
+					mes "然後向哪個方向?";
+				next;
+			}
+		} else {
+			// lght_duk02 == 1 : Clockwise, Clockwise, Counterclockwise, Clockwise
+			// lght_duk02 == 2 : Clockwise, Counterclockwise, Counterclockwise, Clockwise
+			// lght_duk02 == 3 : Clockwise, Counterclockwise, Clockwise, Clockwise
+			for(.@i = 1; .@i <= 4; .@i++) {
+				switch(select("順時針", "逆時針")) {
+				case 1:
+					if ((.@i == 1 || .@i == 4) || (.@i == 2 && lght_duk02 == 1) || (.@i == 3 && lght_duk02 == 3)) {
+						.@open_portal += 1;
+					}
+				case 2:
+					if ((.@i == 2 && lght_duk02 != 1) || (.@i == 3 && lght_duk02 != 3)) {
+						.@open_portal += 1;
+					}
+				}
+				mes "-金屬的聲音-";
+				if (.@i != 4)
+					mes "然後向哪個方向?";
+				next;
+			}
+		}
+		if (.@open_portal == 4) {
+			donpcevent instance_npcname("#potal_01")+"::OnEnable";
+			lght_duk02 = 0;
+			mes "-門開了-";
+			next;
+			mes "它連接到2號實驗室的門現在是開放的";
+		} else {
+			lght_duk02 = 0;
+			mes "什麼都沒有發生.";
+			next;
+			mes "你需要重新來過";
+		}
+	}
+	close;
+
+OnInstanceInit:
+	disablenpc instance_npcname("閥#1_2");
+	end;
+
+OnEnable:
+	specialeffect EF_LIGHTSPHERE;
+	enablenpc instance_npcname("閥#1_2");
+	end;
+}
+
+// Right Valve
+//============================================================
+1@lhz,52,172,0	script	閥#1_3	CLEAR_NPC,{
+	.@open_portal = 0;
+	mes "這是右側手動閥的緊急開關";
+	if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		next;
+		mes "你要向哪個方向轉?";
+		next;
+		if (lght_duk02 < 4 || lght_duk02 > 6) {
+			for(.@i = 1; .@i <= 4; .@i++) {
+				select("順時針", "逆時針");
+				mes "-金屬的聲音-";
+				if (.@i != 4)
+					mes "然後向哪個方向?";
+				next;
+			}
+		} else {
+			// lght_duk02 == 4 : Counterclockwise, Counterclockwise, Clockwise, Counterclockwise
+			// lght_duk02 == 5 : Counterclockwise, Clockwise, Clockwise, Counterclockwise
+			// lght_duk02 == 6 : Counterclockwise, Clockwise, Counterclockwise, Counterclockwise
+			for(.@i = 1; .@i <= 4; .@i++) {
+				switch(select("順時針", "逆時針")) {
+				case 1:
+					if ((.@i == 2 && lght_duk02 != 4) || (.@i == 3 && lght_duk02 != 6))
+						.@open_portal += 1;
+					break;
+				case 2:
+					if ((.@i == 1 || .@i == 4) || (.@i == 2 && lght_duk02 == 4) || (.@i == 3 && lght_duk02 == 6))
+						.@open_portal += 1;
+					break;
+				}
+				mes "-金屬的聲音-";
+				if (.@i != 4)
+					mes "然後向哪個方向?";
+				next;
+			}
+		}
+		if (.@open_portal == 4) {
+			donpcevent instance_npcname("#potal_01")+"::OnEnable";
+			lght_duk02 = 0;
+			mes "-門開了-";
+			next;
+			mes "它連接到2號實驗室的門現在是開放的";
+		} else {
+			lght_duk02 = 0;
+			mes "什麼都沒發生.";
+			next;
+			mes "你需要重新來過.";
+		}
+	}
+	close;
+
+OnInstanceInit:
+	disablenpc instance_npcname("閥#1_3");
+	end;
+
+OnEnable:
+	specialeffect EF_LIGHTSPHERE;
+	enablenpc instance_npcname("閥#1_3");
+	end;
+}
+
+
+// The Lab No.1 >> The Lab No.2 Warp portal
+//============================================================
+1@lhz,45,173,0	script	#potal_01	WARPNPC,2,2,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#potal_01");
+	end;
+
+OnEnable:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 它連接到2號實驗室的門現在是開放的.",bc_map,"0xff9977";
+	enablenpc instance_npcname("#potal_01");
+	end;
+
+OnTouch:
+	warp instance_mapname("1@lhz"), 151, 29;
+	end;
+}
+
+// The Lab No.2
+//============================================================
+1@lhz,151,29,0	script	#2_0	-1,1,1,{
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("#2_0");
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("#2_0");
+	end;
+
+OnTouch:
+	donpcevent instance_npcname("實驗室2#2_1")+"::OnEnable";
+	donpcevent instance_npcname("#2_0")+"::OnDisable";
+	end;
+}
+
+// The Lab No.2 2_1 System - Control of Monster Wave and Pipe right before exploding
+//============================================================
+1@lhz,35,106,4	script	實驗室2#2_1	CLEAR_NPC,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	stopnpctimer;
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 這是一個警告通知!警告提示!2號實驗室入侵偵測中!!",bc_map,"0xff9977";
+	end;
+
+OnTimer3000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 實驗室2號安全系統將開始運行.",bc_map,"0xff9977";
+	end;
+
+OnTimer5000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!第二實驗室管道壓力過高.",bc_map,"0xff99ff";
+	end;
+
+OnTimer8000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 第一安全系統啟動!有關人員必須撤離",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制2#mob02")+"::On01";
+	end;
+
+OnTimer10000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer190000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer303000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 第二安全系統將開始運行.",bc_map,"0xff9977";
+	end;
+
+OnTimer308000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 第二安全系統被啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制2#mob02")+"::On02";
+	end;
+
+OnTimer370000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer550000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer603000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 第三安全系統將開始工作.",bc_map,"0xff9977";
+	end;
+
+OnTimer608000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 第三安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制2#mob02")+"::On03";
+	end;
+
+OnTimer730000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer903000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 第四安全系統將開始運行",bc_map,"0xff9977";
+	end;
+
+OnTimer908000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 第四安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制2#mob02")+"::On04";
+	end;
+
+OnTimer910000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer1090000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門.",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	end;
+
+OnTimer1203000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 第五安全系統將開始工作.",bc_map,"0xff9977";
+	end;
+
+OnTimer1208000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 第五安防系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制2#mob02")+"::On05";
+	end;
+
+OnTimer1270000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 警告!管網壓力過高.打開閥門",bc_map,"0xff99ff";
+	donpcevent instance_npcname("實驗室2#2_2")+"::OnPipePressure";
+	stopnpctimer;
+	end;
+}
+
+// The Lab No.2 2_2 System - Pipe Operation Control
+// When 3 pipes explode, system will shut down.
+//============================================================
+1@lhz,37,106,4	script	實驗室2#2_2	CLEAR_NPC,{
+	end;
+
+OnInstanceInit:
+	'broken_pipes = 0;
+	stopnpctimer;
+	end;
+
+OnPipePressure:
+	switch(rand(1,6)) {
+	case 1:
+		donpcevent instance_npcname("閥#2_1")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_01";
+	case 2:
+		donpcevent instance_npcname("閥#2_2")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_02";
+	case 3:
+		donpcevent instance_npcname("閥#2_3")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_03";
+	case 4:
+		donpcevent instance_npcname("閥#2_4")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_04";
+	case 5:
+		donpcevent instance_npcname("閥#2_5")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_05";
+	case 6:
+		donpcevent instance_npcname("閥#2_6")+"::OnEnable";
+		donpcevent instance_npcname("怪物控制2#mob02")+"::On2_06";
+	}
+	initnpctimer;
+	end;
+
+OnDisableValve1:
+	disablenpc instance_npcname("閥#2_1");
+	stopnpctimer;
+	end;
+
+OnDisableValve2:
+	disablenpc instance_npcname("閥#2_2");
+	stopnpctimer;
+	end;
+
+OnDisableValve3:
+	disablenpc instance_npcname("閥#2_3");
+	stopnpctimer;
+	end;
+
+OnDisableValve4:
+	disablenpc instance_npcname("閥#2_4");
+	stopnpctimer;
+	end;
+
+OnDisableValve5:
+	disablenpc instance_npcname("閥#2_5");
+	stopnpctimer;
+	end;
+
+OnDisableValve6:
+	disablenpc instance_npcname("閥#2_6");
+	stopnpctimer;
+	end;
+
+OnTimer63000:
+	for(.@i = 1; .@i < 7; .@i++) {
+		specialeffect EF_SUI_EXPLOSION, AREA, instance_npcname("閥#2_"+.@i+"");
+		disablenpc instance_npcname("閥#2_"+.@i+"");
+	}
+	'broken_pipes += 1;
+	if ('broken_pipes == 3) {
+		donpcevent instance_npcname("#2_3")+"::OnEnable";
+		stopnpctimer;
+	} else {
+		mapannounce instance_mapname("1@lhz"),"[管理系統] 爆管檢測! 如果實驗室被更多的突破, 系統將停止.",bc_map,"0xff99ff";
+	}
+	end;
+}
+
+// The Lab No.2 2_3 System
+//============================================================
+1@lhz,151,48,0	script	#2_3	-1,20,20,{
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname("#2_3");
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 系統死機!系統死機!10秒內從實驗室裡撤離!!",bc_map,"0xff99ff";
+	end;
+
+OnTimer11000:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 疏散!!",bc_map,"0xff99ff";
+	enablenpc instance_npcname("#2_3");
+	end;
+
+OnTouch:
+	warp "lhz_dun04", 147, 273;
+	end;
+}
+
+// The Lab No.2 Monster Control
+//============================================================
+1@lhz,39,106,4	script	怪物控制2#mob02	CLEAR_NPC,{
+	end;
+
+On01:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster .@map$,139,37,164,58,"饑餓的動物實驗",2242,10,.@label$;
+	end;
+
+On02:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster .@map$,139,37,164,58,"饑餓的動物實驗",2242,20,.@label$;
+	end;
+
+On03:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster .@map$,139,37,164,58,"饑餓的動物實驗",2242,16,.@label$;
+	end;
+
+On04:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster .@map$,139,37,164,58,"饑餓的動物實驗",2242,19,.@label$;
+	end;
+
+On05:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster .@map$,139,37,164,58,"饑餓的動物實驗",2242,20,.@label$;
+	end;
+
+On2_01:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),155,43,161,49,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+On2_02:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),137,40,143,46,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+On2_03:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),137,51,143,57,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+On2_04:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),143,56,149,62,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+On2_05:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),160,48,166,54,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+On2_06:
+	.@label$ = instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	areamonster instance_mapname("1@lhz"),135,44,141,50,"饑餓的動物實驗",2243,5,.@label$;
+	end;
+
+OnDisable:
+	killmonster instance_mapname("1@lhz"),instance_npcname("怪物控制2#mob02")+"::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@lhz"),instance_npcname("怪物控制2#mob02")+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("#potal_02")+"::OnEnable";
+		donpcevent instance_npcname("實驗室2#2_1")+"::OnDisable";
+		mapannounce instance_mapname("1@lhz"),"[安全系統] 2號實驗室的安全系統已經停止.",bc_map,"0xff9977";
+	}
+	end;
+}
+
+// The Lab No.2 Valves
+//============================================================
+-	script	bio4FLab2Valve	-1,{
+	if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		progressbar "0xffff00", 20;
+		stopnpctimer;
+		donpcevent instance_npcname("實驗室2#2_2")+"::OnDisableValve1";
+		disablenpc instance_npcname(strnpcinfo(0));
+		end;
+	} else {
+		mes "讓你們的隊長來控制這個閥門.";
+		close;
+	}
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	initnpctimer;
+	end;
+
+OnTimer3000:
+	specialeffect EF_DRAGONSMOKE,AREA,instance_npcname(strnpcinfo(0));
+	stopnpctimer;
+	initnpctimer;
+	end;
+}
+1@lhz,158,46,0	duplicate(bio4FLab2Valve)	閥#2_1	CLEAR_NPC
+1@lhz,138,43,0	duplicate(bio4FLab2Valve)	閥#2_2	CLEAR_NPC
+1@lhz,139,54,0	duplicate(bio4FLab2Valve)	閥#2_3	CLEAR_NPC
+1@lhz,145,60,0	duplicate(bio4FLab2Valve)	閥#2_4	CLEAR_NPC
+1@lhz,165,51,0	duplicate(bio4FLab2Valve)	閥#2_5	CLEAR_NPC
+1@lhz,137,47,0	duplicate(bio4FLab2Valve)	閥#2_6	CLEAR_NPC
+
+// The Lab No.2 >> The Lab No.3 Warp portal(General)
+//============================================================
+1@lhz,151,64,0	script	#potal_02	WARPNPC,2,2,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#potal_02");
+	end;
+
+OnEnable:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 連接到3號實驗室的門已經打開",bc_map,"0xff99ff";
+	enablenpc instance_npcname("#potal_02");
+	end;
+
+OnTouch:
+	warp instance_mapname("1@lhz"), 84, 28;
+	end;
+}
+
+// The Lab No.3
+//============================================================
+1@lhz,84,28,0	script	#3_0	-1,1,1,{
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("#3_0");
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("#3_0");
+	end;
+
+OnTouch:
+	donpcevent instance_npcname("實驗室3#3_1")+"::OnEnable";
+	donpcevent instance_npcname("#3_0")+"::OnDisable";
+	end;
+}
+
+// The Lab No.3 3_1 System - Monster wave control
+//============================================================
+1@lhz,35,104,4	script	實驗室3#3_1	CLEAR_NPC,{
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnDisable:
+	stopnpctimer;
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 這是一個警告通知!警告提示!",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::OnDisable";
+	end;
+
+OnTimer5000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室入侵偵測中!!",bc_map,"0xff9977";
+	end;
+
+OnTimer7000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 在5秒內, 3號實驗室的安全系統將開始工作",bc_map,"0xff9977";
+	end;
+
+OnTimer12000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的第一安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::On01";
+	end;
+
+OnTimer192000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的第二安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::On02";
+	end;
+
+OnTimer372000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的第三安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::On03";
+	end;
+
+OnTimer552000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的第四安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::On04";
+	end;
+
+OnTimer732000:
+	mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的第五安全系統啟動!有關人員必須撤離.",bc_map,"0xff9977";
+	donpcevent instance_npcname("怪物控制3#mob03")+"::On05";
+	stopnpctimer;
+	end;
+}
+
+// The Lab No.3 Monster Control
+//============================================================
+1@lhz,37,104,4	script	怪物控制3#mob03	CLEAR_NPC,{
+	end;
+
+On01:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	monster .@map$,80,60,"饑餓的動物",2242,1,.@label$;
+	monster .@map$,81,58,"饑餓的動物",2242,1,.@label$;
+	monster .@map$,82,56,"饑餓的動物",2242,1,.@label$;
+	monster .@map$,84,60,"饑餓的動物",2242,1,.@label$;
+	monster .@map$,85,58,"饑餓的動物",2242,1,.@label$;
+	monster .@map$,82,60,"饑餓的動物",2243,1,.@label$;
+	monster .@map$,83,58,"饑餓的動物",2243,1,.@label$;
+	monster .@map$,85,56,"饑餓的動物",2243,1,.@label$;		
+	monster .@map$,86,60,"饑餓的動物",2243,1,.@label$;
+	monster .@map$,87,58,"饑餓的動物",2243,1,.@label$;
+	end;
+
+On02:
+	.@map$ = instance_mapname("1@lhz");
+	.@amount1 = rand(1,5);
+	.@amount2 = rand(1,5);
+	.@label$ = instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	monster .@map$,80,60,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,82,60,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,84,60,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,86,60,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,81,58,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,83,58,"饑餓的動物",2243,.@amount2,.@label$;
+	monster .@map$,85,58,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,87,58,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,82,56,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,85,56,"饑餓的動物",2242,.@amount2,.@label$;
+	end;
+
+On03:
+	.@map$ = instance_mapname("1@lhz");
+	.@amount1 = rand(1,5);
+	.@amount2 = rand(1,5);
+	.@amount3 = rand(1,5);
+	.@label$ = instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	monster .@map$,80,60,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,82,60,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,84,60,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,86,60,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,81,58,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,83,58,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,85,58,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,87,58,"饑餓的動物",2243,.@amount2,.@label$;
+	monster .@map$,82,56,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,85,56,"饑餓的動物",2242,.@amount1,.@label$;
+	end;
+
+On04:
+	.@map$ = instance_mapname("1@lhz");
+	.@amount1 = rand(1,5);
+	.@amount2 = rand(1,5);
+	.@amount3 = rand(1,5);
+	.@amount4 = rand(1,5);
+	.@label$ = instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	monster .@map$,80,60,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,82,60,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,84,60,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,86,60,"饑餓的動物",2242,.@amount4,.@label$;
+	monster .@map$,81,58,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,83,58,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,85,58,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,87,58,"饑餓的動物",2242,.@amount4,.@label$;
+	monster .@map$,82,56,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,85,56,"饑餓的動物",2242,.@amount2,.@label$;
+	end;
+
+On05:
+	.@map$ = instance_mapname("1@lhz");
+	.@amount1 = rand(1,5);
+	.@amount2 = rand(1,5);
+	.@amount3 = rand(1,5);
+	.@amount4 = rand(1,5);
+	.@amount5 = rand(1,5);
+	.@label$ = instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	monster .@map$,80,60,"饑餓的動物",2243,.@amount1,.@label$;
+	monster .@map$,82,60,"饑餓的動物",2242,.@amount2,.@label$;
+	monster .@map$,84,60,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,86,60,"饑餓的動物",2243,.@amount4,.@label$;
+	monster .@map$,81,58,"饑餓的動物",2242,.@amount5,.@label$;
+	monster .@map$,83,58,"饑餓的動物",2242,.@amount1,.@label$;
+	monster .@map$,85,58,"饑餓的動物",2243,.@amount2,.@label$;
+	monster .@map$,87,58,"饑餓的動物",2242,.@amount3,.@label$;
+	monster .@map$,82,56,"饑餓的動物",2242,.@amount4,.@label$;
+	monster .@map$,85,56,"饑餓的動物",2243,.@amount5,.@label$;
+	end;
+
+OnDisable:
+	killmonster instance_mapname("1@lhz"),instance_npcname("怪物控制3#mob03")+"::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@lhz"),instance_npcname("怪物控制3#mob03")+"::OnMyMobDead") < 1) {
+		donpcevent instance_npcname("#potal_03")+"::OnEnable";
+		donpcevent instance_npcname("實驗室3#3_1")+"::OnDisable";
+		mapannounce instance_mapname("1@lhz"),"[安全系統] 3號實驗室的安全系統已經停止!",bc_map,"0xff9977";
+	}
+	end;
+}
+
+// The Lab No.3 >> Boss's Room Warp portal
+//============================================================
+1@lhz,83,62,0	script	#potal_03	WARPNPC,2,2,{
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname("#potal_03");
+	end;
+
+OnEnable:
+	mapannounce instance_mapname("1@lhz"),"[管理系統] 連接到4號實驗室的門已經打開",bc_map,"0x7799ff";
+	enablenpc instance_npcname("#potal_03");
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("#potal_03");
+	end;
+
+OnTouch:
+	warp instance_mapname("1@lhz"), 137, 100;
+	end;
+}
+
+// The Lab No.4
+//============================================================
+1@lhz,137,100,0	script	#4_0	-1,1,1,{
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("#4_0");
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("#4_0");
+	end;
+
+OnTouch:
+	donpcevent instance_npcname("實驗室4#4_1")+"::OnEnable";
+	donpcevent instance_npcname("#4_0")+"::OnDisable";
+	end;
+}
+
+// The Lab No.4 4_1 System - Summon of Boss Monster
+//============================================================
+1@lhz,35,102,4	script	實驗室4#4_1	CLEAR_NPC,{
+	end;
+
+OnEnable:
+	initnpctimer;
+	end;
+
+OnDisable:
+	stopnpctimer;
+	end;
+
+OnTimer1000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 你是誰....",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●騎士領主 賽依連#boss01");
+	end;
+
+OnTimer2000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●神射手 迪文#boss02");
+	end;
+
+OnTimer3000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 不要靠近...",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●神行太保 科迪#boss03");
+	end;
+
+OnTimer4000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●十字刺客 艾勒梅斯#boss04");
+	end;
+
+OnTimer5000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 這是一個非常危險的地方..",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●冷豔舞姬 特蘭提尼#boss05");
+	end;
+
+OnTimer6000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●武術宗師 陳理歐#boss06");
+	end;
+
+OnTimer7000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 你不會活著出去....",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●搞笑藝人 雅歐帕奇爾#boss07");
+	end;
+
+OnTimer8000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●創造者 普拉梅姆#boss08");
+	end;
+
+OnTimer9000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 如果你不希望成為我們的一部分....",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●聖殿十字軍 蘭達#boss09");
+	end;
+
+OnTimer10000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●智者 西里亞#boss10");
+	end;
+
+OnTimer11000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 現在離開....",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●超魔導師 凱特莉娜#boss11");
+	end;
+
+OnTimer12000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●神官 瑪嘉雷特#boss12");
+	end;
+
+OnTimer13000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 之前這個地方是徹底充滿了悲傷和痛苦....",bc_map,"0x7DCBF0";
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●神工匠 哈沃得#boss13");
+	end;
+
+OnTimer14000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("實驗體 格蘭#boss14");
+	end;
+
+OnTimer15000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("實驗體 洛基#boss15");
+	end;
+
+OnTimer16000:
+	specialeffect EF_SPHERE,AREA,instance_npcname("實驗體 狄瑞#boss16");
+	end;
+
+OnTimer17000:
+	mapannounce instance_mapname("1@lhz"),"耳語: 啊....這....這是為時已晚......",bc_map,"0x7DCBF0";
+	donpcevent instance_npcname("怪物控制4#mob04")+"::OnEnable";
+	stopnpctimer;
+	end;
+}
+
+// Area No. 4 - Boss Summon Control
+//============================================================
+1@lhz,37,102,4	script	怪物控制4#mob04	CLEAR_NPC,{
+	end;
+
+OnEnable:
+	switch(rand(1,13)) {
+	case 1:
+		donpcevent instance_npcname("闇●騎士領主 賽依連#boss01")+"::OnEnable";
+		end;
+	case 2:
+		donpcevent instance_npcname("闇●神射手 迪文#boss02")+"::OnEnable";
+		end;
+	case 3:
+		donpcevent instance_npcname("闇●神行太保 科迪#boss03")+"::OnEnable";
+		end;
+	case 4:
+		donpcevent instance_npcname("闇●十字刺客 艾勒梅斯#boss04")+"::OnEnable";
+		end;
+	case 5:
+		donpcevent instance_npcname("闇●冷豔舞姬 特蘭提尼#boss05")+"::OnEnable";
+		end;
+	case 6:
+		donpcevent instance_npcname("闇●武術宗師 陳理歐#boss06")+"::OnEnable";
+		end;
+	case 7:
+		donpcevent instance_npcname("闇●搞笑藝人 雅歐帕奇爾#boss07")+"::OnEnable";
+		end;
+	case 8:
+		donpcevent instance_npcname("闇●創造者 普拉梅姆#boss08")+"::OnEnable";
+		end;
+	case 9:
+		donpcevent instance_npcname("闇●聖殿十字軍 蘭達#boss09")+"::OnEnable";
+		end;
+	case 10:
+		donpcevent instance_npcname("闇●智者 西里亞#boss10")+"::OnEnable";
+		end;
+	case 11:
+		donpcevent instance_npcname("闇●超魔導師 凱特莉娜#boss11")+"::OnEnable";
+		end;
+	case 12:
+		donpcevent instance_npcname("闇●神官 瑪嘉雷特#boss12")+"::OnEnable";
+		end;
+	case 13:
+		donpcevent instance_npcname("闇●神工匠 哈沃得#boss13")+"::OnEnable";
+		end; 
+	}
+
+OnDisable:
+	//stopnpctimer;
+	end;
+}
+
+// Random Experiments in Tubes
+//============================================================
+1@lhz,156,148,3	script	實驗體 格蘭#boss14	4_M_03,{ end; }
+1@lhz,152,152,3	script	實驗體 洛基#boss15	4_M_HUMAN_01,{ end; }
+1@lhz,148,156,3	script	實驗體 狄瑞#boss16	4_M_DWARF,{ end; }
+
+// Bosses
+//============================================================
+-	script	bio4FBoss	-1,{
+	end;
+
+OnEnable:
+	.@map$ = instance_mapname("1@lhz");
+	.@label$ = instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	specialeffect EF_SUI_EXPLOSION;
+
+	if (strnpcinfo(0) == "闇●騎士領主 賽依連#boss01")
+		monster .@map$,129,154,"暗●騎士領主 賽依連",1646,1,.@label$;
+	else if (strnpcinfo(0) == "闇●神射手 迪文#boss02")
+		monster .@map$,125,150,"暗●神射手 迪文",1650,1,.@label$;
+	else if (strnpcinfo(0) == "闇●神行太保 科迪#boss03")
+		monster .@map$,121,146,"闇●神行太保 格蒂",2239,1,.@label$;
+	else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
+		monster .@map$,117,142,"闇●十字刺客 艾勒梅斯",1647,1,.@label$;
+	else if (strnpcinfo(0) == "闇●冷豔舞姬 特蘭提尼#boss05")
+		monster .@map$,117,125,"闇●冷豔舞姬 特蘭提妮",2241,1,.@label$;
+	else if (strnpcinfo(0) == "闇●武術宗師 陳理歐#boss06")
+		monster .@map$,121,121,"闇●武術宗師 陳",2238,1,.@label$;
+	else if (strnpcinfo(0) == "闇●搞笑藝人 雅歐帕奇爾#boss07")
+		monster .@map$,125,117,"闇●搞笑藝人 阿弗克希奧",2240,1,.@label$;
+	else if (strnpcinfo(0) == "闇●創造者 普拉梅姆#boss08")
+		monster .@map$,129,113,"闇●創造者 弗拉梅爾",2236,1,.@label$;
+	else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
+		monster .@map$,146,113,"闇●聖殿十字軍 蘭德爾",2235,1,.@label$;
+	else if (strnpcinfo(0) == "闇●智者 西里亞#boss10")
+		monster .@map$,150,117,"闇●智者 希莉亞",2237,1,.@label$;
+	else if (strnpcinfo(0) == "闇●超魔導師 凱特莉娜#boss11")
+		monster .@map$,154,121,"闇●超魔導師 凱特莉娜",1651,1,.@label$;
+	else if (strnpcinfo(0) == "闇●神官 瑪嘉雷特#boss12")
+		monster .@map$,158,125,"闇●神官 瑪嘉雷特",1649,1,.@label$;
+	else if (strnpcinfo(0) == "闇●神工匠 哈沃得#boss13")
+		monster .@map$,158,142,"闇●神工匠 哈沃得",1648,1,.@label$;
+
+	end;
+
+OnDisable:
+	killmonster instance_mapname("1@lhz"),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@lhz"), instance_npcname(strnpcinfo(0))+"::OnMyMobDead") < 1) {
+		.@map$ = instance_mapname("1@lhz");
+		if (strnpcinfo(0) == "闇●騎士領主 賽依連#boss01")
+			mapannounce .@map$,"呀, 在哪裡都是我的同伴....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●神射手 迪文#boss02")
+			mapannounce .@map$,"任何..之一, 請大家幫忙..請.....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●神行太保 科迪#boss03")
+			mapannounce .@map$,"我的行為..太貿然..",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
+			mapannounce .@map$,"啊.....我絕對打敗....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●冷豔舞姬 特蘭提尼#boss05")
+			mapannounce .@map$,"啊..曾經可以......舞蹈和唱歌.... ...開心....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●武術宗師 陳理歐#boss06")
+			mapannounce .@map$,"我...我..對不起....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●搞笑藝人 雅歐帕奇爾#boss07")
+			mapannounce .@map$,"...新的歌......是....對.....她....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●創造者 普拉梅姆#boss08")
+			mapannounce .@map$,"哈...我想向大家展示....新的藥水....",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
+			mapannounce .@map$,"每個人都被打敗了.....?",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●智者 西里亞#boss10")
+			mapannounce .@map$,"這個實驗是.",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●超魔導師 凱特莉娜#boss11")
+			mapannounce .@map$,"噢..是大家....?",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●神官 瑪嘉雷特#boss12")
+			mapannounce .@map$,"我的好孩子......不要哭...啊....我們偉大的奧丁..請救救我們......",bc_map,"0xFD3B02";
+		else if (strnpcinfo(0) == "闇●神工匠 哈沃得#boss13")
+			mapannounce .@map$,"哦...不....不能呼吸....和我的妹妹...... ?",bc_map,"0xFD3B02";
+		
+		donpcevent instance_npcname("保羅協夫#last")+"::OnEnable";
+		donpcevent instance_npcname(strnpcinfo(0))+"::OnDisable";
+	}
+	end;
+}
+1@lhz,127,156,5	duplicate(bio4FBoss)	闇●騎士領主 賽依連#boss01	1646
+1@lhz,123,152,5	duplicate(bio4FBoss)	闇●神射手 迪文#boss02	1650
+1@lhz,119,148,5	duplicate(bio4FBoss)	闇●神行太保 科迪#boss03	2239
+1@lhz,115,144,5	duplicate(bio4FBoss)	闇●十字刺客 艾勒梅斯#boss04	1647
+1@lhz,115,123,7	duplicate(bio4FBoss)	闇●冷豔舞姬 特蘭提尼#boss05	2241
+1@lhz,119,119,7	duplicate(bio4FBoss)	闇●武術宗師 陳理歐#boss06	2238
+1@lhz,123,115,7	duplicate(bio4FBoss)	闇●搞笑藝人 雅歐帕奇爾#boss07	2240
+1@lhz,127,111,7	duplicate(bio4FBoss)	闇●創造者 普拉梅姆#boss08	2236
+1@lhz,148,111,1	duplicate(bio4FBoss)	闇●聖殿十字軍 蘭達#boss09	2235
+1@lhz,152,115,1	duplicate(bio4FBoss)	闇●智者 西里亞#boss10	2237
+1@lhz,156,119,1	duplicate(bio4FBoss)	闇●超魔導師 凱特莉娜#boss11	1651
+1@lhz,160,123,1	duplicate(bio4FBoss)	闇●神官 瑪嘉雷特#boss12	1649
+1@lhz,160,144,3	duplicate(bio4FBoss)	闇●神工匠 哈沃得#boss13	1648
+
+// Final encounter
+//============================================================
+1@lhz,137,156,7	script	保羅協夫#last	4_LGTSCIENCE,{
+mes "[保羅協夫]";
+mes "終於, 打敗所有的生物.再次感謝您.";
+next;
+mes "[保羅協夫]";
+mes "想要離開時請告訴我吧, 我有禮物要送您。";
+next;
+mes "[保羅協夫]";
+mes "你想離開這裡嗎?";
+next;
+getmapxy(.@m$,'passx,'passy,BL_PC);
+donpcevent instance_npcname("副本寶箱#1@lhz")+"::OnEnable";
+'ClearInatance = 1;
+end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+//寶箱
+1@lhz,0,0,0	script	副本寶箱#1@lhz	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 930000,5;
+	getitem 6909,1;
+	getitem 940013,10;
+	getitem 2582,  1; //Salvage_Cape
+	getitem 18570, 1; //Ancient_Gold_Deco
+	getitem 1490,  1; //Giant_Lance
+	getitem 16017, 1; //Bloody_Cross
+	getitem 1291,  1; //Guillotine_Katar
+	getitem 1584,  1; //Chilly_Spell_Book
+	getitem 6471, 10; //Goast_Chill
+	getitem 6470, 10; //Blood_Thirst
+	getitem 6469, 10; //Will_Of_Warrior
+	getitem 6471, 20; //Goast_Chill
+	getitem 6470, 20; //Blood_Thirst
+	getitem 6469, 20; //Will_Of_Warrior	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

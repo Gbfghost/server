@@ -1,0 +1,2100 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@gl_kh	mapflag	noteleport
+1@gl_kh	mapflag	nosave	SavePoint
+1@gl_kh	mapflag	nomemo
+1@gl_kh	mapflag	nobranch
+1@gl_kh	mapflag	noicewall
+1@gl_kh	mapflag	restricted	6
+1@gl_kh	mapflag	monster_noteleport
+1@gl_kh	mapflag	partylock
+1@gl_kh	mapflag	novending
+1@gl_kh	mapflag	nochat
+
+2@gl_kh	mapflag	noteleport
+2@gl_kh	mapflag	nosave	SavePoint
+2@gl_kh	mapflag	nomemo
+2@gl_kh	mapflag	nobranch
+2@gl_kh	mapflag	noicewall
+2@gl_kh	mapflag	restricted	6
+2@gl_kh	mapflag	monster_noteleport
+2@gl_kh	mapflag	partylock
+2@gl_kh	mapflag	novending
+2@gl_kh	mapflag	nochat
+
+
+amatsu,108,148,5	script	[副本]斬真假顏良	810,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "斬真假顏良";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 27;
+
+//
+	waitingroom "[副本]斬真假顏良",0;
+	setnpcicon getnpcid(0),22,"[副本]斬真假顏良";
+	end;
+}
+
+// Floor 1
+//============================================================
+1@gl_kh,149,41,6	script	顏良收割機關羽#n_ghinstance1	654,{
+	if (getcharid(0) == getpartyleader(getcharid(1),2)) {
+		mes "^0000ff喜未亡人曹操^000000派來幫助我的人就是你嗎？";
+		npctalk "顏良收割機關羽：喜未亡人曹操派來幫助我的人就是你嗎？";
+		cutin "gl_barmund1",2;
+		next;
+		select("喔，好…");
+		mes "["+strcharinfo(0)+"]";
+		mes "喔！是的，哈哈哈，喜未亡人曹操要我來見賢者顏良收割機關羽呢。";
+		unittalk getcharid(3),strcharinfo(0)+"：喔！是的，哈哈哈，喜未亡人曹操要我來見賢者顏良收割機關羽呢。";
+		next;
+		mes "[顏良收割機關羽]";
+		mes "沒時間了。必須要將萬夫莫敵袁紹侵略的事情告訴吃席販女之徒劉備。";
+		npctalk "顏良收割機關羽：沒時間了。必須要將萬夫莫敵袁紹侵略的事情告訴吃席販女之徒劉備。";
+		cutin "gl_barmund2",2;
+		next;
+		select("萬夫莫敵袁紹…");
+		mes "["+strcharinfo(0)+"]";
+		mes "萬夫莫敵袁紹是誰？";
+		unittalk getcharid(3),strcharinfo(0)+"：萬夫莫敵袁紹是誰？";
+		next;
+		mes "[顏良收割機關羽]";
+		mes "難道喜未亡人曹操連一點基本常識都沒告訴你？";
+		npctalk "顏良收割機關羽：難道喜未亡人曹操連一點基本常識都沒告訴你？";
+		cutin "gl_barmund3",2;
+		next;
+		mes "[顏良收割機關羽]";
+		mes "她統治死者，是亡者的巴基力。她現在想要奪取藏在這裡的伊美樂的心臟。";
+		npctalk "顏良收割機關羽：她統治死者，是亡者的巴基力。她現在想要奪取藏在這裡的伊美樂的心臟。";
+		cutin "gl_barmund2",2;
+		next;
+		mes "[顏良收割機關羽]";
+		mes "為了達到目的，她可能會不惜將整個城夷為平地。";
+		npctalk "顏良收割機關羽：為了達到目的，她可能會不惜將整個城夷為平地。";
+		next;
+		mes "[顏良收割機關羽]";
+		mes "快點！趕快將萬夫莫敵袁紹的事情告訴吃席販女之徒劉備！而我會先察看這裡的結界！";
+		npctalk "顏良收割機關羽：快點！趕快將萬夫莫敵袁紹的事情告訴吃席販女之徒劉備！而我會先察看這裡的結界！";
+		close2;
+		cutin "gl_barmund2",255;
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance1")+"::OnDisable2";
+		end;
+	} else {
+		mes "[顏良收割機關羽]";
+		mes "他在哪? 我們需要他的幫助.";
+		cutin "gl_barmund2",2;
+		close2;
+		cutin "gl_barmund2",255;
+		end;
+	}
+OnInstanceInit:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance1")+"::OnEnable";
+	end;
+OnDisable:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance1");
+	end;
+OnDisable2:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance1");
+
+	for(set .@i,1; .@i<=20; set .@i,.@i+4) {
+		hideoffnpc instance_npcname("中型顏良#n_"+.@i);
+		hideoffnpc instance_npcname("中型顏良#n_"+(.@i+1));
+		hideoffnpc instance_npcname("畸形顏良#n_"+(.@i+2));
+		hideoffnpc instance_npcname("畸形顏良#n_"+(.@i+3));
+	}
+	hideoffnpc instance_npcname("中型顏良#n_21");
+	hideoffnpc instance_npcname("中型顏良#n_22");
+
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance1");
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance1");
+	end;
+}
+
+1@gl_kh,145,54,6	script	中型顏良#n_1	655,{
+	mes "["+strnpcinfo(1)+"]";
+	switch((atoi(strnpcinfo(2)) + 1) / 2) {
+		case 1: mes "我有被招募嗎?"; break;
+		case 2: mes "有什麼需要幫忙的嗎?"; break;
+		case 3: mes "..."; break;
+		case 4: mes "我不喜歡在工作中閒聊."; break;
+		case 5: mes "難道你不覺得城堡內的這個區域已經被改變了嗎? 剛剛好像在我眼前出現了什麼東西似的."; break;
+		case 6: mes "我對顏良收割機關羽司令官是做什麼的感到好奇. 我聽到人們正在逃跑..."; break;
+		case 7: mes "安靜一點好嗎."; break;
+		case 8: mes "在附近似乎有動靜."; break;
+		case 9: mes "昨晚的一個夢真的令我很困擾. 我的母親經常告訴我說那些夢可能會成真..."; break;
+		case 10: mes "顏良收割機關羽要跟你一起去嗎? 司令官正在等你哦."; break;
+		case 11: mes "換班的時間快到了. 我很好奇那些騎士們發生了什麼事."; break;
+	}
+	close;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@gl_kh,154,54,3	duplicate(中型顏良#n_1)	中型顏良#n_2	655
+1@gl_kh,145,59,6	duplicate(中型顏良#n_1)	畸形顏良#n_3	657
+1@gl_kh,154,59,3	duplicate(中型顏良#n_1)	畸形顏良#n_4	657
+1@gl_kh,145,64,6	duplicate(中型顏良#n_1)	中型顏良#n_5	655
+1@gl_kh,154,64,3	duplicate(中型顏良#n_1)	中型顏良#n_6	655
+1@gl_kh,145,69,6	duplicate(中型顏良#n_1)	畸形顏良#n_7	657
+1@gl_kh,154,69,3	duplicate(中型顏良#n_1)	畸形顏良#n_8	657
+1@gl_kh,145,74,6	duplicate(中型顏良#n_1)	中型顏良#n_9	655
+1@gl_kh,154,74,3	duplicate(中型顏良#n_1)	中型顏良#n_10	655
+1@gl_kh,145,79,6	duplicate(中型顏良#n_1)	畸形顏良#n_11	657
+1@gl_kh,154,79,3	duplicate(中型顏良#n_1)	畸形顏良#n_12	657
+1@gl_kh,145,84,6	duplicate(中型顏良#n_1)	中型顏良#n_13	655
+1@gl_kh,154,84,3	duplicate(中型顏良#n_1)	中型顏良#n_14	655
+1@gl_kh,145,89,6	duplicate(中型顏良#n_1)	畸形顏良#n_15	657
+1@gl_kh,154,89,3	duplicate(中型顏良#n_1)	畸形顏良#n_16	657
+1@gl_kh,145,94,6	duplicate(中型顏良#n_1)	中型顏良#n_17	655
+1@gl_kh,154,94,3	duplicate(中型顏良#n_1)	中型顏良#n_18	655
+1@gl_kh,145,99,6	duplicate(中型顏良#n_1)	畸形顏良#n_19	657
+1@gl_kh,154,99,3	duplicate(中型顏良#n_1)	畸形顏良#n_20	657
+1@gl_kh,145,104,6	duplicate(中型顏良#n_1)	中型顏良#n_21	655
+1@gl_kh,154,104,3	duplicate(中型顏良#n_1)	中型顏良#n_22	655
+
+1@gl_kh,149,100,6	script	吃席販女之徒劉備#n_ghinstance1	652,{
+	if (getcharid(0) == getpartyleader(getcharid(1),2)) {
+		cutin "gl_heinrich2",2;
+		select("吃席販女之徒劉備現在在城裡面…");
+		mes "["+strcharinfo(0)+"]";
+		mes "吃席販女之徒劉備知道現在城裡發生什麼事了嗎？";
+		unittalk getcharid(3),strcharinfo(0)+"：吃席販女之徒劉備知道現在城裡發生什麼事了嗎？";
+		next;
+		mes "[吃席販女之徒劉備]";
+		mes "你不是和顏良收割機關羽一起來的冒險家嗎？";
+		npctalk "吃席販女之徒劉備：你不是和顏良收割機關羽一起來的冒險家嗎？";
+		next;
+		mes "[吃席販女之徒劉備]";
+		mes "有什麼事情嗎？這座城裡面究竟發生什麼事了？";
+		npctalk "吃席販女之徒劉備：有什麼事情嗎？這座城裡面究竟發生什麼事了？";
+		next;
+		select("萬夫莫敵袁紹想要伊美樂的…");
+		mes "["+strcharinfo(0)+"]";
+		mes "亡者的巴基力，萬夫莫敵袁紹覬覦著藏在城中的伊美樂的心臟！";
+		unittalk getcharid(3),strcharinfo(0)+"：亡者的巴基力，萬夫莫敵袁紹覬覦著藏在城中的伊美樂的心臟！";
+		next;
+		mes "[吃席販女之徒劉備]";
+		mes "哈哈，你真是愛說笑啊！那種東西怎麼有可能在這裡呢…";
+		npctalk "吃席販女之徒劉備：哈哈，你真是愛說笑啊！那種東西怎麼有可能在這裡呢…";
+		cutin "gl_heinrich1",2;
+		next;
+		mes "[顏良收割機關羽]";
+		mes "吃席販女之徒劉備！我沒有在開玩笑的。如果我的判斷沒有錯的話，現在她馬上就要找到這裡來了。";
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk1";
+		cutin "gl_barmund2",2;
+		next;
+		mes "[顏良收割機關羽]";
+		mes "你也可以相信跟我來的這個人。在萬夫莫敵袁紹奪取這裡的伊美樂心臟碎片前，快將它藏到安全的地方！";
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk2";
+		next;
+		select("就算司令不相信…");
+		mes "["+strcharinfo(0)+"]";
+		mes "就算司令您不相信也沒辦法，已經沒時間了！";
+		unittalk getcharid(3),strcharinfo(0)+"：就算司令您不相信也沒辦法，已經沒時間了！";
+		cutin "gl_barmund2",255;
+		next;
+		mes "[吃席販女之徒劉備]";
+		mes "感謝兩位的好意，但是現在我們的國王去了很遠的地方。";
+		npctalk "吃席販女之徒劉備：感謝兩位的好意，但是現在我們的國王去了很遠的地方。";
+		cutin "gl_heinrich1",2;
+		next;
+		mes "[吃席販女之徒劉備]";
+		mes "不能只憑推測，就隨便下令處置如此重要的事件。";
+		npctalk "吃席販女之徒劉備：不能只憑推測，就隨便下令處置如此重要的事件。";
+		donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance1")+"::OnDisable";
+		donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnEnable";
+		donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnEnable";
+		donpcevent instance_npcname("#n_talkinstance1")+"::OnEnable";
+		mapannounce instance_mapname("1@gl_kh"), "？？？的嘶吼：啊哈哈哈哈哈哈~！",bc_map,"0xFFFF00";
+		close2;
+		cutin "gl_heinrich1",255;
+		end;
+	} else {
+		mes "[吃席販女之徒劉備]";
+		mes "請問你們的代表在哪?";
+		mes "我需要跟他對話.";
+		cutin "gl_heinrich2",2;
+		close2;
+		cutin "gl_heinrich2",255;
+		end;
+	}
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance1");
+	end;
+}
+
+1@gl_kh,152,97,3	script	顏良收割機關羽#n_ghinstance2	654,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance2");
+	end;
+OnTalk1:
+	npctalk "顏良收割機關羽：吃席販女之徒劉備！我沒有在開玩笑的。如果我的判斷沒有錯的話，現在她馬上就要找到這裡來了。";
+	end;
+OnTalk2:
+	npctalk "顏良收割機關羽：你也可以相信跟我來的這個人。在萬夫莫敵袁紹奪取這裡的伊美樂心臟碎片前，快將它藏到安全的地方！";
+	end;
+OnTalk3:
+	npctalk "顏良收割機關羽：萬夫莫敵袁紹！！你什麼時候！";
+	end;
+OnTalk4:
+	npctalk "顏良收割機關羽：吃席販女之徒劉備，他們已經變成魔物了。快點讓他們安息吧！";
+	end;
+OnTalk5:
+	npctalk "顏良收割機關羽：吃席販女之徒劉備！你需要快點決定！";
+	end;
+OnTalk6:
+	npctalk "顏良收割機關羽：現在追上去還可以阻止她！";
+	end;
+OnTalk7:
+	npctalk "顏良收割機關羽：現在非常需要你們的幫助，拜託你們盡量幫忙！";
+	end;
+}
+
+1@gl_kh,149,97,6	script	吃席販女之徒劉備#n_ghinstance2	652,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance2");
+	end;
+OnTalk1:
+	npctalk "吃席販女之徒劉備：是誰！";
+	end;
+OnTalk2:
+	npctalk "吃席販女之徒劉備：你說你統治死者？你看起來還真是優雅啊。不過很可惜，我們這裡其實不太懂得迎接淑女呢…";
+	end;
+OnTalk3:
+	npctalk "吃席販女之徒劉備：你說什麼？";
+	end;
+OnTalk4:
+	npctalk "吃席販女之徒劉備：我們的國王只是應邀前去盧恩 米德加茲王國，現在還沒回到國內而已。";
+	end;
+OnTalk5:
+	npctalk "吃席販女之徒劉備：不過，你剛剛說的話又是什麼意思？國王發生什麼事了嗎！";
+	end;
+OnTalk6:
+	npctalk "吃席販女之徒劉備：怎麼會！她已經看穿藏有伊美樂的心臟碎片位置了！";
+	end;
+OnTalk7:
+	npctalk "吃席販女之徒劉備：中型顏良團和畸形顏良團現在馬上跟我一起…";
+	end;
+OnTalk8:
+	npctalk "吃席販女之徒劉備：怎麼會…我的部下們…怎麼可能會有這種事！";
+	end;
+OnTalk9:
+	npctalk "吃席販女之徒劉備：對不起…";
+	end;
+OnTalk10:
+	npctalk "吃席販女之徒劉備：對不起…我的部下們！你們永遠不要原諒我！";
+	end;
+}
+
+1@gl_kh,149,100,6	script	吃席販女之徒劉備#n_ghinstance3	652,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance3");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance3");
+	end;
+OnTalk1:
+	npctalk "吃席販女之徒劉備：竟然是我親手送我的部下走上絕路…";
+	end;
+OnTalk2:
+	npctalk "吃席販女之徒劉備：顏良收割機關羽的話是對的，現在不是傷心的時候！";
+	end;
+OnTalk3:
+	npctalk "吃席販女之徒劉備：我有話要拜託一下那些跟隨我的人。";
+	end;
+OnTalk4:
+	npctalk "吃席販女之徒劉備：萬夫莫敵袁紹擁有將活人變為魔物的力量。";
+	end;
+OnTalk5:
+	npctalk "吃席販女之徒劉備：但是說不定現在附近還有生還者。";
+	end;
+OnTalk6:
+	npctalk "吃席販女之徒劉備：請大家在消滅魔物的同時，若發現生還者，也請救他們一命。";
+	end;
+OnTalk7:
+	npctalk "吃席販女之徒劉備：而我跟顏良收割機關羽會一起去追萬夫莫敵袁紹！";
+	end;
+OnTalk8:
+	npctalk "吃席販女之徒劉備：那麼顏良收割機關羽，我們快點追上萬夫莫敵袁紹吧。";
+	end;
+}
+
+1@gl_kh,149,89,1	script	萬夫莫敵袁紹#n_ghinstance1	650,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance1");
+	end;
+OnTalk1:
+	npctalk "萬夫莫敵袁紹：唉唷~我妨礙你們說話了嗎？客人都來好一陣子了還沒有人發現，這讓我覺得有點心酸嘛…";
+	end;
+OnTalk2:
+	npctalk "萬夫莫敵袁紹：我的名字是莉莎坎萬夫莫敵袁紹。無顱武士的主人，亡者的巴基力，噢~大家都是這麼叫我的。";
+	end;
+OnTalk3:
+	npctalk "萬夫莫敵袁紹：你可以不用裝的這麼若無其事。我可以保證要是你知道你們國王現在在哪裡，你肯定無法再虛張聲勢了。";
+	end;
+OnTalk4:
+	npctalk "萬夫莫敵袁紹：呵呵呵，看來你終於要開始緊張啦？你還真是個奇妙的男人啊。";
+	end;
+OnTalk5:
+	npctalk "萬夫莫敵袁紹：雖說你是個不貪圖空下的王位，只一心等待國王歸還的愚蠢男人，但我倒是挺欣賞你的這份純真呢。";
+	end;
+Ontalk6:
+	npctalk "萬夫莫敵袁紹：如果我們不是在這種情況下見面的話該有多好啊。真可惜~";
+	end;
+Ontalk7:
+	npctalk "萬夫莫敵袁紹：這個嘛~雖然我很想仔細的說給你聽，但我今天不是為了這件事而來的耶~";
+	end;
+OnTalk8:
+	npctalk "萬夫莫敵袁紹：我看我還是要先去做我該做的事。這段時間我看你就先跟你的新部下好好相處吧？呵呵呵	";
+	end;
+}
+
+// Control Timer
+//============================================================
+1@gl_kh,0,0,0	script	#n_talkinstance1	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_talkinstance1");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_talkinstance1");
+	initnpctimer;
+	end;
+OnTimer500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk1";
+	end;
+OnTimer1000:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk1";
+	end;
+OnTimer1500:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk3";
+	end;
+OnTimer2000:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk2";
+	end;
+OnTimer2500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk2";
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk3";
+	end;
+OnTimer3500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk3";
+	end;
+OnTimer4500:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk4";
+	end;	
+OnTimer5000:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk5";
+	end;
+OnTimer5500:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk6";
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk4";
+	end;
+OnTimer6500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk5";
+	end;
+OnTimer7000:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk7";
+	end;
+OnTimer7500:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnTalk8";
+	end;
+OnTimer8000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk6";
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance1")+"::OnDisable";
+	end;
+OnTimer8500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk7";
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance1");
+
+	for(set .@i,1; .@i<=20; set .@i,.@i+4) {
+		hideonnpc instance_npcname("中型顏良#n_"+.@i);
+		hideonnpc instance_npcname("中型顏良#n_"+(.@i+1));
+		hideonnpc instance_npcname("畸形顏良#n_"+(.@i+2));
+		hideonnpc instance_npcname("畸形顏良#n_"+(.@i+3));
+	}
+	hideonnpc instance_npcname("中型顏良#n_21");
+	hideonnpc instance_npcname("中型顏良#n_22");
+
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_talkinstance1")+"::OnMyMobDead"; 
+	monster .@map$,145,59,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,154,59,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,145,69,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,154,69,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,145,79,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,154,79,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,145,89,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,154,89,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,145,99,"有頭假顏良",3145,1,.@label$;
+	monster .@map$,154,99,"有頭假顏良",3145,1,.@label$;
+
+	for(set .@i,1; .@i<=22; set .@i,.@i+1)
+		hideoffnpc instance_npcname(".#n_ghinstance"+.@i);
+
+	donpcevent instance_npcname(".#n_ghinstance22")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance21")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance18")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance17")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance14")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance13")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance10")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance9")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance6")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance5")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance2")+"::OnTalkK";
+	donpcevent instance_npcname(".#n_ghinstance1")+"::OnTalkK";
+	end;
+OnTimer8800:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk8";
+
+	for(set .@i,1; .@i<=20; set .@i,.@i+4) {
+		hideonnpc instance_npcname(".#n_ghinstance"+.@i);
+		hideonnpc instance_npcname(".#n_ghinstance"+(.@i+1));
+		disablenpc instance_npcname(".#n_ghinstance"+(.@i+2));
+		disablenpc instance_npcname(".#n_ghinstance"+(.@i+3));
+	}
+	hideonnpc instance_npcname(".#n_ghinstance21");
+	hideonnpc instance_npcname(".#n_ghinstance22");
+
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_talkinstance1")+"::OnMyMobDead"; 
+	monster .@map$,145,54,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,54,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,145,64,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,64,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,145,74,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,74,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,145,84,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,84,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,145,94,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,94,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,145,104,"有頭假顏良",3146,1,.@label$;
+	monster .@map$,154,104,"有頭假顏良",3146,1,.@label$;
+	end;
+OnTimer9300:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk4";
+	end;
+OnTimer9700:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk9";
+	end;
+OnTimer10500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnTalk10";
+	mapannounce instance_mapname("1@gl_kh"), "吃席販女之徒劉備的嘶吼：死去的人必須要前往死者該去的地方！",bc_map,"0xFFFF00";
+	end;
+OnTimer10700:
+	mapannounce instance_mapname("1@gl_kh"), "吃席販女之徒劉備的嘶吼：全部都回去吧！",bc_map,"0xFFFF00";
+	end;
+OnTimer11000:
+	donpcevent instance_npcname(".#n_ghinstance22")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance21")+"::OnEffect1";
+	end;
+OnTimer11050:
+	enablenpc instance_npcname(".#n_ghinstance20");
+	enablenpc instance_npcname(".#n_ghinstance19");
+	donpcevent instance_npcname(".#n_ghinstance20")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance19")+"::OnEffect1";
+	end;
+OnTimer11100:
+	donpcevent instance_npcname(".#n_ghinstance18")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance17")+"::OnEffect1";
+	end;
+OnTimer11150:
+	enablenpc instance_npcname(".#n_ghinstance16");
+	enablenpc instance_npcname(".#n_ghinstance15");
+	donpcevent instance_npcname(".#n_ghinstance16")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance15")+"::OnEffect1";
+	end;
+OnTimer11200:
+	donpcevent instance_npcname(".#n_ghinstance14")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance13")+"::OnEffect1";
+	end;
+OnTimer11250:
+	enablenpc instance_npcname(".#n_ghinstance12");
+	enablenpc instance_npcname(".#n_ghinstance11");
+	donpcevent instance_npcname(".#n_ghinstance12")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance11")+"::OnEffect1";
+	end;
+OnTimer11300:
+	donpcevent instance_npcname(".#n_ghinstance10")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance9")+"::OnEffect1";
+	end;
+OnTimer11350:
+	enablenpc instance_npcname(".#n_ghinstance8");
+	enablenpc instance_npcname(".#n_ghinstance7");
+	donpcevent instance_npcname(".#n_ghinstance8")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance7")+"::OnEffect1";
+	end;
+OnTimer11400:
+	donpcevent instance_npcname(".#n_ghinstance6")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance5")+"::OnEffect1";
+	end;
+OnTimer11450:
+	enablenpc instance_npcname(".#n_ghinstance4");
+	enablenpc instance_npcname(".#n_ghinstance3");
+	donpcevent instance_npcname(".#n_ghinstance4")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance3")+"::OnEffect1";
+	end;
+OnTimer11475: //custom time
+	disablenpc instance_npcname(".#n_ghinstance3");
+	disablenpc instance_npcname(".#n_ghinstance4");
+	disablenpc instance_npcname(".#n_ghinstance7");
+	disablenpc instance_npcname(".#n_ghinstance8");
+	disablenpc instance_npcname(".#n_ghinstance11");
+	disablenpc instance_npcname(".#n_ghinstance12");
+	disablenpc instance_npcname(".#n_ghinstance15");
+	disablenpc instance_npcname(".#n_ghinstance16");
+	disablenpc instance_npcname(".#n_ghinstance19");
+	disablenpc instance_npcname(".#n_ghinstance20");
+	end;
+OnTimer11500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnEnable";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance2")+"::OnDisable";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk1";
+	donpcevent instance_npcname(".#n_ghinstance2")+"::OnEffect1";
+	donpcevent instance_npcname(".#n_ghinstance1")+"::OnEffect1";
+	killmonster instance_mapname("1@gl_kh"),instance_npcname("#n_talkinstance1")+"::OnMyMobDead";
+	end;
+OnTimer12000:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk5";
+	end;
+OnTimer12500:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk6";
+	end;
+OnTimer13000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk2";
+	end;
+OnTimer13500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk3";
+	end;
+OnTimer14000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk4";
+	end;
+OnTimer14500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk5";
+	end;
+OnTimer15000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk6";
+	end;
+OnTimer15500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk7";
+	end;
+OnTimer16000:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnTalk7";
+	end;
+OnTimer16500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnTalk8";
+	end;
+OnTimer16700:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnDisable";
+	end;
+OnTimer16800:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance2")+"::OnDisable";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance3")+"::OnDisable";
+	stopnpctimer;
+	donpcevent instance_npcname("#n_ghinstancewarp1")+"::OnEnable";
+	donpcevent instance_npcname("#n_ghinstancewarp2")+"::OnEnable";
+	mapannounce instance_mapname("1@gl_kh"), "9點鐘方向，通往2區的出口已經開啟。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#n_talkinstance1")+"::OnDisable";
+	donpcevent instance_npcname("#n_ghmemorialmob01")+"::OnEnable";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@gl_kh,145,54,6	script	.#n_ghinstance1	3146,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEffect1:
+	specialeffect EF_GRANDCROSS;
+	specialeffect EF_LEXAETERNA;
+	end;
+OnTalkK:
+	switch(atoi(replacestr(strnpcinfo(2),"ghinstance",""))) {
+		case 1: npctalk "我不想死."; break;
+		case 2: npctalk "媽..."; break;
+		case 5: npctalk "救救我."; break;
+		case 6: npctalk "我的胃好痛..."; break;
+		case 9: npctalk "吃席販女之徒劉備先生, 救命!"; break;
+		case 10: npctalk "咳... 痾."; break;
+		case 13: npctalk "我好渴阿."; break;
+		case 14: npctalk "噢... 不... 我不能死..."; break;
+		case 17: npctalk "這實在是太不舒服了. 嘔!"; break;
+		case 18: npctalk "我是誰..."; break;
+		case 21: npctalk "呃啊…我的身體…"; break;
+		case 22: npctalk "我的胃好痛!"; break;
+	}
+	end;
+}
+1@gl_kh,154,54,3	duplicate(.#n_ghinstance1)	.#n_ghinstance2	3146
+1@gl_kh,145,64,6	duplicate(.#n_ghinstance1)	.#n_ghinstance5	3146
+1@gl_kh,154,64,3	duplicate(.#n_ghinstance1)	.#n_ghinstance6	3146
+1@gl_kh,145,74,6	duplicate(.#n_ghinstance1)	.#n_ghinstance9	3146
+1@gl_kh,154,74,3	duplicate(.#n_ghinstance1)	.#n_ghinstance10	3146
+1@gl_kh,145,84,6	duplicate(.#n_ghinstance1)	.#n_ghinstance13	3146
+1@gl_kh,154,84,3	duplicate(.#n_ghinstance1)	.#n_ghinstance14	3146
+1@gl_kh,145,94,6	duplicate(.#n_ghinstance1)	.#n_ghinstance17	3146
+1@gl_kh,154,94,3	duplicate(.#n_ghinstance1)	.#n_ghinstance18	3146
+1@gl_kh,145,104,6	duplicate(.#n_ghinstance1)	.#n_ghinstance21	3146
+1@gl_kh,154,104,3	duplicate(.#n_ghinstance1)	.#n_ghinstance22	3146
+
+1@gl_kh,145,59,6	script	.#n_ghinstance3	111,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+OnEffect1:
+	specialeffect EF_GRANDCROSS;
+	specialeffect EF_LEXAETERNA;
+	end;
+}
+1@gl_kh,154,59,3	duplicate(.#n_ghinstance3)	.#n_ghinstance4	111
+1@gl_kh,145,69,6	duplicate(.#n_ghinstance3)	.#n_ghinstance7	111
+1@gl_kh,154,69,3	duplicate(.#n_ghinstance3)	.#n_ghinstance8	111
+1@gl_kh,145,79,6	duplicate(.#n_ghinstance3)	.#n_ghinstance11	111
+1@gl_kh,154,79,3	duplicate(.#n_ghinstance3)	.#n_ghinstance12	111
+1@gl_kh,145,89,6	duplicate(.#n_ghinstance3)	.#n_ghinstance15	111
+1@gl_kh,154,89,3	duplicate(.#n_ghinstance3)	.#n_ghinstance16	111
+1@gl_kh,145,99,6	duplicate(.#n_ghinstance3)	.#n_ghinstance19	111
+1@gl_kh,154,99,3	duplicate(.#n_ghinstance3)	.#n_ghinstance20	111
+
+1@gl_kh,96,80,0	script	#n_ghinstancewarp1	45,1,2,{
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnTouch:
+	set .@map1$, instance_mapname("1@gl_kh");
+	set .@map2$, instance_mapname("2@gl_kh");
+	switch(atoi(replacestr(strnpcinfo(2),"n_ghinstancewarp",""))) {
+		case 1: warp .@map1$,80,80; break;
+		case 2: warp .@map1$,105,80; break;
+		case 3: warp .@map1$,215,79; break;
+		case 4: warp .@map1$,195,79; break;
+		case 5: warp .@map1$,215,216; break;
+		case 6: warp .@map1$,235,216; break;
+		case 7: warp .@map2$,150,46; break;
+		case 8: warp .@map2$,126,123; break;
+		case 9: warp .@map2$,150,116; break;
+		case 10: warp .@map2$,174,101; break;
+		case 11: warp .@map2$,150,110; break;
+		case 12: warp .@map2$,150,179; break;
+		case 13: warp .@map1$,150,279; break;		
+	}
+	end;
+}
+1@gl_kh,90,80,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp2	45,1,2
+1@gl_kh,202,79,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp3	45,1,2
+1@gl_kh,206,79,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp4	45,1,2
+1@gl_kh,228,216,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp5	45,1,2
+1@gl_kh,222,216,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp6	45,1,2
+1@gl_kh,150,284,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp7	45,1,2
+2@gl_kh,145,123,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp8	45,1,2
+2@gl_kh,136,122,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp9	45,1,2
+2@gl_kh,154,101,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp10	45,1,2
+2@gl_kh,165,101,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp11	45,1,2
+2@gl_kh,150,163,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp12	45,1,2
+2@gl_kh,150,30,0	duplicate(#n_ghinstancewarp1)	#n_ghinstancewarp13	45,1,2
+
+// Sector 1 Mobs
+//============================================================
+1@gl_kh,0,0,0	script	#n_ghmemorialmob01	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob01");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob01");
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob01")+"::OnMyMobDead";
+	areamonster .@map$,76,99,87,10,"有頭假顏良",3141,15,.@label$;
+	areamonster .@map$,67,39,12,6,"有頭假顏良",3140,20,.@label$;
+	areamonster .@map$,67,39,12,6,"有頭假顏良",3141,3,.@label$;
+	areamonster .@map$,32,75,51,58,"有頭假顏良",3139,6,.@label$;
+	areamonster .@map$,45,84,6,137,"有頭假顏良",3139,12,.@label$;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob01")+"::OnMyMobDead";
+	set .@mob_dead_num, 56 - mobcount(.@map$,.@label$);
+	if (.@mob_dead_num > 35) {
+		mapannounce .@map$, "就像是從萬夫莫敵袁紹的魔力中逃脫一樣，死者們灰飛煙滅。",bc_map,"0xFFFFFF";
+		killmonster .@map$,.@label$;
+		donpcevent instance_npcname("被摔百次的劉阿斗#gl_kh")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob01")+"::OnDisable";
+	}
+	end;
+}
+
+1@gl_kh,17,51,3	script	被摔百次的劉阿斗#gl_kh	706,{
+	if (getcharid(0) == getpartyleader(getcharid(1),2)) {
+		mes "[被摔百次的劉阿斗]";
+		mes "救命啊！救救我啊！";
+		next;
+		select("喂！你醒醒啊！只有你一個生還者嗎？");
+		mes "["+strcharinfo(0)+"]";
+		mes "喂！你醒醒啊！只有你一個生還者嗎？";
+		unittalk getcharid(3),strcharinfo(0)+"：喂！你醒醒啊！只有你一個生還者嗎？";
+		next;
+		mes "[被摔百次的劉阿斗]";
+		mes "侍衛長還有…修道士…全都變成怪物了，而我什麼都沒辦法做…";
+		npctalk "被摔百次的劉阿斗：侍衛長還有…修道士…全都變成怪物了，而我什麼都沒辦法做…";
+		next;
+		mes "[被摔百次的劉阿斗]";
+		mes "除了躲在這裡…我什麼都…什麼都，什麼都幫不上忙…";
+		npctalk "被摔百次的劉阿斗：除了躲在這裡…我什麼都…什麼都，什麼都幫不上忙…";
+		next;
+		select("快打起精神！");
+		mes "["+strcharinfo(0)+"]";
+		mes "快打起精神來呀你這傢伙！從東邊出去，再走中央道路到外面！那條路是安全的！！";
+		unittalk getcharid(3),strcharinfo(0)+"：快打起精神來呀你這傢伙！從東邊出去，再走中央道路到外面！那條路是安全的！！";
+		next;
+		mes "[被摔百次的劉阿斗]";
+		mes "從東邊那條路？我自己？自己嗎？";
+		npctalk "被摔百次的劉阿斗：從東邊那條路？我自己？自己嗎？";
+		next;
+		select("我會把我多出來的鈍器給你.");
+		mes "["+strcharinfo(0)+"]";
+		mes "我會把我多出來的鈍器給你，應該會有幫助的。如果真的不行的話，就把眼睛一閉心一橫，殺出去就對了。";
+		unittalk getcharid(3),strcharinfo(0)+"：我會把我多出來的鈍器給你，應該會有幫助的。如果真的不行的話，就把眼睛一閉心一橫，殺出去就對了。";
+		next;
+		mes "[被摔百次的劉阿斗]";
+		mes "我知道了…我會試試看的。";
+		npctalk "被摔百次的劉阿斗：我知道了…我會試試看的。";
+		donpcevent instance_npcname("被摔百次的劉阿斗#gl_kh")+"::OnDisable";
+		donpcevent instance_npcname("#n_ghmemorialmob02")+"::OnEnable";
+		close;
+	} else {
+		mes "[被摔百次的劉阿斗]";
+		mes "誰快來幫幫我, 救救我阿, 拜託.";
+		close;
+	}
+close;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("被摔百次的劉阿斗#gl_kh");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("被摔百次的劉阿斗#gl_kh");
+	end;
+}
+
+// Sector 2 Mobs
+//============================================================
+1@gl_kh,291,145,3	script	甘柿鬼甘夫人#gl_kh	726,{
+	if (getcharid(0) == getpartyleader(getcharid(1),2)) {
+		mes "[甘柿鬼甘夫人]";
+		mes "呀啊啊！！殺啊啊！！";
+		npctalk "甘柿鬼甘夫人：呀啊啊！！殺啊啊！！";
+		specialeffect EF_CRASHEARTH;
+		next;
+		select("你好啊！");
+		mes "["+strcharinfo(0)+"]";
+		mes "你好啊！我是人類。你自己一個人嗎？沒有別的生還者嗎？";
+		unittalk getcharid(3),strcharinfo(0)+"：你好啊！我是人類。你自己一個人嗎？沒有別的生還者嗎？";
+		next;
+		mes "[甘柿鬼甘夫人]";
+		mes "只有我一個人活下來";
+		npctalk "甘柿鬼甘夫人：只有我一個人活下來";
+		next;
+		select("這裡很危險.");
+		mes "["+strcharinfo(0)+"]";
+		mes "這裡很危險。妳應該知道通往中央道路的路吧？妳好像懷有身孕耶…妳能走嗎？";
+		unittalk getcharid(3),strcharinfo(0)+"：這裡很危險。妳應該知道通往中央道路的路吧？妳好像懷有身孕耶…妳能走嗎？";
+		next;
+		mes "[甘柿鬼甘夫人]";
+		mes "嗯，我可以走的。我必須要走才行，為了我的孩子。";
+		npctalk "甘柿鬼甘夫人：嗯，我可以走的。我必須要走才行，為了我的孩子。";
+		next;
+		select("希望你一定要活下來…");
+		mes "["+strcharinfo(0)+"]";
+		mes "我會幫你祈禱的，希望妳跟腹中的胎兒都可以平安無事。沒能陪妳一起離開，我很抱歉。";
+		unittalk getcharid(3),strcharinfo(0)+"：我會幫你祈禱的，希望妳跟腹中的胎兒都可以平安無事。沒能陪妳一起離開，我很抱歉。";
+		next;
+		mes "[甘柿鬼甘夫人]";
+		mes "不會的，非常感激你救了我，我可以自己過去的。我也會幫你祈禱的。";
+		npctalk "甘柿鬼甘夫人：不會的，非常感激你救了我，我可以自己過去的。我也會幫你祈禱的。";
+		donpcevent instance_npcname("甘柿鬼甘夫人#gl_kh")+"::OnDisable";
+		donpcevent instance_npcname("#n_ghmemorialmob03")+"::OnEnable";
+		close;
+	} else {
+		mes "[甘柿鬼甘夫人]";
+		mes "誰快來幫幫我, 救救我阿, 拜託.";
+		close;
+	}
+end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("甘柿鬼甘夫人#gl_kh");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("甘柿鬼甘夫人#gl_kh");
+	end;
+}
+
+1@gl_kh,0,0,0	script	#n_ghmemorialmob02	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob02");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob02");
+	donpcevent instance_npcname("#n_ghinstancewarp3")+"::OnEnable";
+	donpcevent instance_npcname("#n_ghinstancewarp4")+"::OnEnable";
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob02")+"::OnMyMobDead";
+	mapannounce .@map$,"3點鐘方向，通往3區的出口已經開啟。",bc_map,"0xFFFF00";
+	areamonster .@map$,241,113,291,19,"有頭假顏良",3141,12,.@label$;
+	areamonster .@map$,241,113,291,19,"有頭假顏良",3139,12,.@label$;
+	areamonster .@map$,227,217,291,135,"有頭假顏良",3141,12,.@label$;
+	areamonster .@map$,227,217,291,135,"有頭假顏良",3139,12,.@label$;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob02")+"::OnMyMobDead";
+	set .@mob_dead_num, 48 - mobcount(.@map$,.@label$);
+	if (.@mob_dead_num > 28) {
+		mapannounce .@map$, "就像是從萬夫莫敵袁紹的魔力中逃脫一樣，死者們灰飛煙滅。",bc_map,"0xFFFFFF";
+		killmonster .@map$,.@label$;
+		donpcevent instance_npcname("甘柿鬼甘夫人#gl_kh")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob02")+"::OnDisable";
+	}
+	end;
+}
+
+// Tramp Mobs
+//============================================================
+1@gl_kh,221,82,3	script	倒下的假顏良#n_GHtramp1	849,4,4,{
+	end;
+OnTouch:
+	set .@i, rand(1,10);
+	if (.@i == 1) set .@mobs,3;
+	else if (.@i == 2) set .@mobs,4;
+	else if (.@i == 3) set .@mobs,5;
+	else if (.@i < 7) set .@mobs,6;
+	else set .@mobs,7;
+	getmapxy(.@map$,.@x,.@y,BL_NPC);
+	specialeffect EF_VENOMDUST;
+	monster .@map$,.@x,.@y,"被侵蝕的假顏良",3142,.@mobs,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnMyMobDead:
+	end;
+OnInstanceInit:
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@gl_kh,213,63,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp2	849,4,4
+1@gl_kh,230,50,2	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp3	849,4,4
+1@gl_kh,222,39,2	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp4	849,4,4
+1@gl_kh,214,27,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp5	849,4,4
+1@gl_kh,223,17,2	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp6	849,4,4
+1@gl_kh,235,16,4	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp7	849,4,4
+1@gl_kh,251,20,5	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp8	849,4,4
+1@gl_kh,240,43,5	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp9	849,4,4
+1@gl_kh,271,19,1	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp10	849,4,4
+1@gl_kh,246,62,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp11	849,4,4
+1@gl_kh,282,48,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp12	849,4,4
+1@gl_kh,285,81,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp13	849,4,4
+1@gl_kh,241,86,5	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp14	849,4,4
+1@gl_kh,249,101,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp15	849,4,4
+1@gl_kh,276,106,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp16	849,4,4
+1@gl_kh,252,120,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp17	849,4,4
+1@gl_kh,258,150,1	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp18	849,4,4
+1@gl_kh,255,157,6	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp19	849,4,4
+1@gl_kh,261,164,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp20	849,4,4
+1@gl_kh,269,173,7	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp21	849,4,4
+1@gl_kh,280,167,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp22	849,4,4
+1@gl_kh,293,161,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp23	849,4,4
+1@gl_kh,226,96,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp24	849,4,4
+1@gl_kh,222,119,5	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp25	849,4,4
+1@gl_kh,233,123,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp26	849,4,4
+2@gl_kh,147,203,5	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp27	849,4,4
+2@gl_kh,141,222,1	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp28	849,4,4
+2@gl_kh,167,225,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp29	849,4,4
+2@gl_kh,145,236,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp30	849,4,4
+2@gl_kh,143,260,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp31	849,4,4
+2@gl_kh,173,258,3	duplicate(倒下的假顏良#n_GHtramp1)	倒下的假顏良#n_GHtramp32	849,4,4
+
+// Sector 3 Mobs
+//============================================================
+1@gl_kh,0,0,0	script	#n_ghmemorialmob03	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob03");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob03");
+	donpcevent instance_npcname("#n_ghinstancewarp5")+"::OnEnable";
+	donpcevent instance_npcname("#n_ghinstancewarp6")+"::OnEnable";
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob03")+"::OnMyMobDead";
+	mapannounce .@map$,"12點鐘方向，通往4區的出口已經開啟。",bc_map,"0xFFFF00";
+	areamonster .@map$,17,259,53,180,"有頭假顏良",3143,11,.@label$;
+	areamonster .@map$,17,259,53,180,"有頭假顏良",3144,14,.@label$;
+	areamonster .@map$,62,281,73,186,"有頭假顏良",3143,11,.@label$;
+	areamonster .@map$,62,281,73,186,"有頭假顏良",3144,14,.@label$;
+	areamonster .@map$,74,251,109,224,"有頭假顏良",3143,11,.@label$;
+	areamonster .@map$,74,251,109,224,"有頭假顏良",3144,14,.@label$;
+	areamonster .@map$,108,281,231,234,"有頭假顏良",3143,11,.@label$;
+	areamonster .@map$,108,281,231,234,"有頭假顏良",3144,14,.@label$;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob03")+"::OnMyMobDead";
+	set .@mob_dead_num, 100 - mobcount(.@map$,.@label$);
+	if (.@mob_dead_num > 85) {
+		mapannounce .@map$,"萬夫莫敵袁紹 : 還滿有兩下子的嘛，我還以為你們會死在亡者的圍繞下呢~",bc_map,"0xFFFFFF";
+		killmonster .@map$,.@label$;
+		donpcevent instance_npcname("#n_GHMclear3")+"::OnEnable";
+		donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance4")+"::OnEnable";
+		donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnEnable";
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance3")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob03")+"::OnDisable";
+	}
+	end;
+}
+
+// 1st MVP
+//============================================================
+1@gl_kh,0,0,0	script	#n_ghmemorialmob04	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob04");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob04");
+	monster instance_mapname("1@gl_kh"),150,258,"多頭顏良",3151,1,instance_npcname("#n_ghmemorialmob04")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@gl_kh");
+	if (mobcount(.@map$,instance_npcname("#n_ghmemorialmob04")+"::OnMyMobDead") < 1) {
+		mapannounce .@map$, "12點鐘方向，通往袁氏營2樓的出口已經開啟。",bc_map,"0xFFFF00";
+		donpcevent instance_npcname("#n_ghinstancewarp7")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghinstancewarp13")+"::OnEnable";
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance3")+"::OnTalk2";
+		donpcevent instance_npcname("#n_effectGH01")+"::OnEnable";
+		donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnEnable";
+		donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob04")+"::OnDisable";
+	}
+	end;
+}
+
+1@gl_kh,150,257,3	script	#n_GHMclear3	111,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#n_controlGH3")+"::OnEnable";
+	specialeffect EF_BASH;
+	donpcevent instance_npcname("#n_GHMclear3")+"::OnDisable";
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_GHMclear3");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_GHMclear3");
+	initnpctimer;
+	end;
+OnTimer2000:
+	mapannounce instance_mapname("1@gl_kh"), "萬夫莫敵袁紹 : 要想抓我的話，就到通往2樓的入口來吧。我倒要看看你們的運氣能有多好。",bc_map,"0xFFFFFF";
+	stopnpctimer;
+	end;
+}
+
+1@gl_kh,0,0,0	script	#n_controlGH3	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_controlGH3");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_controlGH3");
+	initnpctimer;
+	end;
+OnTimer300:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk1";
+	end;
+OnTimer600:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk2";
+	end;
+OnTimer900:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk3";
+	end;
+OnTimer1200:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance4")+"::OnTalk1";
+	end;
+OnTimer1500:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk4";
+	end;
+OnTimer1800:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance3")+"::OnTalk1";
+	end;
+OnTimer2100:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance4")+"::OnTalk2";
+	end;
+OnTimer2400:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk5";
+	end;
+OnTimer2700:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnTalk6";
+	end;
+OnTimer2800:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance2")+"::OnDisable";
+	end;
+OnTimer3100:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance4")+"::OnTalk3";
+	end;
+OnTimer3200:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance4")+"::OnDisable";
+	end;
+OnTimer3500:
+	mapannounce instance_mapname("1@gl_kh"), "有個聽起來很不舒服的迴音從袁氏營的深處發出來，正在靠近這裡。",bc_map,"0xFFFFFF";
+	end;
+OnTimer3800:
+	donpcevent instance_npcname("#n_ghmemorialmob04")+"::OnEnable";
+	stopnpctimer;
+	donpcevent instance_npcname("#n_controlGH3")+"::OnDisable";
+	end;
+}
+
+1@gl_kh,144,258,6	script	吃席販女之徒劉備#n_ghinstance4	652,{
+	mes "[吃席販女之徒劉備]";
+	mes "萬夫莫敵袁紹... 我不會忘記你害我的人被殺了.";
+	cutin "gl_heinrich1",2;
+	close2;
+	cutin "gl_heinrich1",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance4");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance4");
+	end;
+OnTalk1:
+	npctalk "吃席販女之徒劉備：萬夫莫敵袁紹！我會讓你在這裡動彈不得！";
+	end;
+OnTalk2:
+	npctalk "吃席販女之徒劉備：這…這是！";
+	end;
+OnTalk3:
+	npctalk "吃席販女之徒劉備：顏良收割機關羽！去幫助冒險家吧！我去追萬夫莫敵袁紹！";
+	end;
+}
+
+1@gl_kh,150,257,3	script	萬夫莫敵袁紹#n_ghinstance2	650,{
+	mes "[萬夫莫敵袁紹]";
+	mes "不需要用這麼危險的眼神盯著我看嘛. 他們很快的就可以解脫了...";
+	cutin "gl_himel2",2;
+	close2;
+	cutin "gl_himel2",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance2");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance2");
+	end;
+OnTalk1:
+	npctalk "萬夫莫敵袁紹：能找到這裡來，要嘛就是你的運氣非常好，要嘛就是你非常的有能力。";
+	end;
+OnTalk2:
+	npctalk "萬夫莫敵袁紹：不過這都沒差。";
+	end;
+OnTalk3:
+	npctalk "萬夫莫敵袁紹：因為現在你們全部都會死在這裡。";
+	end;
+OnTalk4:
+	npctalk "萬夫莫敵袁紹：哈哈哈，我看是你們會動彈不得吧~你們以為我只有自己一個人嗎？";
+	end;
+OnTalk5:
+	npctalk "萬夫莫敵袁紹：讓我的新玩具絆住你們的腳，讓我可以盡情的玩耍。";
+	end;
+OnTalk6:
+	npctalk "萬夫莫敵袁紹：還真是抱歉啊~，要是有機會的話，我還真想再見你~吃席販女之徒劉備 一面呢。";
+	end;
+}
+
+1@gl_kh,156,258,3	script	顏良收割機關羽#n_ghinstance3	654,{
+	if (checkquest(12336,HUNTING) == 2) {
+		erasequest 12336;
+		if (checkquest(12337,HUNTING) == -1) {
+			mes "[顏良收割機關羽]";
+			mes "這個東西帶有一種非比尋常的氣息…若有一天遇到能夠使用它的人，也許它會發揮重要的作用也說不定。";
+			cutin "gl_barmund1",2;
+			getitem 6607,1;// Temporal_Crystal
+			getitem 6755,1;// Coagulated_Spell
+			setquest 12337;
+			close2;
+			cutin "gl_barmund1",255;
+			end;
+		}
+		if (isbegin_quest(12338) == 0) {
+			setquest 12338;// Time Traveler
+			completequest 12338;
+			getexp 500000,500000;
+		}
+	}
+
+	mes "[顏良收割機關羽]";
+	mes "結果還是走到這局面了，難道就沒有辦法阻擋時間超越者的意志嗎？";
+	cutin "gl_barmund1",2;
+	close2;
+	cutin "gl_barmund2",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance3");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance3");
+	end;
+OnTalk1:
+	npctalk "顏良收割機關羽：吃席販女之徒劉備！有個未知的強力氣息正在靠近！";
+	end;
+OnTalk2:
+	npctalk "顏良收割機關羽：我把那傢伙身上掉落的物品撿起來了。想要的人來找我拿吧。";
+	end;
+}
+
+// Floor 2
+//============================================================
+2@gl_kh,148,67,1	script	吃席販女之徒劉備#n_ghinstance5	652,{
+	mes "[吃席販女之徒劉備]";
+	mes "四周都被萬夫莫敵袁紹的結界給擋住了呀…";
+	cutin "gl_heinrich1",2;
+	close2;
+	cutin "gl_heinrich1",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance5");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance5");
+	end;
+OnTalk1:
+	npctalk "吃席販女之徒劉備：這是城裡面從沒有過的東西！";
+	end;
+OnTalk2:
+	npctalk "吃席販女之徒劉備：雖然試著用力破壞，但是刀對它完全無效。";
+	end;
+OnTalk3:
+	npctalk "吃席販女之徒劉備：這真是天理不容啊。";
+	end;
+OnTalk4:
+	npctalk "吃席販女之徒劉備：已經殺掉了很多以前的部下…以後還要再殺死多少…";
+	end;
+OnTalk5:
+	npctalk "吃席販女之徒劉備：…";
+	end;
+}
+
+2@gl_kh,151,71,7	script	顏良收割機關羽#n_ghinstance4	654,{
+	mes "[顏良收割機關羽]";
+	mes "我到底…重複做了這件事多少次啊…好像在夢中見過這個地方數十次了…這個感覺…";
+	cutin "gl_barmund1",2;
+	close2;
+	cutin "gl_barmund1",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance4");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance4");
+	end;
+OnTalk2:
+	npctalk "顏良收割機關羽：是萬夫莫敵袁紹的結界，將通路和各區域完全封鎖住了。";
+	end;
+OnTalk3:
+	npctalk "顏良收割機關羽：先讓開一下，我用魔力來試試看…";
+	end;
+OnEffect:
+	specialeffect 90;
+	end;
+OnTalk4:
+	npctalk "顏良收割機關羽：似乎有一邊的結界已經被破壞了。";
+	end;
+OnTalk5:
+	npctalk "顏良收割機關羽：我曾經看過這種結界。";
+	end;
+OnTalk6:
+	npctalk "顏良收割機關羽：萬夫莫敵袁紹會將結界石放進變成不死之人的身體裡。";
+	end;
+OnTalk7:
+	npctalk "顏良收割機關羽：我想這個結界應該也是用那種方式來維持的。";
+	end;
+OnTalk8:
+	npctalk "顏良收割機關羽：要想打破結界，就必須殺死將持有結界石的人。";
+	end;
+OnTalk9:
+	npctalk "顏良收割機關羽：但是我們是分不出來的，只能隨機淨化了。";
+	end;
+OnTalk10:
+	npctalk "顏良收割機關羽：司令官…";
+	end;
+OnTalk11:
+	npctalk "顏良收割機關羽：司令官你太軟弱了。";
+	end;
+OnTalk12:
+	npctalk "顏良收割機關羽：我們對付的已經不是人類了。";
+	end;
+OnTalk13:
+	npctalk "顏良收割機關羽：就算你不承認，他們也不會再變成人類了。";
+	end;
+OnTalk14:
+	npctalk "顏良收割機關羽：我們還是…走吧。";
+	end;
+OnTalk15:
+	npctalk "顏良收割機關羽：還有，你們的戰力聚集完以後，就跟著我們吧。";
+	end;
+OnTalk16:
+	npctalk "顏良收割機關羽：也許會是一場極為艱難的戰鬥，做好覺悟吧。";
+	end;
+OnTalk17:
+	npctalk "顏良收割機關羽：來吧，出發的時間到了！吃席販女之徒劉備。";
+	end;
+}
+
+2@gl_kh,150,67,0	script	#n_effectGH01	111,10,10,{
+	end;
+OnTouch:
+	if ('touch == 1) {
+		set 'touch,0;
+		specialeffect EF_BASH;
+		donpcevent instance_npcname("#n_controlGH4")+"::OnEnable";
+		donpcevent instance_npcname("#n_effectGH01")+"::OnDisable";
+		hideonnpc instance_npcname("#n_effectGH01");
+	}
+	end;
+OnEffect:
+	specialeffect EF_LORD;
+	end;
+OnInstanceInit:
+OnDisable://禁用
+	disablenpc instance_npcname("#n_effectGH01");
+	end;
+OnEnable://啟用
+	enablenpc instance_npcname("#n_effectGH01");
+	set 'touch,1;	// only activate OnTouch once
+	end;
+}
+
+2@gl_kh,0,0,0	script	#n_controlGH4	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_controlGH4");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_controlGH4");
+	initnpctimer;
+	end;
+OnTimer300:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnTalk1";
+	donpcevent instance_npcname("#n_ghmemorialmob05")+"::OnEnable";
+	end;
+OnTimer600:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk2";
+	end;
+OnTimer900:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnTalk2";
+	end;
+OnTimer1200:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk3";
+	end;
+OnTimer1500:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnEffect";
+	end;
+OnTimer1800:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk4";
+	end;
+OnTimer2100:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk5";
+	end;
+OnTimer2400:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk6";
+	end;
+OnTimer2700:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk7";
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk8";
+	end;
+OnTimer3300:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk9";
+	end;
+OnTimer3600:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnTalk3";
+	end;
+OnTimer3900:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnTalk4";
+	end;
+OnTimer4200:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk10";
+	end;
+OnTimer4500:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk11";
+	end;
+OnTimer4800:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk12";
+	end;
+OnTimer5100:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk13";
+	end;
+OnTimer5400:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnTalk5";
+	end;
+OnTimer5700:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk14";
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk15";
+	end;
+OnTimer6300:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk16";
+	end;
+OnTimer6600:
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnTalk17";
+	end;
+OnTimer6900:
+	mapannounce instance_mapname("2@gl_kh"), "9點鐘方向，通往1區的出口已經打開了，現在可以前往中央道路。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#n_ghinstancewarp8")+"::OnEnable";
+	donpcevent instance_npcname("#n_ghinstancewarp9")+"::OnEnable";
+	//donpcevent instance_npcname("#n_ghmemorialmob06")+"::OnEnable";
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance4")+"::OnDisable";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance5")+"::OnDisable";
+	end;
+OnTimer7000:
+	stopnpctimer;
+	donpcevent instance_npcname("#n_controlGH4")+"::OnDisable";
+	end;
+}
+
+2@gl_kh,120,152,1	script	#spawnmonster01	723,{
+	disablenpc instance_npcname("#spawnmonster01");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,119,151,121,153,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,119,151,121,153,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,119,151,121,153,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,119,151,121,153,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,119,151,121,153,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,39,146,1	script	#spawnmonster02	723,{
+	disablenpc instance_npcname("#spawnmonster02");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,38,145,40,147,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,38,145,40,147,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,38,145,40,147,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,38,145,40,147,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,38,145,40,147,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,62,120,1	script	#spawnmonster03	723,{
+	disablenpc instance_npcname("#spawnmonster03");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,61,119,63,121,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,61,119,63,121,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,61,119,63,121,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,61,119,63,121,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,61,119,63,121,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,61,80,1	script	#spawnmonster04	723,{
+	disablenpc instance_npcname("#spawnmonster04");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,60,79,62,81,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,60,79,62,81,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,60,79,62,81,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,60,79,62,81,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,60,79,62,81,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,58,45,1	script	#spawnmonster05	723,{
+	disablenpc instance_npcname("#spawnmonster05");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,57,44,59,46,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,57,44,59,46,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,57,44,59,46,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,57,44,59,46,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,57,44,59,46,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,104,53,1	script	#spawnmonster06	723,{
+	disablenpc instance_npcname("#spawnmonster06");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,103,52,105,54,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,103,52,105,54,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,103,52,105,54,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,103,52,105,54,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,103,52,105,54,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,131,53,1	script	#spawnmonster07	723,{
+	disablenpc instance_npcname("#spawnmonster07");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,130,52,132,54,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,130,52,132,54,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,130,52,132,54,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,130,52,132,54,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,130,52,132,54,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,128,101,1	script	#spawnmonster08	723,{
+	disablenpc instance_npcname("#spawnmonster08");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	areamonster .@map$,127,100,129,102,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,127,100,129,102,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,127,100,129,102,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,127,100,129,102,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,127,100,129,102,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,0,0,0	script	#n_ghmemorialmob05	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob05");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob05");
+	set 'MyMobs2,40;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("2@gl_kh");
+	set 'MyMobs2, 'MyMobs2-1;
+	if ('MyMobs2 == 0) {
+		mapannounce .@map$, "似乎有某個帶有邪惡氣息的生物出現在這個地區內…",bc_map,"0xFFFF00";
+		//donpcevent instance_npcname("#n_ghmemorialmob06")+"::OnDisable2";
+		donpcevent instance_npcname("#n_ghmemorialmob07")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob05")+"::OnDisable";
+	}
+	end;
+}
+
+2@gl_kh,0,0,0	script	#n_ghmemorialmob06	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob06");
+	end;
+OnDisable2:
+	stopnpctimer;
+	disablenpc instance_npcname("#n_ghmemorialmob06");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob06");
+	donpcevent instance_npcname("#n_ghmemorialmob06")+"::OnSpawn";
+	end;
+OnSpawn:
+	initnpctimer;
+	end;
+OnTimer9000:
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob05")+"::OnMyMobDead";
+	setarray .@c[0],
+		114,141,118,139,
+		128,83,131,78,
+		88,53,93,48,
+		54,47,61,40,
+		58,83,63,78,
+		69,138,80,127,
+		34,143,39,138;
+	for(set .@i,0; .@i<getarraysize(.@c); set .@i,.@i+4) {
+		areamonster .@map$,.@c[.@i],.@c[.@i+1],.@c[.@i+2],.@c[.@i+3],"有頭假顏良",3143,2,.@label$;
+		areamonster .@map$,.@c[.@i],.@c[.@i+1],.@c[.@i+2],.@c[.@i+3],"有頭假顏良",3144,2,.@label$;
+		areamonster .@map$,.@c[.@i],.@c[.@i+1],.@c[.@i+2],.@c[.@i+3],"有頭假顏良",3145,2,.@label$;
+		areamonster .@map$,.@c[.@i],.@c[.@i+1],.@c[.@i+2],.@c[.@i+3],"有頭假顏良",3146,2,.@label$;
+		areamonster .@map$,.@c[.@i],.@c[.@i+1],.@c[.@i+2],.@c[.@i+3],"有頭假顏良",3147,2,.@label$;
+	}
+	set 'MyMobs2time,'MyMobs2time+1;
+	end;
+OnTimer9200:
+	stopnpctimer;
+	if ('MyMobs2time <= 4){
+		//debugmes "1次";
+		donpcevent instance_npcname("#n_ghmemorialmob06")+"::OnSpawn";
+	}
+	end;
+}
+
+2@gl_kh,0,0,0	script	#n_ghmemorialmob07	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob07");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob07");
+	areamonster instance_mapname("2@gl_kh"),124,20,31,162,"有頭假顏良",3148,1,instance_npcname("#n_ghmemorialmob07")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("2@gl_kh");
+	if (mobcount(.@map$,instance_npcname("#n_ghmemorialmob07")+"::OnMyMobDead") < 1) {
+		mapannounce .@map$, "3點鐘方向，通往2區的出口已經開啟了。現在可以前往中央道路。",bc_map,"0xFFFF00";
+		donpcevent instance_npcname("#n_ghinstancewarp10")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghinstancewarp11")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob08")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob07")+"::OnDisable";
+	}
+	end;
+}
+
+2@gl_kh,191,106,1	script	#spawnmonster09	723,{
+	disablenpc instance_npcname("#spawnmonster09");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,190,105,192,107,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,190,105,192,107,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,190,105,192,107,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,190,105,192,107,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,190,105,192,107,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,182,28,1	script	#spawnmonster10	723,{
+	disablenpc instance_npcname("#spawnmonster10");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,181,27,183,29,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,181,27,183,29,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,181,27,183,29,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,181,27,183,29,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,181,27,183,29,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,213,44,1	script	#spawnmonster11	723,{
+	disablenpc instance_npcname("#spawnmonster11");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,212,43,214,45,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,212,43,214,45,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,212,43,214,45,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,212,43,214,45,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,212,43,214,45,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,245,72,1	script	#spawnmonster12	723,{
+	disablenpc instance_npcname("#spawnmonster12");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,244,71,246,73,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,244,71,246,73,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,244,71,246,73,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,244,71,246,73,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,244,71,246,73,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,213,105,1	script	#spawnmonster13	723,{
+	disablenpc instance_npcname("#spawnmonster13");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,212,104,214,106,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,212,104,214,106,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,212,104,214,106,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,212,104,214,106,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,212,104,214,106,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,231,135,1	script	#spawnmonster14	723,{
+	disablenpc instance_npcname("#spawnmonster14");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,230,134,232,136,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,230,134,232,136,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,230,134,232,136,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,230,134,232,136,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,230,134,232,136,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,257,146,1	script	#spawnmonster15	723,{
+	disablenpc instance_npcname("#spawnmonster15");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,256,145,258,147,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,256,145,258,147,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,256,145,258,147,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,256,145,258,147,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,256,145,258,147,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,256,25,1	script	#spawnmonster16	723,{
+	disablenpc instance_npcname("#spawnmonster16");
+	set .@map$, instance_mapname("2@gl_kh");
+	set .@label$, instance_npcname("#n_ghmemorialmob08")+"::OnMyMobDead";
+	areamonster .@map$,255,24,257,26,"有頭假顏良",3143,1,.@label$;
+	areamonster .@map$,255,24,257,26,"有頭假顏良",3144,1,.@label$;
+	areamonster .@map$,255,24,257,26,"有頭假顏良",3145,1,.@label$;
+	areamonster .@map$,255,24,257,26,"有頭假顏良",3146,1,.@label$;
+	areamonster .@map$,255,24,257,26,"有頭假顏良",3147,1,.@label$;
+	end;
+	}
+2@gl_kh,0,0,0	script	#n_ghmemorialmob08	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob08");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob08");
+	set 'MyMobs,40;
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("2@gl_kh");
+	set 'MyMobs, 'MyMobs-1;
+	if ('MyMobs == 0) {
+		mapannounce .@map$, "似乎有某個帶有邪惡氣息的生物出現在這個地區內…",bc_map,"0xFFFF00";
+		donpcevent instance_npcname("#n_ghmemorialmob09")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob08")+"::OnDisable";
+	}
+	end;
+}
+
+2@gl_kh,0,0,0	script	#n_ghmemorialmob09	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob09");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob09");
+	areamonster instance_mapname("2@gl_kh"),175,163,265,18,"有頭假顏良",3149,1,instance_npcname("#n_ghmemorialmob09")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("2@gl_kh");
+	if (mobcount(.@map$,instance_npcname("#n_ghmemorialmob09")+"::OnMyMobDead") < 1) {
+		mapannounce .@map$, "12點鐘方向，通往3區的出口已經開啟了。現在可以前往中央道路。",bc_map,"0xFFFF00";
+		donpcevent instance_npcname("#n_ghinstancewarp12")+"::OnEnable";
+		donpcevent instance_npcname("#n_controlGH6")+"::OnEnable";
+		donpcevent instance_npcname("#n_ghmemorialmob08")+"::OnDisable";
+		donpcevent instance_npcname("#n_ghmemorialmob09")+"::OnDisable";
+	}
+	end;
+}
+
+2@gl_kh,155,250,7	script	吃席販女之徒劉備#n_ghinstance6	652,{
+	mes "[吃席販女之徒劉備]";
+	mes "你又想做什麼壞事啊？萬夫莫敵袁紹。";
+	close;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("吃席販女之徒劉備#n_ghinstance6");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("吃席販女之徒劉備#n_ghinstance6");
+	end;
+OnTalk1:
+	npctalk "吃席販女之徒劉備：真無頭勇將顏良！";
+	end;
+OnTalk2:
+	npctalk "吃席販女之徒劉備：你對我的部下做了什麼啊萬夫莫敵袁紹！";
+	end;
+OnTalk3:
+	npctalk "吃席販女之徒劉備：萬夫莫敵袁紹！既然你已經達成目的了，就沒必要製造多餘的犧牲！";
+	end;
+OnTalk4:
+	npctalk "吃席販女之徒劉備：放了他吧! 我不想要再看到有任何人犧牲了!";
+	end;
+OnTalk5:
+	npctalk "吃席販女之徒劉備：我永遠不會原諒你的！";
+	end;
+OnTalk6:
+	npctalk "吃席販女之徒劉備：你覺得我會讓你逃走嗎？萬夫莫敵袁紹！";
+	end;
+}
+
+2@gl_kh,162,250,1	script	顏良收割機關羽#n_ghinstance5	654,{
+	mes "[顏良收割機關羽]";
+	mes "難道永遠都逃不出這個束縛嗎…";
+	cutin "gl_barmund2",2;
+	close2;
+	cutin "gl_barmund2",255;
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("顏良收割機關羽#n_ghinstance5");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("顏良收割機關羽#n_ghinstance5");
+	end;
+OnTalk1:
+	npctalk "顏良收割機關羽：那就，沒辦法了。必須用我們僅剩的力量來阻擋真魔化無首顏良"！";
+	end;
+}
+
+2@gl_kh,158,252,3	script	萬夫莫敵袁紹#n_ghinstance4	650,4,4,{
+	mes "[萬夫莫敵袁紹]";
+	mes "真是了不起~竟然能來到這裡。這然這樣我也應該要表現一點誠意才對吧？";
+	close;	
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance4");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("萬夫莫敵袁紹#n_ghinstance4");
+	end;
+OnTalk1:
+	npctalk "萬夫莫敵袁紹：真是厲害~我還以為連這附近都到不了呢…";
+	end;
+OnTalk2:
+	npctalk "萬夫莫敵袁紹：呵呵，吃席販女之徒劉備，伊美樂的心臟碎片已經找到了。";
+	end;
+OnTalk3:
+	npctalk "萬夫莫敵袁紹：如果沒有那小子的妨礙，事情還能進行的更快呢。";
+	end;
+OnTalk4:
+	npctalk "萬夫莫敵袁紹：是這樣嗎？就算你說了大話也是一樣的，不管是國王還是士兵，全部會變成這裡的人啊…";
+	end;
+OnTalk5:
+	npctalk "萬夫莫敵袁紹：為什麼？";
+	end;
+OnTalk6:
+	npctalk "萬夫莫敵袁紹：反正這傢伙是你吃席販女之徒劉備僅剩的部下了。";
+	end;
+OnTalk7:
+	npctalk "萬夫莫敵袁紹：他用來阻止我的那股力量還真不簡單啊";
+	end;
+OnTalk8:
+	npctalk "萬夫莫敵袁紹：拿來作為我的新真魔化無首顏良"是再適合不過的了…";
+	end;
+OnTalk9:
+	npctalk "萬夫莫敵袁紹：天啊~我好怕怕喔！";
+	end;
+OnTalk10:
+	npctalk "萬夫莫敵袁紹：反正我們之間的事情也還沒結束，下次還有機會見面的。";
+	end;
+OnTalk11:
+	npctalk "萬夫莫敵袁紹：那麼，現在就和你的新部下聊聊天吧。";
+	end;
+}
+
+2@gl_kh,150,179,0	script	#n_controlGH6	111,2,2,{
+	end;
+OnTouch:
+	mapannounce instance_mapname("2@gl_kh"), "???: 不要過來! 這裡到處都是陷阱... 啊!!!!",bc_map,"0xFF0000";
+	specialeffect EF_BASH;
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance3")+"::OnEnable";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnEnable";
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance5")+"::OnEnable";
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEnable";
+	donpcevent instance_npcname("#n_controlGH6")+"::OnDisable";
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_controlGH6");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_controlGH6");
+	end;
+}
+
+2@gl_kh,158,252,1	script	萬夫莫敵袁紹#n_ghinstance3	650,7,7,{
+	end;
+OnTouch:
+	specialeffect EF_BASH;
+	donpcevent instance_npcname("#n_controlGH5")+"::OnEnable";
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnEnable";
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance3")+"::OnDisable";
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("萬夫莫敵袁紹#n_ghinstance3");
+	end;
+OnEnable:
+	enablenpc instance_npcname("萬夫莫敵袁紹#n_ghinstance3");
+	end;
+}
+
+2@gl_kh,158,255,3	script	真無頭勇將顏良#n_ghinstance1	651,{
+	end;
+OnInstanceInit:
+OnDisable:
+	hideonnpc instance_npcname("真無頭勇將顏良#n_ghinstance1");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("真無頭勇將顏良#n_ghinstance1");
+	end;
+OnTalk1:
+	npctalk "真無頭勇將顏良：呃啊啊！請快逃走吧！我再也撐不下去了！";
+	end;
+OnTalk2:
+	npctalk "真無頭勇將顏良：司令官…大人…您必須快點逃出…這裡才行…呃…";
+	end;
+OnTalk3:
+	npctalk "真無頭勇將顏良：就算你可以折磨我的身體，但你是帶不走我的靈魂的！萬夫莫敵袁紹！";
+	end;
+OnEffect1:
+	misceffect EF_BARRIER;
+	end;
+OnEffect2:
+	misceffect EF_CHAINCOMBO;
+	end;
+OnEffect3:
+	misceffect EF_MAPPILLAR2;
+	end;
+OnEffect4:
+	misceffect EF_MAPPILLAR;
+	end;
+OnEffect5:
+	specialeffect EF_LORD;
+	end;
+}
+
+2@gl_kh,0,0,0	script	#n_controlGH5	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_controlGH5");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_controlGH5");
+	initnpctimer;
+	end;
+OnTimer300:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk1";
+	end;
+OnTimer600:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnTalk1";
+	end;
+OnTimer900:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk1";
+	end;
+OnTimer1200:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnTalk2";
+	end;
+OnTimer1500:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk2";
+	end;
+OnTimer1800:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk2";
+	end;
+OnTimer2100:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk3";
+	end;
+OnTimer2400:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnTalk3";
+	end;
+OnTimer2700:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk4";
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk3";
+	end;
+OnTimer3300:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk4";
+	end;
+OnTimer3600:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk5";
+	end;
+OnTimer3900:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk6";
+	end;
+OnTimer4200:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk7";
+	end;
+OnTimer4500:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk8";
+	end;
+OnTimer4800:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk5";
+	end;
+OnTimer5100:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk9";
+	end;
+OnTimer5400:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk10";
+	end;
+OnTimer5700:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnTalk11";
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect1";
+	end;
+OnTimer6300:
+	donpcevent instance_npcname("萬夫莫敵袁紹#n_ghinstance4")+"::OnDisable";
+	end;
+OnTimer6500:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect3";
+	end;
+OnTimer6600:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect2";
+	end;
+OnTimer6700:
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnTalk6";
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect4";
+	end;
+OnTimer7000:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect3";
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect4";
+	donpcevent instance_npcname("吃席販女之徒劉備#n_ghinstance6")+"::OnDisable";
+	donpcevent instance_npcname("顏良收割機關羽#n_ghinstance5")+"::OnTalk1";
+	end;
+OnTimer7300:
+	mapannounce instance_mapname("2@gl_kh"), "搜索'真無頭勇將顏良'的屍體.",bc_map,"0xFFFFFF";
+	end;
+OnTimer7600:
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnEffect5";
+	end;
+OnTimer8000:
+	donpcevent instance_npcname("#n_ghmemorialmob10")+"::OnEnable";
+	stopnpctimer;
+	donpcevent instance_npcname("#n_controlGH5")+"::OnDisable";
+	end;
+}
+
+1@gl_kh,231,242,0	warp	通往奇怪的裂痕#gl_kh	1,1,1@gl_kh,239,242
+1@gl_kh,236,242,0	warp	通往奇怪的裂痕#gl_kh_2	1,1,1@gl_kh,228,242
+2@gl_kh,150,169,0	warp	回1樓傳送點1-1#gl_kh	1,1,2@gl_kh,150,160
+1@gl_kh,69,168,0	warp	回樓層1#gl_kh	1,1,1@gl_kh,270,260
+
+2@gl_kh,0,0,0	script	#n_ghmemorialmob10	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#n_ghmemorialmob10");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#n_ghmemorialmob10");
+	donpcevent instance_npcname("真無頭勇將顏良#n_ghinstance1")+"::OnDisable";
+	monster instance_mapname("2@gl_kh"),158,255,"真魔化無首顏良",3150,1,instance_npcname("#n_ghmemorialmob10")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	if (mobcount(instance_mapname("2@gl_kh"),instance_npcname("#n_ghmemorialmob10")+"::OnMyMobDead") < 1) {	
+		donpcevent instance_npcname("#n_ghmemorialmob10")+"::OnDisable";
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#2@gl_kh")+"::OnEnable";
+		'ClearInatance = 1;
+	}
+	end;
+}
+
+//寶箱
+2@gl_kh,0,0,0	script	副本寶箱#2@gl_kh	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;	
+	getitem 6755,5;
+	getitem 6607,5;
+	getitem 6909,5;
+	getexp 700000,700000;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

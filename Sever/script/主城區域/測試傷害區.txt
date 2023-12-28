@@ -1,0 +1,63 @@
+//===== Giraffe 模擬器 - 文檔 ====================
+
+
+//
+//更高階版本------歡迎洽詢
+//*************************************************
+////==============================================
+
+uttycty,89,117,5	script	測試傷害區	4_f_cru,{
+warp "damge",99,101;
+end;
+Oninit:
+OnTimer2000:
+showscript "★ 測試傷害區 ★ ";
+//setnpcicon getnpcid(0),22,"測試傷害區";
+initnpctimer;
+end;
+}
+
+// damge	mapflag	noteleport
+// damge	mapflag	nosave	SavePoint
+// damge	mapflag	nomemo
+damge	mapflag	nobranch
+damge	mapflag	nomvploot			//MVP無掉落物品
+damge	mapflag	noloot				//魔物無掉落物品
+damge	mapflag	noexppenalty		//死亡沒有經驗懲罰
+damge	mapflag	nozenypenalty		//死亡無金錢懲罰
+damge	mapflag	novending			//無法開露天商店
+damge	mapflag	nowarp				//無法使用傳送之陣
+damge	mapflag	nobaseexp			//沒有基本經驗		
+damge	mapflag	nojobexp			//沒有職業經驗
+
+//沒革新的測試蛋
+damge,88,107	monster	"--ja--"	21064,1
+damge,88,100	monster	"--ja--"	21065,1
+damge,88,93	monster	"--ja--"	21066,1
+
+//屬性
+damge,80,89	monster	"--ja--"	21077,1
+damge,84,89	monster	"--ja--"	21078,1
+damge,88,89	monster	"--ja--"	21079,1
+damge,92,89	monster	"--ja--"	21080,1
+damge,96,89	monster	"--ja--"	21081,1
+damge,100,89	monster	"--ja--"	21082,1
+damge,104,89	monster	"--ja--"	21083,1
+damge,108,89	monster	"--ja--"	21084,1
+damge,112,89	monster	"--ja--"	21085,1
+damge,116,89	monster	"--ja--"	21086,1
+
+//種族
+damge,80,111	monster	"--ja--"	21067,1
+damge,84,111	monster	"--ja--"	21068,1
+damge,88,111	monster	"--ja--"	21069,1
+damge,92,111	monster	"--ja--"	21070,1
+damge,96,111	monster	"--ja--"	21071,1
+damge,100,111	monster	"--ja--"	21072,1
+damge,104,111	monster	"--ja--"	21073,1
+damge,108,111	monster	"--ja--"	21074,1
+damge,112,111	monster	"--ja--"	21075,1
+damge,116,111	monster	"--ja--"	21076,1
+
+
+

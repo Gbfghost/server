@@ -1,0 +1,18 @@
+uttycty,110,163,4	script	轉蛋兌換	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"轉蛋兌換";
+	waitingroom "★ 轉蛋兌換 ★",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+	
+    sellitem(920010,0,-1); //星願轉蛋
+	sellitemcurrency(920001,5);
+	sellitemcurrency(920002,5);
+    endsellitem();
+
+
+OnBuyItem:
+end;
+}

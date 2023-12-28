@@ -1,0 +1,249 @@
+uttycty,29,165,4	script	EDDA武器附魔#JCv2	4_F_JOB_BLACKSMITH,{
+	disable_items;
+	mes "[EDDA武器附魔]";
+	mes "我可以幫你附魔EDDA武器!";
+	next;
+	switch( select( "附魔", "重置", "取消" ) ) {
+	case 1:
+		mes "[EDDA武器附魔]";
+		mes "我可以幫你附魔EDDA武器!";
+		next;
+		.@equip_id = getequipid(EQI_HAND_R);
+		switch(.@equip_id) {
+			case 21051:  //EDDA武器
+			case 21052:
+			case 32023:
+			case 32350:
+			case 32024:
+			case 32025:
+			case 1333:
+			case 16092:
+			case 28138:
+			case 32351:
+			case 16093:
+			case 16094:
+			case 28765:
+			case 28044:
+			case 28042:
+			case 28767:
+			case 28768:
+			case 18184:
+			case 26158:
+			case 2055:
+			case 2056:
+			case 28633:
+			case 26159:
+			case 26160:
+			case 26161:
+			case 2057:
+			case 16095:
+			case 1865:
+			case 1866:
+			case 16096:
+			case 18185:
+			case 18187:
+			case 18186:
+			case 18188:
+			case 32107:
+			case 32108:
+			case 26212:
+			case 26213:
+
+				break;
+			default:
+				mes "[EDDA武器附魔]";
+				mes "你沒有裝備EDDA武器!";
+				close;
+		}
+		mes "[EDDA武器附魔]";
+		setarray .@card[0], getequipcardid(EQI_HAND_R,0), getequipcardid(EQI_HAND_R,1), getequipcardid(EQI_HAND_R,2), getequipcardid(EQI_HAND_R,3);
+		.@refine = getequiprefinerycnt(EQI_HAND_R);
+	
+		if (.@card[3] == 0) {
+			.@slot = 3;
+			mes "即將附魔第四洞";
+			mes "請選擇你要的附魔";
+		}
+		else if (.@card[2] == 0) {
+			.@slot = 2;
+			mes "即將附魔第三洞";
+			mes "請選擇你要的附魔";
+		}
+		else {
+			mes "你的EDDA武器已經不能再附魔了!";
+			close;
+		}
+		next;
+		mes "[EDDA武器附魔]";
+		mes "你要繼續嗎?";
+		next;
+		if (select( "要", "不要" ) == 2) {
+			mes "[EDDA武器附魔]";
+			mes "掰掰!";
+			close;
+		}
+
+		// anti-hack
+		if (callfunc("F_IsEquipIDHack", EQI_HAND_R, .@equip_id) || callfunc("F_IsEquipCardHack", EQI_HAND_R, .@card[0], .@card[1], .@card[2], .@card[3]) || callfunc("F_IsEquipRefineHack", EQI_HAND_R, .@refine))
+			close;
+
+		switch(.@slot) {
+		case 3:
+			setarray .@enchant[1],
+				4832,	//名弓
+				4833,
+				4834,
+				4816,	//尖銳
+				4817,
+				4818,
+				4869,	//攻速
+				4872,
+				4873,
+				4815,	//魔力
+				4814,
+				4813,
+				4863,   //致命
+				4864,
+				4865,
+				4808,   //鬥志
+				4820,
+				4821,
+				4822;
+			.@indlen = getarraysize(.@enchant) - 1;
+			for(.@i = 1; .@i <= .@indlen; .@i++)
+				.@menu$ = .@menu$ + getitemname(.@enchant[.@i]) + ":";
+			.@menu$ = .@menu$ + "算了";
+			.@choice = select(.@menu$);
+			if (.@choice == .@indlen + 1) { 
+				mes "掰掰!";
+				close;
+			}
+			.@card[.@slot] = .@enchant[.@choice];	
+			break;
+		case 2:
+			setarray .@enchant[1],
+				29594,		//EDDA 記憶附魔
+				29595,
+				29596,
+				29598,
+				29599,
+				29600,
+				29601,
+				29602,
+				29603,
+				29604,
+				29605,
+				29606,
+				29607;
+
+			.@indlen = getarraysize(.@enchant) - 1;
+			for(.@i = 1; .@i <= .@indlen; .@i++)
+				.@menu$ = .@menu$ + getitemname(.@enchant[.@i]) + ":";
+			.@menu$ = .@menu$ + "算了";
+	
+			.@choice = select(.@menu$);
+			if (.@choice == .@indlen + 1) { 
+				mes "掰掰!";
+				close;
+			}
+			.@card[.@slot] = .@enchant[.@choice];	// unknown rates
+			break;
+		
+		default:
+			mes "[EDDA武器附魔]";
+			mes "發生錯誤";
+			close;
+		}
+		delequip EQI_HAND_R;
+		getitem2 .@equip_id,1,1,.@refine,0,.@card[0],.@card[1],.@card[2],.@card[3];
+	
+		specialeffect2 EF_FIREHIT;
+		mes "[EDDA武器附魔]";
+		mes "附魔成功了";
+		close;
+	case 2:
+		.@equip_id = getequipid(EQI_HAND_R);
+		switch(.@equip_id) {
+			case 21051:  //EDDA武器
+			case 21052:
+			case 32023:
+			case 32350:
+			case 32024:
+			case 32025:
+			case 1333:
+			case 16092:
+			case 28138:
+			case 32351:
+			case 16093:
+			case 16094:
+			case 28765:
+			case 28044:
+			case 28042:
+			case 28767:
+			case 28768:
+			case 18184:
+			case 26158:
+			case 2055:
+			case 2056:
+			case 28633:
+			case 26159:
+			case 26160:
+			case 26161:
+			case 2057:
+			case 16095:
+			case 1865:
+			case 1866:
+			case 16096:
+			case 18185:
+			case 18187:
+			case 18186:
+			case 18188:
+			case 32107:
+			case 32108:
+			case 26212:
+			case 26213:
+				break;
+			default:
+				mes "[EDDA武器附魔]";
+				mes "你沒有裝備EDDA武器!";
+				close;
+		}
+		setarray .@card[0], getequipcardid(EQI_HAND_R,0), getequipcardid(EQI_HAND_R,1), getequipcardid(EQI_HAND_R,2), getequipcardid(EQI_HAND_R,3);
+		.@refine = getequiprefinerycnt(EQI_HAND_R);
+
+		if (.@card[3] < 1) {// one enchant required
+			mes "[EDDA武器附魔]";
+			mes "你的EDDA武器還沒有任何附魔喔!";
+			close;
+		}
+		mes "[EDDA武器附魔]";
+		mes "要重置附魔嗎?";
+		next;
+		if (select( "好", "不了" ) == 2) {
+			mes "[EDDA武器附魔]";
+			mes "掰掰";
+			close;
+		}
+		mes "[EDDA武器附魔]";
+		mes "即將幫你重置附魔";
+		next;
+		specialeffect2 EF_FIREHIT;
+
+		if (callfunc("F_IsEquipIDHack", EQI_HAND_R, .@equip_id) || callfunc("F_IsEquipCardHack", EQI_HAND_R, .@card[0], .@card[1], .@card[2], .@card[3]) || callfunc("F_IsEquipRefineHack", EQI_HAND_R, .@refine))
+			close;
+
+		delequip EQI_HAND_R;
+		getitem2 .@equip_id,1,1,.@refine,0,.@card[0],.@card[1],0,0;
+		mes "[EDDA武器附魔]";
+		mes "重置完成了";
+		close;
+	case 3:
+		mes "[EDDA武器附魔]";
+		mes "掰掰";
+		close;
+	}
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]EDDA武器附魔";
+	waitingroom "[附魔]EDDA武器附魔",0;
+
+}

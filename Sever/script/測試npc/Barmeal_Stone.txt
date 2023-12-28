@@ -1,0 +1,55 @@
+prontera,163,92,4	script	霸肋門德餐券販賣人員	891,{
+	.@item = 1000103;
+	mes "[霸肋門德餐券販賣人員]";
+	mes "您好";
+	mes "購買霸肋門德餐券嗎?";
+	mes "一張為1000zeny";
+	mes "請問您需要多少張?";
+	next;
+	input .@item;
+	if (.@item == 0) {
+		mes "[霸肋門德餐券販賣人員]";
+		mes "不要拉倒!";
+		close;
+	}
+	set .@total_cost,.@item * 1000;
+		if (Zeny < .@Total_cost) {
+			mes "[霸肋門德餐券販賣人員]";
+			mes "沒錢還敢來啊? @zeny不會用是嗎?";
+			close;
+		}
+	set Zeny, Zeny-.@total_cost;
+	getitem 1000103,.@item*1; //Barmeal Ticket	
+	mes "[霸肋門德餐券販賣人員]";
+	mes "這是你的餐券";
+	mes "掰掰";
+	close;
+	}
+
+prontera,163,90,4	script	魔凍石販賣人員	890,{
+	.@item = 1000104;
+	mes "[魔凍石販賣人員]";
+	mes "您好";
+	mes "購買魔凍石嗎?";
+	mes "一顆為1000zeny";
+	mes "請問您需要多少顆?";
+	next;
+	input .@item;
+	if (.@item == 0) {
+		mes "[魔凍石販賣人員]";
+		mes "不要拉倒！";
+		close;
+	}
+	set .@total_cost,.@item * 1000;
+		if (Zeny < .@Total_cost) {
+			mes "[魔凍石販賣人員]";
+			mes "沒錢還敢來啊? @zeny不會用是嗎?";
+			close;
+		}
+	set Zeny, Zeny-.@total_cost;
+	getitem 1000104,.@item*1; //Magical Soapstone	
+	mes "[魔凍石販賣人員]";
+	mes "這是你的魔凍石";
+	mes "掰掰";
+	close;
+	}

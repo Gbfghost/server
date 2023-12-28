@@ -1,0 +1,342 @@
+//EDDA古城的國王施密特裝備附魔與兌換
+//
+//*************************************************
+////===============================================
+
+uttycty,29,157,5	script	[附魔]古城殞落	4_ed_oscar,{	
+	disable_items;
+	cutin "3rd_kim_normal04",2;
+	switch(select("附魔","回收","徽章指定附魔","查看裝備"))
+	{
+		case 1:
+			callfunc("osc_118");
+			end;
+		case 2:
+			callfunc("osc_117");
+			end;
+		case 3:
+			callfunc("osc_115");
+			end;			
+		case 4:
+			callfunc("osc_116");
+			end;			
+	}
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]古城殞落";
+	waitingroom "[附魔]古城殞落",0;
+	end;
+}
+
+function	script	osc_116	{
+	disable_items;
+	
+	setarray .itemid,
+	15388,15389,32228,32229,32230,32231,32232,32233;
+
+	freeloop(1);
+	for (.@i = 0; .@i < getarraysize(.itemid); .@i++) 
+	{
+		if (.itemid[.@i]) 
+		{
+			mes ""+(.@i+1)+".<ITEM>"+getitemname(.itemid[.@i])+"<INFO>"+getiteminfo(.itemid[.@i],17)+"</INFO></ITEM>";
+		}
+	}
+	freeloop(0);
+	close3;
+}	
+
+function	script	osc_118	{
+	disable_items;
+	mes "[[附魔]古城殞落]";
+	mes "我能對國王施密特裝備進行附魔";
+	mes "第一回合是對第四洞進行附魔。";
+	mes "第二回合是對第三洞進行附魔。";
+	mes "第三回合是對第二洞進行附魔。";
+	mes " ";
+	mes "^ff0000注意：附魔會對該洞進行覆蓋！^000000";
+	next;
+	switch(select("國王施密特的制服","國王施密特的斗篷","國王施密特的徽章")) {
+	case 1:		
+		setarray .@equipment[0], 15388;
+		setarray .@randStone3[0],4702,4703,4704,4712,4713,4714,4722,4723,4724,4732,4733,4734,4742,4743,4744,4752,4753,4754;
+		setarray .@randStone2[0],4702,4703,4704,4712,4713,4714,4722,4723,4724,4732,4733,4734,4742,4743,4744,4752,4753,4754;
+		setarray .@randStone1[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752,4970,4971,4972,4973;
+		setarray .@consumeItem[0],25739,6608;
+		setarray .@consumeAmount[0],5,10;		
+		.@equipSlot = EQI_ARMOR;
+		.@successRate = 100;
+		break;
+	case 2:		
+		setarray .@equipment[0], 15389;		
+		setarray .@randStone3[0],4808,4820,4821,4813,4812,4826,4817,4816,4843,4834,4835,4836,4863,4864,4865;
+		setarray .@randStone2[0],4808,4820,4821,4813,4812,4826,4817,4816,4843,4834,4835,4836,4863,4864,4865;
+		setarray .@randStone1[0],4808,4820,4821,4813,4812,4826,4817,4816,4843,4834,4835,4836,4863,4864,4865;
+		setarray .@consumeItem[0],25739,6608;
+		setarray .@consumeAmount[0],5,10;
+		.@equipSlot = EQI_GARMENT;
+		.@successRate = 100;
+		break;
+	case 3:
+		setarray .@equipment[0],32228,32229,32230,32231,32232,32233;
+		setarray .@randStone3[0],4702,4703,4704,4712,4713,4714,4722,4723,4724,4732,4733,4734,4742,4743,4744,4752,4753,4754;
+		setarray .@randStone2[0],4821,4822,4812,4826,4843,4844,4835,4836,4864,4865;
+		setarray .@randStone1[0],29587,29588,29589,29590,29591,29592;
+		setarray .@consumeItem[0],25740,6755;
+		setarray .@consumeAmount[0],10,40;
+		if(inarray(.@equipment, getequipid(EQI_ACC_L))>=0)
+			set .@equipSlot, EQI_ACC_L;
+		else
+			set .@equipSlot, EQI_ACC_R;
+		if(getequipcardid(.@equipSlot,2)>0)
+			.@successRate = 70;
+		else
+			.@successRate = 100;
+		break;
+	}
+	
+	.@idx = inarray(.@equipment, getequipid(.@equipSlot));
+	if(.@idx >= 0) {
+		for(.@i=3; .@i>=1; .@i--) {
+			if(!getequipcardid(.@equipSlot,.@i)) {
+				.@targetSlot = .@i;
+				break;
+			}
+		}
+	}else {
+		mes "[[附魔]古城殞落]";
+		mes "^FF0000你身上沒有穿戴這件裝備！^000000";
+		close3;
+	}
+	
+	if(.@targetSlot == 0) {
+		mes "[[附魔]古城殞落]";
+		mes "^FF0000裝備已經無法再進行附魔！^000000";
+		close3;
+	}
+
+	mes "[[附魔]古城殞落]";
+	mes "目前選擇：^888888"+getitemname(.@equipment[.@idx])+"^000000";
+	for(.@i=0; .@i<getarraysize(.@consumeItem); .@i++) {
+		mes "需求物品：^888888"+getitemname(.@consumeItem[.@i])+" x "+.@consumeAmount[.@i]+"^000000 ";
+		if(countitem(.@consumeItem[.@i]) < .@consumeAmount[.@i])
+			.@unenough = true;			
+	}
+	mes "成功機率：^888888"+.@successRate+"%^000000";	
+	mes "附魔所屬類別：^FF0000"+(.@targetSlot==3?"第一回合":.@targetSlot==2?"第二回合":"第三回合")+"^000000";
+	if(.@successRate != 100)
+		mes "^FF0000請注意！失敗會造成裝備損毀。^000000";
+	next;
+	
+	if(.@unenough) 
+	{
+		mes "[[附魔]古城殞落]";
+		mes "^ff0000你所需的材料物品不足…^000000";
+		close3;
+	}
+	else
+	{
+		if(.@successRate != 100) {
+			mes "[[附魔]古城殞落]";			
+			mes "附魔有^FF0000失敗的風險^000000..";
+			mes "若失敗，裝備有機會^FF0000銷毀^000000...";
+			mes "你確定還要繼續嗎？";
+			next;
+			if(select("確定:^FF0000取消^000000")==2) close3;
+		}
+		if(getequipid(.@equipSlot)!=.@equipment[.@idx]) close3;
+		
+		for(.@i=0; .@i<getarraysize(.@consumeItem); .@i++)
+			delitem .@consumeItem[.@i],.@consumeAmount[.@i];		
+		
+		if(rand(100) > .@successRate) 
+		{
+			specialeffect2 EF_PHARMACY_FAIL;
+			dispbottom "附魔失敗…裝備銷毀！";
+			close3;
+		}
+		else
+		{
+			.@stone = getd(".@randStone"+.@targetSlot+"["+rand(getarraysize(getd(".@randStone"+.@targetSlot)))+"]");			
+			specialeffect2 EF_PHARMACY_OK;
+			set .@card_id1,getequipcardid(.@equipSlot,0);
+			set .@card_id2,(.@targetSlot==1?.@stone:getequipcardid(.@equipSlot,1));
+			set .@card_id3,(.@targetSlot==2?.@stone:getequipcardid(.@equipSlot,2));
+			set .@card_id4,(.@targetSlot==3?.@stone:getequipcardid(.@equipSlot,3));
+			set .@ref_lv,getequiprefinerycnt(.@equipSlot);
+			delequip .@equipSlot;
+			getitem2 .@equipment[.@idx],1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+			dispbottom "附魔成功！";
+			close3;
+		}
+		
+	}
+	close3;
+}
+
+function	script	osc_117	{
+	disable_items;	
+	mes "[[附魔]古城殞落]";
+	mes "我專門回收已經附魔到極限，";
+	mes "且不想要的國王施密特裝備。";
+	mes " ";
+	mes "只退還裝備所花費的寶石或水晶…";
+	mes "數量只有一半…";
+	next;
+	switch(select("國王施密特的制服","國王施密特的斗篷","國王施密特的徽章")) {
+	case 1:
+		setarray .@equipment[0], 15388;
+		setarray .@withdrawItem[0],25739;
+		setarray .@withdrawAmount[0],10;
+		.@equipSlot = EQI_ARMOR;
+		break;
+	case 2:
+		setarray .@equipment[0], 15389;
+		setarray .@withdrawItem[0],25739;
+		setarray .@withdrawAmount[0],10;
+		.@equipSlot = EQI_GARMENT;
+		break;	
+	case 3:
+		setarray .@equipment[0],32228,32229,32230,32231,32232,32233;
+		setarray .@withdrawItem[0],25740;
+		setarray .@withdrawAmount[0],17;
+		if(inarray(.@equipment, getequipid(EQI_ACC_L))>=0)
+			set .@equipSlot, EQI_ACC_L;
+		else
+			set .@equipSlot, EQI_ACC_R;
+		break;
+	}
+	
+	.@idx = inarray(.@equipment, getequipid(.@equipSlot));
+	if(.@idx >= 0) {
+		for(.@i=3; .@i>=1; .@i--) {
+			if(!getequipcardid(.@equipSlot,.@i)) {
+				.@isNotFull = true;
+				break;
+			}
+		}
+	}else {
+		mes "[[附魔]古城殞落]";
+		mes "^FF0000你身上沒有穿戴這件裝備！^000000";
+		close3;
+	}
+	
+	if(.@isNotFull) {
+		mes "[[附魔]古城殞落]";
+		mes "^FF0000我只收附魔滿的國王施密特裝備！^000000";
+		close3;
+	}
+	
+	mes "[[附魔]古城殞落]";
+	mes "目前選擇：^888888"+getitemname(.@equipment[.@idx])+"^000000";
+	for(.@i=0; .@i<getarraysize(.@withdrawItem); .@i++) 
+		mes "退還物品：^888888"+getitemname(.@withdrawItem[.@i])+" x "+.@withdrawAmount[.@i]+"^000000 ";
+	mes "^FF0000注意！裝備不會退還^000000";
+	next;
+	if(select("確定:取消")==2)
+		close3;
+
+	for(.@i=0; .@i<getarraysize(.@withdrawItem); .@i++) 
+		getitem .@withdrawItem[.@i], .@withdrawAmount[.@i];
+	delequip .@equipSlot;
+	close3;
+}
+
+function	script	osc_115	{
+	disable_items;
+	.@item1 = 25740;
+	.@count1 = 50;
+	.@item2 = 6755;
+	.@count2 = 200;	
+	.@item3 = 7925;
+	.@count3 = 3;
+	.@zeny = 30000000;
+	setarray .@position$[1],"[裝飾品左]","[裝飾品右]";
+	setarray .@indices[1], EQI_ACC_L,EQI_ACC_R;
+	for(set .@i,1; .@i<=2; set .@i,.@i+1)
+		set .@menu$, .@menu$+((getequipisequiped(.@indices[.@i]))?.@position$[.@i]+"- [ ^0000FF"+getequipname(.@indices[.@i])+"^000000 ]":.@position$[.@i]+"- [ ^FF0000沒有裝備^000000 ]")+":";
+	set .@part, .@indices[ select(.@menu$) ];
+	
+	if (getequipisequiped(.@part) <= 0) {
+		mes "[[附魔]古城殞落]";
+		mes "選擇的位置沒有裝備。";
+		close3;
+	}
+	
+	//可以附魔的裝備
+	setarray .@Accord,32228,32229,32230,32231,32232,32233;
+
+	if ( inarray(.@Accord,getequipid(.@part)) <= -1 )
+	{
+		mes ""+getitemname(getequipid(.@part))+"不能附魔。";
+		close3;
+	}
+	
+	setarray .@AccInFo,getequipid(.@part),1,1,getequiprefinerycnt(.@part),0,getequipcardid(.@part,0),getequipcardid(.@part,1),getequipcardid(.@part,2),getequipcardid(.@part,3);
+
+	for ( .@ei = 0; .@ei < 4; .@ei++ ) {
+		.@OptId[.@ei] = getequiprandomoption(.@part,.@ei,ROA_ID);
+		.@OptVal[.@ei] = getequiprandomoption(.@part,.@ei,ROA_VALUE);
+		.@OptParam[.@ei] = getequiprandomoption(.@part,.@ei,ROA_PARAM);
+	}
+
+	mes "[[附魔]古城殞落]";
+	mes "選擇的裝備: ^0000FF"+getitemname(.@AccInFo[0])+" ^000000";
+	mes "指定費用: ^0000FF"+(.@zeny/10000)+" 萬^000000";	
+	mes .@AccInFo[5]?"第一洞: ^0000FF"+getitemname(.@AccInFo[5])+"^000000":"第一洞: ^666666無^000000";
+	mes .@AccInFo[6]?"第二洞: ^0000FF"+getitemname(.@AccInFo[6])+"^000000":"第二洞: ^666666無^000000";
+	mes .@AccInFo[7]?"第三洞: ^0000FF"+getitemname(.@AccInFo[7])+"^000000":"第三洞: ^666666無^000000";
+	mes .@AccInFo[8]?"第四洞: ^0000FF"+getitemname(.@AccInFo[8])+"^000000":"第四洞: ^666666無^000000";
+	next;
+	if(select("進行指定","取消") == 2) {
+		close3;
+	}
+
+	if( .@AccInFo[6] == 0 || .@AccInFo[7] == 0 || .@AccInFo[8] == 0) 
+	{
+		mes "[[附魔]古城殞落]";
+		mes "請先把三洞都有附魔，再來自選。";
+		close3;
+	}
+	
+	if ( Zeny < .@zeny )
+	{
+		mes "ZENY不足唷！";
+		close3;
+	}
+	
+	if(countitem(.@item1) < .@count1 ) 
+	{
+		mes "材料不足.";
+		mes ""+getitemname(.@item1)+" x "+.@count1+".";		
+		close3;
+	}
+	
+	if(countitem(.@item2) < .@count2 ) 
+	{
+		mes "材料不足.";
+		mes ""+getitemname(.@item2)+" x "+.@count2+".";		
+		close3;
+	}
+	
+	if(countitem(.@item3) < .@count3 ) 
+	{
+		mes "材料不足.";
+		mes ""+getitemname(.@item3)+" x "+.@count3+".";		
+		close3;
+	}	
+
+	setarray .@ec1,29587,29588,29589,29590,29591,29592;
+	
+		for ( .@i = 0; .@i < getarraysize(.@ec1); .@i++ )
+			.@Enchant$ = .@Enchant$ + ""+getitemname(.@ec1[.@i])+":";
+			.@Choose = .@ec1[select(.@Enchant$)-1];
+
+	delitem .@item1,.@count1;
+	delitem .@item2,.@count2;
+	delitem .@item3,.@count3;
+	Zeny = Zeny - .@zeny;
+	delequip .@part;
+	getitem3 .@AccInFo[0],.@AccInFo[1],.@AccInFo[2],.@AccInFo[3],.@AccInFo[4],.@AccInFo[5],.@Choose,.@AccInFo[7],.@AccInFo[8],.@OptId,.@OptVal,.@OptParam;
+	close3;
+}

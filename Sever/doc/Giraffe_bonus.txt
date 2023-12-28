@@ -1,0 +1,370 @@
+﻿//===== Giraffe模擬器-文檔 ====================
+//= 道具效果調整器 (Item Bonus) 說明文檔
+//===== 文檔描述 =============================================
+//= 此文檔對Giraffe模擬器添加的效果調整器進行說明.
+//============================================================
+--------------------------------------------------------------
+
+bonus bAllskillCoolRate,n;
+
+所有技能的冷卻時間 (即: 所有技能的使用間隔時間) + n%
+
+--------------------------------------------------------------
+
+bonus bNoFieldGemStone;
+
+使火, 水, 風, 地四大元素領域技能無需消耗魔力礦石
+
+使用範圍:
+	該調整器不能在箭矢類道具中使用.
+
+--------------------------------------------------------------
+
+bonus3 bRebirthWithHeal,r,h,s;
+
+當玩家死亡時有 r/100% 的機率覆活並恢覆 h% 的 HP 和 s% 的 SP [聽風]
+
+參數說明:
+	r/100%		覆活機率, 填寫 10000 則表示 100% 覆活
+				最終觸發機率若小於 0 則永不觸發, 最大值為 10000
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	h%			覆活時恢覆的 HP 百分比
+				最終生效值的有效區間 0 ~ 100
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	s%			覆活時恢覆的 SP 百分比
+				最終生效值的有效區間 0 ~ 100
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+使用限制:
+	該調整器受 notoken 地圖標記影響,
+	若玩家在擁有 notoken 標記的地圖死亡則無法覆活.
+
+注意事項:
+	該調整器尊重 bonus bRestartFullRecover; 若玩家應用了該調整器,
+	則覆活時 HP 與 SP 將全滿.
+
+--------------------------------------------------------------
+
+bonus2 bAddSkillRange,sk,n;
+
+增加 sk 技能 n 格攻擊距離 [聽風]
+
+參數說明:
+	sk			技能編號或者使用雙引號括起來的技能常量名
+
+				增加"狂擊"技能 1 格攻擊距離, 可以有以下兩種寫法:
+				bonus2 bAddSkillRange,5,1;
+				bonus2 bAddSkillRange,"SM_BASH",1;
+
+	n			增加的攻擊距離
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+注意事項:
+	技能的最大攻擊距離是 14 格, 最小是 0 格.
+
+--------------------------------------------------------------
+
+bonus2 bSkillNoRequire,sk,n;
+
+解除 sk 技能中由 n 指定的前置施法條件限制 [聽風]
+
+參數說明:
+	sk			技能編號或者使用雙引號括起來的技能常量名
+
+				使"狂擊"不再需要消耗 SP, 可以有以下兩種寫法:
+				bonus2 bSkillNoRequire,5,SKILL_REQ_SPCOST;
+				bonus2 bSkillNoRequire,"SM_BASH",SKILL_REQ_SPCOST;
+
+	n			需要移除的施法條件
+
+				支持的常量:					十六進制值:
+				SKILL_REQ_HPCOST			0x1
+				移除施法時需要的 HP 條件
+
+				SKILL_REQ_SPCOST			0x2
+				移除施法時需要的 SP 條件
+
+				SKILL_REQ_HPRATECOST		0x4
+				移除施法時需要的 HP 百分比條件
+
+				SKILL_REQ_SPRATECOST		0x8
+				移除施法時需要的 SP 百分比條件
+
+				SKILL_REQ_MAXHPTRIGGER		0x10
+				移除施法時需要的最大 HP 條件
+
+				SKILL_REQ_ZENYCOST			0x20
+				移除施法時需要的 Zeny 條件
+
+				SKILL_REQ_WEAPON			0x40
+				移除施法時需要的武器條件
+
+				SKILL_REQ_AMMO				0x80
+				移除施法時需要的子彈條件 (如: 箭矢、子彈、短刀、加農炮彈等)
+
+				SKILL_REQ_STATE				0x100
+				移除施法時需要的特殊狀態條件 (如: 騎鳥、騎龍、獵鷹、手推車等)
+
+				SKILL_REQ_STATUS			0x200
+				移除施法時需要的 SC 狀態條件 (如: 手推車加速、隱匿等)
+
+				SKILL_REQ_SPIRITSPHERECOST	0x400
+				移除施法時需要的靈氣彈條件
+
+				SKILL_REQ_ITEMCOST			0x800
+				移除施法時需要的道具條件 (如: 各種魔力礦石等, 具體定義在 skill_db)
+
+				SKILL_REQ_EQUIPMENT			0x1000
+				移除施法時需要的裝備條件
+
+				SKILL_REQ_APCOST			0x2000
+				移除施法時需要的 AP 條件
+
+				SKILL_REQ_APRATECOST		0x4000
+				移除施法時需要的 AP 百分比條件
+				
+				SKILL_REQ_AMMO_COUNT		0x10000
+				移除施法時需要的子彈數量條件 (但至少需要持有 1 顆要求的子彈, 不會消耗)
+
+				SKILL_REQ_PRODUCTMAT_COUNT	0x20000
+				移除 produce_db 數據庫中材料道具的數量條件 (但至少每種材料需要持有 1 個, 不會消耗)
+
+使用例子:
+	// 使金幣攻擊不再需要消耗金幣
+	bonus2 bSkillNoRequire,"MC_MAMMONITE",SKILL_REQ_ZENYCOST;
+
+	// 使覆活術不再需要消耗藍色魔力礦石和 SP (寫法一: 直接位運算)
+	bonus2 bSkillNoRequire,"ALL_RESURRECTION",SKILL_REQ_ITEMCOST|SKILL_REQ_SPCOST;
+
+	// 使覆活術不再需要消耗藍色魔力礦石和 SP (寫法二: 拆成兩條規則)
+	bonus2 bSkillNoRequire,"ALL_RESURRECTION",SKILL_REQ_ITEMCOST;	// 移除道具條件
+	bonus2 bSkillNoRequire,"ALL_RESURRECTION",SKILL_REQ_SPCOST;	// 移除 SP 條件
+
+注意事項:
+	部分技能比如 AB_ANCILLA (輔助者 / 安希拉) ,
+	它在 skill_db 中配置的 ItemCost 並沒有指出需要的藍色魔力礦石數量,
+	若解除 SKILL_REQ_ITEMCOST 會發現依然會消耗藍色魔力礦石.
+
+	這是因為該技能最終使用的 produce_db 數據庫的材料要求作為扣減依據而並非 ItemCost,
+	你可以選擇使用 SKILL_REQ_PRODUCTMAT_COUNT 選項解除材料的數量限制, 魔力礦石就不會被消耗了.
+
+	出於策劃合理性考慮, 我們暫時並沒有提供解除材料要求的選項, 否則玩家使用被解除材料限制的技能,
+	將可以無中生有的、無限的制造道具. 若你有需要可以在社區反饋.
+
+	類似的技能於 2021年12月6日 檢查有以下幾個: (列表未來不定期更新, 不一定可靠)
+
+	- AL_HOLYWATER / 天使之淚 / 天使之淚
+	- ASC_CDP / 毒液制作 / 毒液製作
+	- AM_TWILIGHT1 / 寬廣配藥 1 / 寬廣配藥 1
+	- AM_TWILIGHT2 / 寬廣配藥 2 / 寬廣配藥 2
+	- AM_TWILIGHT3 / 寬廣配藥 3 / 寬廣配藥 3
+	- AB_ANCILLA / 輔助者 / 安希拉
+
+--------------------------------------------------------------
+
+bonus4 bStatusAddDamage,sc,n,r,bf;
+
+攻擊擁有 sc 狀態的目標時, 使用 bf 攻擊有 r/100% 的概率使傷害增加 n [聽風]
+
+參數說明:
+	sc			SC 狀態編號, 支持常量
+
+				例如: 加速術狀態的常量是 SC_INCREASEAGI
+	
+	n			增加的傷害值
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	r/100%		觸發機率,填寫 10000 則表示 100% 觸發
+				最終觸發機率若小於 0 則永不觸發, 最大值為 10000
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	bf			能觸發加成的攻擊類型
+				此項定義與 doc/item_bonus.txt 的 Trigger criteria (bf) 一致
+
+規則合並:
+
+	若多條規則中 sc + bf 完全一致, 則不會消耗規則數量, 例如:
+
+		// 對方擁有加速術狀態時使用普通攻擊有 2% 概率增加 1000 點傷害
+		bonus4 bStatusAddDamage,SC_INCREASEAGI,1000,200,BF_NORMAL;
+
+		// 對方擁有加速術狀態時使用普通攻擊有 5% 概率增加 10000 點傷害
+		bonus4 bStatusAddDamage,SC_INCREASEAGI,10000,500,BF_NORMAL;
+	
+	這兩條規則的 sc 都是 SC_INCREASEAGI, bf 都是 BF_NORMAL, 因此會被合並.
+	最終效果與下面這一條等價:
+
+		// 對方擁有加速術狀態時使用普通攻擊有 7% 概率增加 11000 點傷害
+		bonus4 bStatusAddDamage,SC_INCREASEAGI,11000,700,BF_NORMAL;
+
+注意事項:
+	此效果調整器每個角色最多只能定義 50 條 (源碼中可通過 MAX_PC_BONUS 修改).
+	若希望普通攻擊和技能攻擊都有效, 應該使用 BF_NORMAL| BF_SKILL
+	多條規則之間的觸發概率各自判定.
+
+--------------------------------------------------------------
+
+bonus4 bStatusAddDamageRate,sc,n,r,bf;
+
+攻擊擁有 sc 狀態的目標時, 使用 bf 攻擊有 r/100% 的概率使傷害增加 n% [聽風]
+
+參數說明:
+	sc			SC 狀態編號, 支持常量
+
+				例如: 加速術狀態的常量是 SC_INCREASEAGI
+	
+	n%			增加的傷害百分比
+				最終生效的百分比最小值為 -100, 最大值為 2 的 31 次方
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	r/100%		觸發機率,填寫 10000 則表示 100% 觸發
+				最終觸發機率若小於 0 則永不觸發, 最大值為 10000
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	bf			能觸發加成的攻擊類型
+				此項定義與 doc/item_bonus.txt 的 Trigger criteria (bf) 一致
+
+規則合並:
+
+	若多條規則中 sc + bf 完全一致, 則不會消耗規則數量, 例如:
+
+		// 對方擁有加速術狀態時使用普通攻擊有 2% 概率增加 10% 的傷害
+		bonus4 bStatusAddDamageRate,SC_INCREASEAGI,10,200,BF_NORMAL;
+
+		// 對方擁有加速術狀態時使用普通攻擊有 5% 概率增加 20% 的傷害
+		bonus4 bStatusAddDamageRate,SC_INCREASEAGI,20,500,BF_NORMAL;
+	
+	這兩條規則的 sc 都是 SC_INCREASEAGI, bf 都是 BF_NORMAL, 因此會被合並.
+	最終效果與下面這一條等價:
+
+		// 對方擁有加速術狀態時使用普通攻擊有 7% 概率增加 30% 的傷害
+		bonus4 bStatusAddDamageRate,SC_INCREASEAGI,30,700,BF_NORMAL;
+
+注意事項:
+	此效果調整器每個角色最多只能定義 50 條 (源碼中可通過 MAX_PC_BONUS 修改).
+	若希望普通攻擊和技能攻擊都有效, 應該使用 BF_NORMAL| BF_SKILL
+	多條規則之間的觸發概率各自判定.
+
+--------------------------------------------------------------
+
+*bonus3 bFinalAddRace,r,x,bf;
+
+使用 bf 攻擊 r 種族的目標時增加 x% 的傷害 (在最終傷害上全段修正) [聽風]
+
+參數說明:
+	r			目標種族類型
+				此項定義與 doc/item_bonus.txt 的 Race (r) 一致
+
+	x%			增加的傷害百分比
+				最終生效的百分比最小值為 -100, 最大值為 2 的 31 次方
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	bf			能觸發加成的攻擊類型
+				此項定義與 doc/item_bonus.txt 的 Trigger criteria (bf) 一致
+
+規則合並:
+
+	若多條規則中 r + bf 完全一致, 則不會消耗規則數量, 例如:
+
+		// 使用普通攻擊打"魚貝類"種族的目標增加 200% 的傷害
+		bonus3 bFinalAddRace,RC_Fish,200,BF_NORMAL;
+
+		// 使用普通攻擊打"魚貝類"種族的目標增加 150% 的傷害
+		bonus3 bFinalAddRace,RC_Fish,150,BF_NORMAL;
+	
+	這兩條規則的 r 都是 RC_Fish, bf 都是 BF_NORMAL, 因此會被合並.
+	最終效果與下面這一條等價:
+
+		// 使用普通攻擊打"魚貝類"種族的目標增加 350% 的傷害
+		bonus3 bFinalAddRace,RC_Fish,350,BF_NORMAL;
+
+注意事項:
+	全段修正就是在所有計算完畢後, 再單獨計算本指令增加的傷害.
+	此效果調整器每個 Race 最多只能定義 50 條 (源碼中可通過 MAX_PC_BONUS 修改).
+
+--------------------------------------------------------------
+
+*bonus3 bFinalAddClass,c,x,bf;
+
+使用 bf 攻擊時 c 類型目標時增加 x% 的傷害 (在最終傷害上全段修正) [聽風]
+
+參數說明:
+	c			目標類型
+				此項定義與 doc/item_bonus.txt 的 Class (c) 一致
+
+	x%			增加的傷害百分比
+				最終生效的百分比最小值為 -100, 最大值為 2 的 31 次方
+				可被疊加, 支持負數, 若傳遞負數則表示扣減.
+
+	bf			能觸發加成的攻擊類型
+				此項定義與 doc/item_bonus.txt 的 Trigger criteria (bf) 一致
+
+規則合並:
+
+	若多條規則中 c + bf 完全一致, 則不會消耗規則數量, 例如:
+
+		// 使用普通攻擊打 BOSS 類型的魔物增加 200% 的傷害
+		bonus3 bFinalAddClass,Class_Boss,200,BF_NORMAL;
+
+		// 使用普通攻擊打 BOSS 類型的魔物增加 150% 的傷害
+		bonus3 bFinalAddClass,Class_Boss,150,BF_NORMAL;
+	
+	這兩條規則的 c 都是 Class_Boss, bf 都是 BF_NORMAL, 因此會被合並.
+	最終效果與下面這一條等價:
+
+		// 使用普通攻擊打 BOSS 類型的魔物增加 350% 的傷害
+		bonus3 bFinalAddClass,Class_Boss,350,BF_NORMAL;
+
+注意事項:
+	全段修正就是在所有計算完畢後, 再單獨計算本指令增加的傷害.
+	此效果調整器每個 Class 最多只能定義 50 條 (源碼中可通過 MAX_PC_BONUS 修改).
+	
+--------------------------------------------------------------
+
+*bonus bAbsorbDmgMaxHP2,n;
+
+受到超過自己總血量 n% 的傷害時只會受到總血量 n% 的傷害
+
+參數說明:
+	n%			單次承傷不超過總血量的百分比
+				最終生效值的有效區間 0 ~ 100
+				不可疊加, 只會保留 n 最大的那次設定.
+
+提示信息:
+	總血量是指承傷單位的 MaxHP
+
+注意事項:
+	結算優先級如下, 越靠前優先級越高.
+	高優先級的調整器將會覆蓋低優先級調整器的傷害修正結果.
+	- bonus2 bAbsorbDmgMaxHP,n,x;
+	- bonus bAbsorbDmgMaxHP2,n;
+	- bonus bAbsorbDmgMaxHP,n;
+
+--------------------------------------------------------------
+
+*bonus2 bAbsorbDmgMaxHP,n,x;
+
+受到超過自己總血量 n% 的傷害時只會受到總血量 x% 的傷害
+
+參數說明:
+	n%			單次承傷超過總血量的百分比將會激活保護
+				最終生效值的有效區間 0 ~ 100
+				不可疊加, 只會保留 n 最大的那次設定.
+
+	x%			該次傷害結算最多扣減總血量指定百分比的傷害
+				最終生效值的有效區間 0 ~ 100
+				不可疊加, 只會保留 x 最大的那次設定.
+
+提示信息:
+	總血量是指承傷單位的 MaxHP
+
+注意事項:
+	結算優先級如下, 越靠前優先級越高.
+	高優先級的調整器將會覆蓋低優先級調整器的傷害修正結果.
+	- bonus2 bAbsorbDmgMaxHP,n,x;
+	- bonus bAbsorbDmgMaxHP2,n;
+	- bonus bAbsorbDmgMaxHP,n;
+
+--------------------------------------------------------------

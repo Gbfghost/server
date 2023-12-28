@@ -1,0 +1,196 @@
+uttycty,99,129,4	script	主城商城點數購買	805,{	callfunc "BuyCash";	}
+prontera,168,201,4	script	Prontera商城點數購買	805,{	callfunc "BuyCash";	}
+morocc,149,110,4	script	Morocc商城點數購買	805,{	callfunc "BuyCash";	}
+geffen,116,75,4	script	Geffen商城點數購買	805,{	callfunc "BuyCash";	}
+payon,177,240,4	script	Payon商城點數購買	805,{	callfunc "BuyCash";	}
+alberta,24,229,4	script	Alberta商城點數購買	805,{	callfunc "BuyCash";	}
+izlude,129,153,4	script	Izlude商城點數購買	805,{	callfunc "BuyCash";	}
+aldebaran,144,130,4	script	Aldebaran商城點數購買	805,{	callfunc "BuyCash";	}
+xmas,137,146,4	script	Xmas商城點數購買	805,{	callfunc "BuyCash";	}
+comodo,184,160,4	script	Comodo商城點數購買	805,{	callfunc "BuyCash";	}
+yuno,150,190,4	script	Yuno商城點數購買	805,{	callfunc "BuyCash";	}
+amatsu,99,154,4	script	Amatsu商城點數購買	805,{	callfunc "BuyCash";	}
+gonryun,154,130,4	script	Gonryun商城點數購買	805,{	callfunc "BuyCash";	}
+umbala,95,163,4	script	Umbala商城點數購買	805,{	callfunc "BuyCash";	}
+niflheim,212,183,4	script	Niflheim商城點數購買	805,{	callfunc "BuyCash";	}
+louyang,210,109,4	script	Louyang商城點數購買	805,{	callfunc "BuyCash";	}
+ayothaya,212,178,4	script	Ayothaya商城點數購買	805,{	callfunc "BuyCash";	}
+einbroch,56,207,4	script	Einbroch商城點數購買	805,{	callfunc "BuyCash";	}
+lighthalzen,164,108,4	script	Lighthalzen商城點數購買	805,{	callfunc "BuyCash";	}
+einbech,188,135,4	script	Einbech商城點數購買	805,{	callfunc "BuyCash";	}
+hugel,96,168,4	script	Hugel商城點數購買	805,{	callfunc "BuyCash";	}
+rachel,109,145,4	script	Rachel商城點數購買	805,{	callfunc "BuyCash";	}
+veins,208,134,4	script	Veins商城點數購買	805,{	callfunc "BuyCash";	}
+moscovia,217,199,4	script	Moscovia商城點數購買	805,{	callfunc "BuyCash";	}
+mid_camp,189,248,4	script	MidCamp商城點數購買	805,{	callfunc "BuyCash";	}
+manuk,293,146,4	script	Manuk商城點數購買	805,{	callfunc "BuyCash";	}
+splendide,202,154,4	script	Splendide商城點數購買	805,{	callfunc "BuyCash";	}
+brasilis,201,225,4	script	Brasilis商城點數購買	805,{	callfunc "BuyCash";	}
+dicastes01,193,197,4	script	Dicastes商城點數購買	805,{	callfunc "BuyCash";	}
+mora,35,139,4	script	Mora商城點數購買	805,{	callfunc "BuyCash";	}
+dewata,202,190,4	script	Dewata商城點數購買	805,{	callfunc "BuyCash";	}
+malangdo,178,140,4	script	綿綿島商城點數購買	805,{	callfunc "BuyCash";	}
+malaya,240,210,4	script	馬來港商城點數購買	805,{	callfunc "BuyCash";	}
+lasagna,189,218,4	script	Lasagna商城點數購買	805,{	callfunc "BuyCash";	}
+
+
+
+function	script	BuyCash	{
+Init:
+	// Zeny 與 商城點數兌換比例
+	set @ZonyToCash,1000;
+	
+	// 回饋點數比例
+	set @FeedbackCash,25;
+	
+	// 購買折扣比例
+	set @SaleOffZeny,25;
+
+	// 點數加贈回饋活動
+	setarray @CashPromotions[0],
+		50,5,
+		100,15,
+		200,40,
+		500,125,
+		1000,300,
+		1500,525,
+		2000,800,
+		2500,1125,
+		3000,1500;
+
+
+
+Start:
+	mes "[" + strnpcinfo(1) + "]";
+	mes "Hi! " + strcharinfo(0) + "我是商城點數的販售商，";
+	mes "商城點數的比例是";
+	mes "  ^0000ff" + @ZonyToCash + "^000000 Zeny : 商城點數 ^0000ff1^000000 點";
+	mes "最近我們有活動喔!";
+	mes "參考一下現在的活動有...";
+	next;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "●商城點數回饋 ^0000ff" + @FeedbackCash + "%^000000 的點數";
+	mes " EX:購買1500點的話就送你^0000ff" + ((1500 / 100) * @FeedbackCash) + "^000000點數";
+	mes "●Zeny購買折扣 ^0000ff" + (100 - @SaleOffZeny) + "^000000折";
+	mes " EX:購買10000Zeny打折後^0000ff" + (10000 - ((10000 / 100) * @SaleOffZeny)) + "^000000 Zeny";
+	mes "●優惠方案購買";
+	mes " 看看目前的優惠方案吧";
+	next;
+	menu "商城點數回饋",FeedbackCash,"Zeny購買折扣",SaleOffZeny,"優惠方案購買",CashPromotions,"下次吧!",Done;
+
+FeedbackCash:
+	next;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "●商城點數回饋 ^0000ff" + @FeedbackCash + "%^000000 的點數";
+	mes "請你輸入你要購買的點數?";
+	input @BuyCash;
+	if((@BuyCash * @ZonyToCash) > Zeny){ 
+		mes "你輸入的點數需要" + @BuyCash * @ZonyToCash + " Zeny";
+		mes "但是你身上只剩下" + Zeny + " Zeny";
+		menu "請重新輸入",FeedbackCash,"先不要好了",Done;
+	}
+	else
+	{
+		mes "你要購買的點數是" + @BuyCash  + "贈" + ((@BuyCash / 100) * @FeedbackCash);
+		mes "所以要" + @BuyCash * @ZonyToCash + " Zeny";
+		switch(select("確認:重新選擇:選擇不同優惠:先不要好了"))
+		{
+			case 1:
+				set Zeny,Zeny - @BuyCash * @ZonyToCash;			
+				atcommand "@cash " + (@BuyCash + ((@BuyCash / 100) * @FeedbackCash));
+				mes "還有需要其他的服務嗎";
+				menu "繼續購買",FeedbackCash,"選擇不同優惠",Start,"沒有",Done;
+			case 3:
+				goto Start;
+			case 4:
+				goto Done;
+		}
+		next;
+		close;
+	}
+	
+SaleOffZeny:
+	next;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "●Zeny購買折扣 ^0000ff" + (100 - @SaleOffZeny) + "^000000折";
+	mes "請你輸入你要購買的金額?";
+	mes "PS:^0000ff" + @ZonyToCash + "^000000 Zeny : 商城點數 ^0000ff1^000000 點";
+	input @BuyZeny;
+	if(@BuyZeny < @ZonyToCash){ 
+		mes "你輸入的金額連1點都無法購買喔!";
+		menu "請重新輸入",SaleOffZeny,"先不要好了",Done;
+	}
+	else
+	{
+		mes "你要購買的點數是" + @BuyZeny / @ZonyToCash;
+		mes "所以要" + ((@BuyZeny / @ZonyToCash) * @ZonyToCash - (((@BuyZeny / @ZonyToCash) * @ZonyToCash / 100) * @SaleOffZeny)) + " Zeny";
+		switch(select("確認:重新選擇:選擇不同優惠:先不要好了"))
+		{
+			case 1:
+				set Zeny,Zeny - ((@BuyZeny / @ZonyToCash) * @ZonyToCash - (((@BuyZeny / @ZonyToCash) * @ZonyToCash / 100) * @SaleOffZeny));			
+				atcommand "@cash " + @BuyZeny / @ZonyToCash;
+				mes "還有需要其他的服務嗎";
+				menu "繼續購買",SaleOffZeny,"選擇不同優惠",Start,"沒有",Done;				
+			case 2:
+				next;
+				goto SaleOffZeny;
+			case 3:
+				goto Start;
+			case 4:
+				goto Done;
+		}
+		next;
+		close;
+	}
+	
+CashPromotions:
+	next;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "請選擇要購買的優惠方案";
+	set @CashPromotionsMenu$,"";
+	for( @i = 0; @i < getarraysize(@CashPromotions); @i = @i + 2 )
+	{
+		@CashPromotionsMenu$ +=	"購買[^0066CC" + @CashPromotions[@i] + "^000000]送[^0066CC" + @CashPromotions[@i + 1] + "^000000]點商城點需要[^0066CC" + ((@CashPromotions[@i] *  @ZonyToCash) / 10000) + "]萬^000000:";
+	}
+	set @SelectIndex,select(@CashPromotionsMenu$);
+	@SelectIndex--;
+	next;
+	
+	if((@CashPromotions[(2 * @SelectIndex)] * @ZonyToCash) > Zeny)
+	{
+		mes "你選擇的方案需要" + @CashPromotions[(2 * @SelectIndex)] * @ZonyToCash + " Zeny";
+		mes "但是你身上只剩下" + Zeny + " Zeny";
+		menu "重新選擇",CashPromotions,"先不要好了",Done;
+	}
+	else
+	{
+		mes "你選擇的方案?";
+		mes "[^0066CC" + @CashPromotions[2 * @SelectIndex] + "^000000]送[^0066CC" + @CashPromotions[(2 * @SelectIndex) + 1] + "^000000]點 [^0066CC" + (@CashPromotions[(2 * @SelectIndex)] *  @ZonyToCash) + "]萬^000000";
+		mes "  點數" + (@CashPromotions[(2 * @SelectIndex)] + @CashPromotions[(2 * @SelectIndex) + 1]);
+		switch(select("確認:重新選擇:選擇不同優惠:先不要好了"))
+		{
+			case 1:
+				set Zeny,Zeny - @CashPromotions[(2 * @SelectIndex)] * @ZonyToCash;
+				atcommand "@cash " + (@CashPromotions[(2 * @SelectIndex)] + @CashPromotions[(2 * @SelectIndex) + 1]);
+				mes "還有需要其他的服務嗎";
+				menu "繼續購買",CashPromotions,"選擇不同優惠",Start,"沒有",Done;
+			case 2:
+				next;
+				goto CashPromotions;
+			case 3:
+				next;
+				goto Start;
+			case 4:
+				goto Done;
+		}
+		
+	}
+
+Done:
+	next;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "謝謝你的光臨，如果有需要隨時來找我";
+	close;
+end;
+
+}

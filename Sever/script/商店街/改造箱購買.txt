@@ -1,0 +1,94 @@
+uttycty,104,163,4	script	★ 裝備改良/改造 ★	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"裝備改良/改造購買商";
+	waitingroom "★ 裝備改良/改造購買 ★",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+	
+    sellitem(23773,100000,-1); //幻象
+    sellitem(23774,100000,-1);
+    sellitem(23775,500000,-1);
+    sellitem(100601,100000, -1);	
+
+    
+
+    sellitem(100160,150000,-1);//自動
+    sellitem(100161,150000,-1);
+	sellitemcurrency(6417,2);
+    endsellitem();
+    sellitem(100162,150000,-1);
+    sellitem(100163,150000,-1);
+    sellitem(100602,200000, -1);
+
+    sellitem(100273, 0, -1);	//古代戰靴改良箱
+	sellitemcurrency(6417,3);
+    endsellitem();
+
+    sellitem(100437, 0, -1);	//古代隨機升英雄武器箱
+	sellitemcurrency(6417,3);
+    sellitemcurrency(6909,5);
+    endsellitem();
+
+    // 上中下改造 武器
+//    sellitem(100746, 0, -1);
+//	sellitemcurrency(6417,10);
+//    sellitemcurrency(6909,5);
+//    endsellitem();  
+//    sellitem(100747, 0, -1);
+//      sellitemcurrency(6417,15);
+//    sellitemcurrency(6909,10);
+//    endsellitem();  
+//    sellitem(100748, 0, -1);
+//	sellitemcurrency(6417,30);
+//    sellitemcurrency(6909,15);
+//    endsellitem();  
+    //防具
+    sellitem(100694, 0, -1);
+	sellitemcurrency(6417,10);
+    sellitemcurrency(6909,5);
+    endsellitem();  
+    sellitem(100695, 0, -1);
+	sellitemcurrency(6417,15);
+    sellitemcurrency(6909,10);
+    endsellitem();  
+    sellitem(100786, 0, -1);
+	sellitemcurrency(6417,30);
+    sellitemcurrency(6909,15);
+    endsellitem();  
+    
+    sellitem(100819, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(100820, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(100834, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(100918, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(100939, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(101190, 0, -1);	 //神話武器升級lt 
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    sellitem(100648, 0, -1);	 //淨化儀式寶箱
+	sellitemcurrency(6417,40);
+    sellitemcurrency(6909,30);
+    endsellitem();    
+    
+
+
+OnBuyItem:
+end;
+}

@@ -1,0 +1,192 @@
+
+
+
+//===== Description: ==============================
+//
+// 榮譽之證附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,137,5	script	[附魔]榮譽之證	2_f_magicmaster,{
+	disable_items;
+	cutin "bio_shecil01",2;
+	mes "你好，我能替你的奉承外袍、惡言外袍與普隆德拉徽章強化附魔";
+	next;
+	switch(select("強化附魔","重置附魔")) {
+			
+		case 1:
+			mes "[榮譽之證附魔]";
+			mes "請選擇想要附魔的裝備位置";
+			next;
+			switch(select(((getequipid(EQI_ARMOR) != -1)?("身體-"+getitemname(getequipid(EQI_ARMOR))):"身體-^808080無^000000"),((getequipid(EQI_ACC_L) != -1)?("裝飾品1-"+getitemname(getequipid(EQI_ACC_L))):"裝飾品1-^808080無^000000"),((getequipid(EQI_ACC_R) != -1)?("裝飾品2-"+getitemname(getequipid(EQI_ACC_R))):"裝飾品2-^808080無^000000"))) {
+				case 1:
+					set .@part,EQI_ARMOR;
+					set .@num,20;
+					break;
+				case 2:
+					set .@part,EQI_ACC_L;
+					set .@num,5;
+					setarray.@nffumo[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752;
+					break;
+				case 3:
+					set .@part,EQI_ACC_R;
+					set .@num,5;
+					setarray.@nffumo[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752;
+					break;
+			}
+			if(getequipid(.@part) != 15146 && getequipid(.@part) != 15147 && getequipid(.@part) != 28356) {
+				mes "[榮譽之證附魔]";
+				mes "我只能為";
+				mes "<ITEM>奉承外袍<INFO>15146</INFO></ITEM>、<ITEM>惡言外袍<INFO>15147</INFO></ITEM>";
+				mes "<ITEM>普隆德拉徽章<INFO>28356</INFO></ITEM>";
+				mes "附魔。";
+				close3;
+			}
+			setarray .@card[0], getequipcardid(.@part,0),getequipcardid(.@part,1),getequipcardid(.@part,2),getequipcardid(.@part,3);			
+			set .@equipid,getequipid(.@part);
+			set .@refine,getequiprefinerycnt(.@part);
+			if(.@card[3] == 0) {
+				set .@slot,3;
+			} else if(.@card[2] == 0) {
+				set .@slot,2;
+			} else {
+				set .@slot,4;
+			}
+			if(.@slot == 4) {
+				mes "[榮譽之證附魔]";
+				mes "這件裝備已經無法再繼續附魔了，你可以選擇重置附魔。";
+      			close3;
+			}
+			mes "[榮譽之證附魔]";
+			mes "你選擇了^0000FF"+getitemname(.@equipid)+"^000000。";
+			mes "現在為第"+((.@slot == 3)?"4":"3")+"洞附魔，";
+			mes "附魔需要花費^0000FF"+.@num+"枚<ITEM>榮譽之證<INFO>6919</INFO></ITEM>^000000。";
+			mes "^0000FF附魔不會失敗^000000。";
+			next;
+			if(select("附魔","取消") == 2) {
+				mes "[榮譽之證附魔]";
+				mes "符文魔法非常強大，總有一天你會需要它的。";
+     				   close3;
+			}	
+			if(countitem(6919) < .@num) {
+				mes "[榮譽之證附魔]";
+				mes "你的材料不足。";
+				mes "附魔需要花費"+.@num+"枚<ITEM>榮譽之證<INFO>6919</INFO></ITEM>";
+      				  close3;
+			}
+			if(.@part == EQI_ARMOR) {
+				set .@randnf,rand(10000);
+				if(.@randnf < 1667) {				
+					setarray.@nffumo[0],4996,4999,29002,29005,29008,29011;
+				} else if(.@randnf < 5000) {				
+					setarray.@nffumo[0],4995,4998,29001,29004,29007,29010;
+				} else {					
+					setarray.@nffumo[0],4994,4997,29000,29003,29006,29009;
+				}
+			}
+			for (.@ei = 0; .@ei < 4; .@ei++) {
+				.@OptID[.@ei] = getequiprandomoption(.@part,.@ei,ROA_ID);
+				.@OptVal[.@ei] = getequiprandomoption(.@part,.@ei,ROA_VALUE);
+				.@OptParam[.@ei] = getequiprandomoption(.@part,.@ei,ROA_PARAM);
+			}
+			set .@rand,rand(getarraysize(.@nffumo));
+			specialeffect 244;			
+			delequip .@part;
+			delitem 6919,.@num;
+			getitem3 .@equipid,1,1,.@refine,0,.@card[0],.@card[1],(.@slot == 2)?.@nffumo[.@rand]:.@card[2],(.@slot == 3)?.@nffumo[.@rand]:.@card[3],.@OptID,.@OptVal,.@OptParam;
+			mes "[榮譽之證附魔]";
+			mes "好了，附魔成功！";
+			mes "你獲得了^ff0000"+getitemname(.@nffumo[.@rand])+"^000000！";
+      			  close3;
+		case 2:
+			mes "[榮譽之證附魔]";
+			mes "你想重置哪件裝備的附魔？";
+			next;
+			switch(select(((getequipid(EQI_ARMOR) != -1)?("身體-"+getitemname(getequipid(EQI_ARMOR))):"身體-^808080無^000000"),((getequipid(EQI_ACC_L) != -1)?("裝飾品1-"+getitemname(getequipid(EQI_ACC_L))):"裝飾品1-^808080無^000000"),((getequipid(EQI_ACC_R) != -1)?("裝飾品2-"+getitemname(getequipid(EQI_ACC_R))):"裝飾品2-^808080無^000000"))) {
+				case 1:
+					set .@part,EQI_ARMOR;
+					set .@num,10;
+					break;
+				case 2:
+					set .@part,EQI_ACC_L;
+					set .@num,10;
+					set .@no,1;
+					break;
+				case 3:
+					set .@part,EQI_ACC_R;
+					set .@num,10;
+					set .@no,1;
+					break;
+			}
+			if(getequipid(.@part) != 15146 && getequipid(.@part) != 15147 && getequipid(.@part) != 28356) {
+				mes "[榮譽之證附魔]";
+				mes "我只能為";
+				mes "<ITEM>奉承外袍<INFO>15146</INFO></ITEM>、<ITEM>惡言外袍<INFO>15147</INFO></ITEM>";
+				mes "<ITEM>普隆德拉徽章<INFO>28356</INFO></ITEM>";
+				mes "重置附魔。";
+				close3;
+			}
+			setarray .@card[0], getequipcardid(.@part,0),getequipcardid(.@part,1),getequipcardid(.@part,2),getequipcardid(.@part,3);			
+			set .@equipid,getequipid(.@part);
+			set .@refine,getequiprefinerycnt(.@part);
+			if(.@card[3] == 0 || .@card[2] == 0) {
+				mes "[榮譽之證附魔]";
+				mes "只有2階段附魔都完成的裝備才能重置。";
+     				   close3;
+			}
+			mes "[榮譽之證附魔]";
+			mes "你選擇了^0000FF"+getitemname(.@equipid)+"^000000。";
+			mes "重置需要花費^0000FF"+.@num+"枚<ITEM>榮譽之證<INFO>6919</INFO></ITEM>^000000";
+			if(!.@no) {
+				mes "^0000FF重置不會失敗^000000。";
+			} else {
+				mes "^FF0000重置有20%機率失敗^000000。";
+			}
+			next;
+			if(select("重置附魔","還是算了") == 2) {
+				mes "[榮譽之證附魔]";
+				mes "有需要再來找我吧。";
+      				  close3;
+			}	
+			if(countitem(6919) < .@num) {
+				mes "[榮譽之證附魔]";
+				mes "你的材料不足。";
+				mes "重置需要花費"+.@num+"枚<ITEM>榮譽之證<INFO>6919</INFO></ITEM>";
+       				 close3;
+			}
+			for (.@ei = 0; .@ei < 4; .@ei++) {
+				.@OptID[.@ei] = getequiprandomoption(.@part,.@ei,ROA_ID);
+				.@OptVal[.@ei] = getequiprandomoption(.@part,.@ei,ROA_VALUE);
+				.@OptParam[.@ei] = getequiprandomoption(.@part,.@ei,ROA_PARAM);
+			}
+			delequip .@part;
+			delitem 6919,.@num;
+			if(.@no) {
+				if(rand(100) < 20) {
+					specialeffect EF_SUI_EXPLOSION;			
+					mes "[榮譽之證附魔]";
+					mes "......";
+					mes "真是倒霉，你的徽章損壞了...";
+					getitem 6919,1;
+      				  close3;
+				}
+			}	
+			specialeffect 83;			
+			mes "[榮譽之證附魔]";
+			mes "重置成功，請拿好你的裝備。";
+			getitem3 .@equipid,1,1,.@refine,0,.@card[0],0,0,0,.@OptID,.@OptVal,.@OptParam;
+			close3;		
+
+		case 3:
+			mes "[榮譽之證附魔]";
+			mes "感謝你的使用。";
+			mes "期待下次光臨。";
+      		close3;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]榮譽之證";
+	waitingroom "[附魔]榮譽之證",0;
+	end;
+}

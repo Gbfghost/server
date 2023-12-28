@@ -1,0 +1,156 @@
+function	script	membervip3	{
+	if (!#exptick3) {
+		announce "請先開啟至尊級VIP功能後，即可享用VIP功能。",3;
+		end;
+	}
+	if (#exptick3 <= gettimetick(2)) {
+		announce "您的會員服務已經過期。",3;
+		end;
+	}
+	if (gettime(7) > #time12 || gettime(6) > #time13 || gettime(5) > #time14 || gettime(4) > #time15) {
+		set #zhuangtai33, 0;
+		set #zhuangtaiVIP3, 0;
+		set #jinglian3, 0;
+		set #wupin3, 0;
+	}
+	if (!#wupin3) for (set .@i,1; .@i<=14; set .@i,.@i+1 ) setd "#enit"+.@i, 0;
+	if (!#zhuangtaiVIP3 && !#zhuangtai33 && !#jianlian3 && !#wupin3) {
+		set #time12,gettime(7);
+		set #time13,gettime(6);
+		set #time14,gettime(5);
+		set #time15,gettime(4);
+	}
+	set .@timeleft, #exptick3-gettimetick(2);
+	set .@dayleft, .@timeleft/86400;
+	set .@hourleft, .@timeleft%86400/3600;
+	set .@minleft, .@timeleft%86400%3600/60;
+	set .@secleft, .@timeleft%86400%3600%60;
+	mes "^0AA770========== ^FF99FF至 尊 V I P ^0AA770==========^000000";
+	mes "　   　  ^5599FF歡迎進入VIP系統^000000";
+	mes "　     ^5599FF請問您需要哪種服務呢？^000000";
+	mes "^0088FF期效：^FF0000"+.@dayleft+" ^0088FF天^FF0000 "+.@hourleft+" ^0088FF小時^FF0000 "+.@minleft+" ^0088FF分鐘^FF0000 "+.@secleft+" 秒^000000";
+	mes "^0AA770=================================^000000";
+	switch(select("^FF0000(1).^5599FF輔助BUFF/掉寶4倍","^FF0000(2).^5599FF販售物品","^FF0000(3).^5599FF隨地廣播","^FF0000(4).^5599FF隨地修理裝備","^FF0000(5).^5599FF更換ID顏色","^FF0000(6).^5599FF領取至尊VIP積分^000000","")){
+		case 1:
+				sc_end all;
+				sc_start SC_INCREASEAGI,1800000,10; 		//天使之賜福 1
+				skilleffect 34,0;
+				sc_start SC_BLESSING,1800000,10; 		//加速術 1
+				skilleffect 29,0;
+				sc_start SC_CONCENTRATE,1200000,10; 		//心神凝聚 1
+				skilleffect 45,0;
+				sc_start SC_ANGELUS,1200000,10; 			//天使之障壁 1
+				skilleffect 33,0;
+				sc_start SC_IMPOSITIO,1200000,5; 		//神威祈福 1
+				skilleffect 66,0;
+				sc_start SC_SUFFRAGIUM,1200000,3; 		//犧牲祈福 1
+				sc_start SC_MAGNIFICAT,1200000,5; 		//聖母之頌歌 1
+				sc_start SC_GLORIA,1200000,5; 			//幸運之歌 1
+				sc_start SC_WEAPONPERFECTION,1200000,5; //無視體型攻擊 1
+				skilleffect 112,0;
+				sc_start SC_MAXIMIZEPOWER,1200000,5; 	//武器值最大化 1
+				sc_start SC_LOUD,1200000,1; 				//大聲?喊 1
+				skilleffect 155,0;
+				sc_start SC_ASPDPOTION2,1800000,10;				//菠色克藥水
+				specialeffect2 220;
+				sc_start SC_ATKPOTION,1200000,30; 		//增加ATK   10分鐘 1
+				sc_start SC_MATKPOTION,1200000,30; 		//增加MATK  10分鐘 1
+				sc_start SC_CP_WEAPON,1200000,5; 		//化學武器保護 1
+				skilleffect 234,0;
+				sc_start SC_CP_SHIELD,1200000,5; 		//化學盾牌保護 1
+				sc_start SC_CP_ARMOR,1200000,5; 			//化學鎧甲保護 1
+				sc_start SC_CP_HELM,1200000,5; 			//化學頭盔保護 1
+				sc_start SC_ASSUMPTIO,900000,5; 		//聖母之祈福 1
+				skilleffect 361,0;
+				sc_start SC_ADRENALINE2,900000,1; 		//所有速度激發 1
+				skilleffect 459,0;
+				sc_start SC_KAIZEL,1200000,7; 			//凱易哲 1
+				skilleffect 462,0;
+				sc_start SC_KAUPE,1200000,3; 			//凱誣僕 1
+				skilleffect 464,0;
+				sc_start SC_EXPBOOST,3600000,500;		//400%經驗倍增 1
+				sc_start SC_ITEMBOOST,1800000,400; //400倍掉寶倍增
+				sc_start SC_SPEEDUP1,3600000,1;
+				atcommand "@speed 50";
+				set #zhuangtaiVIP3, #zhuangtaiVIP3+1;
+			break;
+		case 2:
+  next;
+		  mes "^0000FF[自動賣雜物]^000000";
+		  mes "這邊可以設定你要自動賣出的物品";
+		  mes "一次可以讓你順利賣出物品的最大數量";
+		  mes "請先去商店選項賣出該物品的1個";
+		  mes "就可以自動被記錄";
+		  mes "下次要批量賣點擊第一選項即可";
+		  mes "注意 這無法使用技能高賣低買哦";
+		  next;
+			if(select("賣出所有您設定的物品:設定販賣物品")==1){
+	    mes "將會賣出以下物品^FF0000最大數量^000000";
+	    mes "並且高價賣出^FF0000無效^000000";
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) 
+		  mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
+	    if(select("確定:取消")==2)close;
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
+		  set .@sellnum,countitem(@sold_nameid[.@a]);
+		  
+		  set .@sprice,.@sellnum*getiteminfo(@sold_nameid[.@a],1);
+		  if((Zeny+.@sprice) >= 2108298148){next;goto maxZeny;}else{delitem @sold_nameid[.@a],.@sellnum;set Zeny,Zeny+.@sprice;}
+		  
+		  mes "賣出^FF0000"+getitemname(@sold_nameid[.@a])+"^000000 [^0000FF"+.@sellnum+"^000000] 個 ^5599FF"+.@sprice+"^000000z";
+		  set .@asprice,.@asprice+.@sprice;
+	    }
+	    mes "共^5599FF"+.@asprice+"Zeny";
+	    close;
+	    }
+	    callshop "ashop1", 2;
+	    npcshopattach "ashop1";
+	    end;	
+      OnSellItem:
+	    mes "紀錄拍賣物品";
+	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
+		  mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
+	    }
+	    close;
+
+		case 3:
+			callfunc "Megaphone_announcevip";
+			close;
+		case 4:			
+			mes "^0AA770========== ^FF99FF至 尊 V I P ^0AA770==========^000000";
+			mes "　        ^5599FF已成功修復裝備^000000";
+			mes "^0AA770=================================^000000";
+			atcommand "@repairall";
+			close;
+			
+		case 5:
+		
+			setarray .@color$,"1.(重置顏色)^FFFFFF","2.(黑框粉字)^FF99FF","3.(黑框藍字)^99FFFF","4.(黑框紫字)^9F88FF","5.(黑框綠字)^99FF99","6.(粉框黑字)^FF99FF","7.(藍框黑字)^99FFFF","8.(黃框黑字)^FFFF33","9.(綠框黑字)^99FF99","10.(綠框粉字)^FF99FF";
+			for ( .@i = 0; .@i < getarraysize(.@color$); .@i++ )
+			.@menu$ += "- "+.@color$[.@i]+""+strcharinfo(0)+"^000000:";
+			.@Selection = select(.@menu$)-1;
+			mes " 您確定要選擇此顏色嗎？";
+			next;
+			if ( select(" ^5599FF確定更改"," ^FF99FF取消對話^000000") == 2 )
+			end;
+			setfont .@Selection;
+			end;
+
+		case 6:
+			mes "^0AA770========== ^FF99FF至 尊 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF至尊VIP積分領取^000000";
+			mes "^0AA770=================================^000000";
+			if (select(" ^5599FF領取至尊VIP積分^000000"," ^FF99FF取消^000000") == 1) {
+			next;
+				if (!#wupin3) {
+					#wupin3++;
+					getitem 60835,1;
+				} else
+			mes "";
+			mes "^0AA770========== ^FF99FF至 尊 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF今日使用次數已滿^000000";
+			mes "^0AA770=================================^000000";
+			}
+			break;
+	}
+	close;
+}

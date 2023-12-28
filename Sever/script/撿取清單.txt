@@ -1,0 +1,143 @@
+uttycty,109,106,4	script	撿取清單	1582,{
+
+Page1:
+	clear;
+     	mes "　　　　　　　^5599FF設置指定清單^000000";
+	mes "^0AA770可以設定你要指定撿怪物掉落的物品^000000";
+	mes "^0AA770最多可以設^ff0000 30^000000 ^0AA770項物品清單^000000";
+	.@temp$ = #alootswitch == 0 ? "^888888關閉中" : "^5599FF啟動中";
+	mes "^0AA770上線自動啟動撿取功能："+ .@temp$;
+	
+	switch(select(/*"^ff0000(1). ^5599FF設定指定撿物物品:*/"^ff0000(1). ^5599FF修改指定撿物清單:^ff0000(2). ^5599FF啟動指定撿物清單:^ff0000(3). ^5599FF重置撿物清單:^ff0000(4). ^5599FF"+"上線自動啟動撿取功能："+.@temp$+"^000000")){
+		/*case 1:
+			clear;
+			mes "^0AA770請輸入物品ID或名稱^000000";
+			mes "^FF0000輸入0退出^000000";
+			for( .@i = 0 ; .@i < 30 ; .@i++){
+				input .@itemname$;
+				if(.@itemname$ == "0"){
+					mes "結束設定";
+					if(select("^0000FF返回:^FF0000結束") == 1){
+						goto Page1;
+					}
+					end;
+				}
+				if(.@itemname$ == "reset"){
+					mes "請不要在此重置設定";
+					if(select("^0000FF返回:^FF0000結束") == 1){
+						goto Page1;
+					}
+					end;
+				}
+				mes (.@i+1) + "."+ .@itemname$;
+				#autolootid$[.@i] = .@itemname$;
+				atcommand "@alootid +"+.@itemname$;
+			}
+			end;*/
+		case 1:
+			for( .@i = 0 ; .@i < 30 ; .@i++){
+				clear;
+				mes "^0AA770請輸入要修改的項目^5599FF1~30^000000";
+				mes "^FF0000輸入小於1或大於30的數字則結束^000000";
+				for( .@j = 0 ; .@j < 30 ; .@j++){
+					.@temp$ = #autolootid$[.@j];
+					mes (.@j+1) + "."+ .@temp$;
+					
+				}
+				input .@item;
+				if( .@item == 0 || .@item > 30){
+					mes "結束設定";
+					if(select("^0000FF返回:^FF0000結束") == 1){
+						goto Page1;
+					}
+					end;
+				}
+				clear;
+				mes "^0AA770請輸入要修改成的物品ID或名稱";
+				mes "^FF0000輸入0則清除^000000";
+				for( .@j = 0 ; .@j < 30 ; .@j++){
+					.@temp$ = #autolootid$[.@j];
+					if(.@j == .@item-1){
+						mes "^FF0000"+(.@j+1) + "."+ .@temp$+"^000000";
+					}else{
+						mes (.@j+1) + "."+ .@temp$;
+					}
+					
+				}
+				input .@itemname$;
+				if(.@itemname$ == "0" || .@itemname$ == ""){
+					.@temp$ = #autolootid$[.@item-1];
+					atcommand "@alootid -" + .@temp$;
+					#autolootid$[.@item-1] = "";
+				}else if(.@itemname$ != "0" && .@itemname$ != ""){
+					.@temp$ = #autolootid$[.@item-1];
+					if (.@temp$ != "0" && .@temp$ != ""){
+						atcommand "@alootid -" + #autolootid$[.@item-1];
+					}
+					#autolootid$[.@item-1] = .@itemname$;
+					atcommand "@alootid +" + .@itemname$;
+				}
+			}
+			mes "結束設定";
+			if(select("^0000FF返回:^FF0000結束") == 1){
+				goto Page1;
+			}
+			end;
+		case 2: 
+			clear;
+			mes "^0AA770啟動清單如下:^000000";
+			atcommand "@alootid reset";
+			for( .@i = 0 ; .@i < 30 ; .@i++){
+				.@temp$ = #autolootid$[.@i];
+				if(.@temp$ != "0" && .@temp$ != ""){
+					mes (.@i+1) + "."+ .@temp$;
+					atcommand "@alootid +" + .@temp$;
+				}
+				
+			}
+			if(select("^0000FF返回:^FF0000結束") == 1){
+				goto Page1;
+			}
+			end;
+      
+		case 3:
+			clear;
+			mes "^0AA770清單已重置^000000";
+			for( .@i = 0 ; .@i < 30 ; .@i++){
+				#autolootid$[.@i] = "";
+			}
+			atcommand "@alootid reset";
+			if(select("^0000FF返回:^FF0000結束") == 1){
+				goto Page1;
+			}
+			end;
+	  
+		case 4:
+			clear;
+			.@temp$ = #alootswitch == 0 ? "已開啟" : "已關閉";
+			mes .@temp$ + "上線撿取功能";
+			#alootswitch = #alootswitch == 0 ? 1 : 0;
+			if(select("^0000FF返回:^FF0000結束") == 1){
+				goto Page1;
+			}
+			end;
+	}
+	end;
+
+Oninit:
+OnTimer2000:
+showscript "★ 自動撿物設定 ★ ";
+	setnpcicon getnpcid(0),1028,"自動撿物";
+initnpctimer;
+end;
+
+OnPCLoginEvent:
+	if( #alootswitch == 1){
+		for( .@i = 0 ; .@i < 30 ; .@i++){
+			.@temp$ = #autolootid$[.@i];
+			if(.@temp$ != "0" && .@temp$ != ""){
+				atcommand "@alootid +" + .@temp$;
+			}	
+		}
+	}
+}

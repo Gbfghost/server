@@ -1,0 +1,73 @@
+uttycty,59,183,5	trader	[製作]戰死者之墓	4_M_DEATH,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]戰死者之墓";
+	waitingroom "[製作]戰死者之墓",0;	
+	
+	tradertype(NST_EXPANDED_BARTER);
+
+	sellitem(20749, 100000, -1, 20748, 1, 7);
+	sellitemcurrency(6820, 50);	
+	endsellitem();
+	sellitem(18971, 500000, -1, 19961, 1);
+	sellitemcurrency(6814, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18972, 500000, -1, 19962, 1);
+	sellitemcurrency(6819, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18973, 500000, -1, 19963, 1);
+	sellitemcurrency(6815, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18974, 500000, -1, 19964, 1);
+	sellitemcurrency(6815, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18975, 500000, -1, 19965, 1);
+	sellitemcurrency(6816, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18976, 500000, -1, 19966, 1);
+	sellitemcurrency(6818, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18977, 500000, -1, 19967, 1);
+	sellitemcurrency(6815, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18978, 500000, -1, 19968, 1);
+	sellitemcurrency(6817, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18979, 500000, -1, 19969, 1);
+	sellitemcurrency(6819, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18980, 500000, -1, 19970, 1);
+	sellitemcurrency(6817, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18981, 500000, -1, 19971, 1);
+	sellitemcurrency(6818, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18983, 500000, -1, 19972, 1);
+	sellitemcurrency(6814, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18982, 500000, -1, 19973, 1);
+	sellitemcurrency(6816, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+	sellitem(18984, 500000, -1, 19974, 1);
+	sellitemcurrency(6818, 5);
+	sellitemcurrency(6820, 20);	
+	endsellitem();
+
+	end;
+OnBuyItem:
+end;
+}

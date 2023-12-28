@@ -1,0 +1,76 @@
+//生物圈環境-草原
+bl_grass	mapflag	nosave	SavePoint
+bl_grass	mapflag	nomemo
+bl_grass	mapflag	nobranch
+bl_grass	mapflag	noicewall
+bl_grass	mapflag	restricted	6
+bl_grass	mapflag	novending			//無法開露天商店
+bl_grass	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-火焰
+bl_lava	mapflag	nosave	SavePoint
+bl_lava	mapflag	nomemo
+bl_lava	mapflag	nobranch
+bl_lava	mapflag	noicewall
+bl_lava	mapflag	restricted	6
+bl_lava	mapflag	novending			//無法開露天商店
+bl_lava	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-冰凍
+bl_ice	mapflag	nosave	SavePoint
+bl_ice	mapflag	nomemo
+bl_ice	mapflag	nobranch
+bl_ice	mapflag	noicewall
+bl_ice	mapflag	restricted	6
+bl_ice	mapflag	novending			//無法開露天商店
+bl_ice	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-不死
+bl_death	mapflag	nosave	SavePoint
+bl_death	mapflag	nomemo
+bl_death	mapflag	nobranch
+bl_death	mapflag	noicewall
+bl_death	mapflag	restricted	6
+bl_death	mapflag	novending			//無法開露天商店
+bl_death	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-草原
+bl_grass,0,0,0,0	monster	"--ja--"		21548,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"		21549,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"		21550,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"			21551,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"			21552,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"		21553,25,30000,0,0
+bl_grass,0,0,0,0	monster	"--ja--"		21554,25,30000,0,0
+
+//生物圈環境-火焰
+bl_lava,0,0,0,0	monster	"--ja--"		21556,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21557,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21558,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21559,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21560,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21561,25,30000,0,0
+bl_lava,0,0,0,0	monster	"--ja--"		21562,25,30000,0,0
+
+//生物圈環境-冰凍
+bl_ice,0,0,0,0	monster	"--ja--"		21564,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"		21565,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"			21566,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"			21567,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"		21568,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"		21569,25,30000,0,0
+bl_ice,0,0,0,0	monster	"--ja--"			21570,25,30000,0,0
+
+//生物圈環境-不死
+bl_death,0,0,0,0	monster	"--ja--"		21572,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"		21573,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"			21574,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"			21575,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"		21576,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"		21577,25,30000,0,0
+bl_death,0,0,0,0	monster	"--ja--"		21578,25,30000,0,0
+
+bl_grass	boss_monster	"--ja--"	21555,1,1,1,1
+bl_lava	boss_monster	"--ja--"	21563,1,1,1,1
+bl_ice	boss_monster	"--ja--"	21571,1,1,1,1
+bl_death	boss_monster	"--ja--"	21579,1,1,1,1

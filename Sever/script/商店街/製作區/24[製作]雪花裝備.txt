@@ -1,0 +1,145 @@
+uttycty,64,157,5	trader	[製作]雪花裝備	4_ep18_shulang,{
+	disable_items;
+	end;
+Oninit:
+	setnpcicon getnpcid(0),1012,"[製作]雪花裝備";
+	waitingroom "[製作]雪花裝備",0;
+//製作開始
+	tradertype(NST_EXPANDED_BARTER);
+	
+	startsellitem(1000812, 100000, -1);
+	sellitemcurrency(1000811,5);
+	endsellitem();
+	startsellitem(1000813, 100000, -1);
+	sellitemcurrency(1000812,5);
+	endsellitem();
+	startsellitem(1000814, 100000, -1);
+	sellitemcurrency(1000813,5);
+	endsellitem();
+	startsellitem(101187, 10000000, -1);
+	sellitemcurrency(1000608,200);
+	endsellitem();
+	startsellitem(101188, 10000000, -1);
+	sellitemcurrency(1000608,500);
+	endsellitem();
+	startsellitem(1001030, 300000, -1);
+	sellitemcurrency(1001029,3);
+	sellitemcurrency(1000608,5);
+	sellitemcurrency(1000405,25);
+	endsellitem();
+	startsellitem(1001031, 2500000, -1);
+	sellitemcurrency(1001029,15);
+	sellitemcurrency(1000608,30);
+	sellitemcurrency(1000405,150);
+	endsellitem();
+	startsellitem(1001031, 2500000, -1);
+	sellitemcurrency(1001030,15);
+	sellitemcurrency(1000608,5);
+	sellitemcurrency(1000405,25);
+	endsellitem();
+	startsellitem(1001034, 1000000, -1);
+	sellitemcurrency(1000812,20);
+	sellitemcurrency(1000608,5);
+	sellitemcurrency(1000405,25);
+	endsellitem();
+	startsellitem(1001035, 2500000, -1);
+	sellitemcurrency(1000813,15);
+	sellitemcurrency(1000608,10);
+	sellitemcurrency(1000405,50);
+	endsellitem();
+	startsellitem(1001036, 5000000, -1);
+	sellitemcurrency(1000814,10);
+	sellitemcurrency(1000608,15);
+	sellitemcurrency(1000405,75);
+	endsellitem();
+	startsellitem(1001035, 5000000, -1);
+	sellitemcurrency(1001034,5);
+	endsellitem();
+	startsellitem(1001036, 10000000, -1);
+	sellitemcurrency(1001035,5);
+	endsellitem();
+	startsellitem(1001037, 7500000, -1);
+	sellitemcurrency(1000608,40);
+	sellitemcurrency(1000405,200);
+	endsellitem();
+	
+	//防具
+	startsellitem(450206, 1000000, -1);
+	endsellitem();
+	startsellitem(450207, 1000000, -1);
+	endsellitem();
+	startsellitem(470115, 1000000, -1);
+	endsellitem();
+	startsellitem(470116, 1000000, -1);
+	endsellitem();
+	startsellitem(480159, 1000000, -1);
+	endsellitem();
+	startsellitem(480160, 1000000, -1);
+	endsellitem();
+	startsellitem(490176, 1000000, -1);
+	endsellitem();
+	startsellitem(490177, 1000000, -1);
+	endsellitem();
+	startsellitem(490178, 1000000, -1);
+	endsellitem();
+	startsellitem(490179, 1000000, -1);
+	endsellitem();
+
+	//武器
+	startsellitem(500049, 1000000, -1);
+	endsellitem();
+	startsellitem(500050, 1000000, -1);
+	endsellitem();
+	startsellitem(510061, 1000000, -1);
+	endsellitem();
+	startsellitem(510062, 1000000, -1);
+	endsellitem();
+	startsellitem(520017, 1000000, -1);
+	endsellitem();	
+	startsellitem(530025, 1000000, -1);
+	endsellitem();	
+	startsellitem(540049, 1000000, -1);
+	endsellitem();
+	startsellitem(550069, 1000000, -1);
+	endsellitem();	
+	startsellitem(550070, 1000000, -1);
+	endsellitem();		
+	startsellitem(560032, 1000000, -1);
+	endsellitem();		
+	startsellitem(570029, 1000000, -1);
+	endsellitem();	
+	startsellitem(580030, 1000000, -1);
+	endsellitem();
+	startsellitem(590039, 1000000, -1);
+	endsellitem();
+	startsellitem(600027, 1000000, -1);
+	endsellitem();
+	startsellitem(610037, 1000000, -1);
+	endsellitem();
+	startsellitem(620017, 1000000, -1);
+	endsellitem();
+	startsellitem(630018, 1000000, -1);
+	endsellitem();
+	startsellitem(640033, 1000000, -1);
+	endsellitem();
+	startsellitem(650025, 1000000, -1);
+	endsellitem();
+	startsellitem(700052, 1000000, -1);
+	endsellitem();
+	startsellitem(800014, 1000000, -1);
+	endsellitem();
+	startsellitem(810010, 1000000, -1);
+	endsellitem();
+	startsellitem(820008, 1000000, -1);
+	endsellitem();
+	startsellitem(830013, 1000000, -1);
+	endsellitem();
+	startsellitem(840009, 1000000, -1);
+	endsellitem();
+
+
+//製作結束
+	
+OnBuyItem:
+end;
+}

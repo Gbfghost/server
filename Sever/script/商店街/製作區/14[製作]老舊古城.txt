@@ -1,0 +1,111 @@
+uttycty,64,167,5	trader	[製作]老舊古城	542,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]老舊古城";
+	waitingroom "[製作]老舊古城",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+
+
+	.@cash1 = 940014; //普通古城
+	.@cash2 = 940027; //覺醒古城
+
+	.@p = 0; // 價格
+
+//材料
+	sellitem(6607,.@p,-1);	//時光結晶
+	sellitemcurrency(.@cash1,5);
+    endsellitem(); 
+	sellitem(6607,.@p,-1);	//時光結晶
+	sellitemcurrency(.@cash2,2);
+    endsellitem(); 
+	sellitem(6608,.@p,-1);	//凝結的魔力
+	sellitemcurrency(.@cash1,5);
+    endsellitem();
+	sellitem(6608,.@p,-1);	//凝結的魔力
+	sellitemcurrency(.@cash1,2);
+    endsellitem();
+	sellitem(6755,.@p,-1);	//汙染
+	sellitemcurrency(.@cash2,5);
+    endsellitem();
+
+//卡片
+	sellitem(4603,.@p,-1);	//墮落根莖卡
+	sellitemcurrency(.@cash1,200);
+	endsellitem();
+	sellitem(4604,.@p,-1);	//覺醒墮落根莖卡片
+	sellitemcurrency(.@cash2,200);
+	endsellitem();
+	sellitem(4601,.@p,-1);	//地瓜卡片
+	sellitemcurrency(.@cash1,200);
+	endsellitem();
+	sellitem(4602,.@p,-1);	//覺醒地瓜卡片
+	sellitemcurrency(.@cash2,200);
+	endsellitem();
+	
+	sellitem(2499,10000,-1);
+	sellitemcurrency(6607,1);	
+	endsellitem();
+	sellitem(22006,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();	
+	sellitem(22007,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22008,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22009,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22010,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22011,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22113,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22114,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22115,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22116,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22117,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(22118,10000,-1);
+	sellitemcurrency(6607,1);
+	sellitemcurrency(2499,1,4);
+	endsellitem();
+	sellitem(4608,1000000,-1);
+	sellitemcurrency(6607,50);
+	sellitemcurrency(6608,50);
+	sellitemcurrency(6755,5);	
+	endsellitem();
+	sellitem(4609,1000000,-1);
+	sellitemcurrency(6607,50);
+	sellitemcurrency(6608,50);
+	sellitemcurrency(6755,5);
+	endsellitem();
+	end;
+OnBuyItem:
+end;
+}

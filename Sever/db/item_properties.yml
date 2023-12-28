@@ -1,0 +1,646 @@
+﻿###########################################################################
+# Item Properties Database - 道具特殊屬性資料庫
+###########################################################################
+#
+#  - ItemID                      想進行特殊設定的道具編號
+#    Property:
+#      AvoidConsumeForUse        避免物品被玩家主動從揹包或快捷欄使用而消耗
+#      AvoidConsumeForSkill      避免物品被作為發動技能的必要道具而消耗
+#      IsAmuletItem              用於標記此物品是一個護身符型別的道具
+#      ExecuteMobDropExpress     使此物品能觸發 OnMobDropItemExpress 實時事件
+#    ControlViewID:
+#      InvisibleWhenISee         當我自己在裝備面板中檢視裝備時隱藏外觀
+#      InvisibleWhenTheySee      當其他人檢視我的裝備時隱藏外觀
+#    AnnouceRules:
+#      DropToGround:             當打死魔物死亡後將道具掉落到地上時公告
+#      DropToInventoryForMVP:    當打死魔物掉落 MVP 道具到玩家揹包時公告
+#      StealToInventory:         使用"偷竊"技能從魔物身上偷到此物品時公告
+#
+###########################################################################
+#
+# - ItemID
+# 想進行特殊設定的道具編號
+#
+# 若在本資料庫的多個配置檔案中, 重複出現針對某個道具編號的多個配置,
+# 那麼最終只會以最高優先順序的配置為準, 優先順序依次如下:
+#
+# - 1. db/import/item_properties.yml (高優先)
+# - 2. db/item_properties.yml (低優先)
+#
+# 若同一個檔案中出現相同的道具編號, 會以更靠近檔案末尾的配置為準
+#
+###########################################################################
+#
+#   Property
+#   可選節點, 列表, 屬於 ItemID 的子節點
+#   該節點中的選項用於標出物品有什麼特殊屬性或者是作用
+#
+###########################################################################
+#  
+#     AvoidConsumeForUse
+#     可選節點, 值為布林型, 屬於 Property 的子節點
+#
+#     若設定為 true 表示: 
+#         避免物品被玩家主動從揹包或快捷欄使用而消耗
+#     沒有此欄位, 或設為 false 表示:
+#         會被玩家主動從揹包或快捷欄使用而消耗
+#
+#     --------------------
+#  
+#     AvoidConsumeForSkill
+#     可選節點, 值為布林型, 屬於 Property 的子節點
+#
+#     若設定為 true 表示:
+#         避免物品被作為發動技能的必要道具而消耗
+#     沒有此欄位, 或設為 false 表示:
+#         會被當做發動技能的必要道具而消耗
+#
+#     --------------------
+#  
+#     IsAmuletItem
+#     可選節點, 值為布林型, 屬於 Property 的子節點
+#
+#     若設定為 true 表示:
+#         此物品是一個護身符型別的道具 (下方有關於護身符的介紹)
+#     沒有此欄位, 或設為 false 表示:
+#         此物品不是護身符
+#
+#     --------------------
+#
+#     ExecuteMobDropExpress
+#     可選節點, 值為布林型, 屬於 Property 的子節點
+#
+#     若設定為 true 表示:
+#         此物品即將從魔物身上掉落時會觸發 OnMobDropItemExpress 實時事件
+#     沒有此欄位, 或設為 false 表示:
+#         不觸發 OnMobDropItemExpress 實時事件
+#  
+###########################################################################
+#
+#   ControlViewID:
+#   可選節點, 列表, 屬於 ItemID 的子節點
+#   該節點中的選項用於控制是否需要在特定場景下隱藏此道具的外觀
+#
+###########################################################################
+#  
+#     InvisibleWhenISee
+#     可選節點, 值為布林型, 屬於 ControlViewID 的子節點
+#
+#     若設定為 true 表示:
+#         當我自己在裝備面板中檢視裝備時隱藏它的外觀
+#     沒有此欄位, 或設為 false 表示:
+#         不隱藏它的外觀
+#
+#     --------------------
+#
+#     InvisibleWhenTheySee
+#     可選節點, 值為布林型, 屬於 ControlViewID 的子節點
+#
+#     若設定為 true 表示:
+#         當其他人檢視我的裝備時隱藏它的外觀
+#     沒有此欄位, 或設為 false 表示:
+#         不隱藏它的外觀
+#
+###########################################################################
+#
+#   AnnouceRules
+#   可選節點, 列表, 屬於 ItemID 的子節點
+#   該節點中的選項用於控制物品掉落時的特殊公告時機
+#
+###########################################################################
+#  
+#     DropToGround
+#     可選節點, 值為布林型, 屬於 AnnouceRules 的子節點
+#
+#     若設定為 true 表示:
+#         當打死魔物死亡後將道具掉落到地上時公告
+#     沒有此欄位, 或設為 false 表示:
+#         該場景下不公告
+#
+#     --------------------
+#  
+#     DropToInventoryForMVP
+#     可選節點, 值為布林型, 屬於 AnnouceRules 的子節點
+#
+#     若設定為 true 表示:
+#         當打死魔物掉落 MVP 道具到玩家揹包時公告
+#     沒有此欄位, 或設為 false 表示:
+#         該場景下不公告
+#
+#     --------------------
+#  
+#     StealToInventory
+#     可選節點, 值為布林型, 屬於 AnnouceRules 的子節點
+#
+#     若設定為 true 表示:
+#         使用"偷竊"技能從魔物身上偷到此物品時公告
+#     沒有此欄位, 或設為 false 表示:
+#         該場景下不公告
+#  
+###########################################################################
+
+#--------------------------------------------------------------------------
+# 護身符道具介紹
+#--------------------------------------------------------------------------
+#
+# - 無論物品本來在 ItemDB 中被定義的是哪種型別, 都會變成"其他"類道具
+# - 護身符型別的物品在揹包介面和倉庫介面會被歸類到 "其他" 頁面中
+# - 同種類的護身符在揹包中有幾個, 它的"使用指令碼"就會被觸發幾次
+# - 同種類護身符只有第一個放到揹包的時候, 會且只觸發一次"穿戴指令碼"
+# - 同種類護身符只有最後一個從揹包移除掉的時候, 會且只觸發一次"卸裝指令碼"
+# 
+#--------------------------------------------------------------------------
+
+Header:
+  Type: ITEM_PROPERTIES_DB
+  Version: 2
+
+Body:  
+  - ItemID: 4399
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4403
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4576
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27119
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27294
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4408
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4441
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4374
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4652
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4580
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27287
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27362
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4302
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27113
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4263
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300151
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4682
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4672
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4671
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4680
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4678
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4677
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4675
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4683
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4673
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4681
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4679
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4676
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4674
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4566
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4560
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4564
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4562
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4561
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4563
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4565
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4365
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4367
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4363
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4361
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4359
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4357
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4625
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4128
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4305
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4342
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4376
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4148
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4135
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4146
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4143
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4407
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4324
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300145
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4574
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4578
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27180
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4145
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27298
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27319
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4137
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4525
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27081
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4425
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27150
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4123
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4330
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4372
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4419
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4168
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4276
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27126
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4131
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4132
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4142
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4134
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4121
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4147
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4430
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4144
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4236
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4352
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4509
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4507
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27104
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4386
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27162
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4318
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27363
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27346
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27334
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300007
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4662
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300021
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300014
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300013
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300239
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300217
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300262
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300281
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300248
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4547
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4550
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300377
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4591
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4603
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4601
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300107
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4602
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4604
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4697
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27109
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4534
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4592
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4590
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4528
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4526
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27106
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4647
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27152
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27305
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4649
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27182
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 31023
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 31026
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27383
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27382
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4527
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4456
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27020
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4651
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4650
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4648
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27151
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27327
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27329
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27318
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27025
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4636
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4610
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4556
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27381
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4457
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 4529
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 27164
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300192
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300193
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300266
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300280
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300227
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300228
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300382
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300099
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300100
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300078
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300079
+    Property:
+      ExecuteMobDropExpress: true
+  - ItemID: 300080
+    Property:
+      ExecuteMobDropExpress: true
+#  - ItemID: 2207
+#    Property:
+#      AvoidConsumeForUse: false
+#      AvoidConsumeForSkill: false
+#      IsAmuletItem: false
+#      ExecuteMobDropExpress: false
+#    ControlViewID:
+#      InvisibleWhenISee: false
+#      InvisibleWhenTheySee: false
+#    AnnouceRules:
+#      DropToGround: false
+#      DropToInventoryForMVP: false
+#      StealToInventory: false
+
+Footer:
+  Imports:
+  - Path: db/import/item_properties.yml

@@ -1,0 +1,64 @@
+uttycty,70,183,5	trader	[製作]古代奧丁	478,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]古代奧丁";
+	waitingroom "[製作]古代奧丁",0;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	//
+	sellitem(25767, 10000, -1);
+	sellitemcurrency(25728,1);
+	sellitemcurrency(25730,1);	
+	endsellitem();
+	sellitem(23986, 300000, -1);
+	sellitemcurrency(25728,10);
+	sellitemcurrency(25730,10);
+	sellitemcurrency(25767,5);	
+	endsellitem();
+	//
+	sellitem(20947, 1000000, -1);
+	sellitemcurrency(25728,15);
+	sellitemcurrency(25730,15);
+	sellitemcurrency(25767,10);	
+	endsellitem();
+	sellitem(22209, 1000000, -1);
+	sellitemcurrency(25728,15);
+	sellitemcurrency(25730,15);
+	sellitemcurrency(25767,10);	
+	endsellitem();
+	sellitem(15397, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+	sellitem(15398, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+	sellitem(15399, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+	sellitem(15400, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+	sellitem(15401, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+	sellitem(15402, 3000000, -1);
+	sellitemcurrency(25728,30);
+	sellitemcurrency(25730,30);
+	sellitemcurrency(25767,20);	
+	endsellitem();
+
+OnBuyItem:
+end;
+}
+

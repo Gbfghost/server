@@ -1,0 +1,3411 @@
+//===== rAthena Script ======================================= 
+//= Edda Arunafeltz Side: Half moon in the Daylight
+//===== By: ================================================== 
+//= Wayne
+//===== Current Version: ===================================== 
+//= 1.0
+//===== Description: ========================================= 
+//= 正午的弦月副本
+//===== Additional Comments: ================================= 
+//= 1.0 First version. [Wayne]
+//============================================================ 
+// === 天波工作組 (https://www.angeling-studio.com/)
+//============================================================
+1@pop1	mapflag	nobranch
+1@pop1	mapflag	nomemo
+1@pop1	mapflag	pvp	off
+1@pop1	mapflag	nosave	SavePoint
+1@pop1	mapflag	noteleport
+1@pop1	mapflag	nowarpto
+1@pop1	mapflag	partylock
+1@pop1	mapflag	restricted	6
+1@pop2	mapflag	nobranch
+1@pop2	mapflag	nomemo
+1@pop2	mapflag	pvp	off
+1@pop2	mapflag	nosave	SavePoint
+1@pop2	mapflag	noteleport
+1@pop2	mapflag	nowarpto
+1@pop2	mapflag	partylock
+1@pop2	mapflag	restricted	6
+1@pop3	mapflag	nobranch
+1@pop3	mapflag	nomemo
+1@pop3	mapflag	pvp	off
+1@pop3	mapflag	nosave	SavePoint
+1@pop3	mapflag	noteleport
+1@pop3	mapflag	nowarpto
+1@pop3	mapflag	partylock
+1@pop3	mapflag	restricted	6
+
+rachel,171,139,6	script	正午的弦月#02	837,{
+
+	mes "----------------------------";	
+	mes ">> 副本獎勵清單";
+	mes "----------------------------";
+	mes "<ITEM>蒲公英戒指<INFO>23027</INFO></ITEM>";
+	mes "<ITEM>主教項鍊<INFO>28387</INFO></ITEM>";
+	mes "----------------------------";
+	close2;
+	cutin "",255;
+	end;
+}
+wr_city,107,60,5	script	尼樂研大神官#HM2	4_F_MADAME,{
+	callfunc ("CheckQuestIP");
+
+	set .@qid ,14586;
+	set .@md_name$,"正午的弦月";
+	.@nb = query_sql("SELECT `time` from quest where char_id = '" + getcharid(0) + "' and quest_id = '"+.@qid+"'",.@qtime1);
+	.@nb = query_sql("select UNIX_TIMESTAMP() from dual",.@current_timestamp);
+	set .@cooldowntime1, .@qtime1 - .@current_timestamp;
+	callfunc ("QuestInfoNPC",.@md_name$,.@qid,.@cooldowntime1,-1,80,0);
+	
+	if(BaseLevel > 129){
+		'hmoon_mode = 1;
+	}else{
+		'hmoon_mode = 0;
+	}
+OnInit:
+	waitingroom "  正午的弦月",0;
+	end;
+}
+rachel,174,138,6	script	尼樂研大神官#HM	4_F_MADAME,{
+	cutin "ra_gwoman",2;
+	if (BaseLevel < 80) {
+		mes "對不起，我現在很忙。";
+		mes "願弗雷亞和你在一起。";
+		close2;
+		cutin "ra_gwoman",255;
+		end;
+	}
+	if (checkquest(14585,HUNTING) == 2) {
+		mes "[尼樂研大神官]";
+		mes "冒險家你來拉！教皇的夢境怎麼樣呢？";
+		next;
+		mes "[說明夢境裡跟教皇、儒閔、水晶龍所發生的事情]";
+		next;
+		mes "[尼樂研大神官]";
+		mes "不過夢本身還是屬教皇的，多虧你掌握到教皇的不安和想法了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "我會依冒險家所說的言詞，去找尋輔佐教皇的方法。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "冒險家不好意思，請你明天再過來好嗎？";
+		next;
+		mes "[尼樂研大神官]";
+		mes "直到教皇能夠穩定下來不再受夢境之苦，拜託了。";
+		next;
+		mes "[" + strcharinfo(0) + "]";
+		mes "當然沒問題，我也答應過教皇了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "非常謝謝，辛苦你了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "今天就好好休息吧！";
+		erasequest 14585;
+		getexp 980000,0; //job exp?
+		close2;
+		cutin "ra_gwoman",255;
+		end;
+	}
+	if (checkquest(14587,HUNTING) == 2) {
+		mes "[尼樂研大神官]";
+		mes "冒險家你來拉！教皇的夢境怎麼樣呢？";
+		next;
+		mes "[說明夢境裡跟教皇、儒閔、水晶龍所發生的事情]";
+		next;
+		mes "[尼樂研大神官]";
+		mes "原來如此....水晶龍...";
+		next;
+		mes "[尼樂研大神官]";
+		mes "不過夢本身還是屬教皇的，多虧你掌握到教皇的不安和想法了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "我會依冒險家所說的言詞，去找尋輔佐教皇的方法。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "另外我會組秘密調查隊去找水晶龍看看";
+		next;
+		mes "[尼樂研大神官]";
+		mes "冒險家不好意思，請你明天再過來好嗎？";
+		next;
+		mes "[尼樂研大神官]";
+		mes "直到教皇能夠穩定下來不再受夢境之苦，拜託了。";
+		next;
+		mes "[" + strcharinfo(0) + "]";
+		mes "當然沒問題，我也答應過教皇了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "非常謝謝，辛苦你了。";
+		next;
+		mes "[尼樂研大神官]";
+		mes "今天就好好休息吧！";
+		if (isbegin_quest(14585))
+			erasequest 14585;
+		erasequest 14587;
+		getexp 980000,0; //job exp?
+		hmoon = 0;
+		close2;
+		cutin "ra_gwoman",255;
+		end;
+	}
+	.@pope_time = checkquest(14586,PLAYTIME);
+	if (.@pope_time == 1 || .@pope_time == 0) {
+		mes "[尼樂研大神官]";
+		mes "目前教皇還沒就寢。";
+		mes "請凌晨過後再來吧！";
+		close2;
+		cutin "ra_gwoman",255;
+		end;
+	} 
+	if (.@pope_time == 2) {
+		mes "[尼樂研大神官]";
+		mes "謝謝你能過來。";
+		mes "我擔心你可能需要再次進入夢境了。";
+		erasequest 14586;
+		close2;
+		cutin "ra_gwoman",255;
+		end;
+	}
+		
+		mes "[尼樂研大神官]";
+		mes "最近，教皇的睡眠時間越來越長了。";
+		mes "可以麻煩你幫我進入教皇的夢境，並找出原因來解決嗎？";
+		next;
+		.@party_id = getcharid(1);
+		.@p_name$ = getpartyname(.@party_id);
+		.@md_name$ = "正午的弦月";
+		if (!instance_check_party(.@party_id,1,80)) {
+			mes "[尼樂研大神官]";
+			mes "您需要創建一個隊伍。";
+			close2;
+			cutin "ra_gwoman",255;
+			end;
+		}
+		if (getcharid(0) != getpartyleader(.@party_id,2)) {
+			mes "[尼樂研大神官]";
+			mes "你需要獨自一人參加隊伍。";
+			close2;
+			cutin "ra_gwoman",255;
+			end;
+		}
+		switch(select("可以，我想進入夢境。", "取消")) {
+			case 1:
+				.@instance = instance_create(.@md_name$);
+				if (.@instance < 0) {
+					cutin "ra_gwoman",255;
+					mes "隊伍名稱： " + .@p_name$;
+					mes "隊長： " + strcharinfo(0);
+					mes "^0000ff" + .@md_name$ + " ^000000- 創建失敗！";
+					close;
+				}				
+				mes "[尼樂研大神官]";
+				mes "夢境的通道準備好了";
+				mes "您可以在準備好後進入。";
+				if (BaseLevel < 130) {
+					if (!checkquest(14585))
+						setquest 14585;
+				} else {
+					if (!checkquest(14587))
+						setquest 14587;
+				}
+				close2;
+				cutin "ra_gwoman",255;
+				end;
+			case 2:
+				mes "[尼樂研大神官]";
+				mes "願弗雷亞和你在一起。";
+				close2;
+				cutin "ra_gwoman",255;
+				end;
+		} 
+	}
+
+rachel,176,145,6	script	夢境通道#poent	PORTAL,{
+	mes "[夢境通道]";
+	mes "你好，這裡是夢境通道，你需要甚麼呢？";
+	next;
+	switch(select("漫步於夢境中", "取消")) {
+	case 1:
+			.@party_id = getcharid(1);
+			.@p_name$ = getpartyname(.@party_id); 
+			.@md_name$ = "正午的弦月";
+
+			if (!instance_check_party(.@party_id,1)) {
+				mes "[夢境通道]";
+				mes "你需要一個隊伍才能進入。";
+				close;
+			}
+			if (getcharid(0) != getpartyleader(.@party_id,2)) {
+				mes "[夢境通道]";
+				mes "你需要獨自一人參加才可以。";
+				close;
+			}
+			
+			switch(instance_enter(.@md_name$)) {
+			case IE_OTHER:
+				mes "[尼樂研大神官]";
+				mes "啊…現在不是合適的時間，";
+				mes "請你晚點再來。";
+				close;
+			case IE_NOINSTANCE:
+			case IE_NOMEMBER:
+				mes "[尼樂研大神官]";
+				mes "你還不能進入夢境…";
+				close;
+			case IE_OK:
+				set getvariableofinstance('party_id, instance_id(IM_PARTY)), getcharid(1);
+				announce "★ 副本公告 ★ 隊伍 [ "+getpartyname(getcharid(1)) +" ] 準備挑戰【 正午的弦月 】副本！",15,0x33ea91;
+				if (checkquest(14586) == -1) setquest 14586;	
+				//warp "1@pop1",47,133;
+				close;
+			}
+	case 2:
+		close;
+	}
+}
+
+//== Part 1 ===============================================
+1@pop1,50,137,3	script	教皇#1hmoon01	4_F_ARUNA_POP,{
+	'leader_aid = getcharid(3);
+	cutin "pop_sim",2;
+	mes "[教皇]";
+	mes "... 尼樂研...?";
+	//showscript ".... 尼樂研...?", getnpcid(0);
+	next;
+	mes "[教皇]";
+	mes "尼樂研...?";
+	next;
+	mes "[教皇]";
+	mes "蒂比不見了，";
+	mes "... 這裡... 好暗喔...";
+	//showscript "好暗喔... 甚麼都看不見...", getnpcid(0);
+	next;
+	mes "[教皇]";
+	mes "尼樂研...?";
+	next;
+	mes "[教皇]";
+	mes "... 你在哪裡...?";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇, 我在這裡";
+	next;
+	mes "[教皇]";
+	mes "...........";
+	mes "...........";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇，請您放心，是尼樂研派我來的。";
+	next;
+	mes "[教皇]";
+	mes "... 你是誰...?";
+	//showscript "尼樂研...?", getnpcid(0);
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我是冒險家 " + strcharinfo(0) + ".";
+	next;
+	mes "[教皇]";
+	mes strcharinfo(0) + "?";
+	next;
+	mes "[教皇]";
+	mes "尼樂研... 派你來的嗎？";
+	next;
+	mes "[教皇]";
+	mes "尼樂研在哪裡？";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "尼樂研有事要處理，他叫我過來找你的。";
+	next;
+	mes "[教皇]";
+	mes "對...我現在想起來了，冒險家...";
+	//showscript "我想起來了...", getnpcid(0);
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "你在做甚麼呢？";
+	next;
+	mes "[教皇]";
+	mes "蒂比...不見了，我找好久都找不到。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "蒂比是誰？";
+	next;
+	mes "[教皇]";
+	mes "尼樂研送我的玩偶，剛才還在阿！";
+	next;
+	mes "[教皇]";
+	mes "好像在這裡弄丟的。";
+	//showscript "去哪裡了呢...？", getnpcid(0);
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我也來找找看吧！";
+	next;
+	mes "[教皇]";
+	mes "為時已晚了..";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不擔心，一定能找到的。";
+	next;
+	mes "[教皇]";
+	mes "我是指...約定，";
+	mes "本來有要見的人。";
+	//showscript "已經遲了", getnpcid(0);
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "約定？在這裡嗎？";
+	next;
+	mes "[教皇]";
+	mes "在神殿外...可是蒂比不見了。";
+	next;
+	mes "[教皇]";
+	mes "我為了找蒂比耽誤時間了。.";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "蒂比好像不再這裡，去別處找看看吧？";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "一起找找看吧！";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "...好的";
+	next;
+	mes "[教皇]";
+	mes "你的大名是？";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes strcharinfo(0) + "。";
+	next;
+	mes "[教皇]";
+	mes "一起去找吧！....快！";
+	close2;
+	cutin "pop_nor",255;
+	donpcevent instance_npcname("教皇#1hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("#1hmoond01")+"::OnEnable";
+	
+	'char = getcharid(3);
+	if (BaseLevel > 129)
+		'hmoon_mode = 1;
+	end;
+	
+OnInstanceInit:
+	'map1$ = instance_mapname("1@pop1");
+	'map2$ = instance_mapname("1@pop2");
+	'map3$ = instance_mapname("1@pop3");
+	end;
+	
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#1hmoon01");
+	end;
+}
+
+1@pop1,100,142,3	script	教皇#1hmoon03	4_F_ARUNA_POP,5,5,{
+	end;
+	
+OnTouch:
+	//showscript "往下...", getnpcid(0);
+	donpcevent instance_npcname("教皇#1hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("#1hmoond03")+"::OnEnable";
+	end;
+
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#1hmoon03");
+	end;
+}
+
+1@pop1,100,98,3	script	教皇#1hmoon04	4_F_ARUNA_POP,{
+	mes "[主教]";
+	mes "那是教皇";
+	//showscript "那是教皇", getnpcid(0,instance_npcname("主教#1hmoon01"));
+	next;
+	mes "[主教]";
+	mes "教皇駕臨了";
+	//showscript "教皇駕臨了", getnpcid(0,instance_npcname("主教#1hmoon02"));
+	next;
+	mes "[信徒]";
+	mes "教皇，我正在等著您。";
+	//showscript "教皇，我正在等著您。", getnpcid(0,instance_npcname("信徒#1hmoon01"));
+	next;
+	mes "[信徒]";
+	mes "不守時也是對佛蕾亞女神的大不敬，請懂事一點好嗎？";
+	//showscript "不守時也是對佛蕾亞女神的大不敬，請懂事一點好嗎？", getnpcid(0,instance_npcname("信徒#1hmoon03"));
+	next;
+	mes "[信徒]";
+	mes "教皇，行為要端正。";
+	//showscript "教皇，行為要端正。", getnpcid(0,instance_npcname("信徒#1hmoon02"));
+	next;
+	mes "[信徒]";
+	mes "不得對教皇無理！你先管好自己吧！";
+	//showscript "不得對教皇無理！你先管好自己吧！", getnpcid(0,instance_npcname("信徒#1hmoon04"));
+	next;
+	mes "[信徒]";
+	mes "豈可對教皇說出無理的話呢！";
+	//showscript "豈可對教皇說出無理的話呢！", getnpcid(0,instance_npcname("信徒#1hmoon05"));
+	next;
+	mes "[信徒]";
+	mes "教皇是侍奉佛蕾亞女神的人，潔身自愛不是理所當然的嗎？";
+	//showscript "教皇是侍奉佛蕾亞女神的人，潔身自愛不是理所當然的嗎？", getnpcid(0,instance_npcname("信徒#1hmoon06"));
+	next;
+	mes "[主教]";
+	mes "你在胡言亂語甚麼？教皇是帶給我們歡樂和希望的人！";
+	//showscript "你在胡言亂語甚麼？教皇是帶給我們歡樂和希望的人！", getnpcid(0,instance_npcname("主教#1hmoon01"));
+	next;
+	cutin "pop_sim",2;
+	mes "[教皇]";
+	mes "..... 我，我是.... 教皇...";
+	next;
+	mes "[教皇]";
+	mes "..... 必須要離開....";
+	next;
+	mes "[教皇]";
+	mes "........ 我有...約定............";
+	next;
+	cutin "pop_sim",255;;
+	mes "[信徒]";
+	mes "約定？教皇不可以擅離這裡。";
+	//showscript "約定？教皇不可以擅離這裡。", getnpcid(0,instance_npcname("信徒#1hmoon02"));
+	sc_start SC_BLIND,300000,0,10000;
+	next;
+	mes "[主教]";
+	mes "不可以擅自跟外面的人接觸。";
+	//showscript "不可以擅自跟外面的人接觸。", getnpcid(0,instance_npcname("主教#1hmoon01"));
+	next;
+	mes "[信徒]";
+	mes "教皇只能見神殿所許可的人。";
+	//showscript "教皇只能見神殿所許可的人。", getnpcid(0,instance_npcname("信徒#1hmoon01"));
+	next;
+	mes "[信徒]";
+	mes "教皇只要依我們的指示行動即可。";
+	//showscript "教皇只要依我們的指示行動即可。", getnpcid(0,instance_npcname("信徒#1hmoon03"));
+	next;
+	mes "[主教]";
+	mes "您甚麼都不用做，這不是很好嗎？";
+	//showscript "您甚麼都不用做，這不是很好嗎？", getnpcid(0,instance_npcname("主教#1hmoon02"));
+	next;
+	mes "[信徒]";
+	mes "如果辦不到就該下台阿！";
+	//showscript "如果辦不到就該下台阿！", getnpcid(0,instance_npcname("信徒#1hmoon06"));
+	next;
+	mes "[信徒]";
+	mes "噓！你太過分了！";
+	//showscript "噓！你太過分了！", getnpcid(0,instance_npcname("信徒#1hmoon01"));
+	next;
+	mes "[主教]";
+	mes "萬一真的要下台怎辦？教皇可是得民心的象徵呢！";
+	//showscript "萬一真的要下台怎辦？教皇可是得民心的象徵呢！", getnpcid(0,instance_npcname("主教#1hmoon02"));
+	next;
+	mes "[主教]";
+	mes "不過目前教皇確實是資質不夠嘛！";
+	//showscript "不過目前教皇確實是資質不夠嘛！", getnpcid(0,instance_npcname("主教#1hmoon01"));
+	next;
+	mes "[信徒]";
+	mes "若不行換掉就好啦！我們不是還有一個完美的替身嘛！";
+	//showscript "若不行換掉就好啦！我們不是還有一個完美的替身嘛！", getnpcid(0,instance_npcname("信徒#1hmoon04"));
+	next;
+	mes "[信徒]";
+	mes "同時出生的替身...！";
+	//showscript "同時出生的替身...！", getnpcid(0,instance_npcname("信徒#1hmoon05"));
+	next;
+	mes "[信徒]";
+	mes "萬一我們的選擇是錯的呢？";
+	//showscript "萬一我們的選擇是錯的呢？", getnpcid(0,instance_npcname("信徒#1hmoon06"));
+	next;
+	mes "[信徒]";
+	mes "如果我們現在改變選擇的話...";
+	//showscript "如果我們現在改變選擇的話...", getnpcid(0,instance_npcname("信徒#1hmoon02"));
+	next;
+	mes "[主教]";
+	mes "必須換下不完美的教皇。";
+	//showscript "必須換下不完美的教皇。", getnpcid(0,instance_npcname("主教#1hmoon02"));
+	next;
+	mes "[信徒]";
+	mes "我們需要的是聽話的教皇。";
+	//showscript "我們需要的是聽話的教皇。", getnpcid(0,instance_npcname("信徒#1hmoon03"));
+	next;
+	mes "[主教]";
+	mes "我們不需要目前的教皇。";
+	//showscript "我們不需要目前的教皇。", getnpcid(0,instance_npcname("主教#1hmoon01"));
+	next;
+	mes "[信徒]";
+	mes "教皇也請您表達自己的立場吧！！";
+	//showscript "教皇也請您表達自己的立場吧！！", getnpcid(0,instance_npcname("信徒#1hmoon01"));
+	sc_end SC_BLIND;
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇，教皇！請您振作！";
+	unittalk getcharid(3),"教皇，教皇！請您振作！";
+	next;
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnDisable";
+	donpcevent instance_npcname("教皇#1hmoon09")+"::OnEnable";
+	cutin "pop_sim",2;
+	mes "[教皇]";
+	mes ".... 我... 我... 我...";
+	//showscript ".... 我... 我... 我...", getnpcid(0,instance_npcname("教皇#1hmoon09"));
+	next;
+	mes "[教皇]";
+	mes ".......... 不需要我....?";
+	next;
+	mes "[教皇]";
+	mes "人民...是如何看待我的呢？";
+	next;
+	mes "[教皇]";
+	mes "侍奉女神的人？";
+	next;
+	mes "[教皇]";
+	mes "不完美的人？";
+	next;
+	mes "[教皇]";
+	mes "半吊子？";
+	next;
+	mes "[教皇]";
+	mes "我是個錯誤的選擇嗎？";
+	next;
+	mes "[教皇]";
+	mes "我一開始就不具資格吧？";
+	next;
+	mes "[教皇]";
+	mes "這位子的主人並不是我。";
+	//showscript "這位子的主人並不是我。", getnpcid(0,instance_npcname("教皇#1hmoon09"));
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon09");
+	next;
+	mes "[教皇]";
+	mes "但這個不是我願意的。";
+	//showscript "但這個不是我願意的。", getnpcid(0,instance_npcname("教皇#1hmoon09"));
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon09");
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "請教皇冷靜，這不過是被扭曲的夢，夢外的所有人都在等妳呢！";
+	next;
+	mes "[教皇]";
+	mes "夢...?";
+	next;
+	mes "[教皇]";
+	mes "不過...我...我有約定呢！";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "這只是一場夢而已！";
+	next;
+	donpcevent instance_npcname("教皇#1hmoon09")+"::OnDisable";
+	donpcevent instance_npcname("教皇#1hmoon10")+"::OnEnable";
+	mes "[教皇]";
+	mes "我跟人有約定，我必須去見他，我得離開這裡。";
+	//showscript "我跟人有約定，我必須去見他，我得離開這裡。", getnpcid(0,instance_npcname("教皇#1hmoon10"));
+	cutin "pop_sim",255;;
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon10");
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon10");
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon10");
+	specialeffect EF_4WAYBODY,AREA, instance_npcname("教皇#1hmoon10");
+	specialeffect EF_ELECTRIC,AREA, instance_npcname("教皇#1hmoon10");
+	donpcevent instance_npcname("教皇#1hmoon02")+"::OnEnable";
+	specialeffect 1065,AREA, instance_npcname("教皇#1hmoon02");
+	next;
+	mes "[信徒]";
+	mes "教皇，您去哪裡啊？";
+	//showscript "教皇，您去哪裡啊？", getnpcid(0,instance_npcname("信徒#1hmoon01"));
+	next;
+	donpcevent instance_npcname("信徒#1hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon11")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon12")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon13")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon14")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon15")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon16")+"::OnEnable";
+	mes "[信徒]";
+	mes "教皇，請您堅守崗位！";
+	//showscript "教皇，請您堅守崗位！", getnpcid(0,instance_npcname("信徒#1hmoon16"));
+	next;
+	mes "[信徒]";
+	mes "教皇，您必須待在這裡！";
+	//showscript "教皇，您必須待在這裡！", getnpcid(0,instance_npcname("信徒#1hmoon12"));
+	next;
+	cutin "pop_sim",2;
+	mes "[教皇]";
+	mes "沒有人需要我！";
+	next;
+	mes "[教皇]";
+	mes "沒有人在意我！";
+	next;
+	donpcevent instance_npcname("教皇#1hmoon10")+"::OnDisable";
+	donpcevent instance_npcname("教皇#1hmoon11")+"::OnEnable";
+	mes "[教皇]";
+	mes "這不是我該待的地方！";
+	//showscript "這不是我該待的地方！", getnpcid(0,instance_npcname("教皇#1hmoon11"));
+	cutin "pop_sim",255;;
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#1hmoon02");
+	emotion ET_THINK, instance_npcname("教皇#1hmoon02");
+	donpcevent instance_npcname("教皇#1hmoon02")+"::OnDisable";
+	next;
+	mes "[信徒]";
+	mes "教皇，請您堅守崗位！";
+	//showscript "教皇，請您堅守崗位！", getnpcid(0,instance_npcname("信徒#1hmoon14"));
+	next;
+	donpcevent instance_npcname("主教#1hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("主教#1hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon11")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon12")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon13")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon14")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon15")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon16")+"::OnDisable";
+	donpcevent instance_npcname("主教#1hmoon21")+"::OnEnable";
+	donpcevent instance_npcname("主教#1hmoon22")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon23")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon24")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon25")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon26")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon27")+"::OnEnable";
+	donpcevent instance_npcname("信徒#1hmoon28")+"::OnEnable";
+	cutin "pop_sim",2;
+	mes "[教皇]";
+	mes "我要離開這裡。";
+	next;
+	mes "[信徒]";
+	mes "各位快去阻止教皇阿！";
+	next;
+	mes "[教皇]";
+	mes "冒險家幫幫我！";
+	next;
+	cutin "pop_sim",255;;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇，請您快過來我這裡！";
+	close2;
+	if (!'hmoon_mode)
+		mercenary_create 3527,1800000;
+	else
+		mercenary_create 3569,1800000;
+	donpcevent instance_npcname("教皇#1hmoon11")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon21")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#1hmoon22")+"::OnEnable";
+	//showscript "全員集合！", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	donpcevent instance_npcname("神殿衛士#1hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("主教#1hmoon21")+"::OnDisable";
+	donpcevent instance_npcname("主教#1hmoon22")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon23")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon24")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon25")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon26")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon27")+"::OnDisable";
+	donpcevent instance_npcname("信徒#1hmoon28")+"::OnDisable";
+	sleep2 150;
+	//showscript "全員集合！", getnpcid(0,instance_npcname("神殿衛士#1hmoon22"));
+	donpcevent instance_npcname("神殿衛士#1hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon08")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon09")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon10")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon24")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#1hmoon25")+"::OnEnable";
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon24"));
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon25"));
+	donpcevent instance_npcname("神殿衛士#1hmoon23")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#1hmoon26")+"::OnEnable";
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon23"));
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon26"));
+	donpcevent instance_npcname("神殿衛士#1hmoon27")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#1hmoon30")+"::OnEnable";
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon27"));
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon30"));
+	donpcevent instance_npcname("神殿衛士#1hmoon28")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#1hmoon29")+"::OnEnable";
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon28"));
+	//showscript "集合！！", getnpcid(0,instance_npcname("神殿衛士#1hmoon30"));
+	donpcevent instance_npcname("神殿衛士#1hmoon11")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon12")+"::OnDisable";
+	//showscript "你不能離開神殿！", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 150;
+	//showscript "數到三之前請退開，否則我們就要動用武力了！", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 150;
+	//showscript "3!!", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 100;
+	//showscript "2!!", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 100;
+	//showscript "1!!!", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 100;
+	mapannounce 'map1$, "侍衛長：從現在起冒險家是我們的敵人了，格殺勿論！",bc_map,"0xFFFF00";
+	//showscript "從現在起冒險家是我們的敵人了，格殺勿論！", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	donpcevent instance_npcname("神殿衛士#1hmoon13")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon14")+"::OnDisable";
+	sleep2 200;
+	mapannounce 'map1$, "隊長: 去保護教皇，並幹掉冒險家！",bc_map,"0xFFFF00";
+	//showscript "去保護教皇，並幹掉冒險家！", getnpcid(0,instance_npcname("神殿衛士#1hmoon21"));
+	sleep2 150;
+	//showscript "去保護教皇，並幹掉冒險家！ 收到！", getnpcid(0,instance_npcname("神殿衛士#1hmoon22"));
+	sleep2 100;
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon23"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon24"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon25"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon26"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon27"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon28"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon29"));
+	//showscript "是！", getnpcid(0,instance_npcname("神殿衛士#1hmoon30"));
+	sleep2 500;
+	donpcevent instance_npcname("神殿衛士#1hmoon21")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon22")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon23")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon24")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon25")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon26")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon27")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon28")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon29")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#1hmoon30")+"::OnDisable";
+	donpcevent instance_npcname("#mob1hmoon")+"::OnEnable";
+	end;
+	
+OnDisable:
+	specialeffect EF_BASH;
+	hideonnpc instance_npcname("教皇#1hmoon04");
+	end;
+
+OnEnable:
+	hideoffnpc instance_npcname("教皇#1hmoon04");
+	end;
+}
+
+1@pop1,101,91,3	script	教皇#1hmoon05	4_F_ARUNA_POP,{
+	if (.Talk) end;
+	.Talk++;
+	unittalk getcharid(3),"在大神官出現的位置，似乎聽到掉東西的聲音。"; //missing text
+	sleep2 100;
+	//showscript "來不及了。", getnpcid(0);
+	sleep2 150;
+	//showscript "來吧，我們需要離開這裡。", getnpcid(0);
+	sleep2 100;
+	donpcevent instance_npcname("教皇#1hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("#1hmoond05")+"::OnEnable";
+	//unittalk getcharid(3),""; //missing text
+	.Talk--;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#1hmoon05");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#1hmoon05");
+	end;
+}
+
+1@pop1,100,16,3	script	教皇#1hmoon06	4_F_ARUNA_POP,{
+	cutin "loo_nor",0;
+	mes "[???]";
+	mes "你終於來了。";
+	//showscript "我正在等你呢！", getnpcid(0,instance_npcname("儒閔#1hmoon01"));
+	next;
+	mes "[出現了跟教皇長得一模一樣的少年。]";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "哥哥。";
+	next;
+	mes "[這少年應該就是尼樂研大神官提過的儒閔。]";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "因為我一直等不到你，只好到這裡來了。";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";	
+	mes "抱歉，我實在無法偷偷溜出來。";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "你還好嗎？發生了甚麼事？";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";	
+	mes "嗯，沒甚麼，多虧了冒險家幫助了我。";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "謝謝你幫我妹妹，從現在開始我來帶妹妹。";
+	//showscript "你可以回去了。", getnpcid(0,instance_npcname("儒閔#1hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我答應過教皇會保護到安全回去，我要一起同行。";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "......";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";	
+	mes "趕快走吧！";
+	//showscript "哥哥", getnpcid(0,instance_npcname("教皇#1hmoon06"));
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "這衣服太顯眼了，換一下衣服好了。";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";	
+	mes "換衣服...?";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "跟其他小孩一樣平凡的衣服。";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";	
+	mes "平凡的衣服?";
+	next;
+	mes "[教皇]";	
+	mes "好。";
+	next;
+	cutin "pop_nor",255;
+	donpcevent instance_npcname("教皇#1hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("教皇#1hmoon07")+"::OnEnable";
+	cutin "pops_bug",2;
+	mes "[教皇]";
+	mes "真不習慣...";
+	next;
+	mes "[教皇]";
+	mes "很奇怪嗎?";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不會，我覺得很好看。";
+	next;
+	cutin "loo_smi",0;
+	mes "[儒閔]";
+	mes "真的很好看";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";	
+	mes "謝謝。";
+	next;
+	cutin "loo_smi",0;
+	mes "[儒閔]";
+	mes "趕快走吧，爸媽都在等我們。";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";
+	mes "嗯。";
+	close2;
+	cutin "pops_lau",255;
+	donpcevent instance_npcname("教皇#1hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("儒閔#1hmoon01")+"::OnDisable";
+	sleep2 100;
+	donpcevent instance_npcname("教皇#1hmoon08")+"::OnEnable";
+	emotion ET_THINK, instance_npcname("教皇#1hmoon08");
+	sleep2 300;
+	unittalk getcharid(3),"教皇?剛才不是離開了嗎?還有衣服..."; //missing text 6:58
+	sleep2 200;
+	emotion ET_THINK, instance_npcname("教皇#1hmoon08");
+	sleep2 600;
+	specialeffect EF_HITBODY,AREA, instance_npcname("教皇#1hmoon08");
+	sleep2 200;
+	donpcevent instance_npcname("教皇#1hmoon08")+"::OnDisable";
+	donpcevent instance_npcname("#1hmoond07")+"::OnEnable";
+	unittalk getcharid(3),"我看錯了嗎？我得趕緊跟著教皇以免走失。"; //missing text
+	end;
+	
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#1hmoon06");
+	end;
+}
+
+1@pop1,95,99,6	script	主教#1hmoon01	4_M_TRAINEE,{
+	end;
+
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@pop1,104,99,4	duplicate(主教#1hmoon01)	主教#1hmoon02	4_F_TRAINEE
+1@pop1,93,97,6	duplicate(主教#1hmoon01)	信徒#1hmoon01	4_M_MASK
+1@pop1,106,97,4	duplicate(主教#1hmoon01)	信徒#1hmoon02	4_F_MASK
+1@pop1,91,95,6	duplicate(主教#1hmoon01)	信徒#1hmoon03	4_M_MASK1
+1@pop1,108,95,4	duplicate(主教#1hmoon01)	信徒#1hmoon04	4_F_MASK1
+1@pop1,91,92,6	duplicate(主教#1hmoon01)	信徒#1hmoon05	4_M_MASK1
+1@pop1,108,92,4	duplicate(主教#1hmoon01)	信徒#1hmoon06	4_F_MASK1
+1@pop1,89,103,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon01	4_M_RASWORD
+1@pop1,110,103,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon02	4_M_RASWORD
+1@pop1,96,83,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon03	4_M_RASWORD
+1@pop1,103,83,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon04	4_M_RASWORD
+1@pop1,96,80,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon05	4_M_RASWORD
+1@pop1,103,80,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon06	4_M_RASWORD
+1@pop1,96,77,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon07	4_M_RASWORD
+1@pop1,103,77,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon08	4_M_RASWORD
+1@pop1,96,74,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon09	4_M_RASWORD
+1@pop1,103,74,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon10	4_M_RASWORD
+1@pop1,96,71,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon11	4_M_RASWORD
+1@pop1,103,71,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon12	4_M_RASWORD
+1@pop1,96,68,5	duplicate(主教#1hmoon01)	神殿衛士#1hmoon13	4_M_RASWORD
+1@pop1,103,68,3	duplicate(主教#1hmoon01)	神殿衛士#1hmoon14	4_M_RASWORD
+1@pop1,98,17,6	duplicate(主教#1hmoon01)	儒閔#1hmoon01	4_M_CHILD
+
+1@pop1,97,97,6	script	信徒#1hmoon11	4_M_MASK,{
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+	
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@pop1,102,97,4	duplicate(信徒#1hmoon11)	信徒#1hmoon12	4_F_MASK
+1@pop1,97,95,6	duplicate(信徒#1hmoon11)	信徒#1hmoon13	4_M_MASK1
+1@pop1,102,95,4	duplicate(信徒#1hmoon11)	信徒#1hmoon14	4_F_MASK1
+1@pop1,97,92,6	duplicate(信徒#1hmoon11)	信徒#1hmoon15	4_M_MASK1
+1@pop1,102,92,4	duplicate(信徒#1hmoon11)	信徒#1hmoon16	4_F_MASK1
+1@pop1,101,94,3	duplicate(信徒#1hmoon11)	主教#1hmoon21	4_M_TRAINEE
+1@pop1,98,94,5	duplicate(信徒#1hmoon11)	主教#1hmoon22	4_F_TRAINEE
+1@pop1,96,92,6	duplicate(信徒#1hmoon11)	信徒#1hmoon23	4_M_MASK
+1@pop1,103,92,4	duplicate(信徒#1hmoon11)	信徒#1hmoon24	4_F_MASK
+1@pop1,96,90,7	duplicate(信徒#1hmoon11)	信徒#1hmoon25	4_M_MASK1
+1@pop1,103,90,1	duplicate(信徒#1hmoon11)	信徒#1hmoon26	4_F_MASK1
+1@pop1,101,89,1	duplicate(信徒#1hmoon11)	信徒#1hmoon27	4_M_MASK1
+1@pop1,98,89,7	duplicate(信徒#1hmoon11)	信徒#1hmoon28	4_F_MASK1
+1@pop1,99,89,7	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon21	4_M_RASWORD
+1@pop1,100,82,1	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon22	4_M_RASWORD
+1@pop1,96,87,7	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon23	4_M_RASWORD
+1@pop1,98,87,7	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon24	4_M_RASWORD
+1@pop1,101,87,1	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon25	4_M_RASWORD
+1@pop1,103,87,1	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon26	4_M_RASWORD
+1@pop1,96,84,7	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon27	4_M_RASWORD
+1@pop1,98,84,7	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon28	4_M_RASWORD
+1@pop1,101,84,1	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon29	4_M_RASWORD
+1@pop1,103,84,1	duplicate(信徒#1hmoon11)	神殿衛士#1hmoon30	4_M_RASWORD
+1@pop1,100,98,3	duplicate(信徒#1hmoon11)	教皇#1hmoon02	4_F_ARUNA_POP
+1@pop1,100,16,3	duplicate(信徒#1hmoon11)	教皇#1hmoon07	4_F_ARUNA_POP2
+1@pop1,101,16,3	duplicate(信徒#1hmoon11)	教皇#1hmoon08	4_F_ARUNA_POP
+1@pop1,100,96,3	duplicate(信徒#1hmoon11)	教皇#1hmoon09	4_F_ARUNA_POP
+1@pop1,99,94,3	duplicate(信徒#1hmoon11)	教皇#1hmoon10	4_F_ARUNA_POP
+1@pop1,100,92,3	duplicate(信徒#1hmoon11)	教皇#1hmoon11	4_F_ARUNA_POP
+
+1@pop1,0,0,0	script	#mob1hmoon	HIDDEN_WARP_NPC,{
+OnEnable:
+OnMyMobDead:
+	'map1$ = instance_mapname("1@pop1");
+	if (mobcount('map1$,instance_npcname("#mob1hmoon")+"::OnMyMobDead"))
+		end;
+	if (!'hmoon_mode) {
+		.@guard = 3510; //Easy
+		.@fbel = 3511;
+		.@mbel = 3512;
+		.@priest = 3514;
+	} else {
+		.@guard = 3518; //Hard
+		.@fbel = 3519;
+		.@mbel = 3520;
+		.@priest = 3522;
+	}
+	switch('1hmoon) {
+		case 0:
+			monster 'map1$,99,89,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,100,81,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,96,87,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,98,87,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,101,87,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,103,87,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,96,84,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,98,84,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,101,84,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,103,84,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			monster 'map1$,101,81,"神殿衛士",.@guard,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			'1hmoon++;
+			end;
+		case 1:
+			mapannounce 'map1$, "務必要阻止教皇!!",bc_map,"0xFFFF00";
+			sleep2 200;
+			mapannounce 'map1$, "教皇您要去哪裡呢?教皇你必須要在這裡!",bc_map,"0xFFFF00";
+			//custom
+			areamonster 'map1$,60,90,90,100,"便服的教皇傭兵",.@fbel,8,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			areamonster 'map1$,139,90,104,90,"憤怒的信徒",.@mbel,7,instance_npcname("#mob1hmoon")+"::OnMyMobDead";
+			'1hmoon++;
+			end;
+		case 2:
+			mapannounce 'map1$, "感受到很強大的氣息...",bc_map,"0xFFFF00";
+			sleep 200;
+			.@mobGID = monster('map1$,99,96,"大神官",.@priest,1,instance_npcname("#mob1hmoon")+"::OnMyMobDead");
+			'1hmoon++;
+			//unittalk .@mobGID, ""; //missing text
+			//sleep2 150;
+			//unittalk .@mobGID, ""; //missing text
+			end;
+		case 3:
+			//mercenary_destroy;
+			if (!countitem(25087) && rand(2) == 0) {
+				mapannounce 'map1$, "聽到憤怒主教出現時墜落的聲音。",bc_map,"0xFFFF00";
+				donpcevent instance_npcname("#dollbox01")+"::OnEnable";
+				sleep 100;
+			}
+			mapannounce 'map1$, "有威脅的人都消失了。 現在我們需要避開這個地方。",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#1hmoon05")+"::OnEnable";
+			end;			
+	}
+}
+
+//== Part 2 ===============================================
+1@pop2,117,221,3	script	教皇#2hmoon01	4_F_ARUNA_POP2,{
+	if (.Talk) end;
+	.Talk++;
+	//showscript "這裡是...哪裡呢？不是我們常出入的通道耶？", getnpcid(0,instance_npcname("儒閔#2hmoon01"));
+	sleep2 200;
+	unittalk getcharid(3),"這裡是傑德 大神官的宅邸。"; //missing text
+	sleep2 200;
+	//showscript "傑德 大神官？那應該安全了。。", getnpcid(0,instance_npcname("教皇#2hmoon01"));
+	sleep2 200;
+	//showscript "我們加快腳步吧！", getnpcid(0, instance_npcname("儒閔#2hmoon01"));
+	sleep2 500;
+	donpcevent instance_npcname("儒閔#2hmoon01")+"::OnDisable";
+	sleep2 100;
+	//showscript "哥哥等我拉！", getnpcid(0,instance_npcname("教皇#2hmoon01"));
+	sleep2 500;
+	donpcevent instance_npcname("教皇#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon02")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon02")+"::OnEnable";
+	.Talk--;
+	end;
+	
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,63,237,3	script	教皇#2hmoon02	4_F_ARUNA_POP2,{
+	.@map2$ = instance_mapname("1@pop2");
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "這裡是大神官的宅邸嘛？";
+	next;
+	cutin "loo_nor",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我們可以安全地穿過大神官的宅邸。";
+	next;
+	donpcevent instance_npcname("神殿衛士#2hmoon01")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon02")+"::OnEnable";
+	mes "[神殿衛士]";
+	mes "你是誰？這裡閒雜人等不可進出！";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我們不是可疑的人！";
+	next;
+	mes "[神殿衛士]";
+	mes "可疑的人會說自己是可疑的人嗎？";
+	//showscript "膽敢擅闖！", getnpcid(0, instance_npcname("神殿衛士#2hmoon02"));
+	next;
+	mes "[神殿衛士]";
+	mes "有可疑的人入侵，全員到庭院集合！";
+	next;
+	donpcevent instance_npcname("傑德 大神官#2hmoon")+"::OnEnable";
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "甚麼事情那麼吵阿？";
+	next;
+	cutin "ra_gman2",255;
+	mes "[神殿衛士]";
+	mes "大神官這裡很危險，您先入內吧！";
+	next;
+	mes "[神殿衛士]";
+	mes "有可疑的人入侵了我們的宅邸。";
+	next;
+	mes "[神殿衛士]";
+	mes "我們會好好處理的。";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "教...皇大人？您不是教皇大人嘛？";
+	//showscript "教...皇大人？您不是教皇大人嘛？", getnpcid(0, instance_npcname("傑德 大神官#2hmoon"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "阿...";
+	//showscript "阿...", getnpcid(0, instance_npcname("教皇#2hmoon02"));
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "您有何是來神殿呢？侍奉教皇的人到底在幹甚麼！";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇正在微服私訪中，也已經得到尼樂研大神官的同意了。";
+	next;
+	mes "[傑德 大神官]";
+	mes "你是...冒險家嘛？";
+	next;
+	mes "[傑德 大神官]";
+	mes "原來如此...但是教皇不可以隨意離開神殿。";
+	next;
+	mes "[傑德 大神官]";
+	mes "神殿外面實在太危險了，請趕快回到神殿吧！";
+	next;
+	mes "[傑德 大神官]";
+	mes "尼樂研明知道會有危險還同意此事，有點奇怪。";
+	next;
+	mes "[傑德 大神官]";
+	mes "萬一教皇有個三長兩短，則會帶給阿盧納貝茲莫大的災難。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "因為我是侍奉女神者？";
+	next;
+	mes "[教皇]";
+	mes "我只是一個侍奉女神的人嗎？";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "阿盧納貝茲地信徒們都跟隨著教皇，您是大家的希望和快樂。";
+	next;
+	mes "[傑德 大神官]";
+	mes "而我們有義務負責教皇的安危。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "但是傑德...你等一下。";
+	next;
+	mes "[教皇]";
+	mes "請幫幫我，請理解我好嗎？";
+	//showscript "拜託了...", getnpcid(0, instance_npcname("教皇#2hmoon02"));
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "我絕不能讓教皇暴露於危險之中，我會親自護送您到神殿。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "這裡不會危險，危險的是操縱小孩的你們！";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "你...你是? 儒閔?";
+	next;
+	mes "[傑德 大神官]";
+	mes "你是怎麼出來的呢？";
+	//showscript "你是怎麼出來的呢？", getnpcid(0, instance_npcname("傑德 大神官#2hmoon"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "真是...";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "神殿衛士們，過來抓住他！";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "我們還是分開行動吧！先甩開位事後在村落會合。";
+	sleep2 500;
+	cutin "loo_sim",255;;
+	donpcevent instance_npcname("儒閔#2hmoon02")+"::OnDisable";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "一起...!";
+	//showscript "這就像...", getnpcid(0, instance_npcname("教皇#2hmoon02"));
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "教皇，剛才那位是...？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "他是...";
+	next;
+	cutin "pops_sim",255;;
+	mapannounce 'map2$, "快！教皇在這邊！",bc_map,"0xFFFF00";
+	sleep2 200;
+	mapannounce 'map2$, "這邊！在這裡！",bc_map,"0xFFFF00";
+	sleep2 100;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "教皇?難道不是尼樂研同意，而是甩開衛士和神官是不是？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "傑德，我不是不盡義務，只是...只是...";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "不可，我不能在神殿外浪費時間了，我來護送你回去吧！";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要。";
+	next;
+	cutin "ra_gman2",0;
+	mes "[傑德 大神官]";
+	mes "教皇您必須要走。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要!我不要回去!!!";
+	//showscript "不要!", getnpcid(0, instance_npcname("教皇#2hmoon02"));
+	next;
+	cutin "pops_sim",255;;
+	donpcevent instance_npcname("神殿衛士#2hmoon03")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon04")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon05")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon06")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon07")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon08")+"::OnEnable";
+	mes "[神殿衛士]";
+	mes "教皇在這裡！";
+	//showscript "教皇在這裡！", getnpcid(0, instance_npcname("神殿衛士#2hmoon03"));
+	next;
+	mes "[神殿衛士]";
+	mes "教皇，我們來接您了。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我現在不要回去！";
+	next;
+	cutin "pops_sim",255;;
+	mes "[神殿衛士]";
+	mes "教皇，您一定要跟我回去！";
+	//showscript "教皇，您一定要跟我回去！", getnpcid(0, instance_npcname("神殿衛士#2hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要、不要!!";
+	//showscript "不要、不要!!", getnpcid(0, instance_npcname("教皇#2hmoon02"));
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#2hmoon02");
+	next;
+	cutin "pops_sim",255;;
+	mes "[" + strcharinfo(0) + "]";
+	mes "放開教皇，不然我要動手了。";
+	next;
+	mes "[神殿衛士]";
+	mes "區區一介冒險家膽敢？";
+	//showscript "你不要管！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon07"));
+	next;
+	mes "[神殿衛士]";
+	mes "外人不要插手！！";
+	//showscript "不管你的事！", getnpcid(0, instance_npcname("神殿衛士#2hmoon05"));
+	sleep2 100;
+	//showscript "大家安靜！", getnpcid(0, instance_npcname("神殿衛士#2hmoon04"));
+	next;
+	mes "[神殿衛士]";
+	mes "從此刻起冒險家是我們的敵人了，先幹掉冒險家，再護送教皇回去吧！";
+	next;
+	mes "[神殿衛士]";
+	mes "絕對不能傷到教皇一根汗毛，大家要謹慎！";
+	next;
+	mes "[神殿衛士]";
+	mes "大家準備戰鬥！";
+	next;
+	mes "[神殿衛士]";
+	mes "是！！";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇，快待在我的身後。";
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon01"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon02"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon03"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon04"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon05"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon06"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon07"));
+	//showscript "呀！！", getnpcid(0, instance_npcname("神殿衛士#2hmoon08"));	
+	close2;
+	donpcevent instance_npcname("傑德 大神官#2hmoon")+"::OnDisable";
+	sleep2 500;
+	donpcevent instance_npcname("神殿衛士#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon08")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon02")+"::OnDisable";
+	if (!'hmoon_mode)
+		mercenary_create 3528,1800000; //教皇_MD_MERC_CASUAL
+	else
+		mercenary_create 3570,1800000; //教皇_MD_H_MERC_CASUAL
+	sleep2 500;
+	mapannounce 'map2$, "教皇，您必須跟我們一起走！",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#mob2hmoon")+"::OnEnable";
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnEnable:
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,69,158,3	script	教皇#2hmoon03	4_F_ARUNA_POP2,{
+	if (.Talk) end;
+	.Talk++;
+	//showscript "非常謝謝！", getnpcid(0, instance_npcname("教皇#2hmoon03"));
+	sleep2 100;
+	unittalk getcharid(3),"不客氣，儒閔剛才說要在村落見面吧？"; //missing text
+	sleep2 200;
+	//showscript "嗯，我會去等他。", getnpcid(0, instance_npcname("教皇#2hmoon03"));
+	sleep2 100;
+	unittalk getcharid(3),"好，那我們快去吧！"; //missing text
+	sleep2 100;
+	//showscript "嗯。.", getnpcid(0, instance_npcname("教皇#2hmoon03"));
+	sleep2 100;
+	donpcevent instance_npcname("#2hmoond01")+"::OnEnable";
+	donpcevent instance_npcname("教皇#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon04")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon03")+"::OnEnable";
+	donpcevent instance_npcname("小狗#2hmoon01")+"::OnEnable";
+	.Talk--;
+	end;
+	
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+	
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,66,206,0	script	#2hmoon05	HIDDEN_WARP_NPC,5,5,{
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnDisable";
+	donpcevent instance_npcname("#mob2hmoon")+"::OnEnable";
+	end;
+
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,66,156,0	duplicate(#2hmoon05)	#2hmoon06	HIDDEN_WARP_NPC,5,5
+1@pop2,119,123,0	duplicate(#2hmoon05)	#2hmoon07	HIDDEN_WARP_NPC,5,5
+1@pop2,48,126,0	duplicate(#2hmoon07)	#2hmoon08	HIDDEN_WARP_NPC,5,5
+1@pop2,57,83,0	duplicate(#2hmoon07)	#2hmoon09	HIDDEN_WARP_NPC,5,5
+1@pop2,129,38,0	duplicate(#2hmoon07)	#2hmoon10	HIDDEN_WARP_NPC,5,5
+
+1@pop2,116,219,1	duplicate(主教#1hmoon01)	儒閔#2hmoon01	4_M_CHILD
+1@pop2,42,87,0	duplicate(主教#1hmoon01)	#2mum01	HIDDEN_NPC
+1@pop2,94,47,0	duplicate(主教#1hmoon01)	#2mum02	HIDDEN_NPC
+
+1@pop2,66,236,3	duplicate(信徒#1hmoon11)	儒閔#2hmoon02	4_M_CHILD
+1@pop2,55,114,6	duplicate(信徒#1hmoon11)	儒閔#2hmoon03	4_M_CHILD
+1@pop2,60,237,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon01	4_M_RASWORD
+1@pop2,62,234,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon02	4_M_RASWORD
+1@pop2,65,232,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon03	4_M_RASWORD
+1@pop2,62,240,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon04	4_M_RASWORD
+1@pop2,66,240,3	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon05	4_M_RASWORD
+1@pop2,68,239,3	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon06	4_M_RASWORD
+1@pop2,68,234,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon07	4_M_RASWORD
+1@pop2,70,236,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon08	4_M_RASWORD
+1@pop2,66,206,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon10	4_M_RASWORD
+1@pop2,60,204,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon11	4_M_RASWORD
+1@pop2,62,202,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon12	4_M_RASWORD
+1@pop2,64,200,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon13	4_M_RASWORD
+1@pop2,66,198,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon14	4_M_RASWORD
+1@pop2,68,200,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon15	4_M_RASWORD
+1@pop2,70,202,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon16	4_M_RASWORD
+1@pop2,72,204,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon17	4_M_RASWORD
+1@pop2,124,84,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon21	4_M_RASWORD
+1@pop2,127,83,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon22	4_M_RASWORD
+1@pop2,128,81,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon23	4_M_RASWORD
+1@pop2,128,77,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon24	4_M_RASWORD
+1@pop2,127,73,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon25	4_M_RASWORD
+1@pop2,124,71,5	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon26	4_M_RASWORD
+1@pop2,121,72,3	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon27	4_M_RASWORD
+1@pop2,119,74,3	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon28	4_M_RASWORD
+1@pop2,66,156,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon30	4_M_RASWORD
+1@pop2,60,154,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon31	4_M_RASWORD
+1@pop2,62,152,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon32	4_M_RASWORD
+1@pop2,64,150,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon33	4_M_RASWORD
+1@pop2,66,148,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon34	4_M_RASWORD
+1@pop2,68,150,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon35	4_M_RASWORD
+1@pop2,70,152,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon36	4_M_RASWORD
+1@pop2,72,154,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon37	4_M_RASWORD
+1@pop2,128,81,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon41	4_M_RASWORD
+1@pop2,130,81,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon42	4_M_RASWORD
+1@pop2,128,79,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon43	4_M_RASWORD
+1@pop2,130,79,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon44	4_M_RASWORD
+1@pop2,128,77,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon45	4_M_RASWORD
+1@pop2,130,77,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon46	4_M_RASWORD
+1@pop2,128,75,7	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon47	4_M_RASWORD
+1@pop2,130,75,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon48	4_M_RASWORD
+1@pop2,129,73,1	duplicate(信徒#1hmoon11)	神殿衛士#2hmoon49	4_M_RASWORD
+1@pop2,59,235,7	duplicate(信徒#1hmoon11)	傑德 大神官#2hmoon	4_M_RACHOLD1
+1@pop2,49,84,1	duplicate(信徒#1hmoon11)	儒閔#2hmoon04	4_M_CHILD
+1@pop2,123,78,7	duplicate(信徒#1hmoon11)	儒閔#2hmoon05	4_M_CHILD
+1@pop2,62,76,5	duplicate(信徒#1hmoon11)	儒閔#2hmoon06	4_M_CHILD
+1@pop2,88,43,7	duplicate(信徒#1hmoon11)	儒閔#2hmoon07	4_M_CHILD
+1@pop2,135,46,5	duplicate(信徒#1hmoon11)	儒閔#2hmoon08	4_M_CHILD
+1@pop2,58,114,4	duplicate(信徒#1hmoon11)	小狗#2hmoon01	4_DOG01
+1@pop2,50,85,1	duplicate(信徒#1hmoon11)	小狗#2hmoon02	4_DOG01
+1@pop2,124,79,1	duplicate(信徒#1hmoon11)	小狗#2hmoon03	4_DOG01
+1@pop2,90,42,1	duplicate(信徒#1hmoon11)	小狗#2hmoon04	4_DOG01
+1@pop2,135,49,5	duplicate(信徒#1hmoon11)	小狗#2hmoon05	4_DOG01
+1@pop2,59,118,3	duplicate(信徒#1hmoon11)	朋友#2hmoon01	4_F_CHILD
+1@pop2,60,117,3	duplicate(信徒#1hmoon11)	朋友#2hmoon02	4_M_MIKID
+1@pop2,60,115,1	duplicate(信徒#1hmoon11)	朋友#2hmoon03	4_F_KID2
+1@pop2,46,88,7	duplicate(信徒#1hmoon11)	朋友#2hmoon04	4_F_CHILD
+1@pop2,46,85,6	duplicate(信徒#1hmoon11)	朋友#2hmoon05	4_M_MIKID
+1@pop2,49,88,3	duplicate(信徒#1hmoon11)	朋友#2hmoon06	4_F_KID2
+1@pop2,91,43,1	duplicate(信徒#1hmoon11)	朋友#2hmoon07	4_F_CHILD
+1@pop2,92,44,3	duplicate(信徒#1hmoon11)	朋友#2hmoon08	4_M_MIKID
+1@pop2,136,45,7	duplicate(信徒#1hmoon11)	朋友#2hmoon09	4_F_CHILD
+
+1@pop2,121,80,5	duplicate(信徒#1hmoon11)	媽媽#2hmoon01	4_F_GODEMOM
+1@pop2,121,78,7	duplicate(信徒#1hmoon11)	爸爸#2hmoon01	4_M_RACHMAN1
+1@pop2,125,78,1	duplicate(信徒#1hmoon11)	大神官#2hmoon01	4_F_MADAME
+1@pop2,123,76,7	duplicate(信徒#1hmoon11)	大神官#2hmoon02	4_M_RACHOLD1
+1@pop2,126,80,3	duplicate(信徒#1hmoon11)	信徒#2hmoon01	4_F_MASK
+1@pop2,122,81,5	duplicate(信徒#1hmoon11)	信徒#2hmoon02	4_M_MASK
+1@pop2,129,83,3	duplicate(信徒#1hmoon11)	信徒#2hmoon03	4_M_MASK
+1@pop2,130,80,1	duplicate(信徒#1hmoon11)	村民#2hmoon01	4_F_CAVE1
+1@pop2,132,76,3	duplicate(信徒#1hmoon11)	村民#2hmoon02	4_F_EINOLD
+1@pop2,129,74,1	duplicate(信徒#1hmoon11)	村民#2hmoon03	4_M_MIDDLE1
+1@pop2,130,85,3	duplicate(信徒#1hmoon11)	村民#2hmoon04	4_M_MIDDLE
+1@pop2,127,89,3	duplicate(信徒#1hmoon11)	村民#2hmoon11	1_F_01
+1@pop2,131,87,3	duplicate(信徒#1hmoon11)	村民#2hmoon12	1_M_SIGNMONK2
+1@pop2,130,84,3	duplicate(信徒#1hmoon11)	村民#2hmoon13	1_M_04
+1@pop2,133,81,3	duplicate(信徒#1hmoon11)	村民#2hmoon14	1_M_SIGNMONK
+1@pop2,136,83,3	duplicate(信徒#1hmoon11)	村民#2hmoon15	1_M_JOBTESTER
+1@pop2,135,76,1	duplicate(信徒#1hmoon11)	村民#2hmoon16	4_M_MASKMAN
+1@pop2,132,72,1	duplicate(信徒#1hmoon11)	村民#2hmoon17	4_F_04
+1@pop2,129,68,1	duplicate(信徒#1hmoon11)	村民#2hmoon18	4_KID01
+1@pop2,131,68,1	duplicate(信徒#1hmoon11)	村民#2hmoon21	1_F_01
+1@pop2,125,67,1	duplicate(信徒#1hmoon11)	村民#2hmoon22	4_F_RACHOLD
+1@pop2,119,69,7	duplicate(信徒#1hmoon11)	村民#2hmoon23	4_M_04
+1@pop2,123,84,7	duplicate(信徒#1hmoon11)	村民#2hmoon24	4_M_DESERT
+1@pop2,116,73,7	duplicate(信徒#1hmoon11)	村民#2hmoon25	4_M_CAVE1
+1@pop2,117,75,7	duplicate(信徒#1hmoon11)	村民#2hmoon26	4_F_SHABBY
+1@pop2,114,78,7	duplicate(信徒#1hmoon11)	村民#2hmoon27	4W_F_01
+1@pop2,119,123,5	duplicate(信徒#1hmoon11)	教皇#2hmoon10	4_F_ARUNA_POP
+1@pop2,48,126,5	duplicate(信徒#1hmoon11)	教皇#2hmoon11	4_F_ARUNA_POP
+1@pop2,57,83,7	duplicate(信徒#1hmoon11)	教皇#2hmoon12	4_F_ARUNA_POP
+1@pop2,129,38,1	duplicate(信徒#1hmoon11)	教皇#2hmoon13	4_F_ARUNA_POP
+
+1@pop2,56,116,5	script	教皇#2hmoon04	4_F_ARUNA_POP2,{
+	cutin "loo_smi",0;
+	mes "[儒閔]";
+	mes "你怎麼那麼晚來？";
+	//showscript "汪!!!", getnpcid(0, instance_npcname("小狗#2hmoon01"));
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "小狗?";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "嗯，好像是走失的狗。.";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";
+	mes "好可愛!";
+	next;
+	cutin "loo_smi",0;
+	mes "[儒閔]";
+	mes "我就知道你會喜歡，你不是一直想要養狗嗎？";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";
+	mes "嗯，我們收養牠吧？";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "我們先去問看看爸媽吧？";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";
+	mes "好啊!";
+	//showscript "名字要取甚麼好呢？", getnpcid(0, instance_npcname("教皇#2hmoon04"));
+	next;
+	cutin "pops_lau",255;
+	donpcevent instance_npcname("朋友#2hmoon01")+"::OnEnable";
+	mes "[朋友]";
+	mes "你來啦？";
+	//showscript "你來啦？", getnpcid(0, instance_npcname("朋友#2hmoon01"));
+	next;
+	donpcevent instance_npcname("朋友#2hmoon02")+"::OnEnable";
+	sleep2 500;
+	donpcevent instance_npcname("朋友#2hmoon03")+"::OnEnable";
+	mes "[朋友]";
+	mes "我以為你今天不來呢！";
+	//showscript "我以為你今天不來呢！", getnpcid(0, instance_npcname("朋友#2hmoon02"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "抱歉，中途出了一點事。";
+	next;
+	cutin "loo_sim",255;;
+	mes "[朋友]";
+	mes "我們等不到你，正想要說回家了呢！";
+	next;
+	mes "[朋友]";
+	mes "現在該回家了。";
+	//showscript "現在該回家了。", getnpcid(0, instance_npcname("朋友#2hmoon03"));
+	next;
+	mes "[朋友]";
+	mes "我們一起回家吧！";
+	next;
+	cutin "pops_lau",2;
+	mes "[教皇]";
+	mes "嗯!!!";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "要走快一點，爸媽在等我們呢！";
+	close2;
+	cutin "loo_sim",255;;
+	donpcevent instance_npcname("教皇#2hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("儒閔#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("小狗#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon05")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon04")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon04")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon05")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon06")+"::OnEnable";
+	donpcevent instance_npcname("小狗#2hmoon02")+"::OnEnable";
+	unittalk getcharid(3),"教皇正在往武器店移動，我們趕快去追！"; //missing text
+	navigateto('map2$,48,86);
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon04");
+	end;
+	
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon04");
+	end;
+}
+
+1@pop2,48,86,7	script	教皇#2hmoon05	4_F_ARUNA_POP2,{
+	if (.Talk) end;
+	.Talk++;
+	//showscript "這是你爸爸最新製造的武器嗎？", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "嗯，你可以拿起來看看沒關係。", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "不要..有點恐怖。", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "不要怕，小心拿起來看不會有危險的。", getnpcid(0, instance_npcname("儒閔#2hmoon04"));
+	sleep2 200;
+	//showscript "我拿看看吧！", getnpcid(0, instance_npcname("朋友#2hmoon05"));
+	sleep2 200;
+	//showscript "你不行的。", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "阿？我為何不行？我也要拿看看！", getnpcid(0, instance_npcname("朋友#2hmoon05"));
+	sleep2 200;
+	//showscript "你真的不知道嗎？", getnpcid(0, instance_npcname("朋友#2hmoon04"));
+	sleep2 200;
+	//showscript "你太矮了，不適合。", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "你壞壞！", getnpcid(0, instance_npcname("朋友#2hmoon05"));
+	sleep2 200;
+	//showscript "真的在閃爍耶。", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "嘿嘿，我也有幫忙。", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "真的嗎？幫忙做家事真乖。", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "都進來阿！在外面幹嘛？", getnpcid(0, instance_npcname("#2mum01"));
+	sleep2 200;
+	//showscript "我馬上進去了！", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "我要回去了。", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "嗯，明天見。", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "嗯！明天我們再一起玩吧！!", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	sleep2 200;
+	//showscript "好啊!!", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "掰掰!", getnpcid(0, instance_npcname("朋友#2hmoon04"));
+	sleep2 200;
+	//showscript "再見!", getnpcid(0, instance_npcname("朋友#2hmoon05"));
+	sleep2 200;
+	//showscript "再見!~", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 200;
+	//showscript "掰掰~~~", getnpcid(0, instance_npcname("朋友#2hmoon06"));
+	donpcevent instance_npcname("朋友#2hmoon06")+"::OnDisable";
+	sleep2 200;
+	//showscript "我們也回去吧？", getnpcid(0, instance_npcname("儒閔#2hmoon04"));
+	sleep2 200;
+	//showscript "嗯!", getnpcid(0, instance_npcname("教皇#2hmoon05"));
+	sleep2 500;
+	donpcevent instance_npcname("教皇#2hmoon05")+"::OnDisable";
+	sleep2 500;
+	donpcevent instance_npcname("儒閔#2hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("小狗#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon08")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon07")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon07")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon08")+"::OnEnable";
+	donpcevent instance_npcname("小狗#2hmoon04")+"::OnEnable";
+	unittalk getcharid(3),"教皇正在往市場移動，我們趕快去追！"; //missing text
+	navigateto('map2$,89,44);
+	.Talk--;
+	end;
+	
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon05");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon05");
+	end;
+}
+
+1@pop2,64,75,3	script	教皇#2hmoon07	4_F_ARUNA_POP2,{
+	if (.Talk)
+		end;
+	.Talk++;
+	donpcevent instance_npcname("儒閔#2hmoon06")+"::OnEnable";
+	//showscript "趕快跟上來！！", getnpcid(0, instance_npcname("儒閔#2hmoon06"));
+	sleep2 200;
+	donpcevent instance_npcname("儒閔#2hmoon06")+"::OnDisable";
+	//showscript "冒險家快吧。", getnpcid(0, instance_npcname("教皇#2hmoon07"));
+	sleep2 200;
+	donpcevent instance_npcname("教皇#2hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("#2hmoon10")+"::OnEnable";
+	donpcevent instance_npcname("教皇#2hmoon13")+"::OnEnable";
+	//unittalk getcharid(3),""; //missing text
+	navigateto('map2$,129,38);
+	.Talk--;
+	end;
+	
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon07");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon07");
+	end;
+}
+
+1@pop2,89,44,7	script	教皇#2hmoon08	4_F_ARUNA_POP2,{
+	if (.Talk) end;
+	.Talk++;
+	//showscript "一閃一閃的好漂亮。", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "漂亮嗎？", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "嗯，閃亮的東西都很漂亮。", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "我們也向爸媽要一個吧？", getnpcid(0, instance_npcname("儒閔#2hmoon07"));
+	sleep2 200;
+	//showscript "好啊!", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "我們明天要玩甚麼呢？", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "玩捉迷藏吧？", getnpcid(0, instance_npcname("朋友#2hmoon07"));
+	sleep2 200;
+	//showscript "我喜歡玩教皇遊戲！", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "我更喜歡玩捉迷藏！", getnpcid(0, instance_npcname("朋友#2hmoon07"));
+	sleep2 200;
+	//showscript "教皇遊戲!!!", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "反正你不能變成教皇嘛！", getnpcid(0, instance_npcname("朋友#2hmoon07"));
+	sleep2 200;
+	//showscript "所以更想玩嘛！", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "不行，講好說要玩捉迷藏的不是嗎？", getnpcid(0, instance_npcname("朋友#2hmoon07"));
+	sleep2 200;
+	//showscript "兩個都玩就好啦！", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "趕快進來吃飯！", getnpcid(0, instance_npcname("#2mum02"));
+	sleep2 200;
+	//showscript "好~", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "趕快進去吧！", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "明天再一起玩吧！教皇遊戲也要玩！", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "嗯! 教皇遊戲!", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 200;
+	//showscript "掰掰~", getnpcid(0, instance_npcname("朋友#2hmoon08"));
+	sleep2 200;
+	//showscript "再見~", getnpcid(0, instance_npcname("朋友#2hmoon07"));
+	sleep2 200;
+	//showscript "明天見~", getnpcid(0, instance_npcname("教皇#2hmoon08"));
+	sleep2 100;
+	donpcevent instance_npcname("朋友#2hmoon08")+"::OnDisable";
+	sleep2 500;
+	//showscript "我們也回家吃飯吧！", getnpcid(0, instance_npcname("儒閔#2hmoon07"));
+	sleep2 500;
+	donpcevent instance_npcname("教皇#2hmoon08")+"::OnDisable";
+	donpcevent instance_npcname("儒閔#2hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("朋友#2hmoon07")+"::OnDisable";
+	donpcevent instance_npcname("小狗#2hmoon04")+"::OnDisable";
+	
+	donpcevent instance_npcname("教皇#2hmoon09")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon08")+"::OnEnable";
+	donpcevent instance_npcname("朋友#2hmoon09")+"::OnEnable";
+	donpcevent instance_npcname("小狗#2hmoon05")+"::OnEnable";
+	unittalk getcharid(3),"教皇快速往右邊移動，快去追吧！"; //missing text
+	navigateto('map2$,89,44);
+	.Talk--;
+	end;
+	
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon08");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon08");
+	end;
+}
+
+1@pop2,136,47,5	script	教皇#2hmoon09	4_F_ARUNA_POP2,{
+	if (.Talk) end;
+	.Talk++;
+	//showscript "哥哥！你看那個看起來很好吃。", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "要帶一點回去嘛？", getnpcid(0, instance_npcname("朋友#2hmoon09"));
+	sleep2 200;
+	//showscript "不用，沒關係。", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "反正時間太晚了也沒客人。", getnpcid(0, instance_npcname("朋友#2hmoon09"));
+	sleep2 200;
+	//showscript "嗯... 可是...", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "謝謝！我會好好享用。", getnpcid(0, instance_npcname("儒閔#2hmoon08"));
+	sleep2 200;
+	//showscript "哥哥?", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "阿~ 肚子餓了~", getnpcid(0, instance_npcname("儒閔#2hmoon08"));
+	sleep2 200;
+	//showscript "你快去吃晚餐吧！", getnpcid(0, instance_npcname("朋友#2hmoon09"));
+	sleep2 200;
+	//showscript "我們明天再見，", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "嗯~明天見！明天要玩捉迷藏喔！", getnpcid(0, instance_npcname("朋友#2hmoon09"));
+	sleep2 200;
+	//showscript "嗯！玩捉迷藏！", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "掰掰~", getnpcid(0, instance_npcname("朋友#2hmoon09"));
+	sleep2 100;
+	//showscript "再見!!", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 100;
+	donpcevent instance_npcname("朋友#2hmoon09")+"::OnDisable";
+	sleep2 100;
+	//showscript "今天晚餐菜色是甚麼呢？!", getnpcid(0, instance_npcname("教皇#2hmoon09"));
+	sleep2 200;
+	//showscript "我們也快回家吧！", getnpcid(0, instance_npcname("儒閔#2hmoon08"));
+	sleep2 500;
+	donpcevent instance_npcname("教皇#2hmoon09")+"::OnDisable";
+	donpcevent instance_npcname("儒閔#2hmoon08")+"::OnDisable";
+	donpcevent instance_npcname("小狗#2hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("教皇#2hmoon06")+"::OnEnable";
+	donpcevent instance_npcname("儒閔#2hmoon05")+"::OnEnable";
+	donpcevent instance_npcname("小狗#2hmoon03")+"::OnEnable";
+	donpcevent instance_npcname("媽媽#2hmoon01")+"::OnEnable";
+	donpcevent instance_npcname("爸爸#2hmoon01")+"::OnEnable";
+	unittalk getcharid(3),"教皇快速往上移動，快去追吧！"; //missing text
+	navigateto('map2$,124,81);
+	.Talk--;
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon09");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon09");
+	end;
+}
+
+1@pop2,124,81,3	script	教皇#2hmoon06	4_F_ARUNA_POP2,{
+	.@map2$ = instance_mapname("1@pop2");
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "媽媽!";
+	//showscript "媽媽!", getnpcid(0, instance_npcname("教皇#2hmoon06"));
+	next;
+	cutin "pops_smi",255;
+	mes "[媽媽]";
+	mes "你去哪啦？我不是交代過晚餐之前要回家嗎？";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "對不起，下次會早點回家。";
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "媽媽，這隻狗跟著我們回來了。";
+	next;
+	cutin "pops_smi",255;
+	mes "[媽媽]";
+	mes "這真是隻可愛的小狗，而且還不怕人耶";
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "我可以養牠嗎？";
+	next;
+	cutin "pops_smi",255;
+	mes "[爸爸]";
+	mes "但你們要自己餵他吃飯喔！";
+	next;
+	cutin "loo_smi",0;
+	mes "[儒閔]";
+	mes "好！！";
+	//showscript "耶！", getnpcid(0, instance_npcname("儒閔#2hmoon05"));
+	next;
+	cutin "loo_smi",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "聽說教皇一出生就被帶去神殿，難道這是他的夢想嗎？";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "他的夢想如此平凡，這種夢可以繼續做吧！又不礙事。";
+	next;
+	mes "[???]";
+	mes "應該是這裡。";
+	//showscript "應該是這裡。", getnpcid(0, instance_npcname("大神官#2hmoon01"));
+	next;
+	mes "[??]";
+	mes "我非常確定。";
+	//showscript "我非常確定。", getnpcid(0, instance_npcname("大神官#2hmoon02"));
+	next;
+	mes "[媽媽]";
+	mes "外面怎麼這麼吵呢？";
+	next;
+	donpcevent instance_npcname("大神官#2hmoon01")+"::OnEnable";
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "應該是來對地方了。";
+	//showscript "應該是來對地方了。", getnpcid(0, instance_npcname("大神官#2hmoon01"));
+	next;
+	donpcevent instance_npcname("大神官#2hmoon02")+"::OnEnable";
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "這裡是教皇的新家。";
+	//showscript "這裡是教皇的新家。", getnpcid(0, instance_npcname("大神官#2hmoon02"));
+	next;
+	cutin "ra_gman2",255;
+	donpcevent instance_npcname("信徒#2hmoon01")+"::OnEnable";
+	mes "[信徒]";
+	mes "教皇的誕生！";
+	next;
+	donpcevent instance_npcname("信徒#2hmoon03")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon41")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon42")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon43")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon44")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon45")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon46")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon47")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon48")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon49")+"::OnEnable";
+	//showscript "你們守在這裡以防外人闖入！", getnpcid(0, instance_npcname("信徒#2hmoon03"));
+	sleep2 500;
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon41"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon42"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon43"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon44"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon45"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon46"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon47"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon48"));
+	//showscript "是！", getnpcid(0, instance_npcname("神殿衛士#2hmoon49"));
+	mes "[村民]";
+	mes "你有聽到嗎？";
+	//showscript "Did you hear that?", getnpcid(0, instance_npcname("")); //unknown NPC
+	next;
+	mes "[村民]";
+	mes "說這家的小孩就是教皇呢！";
+	//showscript "The children of this house 教皇 Eshire.", getnpcid(0, instance_npcname("")); //unknown NPC
+	next;
+	donpcevent instance_npcname("信徒#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon41")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon42")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon43")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon44")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon45")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon46")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon47")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon48")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon49")+"::OnDisable";
+	donpcevent instance_npcname("信徒#2hmoon02")+"::OnEnable";
+	//showscript "教皇，幸會幸會。", getnpcid(0, instance_npcname("信徒#2hmoon02"));
+	donpcevent instance_npcname("神殿衛士#2hmoon21")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon22")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon23")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon24")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon25")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon26")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon27")+"::OnEnable";
+	donpcevent instance_npcname("神殿衛士#2hmoon28")+"::OnEnable";
+	donpcevent instance_npcname("村民#2hmoon01")+"::OnEnable";
+	mes "[村民]";
+	mes "甚麼? 教皇?";
+	//showscript "甚麼? 教皇?", getnpcid(0, instance_npcname("村民#2hmoon01"));
+	next;
+	donpcevent instance_npcname("村民#2hmoon02")+"::OnEnable";
+	mes "[村民]";
+	mes "教皇就出生在我家旁邊耶！";
+	//showscript "教皇就出生在我家旁邊耶！", getnpcid(0, instance_npcname("村民#2hmoon02"));
+	next;
+	donpcevent instance_npcname("村民#2hmoon03")+"::OnEnable";
+	mes "[村民]";
+	mes "在我們的村落誕生了教皇耶！";
+	//showscript "在我們的村落誕生了教皇耶！", getnpcid(0, instance_npcname("村民#2hmoon03"));
+	next;
+	donpcevent instance_npcname("村民#2hmoon04")+"::OnEnable";
+	mes "[村民]";
+	mes "我家小孩跟他們是好朋友呢！嗯嗯！";
+	//showscript "我家小孩跟他們是好朋友呢！嗯嗯！", getnpcid(0, instance_npcname("村民#2hmoon04"));
+	next;
+	donpcevent instance_npcname("村民#2hmoon17")+"::OnEnable";
+	//showscript "教皇? 我沒聽錯吧?", getnpcid(0, instance_npcname("村民#2hmoon17"));
+	donpcevent instance_npcname("村民#2hmoon12")+"::OnEnable";
+	donpcevent instance_npcname("村民#2hmoon23")+"::OnEnable";
+	//showscript "教皇住在這舊屋裡?", getnpcid(0, instance_npcname("村民#2hmoon23"));
+	mes "[媽媽]";
+	mes "請問有甚麼事嗎？";
+	next;
+	//showscript "這家的小孩是教皇?", getnpcid(0, instance_npcname("村民#2hmoon12"));
+	donpcevent instance_npcname("村民#2hmoon14")+"::OnEnable";
+	//showscript "教皇!!!", getnpcid(0, instance_npcname("村民#2hmoon14"));
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "聽說這裡的小孩是教皇的轉世。";
+	next;
+	donpcevent instance_npcname("村民#2hmoon27")+"::OnEnable";
+	//showscript "前面請讓開，看不清楚啊！", getnpcid(0, instance_npcname("村民#2hmoon27"));
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "白皮膚黑髮，不同色眼睛的少女，沒錯！";
+	next;
+	donpcevent instance_npcname("村民#2hmoon16")+"::OnEnable";
+	//showscript "真吵，啥事？", getnpcid(0, instance_npcname("村民#2hmoon16"));
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "確定是教皇沒錯。";
+	//showscript "確定是教皇沒錯。", getnpcid(0, instance_npcname("大神官#2hmoon01"));
+	next;
+	donpcevent instance_npcname("村民#2hmoon25")+"::OnEnable";
+	//showscript "請看看這裡！！", getnpcid(0, instance_npcname("村民#2hmoon25"));
+	donpcevent instance_npcname("村民#2hmoon18")+"::OnEnable";
+	//showscript "難怪昨天做了好夢，沒想到今天能目睹此事！", getnpcid(0, instance_npcname("村民#2hmoon18"));
+	mes "[爸爸]";
+	mes "教皇？他們都只是我們的孩子";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "是不是要侍奉女的教皇，會由神殿判斷。";
+	next;
+	donpcevent instance_npcname("村民#2hmoon21")+"::OnEnable";
+	//showscript "孩子們要多加油啊！", getnpcid(0, instance_npcname("村民#2hmoon21"));
+	donpcevent instance_npcname("村民#2hmoon11")+"::OnEnable";
+	//showscript "大家安靜一點啊，我聽不到對話！", getnpcid(0, instance_npcname("村民#2hmoon11"));
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "我們會先帶去神殿確認，若不是在送回來。";
+	next;
+	donpcevent instance_npcname("村民#2hmoon15")+"::OnEnable";
+	//showscript "神殿衛士總是阻擋我看教皇....", getnpcid(0, instance_npcname("村民#2hmoon15"));
+	donpcevent instance_npcname("村民#2hmoon24")+"::OnEnable";
+	//showscript "教皇誕生拉！太棒拉！", getnpcid(0, instance_npcname("村民#2hmoon24"));
+	donpcevent instance_npcname("村民#2hmoon13")+"::OnEnable";
+	//showscript "我這一輩子最愛的就是教皇!", getnpcid(0, instance_npcname("村民#2hmoon13"));
+	cutin "ra_gman2",255;
+	mes "[媽媽]";
+	mes "他們不可能是教皇，他們只是普通的小孩！";
+	next;
+	donpcevent instance_npcname("村民#2hmoon26")+"::OnEnable";
+	//showscript "所以我真的看到教皇了？", getnpcid(0, instance_npcname("村民#2hmoon26"));
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "他們...？原來相同條件的孩子有兩位？";
+	//showscript "他們...？原來相同條件的孩子有兩位？", getnpcid(0, instance_npcname("大神官#2hmoon02"));
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "這是史無前例。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "尼樂研, 尼樂研? 別讓我離開爸媽身邊。";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "你怎知我的名字...？難道這就是佛雷亞女神的意志？";
+	next;
+	mes "[大神官]";
+	mes "沒錯，這位就是真正的教皇。";
+	//showscript "沒錯，這位就是真正的教皇。", getnpcid(0, instance_npcname("大神官#2hmoon01"));
+	next;
+	mes "[大神官]";
+	mes "這是佛雷亞女神的旨意。";
+	//showscript "這是佛雷亞女神的旨意。", getnpcid(0, instance_npcname("大神官#2hmoon01"));
+	next;
+	cutin "ra_gwoman",255;
+	mes "[信徒]";
+	mes "大家來一起讚揚新教皇的誕生吧！";
+	//showscript "大家來一起讚揚新教皇的誕生吧！", getnpcid(0, instance_npcname("信徒#2hmoon01"));
+	next;
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon01"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon02"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon03"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon04"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon11"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon12"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon13"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon14"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon15"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon16"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon17"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon18"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon21"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon23"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon24"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon25"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon26"));
+	//showscript "教皇萬歲！!", getnpcid(0, instance_npcname("村民#2hmoon27"));
+	mes "[信徒]";
+	mes "我們要讚頌他的名字。";
+	//showscript "我們要讚頌他的名字。", getnpcid(0, instance_npcname("信徒#2hmoon02"));
+	next;
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon01"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon02"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon03"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon04"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon11"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon12"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon13"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon14"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon15"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon16"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon17"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon18"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon21"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon23"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon24"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon25"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon26"));
+	//showscript "這榮耀歸女神！", getnpcid(0, instance_npcname("村民#2hmoon27"));
+	mes "[媽媽]";
+	mes "我們...的孩子真的是教皇嗎?";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "沒錯，我要迎接她去神殿。";
+	next;
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "在神殿裡的生活會更安全和舒適。";
+	next;
+	cutin "ra_gman2",255;
+	mes "[爸爸]";
+	mes "這孩子呢？我的兒子呢？";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "相同條件的少年代表著甚麼意義目前不清楚。";
+	next;
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "世世代代的每一代教皇只有一位而已，而且又是少年。";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "這意味著甚麼？佛雷亞女神想透過他傳達甚麼呢？";
+	next;
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "我要把兩位小孩都迎回神殿，這是神官和神學士該分析的問題。";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "去留到時候再決定也不遲。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我不要，媽媽？爸爸？冒險家幫幫我，我不想去！";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "你先冷靜，我們絕對不會分開。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "嗯! 嗯!";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "你還記得我倆的夢想之地吧？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "嗯！祕密花園，記得！";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "穿過南門就能抵達，我們在那邊會合吧！我會保護你不被任何人帶走。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "你現在就要離我而去了嗎？";
+	//showscript "你現在就要離我而去了嗎？", getnpcid(0, instance_npcname("教皇#2hmoon06"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "我必須要分散他們的注意力，我們在南門見吧！";
+	cutin "loo_sim",255;;
+	donpcevent instance_npcname("儒閔#2hmoon05")+"::OnDisable";
+	next;
+	specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#2hmoon06");
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要走，不要丟下我！";
+	//showscript "不要走，不要丟下我！", getnpcid(0, instance_npcname("教皇#2hmoon06"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇, 教皇! 你冷靜點!這只是夢!你快醒來!";
+	next;
+	mes "[教皇]";
+	mes "不要叫我教皇!";
+	//showscript "媽媽! 爸爸!!", getnpcid(0, instance_npcname("教皇#2hmoon06"));
+	cutin "pops_sim",255;;
+	next;
+	mes "[爸爸]";
+	mes "我的乖孩子聽話。";
+	//showscript "我的乖孩子聽話。", getnpcid(0, instance_npcname("爸爸#2hmoon01"));
+	next;
+	mes "[媽媽]";
+	mes "我家孩子竟然是教皇，真是家族的光榮！";
+	//showscript "真是家族的光榮！", getnpcid(0, instance_npcname("媽媽#2hmoon01"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "媽媽...? 爸爸...? 真的要送我走嗎?";
+	next;
+	cutin "pops_sim",255;;
+	mes "[爸爸]";
+	mes "教皇，您快跟著他走吧！";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我不要，我不想分開！";
+	next;
+	cutin "pops_sim",255;;
+	mes "[媽媽]";
+	mes "乖孩子聽話。";
+	next;
+	cutin "ra_gwoman",0;
+	mes "[大神官]";
+	mes "我們會安全的保護教皇。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要!!";
+	//showscript "不要!!", getnpcid(0, instance_npcname("教皇#2hmoon06"));
+	next;
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "那沒辦法了，只好強迫帶您回神殿了。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "不要！！我不要走！！";
+	next;
+	cutin "ra_gman2",2;
+	mes "[大神官]";
+	mes "快把他帶回神殿。";
+	next;
+	cutin "ra_gman2",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不可，教皇快過來我這裡。";
+	next;
+	mes "[信徒]";
+	mes "膽敢擋住教皇的去路!";
+	next;
+	mes "[信徒]";
+	mes "違抗女神旨意者不可原諒！";
+	//showscript "違抗女神旨意者不可原諒！", getnpcid(0, instance_npcname("信徒#2hmoon01"));
+	close2;
+	donpcevent instance_npcname("教皇#2hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("小狗#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("媽媽#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("爸爸#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("大神官#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("大神官#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("信徒#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("信徒#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon02")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon03")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon04")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon21")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon22")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon23")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon24")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon25")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon26")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon27")+"::OnDisable";
+	donpcevent instance_npcname("神殿衛士#2hmoon28")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon11")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon12")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon13")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon14")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon15")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon16")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon17")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon18")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon21")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon23")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon24")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon25")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon26")+"::OnDisable";
+	donpcevent instance_npcname("村民#2hmoon27")+"::OnDisable";
+	if (!'hmoon_mode)
+		mercenary_create 3527,1800000;
+	else
+		mercenary_create 3569,1800000;
+	sleep2 500;
+	mapannounce 'map2$, "教皇我們一起回神殿吧！",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#mob2hmoon")+"::OnEnable";
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#2hmoon06");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#2hmoon06");
+	end;
+}
+
+1@pop2,0,0,0	script	#mob2hmoon	HIDDEN_WARP_NPC,{
+OnEnable:
+OnMyMobDead:
+	.@map$ = instance_mapname("1@pop2");
+	if (mobcount(.@map$,instance_npcname("#mob2hmoon")+"::OnMyMobDead"))
+		end;
+	if (!'hmoon_mode) {
+		.@guard = 3510; //Easy
+		.@fbel = 3511;
+		.@mbel = 3512;
+		.@dog = 3513;
+		.@priest = 3514;
+	} else {
+		.@guard = 3518; //Hard
+		.@fbel = 3519;
+		.@mbel = 3520;
+		.@dog = 3521;
+		.@priest = 3522;
+	}
+	switch('2hmoon) {
+		case 0:
+			monster .@map$,59,235,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,60,237,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,62,234,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,65,232,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,62,240,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,66,240,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,68,239,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,68,234,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,70,236,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 1:
+			mapannounce 'map2$, "不要讓他們往下走！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("神殿衛士#2hmoon10")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon11")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon12")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon13")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon14")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon15")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon16")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon17")+"::OnEnable";
+			donpcevent instance_npcname("#2hmoon05")+"::OnEnable";
+			'2hmoon++;
+			end;
+		case 2:
+			//showscript "我們會安全地為教皇服務！", getnpcid(0, instance_npcname("神殿衛士#2hmoon10"));
+			sleep 1500;
+			//showscript "不聽從的人將會受到武裝攻擊！", getnpcid(0, instance_npcname("神殿衛士#2hmoon10"));
+			sleep 1500;
+			donpcevent instance_npcname("神殿衛士#2hmoon10")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon11")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon12")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon13")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon14")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon15")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon16")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon17")+"::OnDisable";
+			monster .@map$,66,206,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,60,204,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,62,202,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,64,200,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,66,198,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,68,200,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,70,202,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,72,204,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,63,195,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,65,195,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,69,195,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,71,195,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 3:
+			//specialeffect EF_CHAINCOMBO,AREA, ?;
+			mapannounce 'map2$, "兩個人往下走了，快跟上！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("神殿衛士#2hmoon30")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon31")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon32")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon33")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon34")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon35")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon36")+"::OnEnable";
+			donpcevent instance_npcname("神殿衛士#2hmoon37")+"::OnEnable";
+			donpcevent instance_npcname("#2hmoon06")+"::OnEnable";
+			'2hmoon++;
+			end;
+		case 4:
+			//showscript "教皇您至樣只會傷害到自己啊！教皇！", getnpcid(0, instance_npcname("神殿衛士#2hmoon30"));
+			sleep 1500;
+			//showscript "我們會保障您的安全。", getnpcid(0, instance_npcname("神殿衛士#2hmoon30"));
+			sleep 1500;
+			donpcevent instance_npcname("神殿衛士#2hmoon30")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon31")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon32")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon33")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon34")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon35")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon36")+"::OnDisable";
+			donpcevent instance_npcname("神殿衛士#2hmoon37")+"::OnDisable";
+			monster .@map$,66,156,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,60,154,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,62,152,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,64,150,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,66,148,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,68,150,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,70,152,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,72,154,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,61,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,63,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,65,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,67,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,69,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,71,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,73,145,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 5:
+			//mercenary_destroy;
+			mapannounce 'map2$, "神殿衛士已經走了。 快離開這裡吧。",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#2hmoon03")+"::OnEnable";
+			'2hmoon++;
+			end;
+		case 6:
+			monster .@map$,124,84,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,127,83,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,128,81,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,128,77,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,127,73,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,124,71,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,121,72,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,119,74,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,118,77,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 7:
+			mapannounce 'map2$, "嗚！敵人太強了，趕快請求支援，快！",bc_map,"0xFFFF00";
+			sleep 200;
+			mapannounce 'map2$, "不要讓教皇跑掉了，務必阻止他！",bc_map,"0xFFFF00";
+			monster .@map$,126,80,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,129,80,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,132,80,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,126,83,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,129,83,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,132,83,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,126,82,"神殿衛士的狗",.@dog,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,135,83,"神殿衛士的狗",.@dog,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,130,84,"神殿衛士的狗",.@dog,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,134,85,"神殿衛士的狗",.@dog,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 8:
+			mapannounce 'map2$, "不要給他們跑了！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#2hmoon10")+"::OnEnable";
+			donpcevent instance_npcname("#2hmoon07")+"::OnEnable";
+			navigateto('map2$,119,123);
+			'2hmoon++;
+			end;
+		case 9:
+			attachrid 'char;
+			//showscript "回去吧！逃走也不會解決問題。", getnpcid(0, instance_npcname("教皇#2hmoon10"));
+			sleep 200;
+			//showscript "別再鬧小孩子脾氣了。", getnpcid(0, instance_npcname("教皇#2hmoon10"));
+			sleep 200;
+			unittalk 'leader_aid,"教皇...?";
+			sleep 1500;
+			//showscript "......", getnpcid(0, instance_npcname("教皇#2hmoon10"));
+			sleep 1500;
+			specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#2hmoon10");
+			donpcevent instance_npcname("教皇#2hmoon10")+"::OnDisable";
+			sleep 100;
+			mapannounce 'map2$, "教皇的誕生是女神的意志。要遵循它的意思！",bc_map,"0xFFFF00";
+			monster .@map$,116,126,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,119,126,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,122,126,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,116,123,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,119,123,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,122,123,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,116,120,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,119,120,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,122,120,"神殿衛士",.@guard,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,112,114,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,113,115,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,121,111,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,114,115,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,120,117,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,114,120,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,120,112,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,112,117,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 10:
+			mapannounce 'map2$, "他正在往西邊移動，不要跟丟了！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#2hmoon11")+"::OnEnable";
+			donpcevent instance_npcname("#2hmoon08")+"::OnEnable";
+			navigateto('map2$,48,126);
+			'2hmoon++;
+			end;
+		case 11:
+			//showscript "我想念家人，爸爸?媽媽?哥哥?他們還會記得我嗎?", getnpcid(0, instance_npcname("教皇#2hmoon11"));
+			sleep 200;
+			//showscript "大家今天還會想念我嗎?", getnpcid(0, instance_npcname("教皇#2hmoon11"));
+			sleep 200;
+			//showscript "你們只是在逃避現實而已！", getnpcid(0, instance_npcname("教皇#2hmoon11"));
+			sleep 200;
+			//showscript "趕快回去吧！", getnpcid(0, instance_npcname("教皇#2hmoon11"));
+			sleep 200;
+			specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#2hmoon11");
+			donpcevent instance_npcname("教皇#2hmoon11")+"::OnDisable";
+			sleep 100;
+			mapannounce 'map2$, "教皇，我們會好好的保護您的。",bc_map,"0xFFFF00";
+			monster .@map$,46,122,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,35,127,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,51,124,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,46,127,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,49,122,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,52,126,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,46,125,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,42,122,"便服的教皇傭兵",.@fbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,54,113,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,52,116,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,56,116,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,58,119,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			monster .@map$,51,112,"憤怒的信徒",.@mbel,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead";
+			'2hmoon++;
+			end;
+		case 12:
+			//specialeffect EF_CHAINCOMBO,AREA, ?;
+			mapannounce 'map2$, "往下逃走了，是往南門的方向！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#2hmoon12")+"::OnEnable";
+			donpcevent instance_npcname("#2hmoon09")+"::OnEnable";
+			navigateto('map2$,57,83);
+			'2hmoon++;
+			end;
+		case 13:
+			//showscript "你不要對自己回頭。", getnpcid(0, instance_npcname("教皇#2hmoon12"));
+			sleep 1500;
+			//showscript "不要自我逃避。", getnpcid(0, instance_npcname("教皇#2hmoon12"));
+			sleep 1500;
+			//showscript "回到你該留的地方。", getnpcid(0, instance_npcname("教皇#2hmoon12"));
+			sleep 200;
+			specialeffect EF_MAGICCRASHER,AREA, instance_npcname("教皇#2hmoon12");
+			donpcevent instance_npcname("教皇#2hmoon12")+"::OnDisable";
+			sleep 1500;
+			monster(.@map$,57,80,"憤怒的大神官",.@priest,1,instance_npcname("#mob2hmoon")+"::OnMyMobDead");
+			.@mobGID = $@mobid[0];
+			'2hmoon++;
+			unittalk .@mobGID, "教皇，趕快回神殿吧！"; //missing text
+			sleep 1500;
+			unittalk .@mobGID, "這一切都是佛雷亞女神的旨意。"; //missing text
+			end;
+		case 14:
+			//mercenary_destroy;
+			if (!countitem(25087) && rand(2) == 0) {
+				mapannounce 'map2$, "你聽到了大神官出現時墜落的聲音。",bc_map,"0xFFFF00";
+				donpcevent instance_npcname("#dollbox02")+"::OnEnable";
+				sleep 100;
+			}
+			mapannounce 'map2$, "都沒了。 走吧，我們得離開這裡。",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#2hmoon07")+"::OnEnable";
+			'2hmoon++;
+			end;
+		case 15:
+			attachrid 'char;
+			//showscript "... 冒險家...", getnpcid(0, instance_npcname("教皇#2hmoon13"));
+			sleep 1500;
+			unittalk 'leader_aid,"你是誰？"; //missing text
+			sleep 1500;
+			unittalk 'leader_aid,"你為何一直以教皇的樣貌來追我們呢？"; //missing text
+			sleep 1500;
+			//showscript "我 ... 我 ... 我是...我是我...", getnpcid(0, instance_npcname("教皇#2hmoon13"));
+			sleep 1500;
+			unittalk 'leader_aid,"教皇...？"; //missing text
+			sleep 1500;
+			//showscript "冒險家，抓住我好嗎...", getnpcid(0, instance_npcname("教皇#2hmoon13"));
+			donpcevent instance_npcname("教皇#2hmoon13")+"::OnDisable";
+			donpcevent instance_npcname("#2hmoond03")+"::OnEnable";
+			end;			
+	}
+}
+
+//== Part 3 ===============================================
+1@pop3,45,66,3	script	教皇#3hmoon01	4_F_ARUNA_POP2,{
+	mes "[教皇]";
+	mes "這裡是...?";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "沒關係這裡安全了。";
+	next;
+	cutin "pops_nor",2;
+	mes "[教皇]";
+	mes "我倆常提起的夢想之地？怎麼會..？";
+	next;
+	cutin "loo_nor",0;
+	mes "[儒閔]";
+	mes "我祈禱又祈禱，希望夢想成真。";
+	next;
+	cutin "pops_nor",2;
+	mes "[教皇]";
+	mes "我以為這地方夢境裡才有呢！";
+	next;
+	mes "[教皇]";
+	mes "實際上看更漂亮，這噴水池跟我想像中的一模一樣，這樹和這娃娃也一樣。";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "躲藏在這裡應該不會被發現。";
+	next;
+	cutin "pops_nor",2;
+	mes "[教皇]";
+	mes "任何人找不到我們嗎？";
+	//showscript "沒有人?", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "嗯，那個人就請他回去好了。";
+	//showscript "請他回去好了。", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	mes "[儒閔]";
+	mes "這裡以安全，不需要他了。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "冒險家嗎？不過...";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "我會永遠陪伴著教皇並守護她。";
+	unittalk getcharid(3),"我會永遠陪伴著教皇並守護她。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "你要守護甚麼呢？在你出現之前我們及安全又平靜呢！";
+	next;
+	mes "[儒閔]";
+	mes "但自從你出現後，衛士和神官們、父母都要傷害我們。";
+	next;
+	mes "[儒閔]";
+	mes "你才是危險人物！";
+	//showscript "你才是危險人物！", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "哥哥別這樣，冒險家不是危險人物。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "真的嗎？外面的人全部背叛我們也是嗎？";
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "嗯，我絕對相信冒險家。";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "但這裡是我倆的秘密之地，其他人不能知道。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "你認為冒險家比我更能保護你嗎？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "可是...";
+	//showscript "可是...", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "我們永遠躲在這裡吧！神官和父母都找不到我們的。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "永遠...找不到...";
+	//showscript "永遠...找不到...", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇！你若是永遠留在這裡就無法從夢裡醒來了。";
+	next;
+	cutin "pops_nor",2;
+	mes "[教皇]";
+	mes "夢...?";
+	//showscript "夢...", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "現實中等候教皇的人很多，不會傷害教皇的人，跟夢是相反的。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "別信她，她在說謊！";
+	//showscript "別信她，她在說謊！", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "這是夢...?";
+	//showscript "這是夢...?", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "沒錯，這都是因教皇感到惶惶不安而儒閔呈現的夢而已，都不是現實。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "你說謊，你說謊!!!";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我在黑暗中遺失了蒂比，還有主教和大神官們都說不再需要我了。";
+	next;
+	cutin "pops_sim",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "這都是因為教皇感到惶惶不安而再夢裡被扭曲而已。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "別聽他的，不要思考！！";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "媽媽、爸爸也都不要我了。";
+	next;
+	cutin "pops_sim",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "他們都不是你的親生父母。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我...我要待的地方是...";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "妳要回去嗎？ 在這裡不會受到別人的妨礙下永遠能快樂的生活，妳不是也討厭那邊嗎？";
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "哥哥也一起走吧！我倆應該能挺得住。";
+	//showscript "哥哥也一起走吧！", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不行，儒閔被冰封無法動彈。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "冰封？";
+	//showscript "冰封？", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "在來這裡之前，尼樂研跟我說了某一個人的事情。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "冰穴中被封印的教皇的雙胞胎哥哥儒閔。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "你懂甚麼？他們都是惡魔，他們只會要求而已，到時候沒用時就會遺棄。";
+	next;
+	mes "[儒閔]";
+	mes "我們出生沒多久就被送到神殿，而我只是因雙胞胎的關係就被關在冰穴裡了。";
+	next;
+	mes "[儒閔]";
+	mes "沒有人對我們說明原因！";
+	next;
+	mes "[儒閔]";
+	mes "我們為何要遭受這種事呢？出生是我們的錯嗎？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "冰封...哥哥被冰封...？";
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "現在這些都不重要了，以前我們都再一起啦！我們又能回到從前那樣。";
+	//showscript "我們都再一起啦！", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "那是很久以前的事...";
+	//showscript "那是很久以前的事...", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[教皇]";
+	mes "哥哥突然消失了。";
+	//showscript "哥哥突然消失了。", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[教皇]";
+	mes "封印...冰穴...現在這裡也很冷。";
+	//showscript "現在這裡也很冷。", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[教皇]";
+	mes "哥哥現在正做什麼夢呢？";
+	//showscript "哥哥現在正做什麼夢呢？", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[教皇]";
+	mes "這夢的結局會是甚麼呢？";
+	//showscript "這夢的結局會是甚麼呢？", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[教皇]";
+	mes "哥哥想要怎樣的夢呢？";
+	//showscript "哥哥想要怎樣的夢呢？", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	cutin "loo_sim",0;
+	mes "[儒閔]";
+	mes "跟從前那樣再一起。";
+	//showscript "跟從前那樣再一起。", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	mes "[儒閔]";
+	mes "在這裡...";
+	//showscript "在這裡...", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	mes "[儒閔]";
+	mes "永遠的...";
+	//showscript "永遠的...", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不可以。";
+	next;
+	cutin "loo_ang",0;
+	mes "[儒閔]";
+	mes "不用你管！";
+	specialeffect2 EF_FROSTDIVER2;
+	next;
+	mes "[儒閔]";
+	mes "礙事者可以滾了！！！";
+	//showscript "礙事者可以滾了！！！", getnpcid(0, instance_npcname("儒閔#3hmoon01"));
+	cutin "loo_ang",255;
+	specialeffect2 EF_ICEWALL;
+	unittalk getcharid(3),"嗚...."; //missing text
+	cutin "loo_ang",0;
+	next;
+	mes "[儒閔]";
+	mes "滾啦！";
+	next;
+	cutin "loo_ang",255;
+	mes "[教皇]";
+	mes "哥哥...?";
+	//showscript "哥哥...", getnpcid(0, instance_npcname("教皇#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇有危險，快過來我這裡..！！！";
+	close2;
+	donpcevent instance_npcname("儒閔#3hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("教皇#3hmoon01")+"::OnDisable";
+	if (!'hmoon_mode)
+		mercenary_create 3528,1800000; //教皇_MD_MERC_CASUAL
+	else
+		mercenary_create 3570,1800000; //教皇_MD_H_MERC_CASUAL
+	mapannounce 'map3$, "感受到冰冷的氣息。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#mob3hmoon")+"::OnEnable";
+	end;
+	
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("教皇#3hmoon01");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("教皇#3hmoon01");
+	end;
+}
+
+1@pop3,42,64,7	duplicate(主教#1hmoon01)	儒閔#3hmoon01	4_M_CHILD
+1@pop3,51,65,7	duplicate(信徒#1hmoon11)	教皇#3hmoon03	4_F_ARUNA_POP
+1@pop3,51,65,7	duplicate(信徒#1hmoon11)	教皇#3hmoon04	4_F_ARUNA_POP2
+1@pop3,57,68,3	duplicate(信徒#1hmoon11)	教皇#3hmoon05	4_F_ARUNA_POP2
+1@pop3,57,68,3	duplicate(信徒#1hmoon11)	教皇#3hmoon06	4_F_ARUNA_POP
+1@pop3,54,69,6	duplicate(信徒#1hmoon11)	儒閔#3hmoon02	4_M_FROZEN
+
+1@pop3,54,69,6	script	水晶龍#3hmoon01	1779,5,5,{
+	mes "[?????]";
+	mes "沒出息的人類還挺有本事的嘛！";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "你是誰？";
+	next;
+	cutin "pops_sim",255;
+	mes "[水晶龍]";
+	mes "我是水晶龍，冰穴的主人。";
+	//showscript "竟然不認識我。", getnpcid(0, instance_npcname("水晶龍#3hmoon01"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "冰穴的主人怎會在這裡呢？這不是教皇和儒閔的夢境嗎？";
+	next;
+	mes "[水晶龍]";
+	mes "即使是雙胞胎也不可能共享夢吧？若想連夢需要力量。";
+	//showscript "竟然相信雙胞胎能共享夢，真蠢。", getnpcid(0, instance_npcname("水晶龍#3hmoon01"));
+	next;
+	mes "[水晶龍]";
+	mes "他只是一個被封印的孩子而已，你以為是誰會給儒閔那力量呢？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "為什麼?";
+	//showscript "為什麼要給哥哥...", getnpcid(0, instance_npcname("教皇#3hmoon04"));
+	next;
+	cutin "pops_sim",255;
+	mes "[水晶龍]";
+	mes "因為我和儒閔都很可憐。";
+	next;
+	mes "[水晶龍]";
+	mes "因不敵妹妹而被冰封在深深洞穴裡的儒閔，我覺得很可憐。";
+	//showscript "......", getnpcid(0, instance_npcname("教皇#3hmoon04"));
+	next;
+	mes "[水晶龍]";
+	mes "身為冰穴主人的我，還需要保護那小孩的我感到恥辱。";
+	next;
+	mes "[水晶龍]";
+	mes "我既討厭他又可憐他，對同病相憐的人類！";
+	next;
+	mes "[水晶龍]";
+	mes "我時時刻刻都在偷窺儒閔的意識。";
+	next;
+	mes "[水晶龍]";
+	mes "我努力讓他在夢裡盡量不要忘記記憶，和不要忘記自我。";
+	next;
+	mes "[水晶龍]";
+	mes "那些記憶都是跟雙胞胎妹妹有關係。";
+	next;
+	mes "[水晶龍]";
+	mes "跟妹妹一起玩耍、兩人對談、喜怒哀樂的記憶等等，即使在冰封過程中，仍掛念著自己妹妹的安危。";
+	//showscript "所有的記憶都是妹妹。.", getnpcid(0, instance_npcname("水晶龍#3hmoon01"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "哥哥...";
+	next;
+	cutin "pops_sim",255;
+	mes "[水晶龍]";
+	mes "所以我決定幫助儒閔，因為幫助儒閔就是幫助我，幫助可憐的我！";
+	next;
+	mes "[水晶龍]";
+	mes "我們找了解放自己的方法，其實也不難。";
+	next;
+	mes "[水晶龍]";
+	mes "就是授權力量給儒閔，讓他可以跟雙胞胎妹妹共享夢。";
+	next;
+	mes "[水晶龍]";
+	mes "好讓教皇妹妹自願地永遠關在自己的夢裡。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "這樣怎會幫到你呢？";
+	next;
+	mes "[水晶龍]";
+	mes "你以為人類會乖乖地讓教皇永遠地沉睡嗎？ 一定會讓儒閔解除封印，擁立他成為新教皇吧！";
+	next;
+	mes "[水晶龍]";
+	mes "到時候...";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "哥哥跟你就解放了。";
+	next;
+	cutin "pops_sim",255;
+	mes "[" + strcharinfo(0) + "]";
+	mes "原來這裡還有一個做白日夢的龍。";
+	//showscript "放肆!", getnpcid(0, instance_npcname("水晶龍#3hmoon01"));
+	next;
+	mes "[水晶龍]";
+	mes "只要你不搗亂的話！！！";
+	next;
+	mes "[水晶龍]";
+	mes "趁此機會把你們通通幹掉後，我跟儒閔都可以解放了！";
+	next;
+	mes "[水晶龍]";
+	mes "教皇請趕快過來這裡。";
+	close2;
+	donpcevent instance_npcname("水晶龍#3hmoon01")+"::OnDisable";
+	donpcevent instance_npcname("教皇#3hmoon04")+"::OnDisable";
+	if (!'hmoon_mode)
+		mercenary_create 3528,1800000; //教皇_MD_MERC_CASUAL
+	else
+		mercenary_create 3570,1800000; //教皇_MD_H_MERC_CASUAL
+	mapannounce 'map3$, "如果乖乖送死，我保證不會讓你們痛苦。",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("#mob3hmoon")+"::OnEnable";
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname("水晶龍#3hmoon01");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("水晶龍#3hmoon01");
+	end;
+}
+
+1@pop3,57,68,1	script	教皇#3hmoon02	4_F_ARUNA_POP2,{
+	mes "[" + strcharinfo(0) + "]";
+	mes "教皇，你還好嗎？";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "哥哥... 冰凍了。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "儒閔的意識再度被冰封了。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "這裡既是儒閔的夢境，也是教皇的夢境，因是雙胞胎夢境才會相連。";
+	next;
+	mes "[教皇]";
+	mes "我想救哥哥，我想跟哥哥再一起。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "若教皇不回去，會有更多人傷心。";
+	next;
+	mes "[教皇]";
+	mes "我不想回去，我沒有可待的地方。";
+	next;
+	donpcevent instance_npcname("教皇#3hmoon03")+"::OnEnable";
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "你回到自己的地方吧！";
+	//showscript "你回到自己的地方吧！", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	mes "[教皇]";
+	mes "不能老是做白日夢，夢是要在黑夜裡做的。";
+	next;
+	mes "[教皇]";
+	mes "白天出現的月亮無法躲，也無處躲。";
+	next;
+	donpcevent instance_npcname("教皇#3hmoon02")+"::OnDisable";
+	sleep2 300;
+	donpcevent instance_npcname("教皇#3hmoon05")+"::OnEnable";
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "你是誰？";
+	//showscript "你是誰？", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "你可以回答那問題嗎？你是誰？";
+	//showscript "你是誰？？", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我... 我...";
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "其實你已經知道答案。";
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我不知道答案...我要在這裡跟哥哥再一起。";
+	//showscript "... 我要在這裡跟哥哥再一起。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "我一直想跟哥哥再一起。";
+	//showscript "我一直想跟哥哥再一起。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "爸媽應該不會想送我們去神殿，不可能丟下我們。";
+	//showscript "爸媽應該不會想送我們去神殿，不可能丟下我們。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "我們是爸媽心中的榮耀。";
+	//showscript "我們是爸媽心中的榮耀。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "沒有人需要我。";
+	//showscript "沒有人需要我。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "大家都在等你。";
+	//showscript "大家都在等你。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "這不是我的選擇，更不是我想要的。";
+	//showscript "這不是我的選擇，更不是我想要的。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "選擇自己想要的才是幸福。";
+	//showscript "選擇自己想要的才是幸福。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "對我而言選擇的機會都沒有。";
+	//showscript "對我而言選擇的機會都沒有。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "你既是可以帶給大家幸福，又能帶給機會的人，你就像黑暗中的月亮一樣。";
+	//showscript "你既是可以帶給大家幸福，又能帶給機會的人，你就像黑暗中的月亮一樣。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_sim",2;
+	mes "[教皇]";
+	mes "我是...我是...";
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "你是誰？";
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "我是阿盧納貝茲的教皇。";
+	//showscript "我是阿盧納貝茲的教皇。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	//showscript "我是阿盧納貝茲的教皇。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "你就是我。";
+	//showscript "你就是我。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "我就是你。";
+	//showscript "我就是你。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	next;
+	cutin "pops_smi",2;
+	mes "[教皇]";
+	mes "我是阿盧納貝茲的教皇。";
+	//showscript "我是阿盧納貝茲的教皇。", getnpcid(0, instance_npcname("教皇#3hmoon05"));
+	next;
+	cutin "pop_nor",0;
+	mes "[教皇]";
+	mes "我是阿盧納貝茲的教皇。";
+	//showscript "我是阿盧納貝茲的教皇。", getnpcid(0, instance_npcname("教皇#3hmoon03"));
+	cutin "pop_nor",255;
+	specialeffect EF_CONCENTRATION2,AREA, instance_npcname("教皇#3hmoon03");
+	sleep2 300;
+	specialeffect EF_CONCENTRATION2,AREA, instance_npcname("教皇#3hmoon03");
+	sleep2 300;
+	specialeffect EF_BASH3D6,AREA, instance_npcname("教皇#3hmoon05");
+	specialeffect EF_ITEM315,AREA, instance_npcname("教皇#3hmoon05");
+	specialeffect EF_BASH3D6,AREA, instance_npcname("教皇#3hmoon03");
+	specialeffect EF_ITEM315,AREA, instance_npcname("教皇#3hmoon03");
+	specialeffect 1044,AREA, instance_npcname("教皇#3hmoon03");
+	specialeffect 1044,AREA, instance_npcname("教皇#3hmoon03");
+	sleep2 500;
+	donpcevent instance_npcname("教皇#3hmoon03")+"::OnDisable";
+	sleep2 500;
+	specialeffect EF_PRIMECHARGE4,AREA, instance_npcname("教皇#3hmoon05");
+	sleep2 300;
+	donpcevent instance_npcname("教皇#3hmoon05")+"::OnDisable";
+	donpcevent instance_npcname("教皇#3hmoon06")+"::OnEnable";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "你還好吧？";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "我若否定自己就會倒下，就像殞落的月亮般。";
+	next;
+	mes "[教皇]";
+	mes "這世界最愛自己的人應該就是我。";
+	next;
+	mes "[教皇]";
+	mes "該是從夢中醒來的時候了。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "夢境如何呢？";
+	next;
+	mes "[教皇]";
+	mes "即使是快樂或不想忘掉的時刻，醒來就會忘記那就是夢，所以才能承受超幸福的夢或惡夢";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "...不過這樣能見到哥哥也很開心。";
+	next;
+	mes "[教皇]";
+	mes "我們分開太久時間了。.";
+	next;
+	mes "[教皇]";
+	mes "如果這樣能見面，我希望每天都作夢，總有一天盼能救出哥哥來。";
+	//showscript "如果可以的話...", getnpcid(0, instance_npcname("教皇#3hmoon06"));
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "不過...";
+	next;
+	mes "[教皇]";
+	mes "我不會做讓人擔心的事，也不會強迫自己睡著。";
+	next;
+	mes "[教皇]";
+	mes "但是我...還是每天會做同樣的夢吧！";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "跟哥哥再一起和拯救哥哥的夢。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "以後我也會提供協助。";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "謝謝。";
+	next;
+	cutin "pop_nor",2;
+	mes "[教皇]";
+	mes "白晝升起的半月必須要等。";
+	next;
+	mes "[教皇]";
+	mes "直到晚上，月亮出現之時...";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "對了，我找到了娃娃。";
+	next;
+	mes "[教皇]";
+	mes "蒂比!";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "果然是教皇遺失的娃娃。";
+	next;
+	mes "[教皇]";
+	mes "這是哥哥不見後，為了安慰我尼樂研送我的。";
+	next;
+	mes "[教皇]";
+	mes "現在我已不需要，我要放在哥哥身邊，以免她孤單。";
+	next;
+	mes "[教皇]";
+	mes "我要回到自己原來的地方。";
+	next;
+	mes "[" + strcharinfo(0) + "]";
+	mes "那麼明天見了。";
+	next;
+	mes "[教皇]";
+	mes "謝謝你的幫忙。";
+	if(countitem(25087))
+		delitem 25087,1;
+	getexp 350000,0; //job exp?
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940054,1;
+	getitem 25088,2;
+	donpcevent instance_npcname("教皇#3hmoon06")+"::OnDisable";
+	donpcevent instance_npcname("#3hmoond01")+"::OnEnable";
+	cutin "pop_nor",255;
+	navigateto('map2$,79,67);
+	close;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	hideonnpc instance_npcname("教皇#3hmoon02");
+	end;
+
+OnEnable:
+	hideoffnpc instance_npcname("教皇#3hmoon02");
+	end;
+}
+
+1@pop3,0,0,0	script	#mob3hmoon	HIDDEN_WARP_NPC,{
+OnEnable:
+OnMyMobDead:
+	.@map$ = instance_mapname("1@pop3");
+	if (mobcount(.@map$,instance_npcname("#mob3hmoon")+"::OnMyMobDead"))
+		end;
+	killmonsterall .@map$;
+	if (!'hmoon_mode) {
+		.@ice = 3515; //Easy
+		.@loo = 3516;
+	} else {
+		.@ice = 3523; //Hard
+		.@loo = 3524;
+	}
+	switch('3hmoon) {
+		case 0:
+			monster .@map$,55,61,"憤怒的儒閔",.@loo,1,instance_npcname("#mob3hmoon")+"::OnMyMobDead";
+			monster .@map$,52,57,"冰封之心",.@ice,1;
+			monster .@map$,56,51,"冰封之心",.@ice,1;
+			monster .@map$,58,53,"冰封之心",.@ice,1;
+			monster .@map$,58,51,"冰封之心",.@ice,1;
+			monster .@map$,46,59,"冰封之心",.@ice,1;
+			'3hmoon++;
+			end;
+		case 1:
+			//mercenary_destroy;
+			if (!countitem(25087)) { //CUSTOM
+				mapannounce 'map3$, "聽到儒閔出現時墜落的聲音。",bc_map,"0xFFFF00";
+				donpcevent instance_npcname("#dollbox03")+"::OnEnable";
+				sleep2 100;
+			}
+			mapannounce 'map3$, "......孤獨......獨自......我討厭冷......",bc_map,"0xFFFF00";
+			if (!'hmoon_mode) {
+				donpcevent instance_npcname("教皇#3hmoon02")+"::OnEnable";
+				donpcevent instance_npcname("儒閔#3hmoon02")+"::OnEnable";
+				end;
+			}
+			sleep2 200;
+			mapannounce 'map3$, "你們都是無用的人！",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("水晶龍#3hmoon01")+"::OnEnable";
+			donpcevent instance_npcname("教皇#3hmoon04")+"::OnEnable";
+			'3hmoon++;
+			end;
+		case 2:
+			monster .@map$,54,69,"水晶龍",3526,1,instance_npcname("#mob3hmoon")+"::OnMyMobDead";
+			monster .@map$,62,57,"冰封之心",.@ice,1;
+			monster .@map$,49,62,"冰封之心",.@ice,1;
+			monster .@map$,63,54,"冰封之心",.@ice,1;
+			monster .@map$,59,51,"冰封之心",.@ice,1;
+			monster .@map$,59,55,"冰封之心",.@ice,1;
+			monster .@map$,53,61,"冰封之心",.@ice,1;
+			monster .@map$,53,58,"冰封之心",.@ice,1;
+			monster .@map$,48,61,"冰封之心",.@ice,1;
+			monster .@map$,54,53,"冰封之心",.@ice,1;
+			monster .@map$,44,68,"冰封之心",.@ice,1;
+			monster .@map$,51,54,"冰封之心",.@ice,1;
+			'3hmoon++;
+			end;
+		case 3:
+			//mercenary_destroy;
+			mapannounce 'map3$, "這是一種恥辱...... !!!",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("教皇#3hmoon02")+"::OnEnable";
+			donpcevent instance_npcname("儒閔#3hmoon02")+"::OnEnable";
+			end;
+	}
+}
+
+1@pop1,95,99,4	script	#dollbox01	4_ENERGY_WHITE,5,5,{
+	end;
+	
+OnTouch:
+	getitem 25087,1;
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnDisable";
+	end;
+
+OnInstanceInit:
+OnDisable:
+	specialeffect EF_BASH;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+	
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,43,81,4	duplicate(#dollbox01)	#dollbox02	4_ENERGY_WHITE,5,5
+1@pop3,55,61,4	duplicate(#dollbox01)	#dollbox03	4_ENERGY_WHITE,5,5
+
+// Warps
+1@pop1,63,139,0	script	#1hmoond01	WARPNPC,2,2,{
+	end;
+
+OnTouch:
+	switch(atoi(replacestr(strnpcinfo(2),"1hmoond0",""))) {
+		case 1: warp instance_mapname("1@pop1"),92,143; break;
+		case 3: warp instance_mapname("1@pop1"),99,111; break;
+		case 5: warp instance_mapname("1@pop1"),99,54; break;
+		case 7: warp instance_mapname("1@pop2"),124,218; break;
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop1,100,134,0	duplicate(#1hmoond01)	#1hmoond03	WARPNPC,2,2
+1@pop1,99,68,0	duplicate(#1hmoond01)	#1hmoond05	WARPNPC,2,2
+1@pop1,100,8,0	duplicate(#1hmoond01)	#1hmoond07	WARPNPC,2,2
+
+1@pop2,66,134,0	script	#2hmoond01	WARPNPC,2,2,{
+	end;
+
+OnTouch:
+	switch(atoi(replacestr(strnpcinfo(2),"2hmoond0",""))) {
+		case 1:
+			warp instance_mapname("1@pop2"),66,125;
+			break;
+		case 3:
+			warp instance_mapname("1@pop3"),46,62;
+			break;
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@pop2,130,22,0	duplicate(#2hmoond01)	#2hmoond03	WARPNPC,2,2
+
+1@pop3,79,67,0	script	#3hmoond01	WARPNPC,2,2,{
+	end;
+
+OnTouch:
+	warp "Save",0,0;
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname("#3hmoond01");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("#3hmoond01");
+	end;
+}

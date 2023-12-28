@@ -1,0 +1,281 @@
+﻿//===== Giraffe 模擬器 - 文檔 ====================
+//= 相容官方 BaterShop 商店 說明文檔
+//===== 文檔描述 =============================================
+//= 此文檔對 Giraffe 模擬器添加的 BaterShop 腳本指令進行功能說明以及介紹.
+//============================================================
+
+//---------	使用前請先導入以下數據庫 ---------
+//============================================================
+
+CREATE TABLE IF NOT EXISTS `barter_shop` (
+  `name` VARCHAR(24) NOT NULL DEFAULT '',
+  `itemId` INT UNSIGNED NOT NULL DEFAULT '0',
+  `amount` INT UNSIGNED NOT NULL DEFAULT '0',
+  `priceId` INT UNSIGNED NOT NULL DEFAULT '0',
+  `priceAmount` INT UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`, `itemid`, `priceId`, `priceAmount`)
+) ENGINE=MyISAM;
+
+//============================================================
+
+CREATE TABLE IF NOT EXISTS `expanded_barter_shop` (
+  `name` VARCHAR(24) NOT NULL DEFAULT '',
+  `itemId` INT UNSIGNED NOT NULL DEFAULT '0',
+  `amount` INT UNSIGNED NOT NULL DEFAULT '0',
+  `zeny` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyId1` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount1` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine1` INT NOT NULL DEFAULT '0',
+  `currencyId2` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount2` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine2` INT NOT NULL DEFAULT '0',
+  `currencyId3` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount3` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine3` INT NOT NULL DEFAULT '0',
+  `currencyId4` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount4` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine4` INT NOT NULL DEFAULT '0',
+  `currencyId5` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount5` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine5` INT NOT NULL DEFAULT '0',
+  `currencyId6` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount6` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine6` INT NOT NULL DEFAULT '0',
+  `currencyId7` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount7` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine7` INT NOT NULL DEFAULT '0',
+  `currencyId8` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount8` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine8` INT NOT NULL DEFAULT '0',
+  `currencyId9` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount9` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine9` INT NOT NULL DEFAULT '0',
+  `currencyId10` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyAmount10` INT UNSIGNED NOT NULL DEFAULT '0',
+  `currencyRefine10` INT NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`, `itemid`, `zeny`,
+    `currencyId1`, `currencyAmount1`, `currencyRefine1`,
+    `currencyId2`, `currencyAmount2`, `currencyRefine2`,
+    `currencyId3`, `currencyAmount3`, `currencyRefine3`,
+    `currencyId4`, `currencyAmount4`, `currencyRefine4`
+  )
+) ENGINE=MyISAM;
+
+//============================================================
+
+//---------	開始指令說明 ---------
+
+*openshop({NPC_Name})
+
+opens the trader shop from the currently-attached npc unless,
+when the optional NPC_Name param is used.
+
+---------------------------------------
+
+*sellitem(<Item_ID>{, <price>{, <qty>}})
+*sellitem(<Item_ID>, <qty>, <currency_id>, <currency_amount>)
+*sellitem(<Item_ID>, <zeny>, <qty>{, <currency_id1>, <currency_amount1>{, <currency_refine1>}{, ...}})
+
+adds (or modifies) <Item_ID> data to the shop,
+when <price> is not provided (or when it is -1) itemdb default is used.
+qty is only necessary for NST_MARKET trader types.
+
+when <Item_ID> is already in the shop,
+the previous data (price/qty), is overwritten with the new.
+
+currency_id and currency_amount can be used only with shop type NST_BARTER.
+zeny, currency_id1, currency_amount1, currency_refine1, can be used only with
+shop type NST_EXPANDED_BARTER.
+
+---------------------------------------
+
+*startsellitem(<Item_ID>, <zeny>, <qty>)
+
+Starts adding item into expanded barter shop (NST_EXPANDED_BARTER).
+Before this command possible to use commands *sellitemcurrency.
+Need PACKETVER 20190904 main or 20190904 RE or 20190828 zero or newer.
+
+Alternative way for add item to expanded barter shop is *sellitem with
+currency parameters.
+
+---------------------------------------
+
+*sellitemcurrency(<Item_ID>, <qty>{, <refine>})
+
+adds <Item_ID> as currency into expanded barter shop (NST_EXPANDED_BARTER)
+If <refine> set to -1, mean for any refine level.
+if <refine> missing used value -1.
+
+Need PACKETVER 20190904 main or 20190904 RE or 20190828 zero or newer.
+
+---------------------------------------
+
+*endsellitem()
+
+Complete adding item into expanded barter shop (NST_EXPANDED_BARTER).
+Need PACKETVER 20190904 main or 20190904 RE or 20190828 zero or newer.
+
+---------------------------------------
+
+*stopselling(<Item_ID>)
+*stopselling(<Item_ID>{, <currency_id>, <currency_amount>})
+
+attempts to remove <Item_ID> from the current shop list.
+currency_id and currency_amount can be used only with shop type NST_BARTER
+
+---------------------------------------
+
+*setcurrency(<Val1>{, <Val2>})
+
+updates the currently attached player shop funds,
+to be used within a "OnCountFunds" event of a NST_CUSTOM trader type.
+
+<Val1> is the value used in the *Cash* Points field
+<Val2> is the value used in the Kafra Points field
+
+---------------------------------------
+
+*tradertype(<Type>)
+
+Modifies the npc trader type, item list is cleared upon modifiying the value.
+By default, all npcs staart with tradertype(NST_ZENY);
+
+- NST_ZENY (0) Normal Zeny Shop
+- NST_CASH (1) Normal Cash Shop
+- NST_MARKET (2) Normal NPC Market Shop (where items have limited availability and need to be refurbished)
+- NST_CUSTOM (3) Custom Shop (any currency, item/var/etca, check sample)
+- NST_BARTER (4) Barter Shop  (any currency, item/var/etca, check sample)
+- NST_EXPANDED_BARTER (5) Expanded Barter Shop (any currency, item/var/etca, check sample)
+
+---------------------------------------
+
+*purchaseok()
+
+Signs that the transaction (on a NST_CUSTOM trader) has been successful,
+to be used within a "OnPayFunds" event of a NST_CUSTOM trader.
+
+---------------------------------------
+
+*shopcount(<Item_ID>)
+
+Returns the amount of still-available <Item_ID> in the shop (on a NST_MARKET trader).
+
+---------------------------------------
+
+
+腳本範例:
+
+/* ordinary zeny trader */
+prontera,152,151,1	trader	TestTrader	4_F_EDEN_OFFICER,{
+OnInit:
+	sellitem 2115;
+	end;
+}
+
+/* ordinary cash trader */
+prontera,152,152,1	trader	TestTraderCash	4_F_EDEN_OFFICER,{
+	OnInit:
+	tradertype(NST_CASH);
+	sellitem 2115;
+	end;
+}
+
+/* custom npc trader */
+prontera,153,152,1	trader	TestCustom2	4_F_EDEN_OFFICER,{
+	OnInit:
+	tradertype(NST_CUSTOM);
+	sellitem 501,2;
+	end;
+
+/* allows currency to be item 501 and 502 */
+OnCountFunds:
+	setcurrency(countitem(501),countitem(502));
+	end;
+
+/* receives @price (total cost) and @points (the secondary input field for cash windows) */
+OnPayFunds:
+	dispbottom "Hi: price="+@price+" and points="+@points;
+	if( countitem(502) < @points || countitem(501) < @price-@points )
+		end;
+	delitem 502,@points;
+	delitem 501,@price-@points;
+	purchaseok();
+	end;
+}
+
+/* demonstrates Market Trader */
+prontera,150,160,6	trader	HaiMarket	4_F_EDEN_OFFICER,{
+OnInit:
+	tradertype(NST_MARKET);
+	sellitem 501,-1,49;
+	end;
+
+OnClock0000://resupplies red potions on midnight
+OnMyResupply:
+	if( shopcount(501) < 20 )
+		sellitem 501,-1,49;
+	end;
+}
+
+/* demonstrate barter shop */
+prontera,159,284,4	trader	Barter Shop#prt	4_M_KID1,{
+OnInit:
+	tradertype(NST_BARTER);
+	sellitem 509, 100, 501, 2;
+	sellitem 510, 200, 502, 3;
+	end;
+}
+
+prontera,159,284,4	trader	擴展的以物易物商店#prt	4_M_KID1,{
+	end;
+OnInit:
+	tradertype(NST_EXPANDED_BARTER);
+
+	// Selling 502 with items price and 4 items price
+	startsellitem(502, 2, 100000);
+	sellitemcurrency(513, 2);
+	sellitemcurrency(512, 1);
+	sellitemcurrency(515, 2);
+	sellitemcurrency(516, 1);
+	endsellitem();
+
+	// sell item with price only in zeny
+	sellitem(509, 1, 100);
+	// sell item with zeny and item price
+	sellitem(510, 22, 200, 502, 2, 3);
+
+	// sell item with price only in zeny (infinite amount)
+	sellitem(511, 3, -1);
+
+	// sell item with zeny and two items price (1)
+	sellitem(502, 20, 100000, 513, 2, -1, 657, 10, -1);
+
+	// sell item with zeny and two items price (same as before but with different zeny price)
+	sellitem(502, 1, 100000, 513, 2, -1, 657, 10, -1);
+
+	// sell item with item price
+	sellitem(1107, 0, 1000, 1101, 2, -1);
+
+	// sell item with zeny and two items price
+	sellitem(1113, 2000, -1, 1101, 1, 2, 1101, 1, 5);
+
+	// sell item with zeny and two items price (selling another 502)
+	sellitem(502, 1, 100000, 511, 2, -1);
+
+	// modify selling 502 with items price (same as previous)
+	// modification reset amount stored in db
+	startsellitem(502, 1, 100);
+	sellitemcurrency(511, 2);
+	endsellitem();
+
+	// sell item with zeny and item price (selling another 509)
+	sellitem(509, 10, 100, 513, 1, -1);
+
+	// stop selling 1107s
+//	stopselling(1107, 1);
+
+	// sell item with zeny and two items price (modify amount for entry (1))
+//	sellitem(502, 1, 200000, 513, 2, -1, 657, 10, -1);
+
+	end;
+}

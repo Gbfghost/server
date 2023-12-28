@@ -1,0 +1,29 @@
+uttycty,59,175,5	trader	[製作]凱薩裝備	4_m_sage_c,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]凱薩裝備";
+	waitingroom "[製作]凱薩裝備",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(25648, 10000, -1);	
+	sellitemcurrency(25644, 5);
+	sellitemcurrency(25645, 5);	
+	sellitemcurrency(25646, 5);	
+	sellitemcurrency(25647, 5);	
+	endsellitem();
+	
+	sellitem(23722, 10000, -1);	
+	sellitemcurrency(25644, 30);
+	sellitemcurrency(25645, 30);	
+	sellitemcurrency(25646, 30);	
+	sellitemcurrency(25647, 30);		
+	sellitemcurrency(25648, 5);	
+	endsellitem();
+
+end;
+OnBuyItem:
+end;
+}
+

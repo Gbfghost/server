@@ -1,0 +1,343 @@
+﻿# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Laphine Upgrade Database
+###########################################################################
+#
+# Laphine Upgrade Settings
+#
+###########################################################################
+# - Item                       Item that triggers Laphine Upgrade.
+#   RandomOptionGroup          Name of the random option group that will be applied. (Default: none)
+#   ResultRefine               Absolute refine level after the upgrade. (Default: none)
+#   ResultRefineMinimum        Minimum refine level after the upgrade. (Default: none)
+#   ResultRefineMaximum        Maximum refine level after the upgrade. (Default: none)
+#   MinimumRefine              Minimum refine level of the required items. (Default: 0)
+#   MaximumRefine              Maximum refine level of the required items. (Default: MAX_REFINE)
+#   RequiredRandomOptions      How many random options have to be in the item? (Default: 0)
+#   CardsAllowed               Are cards allowed in the target item? (Default: no)
+#   TargetItems:               List of possible target item(s)
+#     - Item                   Item name of the possible target item
+###########################################################################
+
+Header:
+  Type: LAPHINE_UPGRADE_DB
+  Version: 1
+Body:
+  - Item: ClassShadow_ATTR_S
+    RandomOptionGroup: CLASSSHADOW_ATTR_S
+    MinimumRefine: 9
+    TargetItems:
+      - Item: S_Swordman_earring
+      - Item: S_Merchant_earring
+      - Item: S_Acolyte_earring
+      - Item: S_Magician_earring
+      - Item: S_Swordman_Pendant
+      - Item: S_Merchant_Pendant
+      - Item: S_Acolyte_Pendant
+      - Item: S_Thief_Pendant
+      - Item: S_Magician_Pendant
+      - Item: S_Archer_Pendant
+      - Item: S_Knight_Shoes
+      - Item: S_Crusader_Shoes
+      - Item: S_Blacksmith_Shoes
+      - Item: S_Alchemist_Shoes
+      - Item: S_Priest_Shoes
+      - Item: S_Monk_Shoes
+      - Item: S_Assassin_Shoes
+      - Item: S_Rogue_Shoes
+      - Item: S_Wizard_Shoes
+      - Item: S_Sage_Shoes
+      - Item: S_Hunter_Shoes
+      - Item: S_Bard_Shoes
+      - Item: S_Dancer_Shoes
+      - Item: S_Knight_Armor
+      - Item: S_Crusader_Armor
+      - Item: S_Blacksmith_Armor
+      - Item: S_Alchemist_Armor
+      - Item: S_Priest_Armor
+      - Item: S_Monk_Armor
+      - Item: S_Assassin_Armor
+      - Item: S_Rogue_Armor
+      - Item: S_Wizard_Armor
+      - Item: S_Sage_Armor
+      - Item: S_Hunter_Armor
+      - Item: S_Bard_Armor
+      - Item: S_Dancer_Armor
+      - Item: S_SuperNovice_Weapon
+      - Item: S_Gunslinger_Weapon
+      - Item: S_Taekwon_Weapon
+      - Item: S_Ninja_Weapon
+      - Item: S_DoramMagical_Weapon
+      - Item: S_DoramPhysical_Weapon
+      - Item: S_Runeknight_Weapon
+      - Item: S_Royalguard_Weapon
+      - Item: S_Mechanic_weapon
+      - Item: S_Genetic_Weapon
+      - Item: S_Archbishop_Weapon
+      - Item: S_Sura_weapon
+      - Item: S_Guillotine_Weapon
+      - Item: S_Shadowchaser_Weapon
+      - Item: S_Warlock_Weapon
+      - Item: S_Sorcerer_Weapon
+      - Item: S_Ranger_Weapon
+      - Item: S_Minstrel_Weapon
+      - Item: S_Wanderer_Weapon
+      - Item: S_Runeknight_Shield
+      - Item: S_Royalguard_Shield
+      - Item: S_Mechanic_Shield
+      - Item: S_Genetic_Shield
+      - Item: S_Archbishop_Shield
+      - Item: S_Sura_Shield
+      - Item: S_Guillotine_Shield
+      - Item: S_Shadowchaser_Shield
+      - Item: S_Warlock_Shield
+      - Item: S_Sorcerer_Shield
+      - Item: S_Ranger_Shield
+      - Item: S_Minstrel_Shield
+      - Item: S_Wanderer_Shield
+      - Item: S_Ninja_Shield
+      - Item: S_Taekwon_Shield
+      - Item: S_DoramPhysical_Shield
+      - Item: S_DoramMagical_Shield
+      - Item: S_SuperNovice_Shield
+      - Item: S_Gunslinger_Shield
+      - Item: S_Thief_earring
+      - Item: S_Archer_earring
+      - Item: S_Rebellion_Armor
+      - Item: S_Kagerou_Armor
+      - Item: S_Oboro_Armor
+      - Item: S_Rebellion_Shoes
+      - Item: S_Kagerou_Shoes
+      - Item: S_Oboro_Shoes
+      - Item: S_DoramPhysical_Armor
+      - Item: S_DoramPhysical_Shoes
+      - Item: S_DoramMagical_Armor
+      - Item: S_DoramMagical_Shoes
+      - Item: S_Star_Emperor_Armor
+      - Item: S_Star_Emperor_Shoes
+      - Item: S_Soul_Reaper_Armor
+      - Item: S_Soul_Reaper_Shoes
+  - Item: CSkillShadowRanBox_TW
+    RandomOptionGroup: CSKILLSHADOWRANBOX_TW
+    MinimumRefine: 9
+    TargetItems:
+      - Item: S_Sonic_Armor
+      - Item: S_Sonic_Shield
+      - Item: S_Sonic_Shoes
+      - Item: S_Ignition_Weapon
+      - Item: S_Ignition_Pendant
+      - Item: S_Ignition_Earing
+      - Item: S_W_Breath_Armor
+      - Item: S_W_Breath_Shield
+      - Item: S_W_Breath_Shoes
+      - Item: S_F_Breath_Weapon
+      - Item: S_F_Breath_Pendant
+      - Item: S_F_Breath_Earing
+      - Item: S_Cluster_Armor
+      - Item: S_Cluster_Shield
+      - Item: S_Cluster_Shoes
+      - Item: S_Aimed_Weapon
+      - Item: S_Aimed_Pendant
+      - Item: S_Aimed_Earing
+      - Item: S_Arrow_Armor
+      - Item: S_Arrow_Shield
+      - Item: S_Arrow_Shoes
+      - Item: S_Shooting_Weapon
+      - Item: S_Shooting_Pendant
+      - Item: S_Shooting_Earing
+      - Item: S_Tornado_Armor
+      - Item: S_Tornado_Shield
+      - Item: S_Tornado_Shoes
+      - Item: S_Boomerang_Weapon
+      - Item: S_Boomerang_Pendant
+      - Item: S_Boomerang_Earing
+      - Item: S_Vulcan_Armor
+      - Item: S_Vulcan_Shield
+      - Item: S_Vulcan_Shoes
+      - Item: S_Arms_Weapon
+      - Item: S_Arms_Pendant
+      - Item: S_Arms_Earing
+      - Item: S_Rampage_Armor
+      - Item: S_Rampage_Shield
+      - Item: S_Rampage_Shoes
+      - Item: S_Skynetblow_Weapon
+      - Item: S_Skynetblow_Pendant
+      - Item: S_Skynetblow_Earing
+      - Item: S_Knucklearrow_Armor
+      - Item: S_Knucklearrow_Shield
+      - Item: S_Knucklearrow_Shoes
+      - Item: S_TigerCannon_Weapon
+      - Item: S_Tigercannon_Pendant
+      - Item: S_Tigercannon_Earing
+      - Item: S_Duplelight_Armor
+      - Item: S_Duplelight_Shield
+      - Item: S_Duplelight_Shoes
+      - Item: S_Adoramus_Weapon
+      - Item: S_Adoramus_Pendant
+      - Item: S_Adoramus_Earing
+      - Item: S_Judex_Armor
+      - Item: S_Judex_Shield
+      - Item: S_Judex_Shoes
+      - Item: S_Magnus_Weapon
+      - Item: S_Magnus_Pendant
+      - Item: S_Magnus_Earing
+      - Item: S_Rainstorm_Armor
+      - Item: S_Rainstorm_Shield
+      - Item: S_Rainstorm_Shoes
+      - Item: S_Arrowvulcan_Weapon
+      - Item: S_Arrowvulcan_Pendant
+      - Item: S_Arrowvulcan_Earing
+      - Item: S_Metalic_Armor
+      - Item: S_Metalic_Shield
+      - Item: S_Metalic_Shoes
+      - Item: S_Reverberation_Weapon
+      - Item: S_Reverberation_Pendant
+      - Item: S_Reverberation_Earing
+      - Item: S_Triangle_Armor
+      - Item: S_Triangle_Shield
+      - Item: S_Triangle_Shoes
+      - Item: S_Shadowspell_Weapon
+      - Item: S_Shadowspell_Pendant
+      - Item: S_Shadowspell_Earing
+      - Item: S_Menace_Armor
+      - Item: S_Menace_Shield
+      - Item: S_Menace_Shoes
+      - Item: S_Paint_Weapon
+      - Item: S_Paint_Pendant
+      - Item: S_Paint_Earing
+      - Item: S_Rolling_Armor
+      - Item: S_Rolling_Shield
+      - Item: S_Rolling_Shoes
+      - Item: S_Katar_Weapon
+      - Item: S_Katar_Pendant
+      - Item: S_Katar_Earing
+      - Item: S_Slash_Armor
+      - Item: S_Slash_Shield
+      - Item: S_Slash_Shoes
+      - Item: S_Ripper_Weapon
+      - Item: S_Ripper_Pendant
+      - Item: S_Ripper_Earing
+      - Item: S_Dust_Armor
+      - Item: S_Dust_Shield
+      - Item: S_Dust_Shoes
+      - Item: S_Grave_Weapon
+      - Item: S_Grave_Pendant
+      - Item: S_Grave_Earing
+      - Item: S_Psychic_Armor
+      - Item: S_Psychic_Shield
+      - Item: S_Psychic_Shoes
+      - Item: S_Varetyr_Weapon
+      - Item: S_Varetyr_Pendant
+      - Item: S_Varetyr_Earing
+      - Item: S_Jack_Armor
+      - Item: S_Jack_Shield
+      - Item: S_Jack_Shoes
+      - Item: S_Strain_Weapon
+      - Item: S_Strain_Pendant
+      - Item: S_Strain_Earing
+      - Item: S_Crimson_Armor
+      - Item: S_Crimson_Shield
+      - Item: S_Crimson_Shoes
+      - Item: S_Chain_Weapon
+      - Item: S_Chain_Pendant
+      - Item: S_Chain_Earing
+      - Item: S_Cart_Tornado_Armor
+      - Item: S_Cart_Tornado_Shield
+      - Item: S_Cart_Tornado_Shoes
+      - Item: S_Cannon_Cart_Weapon
+      - Item: S_Cannon_Cart_Pendant
+      - Item: S_Cannon_Cart_Earing
+      - Item: S_Spore_Bomb_Armor
+      - Item: S_Spore_Bomb_Shield
+      - Item: S_Spore_Bomb_Shoes
+      - Item: S_Crazy_Weapon
+      - Item: S_Crazy_Pendant
+      - Item: S_Crazy_Earing
+      - Item: S_Brand_Armor
+      - Item: S_Brand_Shield
+      - Item: S_Brand_Shoes
+      - Item: S_Chain_Press_Weapon
+      - Item: S_Chain_Press_Pendant
+      - Item: S_Chain_Press_Earing
+      - Item: S_Banish_Cannon_Armor
+      - Item: S_Banish_Cannon_Shield
+      - Item: S_Banish_Cannon_Shoes
+      - Item: S_Genesis_Weapon
+      - Item: S_Genesis_Pendant
+      - Item: S_Genesis_Earing
+      - Item: S_Tail_Dragon_Weapon
+      - Item: S_Tail_Dragon_Shield
+      - Item: S_Tail_Dragon_Armor
+      - Item: S_Flare_Dance_Earing
+      - Item: S_Flare_Dance_Pendant
+      - Item: S_Flare_Dance_Shoes
+      - Item: S_God_Hammer_Weapon
+      - Item: S_God_Hammer_Shield
+      - Item: S_God_Hammer_Armor
+      - Item: S_Shatter_Buster_Earing
+      - Item: S_Shatter_B_Pendant
+      - Item: S_Shatter_Buster_Shoes
+      - Item: S_Trip_Weapon
+      - Item: S_Trip_Shield
+      - Item: S_Trip_Armor
+      - Item: S_Super_Magic_Shield
+      - Item: S_Super_Magic_Armor
+      - Item: S_Super_Magic_Shoes
+      - Item: S_Super_Power_Weapon
+      - Item: S_Super_Power_Pendant
+      - Item: S_Super_Power_Earing
+      - Item: S_Kunai_Weapon
+      - Item: S_Kunai_Shield
+      - Item: S_Kunai_Armor
+      - Item: S_Syuriken_Earing
+      - Item: S_Syuriken_Pendant
+      - Item: S_Syuriken_Shoes
+      - Item: S_Kamaenraku_Weapon
+      - Item: S_Kamaenraku_Shield
+      - Item: S_Kamaenraku_Armor
+      - Item: S_Huusouka_Earing
+      - Item: S_Huusouka_Pendant
+      - Item: S_Huusouka_Shoes
+      - Item: S_Pickyrush_Weapon
+      - Item: S_Pickyrush_Shield
+      - Item: S_Pickyrush_Armor
+      - Item: S_SavageRabbit_Earing
+      - Item: S_SavageRabbit_Pendant
+      - Item: S_SavageRabbit_Shoes
+      - Item: S_Catnip_Weapon
+      - Item: S_Catnip_Shield
+      - Item: S_Catnip_Armor
+      - Item: S_Silvervine_Earing
+      - Item: S_Silvervine_Pendant
+      - Item: S_Silvervine_Shoes
+      - Item: S_Sunshine_Weapon
+      - Item: S_Sunshine_Shield
+      - Item: S_Sunshine_Armor
+      - Item: S_Moonlight_Earring
+      - Item: S_Moonlight_Pendant
+      - Item: S_Moonlight_Shoes
+      - Item: S_Stardust_Weapon
+      - Item: S_Stardust_Shield
+      - Item: S_Stardust_Armor
+      - Item: S_S_Weapon
+      - Item: S_S_Shield
+      - Item: S_S_Armor
+      - Item: S_Evilcurse_Earring
+      - Item: S_Evilcurse_Pendant
+      - Item: S_Evilcurse_Shoes

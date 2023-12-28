@@ -1,0 +1,126 @@
+uttycty,75,157,5	trader	[製作]暗夜吉芬鬥技場	4_M_KHKYEL,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]暗夜吉芬鬥技場";
+	waitingroom "[製作]暗夜吉芬鬥技場",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+
+	//裝備
+	sellitem(450149, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();
+	sellitem(450150, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();
+	sellitem(460005, 1000000, -1);	
+	sellitemcurrency(1000316, 45);
+	endsellitem();
+	sellitem(460006, 1000000, -1);	
+	sellitemcurrency(1000316, 45);
+	endsellitem();
+	sellitem(480065, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();	
+	sellitem(480066, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();	
+	sellitem(480067, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();
+	sellitem(480068, 1000000, -1);	
+	sellitemcurrency(1000316, 30);
+	endsellitem();
+	sellitem(490077, 1000000, -1);	
+	sellitemcurrency(1000316, 60);
+	endsellitem();
+	sellitem(490078, 1000000, -1);	
+	sellitemcurrency(1000316, 60);
+	endsellitem();
+
+	//卡片
+	sellitem(300177, 10000, -1);
+	sellitemcurrency(27249, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300178, 10000, -1);
+	sellitemcurrency(27250, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();	
+	sellitem(300179, 10000, -1);
+	sellitemcurrency(27253, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300180, 10000, -1);
+	sellitemcurrency(27251, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300181, 10000, -1);
+	sellitemcurrency(27252, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300182, 10000, -1);
+	sellitemcurrency(27254, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300183, 10000, -1);
+	sellitemcurrency(27255, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300184, 10000, -1);
+	sellitemcurrency(27256, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300185, 10000, -1);
+	sellitemcurrency(27257, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300186, 10000, -1);
+	sellitemcurrency(27258, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300187, 10000, -1);
+	sellitemcurrency(27260, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300188, 10000, -1);
+	sellitemcurrency(27259, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300189, 10000, -1);
+	sellitemcurrency(27261, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300190, 10000, -1);
+	sellitemcurrency(27263, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+	sellitem(300191, 10000, -1);
+	sellitemcurrency(27262, 7);
+	sellitemcurrency(1000366, 10);
+	endsellitem();
+
+
+	//附魔道具
+	sellitem(100365, 150000, -1);	
+	sellitemcurrency(1000316, 15);
+	sellitemcurrency(1000317, 1);
+	endsellitem();
+	sellitem(100366, 150000, -1);	
+	sellitemcurrency(1000316, 15);
+	sellitemcurrency(1000317, 1);	
+	endsellitem();
+	sellitem(100367, 100000, -1);	
+	sellitemcurrency(1000316, 25);
+	sellitemcurrency(1000317, 1);
+	endsellitem();
+	sellitem(100368, 200000, -1);	
+	sellitemcurrency(1000316, 25);
+	sellitemcurrency(1000317, 1);
+	endsellitem();
+
+	end;
+OnBuyItem:
+end;
+}

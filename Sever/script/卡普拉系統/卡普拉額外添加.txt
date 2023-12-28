@@ -1,0 +1,45 @@
+//===== Giraffe 模擬器 - 文檔 ====================
+//**********這裡可以添加你要的卡普拉位置***********
+
+
+//
+//更高階版本------歡迎洽詢
+//*************************************************
+////==============================================
+
+uttycty,98,106,5	script	卡普拉職員::utty_01	112,{
+	cutin "bio_sorin01",2;
+	mes "[卡普拉職員]";
+	mes "歡迎來到";
+	mes "卡普拉公司~";
+	mes "卡普拉的服務將";
+	mes "永遠陪伴著您.";
+	mes "今天您需要什麼服務?";
+	callfunc "F_Kafra",5,0,0,40,800;
+	savepoint "uttycty",100,83,1,1;
+	callfunc "F_KafEnd",0,1,"主城";
+	end;
+OnInit:
+OnTimer2000:
+	setnpcicon getnpcid(0),1028,"卡普拉職員";
+	showscript "★ 卡普拉 ★ ";
+initnpctimer;
+}
+
+uttycty,85,178,5	script	卡普拉職員::utty_02	112,{
+	cutin "bio_sorin01",2;
+	mes "[卡普拉職員]";
+	mes "歡迎來到";
+	mes "卡普拉公司~";
+	mes "卡普拉的服務將";
+	mes "永遠陪伴著您.";
+	mes "今天您需要什麼服務?";
+	callfunc "F_Kafra",5,0,0,40,800;
+	savepoint "uttycty",100,83,1,1;
+	callfunc "F_KafEnd",0,1,"主城";
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1028,"卡普拉職員";
+	waitingroom "★ 卡普拉職員 ★ ",0;
+}
+

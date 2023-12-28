@@ -1,0 +1,839 @@
+
+
+
+//===== Description: ==============================
+//
+//[副本]儀式之屋
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@mir	mapflag	noteleport
+1@mir	mapflag	nosave	SavePoint
+1@mir	mapflag	nomemo
+1@mir	mapflag	nobranch
+1@mir	mapflag	noicewall
+1@mir	mapflag	restricted	6
+1@mir	mapflag	monster_noteleport
+1@mir	mapflag	partylock
+1@mir	mapflag	novending
+1@mir	mapflag	nochat
+
+amatsu,108,173,5	script	[副本]儀式之屋	4_m_ragi,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "儀式之屋";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 1;
+
+//
+	waitingroom "[副本]儀式之屋",0;
+	setnpcicon getnpcid(0),22,"[副本]儀式之屋";
+	end;
+}
+
+//GM測試副本
+// 1@mir,98,12,0	script	艾瑞絲#GM	666,{
+	// if (getgmlevel() < 80) end;
+		// getmapxy(.@map$,.@dx,.@dy,BL_PC);
+		// donpcevent instance_npcname("#mirmobctrl")+"::OnBijou";
+		// enablenpc instance_npcname("艾瑞絲#mir5");
+		// warp .@map$,102,75;
+		// end;
+// }
+
+//副本流程
+1@mir,100,40,5	script	艾瑞絲#mir1	666,{
+	end;
+}
+
+1@mir,103,40,3	script	潘立爾#mir1	664,{
+	mes "[潘立爾]";
+	mes "這裡就是普隆德拉被封印的地底...";
+	mes "如此廣闊的空間...";
+	next;
+	mes "[艾瑞絲]";
+	mes "這裡面到底有著什麼？";
+	next;
+	mes "[潘立爾]";
+	mes "難道是...還是先過去看看吧。";
+	disablenpc instance_npcname("潘立爾#mir1");
+	disablenpc instance_npcname("艾瑞絲#mir1");
+	enablenpc instance_npcname("潘立爾#mir2");
+	enablenpc instance_npcname("艾瑞絲#mir2");
+	end;
+}
+
+1@mir,100,94,5	script	艾瑞絲#mir2	666,{
+	mes "[艾瑞絲]";
+	mes "這...這是...";
+	mes "「尤米爾的心臟」！！";
+	next;
+	enablenpc instance_npcname("畢尤#mir1");
+	next;
+	mes "[潘立爾]";
+	mes "哼...不知不覺間來了這麼多敵人！";
+	disablenpc instance_npcname("潘立爾#mir2");
+	disablenpc instance_npcname("艾瑞絲#mir2");
+	disablenpc instance_npcname("畢尤#mir1");
+	mapannounce instance_mapname("1@mir"),"潘立爾：做好準備！敵人很快就會出現！",bc_map;
+	mapannounce instance_mapname("1@mir"),"潘立爾：將出現的敵人全部消滅！",bc_map;
+	donpcevent instance_npcname("#mirmobctrl")+"::OnAddmob";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("艾瑞絲#mir2");
+	end;
+}
+
+1@mir,103,94,1	script	潘立爾#mir2	664,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("潘立爾#mir2");
+	end;
+}
+
+1@mir,101,97,5	script	畢尤#mir1	10143,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("畢尤#mir1");
+	end;
+}
+
+1@mir,103,85,1	script	艾瑞絲#mir3	666,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("艾瑞絲#mir3");
+	end;
+}
+
+1@mir,100,85,7	script	潘立爾#mir3	664,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("潘立爾#mir3");
+	end;
+}
+
+1@mir,102,88,3	script	畢尤#mir2	10143,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)){
+		message strcharinfo(0),"只有隊長能觸發劇情!!";
+		end;
+	}
+	mes "[畢尤]";
+	mes "呵呵...想不到比我想像的還本事。";
+	next;
+	mes "[畢尤]";
+	mes "接下來還能堅持嗎？";
+	mes "出來吧，我的部下！";
+	donpcevent instance_npcname("強化暗達萊斯#mir1")+"::OnEffect1";	
+	donpcevent instance_npcname("強化暗達萊斯#mir1")+"::OnEffect2";	
+	enablenpc instance_npcname("強化暗達萊斯#mir1");
+	next;	
+	mes "[艾瑞絲]";
+	mes "這...這是什麼怪物！！";
+	next;
+	mes "[潘立爾]";
+	mes "反正...你們也不會用來做什麼好事。";
+	mes "絕不能讓它們帶走尤米爾的心臟，這怪物就拜託你了。";
+	disablenpc instance_npcname("畢尤#mir2");
+	disablenpc instance_npcname("艾瑞絲#mir3");
+	disablenpc instance_npcname("潘立爾#mir3");
+	disablenpc instance_npcname("強化暗達萊斯#mir1");
+	donpcevent instance_npcname("#mirmobctrl")+"::OnAmdarais";
+	donpcevent instance_npcname("#mirhelpstart")+"::OnStart";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("畢尤#mir2");
+	end;
+}
+
+1@mir,101,95,3	script	強化暗達萊斯#mir1	3448,{
+	end;
+OnEffect1:
+	specialeffect 8;	
+	end;
+OnEffect2:
+	specialeffect 6;	
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("強化暗達萊斯#mir1");
+	end;
+}
+
+1@mir,100,90,7	script	艾瑞絲#mir4	666,{
+	if(!'amd) {
+		mes "[艾瑞絲]";
+		mes "消...消滅了嗎？";
+		mes "那就只剩...";
+		next;
+		enablenpc instance_npcname("畢尤#mir3");
+		mes "[畢尤]";
+		mes "只剩我一個...是嗎？";
+		next;		
+		mes "品嚐痛苦的滋味！！";
+		disablenpc instance_npcname("艾瑞絲#mir4");
+		disablenpc instance_npcname("潘立爾#mir4");
+		disablenpc instance_npcname("畢尤#mir3");
+		donpcevent instance_npcname("#mirmobctrl")+"::OnAmdarais2";		
+		end;
+	}
+	end;	
+OnEffect1:
+	specialeffect 204;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("艾瑞絲#mir4");
+	end;
+}
+
+1@mir,103,90,1	script	潘立爾#mir4	664,{
+	if('amd) {
+		mes "[潘立爾]";
+		mes "啊...怎麼會這樣！";
+		next;
+		enablenpc instance_npcname("莎拉#mir1");
+		next;
+		mes "[畢尤]";
+		mes "莎...莎拉大人？！";
+		disablenpc instance_npcname("莎拉#mir1");
+		mes "[畢尤]";
+		mes "（雖然不服她...但她的確厲害...！）";
+		next;
+		mes "[潘立爾]";
+		mes "就是現在！...";
+		mes "冰凍術！";
+		donpcevent instance_npcname("畢尤#mir3")+"::OnEffect";
+		next;
+		mes "[畢尤]";
+		mes "什...什麼！";
+		next;
+		donpcevent instance_npcname("艾瑞絲#mir4")+"::OnEffect1";
+		mes "[艾瑞絲]";
+		mes "唔...嗯...";
+		next;
+		mes "[潘立爾]";
+		mes "怎麼，好點了嗎？";
+		next;
+		donpcevent instance_npcname("艾瑞絲#mir4")+"::OnEffect1";
+		next;
+		mes "...小心！它攻過來了！";		
+		disablenpc instance_npcname("艾瑞絲#mir4");
+		disablenpc instance_npcname("潘立爾#mir4");
+		disablenpc instance_npcname("畢尤#mir3");
+		donpcevent instance_npcname("#mirmobctrl")+"::OnBijou";
+		donpcevent instance_npcname("#mirhelpstart")+"::OnStart";
+		end;
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("潘立爾#mir4");
+	end;
+}
+
+1@mir,102,95,3	script	畢尤#mir3	10143,{
+	end;
+OnEffect:
+	specialeffect 133;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("畢尤#mir3");
+	end;
+}
+
+1@mir,99,97,5	script	莎拉#mir1	4_F_SARAH,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("莎拉#mir1");
+	end;
+}
+
+1@mir,100,95,5	script	艾瑞絲#mir5	666,{
+	if ( !is_party_leader()){
+		showscript "請找隊長與我對談。",getcharid(3),SELF;
+		end;
+	}
+	mes "[艾瑞絲]";
+	mes "啊...啊！";
+	next;
+	enablenpc instance_npcname("莎拉#mir2");
+	sleep3 500;
+	donpcevent instance_npcname("畢尤#mir4")+"::OnEffect1";
+	mes "[畢尤]";
+	mes "...啊...";
+	mes "呃？...我...";
+	mes "這把刀...";
+	mes "莎...莎拉大人？...為什麼？";
+	next;
+	disablenpc instance_npcname("畢尤#mir4");
+	mes "[莎拉]";
+	mes "...";
+	mes "你的靈魂終於自由了。畢尤。";
+	next;
+	mes "[莎拉]";
+	mes "在那之前絕對不能死。";
+	mes "艾瑞絲。";
+	mes "今天就到此為止吧。";
+	disablenpc instance_npcname("莎拉#mir2");
+	next;
+	mes "[潘立爾]";
+	mes "哼...她破壞了天花板，從那裡帶走了尤米爾的心臟。";
+	next;
+	mes "[潘立爾]";
+	mes "我們也要逃了。這裡太危險！";
+	next;
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@mir")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("艾瑞絲#mir5");
+	end;
+OnInstanceInit:
+	'time = gettimetick(2);
+	disablenpc instance_npcname("艾瑞絲#mir5");
+	end;
+}
+
+1@mir,103,90,1	script	潘立爾#mir5	664,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("潘立爾#mir5");
+	end;
+}
+
+1@mir,102,95,3	script	畢尤#mir4	10143,{
+	end;
+OnEffect1:
+	specialeffect 565;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("畢尤#mir4");
+	end;
+}
+
+1@mir,104,95,3	script	莎拉#mir2	4_F_SARAH,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("莎拉#mir2");
+	end;
+}
+
+1@mir,0,0,0	script	#mirmobctrl	139,{
+	end;
+OnAddmob:
+	areamonster instance_mapname("1@mir"),120,75,111,60,"--ja--",3446,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),83,75,92,60,"--ja--",3446,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),83,75,92,60,"--ja--",3447,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),106,57,115,40,"--ja--",3447,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),106,57,115,40,"--ja--",3445,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),97,57,88,40,"--ja--",3446,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	areamonster instance_mapname("1@mir"),97,57,88,40,"--ja--",3445,1,instance_npcname("#mirmobctrl")+"::OnMobDead";
+	end;
+OnAmdarais:
+	monster instance_mapname("1@mir"),101,95,"--ja--",3448,1,instance_npcname("#mirmobctrl")+"::OnAmdDead"; 
+	'BossID = $@mobid[0];
+	end;
+OnAmdarais2:
+	monster instance_mapname("1@mir"),101,95,"--ja--",3449,2,instance_npcname("#mirmobctrl")+"::OnAmdDead2"; 
+	'AmdID1 = $@mobid[0];	
+	'AmdID2 = $@mobid[1];	
+	monster instance_mapname("1@mir"),101,89,"--ja--",3450,1,instance_npcname("#mirmobctrl")+"::OnBiDead"; 
+	'BossID = $@mobid[0];
+	getunitdata 'BossID,'mirbossdata;
+	setunitdata 'BossID,UMOB_MATKMIN,'mirbossdata[33]*458/1000;
+	setunitdata 'BossID,UMOB_MATKMAX,'mirbossdata[34]*368/1000;
+	donpcevent instance_npcname("#bijoumatk") + "::OnStart";
+	donpcevent instance_npcname("#bijouhpctrl") + "::OnStart";
+	end;
+OnBijou:
+	monster instance_mapname("1@mir"),101,89,"--ja--",3450,1,instance_npcname("#mirmobctrl")+"::OnBiDead2"; 
+	'BossID = $@mobid[0];
+	getunitdata 'BossID,'mirbossdata;
+	setunitdata 'BossID,UMOB_MATKMIN,'mirbossdata[33]*458/1000;
+	setunitdata 'BossID,UMOB_MATKMAX,'mirbossdata[34]*368/1000;
+	donpcevent instance_npcname("#bijoumatk") + "::OnStart";
+	'Help = 1;
+	monster instance_mapname("1@mir"),101,95,"--ja--",3449,2,instance_npcname("#mirmobctrl")+"::OnAmdDead3"; 
+	end;
+OnMobDead:	
+	if(mobcount(instance_mapname("1@mir"),instance_npcname("#mirmobctrl")+"::OnMobDead") < 1) {
+		if(!'Mob) {			
+			mapannounce instance_mapname("1@mir"),"潘立爾：呼...終於把它們消滅了。",bc_map;
+			enablenpc instance_npcname("潘立爾#mir3");
+			enablenpc instance_npcname("艾瑞絲#mir3");
+			enablenpc instance_npcname("畢尤#mir2");
+			end;
+		}
+		mapannounce instance_mapname("1@mir"),"艾瑞絲：呼...不外如是...",bc_map;
+		sleep3 2000;		
+		mapannounce instance_mapname("1@mir"),"潘立爾：還有剩下的。小心！",bc_map;
+		sleep3 2000;		
+		donpcevent instance_npcname("#mirmobctrl")+"::OnAddmob";
+		set 'Mob,'Mob-1;
+	}
+	end;
+OnAmdDead:
+	'BossID = 0;
+	enablenpc instance_npcname("艾瑞絲#mir4");
+	enablenpc instance_npcname("潘立爾#mir4");	
+	donpcevent instance_npcname("#mirhelpstart")+"::OnEnd";
+	donpcevent instance_npcname("潘立爾#mirhelp")+"::OnDisable";
+	end;
+OnAmdDead2:
+	mobremove 'BossID;
+	killmonster instance_mapname("1@mir"),instance_npcname("#mirmobctrl")+"::OnAmdDead2"; 
+	'amd = 1;
+	'BossID = 0;
+	'AmdID1 = 0;
+	'AmdID2 = 0;
+	enablenpc instance_npcname("艾瑞絲#mir4");
+	enablenpc instance_npcname("潘立爾#mir4");	
+	enablenpc instance_npcname("畢尤#mir3");
+	donpcevent instance_npcname("#bijoumatk") + "::OnEnd";
+	donpcevent instance_npcname("#bijouhpctrl") + "::OnEnd";
+	end;	
+OnBiDead:
+	mobremove 'AmdID1;
+	mobremove 'AmdID2;
+	'amd = 1;
+	'BossID = 0;
+	'AmdID1 = 0;
+	'AmdID2 = 0;
+	enablenpc instance_npcname("艾瑞絲#mir4");
+	enablenpc instance_npcname("潘立爾#mir4");	
+	enablenpc instance_npcname("畢尤#mir3");
+	donpcevent instance_npcname("#bijoumatk") + "::OnEnd";
+	donpcevent instance_npcname("#bijouhpctrl") + "::OnEnd";
+	end;
+OnBiDead2:
+	'BossID = 0;
+	donpcevent instance_npcname("#bijoumatk") + "::OnEnd";
+	donpcevent instance_npcname("#mirhelpstart")+"::OnEnd";
+	donpcevent instance_npcname("潘立爾#mirhelp")+"::OnDisable";
+	donpcevent instance_npcname("#bijouhp")+"::OnDisable";	
+	killmonster instance_mapname("1@mir"),instance_npcname("#mirmobctrl")+"::OnAmdDead3";
+	enablenpc instance_npcname("艾瑞絲#mir5");
+	enablenpc instance_npcname("潘立爾#mir5");	
+	enablenpc instance_npcname("畢尤#mir4");
+	end;
+OnAmdDead3:
+	end;
+OnInstanceInit:
+	'Mob = 1;
+	'amd = 0;
+	'Help = 0;
+	'BossID = 0;
+	'AmdID1 = 0;
+	'AmdID2 = 0;
+	end;
+}
+
+1@mir,0,0,0	script	#bijouhpctrl	-1,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#bijouhpctrl");
+	initnpctimer;
+	end;
+OnTimer1000:
+	getunitdata 'BossID,.@bossdata;
+	if(.@bossdata[3]-.@bossdata[2] >= 99900) {
+		mobremove 'BossID;
+		killmonster instance_mapname("1@mir"),instance_npcname("#mirmobctrl")+"::OnAmdDead2"; 
+		'amd = 1;
+		'BossID = 0;
+		'AmdID1 = 0;
+		'AmdID2 = 0;
+		enablenpc instance_npcname("艾瑞絲#mir4");
+		enablenpc instance_npcname("潘立爾#mir4");	
+		enablenpc instance_npcname("畢尤#mir3");
+		donpcevent instance_npcname("#bijoumatk") + "::OnEnd";
+		donpcevent instance_npcname("#bijouhpctrl") + "::OnEnd";
+		end;
+	}
+	stopnpctimer;
+	initnpctimer;
+	end;
+OnEnd:
+	stopnpctimer;
+OnInstanceInit:
+	disablenpc instance_npcname("#bijouhpctrl");
+	end;
+}
+
+1@mir,0,0,0	script	#bijoumatk	-1,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#bijoumatk");
+	initnpctimer;
+	end;
+OnTimer1000:
+	setunitdata 'BossID,UMOB_MATKMIN,'mirbossdata[33]*458/1000;
+	setunitdata 'BossID,UMOB_MATKMAX,'mirbossdata[34]*368/1000;
+	stopnpctimer;
+	initnpctimer;
+	end;
+OnEnd:
+	stopnpctimer;
+OnInstanceInit:
+	disablenpc instance_npcname("#bijoumatk");
+	end;
+}
+
+1@mir,0,0,0	script	#mirhelpstart	139,{
+	end;
+OnStart:
+	initnpctimer;
+	end;
+OnTimer1000:
+	getunitdata 'BossID,.@bossdata;
+	if(.@bossdata[2] == .@bossdata[3]) {
+		stopnpctimer;		
+		initnpctimer;
+	} else {
+		if('BossID) {
+			if('Help) {
+				mapannounce instance_mapname("1@mir"),"艾瑞絲：這次我們還是像之前那樣對付它！",bc_map;
+			} else {
+				mapannounce instance_mapname("1@mir"),"艾瑞絲：這怪物...怎麼打都不掉血...",bc_map;
+			}
+		}
+	}
+	end;
+OnTimer2000:
+	if('BossID) {
+		if(!'Help) {
+			mapannounce instance_mapname("1@mir"),"畢尤：呵呵呵...這只暗達萊斯可沒有那麼容易倒下。",bc_map;
+		}
+	}
+	end;
+OnTimer3000:
+	if('BossID) {
+		if('Help) {
+			mapannounce instance_mapname("1@mir"),"潘立爾：那麼，這次也把它引到我們這邊來！",bc_map;
+		}
+	}
+	end;
+OnTimer5000:
+	if('BossID) {
+		if('Help) {
+			mapannounce instance_mapname("1@mir"),"畢尤：...",bc_map;
+			donpcevent instance_npcname("潘立爾#mirhelp") + "::OnEnable";			
+			donpcevent instance_npcname("#bijouhp") + "::OnEnable";		
+			stopnpctimer;
+		} else {
+			mapannounce instance_mapname("1@mir"),"潘立爾：這傢伙與其他的怪物不一樣...",bc_map;
+		}
+	}
+	end;
+OnTimer7000:
+	if('BossID) {
+		if(!'Help) {
+			mapannounce instance_mapname("1@mir"),"潘立爾：對了！核心！我們給這怪物的核心來一招狠的！",bc_map;
+		}
+	}
+	end;
+OnTimer9000:
+	if('BossID) {
+		if(!'Help) {
+			donpcevent instance_npcname("潘立爾#mirhelp") + "::OnEnable";
+			stopnpctimer;
+		}
+	}
+	end;
+OnEnd:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#mirhelpstart");
+	end;
+}
+
+1@mir,0,0,0	script	#bijouhp	139,{
+	end;
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer5000:
+	stopnpctimer;
+	if('BossID) {
+		getunitdata 'BossID,.@array;
+		if(.@array[2]<.@array[3]/2) {
+			mapannounce instance_mapname("1@mir"),"潘立爾：它已經被我們消耗掉一半的體力了，繼續加油！",bc_map;
+			end;
+		}
+	} else {
+		end;
+	}
+	initnpctimer;
+	end;
+OnDisable:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#bijouhp");
+	end;
+}
+
+1@mir,0,0,5	script	艾瑞絲#mirhelp	666,{
+	end;
+OnTalk:
+	npctalk "艾瑞絲：好的！我，艾瑞絲 艾琳需要你們無形的力量！";
+	end;
+OnTalk1:
+	npctalk "艾瑞絲：麻痺符咒！哈！！！";
+	end;
+OnTalk2:
+	npctalk "艾瑞絲：去吧！！";
+	end;
+OnTalk3:
+	npctalk "艾瑞絲：哎喲！！我的攻擊對它不管用！！";
+	end;
+OnTalk4:
+	npctalk "艾瑞絲：啊啊啊啊！！";
+	end;
+OnEffect:
+	specialeffect 12;
+	end;
+OnEffect1:
+	specialeffect 94;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("艾瑞絲#mirhelp");
+	end;
+}
+
+1@mir,0,0,3	script	潘立爾#mirhelp	664,2,2,{
+	end;
+OnEnable:
+	initnpctimer;
+	if('Help) {
+		setnpctimer 24850;	
+	} else {
+		setnpctimer 24750;	
+	}
+	end;
+OnTouchNPC:
+	if(!'trigger) {
+		if(!'BossID) {
+			end;
+		}
+		getmapxy(.@map$,.@x,.@y,BL_NPC);
+		getunitdata 'BossID,.@array;
+		if(distance(.@x,.@y,.@array[6],.@array[7]) > 2){
+			end;
+		}
+		donpcevent instance_npcname("潘立爾#mirhelp") + "::OnHelp";
+		'trigger = 1;
+	}
+	end;
+OnHelp:
+	if('Help) {
+		if(rand(100) < 10) {
+			npctalk "潘立爾：它來了！艾瑞絲拜託了！";
+			sleep3 2000;
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk";
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnEffect";
+			sleep3 2000;
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk1";
+			instance_announce 0,"畢尤：...哼！",bc_all,"0x86B1F9";
+			sleep3 1000;
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk3";
+			sleep3 2000;
+			instance_announce 0,"畢尤：你們管這叫攻擊？",bc_all,"0x86B1F9";			
+			sleep3 1000;
+			npctalk "潘立爾：喝...試試我的厲害吧！";
+			specialeffect 12;
+			specialeffect 805;
+			sleep3 3000;
+			instance_announce 0,"畢尤：這招如何？",bc_all,"0x86B1F9";				
+			sleep3 1000;
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk4";
+			npctalk "潘立爾：嗚啊啊！！...";
+			donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnEffect1";
+			specialeffect 94;			
+			sleep3 2000;
+			npctalk "潘立爾：我們...要暫時避讓。這段時間...拜託了。";
+			sleep3 2000;
+			disablenpc instance_npcname("潘立爾#mirhelp");
+			disablenpc instance_npcname("艾瑞絲#mirhelp");
+			if(!'BossID) {
+				end;		
+			}
+			initnpctimer;
+			end;			
+		}
+	}	
+	npctalk "潘立爾：它來了！艾瑞絲拜託了！";
+	sleep3 2000;
+	donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk";
+	donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnEffect";
+	sleep3 2000;
+	donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk1";
+	if('Help) {
+		instance_announce 0,"畢尤：什麼？這是...",bc_all,"0x86B1F9";		
+	} else {
+		instance_announce 0,"畢尤：嗚啊！！",bc_all,"0x86B1F9";		
+	}
+	sleep3 1000;
+	donpcevent instance_npcname("艾瑞絲#mirhelp") + "::OnTalk2";
+	sleep3 2000;
+	npctalk "潘立爾：看我的，喝啊啊啊！";
+	specialeffect 12;
+	specialeffect 805;
+	sleep3 3000;
+	specialeffect 183;
+	specialeffect 90;	
+	if('Help) {
+		instance_announce 0,"畢尤：啊...比我想像要痛？",bc_all,"0x86B1F9";		
+	} else {
+		instance_announce 0,"畢尤：呃呃呃呃呃！！！！！",bc_all,"0x86B1F9";
+	}
+	npctalk "潘立爾：受死吧！";
+	getunitdata 'BossID,.@array;
+	if(.@array[2]<.@array[3]/10) {
+		setunitdata 'BossID,UMOB_HP,1;
+	} else {
+		setunitdata 'BossID,UMOB_HP,.@array[2]-.@array[3]/10;
+	}
+	sleep3 3000;
+	npctalk "潘立爾：很好，我們重創了它！";
+	sleep3 2000;
+	npctalk "潘立爾：魔力消耗太大了，我們需要暫時休息一下，拜託你為我們爭取時間了！";
+	sleep3 2000;
+	disablenpc instance_npcname("潘立爾#mirhelp");
+	disablenpc instance_npcname("艾瑞絲#mirhelp");
+	if(!'BossID) {
+		end;		
+	}
+	initnpctimer;
+	end;		
+OnTimer24800:
+	mapannounce instance_mapname("1@mir"),"潘立爾：把它引到這邊來！",bc_map;
+	end;	
+OnTimer24900:
+	stopnpctimer;
+	'trigger = 0;
+	.@map$ = instance_mapname("1@mir");
+	set .@dec,rand(1,4);
+	if('Help)
+		set .@dec,rand(5,8);
+	switch(.@dec){
+		case 1:
+			movenpc instance_npcname("潘立爾#mirhelp"),103,80;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),100,80;
+			break;
+		case 2:
+			movenpc instance_npcname("潘立爾#mirhelp"),103,60;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),100,60;
+			break;
+		case 3:
+			movenpc instance_npcname("潘立爾#mirhelp"),94,73;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),91,73;
+			break;
+		case 4:
+			movenpc instance_npcname("潘立爾#mirhelp"),112,73;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),109,73;
+			break;
+		case 5:
+			movenpc instance_npcname("潘立爾#mirhelp"),103,76;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),100,76;
+			break;
+		case 6:
+			movenpc instance_npcname("潘立爾#mirhelp"),103,63;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),100,63;
+			break;
+		case 7:
+			movenpc instance_npcname("潘立爾#mirhelp"),94,70;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),91,70;
+			break;
+		case 8:
+			movenpc instance_npcname("潘立爾#mirhelp"),112,70;
+			movenpc instance_npcname("艾瑞絲#mirhelp"),109,70;
+			break;
+	}
+	sleep3 100;
+	enablenpc instance_npcname("潘立爾#mirhelp");
+	enablenpc instance_npcname("艾瑞絲#mirhelp");
+	end;	
+OnTouch:
+	end;
+OnDisable:
+	stopnpctimer;
+	disablenpc instance_npcname("艾瑞絲#mirhelp");
+	disablenpc instance_npcname("潘立爾#mirhelp");
+	movenpc instance_npcname("潘立爾#mirhelp"),0,0;
+	movenpc instance_npcname("艾瑞絲#mirhelp"),0,0;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("潘立爾#mirhelp");
+	end;
+}
+
+1@mir,0,0,0	script	副本寶箱#1@mir	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem    6919,10;
+	getitem 930000,5;
+	getitem 940001,10;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

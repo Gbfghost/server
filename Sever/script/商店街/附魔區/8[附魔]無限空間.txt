@@ -1,0 +1,94 @@
+
+
+
+//===== Description: ==============================
+//
+// 無限空間附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,141,5	script	[附魔]無限空間	1_m_innkeeper,{
+	disable_items;
+	cutin "bio_katrinn04",2;
+	setarray .@solt3[0],4700,4701,4710,4711,4720,4721,4730,4731,4811,4810,4809,4818,4817,4833,4896,4815,4814,4813,4812,4882,4873,4872,4869;
+	setarray .@solt4[0],4700,4701,4710,4711,4720,4721,4730,4731;
+	setarray .@part[1],9,7,3,2,6;
+	setarray .@equipid$[1],getequipname(9),getequipname(7),getequipname(3),getequipname(2),getequipname(6);
+	setarray .@equippair$[1],"[武器]","[鎧甲]","[披肩]","[鞋子]","[頭飾]";
+	set .@equipcheck$,"|1938|1994|2024|7042|13126|13323|16038|18128|21014|28105|28703|15141|22075|19033|20779|";
+		mes "[無限空間附魔]";
+		mes "我一直在研究如何附魔無限裝備來最大化它的能力。";
+		mes "附魔是一種令人敬畏的技能，為裝甲的隱藏插槽注入神秘的力量。";
+		next;
+		mes "[無限空間附魔]";
+		mes "我能夠幫你把穿在身上的無限裝備附上能力。";
+		next;
+		for(.@i=1; .@i<getarraysize(.@equippair$); .@i++) 
+		set .@menu$,.@menu$+(getequipisequiped(.@part[.@i])?
+		.@equippair$[.@i]+" - ^FF0000"+"+"+.@equiprefine[.@i]+"^000000^0066CC "+.@equipid$[.@i]:""+.@equippair$[.@i]+" - ^666666尚未裝備^000000")+"^000000:";
+		set .@equipchoes,select(.@menu$);
+		set .@eqid,getequipid(.@part[.@equipchoes]);
+		setarray .@equip_card[0], getequipcardid(.@part[.@equipchoes],0), getequipcardid(.@part[.@equipchoes],1), getequipcardid(.@part[.@equipchoes],2), getequipcardid(.@part[.@equipchoes],3);
+		if(.@eqid<=0){mes "[無限空間附魔]"; mes "沒有裝備"; close3; }
+		if(!compare(.@equipcheck$,"|"+.@eqid+"|")) {mes "[無限空間附魔]";mes"^ff0000※此項裝備無法使用附魔※^000000"; close3;}
+		set .@eqre,getequiprefinerycnt(.@part[.@equipchoes]);
+		switch(select("附魔:重置")){
+		case 1:
+		mes "[無限空間附魔]";
+		mes "附魔需要 <ITEM>破碎魔法石<INFO>6905</INFO></ITEM>  20個。";
+		next;
+		
+		if(select("確認附魔:取消")==2){close3;}
+		if (countitem(6905)<20){ mes "[無限空間附魔]"; mes "道具不足。";close3;}
+		if(.@equip_card[2] > 0){ mes "[無限空間附魔]"; mes "此裝備已無法附魔。";close3;}
+		progressbar "ffffff",2;
+		mes "[無限空間附魔]";
+		mes "成功了!";
+		if(.@equip_card[3]>0&&.@equip_card[2]==0){set .@equip_card[2],.@solt3[rand(getarraysize(.@solt3))];}
+		if(.@equip_card[3]==0){set .@equip_card[3],.@solt4[rand(getarraysize(.@solt4))];}
+		specialeffect2 587;
+		delequip .@part[.@equipchoes];
+		delitem 6905,20;
+		getitem2 .@eqid,1,1,.@eqre,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+		close3;
+		
+		case 2:
+		if(.@equip_card[3] > 0){
+		mes "[無限空間附魔]";
+		mes "重置需要 <ITEM>破碎魔法石<INFO>6905</INFO></ITEM>  30個。";
+		mes "^ff0000重置時有失敗可能。";
+		next;
+		if(select("確認重置:取消")==2){close3;}
+		if (countitem(6905)<30){ mes "[無限空間附魔]"; mes "道具不足。";close3;}
+		set .@rate,rand(100);
+		
+		progressbar "ffffff",2;
+		if (.@rate >= 80){
+		mes "[無限空間附魔]";
+		mes "失敗了......";
+		delequip .@part[.@equipchoes];
+		delitem 6905,30;
+		specialeffect2 107;
+		close3;
+		}
+		mes "[無限空間附魔]";
+		mes "成功了!";
+		delequip .@part[.@equipchoes];
+		delitem 6905,30;
+		specialeffect2 587;
+		getitem2 .@eqid,1,1,.@eqre,0,0,0,0,0;
+		close3;
+		}
+		mes "[無限空間附魔]";
+		mes "此裝備無須重置。";
+		close3;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]無限空間";
+	waitingroom "[附魔]無限空間",0;
+	end;
+}
+
+

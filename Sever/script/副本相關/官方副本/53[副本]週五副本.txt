@@ -1,0 +1,286 @@
+1@md_gef	mapflag	noteleport
+1@md_gef	mapflag	nosave	SavePoint
+1@md_gef	mapflag	nomemo
+1@md_gef	mapflag	nobranch
+1@md_gef	mapflag	noicewall
+1@md_gef	mapflag	restricted	6
+1@md_gef	mapflag	monster_noteleport
+1@md_gef	mapflag	partylock
+1@md_gef	mapflag	novending
+
+gef_tower,57,173,3	script	古代君王#02	837,{
+
+	mes "----------------------------";	
+	mes ">> 副本獎勵清單";
+	mes "----------------------------";
+	mes "<ITEM>古君王的戒指<INFO>28483</INFO></ITEM>";
+	mes "<ITEM>聖槍刺擊Lv5捲軸<INFO>23191</INFO></ITEM>";
+	mes "<ITEM>鑽石星塵Lv5捲軸<INFO>23192</INFO></ITEM>";
+	mes "<ITEM>碧血隕石Lv5捲軸<INFO>23193</INFO></ITEM>";
+	mes "<ITEM>石化詛咒Lv5捲軸<INFO>23194</INFO></ITEM>";
+	mes "<ITEM>RG黃金藥水<INFO>12858</INFO></ITEM>";
+	mes "----------------------------";
+	close2;
+	cutin "",255;
+	end;
+}
+gef_tower,57,170,3	script	瑪麗亞久#pron	726,{
+		mes "^FF0000請注意在副本裡認養魔物等隨意處理怪物，視為不正當的行為。^000000";
+		next;
+		if (checkquest(12378,PLAYTIME) == 2) {	
+			erasequest 12378;
+		} else if (checkquest(12378,PLAYTIME) == 0 || checkquest(12378,PLAYTIME) == 1) {
+			mes "["+strnpcinfo(1)+"]";
+			mes "你看起來非常累，等晚一點再來吧。";
+			end;
+		}
+		mes "["+strnpcinfo(1)+"]";
+		mes "你來的正好，已經準備就緒開放，你現在要進去嗎?";
+		switch(select("準備入場古代君王","古代君王入場","取消")){
+			case 1:
+					.@party_id = getcharid(1);
+				if (!.@party_id) {
+					mes "["+strnpcinfo(1)+"]";
+					next;
+					mes "古代君王非常危險，你需要組成一支隊伍前往。";
+					close;
+				}
+				if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+					next;
+					mes "["+strnpcinfo(1)+"]";
+					mes "請隊長來跟我申請吧。";
+					close;
+				}
+				if(instance_create("古代君王") < 0) {
+					next;
+					mes "["+strnpcinfo(1)+"]";
+					mes "副本創建失敗，請稍後再試。";
+					end;
+				}
+				announce "★ 副本公告 ★ 隊伍 [ "+getpartyname(getcharid(1)) +" ] 準備挑戰【 古代君王 】副本！",15,0x33ea91;
+				end;
+			case 2:
+					.@party_id = getcharid(1);
+				if (!.@party_id) {
+					mes "["+strnpcinfo(1)+"]";
+					next;
+					mes "古代君王非常危險，你需要組成一支隊伍前往。";
+					close;
+				}
+				if(BaseLevel < 100) {
+					mes "["+strnpcinfo(1)+"]";
+					next;
+					mes "冒險家，現在的你還幫不上我們。";
+					end;
+				}
+				switch(instance_enter("古代君王")) {
+				case 3:
+					mes "發生一個未知錯誤。";
+					close;
+				case 2:
+					mes "副本進度 "+"古代君王"+" 不存在。";
+					mes "隊長還沒有建立副本進度。";
+					close;
+				case 1:
+					mes "只有註冊過的成員可以進入副本 "+"古代君王"+"。";
+					close;
+				case 0:
+					mapannounce "gef_tower",getpartyname(getcharid(1))+"小隊成員 "+strcharinfo(0)+" 進入古代君王。",bc_map,"0x00ff99";
+		
+		
+					if(checkquest(12378) == -1)
+						setquest 12378;
+					end;
+			}
+			case 3:
+				next;
+				mes "["+strnpcinfo(1)+"]";
+				mes "好的，有需要再來找我吧！";
+				end;
+			}
+	end;
+}
+
+1@md_gef,110,128,5	script	瑪麗亞久#in	726,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "["+strnpcinfo(1)+"]";
+		mes "- 請等待隊長進行對話 - ";
+		close;
+	}
+	if ( 'level )
+		end;
+	mes "["+strnpcinfo(1)+"]";
+	mes "為了能適應這裡的環境，你可以選擇適合自己的等級。";
+	next;
+	switch(select("取消:LV99~110:LV160~")){
+		case 1:
+			mes "["+strnpcinfo(1)+"]";
+			mes "快點選擇吧，時間不多了。";
+			close;
+		case 2:
+			set 'level,1;
+		case 3:
+			set 'level,2;
+			break;
+	}
+	close2;
+	disablenpc instance_npcname(strnpcinfo(0));
+	specialeffect 16;
+	sleep 1000;
+	npctalk strnpcinfo(1)+":這裡很快變獵場了，我會封閉大門後在外面等候。";
+	sleep 2000;
+	npctalk strnpcinfo(1)+":祝你好運囉~";
+	sleep 2000;
+	specialeffect 16;
+	donpcevent instance_npcname("#古代君王控制")+"::OnTimeClockStart";
+	donpcevent instance_npcname("#古代君王控制")+"::OnStartMob";
+	end;
+}
+
+1@md_gef,0,0,5	script	#古代君王控制	-1,{
+	end;
+OnStartMob:
+	if('level == 1)
+		setarray 'mob[0],3658,3660,3662,3664,3666;
+	else
+		setarray 'mob[0],3659,3661,3663,3665,3667;
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[1],30,instance_npcname("#古代君王控制")+"::OnMobDead";
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[2],30,instance_npcname("#古代君王控制")+"::OnMobDead";
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[3],30,instance_npcname("#古代君王控制")+"::OnMobDead";
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[4],30,instance_npcname("#古代君王控制")+"::OnMobDead";
+	end;
+OnMobDead:
+	set 'count,'count+1;
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[rand(1,4)],1,instance_npcname("#古代君王控制")+"::OnMobDead";
+	if(('count % 10)== 0){
+		mapannounce 'mapname$,"「某處出現了寶箱，時間到了會消失，趕緊去找吧」",bc_map,0xFF5511;
+		enablenpc instance_npcname("寶箱#"+rand(1,4));
+	}
+	end;
+OnTimeClockStart:
+	initnpctimer instance_npcname("#古代君王控制");
+	end;
+OnTimer1800000:
+	set 'Kingtime,1;
+	mapannounce 'mapname$,"「遠方傳來一些聲響，似乎是出現了什麼東西」",bc_map,0xFF5511;
+	enablenpc instance_npcname("奇特雕塑物#in");
+	stopnpctimer instance_npcname("#古代君王控制");
+	end;
+OnInstanceInit:
+	set 'Kingtime,0;
+	set 'mapname$,instance_mapname("1@md_gef");
+	set 'count,0;
+	end;
+}
+
+1@md_gef,182,221,6	script	陌生人#in	697,{
+	if('me == 0 ){
+		getitem 25235,rand(2,7);
+		set 'me,1;
+	}
+	mes "發現了陌生人的屍體，可能是事先來探險而不幸死亡的冒險家屍體。";
+	next;
+	if(select("不理他:搜索身體")==1){
+		mes "為了對死者的尊敬，我們決定離開此地";
+		close;
+	}
+	mes "在口袋裡發現了一張字條，看來這位冒險者的名字是沃特。";
+	next;
+	mes "[冒險家的紀錄]";
+	mes "我叫沃特，我留下紀錄曾經在這裡所犯的錯誤，以免以後造訪這裡的冒險家重蹈覆轍。";
+	next;
+	mes "[冒險家的紀錄]";
+	mes "冒險的第一天，都是那該死的好奇心，碰觸了這附近奇特雕塑物的石板，並且吵醒了絕對不能吵醒的人。";
+	next;
+	mes "[冒險家的紀錄]";
+	mes "現在有個古代國王復活後正在我眼前徘徊，可能完全失去了前世的記憶，唯一確定的是他正想殺我。";
+	next;
+	mes "[冒險家的紀錄]";
+	mes "未來打算造訪這裡的冒險家喔!!千萬不要犯下跟我一樣的錯誤，萬一遇到可疑的石板也絕對不要碰它。";
+	next;
+	mes "[冒險家的紀錄]";
+	mes "我再次強調不要碰石板、不要碰石板、不要碰石板，因為很重要所以說三次。";
+	next;
+	mes "為了以示對死者的尊重，離開了那地方。";
+	close;
+}
+
+1@md_gef,200,73,6	script	奇特雕塑物#in	844,{
+	if('state==1){
+		mes "蓋子似乎在慢慢滑開，不過要等開啟似乎還要一段時間";
+		end;
+	}
+	if('state==2){
+		mes "開關緊緊的關上了，似乎沒辦法打開";
+		end;
+	}
+	mes "過不久灰塵散去後在雕塑物底下石板上發現了10個空洞。";
+	next;
+	mes "感覺10個空洞的大小跟附魔原石一模一樣";
+	next;
+	if(select("不理他:把附魔原石放入空洞")==1){
+		end;
+	}
+	if(countitem(25235)<10){
+		mes "身上的附魔原石好像不太夠.....";
+		end;
+	}
+	delitem 25235,10;
+	mes "把附魔原石放入空洞，發出亮光後熄滅了";
+	next;
+	if('times < 4){
+	if(rand(1,3)>1){
+		mes "似乎什麼事情都沒發生....";
+		set 'state,1;
+		set 'times,'times+1;
+		initnpctimer;
+		end;
+		}
+	}
+	mes "感覺附近空氣都變了。";
+	close2;
+	specialeffect2 41;
+	areamonster 'mapname$,0,0,250,250,"--ja--",'mob[0],1,instance_npcname("奇特雕塑物#in")+"::OnMobDead";;
+	set 'state,2;
+	mapannounce 'mapname$,"亡者君主：是誰吵我呢!我要親自問他理由。",bc_map,0xFF5511;
+
+	end;
+OnTimer30000:
+	set 'state,0;
+	stopnpctimer;
+	end;
+OnMobDead:	
+	disablenpc instance_npcname(strnpcinfo(0));
+
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@md_gef,110,128,5	script	瑪麗亞久#leave	726,{
+	
+	mes "[瑪麗亞久]";
+	mes "你想離開了嗎?";
+	if(select("再待一會...:離開")==1){close;}
+	getitem 940053,1;
+	warp "Save",0,0;
+	end;
+
+OnEnable:	
+	enablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@md_gef,49,57,6	script	寶箱#1	10005,{
+	getitem 25235,rand(1,4);
+	specialeffect 10;
+	specialeffect 16;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@md_gef,190,57,0	duplicate(寶箱#1)	寶箱#2	10005
+1@md_gef,211,212,0	duplicate(寶箱#1)	寶箱#3	10005
+1@md_gef,44,211,0	duplicate(寶箱#1)	寶箱#4	10005

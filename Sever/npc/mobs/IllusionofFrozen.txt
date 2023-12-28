@@ -1,0 +1,25 @@
+//===== Giraffe Script =======================================
+//= Illusion of Turtle Spawn Script
+//=作者 : Leo
+//============================================================
+
+//==================================================
+// gef_d01_i - Illusion of Vampire
+//==================================================
+gef_d01_i	monster	"--ja--"	1082,12
+gef_d01_i	monster	"--ja--"	1079,2
+gef_d01_i	monster	"--ja--"	3750,25
+gef_d01_i	monster	"--ja--"	3751,10
+gef_d01_i	monster	"--ja--"	3752,20
+gef_d01_i	monster	"--ja--"	3753,30
+gef_d01_i	monster	"--ja--"	3754,25
+gef_d01_i	monster	"--ja--"	3755,15
+
+//==================================================
+// ice_d03_i - Illusion of Frozen
+//==================================================
+ice_d03_i	monster	"--ja--"	3792,30
+ice_d03_i	monster	"--ja--"	3793,30
+ice_d03_i	monster	"--ja--"	3794,20
+ice_d03_i	monster	"--ja--"	3795,20
+

@@ -1,0 +1,3850 @@
+﻿# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Skill Database
+###########################################################################
+#
+# Skill Settings
+#
+###########################################################################
+# - Id                        Unique skill ID.
+#   Name                      Skill Aegis name.
+#   Description               Skill description.
+#   MaxLevel                  Max skill level.
+#   Type                      Skill type. (Default: None)
+#   TargetType                Skill target type. (Default: Passive)
+#   DamageFlags:              Skill damage properties.
+#   Flags:                    Skill information flags.
+#   Range:                    Skill range. (Default: 0)
+#     - Level                 Skill level.
+#       Size                  Range at specific skill level.
+#   Hit                       Skill hit type. (Default: Normal)
+#   HitCount:                 Skill hit count. (Default: 0)
+#     - Level                 Skill level.
+#       Count                 Number of hits at specific skill level.
+#   Element:                  Skill element. (Default: Neutral)
+#     - Level                 Skill level.
+#       Element               Element at specific skill level.
+#   SplashArea:               Skill splash area of effect. (Default: 0)
+#     - Level                 Skill level.
+#       Area                  Splash area at specific skill level.
+#   ActiveInstance:           Maximum amount of active skill instances that can be on the ground. (Default: 0)
+#     - Level                 Skill level.
+#       Max                   Active instances at specific skill level.
+#   Knockback:                Amount of tiles the skill knockbacks. (Default: 0)
+#     - Level                 Skill level.
+#       Amount                Knockback count at specific skill level.
+#   GiveAp:                   Gives AP on successful skill cast. (Default: 0)
+#     - Level                 Skill level.
+#       Amount                AP gained at specific skill level.
+#   CopyFlags:                Determines if the skill is copyable. (Optional)
+#     Skill:                  Type of skill that can copy.
+#     RemoveRequirement:      Remove a requirement type. (Optional)
+#   NoNearNPC:                Determines if the skill can be used near a NPC. (Optional)
+#     AdditionalRange         Number of cells from an NPC where the skill can be cast. (Optional)
+#     Type:                   Type of NPC.
+#   CastCancel                Cancel cast when hit. (Default: false)
+#   CastDefenseReduction      Defense reduction rate during skill cast. (Default: 0)
+#   CastTime:                 Time to cast the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Cast time at specific skill level in milliseconds.
+#   AfterCastActDelay:        Time the character cannot use skills in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast action delay at specific skill level in milliseconds.
+#   AfterCastWalkDelay:       Time before the character can move again in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast walk delay at specific skill level in milliseconds.
+#   Duration1:                Duration of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Skill duration at specific skill level in milliseconds.
+#   Duration2:                Duration of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Skill duration at specific skill level in milliseconds.
+#   Cooldown:                 Time before the character can use the same skill again in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  Cooldown at specific skill level in milliseconds.
+#   FixedCastTime:            Time that is fixed during cast of the skill in milliseconds. (Default: 0)
+#     - Level                 Skill level.
+#       Time                  After cast action delay at specific skill level in milliseconds.
+#   CastTimeFlags:            Effects of the skill's cast time. (Optional)
+#   CastDelayFlags:           Effects of the skill's delay. (Optional)
+#   Requires:                 List of requirements to cast the skill. (Optional)
+#     HpCost:                 HP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              HP required at specific skill level.
+#     SpCost:                 SP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              SP required at specific skill level.
+#     ApCost:                 AP required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              AP required at specific skill level.
+#     HpRateCost:             HP rate required to cast. If positive, uses current HP, else uses Max HP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              HP rate required at specific skill level.
+#     SpRateCost:             SP rate required to cast. If positive, uses current SP, else uses Max SP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              SP rate required at specific skill level.
+#     ApRateCost:             AP rate required to cast. If positive, uses current AP, else uses Max AP. (Default: 0)
+#       - Level               Skill level.
+#         Amount              AP rate required at specific skill level.
+#     MaxHpTrigger:           Maximum amount of HP to cast the skill. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Maximum HP trigger required at specific skill level.
+#     ZenyCost:               Zeny required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Zeny required at specific skill level.
+#     Weapon:                 Weapon required to cast. (Default: All)
+#     Ammo:                   Ammo required to cast. (Default: None)
+#     AmmoAmount:             Ammo amount required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Ammo amount required at specific skill level.
+#     State                   Special state required to cast. (Default: None)
+#     Status:                 Status change required to cast. (Default: nullptr)
+#     SpiritSphereCost:       Spirit sphere required to cast. (Default: 0)
+#       - Level               Skill level.
+#         Amount              Spirit sphere required at specific skill level.
+#     ItemCost:               Item required to cast. (Default: 0)
+#       - Item                Item name.
+#         Amount              Item amount.
+#         Level               Skill level. Makes the skill item check become level dependent if supplied. (Default: applies to all levels)
+#     Equipment:              Equipped item required to cast. (Default: nullptr)
+#   Unit:                     Skill unit values. (Optional)
+#     Id                      Skill unit ID.
+#     AlternateId:            Alternate skill unit ID. (Default: 0)
+#     Layout:                 Skill unit layout. (Default: 0)
+#       - Level               Skill level.
+#         Size                Unit layout at specific skill level.
+#     Range:                  Skill unit range. (Default: 0)
+#       - Level               Skill level.
+#         Size                Unit range at specific skill level.
+#     Interval                Skill unit interval in milliseconds. (Default: 0)
+#     Target                  Skill unit target type. (Default: All)
+#     Flag:                   Skill unit flags. (Default: None)
+#   Status                    Status Change that is associated to the skill. (Optional)
+###########################################################################
+
+Header:
+  Type: SKILL_DB
+  Version: 3
+
+#擴充三轉的技能組
+Body:
+  - Id: 5401
+    Name: NW_P_F_I
+    Description: P.F.I
+    MaxLevel: 10
+  - Id: 5402
+    Name: NW_GRENADE_MASTERY
+    Description: 榴彈專精
+    MaxLevel: 10
+  - Id: 5403
+    Name: NW_INTENSIVE_AIM
+    Description: 集中瞄準
+    MaxLevel: 1
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    Duration1: -1
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 10
+    Status: Intensive_Aim
+  - Id: 5404
+    Name: NW_GRENADE_FRAGMENT
+    Description: 榴彈碎片
+    MaxLevel: 7
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    Duration1: 300000
+    Cooldown: 2000
+    Requires:
+      SpCost: 50
+    Status: Grenade_Fragment
+  - Id: 5405
+    Name: NW_THE_VIGILANTE_AT_NIGHT
+    Description: 黑夜私兵
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: 4
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 3
+    GiveAp: 1
+    AfterCastActDelay: 1000
+    Cooldown: 500
+    CastCancel: true
+    FixedCastTime: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 49
+        - Level: 2
+          Amount: 53
+        - Level: 3
+          Amount: 57
+        - Level: 4
+          Amount: 61
+        - Level: 5
+          Amount: 65
+      Weapon:
+        Gatling: true
+        Shotgun: true
+      Ammo:
+        Bullet: true
+      AmmoAmount: 10
+  - Id: 5406
+    Name: NW_ONLY_ONE_BULLET
+    Description: 一發入魂
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    Range: -9
+    Hit: Single
+    HitCount: 1
+    Element: Weapon
+    GiveAp: 1
+    AfterCastActDelay: 500
+    Cooldown: 300
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 35
+        - Level: 2
+          Amount: 40
+        - Level: 3
+          Amount: 45
+        - Level: 4
+          Amount: 50
+        - Level: 5
+          Amount: 55
+      Weapon:
+        Revolver: true
+        Rifle: true
+      Ammo:
+        Bullet: true
+      AmmoAmount: 1
+  - Id: 5407
+    Name: NW_SPIRAL_SHOOTING
+    Description: 螺旋射擊
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Critical: true
+      Splash: true
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 3
+    GiveAp: 1
+    AfterCastActDelay: 1000
+    Cooldown: 500
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 48
+        - Level: 2
+          Amount: 53
+        - Level: 3
+          Amount: 58
+        - Level: 4
+          Amount: 63
+        - Level: 5
+          Amount: 68
+      Weapon:
+        Grenade: true
+        Rifle: true
+      Ammo:
+        Bullet: true
+      AmmoAmount: 6
+  - Id: 5408
+    Name: NW_MAGAZINE_FOR_ONE
+    Description: 耗盡彈匣
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Critical: true
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: 6
+    Element: Weapon
+    GiveAp: 1
+    AfterCastActDelay: 1000
+    Cooldown: 500
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 42
+        - Level: 2
+          Amount: 46
+        - Level: 3
+          Amount: 50
+        - Level: 4
+          Amount: 54
+        - Level: 5
+          Amount: 58
+      Weapon:
+        Revolver: true
+        Gatling: true
+      Ammo:
+        Bullet: true
+      AmmoAmount: 6
+  - Id: 5409
+    Name: NW_WILD_FIRE
+    Description: 狂烈野火
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Ground
+    Range: -9
+    Hit: Single
+    HitCount: 1
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 3
+    GiveAp: 1
+    AfterCastActDelay: 1000
+    Cooldown: 500
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 51
+        - Level: 2
+          Amount: 55
+        - Level: 3
+          Amount: 59
+        - Level: 4
+          Amount: 63
+        - Level: 5
+          Amount: 67
+      Weapon:
+        Shotgun: true
+        Grenade: true
+      Ammo:
+        Bullet: true
+      AmmoAmount: 5
+  - Id: 5410
+    Name: NW_BASIC_GRENADE
+    Description: 基本榴彈
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Ground
+    Range: -9
+    Hit: Single
+    HitCount: -2
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+    GiveAp: 2
+    Cooldown: 300
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 36
+        - Level: 2
+          Amount: 42
+        - Level: 3
+          Amount: 48
+        - Level: 4
+          Amount: 54
+        - Level: 5
+          Amount: 60
+      ItemCost:
+        - Item: Nw_Grenade
+          Amount: 1
+  - Id: 5411
+    Name: NW_HASTY_FIRE_IN_THE_HOLE
+    Description: 急速爆炸
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Ground
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: -4
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 2
+    GiveAp: 3
+    Cooldown: 1000
+    CastCancel: true
+    FixedCastTime: 1000
+    AfterCastActDelay: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 50
+        - Level: 2
+          Amount: 53
+        - Level: 3
+          Amount: 56
+        - Level: 4
+          Amount: 59
+        - Level: 5
+          Amount: 62
+      ItemCost:
+        - Item: Nw_Grenade
+          Amount: 3
+  - Id: 5412
+    Name: NW_GRENADES_DROPPING
+    Description: 榴彈傾落
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Ground
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 5
+      - Level: 2
+        Area: 5
+      - Level: 3
+        Area: 5
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 4
+    GiveAp: 5
+    Cooldown: 4500
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 60
+        - Level: 2
+          Amount: 66
+        - Level: 3
+          Amount: 72
+        - Level: 4
+          Amount: 78
+        - Level: 5
+          Amount: 84
+      ItemCost:
+        - Item: Nw_Grenade
+          Amount: 15
+    Duration1: 4000
+    Duration2: 100
+    Unit:
+      Id: Grenades_Dropping
+      Layout: 0
+      Range:
+        - Level: 1
+          Size: 1
+        - Level: 2
+          Size: 1
+        - Level: 3
+          Size: 1
+        - Level: 4
+          Size: 2
+        - Level: 5
+          Size: 2
+      Interval: 250
+      Target: Enemy
+      Flag:
+        NoOverlap: true
+        PathCheck: true
+  - Id: 5413
+    Name: NW_AUTO_FIRING_LAUNCHER
+    Description: 自動榴彈發射器
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1:
+      - Level: 1
+        Time: 120000
+      - Level: 2
+        Time: 150000
+      - Level: 3
+        Time: 180000
+      - Level: 4
+        Time: 210000
+      - Level: 5
+        Time: 240000
+    Cooldown: 30000
+    CastCancel: true
+    FixedCastTime: 3000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 90
+        - Level: 2
+          Amount: 100
+        - Level: 3
+          Amount: 110
+        - Level: 4
+          Amount: 120
+        - Level: 5
+          Amount: 130
+    Status: Auto_Firing_Launcher
+  - Id: 5414
+    Name: NW_HIDDEN_CARD
+    Description: 秘密王牌
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1: 300000
+    Cooldown: 60000
+    CastCancel: true
+    FixedCastTime: 2000
+    Requires:
+      SpCost: 150
+      ApCost: 150
+    Status: Hidden_Card
+  - Id: 5415
+    Name: NW_MISSION_BOMBARD
+    Description: 轟炸行動
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 4
+    Cooldown: 10000
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 100
+      ApCost: 35
+      ItemCost:
+        - Item: Nw_Grenade
+          Amount: 15
+    Duration1: 10000
+    Unit:
+      Id: Mission_Bombard
+      Layout: 0
+      Range: 2
+      Interval: 250
+      Target: Enemy
+      Flag:
+        NoOverlap: true
+        PathCheck: true
+  - Id: 5416
+    Name: SOA_TALISMAN_MASTERY
+    Description: 符咒研究
+    MaxLevel: 10
+  - Id: 5417
+    Name: SOA_SOUL_MASTERY
+    Description: 靈導術研究
+    MaxLevel: 10
+  - Id: 5418
+    Name: SOA_TALISMAN_OF_PROTECTION
+    Description: 守護符
+    MaxLevel: 5
+    TargetType: Support
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      PartyOnly: true
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    CastCancel: true
+    CastTime: 1500
+    AfterCastActDelay: 500
+    Duration1:
+      - Level: 1
+        Time: 180000
+      - Level: 2
+        Time: 210000
+      - Level: 3
+        Time: 240000
+      - Level: 4
+        Time: 270000
+      - Level: 5
+        Time: 300000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 50
+        - Level: 2
+          Amount: 55
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 65
+        - Level: 5
+          Amount: 70
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: Talisman_of_Protection
+  - Id: 5419
+    Name: SOA_TALISMAN_OF_WARRIOR
+    Description: 武士符
+    MaxLevel: 5
+    TargetType: Support
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      PartyOnly: true
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    GiveAp: 2
+    CastCancel: true
+    CastTime: 1500
+    AfterCastActDelay: 500
+    Duration1:
+      - Level: 1
+        Time: 180000
+      - Level: 2
+        Time: 210000
+      - Level: 3
+        Time: 240000
+      - Level: 4
+        Time: 270000
+      - Level: 5
+        Time: 300000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 50
+        - Level: 2
+          Amount: 55
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 65
+        - Level: 5
+          Amount: 70
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: Talisman_of_Warrior
+  - Id: 5420
+    Name: SOA_TALISMAN_OF_MAGICIAN
+    Description: 法師符
+    MaxLevel: 5
+    TargetType: Support
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      PartyOnly: true
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    GiveAp: 2
+    CastCancel: true
+    CastTime: 1500
+    AfterCastActDelay: 500
+    Duration1:
+      - Level: 1
+        Time: 180000
+      - Level: 2
+        Time: 210000
+      - Level: 3
+        Time: 240000
+      - Level: 4
+        Time: 270000
+      - Level: 5
+        Time: 300000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 50
+        - Level: 2
+          Amount: 55
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 65
+        - Level: 5
+          Amount: 70
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: Talisman_of_Magician
+  - Id: 5421
+    Name: SOA_SOUL_GATHERING
+    Description: 收魂一瞬
+    MaxLevel: 5
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Hit: Single
+    HitCount: 1
+    CastCancel: true
+    FixedCastTime: 1000
+    CastTime: 1500
+    Cooldown:
+      - Level: 1
+        Time: 5000
+      - Level: 2
+        Time: 4000
+      - Level: 3
+        Time: 3000
+      - Level: 4
+        Time: 2000
+      - Level: 5
+        Time: 1000
+    Requires:
+      SpCost: 
+        - Level: 1
+          Amount: 70
+        - Level: 2
+          Amount: 75
+        - Level: 3
+          Amount: 80
+        - Level: 4
+          Amount: 85
+        - Level: 5
+          Amount: 90
+  - Id: 5422
+    Name: SOA_TOTEM_OF_TUTELARY
+    Description: 城隍堂
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Ground
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      PartyOnly: true
+    Range: 11
+    Hit: Single
+    HitCount: 1
+    SplashArea: 2
+    ActiveInstance: 1
+    CastCancel: true
+    CastTime: 3500
+    Duration1:
+      - Level: 1
+        Time: 18000
+      - Level: 2
+        Time: 21000
+      - Level: 3
+        Time: 24000
+      - Level: 4
+        Time: 27000
+      - Level: 5
+        Time: 30000
+    Cooldown: 15000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 76
+        - Level: 2
+          Amount: 92
+        - Level: 3
+          Amount: 108
+        - Level: 4
+          Amount: 124
+        - Level: 5
+          Amount: 140
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 10
+    Unit:
+      Id: Totem_Of_Tutelary
+      Range:
+        - Level: 1
+          Size: 2
+        - Level: 2
+          Size: 2
+        - Level: 3
+          Size: 3
+        - Level: 4
+          Size: 3
+        - Level: 5
+          Size: 4
+      Interval: 1000
+      Target: Friend
+      Flag:
+        NoOverlap: true
+        PathCheck: true
+    Status: Totem_of_Tutelary
+  - Id: 5423
+    Name: SOA_TALISMAN_OF_FIVE_ELEMENTS
+    Description: 五行符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Support
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      PartyOnly: true
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    CastCancel: true
+    CastTime: 1500
+    AfterCastActDelay: 500
+    Duration1:
+      - Level: 1
+        Time: 180000
+      - Level: 2
+        Time: 210000
+      - Level: 3
+        Time: 240000
+      - Level: 4
+        Time: 270000
+      - Level: 5
+        Time: 300000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 50
+        - Level: 2
+          Amount: 55
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 65
+        - Level: 5
+          Amount: 70
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 5
+    Status: Talisman_of_five_Elements
+  - Id: 5424
+    Name: SOA_TALISMAN_OF_SOUL_STEALING
+    Description: 靈導符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Attack
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Endowed
+    CastCancel: true
+    CastTime: 2200
+    Cooldown: 1000
+    FixedCastTime: 1500
+    Requires:
+      SpCost: 84
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+  - Id: 5425
+    Name: SOA_EXORCISM_OF_MALICIOUS_SOUL
+    Description: 邪靈淨化
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Hit: Multi_Hit
+    GiveAp: 2
+    HitCount: -5
+    Element: Endowed
+    SplashArea:
+      - Level: 1
+        Area: 5
+      - Level: 2
+        Area: 5
+      - Level: 3
+        Area: 5
+      - Level: 4
+        Area: 6
+      - Level: 5
+        Area: 6
+    CastCancel: true
+    CastTime: 2200
+    AfterCastActDelay: 500
+    FixedCastTime: 1500
+    Cooldown: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 70
+        - Level: 2
+          Amount: 80
+        - Level: 3
+          Amount: 90
+        - Level: 4
+          Amount: 100
+        - Level: 5
+          Amount: 110
+      SpiritSphereCost: 1
+  - Id: 5426
+    Name: SOA_TALISMAN_OF_BLUE_DRAGON
+    Description: 青龍符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Attack
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Endowed
+    GiveAp: 2
+    CastCancel: true
+    CastTime: 1000
+    FixedCastTime: 1500
+    Cooldown: 300
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 90000
+      - Level: 4
+        Time: 120000
+      - Level: 5
+        Time: 150000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 54
+        - Level: 2
+          Amount: 58
+        - Level: 3
+          Amount: 62
+        - Level: 4
+          Amount: 66
+        - Level: 5
+          Amount: 70
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: T_First_God
+  - Id: 5427
+    Name: SOA_TALISMAN_OF_WHITE_TIGER
+    Description: 白虎符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Hit: Multi_Hit
+    HitCount: -2
+    Element: Endowed
+    GiveAp: 2
+    SplashArea:
+      - Level: 1
+        Area: 5
+      - Level: 2
+        Area: 5
+      - Level: 3
+        Area: 6
+      - Level: 4
+        Area: 6
+      - Level: 5
+        Area: 7
+    CastCancel: true
+    CastTime: 1000
+    FixedCastTime: 1500
+    Cooldown: 400
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 90000
+      - Level: 4
+        Time: 120000
+      - Level: 5
+        Time: 150000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 80
+        - Level: 2
+          Amount: 83
+        - Level: 3
+          Amount: 86
+        - Level: 4
+          Amount: 89
+        - Level: 5
+          Amount: 92
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: T_Second_God
+  - Id: 5428
+    Name: SOA_TALISMAN_OF_RED_PHOENIX
+    Description: 朱雀符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Endowed
+    GiveAp: 3
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 90000
+      - Level: 4
+        Time: 120000
+      - Level: 5
+        Time: 150000
+    CastCancel: true
+    CastTime: 1000
+    FixedCastTime: 1500
+    Cooldown: 450
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 72
+        - Level: 2
+          Amount: 76
+        - Level: 3
+          Amount: 80
+        - Level: 4
+          Amount: 84
+        - Level: 5
+          Amount: 88
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: T_Third_God
+  - Id: 5429
+    Name: SOA_TALISMAN_OF_BLACK_TORTOISE
+    Description: 玄武符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Ground
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -4
+    Element: Endowed
+    GiveAp: 3
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 5
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 90000
+      - Level: 4
+        Time: 120000
+      - Level: 5
+        Time: 150000
+    CastCancel: true
+    CastTime: 1000
+    FixedCastTime: 750
+    Cooldown: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 67
+        - Level: 2
+          Amount: 75
+        - Level: 3
+          Amount: 80
+        - Level: 4
+          Amount: 85
+        - Level: 5
+          Amount: 92
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 1
+    Status: T_Fourth_God
+  - Id: 5430
+    Name: SOA_TALISMAN_OF_FOUR_BEARING_GOD
+    Description: 四方神符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Endowed
+    GiveAp: 3
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 5
+    CastCancel: true
+    CastTime: 1500
+    FixedCastTime: 1500
+    Cooldown: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 86
+        - Level: 2
+          Amount: 88
+        - Level: 3
+          Amount: 90
+        - Level: 4
+          Amount: 92
+        - Level: 5
+          Amount: 94
+      ItemCost:
+        - Item: Soa_Charm
+          Amount: 3
+  - Id: 5431
+    Name: SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS
+    Description: 四方五行符
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: 5
+    Element: Endowed
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 5
+    Duration1:
+      - Level: 1
+        Time: 30000
+      - Level: 2
+        Time: 60000
+      - Level: 3
+        Time: 90000
+      - Level: 4
+        Time: 120000
+      - Level: 5
+        Time: 150000
+    CastCancel: true
+    Cooldown: 5000
+    AfterCastActDelay: 500
+    CastTime: 1500
+    FixedCastTime: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 120
+        - Level: 2
+          Amount: 140
+        - Level: 3
+          Amount: 160
+        - Level: 4
+          Amount: 180
+        - Level: 5
+          Amount: 200
+      ApCost: 25
+    Status: T_Fifth_God
+  - Id: 5432
+    Name: SOA_SOUL_OF_HEAVEN_AND_EARTH
+    Description: 天地神靈
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    Range: 11
+    Hit: Single
+    HitCount: 1
+    SplashArea: 11
+    CastCancel: true
+    AfterCastActDelay: 1000
+    Duration1: 300000
+    Cooldown:
+      - Level: 2
+        Time: 30000
+      - Level: 3
+        Time: 60000
+      - Level: 4
+        Time: 90000
+      - Level: 5
+        Time: 120000
+      - Level: 6
+        Time: 150000
+      - Level: 7
+        Time: 180000
+      - Level: 8
+        Time: 210000
+      - Level: 9
+        Time: 270000
+      - Level: 10
+        Time: 600000
+    CastTime: 3000
+    FixedCastTime: 2000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 90
+        - Level: 2
+          Amount: 100
+        - Level: 3
+          Amount: 110
+        - Level: 4
+          Amount: 120
+        - Level: 5
+          Amount: 130
+        - Level: 6
+          Amount: 140
+        - Level: 7
+          Amount: 150
+        - Level: 8
+          Amount: 160
+        - Level: 9
+          Amount: 170
+        - Level: 10
+          Amount: 180
+      ApCost: 180
+    Status: Heaven_and_Earth
+  - Id: 5433
+    Name: SH_MYSTICAL_CREATURE_MASTERY
+    Description: 靈物理解
+    MaxLevel: 10
+  - Id: 5434
+    Name: SH_COMMUNE_WITH_CHUL_HO
+    Description: 鐵虎通靈
+    MaxLevel: 1
+  - Id: 5435
+    Name: SH_CHUL_HO_SONIC_CLAW
+    Description: 鐵虎虛空爪
+    MaxLevel: 7
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Critical: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 1
+    Element: Weapon
+    AfterCastActDelay: 500
+    Cooldown:
+      - Level: 1
+        Time: 1150
+      - Level: 2
+        Time: 1000
+      - Level: 3
+        Time: 850
+      - Level: 4
+        Time: 700
+      - Level: 5
+        Time: 550
+      - Level: 6
+        Time: 400
+      - Level: 7
+        Time: 250
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 42
+        - Level: 2
+          Amount: 44
+        - Level: 3
+          Amount: 46
+        - Level: 4
+          Amount: 48
+        - Level: 5
+          Amount: 50
+        - Level: 6
+          Amount: 52
+        - Level: 7
+          Amount: 54
+  - Id: 5436
+    Name: SH_HOWLING_OF_CHUL_HO
+    Description: 鐵虎怒咆哮
+    MaxLevel: 7
+    Type: Weapon
+    TargetType: Self
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -3
+    GiveAp: 2
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 3
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 4
+    Duration1: 12000
+    Cooldown: 1000
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 68
+    Status: Hogogong
+  - Id: 5437
+    Name: SH_HOGOGONG_STRIKE
+    Description: 虎哭號亂打
+    MaxLevel: 7
+    Type: Weapon
+    TargetType: Self
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: 3
+    GiveAp: 1
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+      Critical: true
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 3
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 4
+      - Level: 6
+        Area: 4
+      - Level: 7
+        Area: 5
+    Cooldown: 350
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 54
+        - Level: 2
+          Amount: 57
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 63
+        - Level: 5
+          Amount: 66
+        - Level: 6
+          Amount: 69
+        - Level: 7
+          Amount: 72
+  - Id: 5438
+    Name: SH_COMMUNE_WITH_KI_SUL
+    Description: 瑞龜通靈
+    MaxLevel: 1
+  - Id: 5439
+    Name: SH_KI_SUL_WATER_SPRAYING
+    Description: 瑞龜噴水炮
+    MaxLevel: 7
+    Type: Magic
+    TargetType: Self
+    GiveAp: 1
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 4
+      - Level: 5
+        Area: 5
+      - Level: 6
+        Area: 5
+      - Level: 7
+        Area: 6
+    CastCancel: true
+    CastTime: 1700
+    AfterCastActDelay: 1000
+    FixedCastTime: 1000
+    Cooldown: 300
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 61
+        - Level: 2
+          Amount: 65
+        - Level: 3
+          Amount: 69
+        - Level: 4
+          Amount: 73
+        - Level: 5
+          Amount: 77
+        - Level: 6
+          Amount: 81
+        - Level: 7
+          Amount: 85
+  - Id: 5440
+    Name: SH_MARINE_FESTIVAL_OF_KI_SUL
+    Description: 瑞龜海洋祭
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    GiveAp: 4
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 5
+      - Level: 5
+        Area: 6
+    Duration1: 
+     - Level: 1
+       Time: 60000
+     - Level: 2
+       Time: 75000
+     - Level: 3
+       Time: 90000
+     - Level: 4
+       Time: 105000
+     - Level: 5
+       Time: 120000
+    CastCancel: true
+    CastTime: 1700
+    AfterCastActDelay: 1000
+    FixedCastTime: 1000
+    Cooldown: 2000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 80
+        - Level: 2
+          Amount: 90
+        - Level: 3
+          Amount: 100
+        - Level: 4
+          Amount: 110
+        - Level: 5
+          Amount: 120
+    Status: Marine_Festival
+  - Id: 5441
+    Name: SH_SANDY_FESTIVAL_OF_KI_SUL
+    Description: 瑞龜沙灘祭
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    GiveAp: 4
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 4
+      - Level: 4
+        Area: 5
+      - Level: 5
+        Area: 6
+    Duration1: 
+     - Level: 1
+       Time: 60000
+     - Level: 2
+       Time: 75000
+     - Level: 3
+       Time: 90000
+     - Level: 4
+       Time: 105000
+     - Level: 5
+       Time: 120000
+    CastCancel: true
+    CastTime: 1700
+    AfterCastActDelay: 1000
+    FixedCastTime: 1000
+    Cooldown: 2000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 80
+        - Level: 2
+          Amount: 90
+        - Level: 3
+          Amount: 100
+        - Level: 4
+          Amount: 110
+        - Level: 5
+          Amount: 120
+    Status: Sandy_Festival
+  - Id: 5442
+    Name: SH_KI_SUL_RAMPAGE
+    Description: 瑞龜暴烈震
+    MaxLevel: 7
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    SplashArea: 3
+    Duration1: 
+     - Level: 1
+       Time: 4000
+     - Level: 2
+       Time: 5000
+     - Level: 3
+       Time: 6000
+     - Level: 4
+       Time: 7000
+     - Level: 5
+       Time: 8000
+     - Level: 6
+       Time: 9000
+     - Level: 7
+       Time: 10000
+    CastCancel: true
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Cooldown: 60000
+    FixedCastTime: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 90
+        - Level: 2
+          Amount: 100
+        - Level: 3
+          Amount: 110
+        - Level: 4
+          Amount: 120
+        - Level: 5
+          Amount: 130
+        - Level: 6
+          Amount: 140
+        - Level: 7
+          Amount: 150
+    Status: Ki_Sul_Rampage
+  - Id: 5443
+    Name: SH_COMMUNE_WITH_HYUN_ROK
+    Description: 玄鹿通靈
+    MaxLevel: 1
+  - Id: 5444
+    Name: SH_COLORS_OF_HYUN_ROK
+    Description: 玄鹿五色角
+    MaxLevel: 7
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1:  300000
+    CastCancel: true
+    CastTime: 1700
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 90
+    Status: Colors_of_Hyun_Rok
+  - Id: 5445
+    Name: SH_HYUN_ROKS_BREEZE
+    Description: 玄鹿葉旋風
+    MaxLevel: 7
+    Type: Magic
+    TargetType: Ground
+    Hit: Multi_Hit
+    HitCount: 1
+    Range: 9
+    GiveAp: 4
+    CastCancel: true
+    CastTime: 3000
+    AfterCastActDelay: 500
+    Cooldown: 4500
+    FixedCastTime: 1500
+    Duration1: 4500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 58
+        - Level: 2
+          Amount: 64
+        - Level: 3
+          Amount: 70
+        - Level: 4
+          Amount: 76
+        - Level: 5
+          Amount: 82
+        - Level: 6
+          Amount: 88
+        - Level: 7
+          Amount: 94
+    Unit:
+      Id: HYUN_ROKS_BREEZE
+      Layout: 0
+      Range:
+        - Level: 1
+          Size: 2
+        - Level: 2
+          Size: 2
+        - Level: 3
+          Size: 3
+        - Level: 4
+          Size: 3
+        - Level: 5
+          Size: 4
+        - Level: 6
+          Size: 4
+        - Level: 7
+          Size: 5
+      Interval: 300
+      Target: Enemy
+      Flag:
+        NoOverlap: true
+        PathCheck: true
+  - Id: 5446
+    Name: SH_HYUN_ROK_CANNON
+    Description: 玄鹿炮
+    MaxLevel: 7
+    Type: Magic
+    TargetType: Attack
+    Range: 9
+    GiveAp: 1
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Endowed
+    CastCancel: true
+    CastTime: 2000
+    Cooldown: 300
+    FixedCastTime: 1500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 56
+        - Level: 2
+          Amount: 59
+        - Level: 3
+          Amount: 62
+        - Level: 4
+          Amount: 65
+        - Level: 5
+          Amount: 68
+        - Level: 6
+          Amount: 71
+        - Level: 7
+          Amount: 74
+  - Id: 5447
+    Name: SH_TEMPORARY_COMMUNION
+    Description: 急速通靈
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    CastCancel: true
+    CastTime: 2000
+    AfterCastActDelay: 500
+    Cooldown: 60000
+    FixedCastTime: 1500
+    Duration1: 
+     - Level: 1
+       Time: 30000
+     - Level: 2
+       Time: 60000
+     - Level: 3
+       Time: 90000
+     - Level: 4
+       Time: 12000
+     - Level: 5
+       Time: 150000
+    Requires:
+      SpCost: 100
+      ApCost: 150
+    Status: Temporary_Communion
+  - Id: 5448
+    Name: SH_BLESSING_OF_MYSTICAL_CREATURES
+    Description: 靈魂祝福
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Support
+    Range: -9
+    DamageFlags:
+      NoDamage: true
+    Flags:
+      NoTargetSelf: true
+      PartyOnly: true
+    CastTime: 2000
+    AfterCastActDelay: 500
+    Cooldown: 60000
+    FixedCastTime: 1500
+    Duration1: 10000
+    Duration2: 60000
+    Requires:
+      SpCost: 100
+      ApCost: 100
+    Status: Blessing_of_M_Creatures
+  - Id: 5449
+    Name: HN_SELFSTUDY_TATICS
+    Description: 獨學-戰鬥學
+    MaxLevel: 10
+  - Id: 5450
+    Name: HN_SELFSTUDY_SOCERY
+    Description: 獨學-魔島學
+    MaxLevel: 10
+  - Id: 5451
+    Name: HN_DOUBLEBOWLINGBASH
+    Description: 怪物雙重擊
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 4
+    Knockback: 2
+    CastCancel: true
+    CastTime: 300
+    AfterCastActDelay: 1000
+    GiveAp: 3
+    Cooldown: 1000
+    FixedCastTime: 200
+    Duration2: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 38
+        - Level: 2
+          Amount: 41
+        - Level: 3
+          Amount: 44
+        - Level: 4
+          Amount: 47
+        - Level: 5
+          Amount: 50
+        - Level: 6
+          Amount: 53
+        - Level: 7
+          Amount: 56
+        - Level: 8
+          Amount: 59
+        - Level: 9
+          Amount: 62
+        - Level: 10
+          Amount: 65
+    Status: Hnnoweapon
+  - Id: 5452
+    Name: HN_MEGA_SONIC_BLOW
+    Description: 百萬音速擊
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Critical: true
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -8
+    GiveAp: 2
+    Element: Weapon
+    AfterCastActDelay: 500
+    Cooldown: 300
+    Duration2: 5000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 42
+        - Level: 2
+          Amount: 44
+        - Level: 3
+          Amount: 46
+        - Level: 4
+          Amount: 48
+        - Level: 5
+          Amount: 50
+        - Level: 6
+          Amount: 52
+        - Level: 7
+          Amount: 54
+        - Level: 8
+          Amount: 56
+        - Level: 9
+          Amount: 58
+        - Level: 10
+          Amount: 60
+  - Id: 5453
+    Name: HN_SHIELD_CHAIN_RUSH
+    Description: 連續盾衝擊
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    Range: 7
+    Hit: Multi_Hit
+    HitCount: -5
+    DamageFlags:
+      Splash: true
+    SplashArea: 4
+    GiveAp: 2
+    Element: Weapon
+    CastCancel: true
+    CastTime: 1200
+    AfterCastActDelay: 500
+    Cooldown: 300
+    FixedCastTime: 300
+    Duration1: 5000
+    Duration2: 1200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 35
+        - Level: 2
+          Amount: 38
+        - Level: 3
+          Amount: 41
+        - Level: 4
+          Amount: 44
+        - Level: 5
+          Amount: 47
+        - Level: 6
+          Amount: 50
+        - Level: 7
+          Amount: 53
+        - Level: 8
+          Amount: 56
+        - Level: 9
+          Amount: 59
+        - Level: 10
+          Amount: 62
+      State: Shield
+    Status: Shieldchainrush
+  - Id: 5454
+    Name: HN_SPIRAL_PIERCE_MAX
+    Description: 螺旋極限刺
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    Range: 7
+    Hit: Multi_Hit
+    HitCount: -5
+    Element: Weapon
+    GiveAp: 2
+    CastCancel: true
+    CastTime: 1000
+    AfterCastActDelay: 500
+    Cooldown: 300
+    FixedCastTime: 300
+    Duration2: 2000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 37
+        - Level: 2
+          Amount: 39
+        - Level: 3
+          Amount: 41
+        - Level: 4
+          Amount: 43
+        - Level: 5
+          Amount: 45
+        - Level: 6
+          Amount: 47
+        - Level: 7
+          Amount: 49
+        - Level: 8
+          Amount: 51
+        - Level: 9
+          Amount: 53
+        - Level: 10
+          Amount: 55
+  - Id: 5455
+    Name: HN_METEOR_STORM_BUSTER
+    Description: 隕石轟炸術
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Ground
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Fire
+    GiveAp: 3
+    DamageFlags:
+      Splash: true
+    SplashArea: 2
+    CastCancel: true
+    CastTime: 4000
+    Cooldown:
+      - Level: 1
+        Time: 2100
+      - Level: 2
+        Time: 2200
+      - Level: 3
+        Time: 2300
+      - Level: 4
+        Time: 2400
+      - Level: 5
+        Time: 2500
+      - Level: 6
+        Time: 2600
+      - Level: 7
+        Time: 2700
+      - Level: 8
+        Time: 2800
+      - Level: 9
+        Time: 2900
+      - Level: 10
+        Time: 3000
+    FixedCastTime: 1500
+    Duration1: 
+     - Level: 1
+       Time: 1000
+     - Level: 2
+       Time: 1000
+     - Level: 3
+       Time: 1500
+     - Level: 4
+       Time: 1500
+     - Level: 5
+       Time: 2000
+     - Level: 6
+       Time: 2000
+     - Level: 7
+       Time: 2000
+     - Level: 8
+       Time: 2500
+     - Level: 9
+       Time: 2500
+     - Level: 10
+       Time: 2500
+    Duration2: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 74
+        - Level: 2
+          Amount: 78
+        - Level: 3
+          Amount: 82
+        - Level: 4
+          Amount: 86
+        - Level: 5
+          Amount: 90
+        - Level: 6
+          Amount: 94
+        - Level: 7
+          Amount: 98
+        - Level: 8
+          Amount: 102
+        - Level: 9
+          Amount: 106
+        - Level: 10
+          Amount: 110
+    Unit:
+      Id: Dummyskill
+      Range:
+        - Level: 1
+          Size: 3
+        - Level: 2
+          Size: 3
+        - Level: 3
+          Size: 3
+        - Level: 4
+          Size: 3
+        - Level: 5
+          Size: 3
+        - Level: 6
+          Size: 3
+        - Level: 7
+          Size: 3
+        - Level: 8
+          Size: 4
+        - Level: 9
+          Size: 4
+        - Level: 10
+          Size: 4
+      Interval: 1500
+      Target: Enemy
+      Flag:
+        PathCheck: true
+  - Id: 5456
+    Name: HN_JUPITEL_THUNDER_STORM
+    Description: 雷鳴風暴術
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    Range: 11
+    Hit: Multi_Hit
+    HitCount: -10
+    Element: Wind
+    GiveAp: 2
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 4
+      - Level: 10
+        Area: 4
+    CastCancel: true
+    CastTime:
+      - Level: 1
+        Time: 1100
+      - Level: 2
+        Time: 1200
+      - Level: 3
+        Time: 1300
+      - Level: 4
+        Time: 1400
+      - Level: 5
+        Time: 1500
+      - Level: 6
+        Time: 1600
+      - Level: 7
+        Time: 1700
+      - Level: 8
+        Time: 1800
+      - Level: 9
+        Time: 1900
+      - Level: 10
+        Time: 2000
+    AfterCastActDelay: 500
+    Cooldown: 1800
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 75
+        - Level: 2
+          Amount: 80
+        - Level: 3
+          Amount: 85
+        - Level: 4
+          Amount: 90
+        - Level: 5
+          Amount: 95
+        - Level: 6
+          Amount: 100
+        - Level: 7
+          Amount: 105
+        - Level: 8
+          Amount: 110
+        - Level: 9
+          Amount: 115
+        - Level: 10
+          Amount: 120
+  - Id: 5457
+    Name: HN_JACK_FROST_NOVA
+    Description: 冰球霜凍術
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Ground
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -2
+    Element: Water
+    GiveAp: 3
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 3
+      - Level: 2
+        Area: 3
+      - Level: 3
+        Area: 3
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 3
+      - Level: 6
+        Area: 4
+      - Level: 7
+        Area: 4
+      - Level: 8
+        Area: 4
+      - Level: 9
+        Area: 4
+      - Level: 10
+        Area: 4
+    CastCancel: true
+    CastTime:
+      - Level: 1
+        Time: 1600
+      - Level: 2
+        Time: 1700
+      - Level: 3
+        Time: 1800
+      - Level: 4
+        Time: 1900
+      - Level: 5
+        Time: 2000
+      - Level: 6
+        Time: 2100
+      - Level: 7
+        Time: 2200
+      - Level: 8
+        Time: 2300
+      - Level: 9
+        Time: 2400
+      - Level: 10
+        Time: 2500
+    AfterCastActDelay: 300
+    Cooldown: 3000
+    FixedCastTime: 1500
+    Duration1: 
+     - Level: 1
+       Time: 900
+     - Level: 2
+       Time: 1200
+     - Level: 3
+       Time: 1500
+     - Level: 4
+       Time: 1800
+     - Level: 5
+       Time: 2100
+     - Level: 6
+       Time: 2400
+     - Level: 7
+       Time: 2700
+     - Level: 8
+       Time: 3000
+     - Level: 9
+       Time: 3300
+     - Level: 10
+       Time: 3600
+    Duration2: 5000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 68
+        - Level: 2
+          Amount: 71
+        - Level: 3
+          Amount: 74
+        - Level: 4
+          Amount: 77
+        - Level: 5
+          Amount: 80
+        - Level: 6
+          Amount: 83
+        - Level: 7
+          Amount: 86
+        - Level: 8
+          Amount: 89
+        - Level: 9
+          Amount: 92
+        - Level: 10
+          Amount: 95
+    Unit:
+      Id: JACK_FROST_NOVA
+      Range:
+        - Level: 1
+          Size: 3
+        - Level: 2
+          Size: 3
+        - Level: 3
+          Size: 3
+        - Level: 4
+          Size: 3
+        - Level: 5
+          Size: 3
+        - Level: 6
+          Size: 4
+        - Level: 7
+          Size: 4
+        - Level: 8
+          Size: 4
+        - Level: 9
+          Size: 4
+        - Level: 10
+          Size: 4
+      Interval: 300
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Mistyfrost
+  - Id: 5458
+    Name: HN_HELLS_DRIVE
+    Description: 地獄崩裂術
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Earth
+    GiveAp: 2
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 1
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 2
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 4
+    CastCancel: true
+    CastTime: 1200
+    AfterCastActDelay: 1000
+    Cooldown:
+      - Level: 1
+        Time: 2500
+      - Level: 2
+        Time: 2300
+      - Level: 3
+        Time: 2100
+      - Level: 4
+        Time: 1900
+      - Level: 5
+        Time: 1700
+      - Level: 6
+        Time: 1500
+      - Level: 7
+        Time: 1300
+      - Level: 8
+        Time: 1100
+      - Level: 9
+        Time: 900
+      - Level: 10
+        Time: 700
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 71
+        - Level: 2
+          Amount: 74
+        - Level: 3
+          Amount: 77
+        - Level: 4
+          Amount: 80
+        - Level: 5
+          Amount: 83
+        - Level: 6
+          Amount: 86
+        - Level: 7
+          Amount: 89
+        - Level: 8
+          Amount: 92
+        - Level: 9
+          Amount: 95
+        - Level: 10
+          Amount: 98
+  - Id: 5459
+    Name: HN_GROUND_GRAVITATION
+    Description: 超重力荒野
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Neutral
+    GiveAp: 5
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 4
+      - Level: 10
+        Area: 4
+    CastCancel: true
+    CastTime:
+      - Level: 1
+        Time: 3000
+      - Level: 2
+        Time: 3000
+      - Level: 3
+        Time: 3000
+      - Level: 4
+        Time: 3200
+      - Level: 5
+        Time: 3500
+      - Level: 6
+        Time: 3800
+      - Level: 7
+        Time: 4100
+      - Level: 8
+        Time: 4400
+      - Level: 9
+        Time: 4700
+      - Level: 10
+        Time: 5000
+    AfterCastActDelay:
+      - Level: 1
+        Time: 2000
+      - Level: 2
+        Time: 2000
+      - Level: 3
+        Time: 2000
+      - Level: 4
+        Time: 1800
+      - Level: 5
+        Time: 1800
+      - Level: 6
+        Time: 1800
+      - Level: 7
+        Time: 1600
+      - Level: 8
+        Time: 1400
+      - Level: 9
+        Time: 1200
+      - Level: 10
+        Time: 1000
+    Cooldown: 5000
+    FixedCastTime: 1500
+    Duration1:  5000
+    Duration2:  5000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 55
+        - Level: 2
+          Amount: 60
+        - Level: 3
+          Amount: 65
+        - Level: 4
+          Amount: 70
+        - Level: 5
+          Amount: 75
+        - Level: 6
+          Amount: 80
+        - Level: 7
+          Amount: 85
+        - Level: 8
+          Amount: 90
+        - Level: 9
+          Amount: 95
+        - Level: 10
+          Amount: 100
+    Unit:
+      Id: GROUND_GRAVITATION
+      Range:
+        - Level: 1
+          Size: 2
+        - Level: 2
+          Size: 2
+        - Level: 3
+          Size: 2
+        - Level: 4
+          Size: 2
+        - Level: 5
+          Size: 3
+        - Level: 6
+          Size: 3
+        - Level: 7
+          Size: 3
+        - Level: 8
+          Size: 3
+        - Level: 9
+          Size: 4
+        - Level: 10
+          Size: 4
+      Interval: 500
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Groundgravity
+  - Id: 5460
+    Name: HN_NAPALM_VULCAN_STRIKE
+    Description: 念力魔神擊
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    Range: 11
+    Hit: Multi_Hit
+    HitCount: -7
+    Element: Ghost
+    GiveAp: 2
+    DamageFlags:
+      Splash: true
+    SplashArea: 3
+    CastCancel: true
+    CastTime: 500
+    Cooldown: 300
+    AfterCastActDelay: 500
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 48
+        - Level: 2
+          Amount: 51
+        - Level: 3
+          Amount: 54
+        - Level: 4
+          Amount: 57
+        - Level: 5
+          Amount: 60
+        - Level: 6
+          Amount: 63
+        - Level: 7
+          Amount: 66
+        - Level: 8
+          Amount: 69
+        - Level: 9
+          Amount: 72
+        - Level: 10
+          Amount: 75
+  - Id: 5461
+    Name: HN_BREAKINGLIMIT
+    Description: 限界突破
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1: 300000
+    Cooldown: 60000
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 150
+      ApCost: 150
+    Status: Breakinglimit
+  - Id: 5462
+    Name: HN_RULEBREAK
+    Description: 打破規則
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+    Duration1: 300000
+    Cooldown: 60000
+    CastCancel: true
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 150
+      ApCost: 150
+    Status: Rulebreak
+  - Id: 5463
+    Name: SKE_SKY_MASTERY
+    Description: 天氣修煉
+    MaxLevel: 10
+  - Id: 5464
+    Name: SKE_WAR_BOOK_MASTERY
+    Description: 兵法修煉
+    MaxLevel: 10
+  - Id: 5465
+    Name: SKE_RISING_SUN
+    Description: 天地壹陽
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -2
+    Element: Weapon
+    AfterCastActDelay: 500
+    Cooldown: 500
+    Duration1: 
+     - Level: 1
+       Time: 30000
+     - Level: 2
+       Time: 60000
+     - Level: 3
+       Time: 90000
+     - Level: 4
+       Time: 120000
+     - Level: 5
+       Time: 150000
+    Duration2: 1000
+    Requires:
+      SpCost: 60
+  - Id: 5466
+    Name: SKE_NOON_BLAST
+    Description: 太天壹陽
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+      Critical: true
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 3
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+    AfterCastActDelay: 500
+    Cooldown: 700
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 49
+        - Level: 2
+          Amount: 53
+        - Level: 3
+          Amount: 57
+        - Level: 4
+          Amount: 61
+        - Level: 5
+          Amount: 65
+  - Id: 5467
+    Name: SKE_SUNSET_BLAST
+    Description: 天陽
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+      Critical: true
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 3
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 1
+      - Level: 2
+        Area: 1
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+    AfterCastActDelay: 500
+    Cooldown: 300
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 46
+        - Level: 2
+          Amount: 50
+        - Level: 3
+          Amount: 54
+        - Level: 4
+          Amount: 58
+        - Level: 5
+          Amount: 62
+  - Id: 5468
+    Name: SKE_RISING_MOON
+    Description: 天地壹月
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 2
+    Hit: Multi_Hit
+    HitCount: -2
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 3
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 4
+    AfterCastActDelay: 500
+    Cooldown: 500
+    Duration1: 
+     - Level: 1
+       Time: 30000
+     - Level: 2
+       Time: 60000
+     - Level: 3
+       Time: 90000
+     - Level: 4
+       Time: 120000
+     - Level: 5
+       Time: 150000
+    Duration2: 1000
+    Requires:
+      SpCost: 64
+  - Id: 5469
+    Name: SKE_MIDNIGHT_KICK
+    Description: 太天壹月
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 3
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 3
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 4
+    CastCancel: true
+    CastTime: 1000
+    Cooldown: 700
+    FixedCastTime: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 60
+        - Level: 2
+          Amount: 62
+        - Level: 3
+          Amount: 64
+        - Level: 4
+          Amount: 66
+        - Level: 5
+          Amount: 68
+  - Id: 5470
+    Name: SKE_DAWN_BREAK
+    Description: 天月
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 3
+    Element: Weapon
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 3
+      - Level: 4
+        Area: 3
+      - Level: 5
+        Area: 4
+    CastCancel: true
+    CastTime: 1000
+    Cooldown: 300
+    FixedCastTime: 500
+    Duration2: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 56
+        - Level: 2
+          Amount: 58
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 62
+        - Level: 5
+          Amount: 64
+  - Id: 5471
+    Name: SKE_TWINKLING_GALAXY
+    Description: 天地萬星
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 2
+    CastCancel: true
+    CastTime: 1000
+    Cooldown: 5000
+    FixedCastTime: 500
+    Duration1: 4500
+    Requires:
+      SpCost: 84
+    Unit:
+      Id: TWINKLING_GALAXY
+      Range:
+        - Level: 1
+          Size: 6
+        - Level: 2
+          Size: 6
+        - Level: 3
+          Size: 5
+        - Level: 4
+          Size: 5
+        - Level: 5
+          Size: 4
+      Interval: 300
+      Target: Enemy
+      Flag:
+        PathCheck: true
+  - Id: 5472
+    Name: SKE_STAR_BURST
+    Description: 天命落星
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    Range: 2
+    Hit: Multi_hit
+    HitCount: -2
+    GiveAp: 3
+    Element: Weapon
+    AfterCastActDelay: 500
+    Cooldown: 1000
+    CastCancel: true
+    FixedCastTime: 500
+    Duration2: 4500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 54
+        - Level: 2
+          Amount: 56
+        - Level: 3
+          Amount: 58
+        - Level: 4
+          Amount: 60
+        - Level: 5
+          Amount: 62
+    Unit:
+      Id: STAR_BURST
+      Range: 2
+      Interval: 300
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Star_Burst
+  - Id: 5473
+    Name: SKE_STAR_CANNON
+    Description: 天星
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    DamageFlags:
+      Splash: true
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -3
+    GiveAp: 3
+    Element: Weapon
+    SplashArea: 3
+    Cooldown: 5000
+    CastCancel: true
+    FixedCastTime: 500
+    Duration1: 4500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 51
+        - Level: 2
+          Amount: 54
+        - Level: 3
+          Amount: 57
+        - Level: 4
+          Amount: 60
+        - Level: 5
+          Amount: 63
+    Unit:
+      Id: STAR_CANNON
+      Range:
+        - Level: 1
+          Size: 6
+        - Level: 2
+          Size: 6
+        - Level: 3
+          Size: 5
+        - Level: 4
+          Size: 5
+        - Level: 5
+          Size: 4
+      Interval: 300
+      Target: Enemy
+      Flag:
+        PathCheck: true
+  - Id: 5474
+    Name: SKE_ALL_IN_THE_SKY
+    Description: 天羅萬象
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Critical: true
+    Range: -9
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Weapon
+    CastCancel: true
+    FixedCastTime: 1000
+    Cooldown: 2000
+    Requires:
+      ApCost: 35
+      SpCost: 85
+  - Id: 5475
+    Name: SKE_ENCHANTING_SKY
+    Description: 天氣之神
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    DamageFlag:
+       NoDamage: true
+    CastCancel: true
+    CastTime: 300
+    FixedCastTime: 1000
+    Cooldown: 60000
+    Duration1: 
+     - Level: 1
+       Time: 90000
+     - Level: 2
+       Time: 180000
+     - Level: 3
+       Time: 270000
+     - Level: 4
+       Time: 360000
+     - Level: 5
+       Time: 450000
+     - Level: 6
+       Time: 540000
+     - Level: 7
+       Time: 630000
+     - Level: 8
+       Time: 720000
+     - Level: 9
+       Time: 810000
+     - Level: 10
+       Time: 900000
+    Requires:
+      ApCost: 150
+      SpCost: 100
+    Status: Sky_Enchant
+  - Id: 5476
+    Name: SS_TOKEDASU
+    Description: 融化
+    MaxLevel: 5
+    Type: Magic
+    TargetType: Ground
+    DamageFlags:
+      Splash: true
+    Range: 5
+    Hit: Multi_Hit
+    HitCount: -2
+    Element: Dark
+    SplashArea: 2
+    Duration2: 2000
+    Cooldown:
+      - Level: 1
+        Time: 6000
+      - Level: 2
+        Time: 5000
+      - Level: 3
+        Time: 4000
+      - Level: 4
+        Time: 3000
+      - Level: 5
+        Time: 2000
+    Requires:
+      SpCost: 35
+    Knockback: 3
+    Status: Shadow_Clock
+  - Id: 5477
+    Name: SS_SHIMIRU
+    Description: 滲透
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 11
+    Hit: Multi_Hit
+    HitCount: -2
+    SplashArea: 15
+    Element: Weapon
+    Duration2: 2000
+    Cooldown:
+      - Level: 1
+        Time: 1500
+      - Level: 2
+        Time: 1250
+      - Level: 3
+        Time: 1000
+      - Level: 4
+        Time: 750
+      - Level: 5
+        Time: 500
+    Requires:
+      SpCost: 40
+    Status: Shadow_Clock
+  - Id: 5478
+    Name: SS_AKUMUKESU
+    Description: 噩夢消除
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Self
+    DamageFlags:
+      NoDamage: true
+      Splash: true
+    SplashArea: 7
+    CastCancel: true
+    CastTime: 1000
+    AfterCastActDelay: 250
+    Cooldown: 15000
+    Requires:
+      SpCost: 10
+  - Id: 5479
+    Name: SS_SHINKIROU
+    Description: 海市蜃樓
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Ground
+    Range: 5
+    DamageFlags:
+      NoDamage: true
+    CastCancel: true
+    CastTime: 2000
+    Duration1: 20000
+    Cooldown: 3000
+    FixedCastTime: 700
+    Requires:
+      SpCost: 25
+    ActiveInstance: 3
+    Unit:
+      Id: SHINKIROU
+      Interval: -1
+    Status: Shinkirou_Call
+  - Id: 5480
+    Name: SS_KAGEGARI
+    Description: 影狩獵
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    Range: 2
+    Hit: Single
+    HitCount: 1
+    GiveAp: 2
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 2
+    AfterCastActDelay: 150
+    Duration2: 5000
+    Cooldown: 300
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 33
+        - Level: 2
+          Amount: 36
+        - Level: 3
+          Amount: 39
+        - Level: 4
+          Amount: 42
+        - Level: 5
+          Amount: 45
+        - Level: 6
+          Amount: 48
+        - Level: 7
+          Amount: 51
+        - Level: 8
+          Amount: 54
+        - Level: 9
+          Amount: 57
+        - Level: 10
+          Amount: 60
+    Status: Nightmare
+  - Id: 5481
+    Name: SS_KAGENOMAI
+    Description: 影之舞
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -5
+    GiveAp: 2
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 3
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 4
+      - Level: 10
+        Area: 4
+    AfterCastActDelay: 250
+    Cooldown: 500
+    CastCancel: true
+    FixedCastTime:
+      - Level: 1
+        Time: 1000
+      - Level: 2
+        Time: 920
+      - Level: 3
+        Time: 845
+      - Level: 4
+        Time: 765
+      - Level: 5
+        Time: 690
+      - Level: 6
+        Time: 610
+      - Level: 7
+        Time: 530
+      - Level: 8
+        Time: 455
+      - Level: 9
+        Time: 375
+      - Level: 10
+        Time: 300
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 38
+        - Level: 2
+          Amount: 41
+        - Level: 3
+          Amount: 44
+        - Level: 4
+          Amount: 47
+        - Level: 5
+          Amount: 50
+        - Level: 6
+          Amount: 53
+        - Level: 7
+          Amount: 56
+        - Level: 8
+          Amount: 59
+        - Level: 9
+          Amount: 62
+        - Level: 10
+          Amount: 65
+  - Id: 5482
+    Name: SS_KAGEGISSEN
+    Description: 影一閃
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -4
+    GiveAp: 1
+    Element: Weapon
+    SplashArea: 1
+    ActiveInstance: 10
+    AfterCastActDelay: 250
+    Cooldown: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 36
+        - Level: 2
+          Amount: 39
+        - Level: 3
+          Amount: 42
+        - Level: 4
+          Amount: 45
+        - Level: 5
+          Amount: 48
+        - Level: 6
+          Amount: 51
+        - Level: 7
+          Amount: 54
+        - Level: 8
+          Amount: 57
+        - Level: 9
+          Amount: 60
+        - Level: 10
+          Amount: 63
+  - Id: 5483
+    Name: SS_FUUMASHOUAKU
+    Description: 風魔-掌握
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: 1
+    GiveAp: 3
+    Element: Weapon
+    ActiveInstance: 2
+    CastCancel: true
+    CastTime: 1200
+    Duration1: 5000
+    Duration2: 5000
+    Cooldown: 1000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 48
+        - Level: 2
+          Amount: 52
+        - Level: 3
+          Amount: 56
+        - Level: 4
+          Amount: 60
+        - Level: 5
+          Amount: 64
+        - Level: 6
+          Amount: 68
+        - Level: 7
+          Amount: 72
+        - Level: 8
+          Amount: 76
+        - Level: 9
+          Amount: 80
+        - Level: 10
+          Amount: 84
+      Ammo:
+        Kunai: true
+      Weapon:
+        Huuma: true
+    Unit:
+      Id: FUUMASHOUAKU
+      Range:
+        - Level: 1
+          Size: 2
+        - Level: 2
+          Size: 2
+        - Level: 3
+          Size: 2
+        - Level: 4
+          Size: 2
+        - Level: 5
+          Size: 3
+        - Level: 6
+          Size: 3
+        - Level: 7
+          Size: 3
+        - Level: 8
+          Size: 3
+        - Level: 9
+          Size: 4
+        - Level: 10
+          Size: 4
+      Interval: 250
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Nightmare
+  - Id: 5484
+    Name: SS_FUUMAKOUCHIKU
+    Description: 風魔-構築
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -3
+    Element: Weapon
+    SplashArea: 2
+    ActiveInstance: 13
+    CastCancel: true
+    CastTime: 1200
+    Cooldown: 1000
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 29
+        - Level: 2
+          Amount: 33
+        - Level: 3
+          Amount: 37
+        - Level: 4
+          Amount: 41
+        - Level: 5
+          Amount: 45
+        - Level: 6
+          Amount: 49
+        - Level: 7
+          Amount: 53
+        - Level: 8
+          Amount: 57
+        - Level: 9
+          Amount: 61
+        - Level: 10
+          Amount: 65
+      Ammo:
+        Kunai: true
+      Weapon:
+        Huuma: true
+  - Id: 5485
+    Name: SS_KUNAIWAIKYOKU
+    Description: 飛刀-歪曲
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 2
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+      IgnoreFlee: true
+    SplashArea: 2
+    AfterCastActDelay: 500
+    Duration1: 5000
+    Duration2: 5000
+    Cooldown: 300
+    CastCancel: true
+    CastTime: 200
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 36
+        - Level: 2
+          Amount: 38
+        - Level: 3
+          Amount: 40
+        - Level: 4
+          Amount: 42
+        - Level: 5
+          Amount: 44
+        - Level: 6
+          Amount: 46
+        - Level: 7
+          Amount: 48
+        - Level: 8
+          Amount: 50
+        - Level: 9
+          Amount: 52
+        - Level: 10
+          Amount: 54
+      Ammo:
+        Kunai: true
+      AmmoAmount: 2
+    Unit:
+      Id: KUNAIWAIKYOKU
+      Range: 2
+      Interval: 250
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Nightmare
+  - Id: 5486
+    Name: SS_KUNAIKAITEN
+    Description: 飛刀-回轉
+    MaxLevel: 5
+    Type: Weapon
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: 1
+    Element: Weapon
+    ActiveInstance: 2
+    AfterCastActDelay: 500
+    Duration1: 2000
+    Duration2: 2000
+    Cooldown: 2000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 44
+        - Level: 2
+          Amount: 52
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 68
+        - Level: 5
+          Amount: 76
+      Ammo:
+        Kunai: true
+      AmmoAmount: 5
+    Unit:
+      Id: KUNAIKAITEN
+      Range:
+        - Level: 1
+          Size: 2
+        - Level: 2
+          Size: 2
+        - Level: 3
+          Size: 3
+        - Level: 4
+          Size: 3
+        - Level: 5
+          Size: 4
+      Interval: 500
+      Target: Enemy
+      Flag:
+        PathCheck: true
+    Status: Shadow_Clock
+  - Id: 5487
+    Name: SS_KUNAIKUSSETSU
+    Description: 飛刀-曲折
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -4
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+      IgnoreFlee: true
+    SplashArea: 7
+    CastCancel: true
+    CastTime: 1500
+    AfterCastActDelay: 500
+    Duration1: 2000
+    Cooldown: 2000
+    FixedCastTime: 500
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 49
+        - Level: 2
+          Amount: 52
+        - Level: 3
+          Amount: 55
+        - Level: 4
+          Amount: 58
+        - Level: 5
+          Amount: 61
+        - Level: 6
+          Amount: 64
+        - Level: 7
+          Amount: 67
+        - Level: 8
+          Amount: 70
+        - Level: 9
+          Amount: 73
+        - Level: 10
+          Amount: 76
+      Ammo:
+        Kunai: true
+      AmmoAmount: 5
+  - Id: 5488
+    Name: SS_SEKIENHOU
+    Description: 赤炎炮
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    SplashArea: 1
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -3
+    ActiveInstance: 7
+    Element: Fire
+    CastCancel: true
+    CastTime: 2000
+    Cooldown: 700
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 65
+        - Level: 2
+          Amount: 68
+        - Level: 3
+          Amount: 71
+        - Level: 4
+          Amount: 74
+        - Level: 5
+          Amount: 77
+        - Level: 6
+          Amount: 80
+        - Level: 7
+          Amount: 83
+        - Level: 8
+          Amount: 86
+        - Level: 9
+          Amount: 89
+        - Level: 10
+          Amount: 92
+      ItemCost:
+        - Item: SS_Charm_F
+          Amount: 1
+  - Id: 5489
+    Name: SS_REIKETSUHOU
+    Description: 冷血炮
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Ground
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -6
+    Element: Water
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 4
+    CastTime: 3000
+    Cooldown: 500
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 52
+        - Level: 2
+          Amount: 56
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 64
+        - Level: 5
+          Amount: 68
+        - Level: 6
+          Amount: 72
+        - Level: 7
+          Amount: 76
+        - Level: 8
+          Amount: 80
+        - Level: 9
+          Amount: 84
+        - Level: 10
+          Amount: 88
+      ItemCost:
+        - Item: SS_Charm_W
+          Amount: 1
+  - Id: 5490
+    Name: SS_RAIDENPOU
+    Description: 雷電炮
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    SplashArea: 13
+    Range: 9
+    Hit: Multi_Hit
+    HitCount: -2
+    ActiveInstance: 13
+    Element: Wind
+    CastTime: 2000
+    Cooldown: 700
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 47
+        - Level: 2
+          Amount: 52
+        - Level: 3
+          Amount: 57
+        - Level: 4
+          Amount: 62
+        - Level: 5
+          Amount: 67
+        - Level: 6
+          Amount: 72
+        - Level: 7
+          Amount: 77
+        - Level: 8
+          Amount: 82
+        - Level: 9
+          Amount: 87
+        - Level: 10
+          Amount: 92
+      ItemCost:
+        - Item: SS_Charm_L
+          Amount: 1
+  - Id: 5491
+    Name: SS_KINRYUUHOU
+    Description: 金龍炮
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Attack
+    DamageFlags:
+      Splash: true
+    Range: 13
+    Hit: Single
+    HitCount: 1
+    Element: Earth
+    SplashArea: 4
+
+    CastCancel: true
+    CastTime: 3000
+    Cooldown: 300
+    FixedCastTime: 1000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 52
+        - Level: 2
+          Amount: 56
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 64
+        - Level: 5
+          Amount: 68
+        - Level: 6
+          Amount: 72
+        - Level: 7
+          Amount: 76
+        - Level: 8
+          Amount: 80
+        - Level: 9
+          Amount: 84
+        - Level: 10
+          Amount: 88
+      ItemCost:
+        - Item: SS_Charm_G
+          Amount: 1
+  - Id: 5492
+    Name: SS_ANTENPOU
+    Description: 暗轉炮
+    MaxLevel: 10
+    Type: Magic
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -2
+    GiveAp: 2
+    Element: Dark
+    DamageFlags:
+      Splash: true
+    SplashArea:
+      - Level: 1
+        Area: 2
+      - Level: 2
+        Area: 2
+      - Level: 3
+        Area: 2
+      - Level: 4
+        Area: 2
+      - Level: 5
+        Area: 2
+      - Level: 6
+        Area: 3
+      - Level: 7
+        Area: 3
+      - Level: 8
+        Area: 3
+      - Level: 9
+        Area: 3
+      - Level: 10
+        Area: 3
+    CastCancel: true
+    CastTime: 3000
+    Cooldown: 500
+    FixedCastTime: 1000
+    Duration2: 5000
+    Requires:
+      SpCost:
+        - Level: 1
+          Amount: 40
+        - Level: 2
+          Amount: 46
+        - Level: 3
+          Amount: 52
+        - Level: 4
+          Amount: 58
+        - Level: 5
+          Amount: 64
+        - Level: 6
+          Amount: 70
+        - Level: 7
+          Amount: 76
+        - Level: 8
+          Amount: 82
+        - Level: 9
+          Amount: 88
+        - Level: 10
+          Amount: 94
+      ItemCost:
+        - Item: SS_Charm
+          Amount: 1
+    Status: Nightmare
+  - Id: 5493
+    Name: SS_KAGEAKUMU
+    Description: 影-噩夢
+    MaxLevel: 1
+    Type: Weapon
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -4
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 6
+    CastCancel: true
+    CastTime: 2000
+    AfterCastActDelay: 500
+    Cooldown: 1000
+    FixedCastTime: 500
+    Requires:
+      SpCost: 70
+      ApCost: 20
+  - Id: 5494
+    Name: SS_HITOUAKUMU
+    Description: 飛刀-噩夢
+    MaxLevel: 1
+    Type: Weapon
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -8
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+      IgnoreFlee: true
+    SplashArea: 6
+    CastCancel: true
+    CastTime: 2000
+    AfterCastActDelay: 500
+    Cooldown: 1000
+    FixedCastTime: 500
+    Requires:
+      SpCost: 70
+      ApCost: 20
+  - Id: 5495
+    Name: SS_ANKOKURYUUAKUMU
+    Description: 暗影-噩夢
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Self
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -4
+    Element: Dark
+    DamageFlags:
+      Splash: true
+    SplashArea: 5
+    CastCancel: true
+    CastTime: 2000
+    AfterCastActDelay: 500
+    Cooldown: 1000
+    FixedCastTime: 1000
+    Requires:
+      SpCost: 120
+      ApCost: 20
+  - Id: 5496
+    Name: NW_THE_VIGILANTE_AT_NIGHT_GUN_GATLING
+    Description: The Vigilante At Night Gun Gatling
+    MaxLevel: 5
+    CastCancel: true
+  - Id: 5497
+    Name: NW_THE_VIGILANTE_AT_NIGHT_GUN_SHOTGUN
+    Description: The Vigilante At Night Gun Shotgun
+    MaxLevel: 5
+    CastCancel: true
+  - Id: 5498
+    Name: SS_FUUMAKOUCHIKU_BLASTING
+    Description: Huuma Shuriken - Construct Blasting
+    MaxLevel: 10
+    Type: Weapon
+    TargetType: Ground
+    Range: 1
+    Hit: Multi_Hit
+    HitCount: -6
+    Element: Weapon
+    DamageFlags:
+      Splash: true
+    SplashArea: 4

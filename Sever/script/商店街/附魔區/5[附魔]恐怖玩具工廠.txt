@@ -1,0 +1,319 @@
+
+
+
+//===== Description: ==============================
+//
+// 玩具工廠附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,149,5	script	[附魔]玩具工廠	4_ep16_mark,{
+	disable_items;
+	cutin "aca_gung_01",2;
+	if (checkweight(1201,1) == 0) {
+		mes "你所擁有的物品太多了，請減少物品後再來。";
+		close3;
+	}
+	if ((MaxWeight - Weight) < 10000) {
+		mes "你負重太高了，請減輕負重再來。";
+		close3;
+	}
+	mes "[玩具工廠附魔]";
+	mes "嘿嘿，人的貪心是無窮無盡的，你想要我幫你什麼？";
+	next;
+	switch( select( "你能為我做什麼？", "恐怖玩具工廠裝飾品附魔", "恐怖玩具工廠武器附魔", "恐怖玩具工廠頭飾附魔", "恐怖玩具工廠鞋子附魔" ) ) {
+	case 1:
+		mes "[玩具工廠附魔]";
+		mes "我可以做什麼？很簡單，你只要給我沾血硬幣，我可以幫恐怖玩具工廠的裝備進行附魔。";
+		next;
+		mes "[玩具工廠附魔]";
+		mes "每次附魔需要 15 枚沾血硬幣，最多可以有 3 個插槽附魔的機會。";
+		next;
+		mes "[玩具工廠附魔]";
+		mes "隨著附魔等級越高，損壞的機率就越高，我會建議你考慮清楚，再見！";
+		close3;
+	case 2:
+		.@eq_num = EQI_ACC_R;
+		break;
+	case 3:
+		.@eq_num = EQI_HAND_R;
+		break;
+	case 4:
+		.@eq_num = EQI_HEAD_TOP;
+		break;
+	case 5:
+		.@eq_num = EQI_SHOES;
+		break;
+	}
+	.@item_id = getequipid(.@eq_num);
+	.@refine = getequiprefinerycnt(.@eq_num);
+	setarray .@card[0],
+		getequipcardid(.@eq_num,0),
+		getequipcardid(.@eq_num,1),
+		getequipcardid(.@eq_num,2),
+		getequipcardid(.@eq_num,3);
+
+	switch(.@item_id) {
+	case 2976:	// Red_Lantern
+	case 2977:	// Hurt_Mind
+	case 2978:	// KindHeart
+	case 2980:	// Evilspirit_Gloves
+		.@sc_type = 1;// acc
+		break;
+	case 2486:	// Shadow_Walk_
+	case 18848:	// Lush_Rose
+	case 18849:	// Celines_Ribbon
+		.@sc_type = 2;// armor
+		break;
+	case 13442:	// Old_Parasol
+		.@sc_type = 3;// weapon
+		break;
+	case 16029:	// Noble_Cross
+		mes "[玩具工廠附魔]";// custom
+		mes "哦，你裝備了^ 0000ff榮耀十字架^ 000000！這件事情需要找別人來附魔。";
+		next;
+		mes "[玩具工廠附魔]";
+		mes "我已經嘗試了好幾次，但沒有足夠的運氣。";
+		next;
+		mes "[玩具工廠附魔]";
+		mes "如果你想要附魔這把武器，去貓咪國境綿綿島應該可以找到有能力附魔這把武器的人。";
+		close3;
+	default:
+		break;
+	}
+	switch(.@eq_num) {
+	case EQI_ACC_R:
+		mes "[玩具工廠附魔]";
+		mes "你可以從兩種類型選擇一種，每次需消耗 15 枚沾血硬幣。";
+		next;
+		.@enchant_type = select( "離開", "物理型(力量/敏捷/靈巧)", "魔法型(智力/體力/靈巧)" ) - 1;// enchant_type [1-2]
+		mes "[玩具工廠附魔]";
+		if (.@enchant_type == 0) {
+			mes "好的，歡迎再次光臨。";
+			close3;
+		}
+		if (.@sc_type < 1) {
+			mes "這件裝備不是來自恐怖玩具工廠的，我無法進行附魔。";
+			close3;
+		}
+		if (.@card[3] == 0) {
+			.@slot_num = 3;
+			mes "好的，讓我們試試第一個附魔。通常，它們不會損壞。約95%的成功率？";
+			.@string$ = "你真是個善變的人！";
+		}
+		else if (.@card[2] == 0) {
+			.@slot_num = 2;
+			mes "嗨～這是第二次附魔，現在變得比較危險了，成功率約70%，你想繼續嗎？如果失敗，裝備將損毀消失。";// custom
+			.@string$ = "你真是個善變的人！";
+		}
+		else if (.@card[1] == 0) {
+			.@slot_num = 1;
+			mes "這是最後一次的附魔，你真的希望繼續嗎？";// custom
+			mes "^FF0000成功率低於50%^000000";
+			mes "當然，如果成功的話，附魔的效果非常強大。";
+			.@string$ = "明智的選擇！第三次附魔太危險了。";// custom translation
+		}
+		else {
+			mes "這…附魔已經達到上限，無法再繼續了。";// custom
+			close3;
+		}
+		break;
+	case EQI_HAND_R:
+		mes "[玩具工廠附魔]";
+		if (.@sc_type < 1) {
+			mes "這件裝備不是來自恐怖玩具工廠的，我無法進行附魔。";
+			close3;
+		}
+		.@enchant_type = 3;
+		.@slot_num = 3;
+		mes "我只附魔一次，而且不會失敗，你可以當作是我給你的優惠。";
+		.@string$ = "你真是個善變的人！";
+		break;
+	case EQI_HEAD_TOP:
+	case EQI_SHOES:
+		mes "[玩具工廠附魔]";
+		if (.@sc_type < 1) {
+			mes "這件裝備不是來自恐怖玩具工廠的，我無法進行附魔。";
+			close3;
+		}
+		if (.@card[3] == 0) {
+			.@slot_num = 3;
+			.@enchant_type = 4;
+			mes "好的，讓我們開始進行第一次附魔，你不必害怕，因為不會附魔失敗。";
+		}
+		else if (.@card[2] == 0) {
+			.@slot_num = 2;
+			.@enchant_type = 5;
+			mes "第二次附魔，我會對第二插槽進行附魔，也不會附魔失敗，所以不用擔心！"; // custom
+		}
+		else {
+			mes "這…附魔已經達到上限，無法再繼續了。"; // custom
+			close3;
+		}
+		.@string$ = "你真是個善變的人！";
+		break;
+	default:
+		mes "[玩具工廠附魔]";
+		mes "這個東西我無法進行附魔！"; // custom
+		close3;
+	}
+	next;
+	if (select( "我等等再來", "開始吧" ) == 1) {
+		mes "[玩具工廠附魔]";
+		mes .@string$;
+		close3;
+	}
+	mes "[玩具工廠附魔]";
+	if (.@slot_num == 3)
+		setarray .@range[0],550,1050;
+	else if (.@slot_num == 2)
+		setarray .@range[0],450,1125;
+	else if (.@slot_num == 1)
+		setarray .@range[0],1,1161;
+	else {
+		mes "現在有點問題，請稍後再來！";// custom
+		close3;
+	}
+	.@enchant = 9;
+	switch(.@enchant_type) {
+	case 1:
+		.@r = rand(.@range[0],.@range[1]);
+			 if (.@r < 601)  .@enchant = 0;
+		else if (.@r < 701)  .@enchant = 4700;	// Strength1
+		else if (.@r < 801)  .@enchant = 4730;	// Agility1
+		else if (.@r < 901)  .@enchant = 4720;	// Dexterity1
+		else if (.@r < 951)  .@enchant = 4701;	// Strength2
+		else if (.@r < 1001) .@enchant = 4731;	// Agility2
+		else if (.@r < 1051) .@enchant = 4721;	// Dexterity2
+		else if (.@r < 1076) .@enchant = 4702;	// Strength3
+		else if (.@r < 1101) .@enchant = 4732;	// Agility3
+		else if (.@r < 1126) .@enchant = 4722;	// Dexterity3
+		else if (.@r < 1138) .@enchant = 4703;	// Strength4
+		else if (.@r < 1150) .@enchant = 4733;	// Agility4
+		else if (.@r < 1162) .@enchant = 4723;	// Dexterity4
+		else .@enchant = 9;
+		break;
+	case 2:
+		.@r = rand(.@range[0],.@range[1]);
+			 if (.@r < 601)  .@enchant = 0;
+		else if (.@r < 701)  .@enchant = 4710;	// Inteligence1
+		else if (.@r < 801)  .@enchant = 4740;	// Vitality1
+		else if (.@r < 901)  .@enchant = 4720;	// Dexterity1
+		else if (.@r < 951)  .@enchant = 4711;	// Inteligence2
+		else if (.@r < 1001) .@enchant = 4741;	// Vitality2
+		else if (.@r < 1051) .@enchant = 4721;	// Dexterity2
+		else if (.@r < 1076) .@enchant = 4712;	// Inteligence3
+		else if (.@r < 1101) .@enchant = 4742;	// Vitality3
+		else if (.@r < 1126) .@enchant = 4722;	// Dexterity3
+		else if (.@r < 1138) .@enchant = 4713;	// Inteligence4
+		else if (.@r < 1150) .@enchant = 4743;	// Vitality4
+		else if (.@r < 1162) .@enchant = 4723;	// Dexterity4
+		else .@enchant = 9;
+		break;
+	case 3:
+		.@r = rand(1,2555);
+			 if (.@r < 301)  .@enchant = 4820;	// Fighting_Spirit5
+		else if (.@r < 501)  .@enchant = 4821;	// Fighting_Spirit6
+		else if (.@r < 601)  .@enchant = 4822;	// Fighting_Spirit7
+		else if (.@r < 651)  .@enchant = 4823;	// Fighting_Spirit8
+		else if (.@r < 676)  .@enchant = 4824;	// Fighting_Spirit9
+		else if (.@r < 686)  .@enchant = 4825;	// Fighting_Spirit10
+		else if (.@r < 986)  .@enchant = 4816;	// Sharp3
+		else if (.@r < 1086) .@enchant = 4843;	// Sharp4
+		else if (.@r < 1096) .@enchant = 4844;	// Sharp5
+		else if (.@r < 1396) .@enchant = 4760;	// Matk1
+		else if (.@r < 1496) .@enchant = 4761;	// Matk2
+		else if (.@r < 1506) .@enchant = 4806;	// Matk3
+		else if (.@r < 1806) .@enchant = 4872;	// Attack_Delay_2
+		else if (.@r < 2006) .@enchant = 4873;	// Attack_Delay_3
+		else if (.@r < 2106) .@enchant = 4881;	// Attack_Delay_4
+		else if (.@r < 2116) .@enchant = 4807;	// Atk_Speed1
+		else if (.@r < 2416) .@enchant = 4827;	// Spell6
+		else if (.@r < 2516) .@enchant = 4828;	// Spell7
+		else if (.@r < 2546) .@enchant = 4829;	// Spell8
+		else if (.@r < 2556) .@enchant = 4830;	// Spell9
+		else .@enchant = 9;
+		break;
+	case 4:
+		.@r = rand(1,1950);
+			 if (.@r < 301)  .@enchant = 4810;	// Fighting_Spirit2
+		else if (.@r < 401)  .@enchant = 4809;	// Fighting_Spirit3
+		else if (.@r < 451)  .@enchant = 4808;	// Fighting_Spirit4
+		else if (.@r < 471)  .@enchant = 4820;	// Fighting_Spirit5
+		else if (.@r < 771)  .@enchant = 4818;	// Sharp1
+		else if (.@r < 871)  .@enchant = 4817;	// Sharp2
+		else if (.@r < 891)  .@enchant = 4816;	// Sharp3
+		else if (.@r < 991)  .@enchant = 4760;	// Matk1
+		else if (.@r < 1011) .@enchant = 4761;	// Matk2
+		else if (.@r < 1311) .@enchant = 4869;	// Attack_Delay_1
+		else if (.@r < 1411) .@enchant = 4872;	// Attack_Delay_2
+		else if (.@r < 1461) .@enchant = 4873;	// Attack_Delay_3
+		else if (.@r < 1481) .@enchant = 4881;	// Attack_Delay_4
+		else if (.@r < 1781) .@enchant = 4813;	// Spell3
+		else if (.@r < 1881) .@enchant = 4812;	// Spell4
+		else if (.@r < 1931) .@enchant = 4826;	// Spell5
+		else if (.@r < 1951) .@enchant = 4827;	// Spell6
+		else .@enchant = 9;
+		break;
+	case 5:
+		.@r = rand(1,1970);
+			 if (.@r < 301)  .@enchant = 4700;	// Strength1
+		else if (.@r < 401)  .@enchant = 4701;	// Strength2
+		else if (.@r < 451)  .@enchant = 4702;	// Strength3
+		else if (.@r < 471)  .@enchant = 4730;	// Agility1
+		else if (.@r < 771)  .@enchant = 4731;	// Agility2
+		else if (.@r < 871)  .@enchant = 4732;	// Agility3
+		else if (.@r < 891)  .@enchant = 4710;	// Inteligence1
+		else if (.@r < 991)  .@enchant = 4711;	// Inteligence2
+		else if (.@r < 1011) .@enchant = 4712;	// Inteligence3
+		else if (.@r < 1311) .@enchant = 4720;	// Dexterity1
+		else if (.@r < 1411) .@enchant = 4721;	// Dexterity2
+		else if (.@r < 1461) .@enchant = 4722;	// Dexterity3
+		else if (.@r < 1481) .@enchant = 4740;	// Vitality1
+		else if (.@r < 1781) .@enchant = 4741;	// Vitality2
+		else if (.@r < 1881) .@enchant = 4742;	// Vitality3
+		else if (.@r < 1931) .@enchant = 4750;	// Luck1
+		else if (.@r < 1951) .@enchant = 4751;	// Luck2
+		else if (.@r < 1971) .@enchant = 4752;	// Luck3
+		else .@enchant = 9;
+		break;
+	default:
+		break;
+	}
+	if (.@enchant == 9) {
+		mes "現在有點問題，請稍後再來！";// custom
+		close3;
+	}
+	if (.@card[3] == 0 && .@sc_type < 4) 
+		.@card[3] = .@enchant;
+	else if (.@card[2] == 0 && .@sc_type < 3)
+		.@card[2] = .@enchant;
+	else if (.@card[1] == 0 && .@sc_type < 2)
+		.@card[1] = .@enchant;
+	else {
+		mes "我不知道這是什麼，但我認為這個東西我無法進行附魔。";// custom
+		close3;
+	}
+	if (countitem(7642) > 14) 
+	{// Bloody_Coin
+		delitem 7642,15;// Bloody_Coin
+		delequip .@eq_num;
+		if (.@enchant == 0) 
+		{
+			mes "哎呀！請節哀，魔法失敗了，你的裝備損毀！";
+			specialeffect2 EF_LORD;
+			close3;
+		}
+		getitem2 .@item_id,1,1,.@refine,0,.@card[0],.@card[1],.@card[2],.@card[3];
+		mes "嗯…成功了，看看你的裝備吧。";
+		specialeffect2 EF_REPAIRWEAPON;
+		close3;
+	}
+	mes "嗯…你的沾血硬幣不足，我無法替你進行附魔。";
+	close3;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]玩具工廠";
+	waitingroom "[附魔]玩具工廠",0;
+	end;
+}

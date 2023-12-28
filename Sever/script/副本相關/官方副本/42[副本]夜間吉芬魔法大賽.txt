@@ -1,0 +1,1047 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@ge_sn	mapflag	noteleport
+1@ge_sn	mapflag	nosave	SavePoint
+1@ge_sn	mapflag	nomemo
+1@ge_sn	mapflag	nobranch
+1@ge_sn	mapflag	noicewall
+1@ge_sn	mapflag	restricted	6
+1@ge_sn	mapflag	monster_noteleport
+1@ge_sn	mapflag	partylock
+1@ge_sn	mapflag	novending
+1@ge_sn	mapflag	nochat
+
+amatsu,127,158,3	script	[副本]夜間吉芬魔法大賽	670,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "夜間吉芬魔法大賽";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 300;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 42;
+
+//
+	waitingroom "[副本]夜間吉芬魔法大賽",0;
+	setnpcicon getnpcid(0),22,"[副本]夜間吉芬魔法大賽";
+	end;
+}
+
+//隱藏NPC及獎勵設定
+1@ge_sn,88,49,0	script	#Blindge01	-1,2,2,{
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("雅樂西#gef");
+	hideonnpc instance_npcname("狄歐艾瑞默司#gef");
+	hideonnpc instance_npcname("吉分小偷#gef");
+	hideonnpc instance_npcname("吉分鐵匠#gef");
+	hideonnpc instance_npcname("吉芬流氓#gef");
+	hideonnpc instance_npcname("沛蒙#gef");
+	hideonnpc instance_npcname("奧樂德#gef");
+	hideonnpc instance_npcname("布魯德哈載#gef");
+	hideonnpc instance_npcname("庫洛雅庫瑪#gef");
+	hideonnpc instance_npcname("伊佛德斯#gef");
+	hideonnpc instance_npcname("萊采尼芮#gef");
+	hideonnpc instance_npcname("歐託莉柯#gef");
+	hideonnpc instance_npcname("朱朱#gef");
+	hideonnpc instance_npcname("狄瓦伊#gef");
+	hideonnpc instance_npcname("培坎納比恩#gef");
+	hideonnpc instance_npcname("艾爾馮斯#gef");
+	hideonnpc instance_npcname("潘利爾#gef");
+	hideonnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+	
+	hideonnpc instance_npcname("#GeEndEffect01");
+	hideonnpc instance_npcname("#GeEndEffect02");
+	hideonnpc instance_npcname("#GeEndEffect03");
+	hideonnpc instance_npcname("#GeEndEffect04");
+	hideonnpc instance_npcname("#GeEndEffect05");
+	hideonnpc instance_npcname("#GeEndEffect06");
+	hideonnpc instance_npcname("#GeEndEffect07");
+	hideonnpc instance_npcname("#GeEndEffect08");
+	hideonnpc instance_npcname("#GeEndEffect09");
+	hideonnpc instance_npcname("#GeEndEffect10");
+	hideonnpc instance_npcname("#GeEndEffect11");
+	hideonnpc instance_npcname("#GeEndEffect12");
+	hideonnpc instance_npcname("#GeEndEffect13");
+	hideonnpc instance_npcname("#GeEndEffect14");
+	hideonnpc instance_npcname("#GeEndEffect15");
+	set 'fail,0;
+
+
+	end;
+}
+//NPC
+1@ge_sn,120,48,4	script	雅樂西#gef	670,{ 
+	hideonnpc instance_npcname("雅樂西#gef");
+	set 'map$,instance_mapname("1@ge_sn");
+	set .@killboss$, instance_npcname("雅樂西#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20856,1,.@killboss$;
+	instance_announce 0, "夜間吉芬魔法大賽主持人：比賽開始!!",bc_map,"0xFFFF33";
+	
+	end;
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "雅樂西：只要放鬆就好～！";
+	end;
+	OnKillMob:
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《1》回合結束!!",bc_map,"0xFFFF33";
+	end;
+}
+1@ge_sn,121,48,4	script	狄歐艾瑞默司#gef	669,{ 
+	hideonnpc instance_npcname("狄歐艾瑞默司#gef");
+
+	set .@killboss$, instance_npcname("狄歐艾瑞默司#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20857,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "狄歐艾瑞默司：你應該回家，叫你的媽媽餵你！";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《2》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	吉分小偷#gef	671,{ 
+	hideonnpc instance_npcname("吉分小偷#gef");
+
+	set .@killboss$, instance_npcname("吉分小偷#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20858,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "吉分小偷：讓你見識一下流氓人生20年的實力吧!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《3》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	吉分鐵匠#gef	681,{ 
+	hideonnpc instance_npcname("吉分鐵匠#gef");
+
+	set .@killboss$, instance_npcname("吉分鐵匠#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20859,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "吉分鐵匠：你完蛋了!!!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《3》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	吉芬流氓#gef	682,{
+	hideonnpc instance_npcname("吉芬流氓#gef");
+
+	set .@killboss$, instance_npcname("吉芬流氓#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20860,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "吉芬流氓：嫩咖!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《3》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	沛蒙#gef	672,{ 
+	hideonnpc instance_npcname("沛蒙#gef");
+
+	set .@killboss$, instance_npcname("沛蒙#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20861,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "沛蒙：趕快結束去買新頭盔吧!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《4》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	奧樂德#gef	4_GEFFEN_05,{ 	
+	hideonnpc instance_npcname("奧樂德#gef");
+
+	set .@killboss$, instance_npcname("奧樂德#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20862,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "奧樂德：到目前為止，我絕對不能輸";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《5》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	布魯德哈載#gef	674,{ 	
+	hideonnpc instance_npcname("布魯德哈載#gef");
+
+	set .@killboss$, instance_npcname("布魯德哈載#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20863,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "布魯德哈戴：我可不是浪得虛名的!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《5》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	庫洛雅庫瑪#gef	675,{ 	
+	hideonnpc instance_npcname("庫洛雅庫瑪#gef");
+
+	set .@killboss$, instance_npcname("庫洛雅庫瑪#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20864,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "庫洛雅庫瑪：今天你會大有收穫的!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《6》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	伊佛德斯#gef	676,{ 	
+	hideonnpc instance_npcname("伊佛德斯#gef");
+
+	set .@killboss$, instance_npcname("伊佛德斯#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20865,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "伊佛德斯：比賽一開始你就準備回家找媽媽喝奶吧!!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《6》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	萊采尼芮#gef	677,{ 	
+	hideonnpc instance_npcname("萊采尼芮#gef");
+
+	set .@killboss$, instance_npcname("萊采尼芮#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20866,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "萊采尼苪：*嘻嘻嘻*... 我會把你給生吞活剝的!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《7》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	歐託莉柯#gef	678,{ 	
+	hideonnpc instance_npcname("歐託莉柯#gef");
+
+	set .@killboss$, instance_npcname("歐託莉柯#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20867,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "歐託莉柯：啦, 啦, 啦, 啦~~!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《7》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	朱朱#gef	679,{ 	
+	hideonnpc instance_npcname("朱朱#gef");
+
+	set .@killboss$, instance_npcname("朱朱#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20868,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "朱朱：我會快狠準的處理掉你的!!.";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《8》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	狄瓦伊#gef	680,{ 	
+	hideonnpc instance_npcname("狄瓦伊#gef");
+
+	set .@killboss$, instance_npcname("狄瓦伊#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20869,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "狄瓦伊：你能走到這一步，我相信你也是個實力派的吧?";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《8》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	培坎納比恩#gef	665,{ 	
+	hideonnpc instance_npcname("培坎納比恩#gef");
+
+	set .@killboss$, instance_npcname("培坎納比恩#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20870,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "培坎納比恩：是你耶...我都沒聽說會是你過!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《9》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	艾爾馮斯#gef	20871,{ 	
+	hideonnpc instance_npcname("艾爾馮斯#gef");
+
+	set .@killboss$, instance_npcname("艾爾馮斯#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20871,1,.@killboss$;
+	'killGID = $@mobid[0];
+
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end; 
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "艾爾馮斯：受死吧!";
+	end;
+	OnTimer60000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'gef_round,'gef_round+1;
+		hideoffnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《9》回合結束!!",bc_map,"0xFFFF33";
+
+	end;
+}
+1@ge_sn,121,48,4	script	潘利爾#gef	664,{
+
+	.@map$ = instance_mapname("1@ge_sn");
+	hideonnpc instance_npcname("潘利爾#gef");
+	set .@killboss$, instance_npcname("潘利爾#gef")+"::OnKillMob";
+	monster 'map$,112,48,"--ja--",20872,1,.@killboss$;
+	'killGID = $@mobid[0];
+	instance_announce 0, "夜間吉芬魔法大賽主持人：第『"+'gef_round+"』回合比賽開始!!",bc_map,"0xFFFF33";
+	attachnpctimer;
+	initnpctimer;
+	end;
+	
+	OnEnable:
+		npcspeed 150;
+		npcwalkto 112,48;
+		npctalk "你們死定了..";
+	end;
+	OnTimer540000:
+		stopnpctimer;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：很抱歉你們挑戰失敗了。",bc_map,"0xFFFF33";
+		unitkill 'killGID;
+		set 'fail,1;
+	end;
+	OnKillMob:
+		stopnpctimer;
+		set 'award_round,10;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：第《10》回合結束!!",bc_map,"0xFFFF33";
+		instance_announce 0, "恭喜各位順利通關，你們的名聲會散波到各地的。",bc_map,"0xFFFF33";		
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#1@ge_sn")+"::OnEnable";	
+		'ClearInatance = 1;
+		disablenpc instance_npcname("潘利爾#gef");
+		end;
+}
+
+//--------------------回合呼叫設定--------------------------
+1@ge_sn,2,2,4	script	#GeRound	-1,{
+	OnRound2:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《2》回合...",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：然後對手是...戰鬥力12,400,000的",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：只有心態是大魔法師的狄歐艾瑞默司",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+		sleep 3000;
+		hideoffnpc instance_npcname("狄歐艾瑞默司#gef");
+		donpcevent instance_npcname("狄歐艾瑞默司#gef")+"::OnEnable";
+		end;
+	OnRound3:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《3》回合...",bc_map,"0xFFFF33";
+		switch(rand(3)){
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：以前也見過的小偷，最近在吉芬城內多次作案！",bc_map,"0xFFFF33";
+			sleep 3000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			hideoffnpc instance_npcname("吉分小偷#gef");
+			donpcevent instance_npcname("吉分小偷#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：吉芬兄弟幫頭領 吉分鐵匠！",bc_map,"0xFFFF33";
+			sleep 3000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			hideoffnpc instance_npcname("吉分鐵匠#gef");
+			donpcevent instance_npcname("吉分鐵匠#gef")+"::OnEnable";
+			end;
+
+			case 2:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：胡作非為的混混，吉芬流氓",bc_map,"0xFFFF33";
+			sleep 3000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			hideoffnpc instance_npcname("吉芬流氓#gef");
+			donpcevent instance_npcname("吉芬流氓#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound4:
+		instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《4》回合...",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：然後對手是...戰鬥力107,600,000的",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：來自普隆德拉的潮人，沛蒙",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+		sleep 3000;
+		hideoffnpc instance_npcname("沛蒙#gef");
+		donpcevent instance_npcname("沛蒙#gef")+"::OnEnable";
+		end;
+	OnRound5:
+		instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《5》回合...",bc_map,"0xFFFF33";
+		switch(rand(2)){
+
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：努力的典範，正統派戰鬥大師，奧樂德",bc_map,"0xFFFF33";
+			sleep 3000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+
+			hideoffnpc instance_npcname("奧樂德#gef");
+			donpcevent instance_npcname("奧樂德#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：血染的兔耳，布魯德哈載",bc_map,"0xFFFF33";
+			sleep 3000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+
+			hideoffnpc instance_npcname("布魯德哈載#gef");
+			donpcevent instance_npcname("布魯德哈載#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound6:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《6》回合...",bc_map,"0xFFFF33";
+		switch(rand(2)){
+
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：漆黑之牙，庫洛雅庫瑪",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("庫洛雅庫瑪#gef");
+			donpcevent instance_npcname("庫洛雅庫瑪#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：擁有炙熱的鬥志，伊佛德斯",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("伊佛德斯#gef");
+			donpcevent instance_npcname("伊佛德斯#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound7:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《7》回合...",bc_map,"0xFFFF33";
+		switch(rand(2)){
+
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：死之修女，萊采尼芮",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("萊采尼芮#gef");
+			donpcevent instance_npcname("萊采尼芮#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：引導死亡的舞女，歐託莉柯",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("歐託莉柯#gef");
+			donpcevent instance_npcname("歐託莉柯#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound8:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《8》回合...",bc_map,"0xFFFF33";
+		switch(rand(2)){
+
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：實戰的達人！朱朱",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("朱朱#gef");
+			donpcevent instance_npcname("朱朱#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：戰場的毀滅漩渦，狄瓦伊",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("狄瓦伊#gef");
+			donpcevent instance_npcname("狄瓦伊#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound9:
+	instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《9》回合...",bc_map,"0xFFFF33";
+		switch(rand(2)){
+
+			case 0:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：來自寧靜都市艾爾帕蘭的煉金術士，培坎納比恩",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("培坎納比恩#gef");
+			donpcevent instance_npcname("培坎納比恩#gef")+"::OnEnable";
+			end;
+
+			case 1:
+			instance_announce 0, "夜間吉芬魔法大賽主持人：巨大人造生命體，艾爾馮斯",bc_map,"0xFFFF33";
+			sleep 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『1分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+			sleep 3000;
+			hideoffnpc instance_npcname("艾爾馮斯#gef");
+			donpcevent instance_npcname("艾爾馮斯#gef")+"::OnEnable";
+			end;
+			}
+		end;
+	OnRound10:
+		instance_announce 0, "夜間吉芬魔法大賽主持人：接下來是第《10》回合...",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：然後對手是...戰鬥力1,416,300,000的",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "簡直可以說是米德加爾特大陸，哦不，說不定是世界最強！",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：青色魔法師！潘麗絲 潘利爾！",bc_map,"0xFFFF33";
+		sleep 1000;
+		instance_announce 0, "夜間吉芬魔法大賽主持人：另外本關限時『3分鐘』內要擊敗對手，否則就算是你們挑戰失敗了。",bc_map,"0xFFFF33";
+		hideoffnpc instance_npcname("潘利爾#gef");
+		donpcevent instance_npcname("潘利爾#gef")+"::OnEnable";
+
+		end;
+}
+
+
+//觀眾
+-	script	#gd_c	4_M_DST_TOUGH,{ end; }
+
+1@ge_sn,100,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc0	4_M_DST_TOUGH
+1@ge_sn,101,61,6	duplicate(#gd_c)	魔法大賽觀眾#gc41	4_F_04
+1@ge_sn,102,61,6	duplicate(#gd_c)	魔法大賽觀眾#gc42	4_F_TRAINEE
+1@ge_sn,103,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc43	1_M_SIGNART
+1@ge_sn,104,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc44	1_M_SIGNMCNT
+1@ge_sn,105,61,6	duplicate(#gd_c)	魔法大賽觀眾#gc45	1_M_SIGNMONK2
+1@ge_sn,113,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc34	1_F_ORIENT_03
+1@ge_sn,114,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc36	1_M_SIGN1
+1@ge_sn,115,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc37	2_F_MAGICMASTER
+1@ge_sn,116,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc38	4_F_01
+1@ge_sn,117,61,4	duplicate(#gd_c)	魔法大賽觀眾#gc39	4_F_02
+1@ge_sn,118,61,6	duplicate(#gd_c)	魔法大賽觀眾#gc40	4_F_03
+
+1@ge_sn,98,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc22	1_F_04
+1@ge_sn,99,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc23	1_F_GYPSY
+1@ge_sn,100,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc24	1_M_BARD
+1@ge_sn,101,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc25	1_F_LIBRARYGIRL
+1@ge_sn,102,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc26	1_M_HOF
+1@ge_sn,103,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc27	1_M_02
+1@ge_sn,104,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc28	1_F_MERCHANT_01
+1@ge_sn,105,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc29	1_F_MERCHANT_02
+1@ge_sn,106,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc30	1_M_JOBGUIDER
+1@ge_sn,107,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc31	1_M_LIBRARYMASTER
+1@ge_sn,108,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc32	1_F_ORIENT_01
+1@ge_sn,109,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc33	1_F_ORIENT_02
+1@ge_sn,110,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc9	1_M_PASTOR
+1@ge_sn,111,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc10	1_F_PRIEST
+1@ge_sn,112,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc11	1_M_INNKEEPER
+1@ge_sn,113,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc12	1_M_SIZ
+1@ge_sn,114,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc13	1_M_PAY_ELDER
+1@ge_sn,115,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc14	1_M_PRON_KING
+1@ge_sn,116,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc15	4_F_01
+1@ge_sn,117,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc17	1_M_JOBTESTER
+1@ge_sn,118,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc18	1_M_KNIGHTMASTER
+1@ge_sn,119,64,6	duplicate(#gd_c)	魔法大賽觀眾#gc19	1_ETC_01
+1@ge_sn,120,64,4	duplicate(#gd_c)	魔法大賽觀眾#gc20	1_F_01
+1@ge_sn,121,194,4	duplicate(#gd_c)	魔法大賽觀眾#gc21	1_F_03
+
+1@ge_sn,89,56,4	duplicate(#gd_c)	魔法大賽告示牌#gc01	4_BOARD3
+1@ge_sn,89,41,4	duplicate(#gd_c)	魔法大賽告示牌#gc02	4_BOARD3
+1@ge_sn,98,34,4	duplicate(#gd_c)	魔法大賽告示牌#gc03	4_BOARD3
+1@ge_sn,116,34,4	duplicate(#gd_c)	魔法大賽告示牌#gc04	4_BOARD3
+1@ge_sn,129,41,4	duplicate(#gd_c)	魔法大賽告示牌#gc05	4_BOARD3
+1@ge_sn,129,54,4	duplicate(#gd_c)	魔法大賽告示牌#gc06	4_BOARD3
+1@ge_sn,122,62,4	duplicate(#gd_c)	魔法大賽告示牌#gc07	4_BOARD3
+1@ge_sn,96,62,4	duplicate(#gd_c)	魔法大賽告示牌#gc08	4_BOARD3
+
+1@ge_sn,93,58,4	duplicate(#gd_c)	#GeEndEffect01	4_BOARD3
+1@ge_sn,100,58,4	duplicate(#gd_c)	#GeEndEffect02	4_BOARD3
+1@ge_sn,109,58,4	duplicate(#gd_c)	#GeEndEffect03	4_BOARD3
+1@ge_sn,118,58,4	duplicate(#gd_c)	#GeEndEffect04	4_BOARD3
+1@ge_sn,124,58,4	duplicate(#gd_c)	#GeEndEffect05	4_BOARD3
+1@ge_sn,124,51,4	duplicate(#gd_c)	#GeEndEffect06	4_BOARD3
+1@ge_sn,124,45,4	duplicate(#gd_c)	#GeEndEffect07	4_BOARD3
+1@ge_sn,124,38,4	duplicate(#gd_c)	#GeEndEffect08	4_BOARD3
+1@ge_sn,118,38,4	duplicate(#gd_c)	#GeEndEffect09	4_BOARD3
+1@ge_sn,93,58,4	duplicate(#gd_c)	#GeEndEffect10	4_BOARD3
+1@ge_sn,109,38,4	duplicate(#gd_c)	#GeEndEffect11	4_BOARD3
+1@ge_sn,100,38,4	duplicate(#gd_c)	#GeEndEffect12	4_BOARD3
+1@ge_sn,94,38,4	duplicate(#gd_c)	#GeEndEffect13	4_BOARD3
+1@ge_sn,94,45,4	duplicate(#gd_c)	#GeEndEffect14	4_BOARD3
+1@ge_sn,94,51,4	duplicate(#gd_c)	#GeEndEffect15	4_BOARD3
+
+//Dialogue NPC
+
+1@ge_sn,109,62,4	script	夜間吉芬魔法大賽主持人#ge01	853,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)){
+		mes "[夜間吉芬魔法大賽主持人]";
+		mes "請呼叫你們隊長。";
+		close;
+	}
+	if(@talk01 != 1){
+	mes "[夜間吉芬魔法大賽主持人]";
+	mes "你們好，我是本次黑夜吉芬魔法大賽的主持人";
+	instance_announce 0, "夜間吉芬魔法大賽主持人：你們好，我是本次黑夜吉芬魔法大賽的主持人",bc_map,"0xFFFF33";
+	mes "在開始前先跟你們說明一下部分規則。";
+	instance_announce 0, "夜間吉芬魔法大賽主持人：在開始前先跟你們說明一下部分規則。",bc_map,"0xFFFF33";
+	next;
+	mes "[夜間吉芬魔法大賽主持人]";
+	mes "首先至總冠軍賽前一共擁有『10』回合";
+	instance_announce 0, "夜間吉芬魔法大賽主持人：首先至總冠軍賽前一共擁有『10』回合",bc_map,"0xFFFF33";
+	mes "每一回合都有限制攻擊時間，如果時間內沒有將對方擊倒";
+	instance_announce 0, "夜間吉芬魔法大賽主持人：每一回合都有限制攻擊時間，如果時間內沒有將對方擊倒",bc_map,"0xFFFF33";
+	mes "則算是挑戰失敗。";
+	instance_announce 0, "夜間吉芬魔法大賽主持人：則算是挑戰失敗。",bc_map,"0xFFFF33";
+	next;
+	mes "[夜間吉芬魔法大賽主持人]";
+	mes "如果全部挑戰成功的話會直接給予寶箱、全部挑戰的獎勵都在裡面";
+	instance_announce 0, "如果全部挑戰成功的話會直接給予寶箱、全部挑戰的獎勵都在裡面",bc_map,"0xFFFF33";
+	next;
+	}
+	mes "[夜間吉芬魔法大賽主持人]";
+	mes "那麼，第一回合要開始了嗎？";
+	next;
+		switch(select("開始比賽吧！", "等等！","我要打十個！！")) {
+	case 1:	
+			close2;
+			hideonnpc instance_npcname("夜間吉芬魔法大賽主持人#ge01");
+			specialeffect 215;
+			set 'gef_round,1;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：那麼，暗夜吉芬鬥技場，現在開幕！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：即將開始的是A組第一回合的較量。",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：首先是第一次參加魔法大賽的神秘隊伍！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：連名字都不被世人熟知的神秘隊伍！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：然後對手是...戰鬥力4,800,000的",bc_map,"0xFFFF33";
+			sleep2 1000;
+			enablenpc instance_npcname("雅樂西#gef");
+			instance_announce 0, "夜間吉芬魔法大賽主持人：年輕的參賽者，假面的雅樂西！",bc_map,"0xFFFF33";
+			sleep2 3000;
+			hideoffnpc instance_npcname("雅樂西#gef");
+			donpcevent instance_npcname("雅樂西#gef")+"::OnEnable";
+	case 2:
+			mes "[夜間吉芬魔法大賽主持人]";
+			mes "好了再跟我說一下。";
+			set @talk01,1;
+			close;
+	case 3:
+			close2;
+			hideonnpc instance_npcname("夜間吉芬魔法大賽主持人#ge01");
+			specialeffect 215;
+			set 'gef_round,1;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：那麼，暗夜吉芬鬥技場，現在開幕！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：即將開始的是A組第一回合的較量。",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：首先是第一次參加魔法大賽的神秘隊伍！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：連名字都不被世人熟知的神秘隊伍！",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：然後對手是...什麼...居然要一個打十個！？",bc_map,"0xFFFF33";
+			sleep2 1000;
+			instance_announce 0, "夜間吉芬魔法大賽主持人：究竟是匹夫還是英雄呢？",bc_map,"0xFFFF33";
+			sleep2 3000;
+			donpcevent instance_npcname("#打十個")+"::OnEnable";
+			close;
+			}
+			end;
+			}
+1@ge_sn,0,0,0	script	#打十個	-1,{
+OnDisable:
+	disablenpc instance_npcname("#打十個");
+	end;
+OnEnable:
+			set 'map$,instance_mapname("1@ge_sn");
+			set .@label$, instance_npcname("#打十個")+"::OnMyMobDead";
+			areamonster 'map$,100,42,119,55,"--ja--",20856,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20857,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20858,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20859,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20860,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20861,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20862,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20863,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20864,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20865,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20866,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20867,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20868,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20869,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20870,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20871,1,.@label$;
+			areamonster 'map$,100,42,119,55,"--ja--",20872,1,.@label$;
+			set 'MyMobs,18;
+OnMyMobDead:
+	set 'map$,instance_mapname("1@ge_sn");
+	set 'MyMobs, 'MyMobs-1;
+	if ('MyMobs == 0) {
+		instance_announce 0, "恭喜各位順利通關，你們的名聲會散波到各地的。",bc_map,"0xFFFF33";		
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#1@ge_sn")+"::OnEnable";	
+		'ClearInatance = 1;
+		end;
+	}
+end;
+}
+			
+1@ge_sn,109,62,4	script	夜間吉芬魔法大賽主持人#ge02	853,{
+	if('fail == 1){
+		mes "[夜間吉芬魔法大賽主持人]";
+		mes "很抱歉你們挑戰失敗了，所有的獎勵將無法領取。";
+		next;
+		mes "[夜間吉芬魔法大賽主持人]";
+		mes "我這就把你們傳回去報名處。";
+		warp "prontera",155,180;
+		close;
+	}
+	set 'award_round,'gef_round-1;
+	hideonnpc instance_npcname("夜間吉芬魔法大賽主持人#ge02");
+	if('gef_round == 2) donpcevent instance_npcname("#GeRound")+"::OnRound2";
+	if('gef_round == 3) donpcevent instance_npcname("#GeRound")+"::OnRound3";
+	if('gef_round == 4) donpcevent instance_npcname("#GeRound")+"::OnRound4";
+	if('gef_round == 5) donpcevent instance_npcname("#GeRound")+"::OnRound5";
+	if('gef_round == 6) donpcevent instance_npcname("#GeRound")+"::OnRound6";
+	if('gef_round == 7) donpcevent instance_npcname("#GeRound")+"::OnRound7";
+	if('gef_round == 8) donpcevent instance_npcname("#GeRound")+"::OnRound8";
+	if('gef_round == 9) donpcevent instance_npcname("#GeRound")+"::OnRound9";
+	if('gef_round == 10) donpcevent instance_npcname("#GeRound")+"::OnRound10";
+	end;
+}
+
+//寶箱
+1@ge_sn,0,0,0	script	副本寶箱#1@ge_sn	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;	
+	getitem 940042,10;
+	getitem    1000316,89; 
+	getitem    1000317,5;
+	getitem    1000366,3;
+	getitem	   930000,5;
+	getitem 6909,6;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

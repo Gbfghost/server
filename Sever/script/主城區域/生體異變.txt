@@ -1,0 +1,111 @@
+////---------------------------------------------------------------
+////				生命體異變			-
+////---------------------------------------------------------------
+uttycty,110,123,3	script	生物專員	542,{
+if((Class == Job_Genetic) || (Class == Job_Genetic_T) || (Class == Job_Baby_Genetic || Class == 4259)){
+	mes "[生命體異變]";
+	mes "Hello "+strcharinfo(0)+",";
+	mes "我能為您做些什麼呢?";
+	next;
+	switch(select("請幫我的生命體變異為S:關於生命體S:取消")){
+case 1:
+		mes "[生命體異變]";
+		if(!getskilllv("AM_BIOETHICS")){
+		mes "您沒有學習生命倫理，我無法為您服務.";
+		close;}
+		if(!gethominfo(1)){
+			mes "請招換生命體!";
+			close;	}
+		if(gethominfo(1) < 6009){
+		mes "您需要先透過賢者之石將生命體進化後，才能夠異變";
+		close;}
+	if(gethominfo(6) < 99){
+		mes "您的生命體要達到99級並且進化後才能異變。";
+		mes "達到條件後再來，我會很高興為您服務的!.";
+		close;}
+	if(gethominfo(1) == 6048 || gethominfo(1) == 6049 || gethominfo(1) == 6050 || gethominfo(1) == 6051 || gethominfo(1) == 6052){
+		mes "您的生命體S看起來很棒!";
+		mes "我相信您有很多跟他一起冒險的經驗!多美好阿。";
+		close;}
+	mes "很好，看來您的條件都達到了!";
+	mes "讓我們開始進行吧!";
+	next;
+	mes "[生命體異變]";
+	mes "您可以選擇花50000ZENY，來選擇您要異變的型態";
+	mes "或是不花錢，由我隨機為您異變";
+	mes "考慮得如何呢?";
+	next;
+	switch(Select("由我來指定吧!:那就隨機吧!:取消")){
+	case 1:
+		if(Zeny < 50000){
+			mes "[生命體異變]";
+			mes "請確定身上有錢再來喔!我的朋友";
+			close;
+			}
+		mes "[生命體異變]";
+		mes "好吧，再來告訴我，您想要變異的型態";
+		next;
+	
+	set .@i, select("風之妖精型-艾蘿:聖獨角獸型-巴耶黎:猛毒昆蟲型-賽拉:燒瓶石人型-迪爾特:野貓獸人型-伊琳諾雅:取消");
+	if (.@i == 6) {
+		mes "[生命體異變]";
+		mes "考慮好再來，我會等您的!";
+		close;
+		}
+	case 2:
+		mes "[生命體異變]";
+		mes "現在給我一點時間!";
+		mes "念咒中....";
+		next;
+		mes "[生命體異變]";
+		mes "Abra...";
+		next;
+		mes "[生命體異變]";
+		mes "Kadabra...";
+		next;
+		mes "[生命體異變]";
+		mes "Simsala!";
+		mes "...";
+		mes "Oops!失敗了!!";
+		mes "您的生命體寶寶...";
+		next;
+		mes "[生命體異變]";
+		mes "開個小玩笑而已，這是您的生命體S!!";
+		if (.@i) {
+			hommutate 6047+.@i;
+			morphembryo;
+			set Zeny,Zeny - 50000;
+			}
+		else hommutate;
+		morphembryo;
+		close;
+	case 3:
+		mes "[生命體異變]";
+		mes "我會等您的!!";
+		close;}
+case 2:
+	mes "[生命體異變]";
+	mes "讓基因學者所擁有的生命體產生異變、藉以獲得新的能力。";
+	mes "每種型態都有自己獨特的特性與技能";
+	mes "請確定好自己想要那種型態";
+	mes "一旦選擇就無法更改。";
+	close;
+case 3:
+	mes "[生命體異變]";
+	mes "我會等您的!!";
+	close;
+
+}
+}else{
+	mes "[生命體異變]";
+	mes "您沒有學習生命倫理，我無法為您服務";
+	close;
+}
+end;	
+Oninit:
+OnTimer2000:
+showscript "★ 生命體異變 ★ ";
+//setnpcicon getnpcid(0),1018,"生命體異變";
+initnpctimer;
+end;
+}

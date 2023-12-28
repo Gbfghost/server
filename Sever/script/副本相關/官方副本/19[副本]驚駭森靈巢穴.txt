@@ -1,0 +1,1111 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@face	mapflag	noteleport
+1@face	mapflag	nosave	SavePoint
+1@face	mapflag	nomemo
+1@face	mapflag	nobranch
+1@face	mapflag	noicewall
+1@face	mapflag	restricted	6
+1@face	mapflag	monster_noteleport
+1@face	mapflag	partylock
+1@face	mapflag	novending
+1@face	mapflag	nochat
+
+amatsu,103,98,5	script	[副本]驚駭森靈巢穴	683,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "驚駭森靈巢穴";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 19;
+
+//
+	waitingroom "[副本]驚駭森靈巢穴",0;
+	setnpcicon getnpcid(0),22,"[副本]驚駭森靈巢穴";
+	end;
+}
+
+
+1@face,109,348,5	script	卡奧斯#face	683,{
+	if(getpartyleader(getcharid(1),2) != getcharid(0)) {
+			cutin "H_CHAOS01", 2;
+			mes "[卡奧斯]";
+			mes "你們也是來狩獵驚駭森靈的？";
+			mes "讓我見見你們隊長吧";
+			close2;
+			cutin "", 255;
+			end;
+	}
+	switch('progress) {
+		case 0:
+        .@partyid = getcharid(1);
+        getpartymember .@partyid,0;
+        'members = $@partymembercount;
+        'partyname$ = getpartyname(.@partyid);
+        'membername$ = $@partymembername$[0];
+        for(.@i = 1; .@i < 'members; ++.@i) {
+          'membername$ += "  " + $@partymembername$[.@i];
+        }
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "嗯？我可沒聽說過其他賞金獵人會來這。";
+        npctalk "嗯？我可沒聽說過其他賞金獵人會來這。";
+        next;
+        unittalk getcharid(3),"這一定是有什麼誤會，我們不是賞金獵人。";
+        select("這一定是有什麼誤會，我們不是賞金獵人。");
+        mes "[卡奧斯]";
+        mes "沒什麼好辯解的，驚駭森靈屬於所有人。";
+        npctalk "沒什麼好辯解的，驚駭森靈屬於所有人。";
+        next;
+        unittalk getcharid(3),"驚駭森靈？這是什麼？我可是第一次聽到。";
+        select("驚駭森靈？這是什麼？我可是第一次聽到。");
+        mes "[卡奧斯]";
+        mes "哈哈!你看你，傻傻的就跑進來了啊?驚駭森靈是這附近出沒的怪物啊!";
+        npctalk "哈哈!你看你，傻傻的就跑進來了啊?驚駭森靈是這附近出沒的怪物啊!";
+        next;
+        mes "[卡奧斯]";
+        mes "算了，不管了，只要你不妨礙到我們，我們也不會管你的。";
+        npctalk "算了，不管了，只要你不妨礙到我們，我們也不會管你的。";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞絲]";
+        mes "啊~真是秋高氣爽!";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk1";
+        next;
+        mes "[艾瑞絲]";
+        mes "嘿嘿!最近天氣真好，艾瑞絲的心情也好棒喲~";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk2";
+        next;
+        mes "[艾瑞絲]";
+        mes "卡奧斯你不覺得嗎?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk3";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "那應該也只是現在而已";
+        npctalk "那應該也只是現在而已";
+        next;
+        cutin "H_CHAOS02", 2;
+        mes "[卡奧斯]";
+        mes "我感到一陣黑色的風吹過來";
+        npctalk "我感到一陣黑色的風吹過來";
+        next;
+        cutin "H_CHAOS03", 2;	
+        mes "[卡奧斯]";
+        mes "艾瑞絲!附近似乎有驚駭森靈的動靜，皇后的巢穴大概就在這森林裡!";
+        npctalk "艾瑞絲!附近似乎有驚駭森靈的動靜，皇后的巢穴大概就在這森林裡!";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "啊!只要像以前那樣處理就對了吧?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk4";
+        next;
+        cutin "H_CHAOS02", 2;
+        mes "[卡奧斯]";
+        mes "嗯!我們快去把他們解決吧!那邊的冒險家們，你們要小心了，驚駭森靈群已經開始活動了!";
+        npctalk "嗯!我們快去把他們解決吧!那邊的冒險家們，你們要小心了，因為驚駭森靈現在正在排山倒海湧過來呢!";
+        close2;
+        cutin "", 255;
+        hideonnpc instance_npcname("卡奧斯#face");
+        hideonnpc instance_npcname("艾瑞絲#face");
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;	
+		case 1:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes  "哇~你解決的真快!果然厲害!";
+        npctalk "哇~你解決的真快!果然厲害!";
+        next;
+        unittalk getcharid(3),"剛剛那隻怪物是這邊的首領嗎?";
+        select("剛剛那隻怪物是它們的首領嗎?");
+        mes "[卡奧斯]";
+        mes  "不不~ 驚駭森靈國王才沒那麼簡單";
+        npctalk "不不~ 驚駭森靈國王才沒那麼簡單";
+        next;
+        mes "[卡奧斯]";
+        mes  "剛剛的只是驚駭森靈的突變種，但可不能因此就小看它們";
+        npctalk "剛剛的只是驚駭森靈的突變種，但可不能因此就小看它們";
+        next;
+        mes "[卡奧斯]";
+        mes "對了!殺了突變種之後不是拿到了它的皮嗎?那個可是非常有用的東西";
+        npctalk "對了!殺了突變種之後不是拿到了它的皮嗎?那個可是非常有用的東西";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "不過如果戰鬥時間太長，鱗片就會受損，也就變成一件沒用的古董了";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk5";
+        next;
+        mes "[艾瑞絲]";
+        mes "聽說厲害的獵人們能夠迅速正確地把價值不斐的鱗片剝下來呢!";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk6";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯你有信心嗎?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk7";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "太勉強了!實在強人所難!而且我只會用怒爆! 我想那些鱗片應該都被燒毀了…";
+        npctalk "太勉強了!實在強人所難!而且我只會用怒爆! 我想那些鱗片應該都被燒毀了…";
+        next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞絲]";
+        mes "真沒用耶~卡奧斯";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk8";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "總之這裡看來並沒有我們想狩獵的怪物，所以我們先走一步了，你就在這裡處理這些小不點吧!";
+        npctalk "總之這裡看來並沒有我們想狩獵的怪物，所以我們先走一步了，你就在這裡處理這些小不點吧!";
+        next;
+        cutin "",255;
+        mes "-卡奧斯離開了。-";
+        hideonnpc instance_npcname("卡奧斯#face");
+        next;
+        cutin "H_IRIS02",2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯!你又要自己先走了嗎?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk9";
+        close2;
+        cutin "",255;
+        hideonnpc instance_npcname("艾瑞絲#face");
+        // 第二區域小怪
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;
+		case 2:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "你們的實力真不錯~不過現在開始可要小心了!這狹窄的峽谷可是處處暗藏危機的!?";
+        npctalk "你們的實力真不錯~不過現在開始可要小心了!這狹窄的峽谷可是處處暗藏危機的!?";
+        close2;
+        cutin "",255;
+        hideonnpc instance_npcname("卡奧斯#face");
+        hideonnpc instance_npcname("艾瑞絲#face");
+        sleep2 2000;
+        donpcevent instance_npcname("#faceworm") + "::OnStart";
+        end;
+		case 3:	end;
+		case 4:
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "這個嘛…說是驚駭森靈巢穴好像又太大了點";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk10";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "哼，既然來了我就下去看看吧!";
+        npctalk "哼，既然來了我就下去看看吧!";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯!別再開玩笑了!";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk11";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "不會怎樣的啦!看起來根本不危險，我一下就回來了，這裡就交給你啦!";
+        npctalk "不會怎樣的啦!看起來根本不危險，我一下就回來了，這裡就交給你啦!";
+        next;
+        hideonnpc instance_npcname("卡奧斯#face");
+        movenpc instance_npcname("卡奧斯#face"),213,157;
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "啊啊!卡奧斯這個冒失鬼，又這麼莽撞!";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk12";
+        next;
+        cutin "", 255;
+        mes "[卡奧斯]";
+        mes "啊!哎喲喂呀!這是什麼啊!?";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊!哎喲喂呀!這是什麼啊!?",bc_map,0xFF1493;
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯!發生什麼事了?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk13";
+        next;
+        cutin "", 255;
+        mes "[卡奧斯]";
+        mes "啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊…",bc_map,0xFF1493;
+        sleep2 300;
+        mes "啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊…",bc_map,0xFF1493;
+        sleep2 400;
+        mes "啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊啊…",bc_map,0xFF1493;
+        sleep2 500;
+        mes "啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 600;
+        mes "啊啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 700;
+        mes "啊啊啊啊啊啊…";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊啊啊啊啊…",bc_map,0xFF1493;
+        sleep2 800;
+        mes "啊啊啊啊啊啊啊!!";
+        mapannounce instance_mapname("1@face"),"卡奧斯 : 啊啊啊啊啊啊啊!!",bc_map,0xFF1493;
+        next;
+        movenpc instance_npcname("卡奧斯#face"),208,149;
+        hideoffnpc instance_npcname("卡奧斯#face");
+        cutin "H_CHAOS03", 2;
+        mes "[卡奧斯]";
+        mes "可惡，差一點我就成為活人大餐了";
+        npctalk "可惡，差一點我就成為活人大餐了";
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "我問你到底發生了什麼事!?";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk14";
+        next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "嘿嘿~驚駭森靈皇后發怒了，正往咱們這邊來呢!看起來很恐怖，我們暫時找地方躲起來吧!";
+        npctalk "嘿嘿~驚駭森靈皇后發怒了，正往咱們這邊來呢!看起來很恐怖，我們暫時找地方躲起來吧!";
+        next;
+        cutin "",255;
+        mes "-卡奧斯隱藏起來了。-";
+        hideonnpc instance_npcname("卡奧斯#face");
+        next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯你這笨蛋!!";
+        donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk15";
+        close2;
+        cutin "", 255;
+        hideonnpc instance_npcname("艾瑞絲#face");
+        movenpc instance_npcname("卡奧斯#face"),213,157;
+        specialeffect 1021;
+        sleep2 9000;
+        specialeffect 247;
+        sleep2 10000;
+        movenpc instance_npcname("卡奧斯#face"),208,149;
+        donpcevent instance_npcname("卡奧斯#facehelp") + "::OnEnable";
+        // 驚駭森靈皇后
+        donpcevent instance_npcname("#faceworm") + "::OnQueen";
+        end;
+		case 5:
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "呼…真是艱難啊…";
+				npctalk "呼…真是艱難啊…";
+				next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "不過這好像不是我們想打的怪物耶~";
+				donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk16";
+        cutin "H_CHAOS01", 2;
+        next;
+        mes "[卡奧斯]";
+        mes "也沒辦法了，裝備都耗損了，看來今天差不多要撤退了";
+				npctalk "也沒辦法了，裝備都耗損了，看來今天差不多要撤退了";
+				next;
+        cutin "H_IRIS02", 2;
+        mes "[艾瑞絲]";
+        mes "雖然沒遇到驚駭森靈國王有點可惜，但還好我們沒有受傷";
+				donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk17";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "啊!對了，你…你的實力還挺不錯的!";
+				npctalk "啊!對了，你…你的實力還挺不錯的!";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "今天的戰鬥你們功不可沒，我不會再小看你們了";
+				npctalk "今天的戰鬥你們功不可沒，我不會再小看你們了";
+				next;
+        mes "[卡奧斯]";
+        mes "啊啊~我還在想能不能消滅國王什麼的，真是可惜了";
+				npctalk "啊啊~我還在想能不能消滅國王什麼的，真是可惜了";
+				next;
+        cutin "H_IRIS01", 2;
+        mes "[艾瑞絲]";
+        mes "卡奧斯，我累了，我們還是快回村裡吧!?";
+				donpcevent instance_npcname("艾瑞絲#face")+"::OnTalk18";
+				next;
+        cutin "H_CHAOS01", 2;
+        mes "[卡奧斯]";
+        mes "啊!抱歉抱歉~我們走吧!";
+				npctalk "啊!抱歉抱歉~我們走吧!";
+				close2;
+				cutin "",255;
+				hideonnpc instance_npcname("卡奧斯#face");
+				hideonnpc instance_npcname("艾瑞絲#face");
+				enablenpc instance_npcname("次元裝置#face");
+				end;
+
+	}
+	end;
+	
+	OnInstanceInit:
+		'progress = 0;
+		.@map$ = instance_mapname("1@face");
+		disablenpc instance_npcname("區域一傳送點#face");
+		disablenpc instance_npcname("區域二傳送點#face");
+		disablenpc instance_npcname("區域三傳送點#face");
+		disablenpc instance_npcname("區域四傳送點#face");
+		monster .@map$,0,0,"--ja--",1166,20;
+		monster .@map$,0,0,"--ja--",1277,20;
+		monster .@map$,0,0,"--ja--",1494,20;
+		end;
+}
+
+1@face,115,347,4	script	艾瑞絲#face	666,{
+		end;
+	OnTalk1:
+		npctalk "啊~真是秋高氣爽!";
+		end;
+	OnTalk2:
+		npctalk "嘿嘿!最近天氣真好，艾瑞絲的心情也好棒喲~";
+		end;
+	OnTalk3:
+		npctalk "卡奧斯你不覺得嗎?";
+		end;
+	OnTalk4:
+		npctalk "啊!只要像以前那樣處理就對了吧?";
+		end;
+	OnTalk5:
+		npctalk "不過如果戰鬥時間太長，鱗片就會受損，也就變成一件沒用的古董了";
+		end;
+	OnTalk6:
+		npctalk "聽說厲害的獵人們能夠快速、正確的把價值不斐的鱗片剝下來呢!";
+		end;
+	OnTalk7:
+		npctalk "卡奧斯你有信心嗎?";
+		end;
+	OnTalk8:
+		npctalk "真沒用耶~卡奧斯";
+		end;
+	OnTalk9:
+		npctalk "卡奧斯!你又要自己先走了嗎?";
+		end;
+	OnTalk10:
+		npctalk "這個嘛…說是驚駭森靈巢穴好像又太大了點";
+		end;
+	OnTalk11:
+		npctalk "卡奧斯!別再開玩笑了!";
+		end;
+	OnTalk12:
+		npctalk "啊啊!卡奧斯這個冒失鬼，又這麼莽撞!";
+		end;
+	OnTalk13:
+		npctalk "卡奧斯!發生什麼事了?";
+		end;
+	OnTalk14:
+		npctalk "我問你到底發生了什麼事!?";
+		end;
+	OnTalk15:
+		npctalk "卡奧斯你這笨蛋!!";
+		end;
+	OnTalk16:
+		npctalk "不過這好像不是我們想打的怪物耶~";
+		end;
+	OnTalk17:
+		npctalk "也好，雖然沒遇到驚駭森靈國王有點可惜，但還好我們沒有人員傷亡";
+		end;
+	OnTalk18:
+		npctalk "卡奧斯，我累了，我們回去村子裡!?";
+		end;
+}
+
+1@face,0,0,0	script	卡奧斯#facehelp	683,3,3,{
+		end;
+	OnEnable:
+		enablenpc instance_npcname("卡奧斯#facehelp");
+		initnpctimer;
+		end;
+		
+	OnTouch_:
+    if(!'trigger) {
+      sleep2 2000;
+      getmapxy(.@map$,.@x,.@y,BL_NPC);
+      if(!'BossID) {
+				end;
+			}
+      getunitdata 'BossID,.@array;
+      if(distance(.@x,.@y,.@array[6],.@array[7]) < 7){
+        specialeffect2 90,'BossID;
+        set .@num,rand(60,200)*10000;
+        mapannounce .@map$,"卡奧斯必殺傷害命中！，造成了"+.@num+"傷害",bc_map,0x00ff99;
+        setunitdata 'BossID,2,.@array[2]-.@num;
+      } 
+      else 
+        mapannounce .@map$,"卡奧斯的吶喊 : 怎麼那麼不中用，連引誘都不會!",bc_map,0xFF1493;
+      disablenpc instance_npcname("卡奧斯#facehelp");
+      initnpctimer;
+		}
+		end;
+		
+	OnTimer30000:
+		enablenpc instance_npcname("卡奧斯#facehelp");
+		'trigger = 0;
+		.@map$ = instance_mapname("1@face");
+		set .@dec,rand(1,4);
+		switch(.@dec){
+			case 1:
+				movenpc instance_npcname("卡奧斯#facehelp"),228,159;
+				break;
+			case 2:
+				movenpc instance_npcname("卡奧斯#facehelp"),212,143;
+				break;
+			case 3:
+				movenpc instance_npcname("卡奧斯#facehelp"),202,163;
+				break;
+			case 4:
+				movenpc instance_npcname("卡奧斯#facehelp"),215,172;
+				break;
+		}
+		mapannounce .@map$,"卡奧斯的吶喊 : 啊!快去引誘怪物來"+(.@dec==1?"東":.@dec==2?"南":.@dec==3?"西":"北")+"邊!由我來送它一拳!",bc_map,0x00FFFF;
+		end;
+		
+	OnDisable:
+    stopnpctimer;
+	OnInstanceInit:
+		disablenpc instance_npcname("卡奧斯#facehelp");
+		end;
+}
+
+1@face,0,0,0	script	#BlackLogic	-1,{
+  end;
+  OnInstanceInit:
+    disablenpc instance_npcname("#BlackLogic");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("#BlackLogic");
+    initnpctimer;
+    end;
+  
+  OnEnd:
+    stopnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#BlackLogic") + "::OnSkillunit";
+    killmonster .@map$, .@label$;
+    disablenpc instance_npcname("#BlackLogic");
+    end;
+    
+  OnTimer10000:
+    initnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#BlackLogic") + "::OnSkillunit";
+    getunitdata 'BossID,.@bossdata;
+    .@x = .@bossdata[6];
+    .@y = .@bossdata[7];
+    switch('progress) {
+        case 0:
+          if(mobcount(.@map$,.@label$) < 10)
+            areamonster .@map$, .@x-3,.@y-3,.@x+3,.@y+3,"--ja--",2540,4,.@label$;
+          break;
+        case 1:
+          killmonster .@map$, .@label$;
+          monster .@map$, .@x,.@y,"--ja--",2537,4,.@label$;
+          for(.@i = 0; .@i < 4; ++.@i)
+            setunitdata $@mobid[.@i],29,1;
+          break;
+        case 2:
+          if(mobcount(.@map$,.@label$) < 100) {
+              for(.@i = 0; .@i < 6; ++.@i)
+                for(.@j = 0; .@j < 6; ++.@j)
+                    monster(.@map$, .@x-5+.@i*2,.@y-5+.@j*2,"--ja--",2531,1,.@label$);
+          }
+          break;        
+        case 3:
+          movenpc instance_npcname("#Blackpoison"),.@x,.@y;
+          break;    
+    }
+    end;
+}
+
+
+1@face,0,0,0	script	#QueenLogic	-1,{
+  end;
+  OnInstanceInit:
+    disablenpc instance_npcname("#QueenLogic");
+    end;
+    
+  OnStart:
+    enablenpc instance_npcname("#QueenLogic");
+    initnpctimer;
+    end;
+  
+  OnEnd:
+    stopnpctimer;
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#QueenLogic") + "::OnSkillunit";
+    killmonster .@map$, .@label$;
+    donpcevent instance_npcname("#Queenpoison") + "::OnDisable";
+    disablenpc instance_npcname("#QueenLogic");
+    end;
+    
+  OnTimer15000:
+    initnpctimer;
+    'SkillLv = rand(0,1);
+    .@map$ = instance_mapname("1@face");
+    .@label = instance_npcname("#QueenLogic") + "::OnSkillunit";
+    getunitdata 'BossID,.@bossdata;
+    .@x = .@bossdata[6];
+    .@y = .@bossdata[7];
+    switch(rand(1,3)) {
+        case 1:
+          if(mobcount(.@map$,.@label$) < 10)
+            areamonster .@map$, .@x-3,.@y-3,.@x+3,.@y+3,"--ja--",2540,('SkillLv)?4:2,.@label$;
+          break;
+        case 2:
+          if(mobcount(.@map$,.@label$) < 100) {
+              if(!'SkillLv) {
+                    for(.@i = 0; .@i < 6; ++.@i)
+                      for(.@j = 0; .@j < 6; ++.@j)
+                          monster(.@map$, .@x-5+.@i*2,.@y-5+.@j*2,"--ja--",2531,1,.@label$);
+                }
+              else {
+                    for(.@i = 0; .@i < 8; ++.@i)
+                      for(.@j = 0; .@j < 8; ++.@j)
+                          monster(.@map$, .@x-7+.@i*2,.@y-7+.@j*2,"--ja--",2531,1,.@label$);
+              }
+          }
+          break;        
+        case 3:
+          movenpc instance_npcname("#Queenpoison"),.@x,.@y;
+          break;    
+    }
+    end;
+}
+
+
+1@face,0,0,0	script	#faceworm	-1,{
+		end;
+	OnStart:
+			.@map$ = instance_mapname("1@face");
+			switch('progress) {
+				case 0:
+					//mapannounce .@map$,"驚駭森靈競速戰鬥開始，作戰速度越快，越有機會拿到高級獎勵!",bc_map,0xFFFF90;
+					// 第一區域小怪
+					monster .@map$,76,332,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,70,279,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,73,215,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,71,129,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,86,68,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,146,68,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					break;
+				case 1:
+					monster .@map$,119,290,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,196,277,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,144,225,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,111,175,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,107,126,"--ja--",2528,4 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					break;
+				case 2:
+					monster .@map$,227,336,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,314,317,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,231,213,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,169,190,"--ja--",2528,2 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+					monster .@map$,161,132,"--ja--",2528,4 + 2*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+			}
+			'time = gettimetick(2);
+			end;
+
+	OnMyMobDead:
+		.@map$ = instance_mapname("1@face");
+		.@mob = mobcount(.@map$,instance_npcname("#faceworm")+"::OnMyMobDead");
+		if(!.@mob){
+			switch('progress){
+				case 0:
+					mapannounce .@map$,"驚駭森靈已經紛紛退卻，有更巨大的傢伙出現了！",bc_map,0xFFFF90;
+					monster .@map$,140,72,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace";
+					'BossID = $@mobid[0];
+					break;
+				case 1:
+					mapannounce .@map$,"驚駭森靈已經紛紛退卻，有更巨大的傢伙出現了！",bc_map,0xFFFF90;
+					monster .@map$,161,274,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace";
+					'BossID = $@mobid[0];
+					break;
+				case 2:
+					mapannounce .@map$,"驚駭森靈已經紛紛退卻，有更巨大的傢伙出現了！",bc_map,0xFFFF90;
+					monster .@map$,276,308,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace";
+					'BossID = $@mobid[0];
+					break;
+				case 3:
+					mapannounce .@map$,"西邊突然傳來嚎啕大哭的聲音",bc_map,0xFFFF90;
+					monster .@map$,214,105,"--ja--",2530,1,instance_npcname("#faceworm")+"::OnBlackFace";
+					'BossID = $@mobid[0];
+					donpcevent instance_npcname("#Blackpoison") + "::OnEnable";
+					break;
+			}
+			donpcevent instance_npcname("#BlackLogic") + "::OnStart";
+		}
+		else 
+			mapannounce .@map$,.@mob+"隻驚駭森靈還活著",bc_map,0xFFFF90;
+		end;
+		
+	OnQueen:
+			.@map$ = instance_mapname("1@face");
+			monster .@map$,213,157,"--ja--",2529,1,instance_npcname("#faceworm")+"::OnQueenDead";
+			'BossID = $@mobid[0];
+			setunitdata 'BossID,2,26000000 + 'members*2000000;
+			setunitdata 'BossID,3,26000000 + 'members*2000000;
+			monster .@map$,226,143,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,226,169,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,204,169,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,203,143,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,213,149,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,213,165,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,220,157,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			monster .@map$,206,157,"--ja--",2536,1,instance_npcname("#faceworm") + "::OnTrap";
+			setunitdata $@mobid[0],29,1;
+			initnpctimer;
+			'time = gettimetick(2);
+			donpcevent instance_npcname("#QueenLogic") + "::OnStart";
+			donpcevent instance_npcname("#Queenpoison") + "::OnEnable";
+			end;	
+
+	OnBlackFace:
+		++'progress;
+		donpcevent instance_npcname("#BlackLogic") + "::OnEnd";
+		.@map$ = instance_mapname("1@face");
+
+		//mapannounce .@map$,"[驚駭森靈巢穴]，第"+'progress+"區域通關花費時間是「"+(.@hour<10?"0"+.@hour:.@hour)+":"+(.@min<10?"0"+.@min:.@min)+":"+(.@sec<10?"0"+.@sec:.@sec)+"」",bc_map,0x0fff8c;
+		// 紀錄 1-4 關通過時間
+		'time['progress]=.@time2;
+		switch('progress){
+			case 1:
+				mapannounce .@map$,"打敗巨大軀幹的怪物後，發現了它出入的洞口，這真是一個大到足以通往另一個地區的巨大地穴呢!",bc_map,0xFFFF00;
+				enablenpc instance_npcname("驚駭森靈寶箱#1");
+				enablenpc instance_npcname("區域一傳送點#face");
+				movenpc instance_npcname("卡奧斯#face"),120,97;
+				movenpc instance_npcname("艾瑞絲#face"),127,99;
+				hideoffnpc instance_npcname("卡奧斯#face");
+				hideoffnpc instance_npcname("艾瑞絲#face");
+				break;
+			case 2:
+				mapannounce .@map$,"從南方傳來很大的聲響，可能是剛才被殺怪物的巢穴",bc_map,0xFFFF00;
+				enablenpc instance_npcname("驚駭森靈寶箱#2");
+				enablenpc instance_npcname("區域二傳送點#face");
+				movenpc instance_npcname("卡奧斯#face"),153,113;
+				movenpc instance_npcname("艾瑞絲#face"),160,113;
+				hideoffnpc instance_npcname("卡奧斯#face");
+				hideoffnpc instance_npcname("艾瑞絲#face");
+				break;
+			case 3:
+				mapannounce .@map$,"南方傳來了石堆崩解的聲音，或許是條連結其他地方的通道呢!",bc_map,0xFFFF00;
+				enablenpc instance_npcname("驚駭森靈寶箱#3");
+				enablenpc instance_npcname("區域三傳送點#face");
+				sleep 5000;
+				mapannounce .@map$,"卡奧斯的吶喊 : 育!冒險家們!到那邊要小心一點，到處都是劇毒呢",bc_map,0x00FFFF;
+				sleep 3000;
+				mapannounce .@map$,"卡奧斯的吶喊 : 我們正在找其他巢穴，如果有什麼發現再告訴我們吧!",bc_map,0x00FFFF;
+				// 第四區域小怪
+				areamonster .@map$,252,165,304,57,"--ja--",2528,11*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+				areamonster .@map$,211,114,272,60,"--ja--",2528,11*'members,instance_npcname("#faceworm")+"::OnMyMobDead";
+				break;
+			case 4:
+				mapannounce .@map$,"聽到石堆崩解的聲音，好像發現了其他條通道",bc_map,0xFFFF00;
+        donpcevent instance_npcname("#Blackpoison") + "::OnDisable";
+				enablenpc instance_npcname("驚駭森靈寶箱#4");
+				enablenpc instance_npcname("區域四傳送點#face");
+				movenpc instance_npcname("卡奧斯#face"),208,149;
+				movenpc instance_npcname("艾瑞絲#face"),220,149;
+				hideoffnpc instance_npcname("卡奧斯#face");
+				hideoffnpc instance_npcname("艾瑞絲#face");
+				break;
+			}
+		end;
+
+	OnQueenDead:
+	 if(mobcount(instance_mapname("1@face"),instance_npcname("#faceworm")+"::OnQueenDead") > 0 ){end;}
+		stopnpctimer;
+		'BossID = 0;
+		donpcevent instance_npcname("#QueenLogic") + "::OnEnd";
+		++ 'progress;
+		donpcevent instance_npcname("卡奧斯#facehelp") + "::OnDisable";
+		killmonster instance_mapname("1@face"),instance_npcname("#faceworm") + "::OnTrap";
+		
+		enablenpc instance_npcname("驚駭森靈寶箱#5");
+		movenpc instance_npcname("卡奧斯#face"),208,161;
+		movenpc instance_npcname("艾瑞絲#face"),221,158;
+		hideoffnpc instance_npcname("卡奧斯#face");
+		hideoffnpc instance_npcname("艾瑞絲#face");
+		end;
+	
+	OnTimer65000:
+    initnpctimer;
+    if('progress < 5 && 'BossID) {
+      stopnpctimer instance_npcname("#QueenLogic");
+      getunitdata 'BossID,.@bossdata;
+      .@hp = .@bossdata[2];
+      .@mhp = .@bossdata[3];
+      .@x = .@bossdata[6];
+      .@y = .@bossdata[7];
+      .@mob = rand(2532,2535);
+      killmonster instance_mapname("1@face"),instance_npcname("#faceworm")+"::OnQueenDead";
+      monster instance_mapname("1@face"),.@x,.@y,"--ja--",.@mob,1,instance_npcname("#faceworm")+"::OnQueenDead";
+	  'BossID = $@mobid[0];
+      setunitdata 'BossID,3,.@mhp;
+      setunitdata 'BossID,2,.@hp;
+      initnpctimer instance_npcname("#QueenLogic");
+      switch(.@mob) {
+        case 2532: .@element$ = "火"; break;
+        case 2533: .@element$ = "地"; break;
+        case 2534: .@element$ = "水"; break;
+        case 2535: .@element$ = "風"; break;
+      }
+      mapannounce instance_mapname("1@face"),"驚駭森靈女皇試圖用"+.@element$+"屬性外殼包裹住自己！",bc_map,0xffff90;
+		} else
+      stopnpctimer;
+		end;
+		
+
+
+}
+
+
+1@face,0,0,0	script	驚駭森靈寶箱::Facebox	10005,{
+	specialeffect 10;
+	specialeffect2 10;
+	getmapxy (.@map$,.@x,.@y,BL_NPC);
+	switch(atoi(strnpcinfo(2))){
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			setarray .@card,4700,4710,4720,4730,4740,4750,4701,4711,4721,4731,4741,4751,4702,4712,4722,4732,4742,4752,4703,4713,4723,4733,4743,4753,4704,4714,4724,4734,4744,4754;
+			if('time[atoi(strnpcinfo(2))]<121){
+				if(rand(1,100) <= 70) makeitem2 20717,1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(2,5),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(4,6),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+			} else {
+				if(rand(1,100) <= 70) makeitem2 20717,1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(0,3),0,0,0,0,.@card[rand(getarraysize(.@card))];
+				else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(2,4),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+			}
+			break;
+		// 皇后的寶箱
+		case 5:
+			setarray .@card,4700,4710,4720,4730,4740,4750,4701,4711,4721,4731,4741,4751,4702,4712,4722,4732,4742,4752,4703,4713,4723,4733,4743,4753,4704,4714,4724,4734,4744,4754,4705,4715,4725,4735,4745,4755,4706,4716,4726,4736,4746,4756;
+			if('time[atoi(strnpcinfo(2))]<271){
+				set .@rate,rand(1,100);
+				set .@amount,rand(1,100)<=20?2:1;
+				if(.@rate <= 20){
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(9,11),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				} else if(.@rate <= 50){
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(5,9),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				} else {
+					for(set .@i,0; .@i<.@amount; set .@i,.@i+1) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(3,7),0,0,0,0,.@card[rand(getarraysize(.@card))];
+				}
+			} else {
+				set .@rate,rand(1,100);
+				if(.@rate <= 5)	makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(9,11),0,0,rand(4853,4858),.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				 else if(.@rate <= 25) makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(5,9),0,0,0,.@card[rand(getarraysize(.@card))],.@card[rand(getarraysize(.@card))];
+				 else makeitem2 rand(20717,20718),1,.@map$,.@x+rand(-2,2),.@y+rand(-2,2),0,rand(3,7),0,0,0,0,.@card[rand(getarraysize(.@card))];
+			}
+			break;
+	}
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	if(atoi(strnpcinfo(2))) disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@face,154,82,5	duplicate(Facebox)	驚駭森靈寶箱#1	10005
+1@face,160,271,5	duplicate(Facebox)	驚駭森靈寶箱#2	10005
+1@face,276,308,5	duplicate(Facebox)	驚駭森靈寶箱#3	10005
+1@face,215,107,5	duplicate(Facebox)	驚駭森靈寶箱#4	10005
+1@face,211,159,5	duplicate(Facebox)	驚駭森靈寶箱#5	10005
+
+1@face,149,92,0	warp	區域一傳送點#face	1,1,1@face,127,95
+1@face,131,86,0	warp	回區域一傳送點#face	1,1,1@face,155,87
+1@face,139,100,0	warp	區域二傳送點#face	1,1,1@face,156,115
+1@face,148,107,0	warp	回區域二傳送點1#face	1,1,1@face,127,95
+1@face,249,186,0	warp	區域三傳送點#face	1,1,1@face,260,170;
+1@face,254,175,0	warp	回區域三傳送點1#face	1,1,1@face,246,192
+1@face,204,122,0	warp	區域四傳送點#face	1,1,1@face,210,145
+
+// 第一區域陷阱
+1@face,0,0,0	script	驚駭森靈幼蟲的洞穴::Facewormhole	557,4,4,{
+	end;
+OnTouch:
+	getmapxy (.@map$,.@x,.@y,BL_NPC);
+	monster .@map$,.@x,.@y,"--ja--",2541,rand(2,5);
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// 第一區域 驚駭森靈幼蟲
+1@face,68,240,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#1	557,4,4
+1@face,81,263,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#2	557,4,4
+1@face,67,284,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#3	557,4,4
+1@face,76,315,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#4	557,4,4
+1@face,91,333,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#5	557,4,4
+1@face,75,208,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#6	557,4,4
+1@face,60,186,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#7	557,4,4
+1@face,74,160,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#8	557,4,4
+1@face,65,130,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#9	557,4,4
+1@face,69,107,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#10	557,4,4
+1@face,86,77,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#11	557,4,4
+1@face,100,74,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#12	557,4,4
+1@face,127,69,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#13	557,4,4
+1@face,145,79,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#14	557,4,4
+
+// 第二區域陷阱
+1@face,0,0,0	script	毒囊袋::VenomBug	139,4,4,{
+	end;
+OnTouch:
+	getmapxy (.@map$,.@x,.@y,BL_NPC);
+	for(.@i = 0; .@i< 3; ++.@i) monster .@map$,rand(.@x-5,.@x+5),rand(.@y-5,.@y+5),"--ja--",2531,1;
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+// 第二區域 驚駭森靈幼蟲
+1@face,110,300,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#15	557,4,4
+1@face,116,286,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#16	557,4,4
+1@face,120,273,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#17	557,4,4
+1@face,122,255,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#18	557,4,4
+1@face,136,236,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#19	557,4,4
+1@face,125,218,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#20	557,4,4
+1@face,123,201,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#21	557,4,4
+1@face,110,183,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#22	557,4,4
+1@face,123,157,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#23	557,4,4
+1@face,100,131,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#24	557,4,4
+1@face,128,86,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#25	557,4,4
+1@face,130,191,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#26	557,4,4
+1@face,142,214,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#27	557,4,4
+1@face,147,235,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#28	557,4,4
+1@face,173,266,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#29	557,4,4
+1@face,195,275,0	duplicate(Facewormhole)	驚駭森靈幼蟲的洞穴#30	557,4,4
+
+// 第三區域陷阱
+1@face,0,0,0	script	毒霧沼澤::Poisonsmoke	139,{
+	end;
+OnInstanceInit:
+	if(!atoi(strnpcinfo(2))) end;
+	initnpctimer instance_npcname("毒霧沼澤#"+strnpcinfo(2));
+	end;
+OnTimer700:
+	initnpctimer instance_npcname("毒霧沼澤#"+strnpcinfo(2));
+	getmapxy (.@map$,.@x,.@y,BL_NPC);
+	areapercentheal .@map$,.@x-3,.@y+3,.@x+3,.@y-3,-1,0;
+	for(set .@i,0; .@i<20; set .@i,.@i+1){
+		specialeffect 1020;
+		movenpc instance_npcname(strnpcinfo(0)),rand(.@x-3,.@x+3),rand(.@y-3,.@y+3);
+	}
+	movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+	end;
+}
+
+1@face,0,0,0	script	#Blackpoison	139,{
+    end;
+  OnDisable:
+    stopnpctimer;
+  OnInstanceInit:
+    disablenpc instance_npcname("#Blackpoison");
+    end;
+    
+  OnEnable:
+    enablenpc instance_npcname("#Blackpoison");
+    initnpctimer;
+    end;
+    
+  OnTimer700:
+    initnpctimer;
+    getmapxy (.@map$,.@x,.@y,BL_NPC);
+    areapercentheal .@map$,.@x-7,.@y+7,.@x+7,.@y-7,-2,0;
+    for(.@i = 0; .@i < 50; ++.@i){
+      specialeffect 1020;
+      movenpc instance_npcname(strnpcinfo(0)),rand(.@x-7,.@x+7),rand(.@y-7,.@y+7);
+    }
+    movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+    end;
+}
+
+
+1@face,0,0,0	script	#Queenpoison	139,{
+    end;
+  OnDisable:
+    stopnpctimer;
+  OnInstanceInit:
+    disablenpc instance_npcname("#Queenpoison");
+    end;
+    
+  OnEnable:
+    enablenpc instance_npcname("#Queenpoison");
+    initnpctimer;
+    end;
+    
+  OnTimer700:
+    initnpctimer;
+    getmapxy (.@map$,.@x,.@y,BL_NPC);
+    if('SkillLv) {
+        .@range = 7;
+        .@damage = -3;
+        .@numbers = 60;
+    }
+    else {
+        .@range = 5;
+        .@damage = -1;
+        .@numbers = 30;
+    }
+    areapercentheal .@map$,.@x-.@range,.@y+.@range,.@x+.@range,.@y-.@range,.@damage,0;
+    for(.@i = 0; .@i < .@numbers; ++.@i){
+      specialeffect 1020;
+      movenpc instance_npcname(strnpcinfo(0)),rand(.@x-.@range,.@x+.@range),rand(.@y-.@range,.@y+.@range);
+    }
+    movenpc instance_npcname(strnpcinfo(0)),.@x,.@y;
+    end;
+}
+
+// 第三區域毒囊袋 毒囊袋
+1@face,154,132,0	duplicate(VenomBug)	毒囊袋#1	139,4,4
+1@face,167,137,0	duplicate(VenomBug)	毒囊袋#2	139,4,4
+1@face,162,149,0	duplicate(VenomBug)	毒囊袋#3	139,4,4
+1@face,168,162,0	duplicate(VenomBug)	毒囊袋#4	139,4,4
+1@face,165,175,0	duplicate(VenomBug)	毒囊袋#5	139,4,4
+1@face,178,189,0	duplicate(VenomBug)	毒囊袋#6	139,4,4
+1@face,183,204,0	duplicate(VenomBug)	毒囊袋#7	139,4,4
+1@face,203,205,0	duplicate(VenomBug)	毒囊袋#8	139,4,4
+1@face,220,206,0	duplicate(VenomBug)	毒囊袋#9	139,4,4
+1@face,234,208,0	duplicate(VenomBug)	毒囊袋#10	139,4,4
+1@face,246,218,0	duplicate(VenomBug)	毒囊袋#11	139,4,4
+1@face,244,230,0	duplicate(VenomBug)	毒囊袋#12	139,4,4
+1@face,246,245,0	duplicate(VenomBug)	毒囊袋#13	139,4,4
+1@face,240,262,0	duplicate(VenomBug)	毒囊袋#14	139,4,4
+1@face,238,276,0	duplicate(VenomBug)	毒囊袋#15	139,4,4
+1@face,244,287,0	duplicate(VenomBug)	毒囊袋#16	139,4,4
+1@face,259,292,0	duplicate(VenomBug)	毒囊袋#17	139,4,4
+1@face,269,299,0	duplicate(VenomBug)	毒囊袋#18	139,4,4
+1@face,276,309,0	duplicate(VenomBug)	毒囊袋#19	139,4,4
+1@face,294,316,0	duplicate(VenomBug)	毒囊袋#20	139,4,4
+1@face,305,322,0	duplicate(VenomBug)	毒囊袋#21	139,4,4
+1@face,300,335,0	duplicate(VenomBug)	毒囊袋#22	139,4,4
+1@face,288,339,0	duplicate(VenomBug)	毒囊袋#23	139,4,4
+1@face,274,339,0	duplicate(VenomBug)	毒囊袋#24	139,4,4
+1@face,262,330,0	duplicate(VenomBug)	毒囊袋#25	139,4,4
+1@face,244,343,0	duplicate(VenomBug)	毒囊袋#26	139,4,4
+1@face,225,348,0	duplicate(VenomBug)	毒囊袋#27	139,4,4
+1@face,222,326,0	duplicate(VenomBug)	毒囊袋#28	139,4,4
+1@face,226,303,0	duplicate(VenomBug)	毒囊袋#29	139,4,4
+1@face,237,297,0	duplicate(VenomBug)	毒囊袋#30	139,4,4
+
+// 第四區域 毒霧沼澤
+1@face,265,161,0	duplicate(Poisonsmoke)	毒霧沼澤#1	139
+1@face,290,159,0	duplicate(Poisonsmoke)	毒霧沼澤#2	139
+1@face,306,145,0	duplicate(Poisonsmoke)	毒霧沼澤#3	139
+1@face,311,119,0	duplicate(Poisonsmoke)	毒霧沼澤#4	139
+1@face,281,117,0	duplicate(Poisonsmoke)	毒霧沼澤#5	139
+1@face,253,118,0	duplicate(Poisonsmoke)	毒霧沼澤#6	139
+1@face,245,98,0	duplicate(Poisonsmoke)	毒霧沼澤#7	139
+1@face,265,93,0	duplicate(Poisonsmoke)	毒霧沼澤#8	139
+1@face,287,87,0	duplicate(Poisonsmoke)	毒霧沼澤#9	139
+1@face,301,74,0	duplicate(Poisonsmoke)	毒霧沼澤#10	139
+1@face,308,59,0	duplicate(Poisonsmoke)	毒霧沼澤#11	139
+1@face,284,60,0	duplicate(Poisonsmoke)	毒霧沼澤#12	139
+1@face,262,69,0	duplicate(Poisonsmoke)	毒霧沼澤#13	139
+1@face,235,73,0	duplicate(Poisonsmoke)	毒霧沼澤#14	139
+1@face,221,90,0	duplicate(Poisonsmoke)	毒霧沼澤#15	139
+1@face,211,106,0	duplicate(Poisonsmoke)	毒霧沼澤#16	139
+1@face,216,117,0	duplicate(Poisonsmoke)	毒霧沼澤#17	139
+1@face,230,105,0	duplicate(Poisonsmoke)	毒霧沼澤#18	139
+1@face,251,103,0	duplicate(Poisonsmoke)	毒霧沼澤#19	139
+1@face,272,108,0	duplicate(Poisonsmoke)	毒霧沼澤#20	139
+
+
+1@face,216,160,0	script	次元裝置#face	10007,{
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("離開副本#1@face")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("次元裝置#face");
+	end;
+}
+
+1@face,0,0,0	script	離開副本#1@face	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940019,10;
+	Instance_PassAnnounce;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

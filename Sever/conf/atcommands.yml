@@ -1,0 +1,1084 @@
+﻿# This file is a part of rAthena.
+#   Copyright(C) 2017 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Atcommand Database
+###########################################################################
+#
+# Atcommand Settings
+#
+###########################################################################
+# - Command                  指令名.
+#   Aliases:                 指令的別名. (可選)
+#     - <AliasName>             - 別名
+#   Help                     幫助命令的需訊息. (可選)
+###########################################################################
+
+Header:
+  Type: ATCOMMAND_DB
+  Version: 1
+
+Body:
+  - Command: help
+    Aliases:
+      - h
+    Help: |
+      參數: <指令>
+      列出某個指令的幫助信息, 例如查詢 kami 指令的幫助信息: @help kami
+  - Command: noask
+    Help: |
+      開啟/關閉自動拒絕所有邀請 (包括: 添加好友邀請、組隊邀請和公會邀請)
+  - Command: gmotd
+    Help: |
+      將 conf/motd.txt 中配置的公告信息發送給全部玩家 (以黃字公告樣式顯示)
+  - Command: me
+    Help: |
+      參數: <消息>
+      將 <消息> 以指定格式發送出去, 例如 "/me 大家好" 將會顯示為：* : 角色名 大家好 : *
+  - Command: fakename
+    Help: |
+      參數: <想偽裝的角色名稱>
+      將你的角色名臨時調整為 <想偽裝的角色名稱> 直到你的角色下線
+  - Command: npctalk
+    Aliases:
+      - npctalkc
+    Help: |
+      參數: <NPC 名稱> <消息>
+      讓指定的 NPC 和玩家說話一樣顯示出給定的 <消息>
+  - Command: broadcast
+    Help: |
+      參數: <消息>
+      使用黃色字體, 在帶有你角色名的情況下對 <消息> 進行全服廣播
+  - Command: kami
+    Help: |
+      參數: <消息>
+      使用黃色字體, 在不攜帶角色名的情況下對 <消息> 進行全服廣播
+  - Command: kamib
+    Help: |
+      參數: <內容>
+      使用藍色字體, 在不攜帶角色名的情況下對 <消息> 進行全服廣播
+  - Command: localbroadcast
+    Help: |
+      參數: <內容>
+      使用黃色字體, 在帶有你角色名的情況下對 <消息> 進行地圖廣播
+  - Command: commands
+    Help: |
+      顯示出當前你可以使用的所有指令
+  - Command: rates
+    Help: |
+      顯示服務器當前的倍率信息, 包括: 經驗倍率、物品掉落倍率等等
+  - Command: uptime
+    Help: |
+      顯示服務器距離上一次維護之後, 已經持續運行多長時間
+  - Command: showdelay
+    Help: |
+      顯示/隱藏技能冷卻提示 (當使用正在冷卻的技能時, 將會提示此技能正在冷卻)
+  - Command: exp
+    Help: |
+      顯示當前等級和經驗值進度
+  - Command: mobinfo
+    Aliases:
+      - monsterinfo
+      - mi
+    Help: |
+      參數: <魔物名稱|魔物編號>
+      顯示指定魔物的信息 (能力, 經驗值, 掉落的道具信息等)
+  - Command: iteminfo
+    Aliases:
+      - ii
+    Help: |
+      參數: <物品名稱|物品編號>
+      顯示指定物品的信息 (物品類型, 重量等)
+  - Command: whodrops
+    Help: |
+      參數: <物品名稱|物品編號>
+      查找指定的物品可以從哪些魔物身上獲得 (按照魔物的掉率排序)
+  - Command: version
+    Help: |
+      顯示服務端程序套件的版本號等信息
+  - Command: email
+    Help: |
+      參數: <當前郵箱地址> <新郵箱地址>
+      修改你賬號的郵件地址 (郵件地址在部分版本的客戶端中將作為刪除角色的確認密碼使用)
+  - Command: where
+    Help: |
+      參數: <角色名稱>
+      查找指定角色所在的地圖和坐標
+  - Command: time
+    Aliases:
+      - date
+      - serverdate
+      - servertime
+    Help: |
+      顯示服務器的日期和時間以及遊戲內的晝夜時間
+  - Command: showexp
+    Help: |
+      顯示/隱藏獲得的經驗值
+  - Command: showzeny
+    Help: |
+      顯示/隱藏獲得的金幣
+  - Command: mobsearch
+    Help: |
+      參數: <魔物名稱|魔物編號>
+      搜索當前地圖中指定魔物的位置
+      可以用這個指令來查BOSS位置, 再利用 jump 指令瞬移過去
+  - Command: who
+    Aliases:
+      - whois
+    Help: |
+      參數: [<角色名稱>]
+      顯示全服玩家的隊伍和公會名稱 (若指定角色名, 則只査找特定的角色)
+  - Command: who2
+    Help: |
+      參數: [<角色名稱>]
+      顯示全服玩家的等級和職業 (若指定角色名, 則只査找特定的角色)
+  - Command: who3
+    Help: |
+      參數: [<角色名稱>]
+      顯示全服玩家的在線角色和所在的位置 (若指定角色名, 則只査找特定的角色)
+  - Command: whomap
+    Help: |
+      @whomap/@whomap2/@whomap3 [<地圖名稱>]
+      與 @who/@who2/@who3 類似, 但是只搜索指定地圖 (參數為空則搜索當前地圖)
+  - Command: whogm
+    Help: |
+      參數: [<關鍵詞>]
+      與 @who+@who2+who3 類似, 但是只針對在線的 GM 玩家
+      若指定了 <關鍵詞> , 則只會搜索角色名稱包含 <關鍵詞> 的在線 GM 玩家
+  - Command: guildspy
+    Help: |
+      參數: <公會名稱|公會編號>
+      監聽指定公會的聊天, 你將會收到指定公會的“公會頻道”中的所有聊天信息 (Chat logging must be enabled)
+  - Command: partyspy
+    Help: |
+      @partyspy <隊伍名稱|隊伍編號>
+      監聽指定隊伍的聊天, 你將會收到指定隊伍的“隊伍頻道”中的所有聊天信息 (Chat logging must be enabled)
+  - Command: mapinfo
+    Help: |
+      參數: [<0-3> [地圖名稱]]
+      顯示出指定地圖的詳細信息 (0: 沒有其他信息, 1: 玩家信息, 2: NPC信息, 3: 聊天室信息)
+  - Command: go
+    Help: |
+      參數: <城市名稱|城市序號>
+      將你立刻傳送到指定序號的城市, 可選的城市有: 
+      -3: (記錄點 2)       14: 洛陽            31: 莫拉村
+      -2: (記錄點 1)       15: 出生點          32: 德瓦塔島
+      -1: (記錄點 0)       16: 監獄            33: 喵喵島
+       0: 普隆德拉         17: 蜜月島          34: 馬來亞港口
+       1: 夢羅克           18: 哎喲泰雅        35: 艾卡拉奇
+       2: 吉芬             19: 鋼鐵之都        36: 勒沙尼亞
+       3: 裴楊             20: 企業之都
+       4: 艾爾貝塔         21: 采礦村落
+       5: 伊斯魯得島       22: 田園都市毀葛
+       6: 艾爾帕蘭         23: 阿魯娜配滋教國首都拉赫
+       7: 聖誕村           24: 峽谷村子伯仁斯
+       8: 克魔島           25: 莫斯科比亞
+       9: 朱諾             26: 米德加爾特聯合駐地
+      10: 天津             27: 馬努克
+      11: 昆侖             28: 輝煌領域中心
+      12: 汶巴拉           29: 巴西
+      13: 尼芙菲姆         30: 沙帕首都埃迪斯特斯
+  - Command: jumpto
+    Aliases:
+      - goto
+      - warpto
+    Help: |
+      參數: <角色名稱>
+      將你立刻傳送到指定的角色身邊 (目標角色必須在線)
+  - Command: follow
+    Help: |
+      參數: <角色名稱>
+      跟隨指定角色 (輸入自己的名字可以解除跟隨) 
+  - Command: mount
+    Aliases:
+      - mountpeco
+    Help: |
+      獲得/移除職業坐騎 (就算沒有學習技能也可以獲得坐騎)
+  - Command: mount2
+    Help: |
+      獲得/移除商城坐騎 (九尾狐、羊駝等)
+  - Command: disguise
+    Help: |
+      參數: <魔物名稱|魔物編號|NPC外觀編號>
+      將自己的外觀變為指定魔物或者 NPC (通常活動或跟蹤其他玩家時使用)
+  - Command: undisguise
+    Help: |
+      還原被 @disguise 指令修改過的外觀
+  - Command: disguiseguild
+    Help: |
+      參數: <魔物名稱|魔物編號|NPC外觀編號>,<公會名稱|公會編號>
+      與 @disguise 類似, 可以將指定公會的所有在線成員都偽裝成指定魔物或者 NPC (通常活動時使用)
+  - Command: undisguiseguild
+    Help: |
+      參數: <公會名稱|公會編號>
+      還原指定公會被 @disguiseguild 指令修改過的外觀
+  - Command: model
+    Help: |
+      參數: <發型編號: 0-17> <發色編號: 0-8> <服裝染色編號: 0-4>
+      改變你角色的外觀
+  - Command: size
+    Help: |
+      參數: <0-2>
+      改變角色的體型大小 (0-普通 1-小型 2-大型)
+  - Command: sizeall
+    Help: |
+      參數: <0-2>
+      與 @size 指令類似, 可以改變全服在線玩家的體型大小 (通常活動時使用)
+  - Command: sizeguild
+    Help: |
+      參數: <0-2>,<公會名稱|公會編號>
+      與 @size 指令類似, 可以改變指定公會在線成員的體型大小 (通常活動時使用)
+  - Command: hide
+    Help: |
+      開啟/關閉隱身狀態, 隱身後其他玩家看不到你 (魔物也不會攻擊你)
+  - Command: save
+    Help: |
+      將當前站立的位置設置為我的覆活點
+  - Command: load
+    Aliases:
+      - return
+    Help: |
+      傳送回我的覆活點 (記錄點 / 存儲位置)
+  - Command: warp
+    Aliases:
+      - rura
+      - mapmove
+    Help: |
+      參數: <地圖名稱> [<X坐標> <Y坐標>]
+      將你傳送到指定地圖坐標 (若忽略具體坐標, 則著陸位置將會是隨機的)
+  - Command: jump
+    Help: |
+      參數: [<X坐標> [<Y坐標>]]
+      傳送到當前地圖指定坐標, 若不輸入坐標則隨機移動 (類似蒼蠅翅膀) 
+  - Command: jobchange
+    Aliases:
+      - job
+    Help: |
+      參數: <職業ID>
+      變更職業
+      ----- 一轉職業 -----
+         0 初學者               1 劍士                 2 魔法師                3 弓箭手
+         4 服事                 5 商人                 6 盜賊
+      ----- 二轉職業 -----
+         7 騎士                 8 祭司                 9 巫師                 10 鐵匠
+        11 獵人                12 刺客                14 十字軍               15 武道家
+        16 賢者                17 流氓                18 煉金術師             19 吟遊詩人
+        20 舞娘
+      ----- 進階一轉職業 -----
+      4001 進階初學者        4002 進階劍士          4003 進階魔法師         4004 進階弓箭手
+      4005 進階服事          4006 進階商人          4007 進階盜賊
+      ----- 進階二轉職業 -----
+      4008 騎士領主          4009 神官              4010 超魔導師           4011 神工匠
+      4012 神射手            4013 十字刺客          4015 聖殿十字軍         4016 武術宗師
+      4017 智者              4018 神行太保          4019 創造者             4020 搞笑藝人
+      4021 冷艷舞姬
+      ----- 三轉職業 (未轉生) -----
+      4054 盧恩騎士          4055 咒術士            4056 遊俠               4057 大主教
+      4058 機械工匠          4059 十字斬首者        4066 皇家禁衛隊         4067 妖術師
+      4068 宮廷樂師          4069 浪姬舞者          4070 修羅               4071 基因學者
+      4072 魅影追蹤者
+      ----- 三轉職業 (已轉生) -----
+      4060 盧恩騎士          4061 咒術士            4062 遊俠               4063 大主教
+      4064 機械工匠          4065 十字斬首者        4073 皇家禁衛隊        4074 妖術師
+      4075 宮廷樂師          4076 浪姬舞者          4077 修羅               4078 基因學者
+      4079 魅影追蹤者
+      ----- 四轉職業 -----
+      4252 盧恩龍爵          4253 機械神匠          4254 十字影武           4255 禁咒魔導士
+      4256 樞機主教          4257 風鷹狩獵者        4258 帝國聖衛軍         4259 生命締造者
+      4260 深淵追跡者        4261 元素支配者        4262 聖裁者             4263 天籟頌者
+      4264 樂之舞靈
+      ----- 擴展職業 -----
+        23 超級初學者          24 神槍手              25 忍者               4045 超級初學者寶寶
+      4046 跆拳少年          4047 拳聖              4049 悟靈士
+      4190 進階超級初學者    4191 進階超級初學者寶寶
+      4211 影狼              4212 朧                4215 反叛者             4218 召喚師
+      4239 拳皇              4240 獵靈士
+      4302 天帝              4303 靈導士            4304 蜃氣樓             4305 不知火
+      4306 夜衛隊            4307 頂級初學者        4308 魂靈師
+      ----- 一轉職業寶寶 -----
+      4023 初學者寶寶        4024 劍士寶寶          4025 魔法師寶寶         4026 弓箭手寶寶
+      4027 服事寶寶          4028 商人寶寶          4029 盜賊寶寶
+      ----- 二轉職業寶寶 ----
+      4030 騎士寶寶          4031 祭司寶寶          4032 巫師寶寶           4033 鐵匠寶寶
+      4034 獵人寶寶          4035 刺客寶寶          4037 十字軍寶寶         4038 武術宗師寶寶
+      4039 賢者寶寶          4040 流氓寶寶          4041 煉金術師寶寶       4042 吟遊詩人寶寶
+      4043 舞娘寶寶
+      ----- 三轉職業寶寶 ----
+      4096 盧恩騎士寶寶      4097 咒術士寶寶        4098 遊俠寶寶           4099 大主教寶寶
+      4100 機械工匠寶寶      4101 十字斬首者寶寶    4102 皇家禁衛隊寶寶     4103 妖術師寶寶
+      4104 宮廷樂師寶寶      4105 浪姬舞者寶寶      4106 修羅寶寶           4107 基因學者寶寶
+      4108 魅影追蹤者寶寶
+      ----- 擴展職業寶寶 ----
+      4220 召喚師寶寶        4222 忍者寶寶          4223 影狼寶寶           4224 朧寶寶
+      4225 跆拳少年寶寶      4226 拳聖寶寶          4227 悟靈士寶寶         4228 神槍手寶寶
+      4229 反叛者寶寶        4241 拳皇寶寶          4242 獵靈士寶寶
+  - Command: option
+    Help: |
+      指令參數: <參數1> <參數2>(可堆疊) <參數3>(可堆疊)
+      為你的角色添加指定的視覺效果(負面效果往往也伴隨著禁止移動).
+       <參數1>       <參數2>        <參數3>
+      01: 石化       01: 中毒       01: 火狩          512: Cart Lv. 4
+      02: 冰凍       02: 詛咒       02: 隱匿         1024: Cart Lv. 5
+      03: 暈眩       04: 沈默       04: 偽裝         2048: 獸人臉
+      04: 睡眠       08: Signum     08: Cart Lv. 1   4096: Wedding
+      06: Petrify    16: 盲目       16: 獵鷹         8192: 光獵
+      07: 燒傷       32: Angelus    32: 乘坐大嘴鳥  16384: Chasewalk
+      08: 禁足       64: Bleeding   64: 不可見
+      16: 無效果    128: 致命荼毒  128: Cart Lv. 2
+      32: 被挑釁    256: 害怕      256: Cart Lv. 3
+      可堆疊的意思是, 使用 @option 指令時, 把參數的2個值相加可以同時得到兩種效果.
+      例如: “參數3” 中的 1 表示火狩, 2 表示隱匿. 那麽當你用 @option 0 0 3 的時候,
+            你將同時獲得這兩種效果, 因為 1(火狩) + 2(隱匿) 等於 3.
+      注意: 上述沒翻譯的效果, 皆於 2016年5月27日在 20150916 客戶端中測試無效.
+  - Command: heal
+    Help: |
+      參數: [<要恢覆的HP量> <要恢覆的SP量>]
+      恢覆定量的HP和SP. 如果沒有指定參數, 則恢覆全量的 HP 和 SP
+  - Command: healap
+    Help: |
+      Params: [<AP>]
+      Heals the desired amount of AP. No value specified will do a full AP heal.
+  - Command: dye
+    Aliases:
+      - ccolor
+    Help: |
+      參數: <染色編號: 0-4>
+      改變角色的服裝染色
+  - Command: hairstyle
+    Aliases:
+      - hstyle
+    Help: |
+      參數: <發型編號: 0-17>
+      改變角色的發型
+  - Command: haircolor
+    Aliases:
+      - hcolor
+    Help: |
+      參數: <發色編號: 0-8>
+      改變角色的頭發顏色
+  - Command: speed
+    Help: |
+      參數: <1-1000>
+      改變角色的移動速度. 1 為最快, 1000 為最慢. 默認的移動速度是: 150
+  - Command: effect
+    Help: |
+      參數: <效果編號> [<拓展標記>]
+      為角色賦予一個指定的效果 (比如暈眩的動畫效果等)
+  - Command: dropall
+    Help: |
+      參數: [<物品類型>]
+      把角色身上指定類型的物品全部丟到地上(無論是否已裝備). 若沒有指定物品類型, 則丟棄全部物品
+  - Command: storeall
+    Help: |
+      將角色背包中的所有物品存到倉庫中去.
+  - Command: killable
+    Help: |
+      讓你的角色在非 PvP 和 GvG 的情況下, 也能被其他玩家攻擊並殺死 (攻擊者需要按住 Shift 或運行 /ns 後才能攻擊你)
+  - Command: memo
+    Help: |
+      參數: [記錄點編號]
+      將指定編號的記錄點設置為當前角色站立的位置 (若不指定編號, 則顯示現在的記錄點列表)
+  - Command: spiritball
+    Help: |
+      參數: <1-100>
+      獲得指定數量的"氣彈", 和使用 "蓄氣" 技能類似
+  - Command: questskill
+    Help: |
+      參數: <技能編號>
+      學習特殊職業技能
+      初心者 = 142: 緊急治療, 143: 裝死
+      弓箭手 = 147: 制作箭, 148: 沖鋒箭
+      劍士 = 144: 移動時恢覆HP, 145: 弱點攻擊, 146: 自動狂暴
+      服侍 = 156: 神聖之光
+      盜賊 = 149: 噴砂, 150: 後退回避, 151: 撿石頭, 152: 扔石頭
+      商人 = 153: 手推車攻擊, 154: 改裝手推車, 155: 大聲吶喊, 2535: 采購商店
+      魔法師 = 157: 能量外套
+      獵人 = 1009: 幻箭
+      詩人 = 1010: 苦痛之音
+      舞娘 = 1011: 媚眼
+      騎士 = 1001: 沖鋒攻擊
+      十字軍 = 1002: 退縮
+      牧師 = 1014: 救贖
+      武僧 = 1015: 注氣, 1016: 氣爆散
+      刺客 = 1003: 音速投擲加速, 1004: 劇毒短刀
+      流氓 = 1005: 擒拿
+      鐵匠 = 1012: 不正當的手段, 1013: 貪婪
+      煉金術士 = 238: 生命倫理
+      巫師 = 1006: 火狩沖擊
+      賢者 = 1007: 屬性卷軸制作, 1008: 水屬性轉換, 1017: 地屬性轉換, 1018: 火屬性轉換, 1019: 風屬性轉換
+  - Command: lostskill
+    Help: |
+      參數: <技能編號>
+      刪除特殊職業技能
+            初心者 = 142: 緊急治療, 143: 裝死
+      弓箭手 = 147: 制作箭, 148: 沖鋒箭
+      劍士 = 144: 移動時恢覆HP, 145: 弱點攻擊, 146: 自動狂暴
+      服侍 = 156: 神聖之光
+      盜賊 = 149: 噴砂, 150: 後退回避, 151: 撿石頭, 152: 扔石頭
+      商人 = 153: 手推車攻擊, 154: 改裝手推車, 155: 大聲吶喊, 2535: 采購商店
+      魔法師 = 157: 能量外套
+      獵人 = 1009: 幻箭
+      詩人 = 1010: 苦痛之音
+      舞娘 = 1011: 媚眼
+      騎士 = 1001: 沖鋒攻擊
+      十字軍 = 1002: 退縮
+      牧師 = 1014: 救贖
+      武僧 = 1015: 注氣, 1016: 氣爆散
+      刺客 = 1003: 音速投擲加速, 1004: 劇毒短刀
+      流氓 = 1005: 擒拿
+      鐵匠 = 1012: 不正當的手段, 1013: 貪婪
+      煉金術士 = 238: 生命倫理
+      巫師 = 1006: 火狩沖擊
+      賢者 = 1007: 屬性卷軸制作, 1008: 水屬性轉換, 1017: 地屬性轉換, 1018: 火屬性轉換, 1019: 風屬性轉換
+  - Command: skillid
+    Help: |
+      參數: <技能名稱>
+      根據 <技能名稱> 來查找技能編號
+  - Command: useskill
+    Help: |
+      參數: <技能編號> <技能等級> <目標玩家名稱>
+      對指定的玩家使用技能, 若目標玩家名稱為 self 則表示對自己使用
+  - Command: skilltree
+    Help: |
+      參數: <技能編號> <角色名稱>
+      顯示想要習得“指定技能”所需的“前置技能”列表
+  - Command: marry
+    Help: |
+      參數: <對方的角色名>
+      使當前角色與指定的目標角色結婚
+  - Command: divorce
+    Help: |
+      使當前角色離婚, 回到單身狀態
+  - Command: alive
+    Help: |
+      將自己從死亡狀態中原地覆活
+  - Command: blvl
+    Aliases:
+      - lvup
+      - blevel
+      - baselvl
+      - baselvup
+      - baselevel
+      - baselvlup
+    Help: |
+      參數: <要增減的基礎等級>
+      根據指定數值來調整角色的基礎等級 (若使用負數, 則表示降低基礎等級)
+  - Command: jlvl
+    Aliases:
+      - jlevel
+      - joblvl
+      - joblvup
+      - joblevel
+      - joblvlup
+    Help: |
+      參數: <要增減的職業等級>
+      根據指定數值來調整角色的職業等級 (若使用負數, 則表示降低職業等級)
+  - Command: allskill
+    Aliases:
+      - allskills
+      - skillall
+      - skillsall
+    Help: |
+      學到所有能學到的技能
+  - Command: stpoint
+    Help: |
+      參數: <要增減的能力點數>
+      獲得指定數量的能力點數, 用於分配角色的六維屬性 (若使用負數, 則表示扣減能力點數)
+  - Command: trpoint
+    Help: |
+      Params: <number of points> - Gives you the desired number of trait stat points.
+  - Command: skpoint
+    Help: |
+      參數: <要增減的技能點數>
+      獲得指定數量的技能點數 (若使用負數, 則表示扣減技能點數)
+  - Command: zeny
+    Help: |
+      參數: <要增減的金幣數量>
+      獲得指定數量的金幣 - Zeny (若使用負數, 則表示扣減金幣)
+  - Command: cash
+    Help: |
+      參數: <要增減的現金點券>
+      獲得指定數量的現金點券 - Cash Points (若使用負數, 則表示扣減現金點券)
+  - Command: points
+    Help: |
+      參數: <要增減的免費點券>
+      獲得指定數量的免費點券 - Kafra Points (若使用負數, 則表示扣減免費點券)
+  - Command: str
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 STR (力量)
+  - Command: agi
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 AGI (敏捷)
+  - Command: dex
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 DEX (靈巧)
+  - Command: vit
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 VIT (體力)
+  - Command: int
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 INT (智力)
+  - Command: luk
+    Help: |
+      參數: <數量>
+      增加/減少角色指定數量的 LUK (幸運)
+  - Command: pow
+    Help: |
+      Params: <amount>
+      Raises POW by given amount.
+  - Command: sta
+    Help: |
+      Params: <amount>
+      Raises STA by given amount.
+  - Command: wis
+    Help: |
+      Params: <amount>
+      Raises WIS by given amount.
+  - Command: spl
+    Help: |
+      Params: <amount>
+      Raises SPL by given amount.
+  - Command: con
+    Help: |
+      Params: <amount>
+      Raises CON by given amount.
+  - Command: crt
+    Help: |
+      Params: <amount>
+      Raises CRT by given amount.
+  - Command: allstats
+    Aliases:
+      - allstat
+      - statall
+      - statsall
+    Help: |
+      參數: <要提升的值>
+      將角色的全部六維能力增加你指定的數值 (若不攜帶參數, 則提升到最大值)
+  - Command: alltraits
+    Aliases:
+      - alltrait
+      - traitall
+      - traitsall
+    Help: |
+      Params: <value>
+      Adds value in all traits (maximum if no value).
+  - Command: addwarp
+    Help: |
+      參數: <目的地地圖名稱> <目的地X坐標> <目的地Y坐標> <傳送點的 NPC 名稱> 
+      在當前用戶的腳下, 生成一個臨時傳送點 (NPC名稱只要不沖突, 隨意起名; 服務器重啟後消失)
+  - Command: killmonster2
+    Help: |
+      參數: [<地圖名>]
+      殺死指定地圖的所有魔物 (不會掉落物品)
+      可以通過參數來指定目標地圖名稱, 若不指定則表示當前地圖
+  - Command: monster
+    Aliases:
+      - spawn
+    Help: |
+      參數: <魔物名稱|魔物編號> [<召喚數量> [<魔物顯示名稱> [<x 坐標> [<y 坐標]]]]
+      @monster2 <召喚出來的魔物名稱> <魔物名稱|魔物編號> [<召喚數量> [<x 坐標> [<y 坐標>]]]
+      @spawn/@monster/@summon/@monster2 "召喚出來的魔物名稱" <魔物名稱|魔物編號> [<召喚數量> [<x 坐標> [<y 坐標>]]]
+      @spawn/@monster/@summon/@monster2 <魔物名稱|魔物編號> "召喚出來的魔物名稱" [<召喚數量> [<x 坐標> [<y 坐標>]]]
+      以指定的魔物名稱, 召喚出指定數量的魔物 (你可以召喚出一只波利, 並將它命名為: 瘋兔)
+  - Command: monstersmall
+    Help: |
+      參數: <魔物名稱|魔物編號>
+      召喚一個看起來體型較小的魔物
+  - Command: monsterbig
+    Help: |
+      參數: <魔物名稱|魔物編號>
+      召喚一個看起來體型更大的魔物
+  - Command: killmonster
+    Help: |
+      參數: [<地圖名>]
+      殺死指定地圖的所有魔物 (會掉落物品)
+      可以通過參數來指定目標地圖名稱, 若不指定則表示當前地圖
+  - Command: autoloot
+    Help: |
+      參數: <on|off|#>
+      開啟/關閉自動拾取模式 
+  - Command: autotrade
+    Aliases:
+      - at
+    Help: |
+      開啟離線掛店 (你將會立刻掉線, 但你的角色將會留在服務器中繼續擺攤)
+  - Command: changegm
+    Help: |
+      參數: <新任會長的角色名>
+      任命新的公會會長 (你必須是會長才能運行此操作)
+  - Command: changeleader
+    Help: |
+      參數: <新任隊長的角色名>
+      任命新的隊伍組長 (你必須是隊長才能運行此操作)
+  - Command: request
+    Help: |
+      參數: <消息內容>
+      通過遊戲的私聊系統, 發消息給所有在線的遊戲管理員
+  - Command: sound
+    Help: |
+      參數: <以data目錄為基準的相對路徑>
+      播放 data 文件夾或 Grf 壓縮檔案中的 wav 音效文檔 (如 @sound wav\dracula_die.wav)
+  - Command: clone
+    Help: |
+      參數: <角色名稱>
+      根據指定的角色生成一個友好的克隆體 (會隨機移動且主動攻擊怪物)
+  - Command: slaveclone
+    Help: |
+      參數: <角色名稱>
+      根據指定的角色生成一個友好的克隆體, 並跟隨在指令的用戶身邊
+  - Command: evilclone
+    Help: |
+      參數: <角色名稱>
+      根據指定的角色生成一個邪惡的克隆體, 會主動攻擊將其召喚出來的用戶
+  - Command: changesex
+    Help: |
+      改變你的角色性別 
+  - Command: duel
+    Help: |
+      開始決鬥 (開始決鬥後, 可以使用 @invite 來邀請玩家參與決鬥)
+  - Command: invite
+    Help: |
+      參數: <對手角色名>
+      邀請 <對手角色名> 所指定的玩家參與決鬥
+  - Command: accept
+    Help: |
+      接受決鬥邀請
+  - Command: reject
+    Help: |
+      拒絕決鬥邀請
+  - Command: leave
+    Help: |
+      離開決鬥 (當你開始或者接受了一個決鬥後, 可以使用 @leave 來離開決鬥)
+  - Command: mail
+    Help: |
+      打開郵箱 (使用 RODEX 郵件系統的新版客戶端不可用)
+  - Command: storage
+    Help: |
+      打開角色的個人倉庫
+  - Command: itemreset
+    Aliases:
+      - clearinventory
+    Help: |
+      清空玩家背包中所持有的一切物品 (保留已穿戴的裝備)
+  - Command: guildstorage
+    Aliases:
+      - gstorage
+    Help: |
+      打開公會倉庫
+  - Command: idsearch
+    Help: |
+      參數: <物品名稱關鍵詞>
+      搜索所有包含 <物品名稱關鍵詞> 的物品, 並列出它們的物品編號
+  - Command: refine
+    Help: |
+      參數: <裝備位置編號> <+/- 精煉值>
+      調整角色身上指定位置的裝備精煉值, 使用負數表示下調精煉值
+  - Command: grade
+    Help: |
+      Params: <equip position> <+/- amount>
+  - Command: produce
+    Help: |
+      參數: <裝備名稱|裝備編號> <屬性> <幾級強悍>
+      屬性: 0=無屬性 1=水屬性 2=地屬性 3=火屬性 4=風屬性
+      強悍: 0=無強悍 1=一級強悍 2=二級強悍 3=三級強悍
+      創造制作指定屬性, 指定強悍級別的裝備
+  - Command: repairall
+    Help: |
+      修理角色背包中所有損壞的裝備
+  - Command: item
+    Help: |
+      參數: <物品名稱|物品編號> <數量>
+      創造出指定數量的物品
+  - Command: item2
+    Help: |
+      參數: <物品名稱|物品編號> <數量> <是否鑒定> <精煉等級> <是否損壞> <卡片1> <卡片2> <卡片3> <卡片4>
+      創造出指定數量, 且符合特定特征的物品 (所有是否選項中: 0 為否, 1 為是)
+  - Command: pvpon
+    Help: |
+      開啟當前地圖的 PvP 模式
+  - Command: pvpoff
+    Help: |
+      關閉當前地圖的 PvP 模式
+  - Command: gvgon
+    Aliases:
+      - gpvpon
+    Help: |
+      開啟當前地圖的 GvG 模式
+  - Command: gvgoff
+    Aliases:
+      - gpvpoff
+    Help: |
+      關閉當前地圖的 GvG 模式
+  - Command: agitstart
+    Help: |
+      開啟 GvG 攻城戰 (普隆德拉\艾爾帕蘭)
+  - Command: agitend
+    Help: |
+      結束 GvG 攻城戰 (普隆德拉\艾爾帕蘭)
+  - Command: party
+    Help: |
+      參數: <隊伍名稱>
+      創建一個指定名稱的新隊伍
+  - Command: guild
+    Help: |
+      參數: <公會名稱>
+      創建一個指定名稱的新公會 (無需消耗華麗金屬)
+  - Command: glvl
+    Aliases:
+      - glevel
+      - guildlvl
+      - guildlvup
+      - guildlevel
+      - guildlvlup
+    Help: |
+      參數: <要增減的公會等級>
+      根據指定數值來調整公會等級 (若使用負數, 則表示降低公會等級)
+  - Command: guildrecall
+    Help: |
+      參數: <公會名稱|公會編號>
+      將指定公會的在線玩家召喚到你的身邊
+  - Command: partyrecall
+    Help: |
+      參數: <隊伍名稱|隊伍編號>
+      將指定隊伍的在線玩家召喚到你的身邊
+  - Command: petrename
+    Help: |
+      準許對寵物重命名 (寵物默認只能改一次名, 使用該指令可以讓你重新獲得改名的機會)
+  - Command: pettalk
+    Help: |
+      參數: <想讓寵物說的話>
+      讓你的寵物能夠說出你指定的消息
+  - Command: petfriendly
+    Help: |
+      參數: <親密度>
+      設置寵物的親密度, 有效範圍為 0-1000, 1000 = 非常親密
+  - Command: pethungry
+    Help: |
+      參數: <飽腹度>
+      設置寵物的飽腹度, 有效範圍為 0-100, 100 = 最飽
+  - Command: hatch
+    Help: |
+      打開寵物蛋孵化選擇界面 (相當於使用了“攜帶用孵蛋器”)
+  - Command: makeegg
+    Help: |
+      參數: <魔物編號>
+      根據給定的魔物編號, 創造出一個與其匹配的寵物蛋 (被認養的魔物必須在寵物數據庫中才可以)
+  - Command: kick
+    Help: |
+      參數: <角色名稱>
+      將指定的角色立刻馬上踢下線
+  - Command: unjail
+    Aliases:
+      - discharge
+    Help: |
+      參數: <角色名稱>
+      將指定的玩家從監獄中釋放出來 
+  - Command: kill
+    Aliases:
+      - die
+    Help: |
+      參數: <角色名稱>
+      立刻馬上殺死指定的玩家 (若不指定角色, 則殺死自己)
+  - Command: recall
+    Help: |
+      參數: <角色名稱>
+      將指定的角色召喚到你的身邊
+  - Command: raise
+    Aliases:
+      - revive
+    Help: |
+      參數: <角色名稱>
+      覆活指定的角色 (若不指定角色, 則覆活自己)
+  - Command: block
+    Help: |
+      參數: <角色名稱>
+      永久封禁指定角色所屬的賬號
+  - Command: unblock
+    Help: |
+      參數: <角色名稱>
+      解除指定角色所屬賬號的永久封禁
+  - Command: ban
+    Aliases:
+      - banish
+    Help: |
+      參數: <時間代碼> <角色名稱>
+      臨時封禁指定角色所屬賬號, 可以自行指定豐富的時間跨度
+      時間代碼: 由 (+/- 符號) 和時間以及單位組合而成 (y, m, d, h, mn, s)
+      單位代碼: y(年) m(月) d(日) h(時) mn(分) s(秒)
+      例如: @ban +1m-2mn1s testplayer (封禁 testplayer 1個月減去2分1秒)
+  - Command: unban
+    Aliases:
+      - unbanish
+    Help: |
+      參數: <角色名稱>
+      解除指定角色所屬賬號的臨時封禁
+  - Command: jail
+    Help: |
+      參數: <角色名稱>
+      將指定的角色送到監獄關起來
+  - Command: trade
+    Help: |
+      參數: <角色名稱>
+      邀請指定的玩家進行交易 (需要對方點接受交易才能打開交易窗口)
+  - Command: recallall
+    Help: |
+      將所有在線的角色召喚到你的身邊
+  - Command: doom
+    Help: |
+      殺死服務器中所有不是GM的玩家
+  - Command: doommap
+    Help: |
+      殺死當前地圖所有不是GM的玩家
+  - Command: raisemap
+    Help: |
+      覆活當前地圖的所有玩家
+  - Command: night
+    Help: |
+      切換到黑夜模式, 對所有在線玩家都有效
+  - Command: day
+    Help: |
+      切換到白天模式, 對所有在線玩家都有效
+  - Command: skillon
+    Help: |
+      允許在當前地圖中使用技能
+  - Command: skilloff
+    Help: |
+      禁止在當前地圖中使用技能 (相當於給地圖添加了 noskill 地圖標記)
+  - Command: snow
+    Help: |
+      開啟/關閉當前地圖的"下雪"天氣效果
+  - Command: clouds
+    Help: |
+      開啟/關閉當前地圖的"雲霧"天氣效果
+  - Command: clouds2
+    Help: |
+      開啟/關閉當前地圖的"另一種雲霧"天氣效果 (20150916客戶端實測無效)
+  - Command: fog
+    Help: |
+      開啟/關閉當前地圖的"霧霾"天氣效果
+  - Command: fireworks
+    Help: |
+      開啟/關閉當前地圖的"煙花"天氣效果(20150916客戶端實測無效)
+  - Command: sakura
+    Help: |
+      開啟/關閉當前地圖的"櫻花飄落"天氣效果
+  - Command: leaves
+    Help: |
+      開啟/關閉當前地圖的"楓葉飄落"天氣效果
+  - Command: shownpc
+    Help: |
+      參數: <NPC 名稱>
+      激活指定的NPC
+  - Command: hidenpc
+    Help: |
+      參數: <NPC 名稱>
+      禁用指定的NPC
+  - Command: npcmove
+    Help: |
+      參數: <x 坐標> <y 坐標> <NPC 名稱>
+      將指定的NPC移動到當前地圖指定的位置
+  - Command: loadnpc
+    Help: |
+      參數: <腳本文件路徑>
+      加載指定路徑的腳本文檔, 例如: npc/test.txt
+  - Command: unloadnpc
+    Help: |
+      參數: <NPC 名稱>
+      卸載指定名稱的NPC
+  - Command: unloadnpcfile
+    Help: |
+      參數: <腳本文件路徑>
+      卸載指定路徑的腳本文檔, 包括里面包含的全部 NPC (但不會卸載里面聲明的地圖標記和魔物刷新點)
+  - Command: adjgroup
+    Help: |
+      參數: <分組級別> <角色名稱>
+      臨時提升玩家的分組級別 (下線不保存, 若設置為 99 則等於超級管理員)
+  - Command: addperm
+    Help: |
+      參數: <權限名稱>
+      臨時賦予玩家指定的權限(權限名稱請參考 doc/permissions.txt)
+  - Command: rmvperm
+    Help: |
+      參數: <權限名稱>
+      臨時移除玩家指定的權限(權限名稱請參考 doc/permissions.txt)
+  - Command: kickall
+    Help: |
+      將在線玩家全部踢下線
+  - Command: mapexit
+    Help: |
+      強制全部玩家下線並關閉地圖服務器
+  - Command: gat
+    Help: |
+      返回以當前位置為中心, 5x5範圍內的區域可否移動 (調試使用)
+  - Command: send
+    Help: |
+      參數: <十六進制封包頭> [<值>]
+      發送一個封包給服務端, 以便觸發服務端特定的封包處理函數 (調試使用)
+  - Command: nuke
+    Help: |
+      參數: <角色名稱>
+      讓某個玩家自爆, 傷害會波及到附近的魔物. 
+  - Command: reloadachievementdb
+    Help: |
+      重新加載成就系統配置文件
+  - Command: reloadatcommand
+    Help: |
+      重新加載指令配置文件
+  - Command: reloadattendancedb
+    Help: |
+      重新加載打卡配置文件
+  - Command: reloadbattleconf
+    Help: |
+      重新加載戰鬥配置選項
+  - Command: reloadinstancedb
+    Help: |
+      重新加載副本配置文件
+  - Command: reloaditemdb
+    Help: |
+      重新加載物品數據庫
+  - Command: reloadmobdb
+    Help: |
+      重新加載魔物數據庫
+  - Command: reloadmotd
+    Help: |
+      重新加載聊天欄公告配置文件
+  - Command: reloadmsgconf
+    Help: |
+      重新加載信息配置文件
+  - Command: reloadpcdb
+    Help: |
+      重新加載玩家配置文件
+  - Command: reloadquestdb
+    Help: |
+      重新加載任務數據庫
+  - Command: reloadscript
+    Help: |
+      重新加載全服 NPC 腳本
+  - Command: reloadskilldb
+    Help: |
+      重新加載技能數據庫
+  - Command: reloadstatusdb
+    Help: |
+      重新加載狀態配置文檔
+  - Command: reloadauradb
+    Help: |
+      重新加載光環組合數據庫
+  - Command: reloadlaphinedb
+    Help: |
+      重新加載 Laphine 數據庫
+  - Command: reloadbarterdb
+    Help: |
+      重新加載 Barters 以物易物數據庫
+  - Command: reloadenchantdb
+    Help: |
+      重新加載新版附魔UI數據 < Giraffe 優化 >
+  - Command: reloadreformdb
+    Help: |
+      重新加載新版改良UI數據 < Giraffe 優化 >
+  - Command: reload
+    Help: |
+      參數: <要重載的數據類型>
+      重新加載一個數據庫或者配置文檔, 例如: @reload itemdb 就相當於運行了 @reloaditemdb
+      itemdb                mobdb          skilldb
+      atcommand        battleconf         statusdb
+      pcdb                   motd           script
+      questdb             msgconf         packetdb
+#  - Command: langtype
+#    Help: |
+#      參數: <語言簡稱>
+#      改變服務器的回顯信息為你所指定的語言 (不帶參數使用指令, 則會返回現在服務端支持的語言).
+  - Command: limitedsale
+    Help: |
+      打開限量銷售窗口
+  - Command: changedress
+    Aliases:
+      - nocosplay
+    Help: |
+      移除當前角色所有特殊服裝造型 (結婚\聖誕節\盛夏\韓服\啤酒節)
+  - Command: camerainfo
+    Aliases:
+      - viewpointvalue
+      - setcamera
+    Help: |
+      顯示或更新客戶端的相機設置
+  - Command: resetstat
+    Aliases:
+      - streset
+    Help: |
+      重置角色的屬性點數 (將六維能力洗成狀態屬性點數)
+  - Command: resetskill
+    Aliases:
+      - skreset
+    Help: |
+      重置角色的技能點數
+  - Command: homlevel
+    Aliases:
+      - hlvl
+      - hlevel
+      - homlvl
+      - homlvup
+    Help: |
+      參數: <要增減的生命體等級>
+      根據指定數值來調整生命體的等級 (若使用負數, 則表示降低等級)
+  - Command: homevolution
+    Aliases:
+      - homevolve
+    Help: |
+      進化當前角色持有的生命體
+  - Command: mutearea
+    Aliases:
+      - stfu
+  - Command: monsterignore
+    Aliases:
+      - battleignore
+  - Command: accinfo
+    Aliases:
+      - accountinfo
+  - Command: channel
+    Aliases:
+      - main
+  - Command: autoloottype
+    Aliases:
+      - aloottype
+  - Command: cloneequip
+    Aliases:
+      - eqclone
+  - Command: clonestat
+    Aliases:
+      - stclone
+  - Command: reloadnpcfile
+    Aliases:
+      - reloadnpc
+  - Command: addfame
+    Aliases:
+      - famepoint
+      - famepoints
+  - Command: enchantgradeui
+    Help: |
+      Opens the enchantgrade UI.
+  - Command: roulette
+    Help: |
+      Opens the roulette UI.
+
+Footer:
+  Imports:
+    - Path: conf/import/atcommands.yml

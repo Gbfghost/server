@@ -1,0 +1,70 @@
+uttycty,59,179,5	trader	[製作]戰魂頭盔	20543,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]戰魂頭盔";
+	waitingroom "[製作]戰魂頭盔",0;	
+
+	tradertype(NST_EXPANDED_BARTER);
+
+	sellitem(400024,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400025,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400026,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400027,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400028,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400029,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400030,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400031,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400032,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400033,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400034,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400035,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400036,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400037,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400038,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400039,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400040,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400041,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+	sellitem(400042,30000000,-1);
+	sellitemcurrency(1000228, 100);	
+	endsellitem();
+end;
+OnBuyItem:
+end;
+}

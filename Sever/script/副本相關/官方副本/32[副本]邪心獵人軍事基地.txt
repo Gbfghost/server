@@ -1,0 +1,895 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@swat	mapflag	noteleport
+1@swat	mapflag	nosave	SavePoint
+1@swat	mapflag	nomemo
+1@swat	mapflag	nobranch
+1@swat	mapflag	noicewall
+1@swat	mapflag	restricted	6
+1@swat	mapflag	monster_noteleport
+1@swat	mapflag	partylock
+1@swat	mapflag	novending
+1@swat	mapflag	nochat
+
+
+amatsu,108,123,5	script	[副本]邪心獵人軍事基地	855,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "邪心獵人軍事基地";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 32;
+
+//
+	waitingroom "[副本]邪心獵人軍事基地",0;
+	setnpcicon getnpcid(0),22,"[副本]邪心獵人軍事基地";
+	end;
+}
+
+
+1@swat,53,122,1	script	尤利安#swat1	4_M_REBELLION2,{
+	mes "[尤利安]";
+	mes ""+strcharinfo(0)+"第一次來這吧？";
+	next;
+	if(select("第一次","已經有經驗了") == 2) {
+		hideonnpc instance_npcname("尤利安#swat1");
+		hideoffnpc instance_npcname("尤利安#swat2");
+		donpcevent instance_npcname("尤利安#swat2")+"::OnEasy";
+		close;
+	}
+	hideonnpc instance_npcname("尤利安#swat1");
+	hideoffnpc instance_npcname("尤利安#swat2");
+	donpcevent instance_npcname("尤利安#swat2")+"::OnHard";
+	close;
+}
+
+1@swat,53,122,1	script	尤利安#swat2	4_M_REBELLION2,{
+	end;
+OnEasy:
+	npctalk "尤利安：喔。這是第幾次訓練了？";
+	sleep 4000;
+	npctalk "尤利安：不管怎樣這次也請像絕不留情的實戰一樣對待。";
+	sleep 5000;
+	hideonnpc instance_npcname("尤利安#swat2");
+	donpcevent instance_npcname("#swatctrl")+"::OnBegin";
+	end;
+OnHard:
+	set 'swatstroy,1;
+	npctalk "尤利安：你可能會對這裡感到陌生。";
+	sleep 4000;
+	npctalk "尤利安：我們佔領的地區後面還有一個這樣的隱藏空間。";
+	sleep 4000;
+	npctalk "尤利安：雖然無法用來轉移士兵但卻可以用來模擬戰鬥獲得經驗。";
+	sleep 4000;
+	npctalk "尤利安：因此把這裡改造成了與上次戰鬥情況類似的訓練場。";
+	sleep 4000;
+	npctalk "尤利安：這次你也要負責滲透。而我們的人則負責偽裝成獵心者來防守。";
+	sleep 4000;
+	npctalk "尤利安：這是一種防禦訓練，為了確定這裡的兵力能防守哪種程度攻擊的訓練。";
+	sleep 4000;
+	npctalk "尤利安：那麼，請像絕不留情的實戰一樣對待。";
+	sleep 5000;
+	hideonnpc instance_npcname("尤利安#swat2");
+	donpcevent instance_npcname("#swatctrl")+"::OnBegin";
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("尤利安#swat2");
+	set 'swatstroy,0;
+	end;
+}
+
+1@swat,0,0,0	script	#swatctrl	139,{
+	end;
+OnBegin:
+	mapannounce instance_mapname("1@swat"),"檢測到基地遭受襲擊。全員啟動防禦策略。",bc_map,"0xff0000";
+	for(set .@i,0;.@i < 3;set .@i,.@i+1) {
+		for(set .@j,0;.@j < 7;set .@j,.@j+1) {
+			monster instance_mapname("1@swat"),28+10*.@i,145+9*.@j,"--ja--", 3626,1,instance_npcname("#swatctrl")+"::OnMob1Dead";
+		}
+	}
+	end;
+OnBegin2:
+	mapannounce instance_mapname("1@swat"),"敵人接近第2防禦陣地。下達第2階段防禦命令。",bc_map,"0xff0000";
+	for(set .@i,0;.@i < 6;set .@i,.@i+1) {
+		for(set .@j,0;.@j < 4;set .@j,.@j+1) {
+			monster instance_mapname("1@swat"),25+7*.@i,250+5*.@j,"--ja--", 3626,1,instance_npcname("#swatctrl")+"::OnMob2Dead";
+		}
+	}
+	end;
+OnBegin3:
+	mapannounce instance_mapname("1@swat"),"發現入侵者進入限制區域，全員集結。",bc_map,"0x00ff99";
+	for(set .@i,0;.@i < 10;set .@i,.@i+1) {
+		for(set .@j,0;.@j < 4;set .@j,.@j+1) {
+			monster instance_mapname("1@swat"),30+10*.@i,300+10*.@j,"--ja--", 3626,1,instance_npcname("#swatctrl")+"::OnMob3Dead";
+		}
+	}
+	end;
+OnBoss:
+	monster instance_mapname("1@swat"),129,258,"--ja--", 3628,1,instance_npcname("#swatctrl")+"::OnBossDead";
+	end;
+OnMob1Dead:
+	if(rand(100) < 20) {
+		areamonster instance_mapname("1@swat"),38,182,43,182,"--ja--", 3627,1,instance_npcname("#swatctrl")+"::OnMob1Dead",2;
+	}
+	mapannounce instance_mapname("1@swat"),"剩下獵心者  "+(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob1Dead")),bc_map,"0xffffff";	
+	if(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob1Dead") < 1) {
+		mapannounce instance_mapname("1@swat"),"尤利安：第1區域淪陷。第1區域負責防禦的人員撤退到下一個營地集合。",bc_map,"0x00ff99";
+		killmonster instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob1Dead";
+		enablenpc instance_npcname("#swatdoor1ctrl");
+	}
+	end;
+OnMob2Dead:
+	if(rand(100) < 20) {
+		areamonster instance_mapname("1@swat"),35,252,49,266,"--ja--", 3627,1,instance_npcname("#swatctrl")+"::OnMob2Dead",2;
+	}
+	mapannounce instance_mapname("1@swat"),"剩下獵心者  "+(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob2Dead")),bc_map,"0xffffff";	
+	if(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob2Dead") < 1) {
+		killmonster instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob2Dead";
+		enablenpc instance_npcname("#swatdoor2ctrl");
+	}
+	end;
+OnMob3Dead:
+	if(rand(100) < 20) {
+		areamonster instance_mapname("1@swat"),142,316,151,307,"--ja--", 3627,1,instance_npcname("#swatctrl")+"::OnMob3Dead",2;
+	}
+	mapannounce instance_mapname("1@swat"),"剩餘防禦戰力  "+(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob3Dead"))+"%",bc_map,"0xffffff";
+	if(mobcount(instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob3Dead") <= 20) {
+		mapannounce instance_mapname("1@swat"),"第3安全保護系統無效化。基地防禦失敗。",bc_map,"0xff0000";
+		killmonster instance_mapname("1@swat"),instance_npcname("#swatctrl")+"::OnMob3Dead";
+		hideonnpc instance_npcname("尤利安#swat5");
+		hideoffnpc instance_npcname("尤利安#swat6");
+		enablenpc instance_npcname("#swatwarp1");
+	}
+	end;
+OnBossDead:
+	mapannounce instance_mapname("1@swat"),"安全保護系統：解除緊急狀況。關閉自動防禦裝置。",bc_map,"0xff0000";
+	set 'swatboss,2;
+	sleep 2000;
+	hideoffnpc instance_npcname("尤利安#swat8");
+	hideoffnpc instance_npcname("艾薇#swat");
+	disablenpc instance_npcname("#swatdoor4root1");
+	disablenpc instance_npcname("#swatdoor4root2");
+	disablenpc instance_npcname("#swatdoor4root3");
+	disablenpc instance_npcname("#swatdoor4root4");
+	disablenpc instance_npcname("#swatdoor4root5");
+	sleep 1000;
+	enablenpc instance_npcname("尤利安達");
+	end;
+OnInstanceInit:
+	setcell instance_mapname("1@swat"),23,222,39,222,cell_walkable,0;
+	setcell instance_mapname("1@swat"),22,272,52,272,cell_walkable,0;
+	end;
+}
+
+1@swat,31,211,0	script	#swatdoor1ctrl	139,5,5,{
+	end;
+OnTouch:
+	mapannounce instance_mapname("1@swat"),"成功入侵第1安全保護系統。安全保護系統無效化。",bc_map,"0xff0000";
+	hideonnpc instance_npcname("#swatdoor1ctrl");
+	hideonnpc instance_npcname("#swatdoor1root1");
+	hideonnpc instance_npcname("#swatdoor1root2");
+	hideonnpc instance_npcname("#swatdoor1root3");
+	disablenpc instance_npcname("#swatdoor1ctrl");
+	disablenpc instance_npcname("#swatdoor1root1");
+	disablenpc instance_npcname("#swatdoor1root2");
+	disablenpc instance_npcname("#swatdoor1root3");
+	for(set .@i,7;.@i <= 11;set .@i,.@i+1) {
+		donpcevent instance_npcname("#swatstop"+.@i)+"::OnEffect";
+		hideonnpc instance_npcname("#swatstop"+.@i);
+		sleep 100;
+	}
+	setcell instance_mapname("1@swat"),23,222,39,222,cell_walkable,1;
+	hideonnpc instance_npcname("尤利安#swat3");
+	enablenpc instance_npcname("尤利安#swat3");
+	hideoffnpc instance_npcname("尤利安#swat3");
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#swatdoor1ctrl");
+	end;
+}
+
+1@swat,36,272,0	script	#swatdoor2ctrl	139,14,14,{
+	end;
+OnTouch:
+	mapannounce instance_mapname("1@swat"),"成功入侵第2安全保護系統。安全保護系統無效化。",bc_map,"0xff0000";
+	hideonnpc instance_npcname("#swatdoor2ctrl");
+	hideonnpc instance_npcname("#swatdoor2root2");
+	hideonnpc instance_npcname("#swatdoor2root3");
+	hideonnpc instance_npcname("#swatdoor2root4");
+	disablenpc instance_npcname("#swatdoor2ctrl");
+	disablenpc instance_npcname("#swatdoor2root2");
+	disablenpc instance_npcname("#swatdoor2root3");
+	disablenpc instance_npcname("#swatdoor2root4");
+	donpcevent instance_npcname("#swatstop32")+"::OnEffect";
+	for(set .@i,29;.@i <= 33;set .@i,.@i+1) {
+		hideonnpc instance_npcname("#swatstop"+.@i);
+	}
+	setcell instance_mapname("1@swat"),33,272,37,272,cell_walkable,1;
+	hideoffnpc instance_npcname("尤利安#swat5");
+	if('swatstroy) {
+		enablenpc instance_npcname("#swat3ctrl");
+	} else {
+		hideoffnpc instance_npcname("開關#swat");
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#swatdoor2ctrl");
+	end;
+}
+
+1@swat,25,220,3	script	#swatdoor1root1	10080,3,3,{
+	end;
+OnTouch:
+	specialeffect2 637;
+	set HP,HP-MaxHp/4;
+	end;
+}
+1@swat,31,220,3	duplicate(#swatdoor1root1)	#swatdoor1root2	10080,2,3 
+1@swat,37,220,3	duplicate(#swatdoor1root1)	#swatdoor1root3	10080,3,3
+1@swat,25,270,3	duplicate(#swatdoor1root1)	#swatdoor2root1	10080,2,3
+1@swat,30,270,3	duplicate(#swatdoor1root1)	#swatdoor2root2	10080,2,3
+1@swat,35,270,3	duplicate(#swatdoor1root1)	#swatdoor2root3	10080,2,3
+1@swat,40,270,3	duplicate(#swatdoor1root1)	#swatdoor2root4	10080,2,3
+1@swat,45,270,3	duplicate(#swatdoor1root1)	#swatdoor2root5	10080,2,3
+1@swat,50,270,3	duplicate(#swatdoor1root1)	#swatdoor2root6	10080,2,3
+
+1@swat,23,222,5	script	#swatstop1	10024,{
+	end;
+OnEffect:
+	specialeffect 90;
+	end;
+}
+1@swat,24,222,3	duplicate(#swatstop1)	#swatstop2	10024
+1@swat,25,222,3	duplicate(#swatstop1)	#swatstop3	10024
+1@swat,26,222,3	duplicate(#swatstop1)	#swatstop4	10024
+1@swat,27,222,3	duplicate(#swatstop1)	#swatstop5	10024
+1@swat,28,222,3	duplicate(#swatstop1)	#swatstop6	10024
+1@swat,29,222,3	duplicate(#swatstop1)	#swatstop7	10024
+1@swat,30,222,3	duplicate(#swatstop1)	#swatstop8	10024
+1@swat,31,222,3	duplicate(#swatstop1)	#swatstop9	10024
+1@swat,32,222,3	duplicate(#swatstop1)	#swatstop10	10024
+1@swat,33,222,3	duplicate(#swatstop1)	#swatstop11	10024
+1@swat,34,222,3	duplicate(#swatstop1)	#swatstop12	10024
+1@swat,35,222,3	duplicate(#swatstop1)	#swatstop13	10024
+1@swat,36,222,3	duplicate(#swatstop1)	#swatstop14	10024
+1@swat,37,222,3	duplicate(#swatstop1)	#swatstop15	10024
+1@swat,38,222,3	duplicate(#swatstop1)	#swatstop16	10024
+1@swat,39,222,3	duplicate(#swatstop1)	#swatstop17	10024
+1@swat,22,272,3	duplicate(#swatstop1)	#swatstop18	10024
+1@swat,23,272,3	duplicate(#swatstop1)	#swatstop19	10024
+1@swat,24,272,3	duplicate(#swatstop1)	#swatstop20	10024
+1@swat,25,272,3	duplicate(#swatstop1)	#swatstop21	10024
+1@swat,26,272,3	duplicate(#swatstop1)	#swatstop22	10024
+1@swat,27,272,3	duplicate(#swatstop1)	#swatstop23	10024
+1@swat,28,272,3	duplicate(#swatstop1)	#swatstop24	10024
+1@swat,29,272,3	duplicate(#swatstop1)	#swatstop25	10024
+1@swat,30,272,3	duplicate(#swatstop1)	#swatstop26	10024
+1@swat,31,272,3	duplicate(#swatstop1)	#swatstop27	10024
+1@swat,32,272,3	duplicate(#swatstop1)	#swatstop28	10024
+1@swat,33,272,3	duplicate(#swatstop1)	#swatstop29	10024
+1@swat,34,272,3	duplicate(#swatstop1)	#swatstop30	10024
+1@swat,35,272,3	duplicate(#swatstop1)	#swatstop31	10024
+1@swat,36,272,3	duplicate(#swatstop1)	#swatstop32	10024
+1@swat,37,272,3	duplicate(#swatstop1)	#swatstop33	10024
+1@swat,38,272,3	duplicate(#swatstop1)	#swatstop34	10024
+1@swat,39,272,3	duplicate(#swatstop1)	#swatstop35	10024
+1@swat,40,272,3	duplicate(#swatstop1)	#swatstop36	10024
+1@swat,41,272,3	duplicate(#swatstop1)	#swatstop37	10024
+1@swat,42,272,3	duplicate(#swatstop1)	#swatstop38	10024
+1@swat,43,272,3	duplicate(#swatstop1)	#swatstop39	10024
+1@swat,44,272,3	duplicate(#swatstop1)	#swatstop40	10024
+1@swat,45,272,3	duplicate(#swatstop1)	#swatstop41	10024
+1@swat,46,272,3	duplicate(#swatstop1)	#swatstop42	10024
+1@swat,47,272,3	duplicate(#swatstop1)	#swatstop43	10024
+1@swat,48,272,3	duplicate(#swatstop1)	#swatstop44	10024
+1@swat,49,272,3	duplicate(#swatstop1)	#swatstop45	10024
+1@swat,50,272,3	duplicate(#swatstop1)	#swatstop46	10024
+1@swat,51,272,3	duplicate(#swatstop1)	#swatstop47	10024
+1@swat,52,272,3	duplicate(#swatstop1)	#swatstop48	10024
+
+1@swat,31,233,1	script	尤利安#swat3	4_M_REBELLION2,9,1,{
+	mes "[尤利安]";
+	mes "順利通過第1區域呢。";
+	mes "現在請配合第2區域的防禦工事進行訓練。";
+	close;
+OnTouch:
+	hideonnpc instance_npcname("尤利安#swat3");
+	disablenpc instance_npcname("尤利安#swat3");
+	hideoffnpc instance_npcname("尤利安#swat4");
+	donpcevent instance_npcname("尤利安#swat4")+"::OnEasy";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("尤利安#swat3");
+	end;
+}
+
+1@swat,31,233,1	script	尤利安#swat4	4_M_REBELLION2,{
+	end;
+OnEasy:
+	npctalk "尤利安：太簡單了。第2區域也有類似的殲滅戰訓練。";
+	sleep 4000;
+	npctalk "尤利安：這次與防禦士兵交戰中將投入更多的強化兵力。";
+	sleep 4000;
+	npctalk "尤利安：不管怎樣請好好配合剩下的訓練吧。";
+	sleep 4000;
+	hideonnpc instance_npcname("尤利安#swat4");
+	donpcevent instance_npcname("#swatctrl")+"::OnBegin2";
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("尤利安#swat4");
+	end;
+}
+
+1@swat,82,248,1	script	神秘的光#swat	4_ENERGY_WHITE,{
+	hideonnpc instance_npcname("神秘的光#swat");
+	specialeffect 10;
+	makeitem 25154,1,instance_mapname("1@swat"),82,249;
+	makeitem 25154,1,instance_mapname("1@swat"),82,249;
+	makeitem 25154,1,instance_mapname("1@swat"),82,249;
+	makeitem 25154,1,instance_mapname("1@swat"),82,249;
+	end;
+}
+
+1@swat,56,283,1	script	#swat3ctrl	139,4,4,{
+	end;
+OnTouch:
+	hideonnpc instance_npcname("#swat3ctrl");
+	disablenpc instance_npcname("#swat3ctrl");
+	donpcevent instance_npcname("尤利安#swat5")+"::OnTalk";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#swat3ctrl");
+	end;
+}
+
+1@swat,56,283,1	script	尤利安#swat5	4_M_REBELLION2,{
+	if(!'swatstroy) {
+		mes "[尤利安]";
+		mes "你看到的這個安全保護系統控制著這裡無數的安全裝置。";
+		next;
+		mes "[尤利安]";
+		mes "啟動裝置後亦會打開一條勉強能通過的通道。";
+		next;
+		mes "[尤利安]";
+		mes "如果準備好開始防禦系統訓練的話就去按下按鈕吧。";
+		close;
+	}
+	end;
+OnTalk:
+	npctalk "尤利安：第2區域的強化兵力也順利地殲滅了呢。看來我們的防禦戰術上要作出點改變了。";
+	sleep 4000;
+	npctalk "尤利安：在你面前的防禦裝置和之前的有點不一樣。";
+	sleep 4000;
+	npctalk "尤利安：廣泛地安裝了獵心者那群傢伙所使用的安全保護裝置並建立了自動系統。";
+	sleep 4000;
+	npctalk "尤利安：我們的目的是確定自動化設備和士兵共同進行防禦時能阻擋敵人什麼程度的進攻。";
+	sleep 4000;
+	npctalk "尤利安：一旦啟動我面前的控制器，第3階段的防禦也隨之開始。";
+	sleep 4000;
+	npctalk "尤利安：通過狹窄的通道能從中突圍，把這裡的兵力殲滅一半的話就會判斷防禦失敗。";
+	sleep 4000;
+	hideoffnpc instance_npcname("開關#swat");
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("尤利安#swat5");
+	end;
+}
+
+1@swat,59,285,0	script	開關#swat	844,{
+	mes "看起來格外顯眼的紅色按鈕";
+	mes "---------------------";
+	mes "^ff0000[請勿按下]^000000";
+	next;
+	if(select("取消","按下") == 1) {
+		mes "你無視了這個按鈕。";
+		mes "沒有特別的事情發生。";
+		close;		
+	}
+
+	donpcevent instance_npcname("#swatctrl")+"::OnBegin3";
+	specialeffect 97;
+	hideonnpc instance_npcname("開關#swat");
+	set .@x,1;
+	set .@y,4;
+	set .@ud,1;
+	disablenpc instance_npcname("#swatdoor3root41");
+	disablenpc instance_npcname("#swatdoor3root51");
+	disablenpc instance_npcname("#swatdoor3root61");
+	while(1) {
+		switch(rand(1,2)) {
+			case 1:
+				switch(.@ud) {
+					case 0:
+						if(.@y == 5) {
+							set .@y,4;
+							set .@ud,1;
+						} else if(.@y == 1) {
+							set .@y,2;
+							set .@ud,2;
+						} else if(rand(100)<50) {
+							set .@y,.@y-1;
+							set .@ud,1;
+						} else {
+							set .@y,.@y+1;
+							set .@ud,2;
+						}
+						break;
+					case 1:
+						if(.@y == 1) {
+							disablenpc instance_npcname("#swatdoor3root"+.@y+(.@x+1));
+							set .@x,.@x+2;
+							set .@ud,0;
+						} else {
+							set .@y,.@y-1;
+							set .@ud,1;
+						}
+						break;
+					case 2:
+						if(.@y == 5) {
+							disablenpc instance_npcname("#swatdoor3root"+.@y+(.@x+1));
+							set .@x,.@x+2;
+							set .@ud,0;
+						} else {
+							set .@y,.@y+1;
+							set .@ud,2;
+						}
+						break;						
+				}
+				break;
+			case 2:
+				switch(.@ud) {
+					case 0:
+						set .@x,.@x+1;
+						set .@ud,0;
+						break;
+					default:
+						disablenpc instance_npcname("#swatdoor3root"+.@y+(.@x+1));
+						set .@x,.@x+2;
+						set .@ud,0;
+						break;						
+				}
+				break;
+		}
+		if(.@x <= 17) {
+			disablenpc instance_npcname("#swatdoor3root"+.@y+.@x);
+		}
+		if(.@x >= 17)
+			break;
+		continue;
+	}	
+	close;
+OnInstanceInit:
+	hideonnpc instance_npcname("開關#swat");
+	end;
+}
+
+1@swat,164,300,5	script	尤利安#swat6	4_M_REBELLION2,{
+	mes "[尤利安]";
+	mes "基地防禦失敗時自然還有後手。";
+	mes "現在就讓我們來進行測試吧。";
+	next;
+	mes "[尤利安]";
+	mes "進去前面看到的傳送門吧。";
+	close;
+OnInstanceInit:
+	hideonnpc instance_npcname("尤利安#swat6");
+	end;
+}
+
+1@swat,169,295,0	script	#swatwarp1	45,2,2,{
+	end;
+OnTouch:
+	warp instance_mapname("1@swat"),150,263;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#swatwarp1");
+	end;
+}
+
+1@swat,136,258,0	script	#swatbossctrl	139,4,4,{
+	end;
+OnTouch:
+	hideonnpc instance_npcname("#swatbossctrl");
+	disablenpc instance_npcname("#swatbossctrl");
+	donpcevent instance_npcname("尤利安#swat7")+"::OnTalk";
+	end;
+}
+
+1@swat,136,258,3	script	尤利安#swat7	4_M_REBELLION2,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)){
+		message strcharinfo(0),"只有隊長能觸發劇情!!";
+		end;
+	}
+	if('swatboss == 1) {
+		mes "[尤利安]";
+		mes "直到能與之對話已經花了1周以上的時間了。";
+		mes "現在說得挺不錯了。";
+		next;
+		if(select("叫得這麼親密嗎？","知道了，馬上開始吧") == 1) {
+			mes "[尤利安]";
+			mes "不，別這樣看著我。";
+			mes "她在別人面前從不張嘴所以只能由我來負責罷了。";
+			next;
+			mes "[尤利安]";
+			mes "...是真的。";
+		}
+		close2;
+		hideonnpc instance_npcname("尤利安#swat7");
+		hideoffnpc instance_npcname("尤利安#swat8");
+		donpcevent instance_npcname("尤利安#swat8")+"::OnBegin";
+		end;
+	}
+	end;
+OnTalk:	
+	npctalk "尤利安：好。做得好艾薇。除了別這樣瞪著我們...這位不是敵人。";
+	set 'swatboss,1;
+	end;
+OnInstanceInit:
+	set 'swatboss,0;
+	end;
+}
+
+1@swat,136,258,3	script	尤利安#swat8	4_M_REBELLION2,{
+	end;
+OnBegin:
+	npctalk "尤利安：我們在之前俘虜了她。";
+	sleep 3000;
+	npctalk "尤利安：什麼身份，隸屬於哪裡根本搞不清楚。除了艾薇這個名字...";
+	sleep 5000;
+	npctalk "尤利安：一點都沒有從前的記憶和理性只留下了要防禦基地的意識。";
+	sleep 5000;
+	npctalk "尤利安：即使是機械的狀態但是如果不認為我是敵人的話是不會做出攻擊的。";	
+	sleep 5000;
+	npctalk "尤利安：為了瞭解她的潛能...所以想請你幫忙。";	
+	sleep 4000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk1";
+	sleep 3000;
+	npctalk "尤利安：啊啊，面前的這人是你臨時的敵人。";	
+	sleep 4000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk2";
+	sleep 3000;
+	npctalk "尤利安：呃...差不多吧。";	
+	sleep 2000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk3";
+	sleep 2000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk4";
+	sleep 1000;
+	mapannounce instance_mapname("1@swat"),"安全保護系統：發佈2級緊急狀況。啟動自動防禦裝置。",bc_map,"0xff0000";
+	sleep 4000;
+	hideonnpc instance_npcname("尤利安#swat8");
+	hideonnpc instance_npcname("艾薇#swat");
+	donpcevent instance_npcname("#swatctrl")+"::OnBoss";
+	enablenpc instance_npcname("#swatdoor4root1");
+	enablenpc instance_npcname("#swatdoor4root2");
+	enablenpc instance_npcname("#swatdoor4root3");
+	enablenpc instance_npcname("#swatdoor4root4");
+	enablenpc instance_npcname("#swatdoor4root5");
+	end;
+OnEnd:
+	npctalk "尤利安：雖然沒有低估你戰鬥力的意思。";
+	sleep 3000;
+	npctalk "尤利安：但是總覺得艾薇沒有用100%的實力來與你對抗。";
+	sleep 5000;
+	npctalk "尤利安：有必要再進一步觀察呢...";
+	sleep 2000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk5";
+	sleep 3000;
+	npctalk "尤利安：什麼啊。用這種機器人的語氣。";
+	sleep 4000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk6";
+	sleep 3000;
+	npctalk "尤利安：別說廢話了。訓練結束了做好準備吃飯吧。馬上就到用餐時間了。";
+	sleep 5000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk7";
+	sleep 3000;
+	npctalk "尤利安：好了。先去換上便服再過來吧。";
+	sleep 4000;
+	donpcevent instance_npcname("艾薇#swat")+"::OnTalk8";
+	sleep 6000;
+	hideonnpc instance_npcname("艾薇#swat");
+	sleep 1000;
+	npctalk "尤利安：嗯。辛苦你了。現在別回去訓練場了。從我身後的樓梯上去就是出口了。";
+	enablenpc instance_npcname("#swatwarp2");
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("尤利安#swat8");
+	end;
+}
+
+1@swat,129,258,5	script	艾薇#swat	4_F_HUNTER_EVIL,{
+	switch('swatboss) {
+		case 1:
+			mes "[艾薇]";
+			mes "你是同伴？還是敵人？哪一方呢？";
+			cutin "ep16_evil101.bmp",2;
+			close2;
+			cutin "ep16_evil101.bmp",255;
+			end;
+		case 2:
+			switch(rand(1,2)) {
+				case 1:
+					mes "[艾薇]";
+					mes "你...比我強。這種事第一次...";
+					cutin "ep16_evil101.bmp",2;
+					close2;
+					cutin "ep16_evil101.bmp",255;
+					end;
+				case 2:
+					mes "[艾薇]";
+					mes "從哪裡學來的？剛才的那種技巧？";
+					cutin "ep16_evil103.bmp",2;
+					close2;
+					cutin "ep16_evil103.bmp",255;
+					end;
+			}
+	}
+	end;
+OnTalk1:	
+	npctalk "艾薇：尤利安，那是敵人嗎？";
+	end;
+OnTalk2:	
+	npctalk "艾薇：是來破壞這裡的嗎？";
+	end;
+OnTalk3:	
+	npctalk "艾薇：那麼...";
+	specialeffect 37;
+	end;
+OnTalk4:	
+	npctalk "艾薇：我要阻止他。";
+	specialeffect 40;
+	end;
+OnTalk5:	
+	npctalk "艾薇：我...要被廢棄了嗎？";
+	end;
+OnTalk6:	
+	npctalk "艾薇：那麼不廢棄了嗎？";
+	end;
+OnTalk7:	
+	npctalk "艾薇：吃飯...";
+	emotion 0;
+	end;
+OnTalk8:	
+	npctalk "艾薇：艾薇，聽從尤利安的指示。";
+	emotion 33;
+	end;
+}
+
+
+1@swat,151,266,5	script	尤利安#swat789	4_M_REBELLION2,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@swat,26,330,3	duplicate(#swatdoor1root1)	#swatdoor3root11	10080,3,3
+1@swat,32,330,3	duplicate(#swatdoor1root1)	#swatdoor3root12	10080,2,2
+1@swat,38,330,3	duplicate(#swatdoor1root1)	#swatdoor3root13	10080,3,3
+1@swat,44,330,3	duplicate(#swatdoor1root1)	#swatdoor3root14	10080,2,2
+1@swat,50,330,3	duplicate(#swatdoor1root1)	#swatdoor3root15	10080,3,3
+1@swat,56,330,3	duplicate(#swatdoor1root1)	#swatdoor3root16	10080,2,2
+1@swat,62,330,3	duplicate(#swatdoor1root1)	#swatdoor3root17	10080,3,3
+1@swat,68,330,3	duplicate(#swatdoor1root1)	#swatdoor3root18	10080,2,2
+1@swat,74,330,3	duplicate(#swatdoor1root1)	#swatdoor3root19	10080,3,3
+1@swat,80,330,3	duplicate(#swatdoor1root1)	#swatdoor3root110	10080,2,2
+1@swat,86,330,3	duplicate(#swatdoor1root1)	#swatdoor3root111	10080,3,3
+1@swat,92,330,3	duplicate(#swatdoor1root1)	#swatdoor3root112	10080,2,2
+1@swat,98,330,3	duplicate(#swatdoor1root1)	#swatdoor3root113	10080,3,3
+1@swat,104,330,3	duplicate(#swatdoor1root1)	#swatdoor3root114	10080,2,2
+1@swat,110,330,3	duplicate(#swatdoor1root1)	#swatdoor3root115	10080,3,3
+1@swat,116,330,3	duplicate(#swatdoor1root1)	#swatdoor3root116	10080,2,2
+1@swat,122,330,3	duplicate(#swatdoor1root1)	#swatdoor3root117	10080,3,3
+
+1@swat,26,324,3	duplicate(#swatdoor1root1)	#swatdoor3root21	10080,3,3
+1@swat,32,324,3	duplicate(#swatdoor1root1)	#swatdoor3root22	10080,2,2
+1@swat,38,324,3	duplicate(#swatdoor1root1)	#swatdoor3root23	10080,3,3
+1@swat,44,324,3	duplicate(#swatdoor1root1)	#swatdoor3root24	10080,2,2
+1@swat,50,324,3	duplicate(#swatdoor1root1)	#swatdoor3root25	10080,3,3
+1@swat,56,324,3	duplicate(#swatdoor1root1)	#swatdoor3root26	10080,2,2
+1@swat,62,324,3	duplicate(#swatdoor1root1)	#swatdoor3root27	10080,3,3
+1@swat,68,324,3	duplicate(#swatdoor1root1)	#swatdoor3root28	10080,2,2
+1@swat,74,324,3	duplicate(#swatdoor1root1)	#swatdoor3root29	10080,3,3
+1@swat,80,324,3	duplicate(#swatdoor1root1)	#swatdoor3root210	10080,2,2
+1@swat,86,324,3	duplicate(#swatdoor1root1)	#swatdoor3root211	10080,3,3
+1@swat,92,324,3	duplicate(#swatdoor1root1)	#swatdoor3root212	10080,2,2
+1@swat,98,324,3	duplicate(#swatdoor1root1)	#swatdoor3root213	10080,3,3
+1@swat,104,324,3	duplicate(#swatdoor1root1)	#swatdoor3root214	10080,2,2
+1@swat,110,324,3	duplicate(#swatdoor1root1)	#swatdoor3root215	10080,3,3
+1@swat,116,324,3	duplicate(#swatdoor1root1)	#swatdoor3root216	10080,2,2
+1@swat,122,324,3	duplicate(#swatdoor1root1)	#swatdoor3root217	10080,3,3
+
+1@swat,26,318,3	duplicate(#swatdoor1root1)	#swatdoor3root31	10080,3,3
+1@swat,32,318,3	duplicate(#swatdoor1root1)	#swatdoor3root32	10080,2,2
+1@swat,38,318,3	duplicate(#swatdoor1root1)	#swatdoor3root33	10080,3,3
+1@swat,44,318,3	duplicate(#swatdoor1root1)	#swatdoor3root34	10080,2,2
+1@swat,50,318,3	duplicate(#swatdoor1root1)	#swatdoor3root35	10080,3,3
+1@swat,56,318,3	duplicate(#swatdoor1root1)	#swatdoor3root36	10080,2,2
+1@swat,62,318,3	duplicate(#swatdoor1root1)	#swatdoor3root37	10080,3,3
+1@swat,68,318,3	duplicate(#swatdoor1root1)	#swatdoor3root38	10080,2,2
+1@swat,74,318,3	duplicate(#swatdoor1root1)	#swatdoor3root39	10080,3,3
+1@swat,80,318,3	duplicate(#swatdoor1root1)	#swatdoor3root310	10080,2,2
+1@swat,86,318,3	duplicate(#swatdoor1root1)	#swatdoor3root311	10080,3,3
+1@swat,92,318,3	duplicate(#swatdoor1root1)	#swatdoor3root312	10080,2,2
+1@swat,98,318,3	duplicate(#swatdoor1root1)	#swatdoor3root313	10080,3,3
+1@swat,104,318,3	duplicate(#swatdoor1root1)	#swatdoor3root314	10080,2,2
+1@swat,110,318,3	duplicate(#swatdoor1root1)	#swatdoor3root315	10080,3,3
+1@swat,116,318,3	duplicate(#swatdoor1root1)	#swatdoor3root316	10080,2,2
+1@swat,122,318,3	duplicate(#swatdoor1root1)	#swatdoor3root317	10080,3,3
+
+1@swat,26,312,3	duplicate(#swatdoor1root1)	#swatdoor3root41	10080,3,3
+1@swat,32,312,3	duplicate(#swatdoor1root1)	#swatdoor3root42	10080,2,2
+1@swat,38,312,3	duplicate(#swatdoor1root1)	#swatdoor3root43	10080,3,3
+1@swat,44,312,3	duplicate(#swatdoor1root1)	#swatdoor3root44	10080,2,2
+1@swat,50,312,3	duplicate(#swatdoor1root1)	#swatdoor3root45	10080,3,3
+1@swat,56,312,3	duplicate(#swatdoor1root1)	#swatdoor3root46	10080,2,2
+1@swat,62,312,3	duplicate(#swatdoor1root1)	#swatdoor3root47	10080,3,3
+1@swat,68,312,3	duplicate(#swatdoor1root1)	#swatdoor3root48	10080,2,2
+1@swat,74,312,3	duplicate(#swatdoor1root1)	#swatdoor3root49	10080,3,3
+1@swat,80,312,3	duplicate(#swatdoor1root1)	#swatdoor3root410	10080,2,2
+1@swat,86,312,3	duplicate(#swatdoor1root1)	#swatdoor3root411	10080,3,3
+1@swat,92,312,3	duplicate(#swatdoor1root1)	#swatdoor3root412	10080,2,2
+1@swat,98,312,3	duplicate(#swatdoor1root1)	#swatdoor3root413	10080,3,3
+1@swat,104,312,3	duplicate(#swatdoor1root1)	#swatdoor3root414	10080,2,2
+1@swat,110,312,3	duplicate(#swatdoor1root1)	#swatdoor3root415	10080,3,3
+1@swat,116,312,3	duplicate(#swatdoor1root1)	#swatdoor3root416	10080,2,2
+1@swat,122,312,3	duplicate(#swatdoor1root1)	#swatdoor3root417	10080,3,3
+
+1@swat,26,306,3	duplicate(#swatdoor1root1)	#swatdoor3root51	10080,3,3
+1@swat,32,306,3	duplicate(#swatdoor1root1)	#swatdoor3root52	10080,2,2
+1@swat,38,306,3	duplicate(#swatdoor1root1)	#swatdoor3root53	10080,3,3
+1@swat,44,306,3	duplicate(#swatdoor1root1)	#swatdoor3root54	10080,2,2
+1@swat,50,306,3	duplicate(#swatdoor1root1)	#swatdoor3root55	10080,3,3
+1@swat,56,306,3	duplicate(#swatdoor1root1)	#swatdoor3root56	10080,2,2
+1@swat,62,306,3	duplicate(#swatdoor1root1)	#swatdoor3root57	10080,3,3
+1@swat,68,306,3	duplicate(#swatdoor1root1)	#swatdoor3root58	10080,2,2
+1@swat,74,306,3	duplicate(#swatdoor1root1)	#swatdoor3root59	10080,3,3
+1@swat,80,306,3	duplicate(#swatdoor1root1)	#swatdoor3root510	10080,2,2
+1@swat,86,306,3	duplicate(#swatdoor1root1)	#swatdoor3root511	10080,3,3
+1@swat,92,306,3	duplicate(#swatdoor1root1)	#swatdoor3root512	10080,2,2
+1@swat,98,306,3	duplicate(#swatdoor1root1)	#swatdoor3root513	10080,3,3
+1@swat,104,306,3	duplicate(#swatdoor1root1)	#swatdoor3root514	10080,2,2
+1@swat,110,306,3	duplicate(#swatdoor1root1)	#swatdoor3root515	10080,3,3
+1@swat,116,306,3	duplicate(#swatdoor1root1)	#swatdoor3root516	10080,2,2
+1@swat,122,306,3	duplicate(#swatdoor1root1)	#swatdoor3root517	10080,3,3
+
+1@swat,26,300,3	duplicate(#swatdoor1root1)	#swatdoor3root61	10080,3,3
+1@swat,32,300,3	duplicate(#swatdoor1root1)	#swatdoor3root62	10080,2,2
+1@swat,38,300,3	duplicate(#swatdoor1root1)	#swatdoor3root63	10080,3,3
+1@swat,44,300,3	duplicate(#swatdoor1root1)	#swatdoor3root64	10080,2,2
+1@swat,50,300,3	duplicate(#swatdoor1root1)	#swatdoor3root65	10080,3,3
+1@swat,56,300,3	duplicate(#swatdoor1root1)	#swatdoor3root66	10080,2,2
+1@swat,62,300,3	duplicate(#swatdoor1root1)	#swatdoor3root67	10080,3,3
+1@swat,68,300,3	duplicate(#swatdoor1root1)	#swatdoor3root68	10080,2,2
+1@swat,74,300,3	duplicate(#swatdoor1root1)	#swatdoor3root69	10080,3,3
+1@swat,80,300,3	duplicate(#swatdoor1root1)	#swatdoor3root610	10080,2,2
+1@swat,86,300,3	duplicate(#swatdoor1root1)	#swatdoor3root611	10080,3,3
+1@swat,92,300,3	duplicate(#swatdoor1root1)	#swatdoor3root612	10080,2,2
+1@swat,98,300,3	duplicate(#swatdoor1root1)	#swatdoor3root613	10080,3,3
+1@swat,104,300,3	duplicate(#swatdoor1root1)	#swatdoor3root614	10080,2,2
+1@swat,110,300,3	duplicate(#swatdoor1root1)	#swatdoor3root615	10080,3,3
+1@swat,116,300,3	duplicate(#swatdoor1root1)	#swatdoor3root616	10080,2,2
+1@swat,122,300,3	duplicate(#swatdoor1root1)	#swatdoor3root617	10080,3,3
+
+1@swat,92,294,3	duplicate(#swatdoor1root1)	#swatdoor3root712	10080,2,2
+1@swat,98,294,3	duplicate(#swatdoor1root1)	#swatdoor3root713	10080,3,3
+1@swat,104,294,3	duplicate(#swatdoor1root1)	#swatdoor3root714	10080,2,2
+1@swat,110,294,3	duplicate(#swatdoor1root1)	#swatdoor3root715	10080,3,3
+1@swat,116,294,3	duplicate(#swatdoor1root1)	#swatdoor3root716	10080,2,2
+1@swat,122,294,3	duplicate(#swatdoor1root1)	#swatdoor3root717	10080,3,3
+
+1@swat,92,288,3	duplicate(#swatdoor1root1)	#swatdoor3root812	10080,2,2
+1@swat,98,288,3	duplicate(#swatdoor1root1)	#swatdoor3root813	10080,3,3
+1@swat,104,288,3	duplicate(#swatdoor1root1)	#swatdoor3root814	10080,2,2
+1@swat,110,288,3	duplicate(#swatdoor1root1)	#swatdoor3root815	10080,3,3
+1@swat,116,288,3	duplicate(#swatdoor1root1)	#swatdoor3root816	10080,2,2
+1@swat,122,288,3	duplicate(#swatdoor1root1)	#swatdoor3root817	10080,3,3
+
+1@swat,125,258,3	script	#swatdoor4root1	10080,3,3,{
+	end;
+OnTouch:
+	specialeffect2 637;
+	set HP,HP-MaxHp/4;
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@swat,138,258,3	duplicate(#swatdoor4root1)	#swatdoor4root2	10080,3,3
+1@swat,143,266,3	duplicate(#swatdoor4root1)	#swatdoor4root3	10080,3,3
+1@swat,146,249,3	duplicate(#swatdoor4root1)	#swatdoor4root4	10080,3,3
+1@swat,114,258,3	duplicate(#swatdoor4root1)	#swatdoor4root5	10080,3,3
+
+
+1@swat,130,263,3	script	尤利安達	676,{
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		npctalk "請由隊長領取~";
+		end;
+	}	
+//寶箱涵數
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#swat")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("尤利安達");
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@swat,0,0,0	script	副本寶箱#swat	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940032,10;
+	getitem 930000,5;
+	getitem 25155,20;
+	getitem 6909,1;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

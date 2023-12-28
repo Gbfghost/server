@@ -1,0 +1,4516 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@jtb	mapflag	noteleport
+1@jtb	mapflag	nosave	SavePoint
+1@jtb	mapflag	nomemo
+1@jtb	mapflag	nobranch
+1@jtb	mapflag	noicewall
+1@jtb	mapflag	restricted	6
+1@jtb	mapflag	monster_noteleport
+1@jtb	mapflag	partylock
+1@jtb	mapflag	novending
+1@jtb	mapflag	nochat
+
+amatsu,103,78,5	script	[副本]惡夢吉特巴	3073,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "惡夢吉特巴";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 49;
+
+//
+	waitingroom "[副本]惡夢吉特巴",0;
+	setnpcicon getnpcid(0),22,"[副本]惡夢吉特巴";
+	end;
+}
+		
+1@jtb,25,28,5	script	羅迪爾特#01	630,{
+	switch('JTB_1QUE) {
+	case 0:
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "啊？你就是那個臨時團員麼？";
+		mes "看上去真不錯啊，不過別妨礙到我哦。";
+		close2;
+		cutin "rote01.bmp", 255;
+		end;
+	case 1:
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "切！";
+		mes "這個地下城怎麼回事？！";
+		mes "有惡靈徘徊麼？";
+		close2;
+		cutin "rote01.bmp", 255;
+		end;
+	}
+	OnChat2:
+	npctalk "什麼叫都到齊了吧？我一直強調這不是輕易帶過的事！紐奧茲";
+	end;
+
+	OnChat7:
+	npctalk "安靜，他就是個路癡而已。";
+	end;
+
+	OnChat10:
+	npctalk "有什麼事？！不是你叫大家來的麼？！紐奧茲，你知道你這次消失了多久麼？招募的新成員你都還不認識吧！";
+	end;
+
+	OnChat13:
+	npctalk "按照白羽團8項條約的規定！現在的團長是我，你已經降格為普通團員了！";
+	end;
+
+	OnChat16:
+	npctalk "你這傢伙...就沒有什麼話要跟我說麼！？";
+	end;
+
+	OnChat21:
+	npctalk "作為團長，這麼久都聯絡不上。好不容易有消息了，居然是'發現了一個新的有趣地點，大家快來噢~。'開什麼玩笑!!";
+	end;
+
+	OnChat23:
+	npctalk "...紐奧茲。你，你......";
+	end;
+
+	OnChat25:
+	npctalk "錯，錯了!!我才不是因為擔心你才過來的。是為了敏敏和新人團員們...";
+	end;
+
+	OnChat30:
+	npctalk "卡卡！不要亂說話！";
+	end;
+
+	OnChat35:
+	npctalk "阿蘭，怎麼可能有這種事~";
+	end;
+
+	OnChat36:
+	npctalk "唉，看來我的同伴就只有你了...";
+	end;
+
+	OnChat37:
+	npctalk "什麼!?";
+	end;
+
+	OnChat40:
+	npctalk "你...！";
+	end;
+
+	OnChat42:
+	npctalk "可惡！今天真是不順...話說回來，紐奧茲，這裡到底是什麼地方？氣氛有點微妙的奇怪，無法安靜下來...";
+	end;
+
+	OnChat43:
+	npctalk "好像一直被誰看著一樣...";
+	end;
+
+	OnChat49:
+	npctalk "是啊，好不容易總算進來了，也算是奇跡吧。";
+	end;
+
+	OnChat52:
+	npctalk "啊？你說什麼!?";
+	end;
+
+	OnChat56:
+	npctalk "怎，怎麼了!？頭上傳來的聲音...";
+	end;
+
+	OnChat58:
+	npctalk "你！！！！這種事早點說啊！";
+	end;
+
+	OnChat60:
+	npctalk "我這就送你去見奧丁！";
+	end;
+
+	OnChat63:
+	npctalk "可惡！總之先去裡面探查一下吧！好像有什麼不好的感覺！隨時準備好戰鬥！";
+	end;
+}
+
+1@jtb,31,28,4	script	亞依#01	646,{/* 61514 */
+	switch('JTB_1QUE) {
+	case 1:
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "紐奧茲還是這樣呢...";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	OnChat5:
+	npctalk "紐奧茲...只吃肉的傢伙...還好大家都平安到了呢。";
+	end;
+
+	OnChat61:
+	npctalk "地震了？！大家小心哦！";
+	end;
+}
+
+1@jtb,23,26,5	script	卡卡#01	629,{/* 61515 */
+	switch('JTB_1QUE) {
+	case 0:
+		cutin "gelca01.bmp", 2;
+		mes "[卡卡]";
+		mes "新人麼？";
+		mes "請多指教！";
+		close2;
+		cutin "gelca01.bmp", 255;
+		end;
+	case 1:
+		cutin "gelca01.bmp", 2;
+		mes "[卡卡]";
+		mes "這個邪惡的氣息...";
+		mes "怎麼說呢，雖然能感覺到邪惡，";
+		mes "但又不是那種帶有惡意的...";
+		mes "真是不可思議！";
+		close2;
+		cutin "gelca01.bmp", 255;
+		end;
+	}
+	OnChat6:
+	npctalk "這就是傳說中的前團長紐奧茲吧，師父常常提起你的...";
+	end;
+
+	OnChat29:
+	npctalk "師父一個人出去買了大量的肉，開始還不能理解為什麼，聽了敏敏的話總算明白了~！";
+	end;
+
+	OnChat50:
+	npctalk "我的話，有師父在就沒事哦！";
+	end;
+
+	OnChat54:
+	npctalk "...啊？這不會是...";
+	end;
+
+	OnChat62:
+	npctalk "師父！好像感覺到了邪惡的氣息！";
+	end;
+}
+
+1@jtb,33,26,4	script	拉吉#01	647,{/* 61516 */
+	switch('JTB_1QUE) {
+	case 1:
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "哦，真是奇妙的體驗啊，";
+		mes "在這裡，就讓我為大家高歌一曲振奮精神吧！";
+		close2;
+		cutin "ragi01.bmp", 255;
+		end;
+	}
+OnChat45:
+npctalk "哪裡不尋常？";
+end;
+}
+
+1@jtb,25,24,5	script	敏敏#01	643,{/* 61517 */
+	switch('JTB_1QUE) {
+	case 0:
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "你就是那個臨時團員麼？";
+		mes "你好。";
+		close2;
+		cutin "min01.bmp", 255;
+		end;
+	case 1:
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "這樣的地方居然就直接喊我們來了...";
+		mes "紐奧茲真是老樣子...";
+		close2;
+		cutin "min01.bmp", 255;
+		end;
+	}
+	OnChat3:
+	npctalk "一想到因為你所花費的時間和費用，我就想餵你吃毒蘑菇。";
+	end;
+
+	OnChat26:
+	npctalk "啊？是我和新人們的錯咯？不要這樣找借口好麼，不知道是誰說'那個傢伙肯定餓得不行了'，然後出去買了大量的肉回來。";
+	end;
+
+	OnChat28:
+	npctalk "啊啦，我有必要說謊麼？";
+	end;
+
+	OnChat31:
+	npctalk "看，這下就清楚了吧？羅迪爾特真的很擔心你啊。";
+	end;
+
+	OnChat32:
+	npctalk "以後旅行的話，還是要盡量多聯絡羅迪爾特啊。";
+	end;
+
+	OnChat33:
+	npctalk "每天都是聽他說著擔心你的話，耳朵都要起繭啦~";
+	end;
+
+	OnChat38:
+	npctalk "啊啦，你知道的很清楚呢。";
+	end;
+
+	OnChat48:
+	npctalk "是啊，這個洞穴看起來不普通。剛剛想進入洞口的時候，有一股不可思議的力量把大家都彈飛了。";
+	end;
+}
+
+1@jtb,31,24,4	script	阿蘭#01	644,{/* 61518 */
+	switch('JTB_1QUE) {
+	case 1:
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "哇！是真的幽靈麼？";
+		mes "怎麼辦...";
+		mes "好可怕...";
+		close2;
+		cutin "arang01.bmp", 255;
+		end;
+	}
+	OnChat8:
+	npctalk "紐奧茲的黑眼圈更重了！";
+	end;
+
+	OnChat34:
+	npctalk "就是啊~！羅迪爾特太過於擔心了，臉都和盜蟲一樣扭曲了，好可怕啊...";
+	end;
+
+	OnChat41:
+	npctalk "不要再生氣了啦，羅迪爾特。";
+	end;
+
+	OnChat46:
+	npctalk "所以傑克你才躲起來啦？";
+	end;
+
+	OnChat55:
+	npctalk "幽靈...？";
+	end;
+}
+
+1@jtb,23,22,5	script	魯娜茵#01	10039,{/* 61519 */
+	switch('JTB_1QUE) {
+	case 0:
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "來了呢，";
+		mes "請多多指教了。";
+		close2;
+		cutin "lunain02.bmp", 255;
+		end;
+	case 1:
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "哇，那個是真的紐奧茲本人！";
+		mes "終於見到了...";
+		mes "我就是因為憧憬紐奧茲大人，";
+		mes "才加入的白羽團！";
+		close2;
+		cutin "lunain02.bmp", 255;
+		end;
+	}
+	OnChat11:
+	npctalk "真是傳說中的紐奧茲啊！你好！我是為了你才加入白羽團的！";
+	end;
+}
+
+1@jtb,34,22,4	script	羅艾爾#01	10040,{/* 61520 */
+	switch('JTB_1QUE) {
+	case 1:
+		cutin "roel03.bmp", 2;
+		mes "[羅艾爾]";
+		mes "紐奧茲大人...";
+		mes "和所想的一樣呢，";
+		mes "真的和羅迪爾特大人關係很好！";
+		close2;
+		cutin "rote01.bmp", 255;
+		end;
+	}
+	OnChat12:
+	npctalk "你好！我是和魯娜茵一起加入的羅艾爾！";
+	end;
+}
+
+1@jtb,28,30,5	script	紐奧茲#01	625,{/* 61522 */
+	switch('JTB_1QUE) {
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "大家都來了啊？";
+		close2;
+		cutin "nines01.bmp", 255;
+		end;
+	case 1:
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "冒險開始了！";
+		mes "好激動啊！";
+		close2;
+		cutin "nines01.bmp", 255;
+		end;
+	}
+	OnChat1:
+	npctalk "大家都到齊了吧？";
+	end;
+
+	OnChat4:
+	npctalk "啊...我會解釋的...毒蘑菇就算了吧，一般蘑菇我都不吃的。";
+	end;
+
+	OnChat9:
+	npctalk "喲，是阿蘭啊，你來這有什麼事嗎？";
+	end;
+
+	OnChat14:
+	npctalk "啊？是麼，羅迪當上新團長了啊。";
+	end;
+
+	OnChat15:
+	npctalk "請多關照啦，新團長，還有第一次見面的新團員們也是~";
+	end;
+
+	OnChat18:
+	npctalk "啊！？什麼聲音，鬼啊！";
+	end;
+
+	OnChat20:
+	npctalk "原來是傑克啊...好久不見！";
+	end;
+
+	OnChat22:
+	npctalk "啊，不好意思。雖然是有些做得不太好的地方，但我一直相信羅迪肯定會來的哦...";
+	end;
+
+	OnChat24:
+	npctalk "嘿嘿，我真的很幸運哦~！一直以來都有你為我擔心，真是謝謝了，羅迪爾特?";
+	end;
+
+	OnChat27:
+	npctalk "這是真的麼？！好久沒吃肉了啊啊~！";
+	end;
+
+	OnChat39:
+	npctalk "錯了哦～！羅迪只有嬌哦。";
+	end;
+
+	OnChat51:
+	npctalk "是啊！而且不止這些哦！這個洞穴好像有其他的'東西'存在著。";
+	end;
+
+	OnChat53:
+	npctalk "啊？羅迪，我沒跟你說麼？剛剛開始，不知道有誰一直在呼喚我哦。";
+	end;
+
+	OnChat57:
+	npctalk "啊？羅迪也聽到了啊~太好了太好了！";
+	end;
+
+	OnChat59:
+	npctalk "羅迪~別這樣抓著我的領子，很痛苦啊...";
+	end;
+}
+
+
+1@jtb,28,21,5	script	麥樂迪 傑克#01	844,{
+	switch('JTB_1QUE) {
+	case 0:
+		mes "[麥樂迪 傑克]";
+		mes "真是麻煩吶...";
+		mes "躲起來的話他們會發現麼...";
+		close;
+	case 1:
+		mes "[麥樂迪 傑克]";
+		mes "奇怪的氣氛...";
+		mes "看來我要開始自己的工作了，也是為了和他們的約定啊。";
+		close;
+	}
+	OnChat17:
+	npctalk "不可能啦，他腦子裡都是冒險...";
+	end;
+
+	OnChat19:
+	npctalk "......";
+	end;
+
+	OnChat44:
+	npctalk "從開始我就感到一股不尋常的氣息......";
+	end;
+
+	OnChat47:
+	npctalk "這是策略！策略！";
+	end;
+}
+
+
+
+1@jtb,28,21,0	script	#chat01	139,4,4,{
+		end;
+	OnInstanceInit:
+		enablenpc instance_npcname("#chat01");
+		for(.@i = 1; .@i <= 11; .@i++ )
+			disablenpc instance_npcname("exit#"+((.@i<10)?"0":"")+.@i);
+		'JTB_1QUE = 0;
+		end;
+	OnTouch_:
+		mes "- 與白羽團成員匯合了 -";
+		next;
+		if(select("開始對話","跳過") == 2) {
+				mapannounce instance_mapname("1@jtb"), "可以從東北方向進入下一區域了。", bc_map, 0xffff00;
+				donpcevent instance_npcname("羅迪爾特#01") + "::OnChat63";
+				'JTB_1QUE = 1;
+				enablenpc instance_npcname("exit#01");
+				disablenpc instance_npcname("#chat01");
+				close;
+		}
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "大家都到齊了吧？";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat1";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "什麼叫都到齊了吧？我一直強調這不是輕易帶過的事！紐奧茲";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat2";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "一想到因為你所花費的時間和費用，";
+		mes "我就想餵你吃毒蘑菇。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat3";
+		next;
+		cutin "nines04.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊...我會解釋的...";
+		mes "毒蘑菇就算了吧，一般蘑菇我都不吃的。";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat4";
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "紐奧茲...";
+		mes "只吃肉的傢伙...";
+		mes "還好大家都平安到了呢。";
+		donpcevent instance_npcname("亞依#01") + "::OnChat5";
+		next;
+		cutin "gelca03.bmp", 2;
+		mes "[卡卡]";
+		mes "這就是傳說中的前團長紐奧茲吧，";
+		mes "師父常常提起你的...";
+		donpcevent instance_npcname("卡卡#01") + "::OnChat6";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "安靜，他就是個路癡而已。";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat7";
+		next;
+		cutin "arang02.bmp", 2;
+		mes "[阿蘭]";
+		mes "紐奧茲的黑眼圈更重了！";
+		donpcevent instance_npcname("阿蘭#01") + "::OnChat8";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "喲，是阿蘭啊，你來這有什麼事嗎？";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat9";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "有什麼事？！不是你叫大家來的麼？！";
+		mes "紐奧茲，你知道你這次消失了多久麼？";
+		mes "招募的新成員你都還不認識吧！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat10";
+		next;
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "真是傳說中的紐奧茲啊！";
+		mes "你好！我是為了你才加入白羽團的！";
+		donpcevent instance_npcname("魯娜茵#01") + "::OnChat11";
+		next;
+		cutin "roel02.bmp", 2;
+		mes "[羅艾爾]";
+		mes "你好！我是和魯娜茵一起加入的羅艾爾！";
+		donpcevent instance_npcname("羅艾爾#01") + "::OnChat12";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "按照白羽團8項條約的規定！";
+		mes "現在的團長是我，你已經降格為普通團員了！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat13";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊？是麼，羅迪當上新團長了啊。";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat14";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "請多關照啦，新團長，還有第一次見面的新團員們也是~";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat15";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你這傢伙...就沒有什麼話要跟我說麼！？";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat16";
+		next;
+		cutin "",255;
+		mes "[麥樂迪 傑克]";
+		mes "不可能啦，他腦子裡都是冒險...";
+		donpcevent instance_npcname("麥樂迪 傑克#01") + "::OnChat17";
+		next;
+		cutin "nines04.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊！？什麼聲音，鬼啊！";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat18";
+		next;
+		cutin "",255;
+		mes "[麥樂迪 傑克]";
+		mes "......";
+		donpcevent instance_npcname("麥樂迪 傑克#01") + "::OnChat19";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "原來是傑克啊...好久不見！";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat20";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "作為團長，這麼久都聯絡不上。";
+		mes "好不容易有消息了，居然是";
+		mes "'發現了一個新的有趣地點，大家快來噢~。'";
+		mes "開什麼玩笑!!";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat21";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊，不好意思。";
+		mes "雖然是有些做得不太好的地方，";
+		mes "但我一直相信羅迪肯定會來的哦...";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat22";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...紐奧茲。你，你......";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat23";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "嘿嘿，我真的很幸運哦~！";
+		mes "一直以來都有你為我擔心，";
+		mes "真是謝謝了，羅迪爾特?";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat24";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "錯，錯了!!";
+		mes "我才不是因為擔心你才過來的。";
+		mes "是為了敏敏和新人團員們...";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat25";
+		next;
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "啊？是我和新人們的錯咯？";
+		mes "不要這樣找借口好麼，不知道是誰說";
+		mes "'那個傢伙肯定餓得不行了'，";
+		mes "然後出去買了大量的肉回來。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat26";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "這是真的麼？！";
+		mes "好久沒吃肉了啊啊~！";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat27";
+		next;
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "啊啦，我有必要說謊麼？";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat28";
+		next;
+		cutin "gelca01.bmp", 2;
+		mes "[卡卡]";
+		mes "師父一個人出去買了大量的肉，";
+		mes "開始還不能理解為什麼，";
+		mes "聽了敏敏的話總算明白了~！";
+		donpcevent instance_npcname("卡卡#01") + "::OnChat29";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "卡卡！";
+		mes "不要亂說話！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat30";
+		next;
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "看，這下就清楚了吧？";
+		mes "羅迪爾特真的很擔心你啊。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat31";
+		next;
+		mes "[敏敏]";
+		mes "以後旅行的話，還是要盡量多聯絡羅迪爾特啊。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat32";
+		next;
+		mes "[敏敏]";
+		mes "每天都是聽他說著擔心你的話，耳朵都要起繭啦~";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat33";
+		next;
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "就是啊~！";
+		mes "羅迪爾特太過於擔心了，";
+		mes "臉都和盜蟲一樣扭曲了，";
+		mes "好可怕啊...";
+		donpcevent instance_npcname("阿蘭#01") + "::OnChat34";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "阿蘭，怎麼可能有這種事~";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat35";
+		next;
+		mes "[羅迪爾特]";
+		mes "唉，看來我的同伴就只有";
+		mes strcharinfo(0)+ " 你了...";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat36";
+		next;
+		unittalk getcharid(3),"羅迪爾特還真是傲嬌啊";
+		select("羅迪爾特還真是傲嬌啊");
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "什麼!?";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat37";
+		next;
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "啊啦，你知道的很清楚呢。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat38";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "錯了哦～！";
+		mes "羅迪只有嬌哦。";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat39";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你...！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat40";
+		next;
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "不要再生氣了啦，羅迪爾特。";
+		donpcevent instance_npcname("阿蘭#01") + "::OnChat41";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "可惡！今天真是不順...";
+		mes "話說回來，紐奧茲，";
+		mes "這裡到底是什麼地方？";
+		mes "氣氛有點微妙的奇怪，";
+		mes "無法安靜下來...";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat42";
+		next;
+		mes "[羅迪爾特]";
+		mes "好像一直被誰看著一樣...";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat43";
+		next;
+		cutin "",255;
+		mes "[麥樂迪 傑克]";
+		mes "從開始我就感到一股不尋常的氣息......";
+		donpcevent instance_npcname("麥樂迪 傑克#01") + "::OnChat44";
+		next;
+		cutin "ragi03.bmp",2;
+		mes "[拉吉]";
+		mes "哪裡不尋常？";
+		donpcevent instance_npcname("拉吉#01") + "::OnChat45";
+		next;
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "所以傑克你才躲起來啦？";
+		donpcevent instance_npcname("阿蘭#01") + "::OnChat46";
+		next;
+		cutin "",255;
+		mes "[麥樂迪 傑克]";
+		mes "這是策略！策略！";
+		donpcevent instance_npcname("麥樂迪 傑克#01") + "::OnChat47";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "是啊，這個洞穴看起來不普通。";
+		mes "剛剛想進入洞口的時候，有一股不可思議的力量把大家都彈飛了。";
+		donpcevent instance_npcname("敏敏#01") + "::OnChat48";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "是啊，好不容易總算進來了，也算是奇跡吧。";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat49";
+		next;
+		cutin "gelca03.bmp", 2;
+		mes "[卡卡]";
+		mes "我的話，有師父在就沒事哦！";
+		donpcevent instance_npcname("卡卡#01") + "::OnChat50";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "是啊！而且不止這些哦！";
+		mes "這個洞穴好像有其他的'東西'存在著。";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat51";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "啊？你說什麼!?";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat52";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊？";
+		mes "羅迪，我沒跟你說麼？";
+		mes "剛剛開始，不知道有誰一直在呼喚我哦。";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat53";
+		next;
+		cutin "gelca02.bmp", 2;
+		mes "[卡卡]";
+		mes "...啊？這不會是...";
+		donpcevent instance_npcname("卡卡#01") + "::OnChat54";
+		next;
+		cutin "arang02.bmp", 2;
+		mes "[阿蘭]";
+		mes "幽靈...？";
+		donpcevent instance_npcname("阿蘭#01") + "::OnChat55";
+		next;
+		cutin "",255;
+		mes "[？？？]";
+		mes "幽靈，是什麼啊？";
+		mapannounce instance_mapname("1@jtb"), "？？？: 幽靈，是什麼啊？", bc_npc, 0xffffff;
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "怎，怎麼了!？";
+		mes "頭上傳來的聲音...";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat56";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊？羅迪也聽到了啊~";
+		mes "太好了太好了！";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat57";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你！！！！";
+		mes "這種事早點說啊！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat58";
+		next;
+		cutin "nines04.bmp", 2;
+		mes "[紐奧茲]";
+		mes "羅迪~";
+		mes "別這樣抓著我的領子，很痛苦啊...";
+		donpcevent instance_npcname("紐奧茲#01") + "::OnChat59";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "我這就送你去見奧丁！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat60";
+		next;
+		cutin "rote01.bmp", 255;
+		mes "[？？？]";
+		mes "...不要！";
+		mapannounce instance_mapname("1@jtb"), "...不要！", bc_npc, 0xffffff;
+		specialeffect 563; //self
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "...!!";
+		mes "地震了？！大家小心哦！";
+		donpcevent instance_npcname("亞依#01") + "::OnChat61";
+		next;
+		cutin "gelca04.bmp", 2;
+		mes "[卡卡]";
+		mes "師父！好像感覺到了邪惡的氣息！";
+		donpcevent instance_npcname("卡卡#01") + "::OnChat62";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "可惡！總之先去裡面探查一下吧！";
+		mes "好像有什麼不好的感覺！";
+		mes "隨時準備好戰鬥！";
+		donpcevent instance_npcname("羅迪爾特#01") + "::OnChat63";
+		mapannounce instance_mapname("1@jtb"), "可以從東北方向進入下一區域了。", bc_map, 0xffff00;
+		'JTB_1QUE = 1;
+		enablenpc instance_npcname("exit#01");
+		disablenpc instance_npcname("#chat01");
+		close2;
+		cutin "rote01.bmp", 255;
+/*
+		hideonnpc instance_npcname("麥樂迪 傑克#01");
+		hideonnpc instance_npcname("羅迪爾特#01");
+		hideonnpc instance_npcname("拉吉#01");
+		sleep2 500;
+		hideonnpc instance_npcname("紐奧茲#01");
+		hideonnpc instance_npcname("魯娜茵#01");
+		sleep2 500;
+		hideonnpc instance_npcname("敏敏#01");
+		hideonnpc instance_npcname("卡卡#01");
+		sleep2 500;
+		hideonnpc instance_npcname("阿蘭#01");
+		hideonnpc instance_npcname("亞依#01");
+		hideonnpc instance_npcname("羅艾爾#01");
+*/
+		end;
+
+}
+
+
+
+1@jtb,100,14,0	script	#battle01	139,5,5,{
+		end;
+	OnTouch_:
+		mapannounce instance_mapname("1@jtb"), "<提示> 打敗這個房間內的所有敵人，出口就會開啟。", bc_map, 0xffff00;
+		donpcevent instance_npcname("#battle01a") + "::OnSummon";
+		disablenpc instance_npcname("#battle01");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle01a	-1,{
+		end;
+		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle01a") + "::OnMobDead";
+		areamonster .@map$,100,16,131,45,"貝爾",3069,10,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle01a")+"::OnMobDead")) {
+			mapannounce instance_mapname("1@jtb"), "可以從東南方向進入下一區域了。", bc_map, 0xffff00;
+			enablenpc instance_npcname("exit#02");
+			donpcevent instance_npcname("#battle02")+"::OnSummon";
+		}
+		end;
+}
+
+
+1@jtb,1,1,0	script	#battle02	-1,{
+		end;
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle02") + "::OnMobDead";
+		areamonster .@map$,184,17,219,46,"貝爾",3069,15,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle02")+"::OnMobDead")) {
+			donpcevent instance_npcname("#chat02") + "::OnEnable";
+		}
+		end;
+}
+
+1@jtb,201,28,0	script	#chat02	139,4,4,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#chat02");
+		end;
+	OnEnable:
+		enablenpc instance_npcname("#chat02");
+		hideoffnpc instance_npcname("亞依#03");
+		hideoffnpc instance_npcname("魯娜茵#03");
+		end;
+	OnTouch_:
+		mes "- 發現了亞依和魯娜茵 -";
+		next;
+		if(select("和她們交談","跳過") == 2) {
+			mapannounce instance_mapname("1@jtb"), "可以從東南方向進入下一區域了。", bc_map, 0xffff00;
+			donpcevent instance_npcname("亞依#03") + "::OnChat36";
+			'JTB_1QUE = 2;
+			disablenpc instance_npcname("#chat02");
+			enablenpc instance_npcname("exit#03");
+			close;
+		}
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "哎呀，你沒事啊？";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat1";
+		next;
+		mes "[魯娜茵]";
+		mes "亞依~！";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat1a";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "怎麼了？魯娜茵。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat2";
+		next;
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "臨時團員 " + strcharinfo(0) + " 找到了。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat3";
+		next;
+		cutin "igu03.bmp", 2;
+		mes "[亞依]";
+		mes "太好了，經過剛剛的戰鬥，大家都失散了！";
+		mes "我還在擔心你呢。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat4";
+		next;
+		cutin "lunain03.bmp", 2;
+		mes "[魯娜茵]";
+		mes "紐奧茲大人的話，估計是沒有什麼問題的，因為他最強了！";
+		mes "但是笨蛋羅艾爾估計就難說了。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat5";
+		next;
+		cutin "igu04.bmp", 2;
+		mes "[亞依]";
+		mes "為什麼羅艾爾他...";
+		donpcevent instance_npcname("亞依#03") + "::OnChat6";
+		next;
+		cutin "lunain03.bmp", 2;
+		mes "[魯娜茵]";
+		mes "因為是笨蛋。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat7";
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "所以說為什麼是笨蛋啊...";
+		donpcevent instance_npcname("亞依#03") + "::OnChat8";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "那個傢伙，曾經看見其他冒險者和夢羅克的分身(人形)戰鬥。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat9";
+		next;
+		mes "[魯娜茵]";
+		mes "他錯認為分身是被欺負的人類，反而上去幫助了夢羅克的分身。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat9a";
+		next;
+		mes "[魯娜茵]";
+		mes "除了笨蛋以外，找不出合適的形容詞了。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat9b";
+		next;
+		cutin "lunain03.bmp", 255;
+		hideoffnpc instance_npcname("？？？#03");
+		mes "[？？？]";
+		mes "夢羅克...";
+		donpcevent instance_npcname("？？？#03") + "::OnChat10";
+		next;
+		emotion 23,instance_npcname("魯娜茵#03"); //61525
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes strcharinfo(0) + "，";
+		mes "亞依、";
+		mes "剛剛是你們說話？";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat11";
+		next;
+		unittalk getcharid(3),"什麼都沒說。";
+		select("什麼都沒說。");
+		cutin "igu04.bmp", 2;
+		mes "[亞依]";
+		mes "...啊？";
+		mes "我也什麼都沒說啊。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat12";
+		next;
+		cutin "igu05.bmp", 2;
+		emotion 23,instance_npcname("亞依#03"); //61525
+		mes "[亞依]";
+		mes "!!";
+		mes "等，等等！";
+		mes "魯娜茵！你身後！";
+		donpcevent instance_npcname("亞依#03") + "::OnChat13";
+		next;
+		cutin "lunain04.bmp", 2;
+		emotion 23,instance_npcname("魯娜茵#03"); //61525
+		mes "[魯娜茵]";
+		mes "啊？啊啊啊啊啊啊啊啊！";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat14";
+		next;
+		mes "[魯娜茵]";
+		mes "等等，人類！？...";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat15";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "...";
+		donpcevent instance_npcname("？？？#03") + "::OnChat16";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "嚇我一跳！";
+		mes "呃，這位大小姐，";
+		mes "你是從哪來的？";
+		donpcevent instance_npcname("亞依#03") + "::OnChat17";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "...不知道。";
+		mes "...聽到了你們說話，就過來了。";
+		donpcevent instance_npcname("？？？#03") + "::OnChat18";
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "難道是迷路的孩子麼？";
+		donpcevent instance_npcname("亞依#03") + "::OnChat19";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "等等，亞依！";
+		mes "為什麼這樣的小孩子，";
+		mes "會找到這裡來？";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat20";
+		next;
+		cutin "lunain03.bmp", 255;
+		mes "[" + strcharinfo(0) + "]";
+		mes "紐奧茲不也找到這了麼...";
+		unittalk getcharid(3),"紐奧茲不也找到這了麼...";
+		next;
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "怎麼說呢，紐奧茲大人是特別的，";
+		mes "這一眼就能看出來吧。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat21";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "紐奧茲……唱歌的人。";
+		donpcevent instance_npcname("？？？#03") + "::OnChat22";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "認識紐奧茲麼？！";
+		mes "啊！！情敵麼！";
+		specialeffect 563; //lunain
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat23";
+		next;
+		cutin "lunain01.bmp", 255;
+		mes "[" + strcharinfo(0) + "]";
+		mes "總之，先找到其他人吧。";
+		unittalk getcharid(3),"總之，先找到其他人吧。";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes strcharinfo(0) + "說的很對。";
+		mes "但是，也不能把這個孩子丟在這，";
+		mes "太危險了，帶著她一起走吧。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat24";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "是啊，這裡也沒其他人在了。";
+		mes "既然認識紐奧茲大人，就不能丟下她不管了。";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat25";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "迷路的話就麻煩了，";
+		mes "牽著我的手一起走吧。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat26";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "...牽...手？";
+		donpcevent instance_npcname("？？？#03") + "::OnChat27";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "啊？不知道牽手麼？";
+		mes "嗯...就像這樣。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat28";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "....";
+		donpcevent instance_npcname("？？？#03") + "::OnChat29";
+		next;
+		cutin "igu04.bmp", 2;
+		mes "[亞依]";
+		mes "手好冷啊，是在這待久了的原因麼？";
+		donpcevent instance_npcname("亞依#03") + "::OnChat30";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "...不可思議的感覺。";
+		donpcevent instance_npcname("？？？#03") + "::OnChat31";
+		next;
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "好了，握著我的手就會溫暖起來啦。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat32";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "手，好溫暖...";
+		donpcevent instance_npcname("？？？#03") + "::OnChat33";
+		next;
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "右面的路看起來很危險。";
+		mes "我們現在出發麼？";
+		donpcevent instance_npcname("魯娜茵#03") + "::OnChat34";
+		next;
+		cutin "igu04.bmp", 2;
+		mes "[亞依]";
+		mes "嗯...";
+		mes "能感受到很強的邪惡氣息...";
+		donpcevent instance_npcname("亞依#03") + "::OnChat35";
+		next;
+		cutin "igu02.bmp", 2;
+		mes "[亞依]";
+		mes "還是你帶著她先走吧。";
+		donpcevent instance_npcname("亞依#03") + "::OnChat36";
+		mapannounce instance_mapname("1@jtb"), "可以從東南方向進入下一區域了。", bc_map, 0xffff00;
+		close2;
+		'JTB_1QUE = 2;
+		disablenpc instance_npcname("#chat02");
+		enablenpc instance_npcname("exit#03");
+		cutin "lunain01.bmp", 255;
+		end;
+}
+
+1@jtb,200,28,5	script	亞依#03	646,{/* 61524 (hide)*/
+	switch('JTB_1QUE) {
+	case 2:
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "這個孩子，是從哪裡來的啊？";
+		mes "真是神秘的孩子呢，先把她帶到安全的地方去吧！";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("亞依#03");
+		end;
+		
+	OnChat2:
+	npctalk "怎麼了？魯娜茵。";
+	end;
+
+	OnChat4:
+	npctalk "太好了，經過剛剛的戰鬥，大家都失散了！我還在擔心你呢。";
+	end;
+
+	OnChat6:
+	npctalk "為什麼羅艾爾他...";
+	end;
+
+	OnChat8:
+	npctalk "所以說為什麼是笨蛋啊...";
+	end;
+
+	OnChat12:
+	npctalk "...啊？我也什麼都沒說啊。";
+	end;
+
+	OnChat13:
+	npctalk "等，等等！魯娜茵！你身後！";
+	end;
+
+	OnChat17:
+	npctalk "嚇我一跳！呃，這位大小姐，你是從哪來的？";
+	end;
+
+	OnChat19:
+	npctalk "難道是迷路的孩子麼？";
+	end;
+
+	OnChat24:
+	npctalk "說的很對。但是，也不能把這個孩子丟在這，太危險了，帶著她一起走吧。";
+	end;
+
+	OnChat26:
+	npctalk "迷路的話就麻煩了，牽著我的手一起走吧。";
+	end;
+
+	OnChat28:
+	npctalk "啊？不知道牽手麼？嗯...就像這樣。";
+	end;
+
+	OnChat30:
+	npctalk "手好冷啊，是在這待久了的原因麼？";
+	end;
+
+	OnChat32:
+	npctalk "好了，握著我的手就會溫暖起來啦。";
+	end;
+
+	OnChat35:
+	npctalk "嗯...能感受到很強的邪惡氣息...";
+	end;
+
+	OnChat36:
+	npctalk "還是你帶著她先走吧。";
+	end;
+}
+
+1@jtb,203,28,4	script	魯娜茵#03	10039,{/* 61525 (hide)*/
+	switch('JTB_1QUE) {
+	case 2:
+		cutin "lunain01.bmp", 2;
+		mes "[魯娜茵]";
+		mes "決定了的話，我們就趕快出發吧。";
+		close2;
+		cutin "lunain01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("魯娜茵#03");
+		end;
+
+	OnChat1:
+	npctalk "哎呀，你沒事啊？";
+	end;
+
+	OnChat1a:
+	npctalk "亞依~！";
+	end;
+
+	OnChat3:
+	npctalk "臨時團員找到了。";
+	end;
+
+	OnChat5:
+	npctalk "紐奧茲大人的話，估計是沒有什麼問題的，因為他最強了！但是笨蛋羅艾爾估計就難說了。";
+	end;
+
+	OnChat7:
+	npctalk "因為是笨蛋。";
+	end;
+
+
+	OnChat9:
+	npctalk "那個傢伙，曾經看見其他冒險者和夢羅克的分身(人形)戰鬥。";
+	end;
+	
+	OnChat9a:
+	npctalk "他錯認為分身是被欺負的人類，反而上去幫助了夢羅克的分身。";
+	end;
+	
+	OnChat9b:
+	npctalk "除了笨蛋以外，我實在想不出合適的形容詞了。";
+	end;
+
+
+	OnChat11:
+	npctalk "剛剛是你們說話？";
+	end;
+
+	OnChat14:
+	npctalk "啊？啊啊啊啊啊啊啊啊！";
+	end;
+
+	OnChat15:
+	npctalk "等等，人類！？...";
+	end;
+
+	OnChat20:
+	npctalk "等等，亞依！為什麼這樣的小孩子，會找到這裡來？";
+	end;
+
+	OnChat21:
+	npctalk "怎麼說呢，紐奧茲大人是特別的，這一眼就能看出來吧。";
+	end;
+
+	OnChat23:
+	npctalk "認識紐奧茲麼？！啊！！情敵麼！";
+	end;
+
+	OnChat25:
+	npctalk "是啊，這裡也沒其他人在了。既然認識紐奧茲大人，就不能丟下她不管了。";
+	end;
+
+	OnChat34:
+	npctalk "右面的路看起來很危險。我們現在出發麼？";
+	end;
+}
+
+1@jtb,205,31,4	script	？？？#03	10041,{/* 61523 (hide)*/
+	switch('JTB_1QUE) {
+	case 2:
+		cutin "shaloshi01.bmp", 2;
+		mes "[？？？]";
+		mes "你的手，好暖和...";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("？？？#03");
+		end;
+		
+	OnChat10:
+	npctalk "夢羅克...";
+	end;
+
+	OnChat16:
+	OnChat29:
+	npctalk "...";
+	end;
+
+	OnChat18:
+	npctalk "...不知道。...聽到了你們說話，就過來了。";
+	end;
+
+	OnChat22:
+	npctalk "紐奧茲……唱歌的人。";
+	end;
+
+	OnChat27:
+	npctalk "...牽...手？";
+	end;
+
+	OnChat31:
+	npctalk "...不可思議的感覺。";
+	end;
+
+	OnChat33:
+	npctalk "手，好溫暖...";
+	end;
+}
+
+
+
+1@jtb,183,128,0	script	#battle03	139,5,5,{
+		end;
+	OnTouch_:
+		mapannounce instance_mapname("1@jtb"), "<提示> 打敗這個房間內的所有敵人，出口就會開啟。", bc_map, 0xffff00;
+		donpcevent instance_npcname("#battle03a") + "::OnSummon";
+		disablenpc instance_npcname("#battle03");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle03a	-1,{
+		end;
+		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle03a") + "::OnMobDead";
+		areamonster .@map$,184,99,219,129,"貝爾",3069,20,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle03a")+"::OnMobDead")) {
+			mapannounce instance_mapname("1@jtb"), "可以從東北方向進入下一區域了。", bc_map, 0xffff00;
+			enablenpc instance_npcname("exit#04");
+			donpcevent instance_npcname("#battle04")+"::OnSummon";
+		}
+		end;
+}
+
+
+1@jtb,1,1,0	script	#battle04	-1,{
+		end;
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle04") + "::OnMobDead";
+		areamonster .@map$,269,98,305,131,"貝爾",3069,30,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle04")+"::OnMobDead")) {
+			donpcevent instance_npcname("#chat03") + "::OnEnable";
+		}
+		end;
+}
+
+
+
+
+1@jtb,289,118,3	script	？？？#08	10041,{/* 61536 (hide)*/
+	switch('JTB_1QUE) {
+	case 3:
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "感情...";
+		mes "什麼是哭泣...？";
+		mes "...什麼又是開心呢？";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("？？？#08");
+		end;
+}
+
+1@jtb,288,122,4	script	拉吉#08	647,{/* 61537 (hide)*/
+	switch('JTB_1QUE) {
+	case 2:
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "這種時候，就應該高歌一曲振奮精神！";
+		close2;
+		cutin "ragi02.bmp", 255;
+		end;
+	case 3:
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "夏洛茜什麼時候能好好表達自己的感情，就太好了。";
+		close2;
+		cutin "ragi02.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("拉吉#08");
+		end;
+}
+
+1@jtb,283,121,5	script	紐奧茲#08	625,{/* 61538 (hide)*/
+	switch('JTB_1QUE) {
+	case 2:
+		cutin "nines03.bmp", 2;
+		emotion 2,instance_npcname("紐奧茲#08"); //61538
+		mes "[紐奧茲]";
+		mes "這份溫暖至今仍未忘記 ~";
+		mes "但已無法再觸碰 ~";
+		close2;
+		cutin "nines03.bmp", 255;
+		end;
+	case 3:
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "大家一起教夏洛茜唱歌，一定會很開心。";
+		close2;
+		cutin "nines03.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("紐奧茲#08");
+	end;
+}
+
+
+1@jtb,285,117,0	script	#chat03	139,4,4,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#chat03");
+		end;
+	OnEnable:
+		enablenpc instance_npcname("#chat03");
+		hideoffnpc instance_npcname("紐奧茲#08");
+		hideoffnpc instance_npcname("拉吉#08");
+		hideoffnpc instance_npcname("？？？#08");
+		end;
+	OnTouch_:
+		mes "- 發現了拉吉和紐奧茲 -";
+		next;
+		if(select("和他們交談","跳過") == 2) {
+			'JTB_1QUE = 3;
+			mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+			disablenpc instance_npcname("#chat03");
+			enablenpc instance_npcname("exit#05");
+			close;
+		}
+		cutin "nines03.bmp", 2;
+		emotion 2,instance_npcname("紐奧茲#08"); //61538
+		mes "[紐奧茲]";
+		mes "這份溫暖至今仍未忘記 ~";
+		mes "但已無法再觸碰 ~";
+		next;
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "不愧是紐奧茲大人！";
+		next;
+		cutin "nines02.bmp", 2;
+		emotion 15,instance_npcname("紐奧茲#08"); //61538
+		mes "[紐奧茲]";
+		mes "感謝哦，拉吉君！";
+		mes "哦呀，" + strcharinfo(0) + "！";
+		mes "你也來了啊~！";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "嗯？帶著可愛的孩子啊，她是誰？";
+		next;
+		select("好像是迷路的孩子");
+		mes "[紐奧茲]";
+		mes "這可不行啊，我們去找出口吧。";
+		mes "大小姐，你可以告訴我你叫什麼嗎？";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...夏洛茜。";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "夏洛茜啊！";
+		mes "我叫紐奧茲。這位是拉吉哦。";
+		mes "我們一起去找出口吧。";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "你好 ~ 夏洛茜。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "話說回來，其他的人呢？";
+		mes "沒和你一起麼？";
+		next;
+		select("與亞依和魯娜茵走散了...");
+		mes "[紐奧茲]";
+		mes "是麼，那我們先找找那2個人吧。";
+		next;
+		mes "[紐奧茲]";
+		mes "這裡好像有什麼不可思議的力量，";
+		mes "原來還在一起的夥伴們，突然就消失了。";
+		mes "好不容易匯合了，這次不要再走散了...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...那就唱歌吧。";
+		next;
+		mes "[夏洛茜]";
+		mes "...能穿透黑暗的歌聲...";
+		next;
+		select("聲音？");
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...四周都是黑暗，什麼也聽不到。";
+		next;
+		mes "[夏洛茜]";
+		mes "...除了歌聲。";
+		next;
+		mes "[夏洛茜]";
+		mes "...紐奧茲的歌聲。";
+		next;
+		mes "[夏洛茜]";
+		mes "...音樂中流露著豐富的感情。";
+		next;
+		mes "[夏洛茜]";
+		mes "...和朋友們一起度過的日子，與朋友們的聊天...";
+		next;
+		mes "[夏洛茜]";
+		mes "...我也想要朋友，我也想唱歌。";
+		next;
+		mes "[夏洛茜]";
+		mes "...和我做朋友吧。";
+		next;
+		mes "[夏洛茜]";
+		mes "...唱歌的話，也許就能找到亞依和魯娜茵了...";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "原來如此，";
+		mes "看來這就是音樂之神的神跡啊。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "說不定是這樣，借由音樂穿透黑暗，";
+		mes "對抗這不可思議的力量吧。";
+		next;
+		mes "[紐奧茲]";
+		mes "說到這，剛剛我唱的歌，";
+		mes "是受人所托製作的，";
+		mes "依賴人所思念之人的誕生石是珍珠。";
+		mes "為了寄托他的思念，圍繞著珍珠所作之曲。";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "不知道這首曲子能不能好好傳達他的想法...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...珍珠是什麼？";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "夏洛茜，就是這個哦。";
+		next;
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "其他的還有「人魚之淚」啊，";
+		mes "「皎潔之月」啊，「天之露」啊，";
+		mes "各種各樣的稱呼。";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...好漂亮。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "人魚也流淚麼？";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "誰知道呢，對我們來說，";
+		mes "人魚只是魔物，可能不會流淚吧。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...魔物不會流淚麼？";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "這就不知道了，不過我有聽說過";
+		mes "魔物流淚的故事哦。";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "可以流淚就證明有感情。";
+		mes "如果有這樣的魔物的話，也許我們都能做朋友。";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "如果有這樣的魔物，";
+		mes "一起唱唱歌也挺開心的。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...怎麼樣，才能流淚呢？";
+		next;
+		cutin "ragi03.bmp", 2;
+		mes "[拉吉]";
+		mes "啊？夏洛茜你沒有哭泣麼？";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...好像沒有。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "悲傷到要哭泣的時候，就會流眼淚了。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...嗯？";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "夏洛茜還在想眼淚的事麼？";
+		next;
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "對了，這個給你吧，夏洛茜。";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...珍珠。";
+		next;
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "夏洛茜，如果真到了悲傷的時候，";
+		mes "你就自然會明白流淚的感覺了。";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...嗯，知道了。";
+		next;
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "真不愧是拉吉君！";
+		mes "拉吉真是厲害的搞笑藝人和宮廷樂師啊~！";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "謝謝誇獎，";
+		mes "不過我還是吟遊詩人啊。";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "哈哈，職業什麼的，不用在意啦！反正都能唱歌。";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...我也想一起唱歌。";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "是麼？這次就來教夏洛茜唱歌吧！";
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "那就等找到大家樂，一起唱吧，";
+		mes strcharinfo(0)+ "，你也一起哦。";
+		'JTB_1QUE = 3;
+		mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+		close2;
+		disablenpc instance_npcname("#chat03");
+		enablenpc instance_npcname("exit#05");
+		cutin "ragi01.bmp", 255;
+		end;
+}
+
+
+1@jtb,356,99,0	script	#battle05	139,5,5,{
+		end;
+	OnTouch_:
+		mapannounce instance_mapname("1@jtb"), "<提示> 打敗這個房間內的所有敵人，出口就會開啟。", bc_map, 0xffff00;
+		donpcevent instance_npcname("#battle05a") + "::OnSummon";
+		disablenpc instance_npcname("#battle05");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle05a	-1,{
+		end;
+		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle05a") + "::OnMobDead";
+		areamonster .@map$,356,99,388,130,"貝爾",3070,20,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle05a")+"::OnMobDead")) {
+			mapannounce instance_mapname("1@jtb"), "可以從東北方向進入下一區域了。", bc_map, 0xffff00;
+			enablenpc instance_npcname("exit#06");
+			donpcevent instance_npcname("#battle06")+"::OnSummon";
+		}
+		end;
+}
+
+
+1@jtb,1,1,0	script	#battle06	-1,{
+		end;
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle06") + "::OnMobDead";
+		areamonster .@map$,13,214,47,184,"貝爾",3071,20,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle06")+"::OnMobDead")) {
+			donpcevent instance_npcname("#chat04") + "::OnEnable";
+		}
+		end;
+}
+
+1@jtb,34,193,5	script	羅艾爾#10	10040,{/* 61539 (hide)*/
+	switch('JTB_1QUE) {
+		case4:
+			cutin "roel03.bmp",2;
+			mes "[羅艾爾]";
+			mes "啊...想法暴露了啊...";
+			close2;
+			cutin "roel03.bmp",255;
+			end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("羅艾爾#10");
+		end;
+}
+
+1@jtb,40,198,3	script	魯娜茵#10	10039,{/* 61540 (hide)*/
+	switch('JTB_1QUE) {
+		case4:
+			cutin "lunain02.bmp",2;
+			mes "[魯娜茵]";
+			mes "還好我下手快，摀住了她的嘴...";
+			close2;
+			cutin "lunain02.bmp",255;
+			end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("魯娜茵#10");
+		end;
+}
+
+1@jtb,38,197,4	script	夏洛茜#10	10041,{/* 61541 (hide)*/
+	switch('JTB_1QUE) {
+	case 3:
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "不能迷路...要牽好手...";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	case 4:
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "不能聽別人的想法麼？";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("夏洛茜#10");
+		end;
+}
+
+1@jtb,31,194,5	script	羅迪爾特#10	630,{/* 61542 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "（可以讀心麼...果然不是人類啊...）";
+		close2;
+		cutin "rote03.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("羅迪爾特#10");
+		end;
+}
+
+1@jtb,36,191,5	script	卡卡#10	629,{/* 61543 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+			cutin "gelca01.bmp", 2;
+			mes "[卡卡]";
+			mes "書裡也經常有得到這類奇妙力量的角色啊...";
+			close2;
+			cutin "gelca01.bmp", 255;
+			end;
+	}	
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("卡卡#10");
+		end;
+}
+
+1@jtb,38,191,4	script	敏敏#10	643,{/* 61544 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "那個女孩...果然有些奇怪...";
+		mes "好想當成研究材料啊...";
+		close2;
+		cutin "min01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("敏敏#10");
+		end;
+}
+
+1@jtb,40,193,4	script	阿蘭#10	644,{/* 61545 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+			cutin "arang03.bmp", 2;
+			mes "[阿蘭]";
+			mes "讀心麼...";
+			close2;
+			cutin "arang03.bmp", 255;
+			end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("阿蘭#10");
+		end;
+}
+
+1@jtb,34,198,5	script	紐奧茲#10	625,{/* 61546 (hide)*/
+	switch('JTB_1QUE) {
+	case 3:
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes strcharinfo(0) + "！";
+		mes "夏洛茜！太好了！";
+		mes "平安匯合了~！";
+		mes "但是經歷了剛剛的戰鬥，拉吉又走失了...";
+		close2;
+		cutin "nines03.bmp", 255;
+		end;
+	case 4:
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "夏洛茜她...";
+		close2;
+		cutin "nines01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("紐奧茲#10");
+		end;
+}
+
+1@jtb,36,195,0	script	#chat04	139,4,4,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#chat04");
+		end;
+	OnEnable:
+		enablenpc instance_npcname("#chat04");
+		hideoffnpc instance_npcname("紐奧茲#10");
+		hideoffnpc instance_npcname("夏洛茜#10");
+		end;
+	OnTouch_:
+		mes "- 看見了紐奧茲和夏洛茜 -";
+		next;
+		if(select("和他們交談","跳過") == 2) {
+			'JTB_1QUE = 4;
+			mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+			disablenpc instance_npcname("#chat04");
+			enablenpc instance_npcname("exit#07");
+			close;
+		}
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes strcharinfo(0) + "！";
+		mes "夏洛茜！太好了！";
+		mes "平安匯合了~！";
+		mes "但是經歷了剛剛的戰鬥，拉吉又走失了...";
+		next;
+		switch(select("繼續對話","找其他的同伴")) {
+		case 1:
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...紐奧茲，";
+			mes "安心下來了肚子就餓了麼？";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "啊！？我說過這樣的話麼？";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...聽到了。";
+			mes strcharinfo(0) + "你也聽到了吧？";
+			next;
+			select("沒有聽到啊...");
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "......";
+			next;
+			mes "[紐奧茲]";
+			mes "...難道說，夏洛茜你可以聽到人的心聲？";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...聽得到啊。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...？為什麼表情這麼恐怖？";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "夏洛茜你可以聽到心聲這件事，";
+			mes "一會要對大家保密哦...";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...可惜，我已經聽到了。";
+			mes "敏敏這樣說哦。";
+			hideoffnpc instance_npcname("敏敏#10");
+			next;
+			cutin "nines04.bmp", 2;
+			mes "[紐奧茲]";
+			mes "敏敏！？";
+			mes "什麼時候在這的！？";
+			next;
+			cutin "min02.bmp", 2;
+			mes "[敏敏]";
+			mes "從剛剛就一直在啦。";
+			mes "總之這件事一定會暴露的，還是好好說明一下吧。";
+			mes "那邊好像有什麼人。";
+			next;
+			cutin "min02.bmp", 255;
+			mes "□最終，約定了暫時保守夏洛茜的秘密。";
+			mes "這個話題也暫時告一段落。 -";
+			next;
+			mes "□可以閱讀人心的夏洛茜，";
+			mes "　應該不是普通的人類...□";
+			break;
+		case 2:
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "嗯？好想有什麼聲音傳來！";
+			mes "誰在往這裡過來！";
+			next;
+			hideoffnpc instance_npcname("阿蘭#10");
+			cutin "arang01.bmp", 2;
+			mes "[阿蘭]";
+			mes "哦~噫！果然是紐奧茲啊！";
+			mes "大家～找到了紐奧茲他們哦~！";
+			mes strcharinfo(0) + "和夏洛茜也在哦！";
+			next;
+			hideoffnpc instance_npcname("羅艾爾#10");
+			hideoffnpc instance_npcname("魯娜茵#10");
+			hideoffnpc instance_npcname("羅迪爾特#10");
+			hideoffnpc instance_npcname("卡卡#10");
+			hideoffnpc instance_npcname("敏敏#10");
+			cutin "lunain01.bmp", 2;
+			mes "[魯娜茵]";
+			mes "夏洛茜！紐奧茲大人，還有";
+			mes strcharinfo(0) + "。你們都在一起啊，太好了。";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "大家都沒事吧？";
+			next;
+			cutin "arang01.bmp", 2;
+			mes "[阿蘭]";
+			mes "沒事。不過怪物好多啊！";
+			mes "有點擔心你們。";
+			next;
+			cutin "nines02.bmp", 2;
+			mes "[紐奧茲]";
+			mes "英雄總是最後登場的哦，阿蘭！";
+			mes "就像我一樣！";
+			next;
+			cutin "lunain01.bmp", 2;
+			mes "[魯娜茵]";
+			mes "這都計算好了麼，不愧是紐奧茲大人!!";
+			next;
+			cutin "min01.bmp", 2;
+			mes "[敏敏]";
+			mes "我想他就是說說而已...";
+			next;
+			cutin "rote01.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "這傢伙都能算英雄了，那我該是什麼！？";
+			next;
+			cutin "gelca01.bmp", 2;
+			mes "[卡卡]";
+			mes "師父是...";
+			next;
+			cutin "arang02.bmp", 2;
+			mes "[阿蘭]";
+			mes "當然是英雄，的競爭者！！這之類的！";
+			next;
+			cutin "roel03.bmp", 2;
+			mes "[羅艾爾]";
+			mes "嗯，感覺不錯!!";
+			next;
+			cutin "min02.bmp", 2;
+			mes "[敏敏]";
+			mes "大家的吐槽都挺不錯啊。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...羅迪師父，以" + strcharinfo(0) + "作為競爭對手的話，感覺不錯啊。";
+			next;
+			cutin "rote01.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "什麼!?";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...敏敏是女幹部？";
+			next;
+			cutin "gelca04.bmp", 2;
+			emotion 23,instance_npcname("卡卡#10"); //62998
+			mes "[卡卡]";
+			mes "哇哇哇哇，我沒說這個話哦！？";
+			mes "...嗯？";
+			next;
+			cutin "min02.bmp", 2;
+			mes "[敏敏]";
+			mes "等等！?";
+			mes "這個孩子，難道...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			emotion 23,instance_npcname("魯娜茵#10"); //62995
+			mes "[夏洛茜]";
+			mes "...不好，我喜...（被魯娜茵摀住了嘴）";
+			next;
+			cutin "lunain04.bmp", 2;
+			emotion 19,instance_npcname("魯娜茵#10"); //62995
+			mes "[魯娜茵]";
+			mes "夏洛茜!!你難道能讀懂大家的想法？";
+			next;
+			cutin "roel03.bmp", 2;
+			mes "[羅艾爾]";
+			mes "魯娜茵...";
+			mes "你不把手拿開的話，她說不了話哦...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "呼哈~";
+			mes "...聽得見哦，大家的心聲。";
+			mes "...你們聽不見麼？";
+			next;
+			cutin "arang01.bmp", 2;
+			mes "[阿蘭]";
+			mes "我聽不到哦...";
+			next;
+			cutin "rote03.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "...果然是這樣啊。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...紐奧茲，";
+			mes "大家怎麼神情都很恐怖啊？";
+			next;
+			mes "[夏洛茜]";
+			mes "...不能去聽內心的聲音麼？";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "夏洛茜。";
+			mes "和我約定一件事吧。";
+			next;
+			mes "[紐奧茲]";
+			mes "能聽到心聲，我不知道是好事還是壞事。";
+			next;
+			mes "[紐奧茲]";
+			mes "但是，大家心中可能會有秘密，煩惱。";
+			next;
+			mes "[紐奧茲]";
+			mes "這些事情可能是不希望讓別人知道的。";
+			mes "所以，聽到的話也不要說出來，好麼？";
+			next;
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "如果讓別人知道了自己想保密的事情，";
+			mes "大家會很煩惱，很悲傷的。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...嗯。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...大家，對不起。";
+			next;
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "真是好孩子呢，夏洛茜。";
+			next;
+			cutin "rote01.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "喂，紐奧茲……";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "羅迪。...晚點再說。";
+			next;
+			cutin "rote03.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "...切，隨便你!!";
+			next;
+			cutin "min02.bmp", 2;
+			mes "[敏敏]";
+			mes "真是的，沒什麼好在意的。";
+			mes "大概，被別人知道想法會不好意思的，只有羅迪爾特了吧。";
+			next;
+			cutin "min01.bmp", 2;
+			mes "[敏敏]";
+			mes "還是早點從這裡出去，找個地方泡泡澡比較重要吧。";
+			next;
+			cutin "gelca01.bmp", 2;
+			mes "[卡卡]";
+			mes "是的呢，書裡也經常有得到這類奇妙力量的角色啊...";
+			next;
+			cutin "arang03.bmp", 2;
+			mes "[阿蘭]";
+			mes "想了想，我好像被讀心也不會有什麼煩惱，沒必要在意啦！！";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "...我，我也是哦...被讀心的話，也...也不會很困擾啦......";
+			next;
+			cutin "roel03.bmp", 2;
+			mes "[羅艾爾]";
+			mes "（這麼說我覺得魯娜茵很可愛的想法暴露了...！？）";
+			next;
+			cutin "rote03.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "（可以讀心麼...果然不是人類啊...）";
+			break;
+		}
+		close2;
+		cutin "",255;
+		'JTB_1QUE = 4;
+		mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+		disablenpc instance_npcname("#chat04");
+		enablenpc instance_npcname("exit#07");
+		end;
+}
+
+1@jtb,95,201,0	script	#battle07	139,5,5,{
+		end;
+	OnTouch_:
+		mapannounce instance_mapname("1@jtb"), "<提示> 打敗這個房間內的所有敵人，就可以進行下一階段。", bc_map, 0xffff00;
+		donpcevent instance_npcname("#battle07a") + "::OnSummon";
+		disablenpc instance_npcname("#battle07");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle07a	-1,{
+		end;		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle07a") + "::OnMobDead";
+		areamonster .@map$,94,183,130,215,"貝爾",3072,20,.@label$;
+		monster .@map$,116,201,"吉特巴",3109,1,.@label$;
+		monster .@map$,116,201,"吉特巴",3108,1,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle07a")+"::OnMobDead")) {
+			donpcevent instance_npcname("#chat05") + "::OnEnable";
+		}
+		end;
+}
+
+1@jtb,110,197,0	script	#chat05	139,4,4,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#chat05");
+		end;
+	OnEnable:
+		enablenpc instance_npcname("#chat05");
+		hideoffnpc instance_npcname("羅艾爾#11");
+		hideoffnpc instance_npcname("夏洛茜#11");
+		hideoffnpc instance_npcname("魯娜茵#11");
+		end;
+	OnTouch_:
+		mes "- 看見了夏洛茜她們 -";
+		next;
+		if(select("和她們交談","跳過") == 2) {
+			'JTB_1QUE = 5;
+			mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+			disablenpc instance_npcname("#chat05");
+			enablenpc instance_npcname("exit#08");
+			close;
+		}
+		cutin "lunain04.bmp", 2;
+		mes "[魯娜茵]";
+		mes "這是什麼，這次的怪物好大啊~";
+		mes "和之前碰到的小怪物，戰鬥力不是一個檔次上的。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "羅艾爾。魯娜茵。沒受傷吧？";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "我沒事啦。";
+		mes "羅艾爾！你是不是受傷了，過來！！";
+		next;
+		cutin "roel04.bmp", 2;
+		mes "[羅艾爾]";
+		mes "我，我沒事的，這種程度...";
+		next;
+		cutin "lunain04.bmp", 2;
+		mes "[魯娜茵]";
+		mes "別說了，快過來!!";
+		next;
+		switch(select("觀察夏洛茜","觀察羅艾爾")) {
+		case 1:
+			specialeffect 313, AREA, instance_npcname("羅艾爾#11"); //61547
+			cutin "lunain04.bmp", 255;
+			mes "□看見羅艾爾正在治療的樣子，";
+			mes "　夏洛茜感覺十分悲傷。□";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...貝爾，以前不是這麼凶暴的。";
+			next;
+			select("貝爾是怪物的名字麼？");
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "總是貝爾貝爾的叫，所以叫「貝爾」。";
+			mes "以前不會咬人的，也沒有這麼凶暴。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "所以我們成為了朋友，但是...";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "和魔物交朋友？！";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...奇怪麼？";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "夏洛茜看來可能不知道啊。";
+			next;
+			mes "[魯娜茵]";
+			mes "這些魔物不是朋友，它們是人類的敵人哦。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...敵人？";
+			next;
+			mes "[夏洛茜]";
+			mes "敵人是什麼？";
+			next;
+			cutin "roel01.bmp", 2;
+			mes "[羅艾爾]";
+			mes "就是傷害了我們的對手...這類吧。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "簡單來說，就是帶給我們傷痛和困擾的對手。";
+			next;
+			mes "[魯娜茵]";
+			mes "所以魔物們不可能成為朋友，它們是敵人。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "但是，貝爾她們沒有給我帶來傷痛和困擾啊。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "以前可能是這樣的，但你看現在不就...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "現在...";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes ".....";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "接下來..." + strcharinfo(0) + "，交給你了。";
+			mes "來，坐在這裡。";
+			next;
+			cutin "lunain02.bmp", 255;
+			mes "□夏洛茜陷入了思考。□";
+			next;
+			mes "□雖然被魯娜茵喊過來幫忙打開話題，但看樣子對話已經很難繼續下去了。□";
+			break;
+		case 2:
+			specialeffect 313, AREA, instance_npcname("羅艾爾#11"); //63002
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "真是的，沖得那麼靠前，把魔物都引過來了！！";
+			next;
+			cutin "roel04.bmp", 2;
+			mes "[羅艾爾]";
+			mes "對，對不起！！想著要保護大家，一不小心就有點得意忘形了...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "魯娜茵。";
+			mes "雖然有抱怨，但還是好好治療了。";
+			next;
+			cutin "roel02.bmp", 2;
+			mes "[羅艾爾]";
+			mes "魯娜茵太好了!!";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "別誤會了，我只是照顧小孩而已。";
+			mes "紐奧茲大人一定也會這麼做的!!";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "臉好紅。";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "囉，囉嗦！";
+			mes "...這個洞窟裡有點熱罷了！";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "這裡好像沒有貝爾了。";
+			next;
+			select("貝爾？");
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "見到魯娜茵和亞依前，有好多貝爾。";
+			next;
+			cutin "roel02.bmp", 2;
+			mes "[羅艾爾]";
+			mes "貝爾麼，希望下次也能見到她啊。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "好像是沒有名字的，只是我這樣稱呼它們。";
+			next;
+			mes "[夏洛茜]";
+			mes "貝爾貝爾這樣叫著，所以稱為「貝爾」。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "難道說是之前那些小小的魔物？";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "它們總是貝爾貝爾的叫。";
+			mes "以前不會咬人的，也沒有這麼凶暴。";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "所以我們成為了朋友，但是...";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "和魔物交朋友？！";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...奇怪麼？";
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "夏洛茜看來可能不知道啊。";
+			next;
+			mes "[魯娜茵]";
+			mes "這些魔物不是朋友，它們是人類的敵人哦。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...敵人？";
+			next;
+			mes "[夏洛茜]";
+			mes "敵人是什麼？";
+			next;
+			cutin "roel01.bmp", 2;
+			mes "[羅艾爾]";
+			mes "就是傷害了我們的對手...這類吧。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "簡單來說，就是帶給我們傷痛和困擾的對手。";
+			next;
+			mes "[魯娜茵]";
+			mes "所以魔物們不可能成為朋友，它們是敵人。";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "但是，貝爾她們沒有給我帶來傷痛和困擾啊。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "以前可能是這樣的，但你看現在不就...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "現在...";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes ".....";
+			next;
+			cutin "roel02.bmp", 2;
+			mes "[羅艾爾]";
+			mes "對，對了！";
+			next;
+			cutin "roel03.bmp", 2;
+			mes "[羅艾爾]";
+			mes "...貝，貝爾貝爾貝爾！";
+			next;
+			select("羅艾爾!?");
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "你...你在幹什麼？";
+			next;
+			cutin "roel01.bmp", 2;
+			mes "[羅艾爾]";
+			mes "啊，我只是代替貝爾成為夏洛茜的朋友啊...";
+			next;
+			cutin "lunain01.bmp", 2;
+			mes "[魯娜茵]";
+			mes "噗？";
+			mes "這樣的話...";
+			mes "那要打倒你了？";
+			next;
+			specialeffect 85,AREA, instance_npcname("羅艾爾#11"); //63002
+			cutin "roel03.bmp", 2;
+			mes "[羅艾爾]";
+			mes "貝..貝爾！？";
+			next;
+			cutin "lunain03.bmp", 2;
+			mes "[魯娜茵]";
+			mes "開玩笑的。";
+			next;
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "接下來..." + strcharinfo(0) + "，交給你了。";
+			mes "來，坐在這裡。";
+			next;
+			cutin "lunain02.bmp", 255;
+			mes "□夏洛茜陷入了思考。□";
+			next;
+			mes "□雖然被魯娜茵喊過來幫忙打開話題，但看樣子對話已經很難繼續下去了。□";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "貝爾不是朋友...但是...";
+			break;
+		}
+		'JTB_1QUE = 5;
+		mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+		disablenpc instance_npcname("#chat05");
+		enablenpc instance_npcname("exit#08");
+		close2;
+		cutin "lunain02.bmp", 255;
+		end;
+
+}
+
+1@jtb,110,196,5	script	羅艾爾#11	10040,{/* 61547 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+		cutin "roel02.bmp", 2;
+		mes "[羅艾爾]";
+		mes "我沒問題的，可以保護好夏洛茜。";
+		mes "在守護他人方面，我還是很自信的。";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	case 5:
+		cutin "roel02.bmp", 2;
+		mes "[羅艾爾]";
+		mes "魔物和朋友...";
+		mes "如果人類都可以像夏洛茜一樣與魔物作朋友。";
+		mes "那麼魔物和人類也能和平共存在這個世界上了吧。";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("羅艾爾#11");
+		end;
+}
+
+1@jtb,108,198,5	script	夏洛茜#11	10041,{/* 61548 (hide)*/
+	switch('JTB_1QUE) {
+	case 4:
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "大家沒有事吧？需要治療麼？";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	case 5:
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾不是朋友的話...";
+		mes "那我的朋友是誰？";
+		close2;
+		cutin "shaloshi01.bmp", 255;
+		end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("夏洛茜#11");
+		end;
+}
+
+1@jtb,112,196,3	script	魯娜茵#11	10039,{/* 61549 (hide)*/
+	switch('JTB_1QUE) {
+		case 4:
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "這是什麼，這次的怪物好大啊~";
+			mes "和之前碰到的小怪物，戰鬥力不是一個檔次上的。";
+			close2;
+			cutin "lunain04.bmp", 255;
+			end;
+		case 5:
+			cutin "lunain02.bmp", 2;
+			mes "[魯娜茵]";
+			mes "雖然也有把魔物當作寵物養的人類，但那些都是例外。";
+			mes "魔物終究還是危險的，不應該成為朋友。";
+			close2;
+			cutin "lunain02.bmp", 255;
+			end;
+	}
+	end;
+	OnInstanceInit:
+		hideonnpc instance_npcname("魯娜茵#11");
+		end;
+}
+
+1@jtb,181,198,0	script	#battle08	139,5,5,{
+		end;
+	OnTouch_:
+		mapannounce instance_mapname("1@jtb"), "<提示> 打敗這個房間內的所有敵人，出口就會開啟。", bc_map, 0xffff00;
+		donpcevent instance_npcname("#battle08a") + "::OnSummon";
+		disablenpc instance_npcname("#battle08");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle08a	-1,{
+		end;
+		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle08a") + "::OnMobDead";
+		areamonster .@map$,178,184,217,219,"貝爾",3070,15,.@label$;
+		areamonster .@map$,178,184,217,219,"貝爾",3071,15,.@label$;
+		areamonster .@map$,178,184,217,219,"貝爾",3072,15,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle08a")+"::OnMobDead")) {
+			donpcevent instance_npcname("#chat06")+"::OnEnable";
+		}
+		end;
+}
+
+
+1@jtb,192,205,5	script	亞依#12	646,{/* 61550 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "igu01.bmp", 2;
+		mes "[亞依]";
+		mes "夏洛茜，沒事就太好了！";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	case 6:
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "絕對不能放下夏洛茜不管！";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("亞依#12");
+	end;
+}
+
+1@jtb,201,203,4	script	阿蘭#12	644,{/* 61551 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "大家終於匯合了啊，";
+		mes "但是、夏洛茜看起來不是很開心...";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	case 6:
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "怎麼會...";
+		mes "好不容易成為朋友了...";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("阿蘭#12");
+	end;
+}
+
+1@jtb,191,204,5	script	拉吉#12	647,{/* 61552 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "大家都找到了啊，現在要開始探險故事的高潮部分了嗎？";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	case 6:
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "她在離別的時候，到底是怎麼想的呢？";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("拉吉#12");
+	end;
+}
+
+1@jtb,192,202,5	script	魯娜茵#12	10039,{/* 61553 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("魯娜茵#12");
+	end;
+}
+
+1@jtb,191,200,5	script	羅艾爾#12	10040,{/* 61554 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+		cutin "roel01.bmp", 2;
+		mes "[羅艾爾]";
+		mes "不管平時怎麼說，";
+		mes "羅迪爾特和紐奧茲果然關係很好呢！";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("羅艾爾#12");
+	end;
+}
+
+1@jtb,199,200,4	script	敏敏#12	643,{/* 61555 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "那傢伙一封信，我就跑過來了。";
+		mes "其實我人蠻好的。";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	case 6:
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "雖然看起來很成熟，";
+		mes "但羅迪爾特還是有些小孩脾氣呢。";
+		mes "只要是關於紐奧茲的事情，";
+		mes "很容易就激動了。";
+		next;
+		mes "[敏敏]";
+		mes "不過呢，這也不是我該說的話，我也還很年輕呢...";
+		mes "你不要搞錯了哦！";
+		mes strcharinfo(0) + "。";
+		close2;
+		cutin "igu01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("敏敏#12");
+	end;
+}
+
+1@jtb,195,206,4	script	紐奧茲#12	625,{/* 61556 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("紐奧茲#12");
+	end;
+}
+
+1@jtb,199,204,4	script	卡卡#12	629,{/* 61557 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "gelca01.bmp", 2;
+		mes "[卡卡]";
+		mes "剛剛的地震感覺不太簡單，你也發現了麼？";
+		next;
+		mes "[卡卡]";
+		mes "地震的時候，感覺就好像是整個空間發脾氣了。";
+		mes "連氣氛都變得奇怪了，空間也有不安定感。";
+		close2;
+		cutin "gelca01.bmp", 255;
+		end;
+	case 6:
+		cutin "gelca01.bmp", 2;
+		mes "[卡卡]";
+		mes "確實前面有多危險還是未知的，";
+		mes "不過我相信我的師父！";
+		next;
+		cutin "gelca03.bmp", 2;
+		mes "[卡卡]";
+		mes "因為，他是我的師父嘛！";
+		close2;
+		cutin "gelca01.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("卡卡#12");
+	end;
+}
+
+1@jtb,189,203,5	script	麥樂迪 傑克#12	844,{/* 61558 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("麥樂迪 傑克#12");
+	end;
+}
+
+1@jtb,194,200,5	script	貝爾#12a	10047,{/* 61559 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("貝爾#12a");
+	end;
+}
+
+1@jtb,196,200,5	script	貝爾#12b	10047,{/* 61560 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("貝爾#12b");
+	end;
+}
+
+1@jtb,195,200,5	script	夏洛茜#12	10041,{/* 61561 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+	case 6:
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("夏洛茜#12");
+	end;
+}
+
+1@jtb,198,206,4	script	羅迪爾特#12	630,{/* 61562 (hide)*/
+	switch('JTB_1QUE) {
+	case 5:
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...大家等等，有什麼地方不對勁！";
+		close2;
+		cutin "rote01.bmp", 255;
+		end;
+	case 6:
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "紐奧茲這個傻瓜...";
+		mes "一直都是這樣不考慮後果...";
+		close2;
+		cutin "rote03.bmp", 255;
+		end;
+	}
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("羅迪爾特#12");
+	end;
+}
+
+
+1@jtb,196,203,0	script	#chat06	139,5,5,{
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("#chat06");
+		end;
+	OnEnable:
+		enablenpc instance_npcname("#chat06");
+		hideoffnpc instance_npcname("羅迪爾特#12");
+		hideoffnpc instance_npcname("夏洛茜#12");
+		hideoffnpc instance_npcname("麥樂迪 傑克#12");
+		hideoffnpc instance_npcname("卡卡#12");
+		hideoffnpc instance_npcname("紐奧茲#12");
+		hideoffnpc instance_npcname("敏敏#12");
+		hideoffnpc instance_npcname("羅艾爾#12");
+		hideoffnpc instance_npcname("魯娜茵#12");
+		hideoffnpc instance_npcname("拉吉#12");
+		hideoffnpc instance_npcname("阿蘭#12");
+		hideoffnpc instance_npcname("亞依#12");
+		end;
+	OnTouch_:
+		mes "- 與大家匯合了 -";
+		next;
+		if(select("和他們交談","跳過") == 2) {
+			'JTB_1QUE = 6;
+			mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+			enablenpc instance_npcname("exit#09");
+			disablenpc instance_npcname("#chat06");
+			close;
+		}
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...大家等等，有什麼地方不對勁！";
+		next;
+		cutin "nines01.bmp", 2;
+		specialeffect 563; //self
+		mes "[紐奧茲]";
+		mes "哇，又有地震！？";
+		next;
+		cutin "nines01.bmp", 255;
+		mes "[麥樂迪 傑克]";
+		mes "...不好了。";
+		next;
+		mes "[麥樂迪 傑克]";
+		mes "可以感覺到空間開始崩壞了。";
+		next;
+		switch(select("簡單的詢問狀況","瞭解詳細的情況")) { //case 2, lack of info
+		case 1:
+		case 2:
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "貝爾...生氣了。";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "這個空間和貝爾有什麼關係嗎？";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "貝爾是...為了保護我，才攻擊大家的。";
+			next;
+			cutin "rote01.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "...這是什麼意思！？";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "...因為...";
+			next;
+			emotion 0,instance_npcname("夏洛茜#12"); //61561
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "貝爾...？";
+			next;
+			hideoffnpc instance_npcname("貝爾#12b");
+			hideoffnpc instance_npcname("貝爾#12a");
+			emotion 6,instance_npcname("貝爾#12b"); //61560
+			emotion 7,instance_npcname("貝爾#12a");
+			mes "[貝爾]";
+			mes "貝爾貝爾貝爾!!";
+			next;
+			cutin "gelca01.bmp", 2;
+			mes "[卡卡]";
+			mes "好像在說什麼...";
+			next;
+			cutin "shaloshi02.bmp", 2;
+			mes "[夏洛茜]";
+			mes "嗯...";
+			mes "知道了...";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "夏洛茜？";
+			mes "貝爾說了什麼？";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "紐奧茲...";
+			mes "大家...";
+			next;
+			cutin "igu05.bmp", 2;
+			mes "[亞依]";
+			mes "怎麼了？";
+			mes "為什麼表情這麼悲傷？";
+			next;
+			cutin "shaloshi01.bmp", 2;
+			mes "[夏洛茜]";
+			mes "對不起...";
+			mes "再見了...";
+			specialeffect 317,AREA,instance_npcname("夏洛茜#12");
+			sleep2 1000;
+			specialeffect 6,instance_npcname("夏洛茜#12");
+			hideonnpc instance_npcname("夏洛茜#12");
+			hideonnpc instance_npcname("貝爾#12b");
+			hideonnpc instance_npcname("貝爾#12a");
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "夏洛茜！";
+			next;
+			cutin "roel01.bmp", 2;
+			mes "[羅艾爾]";
+			mes "那些魔物也不見了！";
+			next;
+			cutin "arang01.bmp", 2;
+			mes "[阿蘭]";
+			mes "哇，地震!?";
+			specialeffect 563; //self
+			next;
+			cutin "min02.bmp", 2;
+			mes "[敏敏]";
+			mes "洞窟的樣子感覺不太對勁！";
+			mes "還是先從這裡出去吧！";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "....";
+			next;
+			mes "[紐奧茲]";
+			mes "...羅迪，敏敏，傑克。";
+			mes "其他的人就拜託你們了。";
+			next;
+			cutin "rote01.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "喂，紐奧茲你！！";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "和那個孩子做了約定，要教她唱歌。";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "所以，我先去找回那個孩子。";
+			hideonnpc instance_npcname("紐奧茲#12");
+			next;
+			cutin "lunain04.bmp", 2;
+			mes "[魯娜茵]";
+			mes "紐奧茲大人!!";
+			hideonnpc instance_npcname("魯娜茵#12");
+			next;
+			cutin "rote03.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "...那個傻瓜！！";
+			mes "你們！！一起去追紐奧茲！！";
+			next;
+			cutin "rote03.bmp", 2;
+			mes "[羅迪爾特]";
+			mes "大家，接下來會很危險！";
+			mes "千萬不要大意！！";
+			break;
+		}
+		'JTB_1QUE = 6;
+		mapannounce instance_mapname("1@jtb"), "可以從正東方向進入下一區域了。", bc_map, 0xffff00;
+		enablenpc instance_npcname("exit#09");
+		disablenpc instance_npcname("#chat06");
+		close2;
+		cutin "rote03.bmp", 255;
+		end;
+}
+
+1@jtb,287,356,0	script	#battle09	139,5,5,{
+		end;
+	OnTouch_:
+		donpcevent instance_npcname("#battle09a") + "::OnSummon";
+		disablenpc instance_npcname("#battle09");
+		end;
+}
+
+1@jtb,1,1,0	script	#battle09a	-1,{
+		end;
+		
+	OnSummon:
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#battle09a") + "::OnMobDead";
+		areamonster .@map$,284,332,298,292,"貝爾",3069,10,.@label$;
+		areamonster .@map$,323,297,298,292,"貝爾",3070,15,.@label$;
+		areamonster .@map$,354,307,361,336,"貝爾",3071,15,.@label$;
+		areamonster .@map$,361,348,344,361,"貝爾",3069,10,.@label$;
+		end;
+	OnMobDead:
+		if(!mobcount(instance_mapname("1@jtb"),instance_npcname("#battle08a")+"::OnMobDead")) {
+			hideoffnpc instance_npcname("紐奧茲#21");
+			enablenpc instance_npcname("exit#10");
+		}
+		end;
+}
+
+1@jtb,318,358,5	script	紐奧茲#21	625,{/* 61563 */
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "啊？...";
+	mes strcharinfo(0) + "!?";
+	next;
+	select("告訴他走後的事情");
+	mes "[紐奧茲]";
+	mes "原來如此，大家都在找我啊。";
+	mes "不愧是白羽團的成員，我很感動！";
+	next;
+	mes "[紐奧茲]";
+	mes "不過，我要先去找夏洛茜了。";
+	mes "前面不知道有什麼，最好做好戰鬥準備。";
+	next;
+	mes "[紐奧茲]";
+	mes "再見了！";
+	close2;
+	cutin "nines01.bmp", 255;
+	hideonnpc instance_npcname("紐奧茲#21");
+	end;
+	
+OnInstanceInit:
+	hideonnpc instance_npcname("紐奧茲#21");
+	end;
+}
+
+1@jtb,324,327,4	script	貝爾#22	10047,{/* 61564 */
+	mes "[貝爾]";
+	mes "貝爾！　貝爾！";
+	close;
+}
+
+1@jtb,326,329,4	script	夏洛茜#22	10041,{/* 61566 */
+	cutin "shaloshi03.bmp", 2;
+	mes "[夏洛茜]";
+	mes "為什麼...";
+	close2;
+	cutin "shaloshi03.bmp", 255;
+	end;
+}
+
+1@jtb,320,323,5	script	紐奧茲#22	625,{/* 61567 */
+	end;
+	
+OnSupport:
+	initnpctimer;
+	npctalk "我也會幫助你們的，不用擔心！";
+	end;
+
+OnTimer15000:
+	stopnpctimer;
+	npctalk "看我說個冷笑話！";
+	end;
+
+OnShake:
+  specialeffect 563;
+  end;
+}
+
+1@jtb,322,324,0	script	#chat07	139,5,5,{
+		end;
+	OnTouch_:
+		mes "- 紐奧茲找到了夏洛茜 -";
+		next;
+		if(select("和他們交談","跳過") == 2) {
+			donpcevent instance_npcname("#jitterbug01")+"::OnStart";
+			disablenpc instance_npcname("#chat07");
+			close;
+		}
+		cutin "nines04.bmp", 2;
+		mes "[紐奧茲]";
+		mes "哈...哈...";
+		mes "那，那裡的是...!";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾，乖，乖。";
+		mes "（摸摸頭）";
+		mes "紐奧茲不是壞人，讓我和他說說話。";
+		next;
+		cutin "shaloshi02.bmp", 255;
+		mes "[貝爾]";
+		mes "貝爾~";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾，你也要摸頭麼？";
+		mes "但是，你比我小多了，做不到哦。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "就是就是。";
+		mes "摸夏洛茜頭，是我們的特權哦。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "紐奧茲...";
+		mes strcharinfo(0) + "...";
+		mes "為什麼？...";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "夏洛茜，我還有話要對你說。";
+		next;
+		mes "[紐奧茲]";
+		mes "其他的夥伴也希望跟你說...";
+		mes "不過，她們迷路了麼？怎麼還沒有過來...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "嗯...";
+		mes "大家來不了，可能都是因為我的錯。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "夏洛茜。";
+		mes "你的錯？為什麼這麼說？...";
+		next;
+		cutin "nines01.bmp", 255;
+		mes "[貝爾]";
+		mes "貝爾爾爾爾爾爾...";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾？";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾，我沒事的。";
+		mes "所以...";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "...貝爾怎麼了？";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "她說，帶走我的人類，無法原諒。";
+		mes "...貝爾？";
+		next;
+		cutin "shaloshi01.bmp", 255;
+		specialeffect 65,AREA,instance_npcname("貝爾#22");
+		mes "[貝爾]";
+		mes "貝爾貝爾！貝爾貝爾!!";
+		next;
+		specialeffect 260,AREA,instance_npcname("貝爾#22");
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "怎麼辦...";
+		mes "貝爾的力量變強了...";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "貝爾，冷靜一下。";
+		mes "我們不是來搶你朋友的。";
+		mes "只是想和她說...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "貝爾...拜託了...";
+		mes "好好聽她們說。";
+		next;
+		cutin "shaloshi01.bmp", 255;
+		mes "[貝爾]";
+		mes "貝爾貝爾，貝爾貝爾，貝爾！";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "貝爾的形態...!!";
+		mes "嗯，看來怎麼都聽不進去啊。";
+		mes "沒辦法了，只有戰鬥了。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "但是...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...紐奧茲...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "嗯...相信你們...";
+		mes "請阻止貝爾，但不要傷害她...！";
+		next;
+		cutin "nines03.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊啊！放心，交給我們了！";
+		close2;
+		cutin "nines03.bmp", 255;
+		donpcevent instance_npcname("#jitterbug01")+"::OnStart";
+		disablenpc instance_npcname("#chat07");
+		end;
+}
+1@jtb,324,327,4	script	貝爾#23	10048,{/* 61565 (hide)*/
+	mes "[貝爾]";
+	mes "貝爾！貝爾！";
+	close;
+	OnInstanceInit:
+		hideonnpc instance_npcname("貝爾#23");
+		end;
+}
+
+1@jtb,1,1,0	script	#jitterbug01	-1,{
+		end;	
+	OnStart:
+		initnpctimer;
+		specialeffect 90,AREA,instance_npcname("貝爾#22");
+		'mobid = 3069;
+		end;
+
+	OnTimer1000:
+		hideonnpc instance_npcname("貝爾#22");
+		hideoffnpc instance_npcname("貝爾#23");
+		mapannounce instance_mapname("1@jtb"), "紐奧茲 : 還想和夏洛茜的朋友好好相處，但看來現在不是做這個時候。", bc_map, 0xffff00;
+		end;
+	
+	OnTimer5000:
+		mapannounce instance_mapname("1@jtb"), "紐奧茲 : 請先阻止貝爾...", bc_map, 0xffff00;
+		end;
+		
+	OnTimer9000:
+		mapannounce instance_mapname("1@jtb"), "紐奧茲 : 我們也拼盡全力上吧！", bc_map, 0xffff00;
+		end;
+		
+	OnTimer13000:
+		donpcevent instance_npcname("#jitterbug01") + "::OnSummon";
+		end;
+
+	OnTimer20000:
+    donpcevent instance_npcname("紐奧茲#22") + "::OnShake";
+		mapannounce instance_mapname("1@jtb"), "這裡果然是超常的空間，非常不安定！", bc_map, 0xffff00;
+		end;
+	
+	OnTimer23000:
+		setnpctimer 50000;
+		mapannounce instance_mapname("1@jtb"), "打倒覺醒的貝爾後，就能進行下一階段！", bc_map, 0xffff00;
+		end;
+
+	OnTimer60000:
+		setnpctimer 30000;
+		if('mobid > 3072) {
+			stopnpctimer;
+			end;
+		}
+		areamonster instance_mapname("1@jtb"),314,315,334,335,"貝爾",'mobid,5,instance_npcname("#jitterbug01") + "::OnMobDead";
+		'mobid++;
+		end;
+		
+	OnMobDead:
+		end;
+		
+	OnSummon:
+		hideonnpc instance_npcname("夏洛茜#22");
+		hideonnpc instance_npcname("貝爾#23");
+		donpcevent instance_npcname("紐奧茲#22") + "::OnSupport";
+		.@map$ = instance_mapname("1@jtb");
+		.@label$ = instance_npcname("#jitterbug01") + "::OnBossDead";
+		monster .@map$,324,327,"覺醒的貝爾",3073,1,.@label$;
+		end;
+		
+	OnBossDead:
+		stopnpctimer;
+		killmonster instance_mapname("1@jtb"), instance_npcname("#jitterbug01") + "::OnMobDead";
+		enablenpc instance_npcname("羅迪爾特#23");
+		enablenpc instance_npcname("卡卡#23");
+		enablenpc instance_npcname("敏敏#23");
+		enablenpc instance_npcname("亞依#23");
+		enablenpc instance_npcname("拉吉#23");
+		enablenpc instance_npcname("阿蘭#23");
+		enablenpc instance_npcname("魯娜茵#23");
+		enablenpc instance_npcname("羅艾爾#23");
+		enablenpc instance_npcname("麥樂迪 傑克#23");
+		enablenpc instance_npcname("貝爾#25");
+		enablenpc instance_npcname("夏洛茜#23");
+		enablenpc instance_npcname("紐奧茲#23");
+		hideonnpc instance_npcname("紐奧茲#22");
+		donpcevent instance_npcname("紐奧茲#23") + "::OnEmotion";
+		end;
+}
+
+1@jtb,328,326,4	script	羅迪爾特#23	630,{/* 61570 (hide)*/
+	cutin "rote01.bmp", 2;
+	mes "[羅迪爾特]";
+	mes "你們！沒事吧！";
+	mes "擔心死了！";
+	close2;
+	cutin "rote01.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("羅迪爾特#23");
+		end;
+}
+
+1@jtb,330,328,4	script	卡卡#23	629,{/* 61571 (hide)*/
+	cutin "gelca01.bmp", 2;
+	mes "[卡卡]";
+	mes "這麼強力的魔物都能打倒。";
+	mes strcharinfo(0) + "，你好強啊！";
+	close2;
+	cutin "gelca01.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("卡卡#23");
+		end;
+}
+
+1@jtb,329,323,4	script	敏敏#23	643,{/* 61572 (hide)*/
+	cutin "min01.bmp", 2;
+	mes "[敏敏]";
+	mes "你挺能幹的嘛，";
+	mes "謝謝你幫助了紐奧茲。";
+	close2;
+	cutin "gelca01.bmp", 255;
+	end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("敏敏#23");
+		end;
+}
+
+1@jtb,317,325,5	script	亞依#23	646,{/* 61573 (hide)*/
+	cutin "igu01.bmp", 2;
+	mes "[亞依]";
+	mes "那個魔物，為什麼這麼在意夏洛茜呢？";
+	close2;
+	cutin "igu01.bmp", 255;
+	end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("亞依#23");
+		end;
+}
+
+1@jtb,316,322,5	script	拉吉#23	647,{/* 61574 (hide)*/
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "成功了啊！";
+	mes "那個魔物彈奏的音色...";
+	mes "可以感受出為了守護夏洛茜的必死決心。";
+	close2;
+	cutin "ragi01.bmp", 255;
+	end;
+
+	OnInstanceInit:
+		disablenpc instance_npcname("拉吉#23");
+		end;
+}
+
+1@jtb,319,320,5	script	阿蘭#23	644,{/* 61575 (hide)*/
+	cutin "arang02.bmp", 2;
+	mes "[阿蘭]";
+	mes "好強啊！";
+	mes "這樣的魔物都能打倒。";
+	mes strcharinfo(0) + "，你好厲害！";
+	close2;
+	cutin "arang01.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("阿蘭#23");
+		end;
+}
+
+1@jtb,319,328,5	script	魯娜茵#23	10039,{/* 61576 (hide)*/
+	cutin "lunain02.bmp", 2;
+	mes "[魯娜茵]";
+	mes "真，真不錯...";
+	mes "沒有受傷吧？";
+	mes "紐奧茲大人之後就給你治療。";
+	close2;
+	cutin "lunain01.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("魯娜茵#23");
+		end;
+}
+
+1@jtb,325,321,4	script	羅艾爾#23	10040,{/* 61577 (hide)*/
+	cutin "roel04.bmp", 2;
+	mes "[羅艾爾]";
+	mes "沒事就好！";
+	mes "讓你一個人承受這些，真是對不起！！";
+	close2;
+	cutin "roel01.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("羅艾爾#23");
+		end;
+}
+
+1@jtb,322,321,4	script	麥樂迪 傑克#23	844,{/* 61578 (hide)*/
+		end;
+	OnInstanceInit:
+		disablenpc instance_npcname("麥樂迪 傑克#23");
+		end;
+
+}
+
+1@jtb,324,327,4	script	貝爾#25	10047,{/* 61579 (hide)*/
+	mes "[貝爾]";
+	mes "貝爾爾爾爾....";
+	close;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("貝爾#25");
+		end;
+}
+
+1@jtb,326,329,4	script	夏洛茜#23	10041,{/* 61580 (hide)*/
+	cutin "shaloshi03.bmp", 2;
+	mes "[夏洛茜]";
+	mes "大家...";
+	close2;
+	cutin "shaloshi03.bmp", 255;
+	end;
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("夏洛茜#23");
+		end;
+}
+
+1@jtb,320,323,5	script	紐奧茲#23	625,{/* 61581 (hide)*/
+	select "與紐奧茲談話";
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "真是艱苦的戰鬥啊...";
+	mes "現在稍稍安靜了吧？";
+	next;
+	cutin "rote01.bmp", 2;
+	mes "[羅迪爾特]";
+	mes "終於找到了...!!";
+	mes "你們，沒事吧!!";
+	next;
+	switch(select("簡單的詢問情況","聽取詳細的情況")) {
+	case 1:
+		cutin "min01.bmp", 2;
+		mes "[敏敏]";
+		mes "總之先從這裡出去再說吧。";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "啊，確實。";
+		mes "不過找不到出口啊。";
+		mes "是因為什麼呢？";
+		next;
+		cutin "rote01.bmp", 255;
+		mes "□夏洛茜說出了令人悲傷的真相。";
+		mes "　她實際上是由魔王夢羅克作成的魔物，";
+		mes "　本應是夢羅克的第三使徒。□";
+		next;
+		mes "□雖然紐奧茲提議讓夏洛茜加入白羽團，";
+		mes "　但團員們的擔憂十分明顯...□";
+		next;
+		hideonnpc instance_npcname("貝爾#25");
+		hideonnpc instance_npcname("夏洛茜#23");
+		mes "□察覺了這些的夏洛茜，一個人默默的離去了...□";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...";
+		next;
+		mes "[羅迪爾特]";
+		mes "......";
+		mes "你們，都準備回去吧...";
+		close2;
+		warp instance_mapname("1@jtb"),360,23;
+		end;
+	case 2:
+		cutin "rote01.bmp", 255;
+		mes "[麥樂迪 傑克]";
+		mes "那個惡魔，要放過它麼？";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "這裡不打倒它的話，";
+		mes "不知道什麼時候又會襲擊我們。";
+		mes "這裡就讓你體會一下，被稱為退魔屆惡靈的我的力量！";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "不要！貝爾是我的朋友！";
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "夏洛茜...";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "這裡是貝爾為我所創造的空間...";
+		mes "如果消滅貝爾的話，整個空間就會消失。";
+		mes "也包含在空間內的大家。";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你是想威脅我們麼？！";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "總之我們先從這裡出去再說吧。";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "啊，確實。";
+		mes "不過找不到出口啊。";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "恐怕，我們無法離開這裡的原因，";
+		mes "和這個孩子有關吧？";
+		next;
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "什麼意思？";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "稍微調查了一下這個空間，";
+		mes "魔力的特性很像崩壞了的夢羅克城市。";
+		next;
+		mes "[敏敏]";
+		mes "另外這些多發的地震，";
+		mes "也是這個孩子內心不安的具現化。";
+		mes "感情劇烈起伏的同時，地震也會隨之發生。";
+		next;
+		mes "[敏敏]";
+		mes "這個空間，與你的精神其實是聯繫在一起的吧？";
+		mes "因為不想讓我們回去，所以這個空間沒有任何出口，是麼？";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...";
+		next;
+		mes "[夏洛茜]";
+		mes "我只是想要朋友...";
+		mes "不是故意把大家關在這的...";
+		mes "但是...";
+		next;
+		mes "[夏洛茜]";
+		mes "但是，這裡確實沒有出口。";
+		mes "還讓大家陷入了危險...";
+		next;
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "能自由支配空間的力量...";
+		mes "另外，這個魔力的感覺...";
+		mes "你，到底是什麼人？";
+		mes "如果想起來的話，就請詳細說明一下吧。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...我是...";
+		next;
+		mes "[夏洛茜]";
+		mes "我是次元的狹間中所誕生的魔族，";
+		mes "由魔王夢羅克所作成的";
+		mes "第三使徒，夏洛茜。";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "喂，這是在說什麼？！";
+		mes "居然是夢羅克!?";
+		next;
+		cutin "rote03.bmp", 255;
+		mes "[麥樂迪 傑克]";
+		mes "魔王夢羅克所作成的...";
+		mes "也就是說，魔王的女兒麼？";
+		mes "...原來如此，難怪這個魔力這麼熟悉...";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "...到底在說什麼啊？";
+		next;
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "魔王夢羅克的使徒...！？";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "果然是這樣啊，那麼...!";
+		next;
+		cutin "ragi02.bmp", 2;
+		mes "[拉吉]";
+		mes "這可讓人困擾。";
+		mes "我絕對不想把夏洛茜當成敵人...";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "不過，請放心。";
+		mes "現在的我，已經與夢羅克毫無聯繫了。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "沒有聯繫了？";
+		mes "為什麼？";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "魔王夢羅克已經被打倒了。";
+		mes "所以，我和他的聯繫也中斷了。";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你在說什麼夢話！";
+		mes "那樣的話我從來都沒有聽說過！";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "這個空間的時間流逝和外部不一樣。";
+		mes "可能是你們的過去，也可能是你們的未來，";
+		mes "魔王夢羅克被打倒了...";
+		next;
+		cutin "shaloshi01.bmp", 255;
+		mes "□夏洛茜一瞬間將目光看向這裡，";
+		mes "　但又很快轉回了目光。□";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "...不過，雖然如今我已經自由了，";
+		mes "但身為魔族的事實還是不會變的。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "我是魔族...";
+		mes "沒法與大家一起共存...";
+		mes "但是...";
+		next;
+		cutin "gelca02.bmp", 2;
+		mes "[卡卡]";
+		mes "夏洛茜...";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "吶，羅迪，大家。";
+		next;
+		mes "[紐奧茲]";
+		mes "...我覺得魔族不魔族根本無所謂，";
+		mes "我希望幫助夏洛茜。";
+		next;
+		mes "[紐奧茲]";
+		mes "所以，我提議接納夏洛茜為白羽團的新成員。";
+		next;
+		cutin "rote03.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...紐奧茲，你知道你自己在說什麼！？";
+		next;
+		mes "[羅迪爾特]";
+		mes "她可是魔族，你能保證她今後也不會出現什麼問題麼？";
+		next;
+		mes "[羅迪爾特]";
+		mes "如果夢羅克復活了，你能保證她還是自由之身麼？";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "...我會負起所有的責任，所以請接受夏洛茜...";
+		next;
+		cutin "nines01.bmp", 255;
+		mes "[麥樂迪 傑克]";
+		mes "如果考慮最壞的情況，";
+		mes "你負責也沒辦法解決問題。";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "傑克...";
+		mes "但，但是，其他的團員...";
+		next;
+		cutin "nines01.bmp", 255;
+		mes "□夏洛茜打斷了還想繼續說下去的紐奧茲□";
+		next;
+		cutin "shaloshi02.bmp", 2;
+		mes "[夏洛茜]";
+		mes "紐奧茲，謝謝你，但是...";
+		next;
+		mes "[夏洛茜]";
+		mes "我，我一直在許願...";
+		mes "而貝爾所創造的夢的空間就是為了實現我的許願...";
+		next;
+		mes "[夏洛茜]";
+		mes "在貝爾的夢中，";
+		mes "我的存在不會傷害到任何人，";
+		mes "可以和平的一直生活下去。";
+		mes "所以...對不起...我不能和你們離開...";
+		next;
+		mes "[夏洛茜]";
+		mes strcharinfo(0) + "，還有大家";
+		mes "謝謝你們對我這麼好...";
+		next;
+		cutin "shaloshi03.bmp", 2;
+		mes "□夏洛茜臉上的表情，是從未見過的落寞。□";
+		next;
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "夏洛茜...";
+		mes "我絕對不能接受這樣悲傷的結局。";
+		next;
+		cutin "shaloshi01.bmp", 2;
+		mes "[夏洛茜]";
+		mes "對不起...";
+		mes "...再見了。";
+		specialeffect 317,AREA,instance_npcname("夏洛茜#23");
+		sleep2 1000;
+		specialeffect 6,AREA,instance_npcname("夏洛茜#23");
+		hideonnpc instance_npcname("夏洛茜#23");
+		hideonnpc instance_npcname("貝爾#25");
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "...";
+		next;
+		mes "[羅迪爾特]";
+		mes "......";
+		mes "你們，都準備回去吧！";
+		close2;
+		warp instance_mapname("1@jtb"),360,23;
+		donpcevent instance_npcname("紐奧茲#end") + "::OnEmotion";
+		end;
+	}
+	
+	OnInstanceInit:
+		disablenpc instance_npcname("紐奧茲#23");
+		end;
+
+	OnEmotion:
+		initnpctimer;
+		emotion 9;
+		end;
+	OnTimer3000:
+		donpcevent instance_npcname("紐奧茲#23") + "::OnEmotion";
+		end;
+}
+
+1@jtb,368,21,5	script	羅迪爾特#end	630,{/* 61582 */
+	cutin "rote01.bmp", 2;
+	mes "[羅迪爾特]";
+	mes "雖然是臨時團員，但這次你真是幫了大忙了。";
+	close2;
+	cutin "rote01.bmp", 255;
+	end;
+}
+
+1@jtb,366,20,5	script	卡卡#end	629,{/* 61583 */
+	cutin "gelca01.bmp", 2;
+	mes "[卡卡]";
+	mes "為了變得更強，我要繼續修行！";
+	close2;
+	cutin "gelca01.bmp", 255;
+	end;
+}
+
+1@jtb,375,18,4	script	亞依#end	646,{/* 61584 */
+	cutin "igu03.bmp", 2;
+	mes "[亞依]";
+	mes "辛苦了！大家都沒事真是太好了。";
+	close2;
+	cutin "igu01.bmp", 255;
+	end;
+}
+
+1@jtb,364,18,5	script	敏敏#end	643,{/* 61585 */
+	cutin "min01.bmp", 2;
+	mes "[敏敏]";
+	mes "真想採集一些夏洛茜的頭髮，作為樣本研究啊...";
+	next;
+	emotion 29, "敏敏#end"; //61585
+	mes "[敏敏]";
+	mes "還有很多沒有弄明白的事情...";
+	close2;
+	cutin "min01.bmp", 255;
+	end;
+}
+
+1@jtb,373,25,3	script	拉吉#end	647,{/* 61586 */
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "可以讀取人心，又能操控時空麼...";
+	mes "但是我覺得，可能沒有這些力量反而更好呢。";
+	close2;
+	cutin "ragi01.bmp", 255;
+	end;
+}
+
+1@jtb,370,26,5	script	阿蘭#end	644,{/* 61587 */
+	cutin "arang03.bmp", 2;
+	mes "[阿蘭]";
+	mes "和羅艾爾成為好朋友了！";
+	close2;
+	cutin "arang03.bmp", 255;
+	end;
+}
+
+1@jtb,373,16,3	script	魯娜茵#end	10039,{/* 61588 */
+	cutin "lunain02.bmp", 2;
+	mes "[魯娜茵]";
+	mes "那個孩子難道...";
+	mes "不，沒什麼。";
+	mes "果然還是累了啊，早點回去休息吧...";
+	close2;
+	cutin "lunain03.bmp", 255;
+	end;
+}
+
+1@jtb,376,23,3	script	羅艾爾#end	10040,{/* 61589 */
+	cutin "roel03.bmp", 2;
+	mes "[羅艾爾]";
+	mes "和阿蘭成為好朋友了！";
+	mes "以後我們要一起探險地下城！";
+	close2;
+	cutin "roel01.bmp", 255;
+	end;
+}
+
+1@jtb,367,13,5	script	麥樂迪 傑克#end_	844,{/* 61590 */
+	mes "[麥樂迪 傑克]";
+	mes "不要跟躲起來的人說話啊！";
+	mes "這是我的修行。";
+	close;
+}
+
+1@jtb,372,22,4	script	紐奧茲#end	625,{/* 61591 */
+	if(checkquest(13181) != 2) {
+		select("與紐奧茲對話");
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "大伙，這次真的辛苦了。";
+		mes "其他的事之後再說吧，";
+		mes "稍作休息就回去了。";
+		next;
+		cutin "rote01.bmp", 2;
+		emotion 36,instance_npcname("羅迪爾特#end"); //61582
+		mes "[羅迪爾特]";
+		mes "對了...";
+		mes "紐奧茲!!";
+		mes "你剛剛擅自說了「白羽團」這個名字吧！";
+		next;
+		cutin "nines04.bmp", 2;
+		mes "[紐奧茲]";
+		mes "啊？？";
+		mes "團長是變了沒錯...";
+		mes "難道團名也跟著變了？";
+		next;
+		cutin "rote01.bmp", 2;
+		emotion 32,instance_npcname("羅迪爾特#end"); //61582
+		mes "[羅迪爾特]";
+		mes "那是當然，團名跟著團長改變，這不是普通的事麼。";
+		mes "對，那個，現在的名字是...";
+		next;
+		emotion 54,instance_npcname("敏敏#end"); //61585
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "新的名字還沒想好的話，就先用原來的吧。";
+		next;
+		emotion 52, instance_npcname("羅迪爾特#end"); //61582
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "不行！作為團長我無法認同！";
+		next;
+		mes "[羅迪爾特]";
+		mes "哦，對了!!";
+		mes "就這個吧";
+		mes "「羅迪爾特的超必殺團」！";
+		emotion 40,instance_npcname("羅迪爾特#end"); //61582
+		next;
+		emotion 57,instance_npcname("亞依#end"); //61584
+		cutin "igu05.bmp", 2;
+		mes "[亞依]";
+		mes "好爛...";
+		next;
+		cutin "gelca03.bmp", 2;
+		mes "[卡卡]";
+		mes "這個名字有師父的風格！！";
+		next;
+		cutin "roel04.bmp", 2;
+		mes "[羅艾爾]";
+		mes "太，太個性了點吧...";
+		next;
+		cutin "lunain04.bmp", 2;
+		mes "[魯娜茵]";
+		mes "不能接受！";
+		next;
+		cutin "rote01.bmp", 2;
+		emotion 36,instance_npcname("羅迪爾特#end"); //61582
+		mes "[羅迪爾特]";
+		mes "囉嗦~!!";
+		mes "我是團長，我有權決定！";
+		next;
+		cutin "arang01.bmp", 2;
+		mes "[阿蘭]";
+		mes "...品味真差。";
+		next;
+		emotion 29,instance_npcname("敏敏#end"); //61585
+		cutin "min02.bmp", 2;
+		mes "[敏敏]";
+		mes "如果用這個名字的話，我就退團了。";
+		mes "我可不想整天掛著這種名字。";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你說什麼！";
+		emotion 23,instance_npcname("羅迪爾特#end"); //61582
+		next;
+		cutin "min02.bmp", 255;
+		mes "[麥樂迪 傑克]";
+		mes "我也會成為前團員的，你看著辦吧。";
+		emotion 9,instance_npcname("麥樂迪 傑克#end_"); //61590
+		next;
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes "這麼羞恥的公會名，";
+		mes "去哪都會被人矚目的...";
+		mes "我的人氣肯定會受到負面影響的。";
+		next;
+		cutin "igu02.bmp", 2;
+		mes "[亞依]";
+		mes "啊哈哈，沒關係的，大概...";
+		emotion 14,instance_npcname("亞依#end"); //61584
+		next;
+		cutin "lunain04.bmp", 2;
+		mes "[魯娜茵]";
+		mes "白羽團挺好的啊，簡短好記。";
+		mes "紐奧茲大人的品味真不錯！";
+		next;
+		cutin "lunain02.bmp", 2;
+		mes "[魯娜茵]";
+		mes "不過呢...";
+		mes "換了這個名字的話，那個孩子可能就不會想入團了...";
+		mes "從這個意義上來說，也許就沒有煩惱了...";
+		next;
+		cutin "rote01.bmp", 2;
+		mes "[羅迪爾特]";
+		mes "你們...";
+		mes "隨便你們怎麼說！";
+		mes "總之今天大家都很累了，";
+		mes "羅迪爾特的超必殺團冒險結束，解散！";
+		close2;
+		cutin "rote01.bmp", 255;
+		completequest 13181;
+		end;
+	}
+	if(checkquest(56500) == -1) {
+		cutin "nines01.bmp", 2;
+		mes "[紐奧茲]";
+		mes "對了，你有時間麼？";
+		mes "實際上我還有些話想對你說...";
+		next;
+		if(select("好的","沒時間") == 2) {
+			mes "[紐奧茲]";
+			mes "真可惜...";
+			mes "改變主意的話，隨時歡迎再來找我。";
+			close2;
+			cutin "nines01.bmp", 255;
+			end;
+		}
+		cutin "nines02.bmp", 2;
+		mes "[紐奧茲]";
+		mes "真的麼!?";
+		mes "那麼，我們去那邊聊聊吧。";
+		close2;
+		warp instance_mapname("1@jtb"),13,274;
+		end;
+	}
+	
+	OnEmotion:
+		initnpctimer;
+		emotion 9;
+		end;
+	OnTimer3000:
+		donpcevent instance_npcname("紐奧茲#end") + "::OnEmotion";
+		end;
+}
+	
+1@jtb,36,289,3	script	拉吉#15	647,{/* 61609 */
+	if(checkquest(56500) == -1) {
+		cutin "ragi01.bmp", 2;
+		mes "[拉吉]";
+		mes strcharinfo(0) + "，辛苦了。";
+		mes "我也使被紐奧茲喊過來的。";
+		mes "到底是什麼事呢？";
+		close2;
+		cutin "ragi01.bmp", 255;
+		end;
+	}
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "我創造了一首很棒的曲子，";
+	mes "如果找到亞依來跳舞的話，應該很不錯！";
+	close;
+	cutin "ragi01.bmp", 255;
+}
+
+1@jtb,34,291,3	script	紐奧茲#15	625,{/* 61610 */
+if(checkquest(56500) == -1) {
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "啊，拉吉君，";
+	mes strcharinfo(0) + "。";
+	mes "這個時候叫你們過來，不好意思~";
+	mes "其實我有事想要拜託你們。";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "什麼事？";
+	next;
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "這次的冒險經歷希望能做成一首曲子。";
+	mes "也希望冒險者你能記錄在你的冒險筆記中。";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "這一定能成為一首很棒的曲子！";
+	next;
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "所以我希望你們能幫助我進行創作。";
+	mes "怎麼樣？";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "我沒問題哦。";
+	mes "與紐奧茲在音樂上合作，會很開心。";
+	next;
+	cutin "nines03.bmp", 2;
+	mes "[紐奧茲]";
+	mes "拉吉君！太感謝了~！";
+	mes strcharinfo(0) + "呢？";
+	mes "可以拜託你麼？";
+	next;
+	select("幫忙！");
+	cutin "nines02.bmp", 2;
+	mes "[紐奧茲]";
+	mes "太好了~！非常感謝！";
+	mes "我們就快點開始吧，";
+	mes "什麼樣的曲調比較好呢？";
+	next;
+	select("歡快的曲調");
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "歡快的曲調麼？！不錯啊！";
+	mes "記錄冒險中快樂的事情！";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "allegramente...不錯呢，很適合白羽團";
+	next;
+	select("allegramente?");
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "對，allegramente是音樂用語，";
+	mes "有著明亮，歡快的意思。";
+	next;
+	select("原來如此");
+	cutin "nines03.bmp", 2;
+	mes "[紐奧茲]";
+	mes "好的，與白羽團合拍的明快曲調！";
+	mes "為了振奮大家的精神，作成充滿活力的歌曲吧！";
+	next;
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes "嗯，嗯，靈感已經源源不斷地湧上來了！！";
+	mes "我這就開始作曲了，拉吉，演奏拜託了！";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "明白。";
+	next;
+	cutin "nines01.bmp", 2;
+	mes "[紐奧茲]";
+	mes strcharinfo(0) + "，希望你能";
+	mes "考慮一下歌詞怎麼寫。";
+	mes "這裡有紙筆，請盡量與曲調合拍哦。";
+	next;
+	cutin "nines01.bmp", 255;
+	mes "□接過了紙和筆□";
+	next;
+	cutin "nines03.bmp", 2;
+	mes "[紐奧茲]";
+	mes "拜託了~！";
+	mes "拉吉，我們開始吧！";
+	next;
+	cutin "ragi01.bmp", 2;
+	mes "[拉吉]";
+	mes "OK。";
+	next;
+	cutin "ragi01.bmp", 255;
+	mes "□拿到了紙和筆，開始思考歌詞的構成，歌詞的主題是？□";
+	setarray .@str$[1],"夏洛茜","紐奧茲","自己";
+	while(1) {
+		next;
+		switch(.@succsess) {
+		case 0:
+			switch(select(.@str$[1],.@str$[2],.@str$[3])) {
+			case 1:
+				mes "[" + strcharinfo(0) + "]";
+				mes "地下城內見到的謎之少女...";
+				mes "魔王的女兒，夏洛茜...";
+				mes "她想交到新的朋友...";
+				.@song[1] = 1;
+				.@str$[1] = "";
+				break;
+			case 2:
+				mes "[" + strcharinfo(0) + "]";
+				mes "我行我素的前團長...";
+				mes "宮廷樂師紐奧茲……";
+				mes "他與夥伴們的冒險記...";
+				.@song[1] = 2;
+				.@str$[2] = "";
+				break;
+			case 3:
+				mes "[" + strcharinfo(0) + "]";
+				mes "臨時加入的白羽團成員...";
+				mes "冒險者" + strcharinfo(0) + "...";
+				mes "新的冒險就此展開...";
+				.@song[1] = 3;
+				.@str$[3] = "";
+				break;
+			}
+			next;
+			mes "□在紙上書寫了構思的主題，接下來要寫什麼？";
+			.@succsess += 1;
+			continue;
+		case 1:
+			switch(select(.@str$[1],.@str$[2],.@str$[3])) {
+			case 1:
+				mes "[" + strcharinfo(0) + "]";
+				mes "地下城內見到的謎之少女...";
+				mes "魔王的女兒，夏洛茜...";
+				mes "她想交到新的朋友...";
+				.@song[2] = 1;
+				.@str$[1] = "";
+				break;
+			case 2:
+				mes "[" + strcharinfo(0) + "]";
+				mes "我行我素的前團長...";
+				mes "宮廷樂師紐奧茲……";
+				mes "他與夥伴們的冒險記...";
+				.@song[2] = 2;
+				.@str$[2] = "";
+				break;
+			case 3:
+				mes "[" + strcharinfo(0) + "]";
+				mes "臨時加入的白羽團成員...";
+				mes "冒險者" + strcharinfo(0) + "...";
+				mes "新的冒險就此展開...";
+				.@song[2] = 3;
+				.@str$[3] = "";
+				break;
+			}
+			next;
+			mes "□在紙上書寫了一段構思的歌詞，最後要寫什麼？□";
+			.@succsess += 1;
+			continue;
+		case 2:
+			switch(select(.@str$[1],.@str$[2],.@str$[3])) {
+			case 1:
+				mes "[" + strcharinfo(0) + "]";
+				mes "地下城內見到的謎之少女...";
+				mes "魔王的女兒，夏洛茜...";
+				mes "她想交到新的朋友...";
+				.@song[3] = 1;
+				.@str$[1] = "";
+				break;
+			case 2:
+				mes "[" + strcharinfo(0) + "]";
+				mes "我行我素的前團長...";
+				mes "宮廷樂師紐奧茲……";
+				mes "他與夥伴們的冒險記...";
+				.@song[3] = 2;
+				.@str$[2] = "";
+				break;
+			case 3:
+				mes "[" + strcharinfo(0) + "]";
+				mes "臨時加入的白羽團成員...";
+				mes "冒險者" + strcharinfo(0) + "...";
+				mes "新的冒險就此展開...";
+				.@song[3] = 3;
+				.@str$[3] = "";
+				break;
+			}
+			next;
+			mes "□在紙上書寫了一段構思的歌詞，歌詞完成了！□";
+			.@succsess += 1;
+			continue;
+		case 3:
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes strcharinfo(0) + "~！";
+			mes "曲子完成了哦~！";
+			mes strcharinfo(0) + "，你完成了麼？";
+			next;
+			select("完成了！");
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "哦，讓我看看！";
+			next;
+			mes "[紐奧茲]";
+			mes "……";
+			next;
+			mes "[紐奧茲]";
+			mes "……";
+			mes "…………";
+			next;
+			cutin "nines02.bmp", 2;
+			mes "[紐奧茲]";
+			mes "……";
+			mes "…………";
+			mes "不錯啊！非常棒!!";
+			next;
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "來，拉吉！";
+			mes "現在就開始演奏我們的作曲吧！";
+			next;
+			cutin "ragi01.bmp", 2;
+			mes "[拉吉]";
+			mes "好的，馬上開始。";
+			next;
+			cutin "ragi02.bmp", 2;
+			mes "[拉吉]";
+			mes "啦～啦啦～啦～";
+			mes "白羽團的冒險故事～";
+			mes "平凡的冒險物語～";
+			for(set .@i,1; .@i<=3; set .@i,.@i+1) {
+				next;
+				switch(.@song[.@i]) {
+				case 1:
+					cutin "nines02.bmp", 2;
+					mes "[紐奧茲]";
+					mes "地下城內見到的謎之少女...";
+					mes "魔王的女兒，夏洛茜...";
+					mes "她想交到新的朋友...";
+					break;
+				case 2:
+					cutin "nines02.bmp", 2;
+					mes "[紐奧茲]";
+					mes "我行我素的前團長...";
+					mes "宮廷樂師紐奧茲……";
+					mes "他與夥伴們的冒險記...";
+					break;
+				case 3:
+					cutin "nines02.bmp", 2;
+					mes "臨時加入的白羽團成員...";
+					mes "冒險者" + strcharinfo(0) + "...";
+					mes "新的冒險就此展開...";
+					break;
+				}
+			}
+			next;
+			cutin "ragi02.bmp", 2;
+			mes "[拉吉]";
+			mes "因此，我們明天也要繼續與夥伴們的冒險～";
+			mes "啦～啦啦～啦～";
+			mes "白羽團的冒險故事～";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "...呼。";
+			mes strcharinfo(0) + "，";
+			mes "怎麼樣？";
+			next;
+			select("不錯！");
+			cutin "nines02.bmp", 2;
+			mes "[紐奧茲]";
+			mes "真的麼？太高興了！";
+			mes "我也覺得很不錯，是一首非常好的曲子。";
+			next;
+			cutin "ragi01.bmp", 2;
+			mes "[拉吉]";
+			mes "我，紐奧茲，還有";
+			mes strcharinfo(0) + "一起合作而成。";
+			mes "真是開心啊，謝謝了。";
+			next;
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "嗯，我也是，3人能合作創曲，真是太好了！";
+			next;
+			mes "[紐奧茲]";
+			mes strcharinfo(0) + "，";
+			mes "拉吉，謝謝！";
+			next;
+			mes "[紐奧茲]";
+			mes "好了，該向大家發表這首曲子了。";
+			mes "亞依肯定會想伴舞的～！";
+			next;
+			cutin "ragi01.bmp", 2;
+			mes "[拉吉]";
+			mes "我也是這樣想的。。";
+			next;
+			cutin "nines01.bmp", 2;
+			mes "[紐奧茲]";
+			mes "以後一定也要讓夏洛茜聽到這首曲子！";
+			next;
+			cutin "ragi01.bmp", 2;
+			mes "[拉吉]";
+			mes "對，到時我們全員一起回來歌唱。";
+			mes "夏洛茜一定能夠聽到的。";
+			next;
+			cutin "nines03.bmp", 2;
+			mes "[紐奧茲]";
+			mes "是！太期待了～！";
+			close2;
+			cutin "nines01.bmp", 255;
+			if(checkquest(56500) == -1) {
+				setquest 56500; //state=1
+				completequest 56500;
+			}
+			end;
+		}
+	}
+}
+cutin "nines02.bmp", 2;
+mes "[紐奧茲]";
+mes "做出這麼棒的曲子，真是太好了！";
+close2;
+cutin "nines01.bmp", 255;
+end;
+}
+
+
+1@jtb,45,47,0	warp	exit#01	2,2,1@jtb,100,14 //61593 from_pos=(46, 45)
+1@jtb,135,17,0	warp	exit#02	2,2,1@jtb,184,17 //61594 from_pos=(135, 17)
+1@jtb,220,23,0	warp	exit#03	2,2,1@jtb,183,128 //61595 from_pos=(217, 23)
+1@jtb,209,133,0	warp	exit#04	2,2,1@jtb,277,95 //61599 from_pos=(209, 133)
+1@jtb,307,122,0	warp	exit#05	2,2,1@jtb,359,97 //61600 from_pos=(307, 123)
+1@jtb,386,133,0	warp	exit#06	2,2,1@jtb,13,214 //61601 from_pos=(387, 133)
+1@jtb,49,196,0	warp	exit#07	2,2,1@jtb,95,201 //61602 from_pos=(49, 199)
+1@jtb,133,197,0	script	exit#08	45,2,2,{/* 61603 (hide)*/
+OnTouch:
+	mes "□經過這一番戰鬥，感覺自己又成長了不少。□";
+	close2;
+//	setquest 116509; //state=1
+//	compquest 116509;
+	getexp 1000000,1000000; //58221636
+	warp instance_mapname("1@jtb"),181,198;
+	end;
+}
+1@jtb,218,203,0	warp	exit#09	2,2,1@jtb,287,355 //61604 from_pos=(217, 203)
+1@jtb,311,358,0	warp	exit#10	2,2,1@jtb,335,320 //61605 from_pos=(312, 359)
+1@jtb,10,10,0	script	exit#11	45,2,2,{/* 61606 (hide)*/}
+
+
+1@jtb,24,304,0	script	exit#12	45,2,2,{
+	mes "這裡可以前往團員們所在的場所";
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@jtb")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+}
+
+1@jtb,0,0,0	script	副本寶箱#1@jtb	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getexp 5000000,2500000; //62222586
+	getitem 940049,10;
+	getitem 6719, 3;
+	getitem 6909,1;
+	getitem 930000,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

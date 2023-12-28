@@ -1,0 +1,1410 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@spa2	mapflag	noteleport
+1@spa2	mapflag	nosave	SavePoint
+1@spa2	mapflag	nomemo
+1@spa2	mapflag	nobranch
+1@spa2	mapflag	noicewall
+1@spa2	mapflag	restricted	6
+1@spa2	mapflag	monster_noteleport
+1@spa2	mapflag	partylock
+1@spa2	mapflag	novending
+1@spa2	mapflag	nochat
+
+
+amatsu,127,142,3	script	[副本]悔恨之墓	20892,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "悔恨之墓";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+//	.ins_time = 3600;
+	// 冷卻時間
+//	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 44;
+
+//
+	waitingroom "[副本]悔恨之墓",0;
+	setnpcicon getnpcid(0),22,"[副本]悔恨之墓";
+	end;
+}
+
+//除錯模式
+//1@spa2,50,203,4	script	調試NPC#Past1_1	86,{
+	//if (getgmlevel() < 80) end;
+		//donpcevent instance_npcname("魔劍士薩克萊#spa06")+"::OnStart";
+	//warp instance_mapname("1@spa2"),211,67;
+
+//end;
+
+//}
+
+
+//==================================================
+//==================================================
+
+//隱藏NPC及獎勵設定
+1@spa2,0,0,0	script	#Tombostory	-1,2,2,{
+	end;
+OnInstanceInit:
+	//======================================
+	//====↓↓↓副本函數勿隨意更動↓↓↓==========
+	//======================================
+	
+	set 'map$,instance_mapname("1@spa2");
+	set 'Memory,0;//記憶數量
+	set 'Past,0;//回憶數量
+	set 'Zone1_Clear,0;
+	set 'Zone3_Clear,5;
+		'bossf3 =0;
+	
+	//---隱藏NPC---
+	hideonnpc instance_npcname("Tomb_Warp01");
+	hideonnpc instance_npcname("Tomb_Warp02");
+	hideonnpc instance_npcname("Tomb_Warp03");
+	
+	disablenpc instance_npcname("Tomb_Warp01");
+	disablenpc instance_npcname("Tomb_Warp02");
+	disablenpc instance_npcname("Tomb_Warp03");
+	
+	hideonnpc instance_npcname("薩克萊#spa01");
+	hideonnpc instance_npcname("提亞拉公主#spa01");
+	hideonnpc instance_npcname("塔薩諾斯#spa02");
+	hideonnpc instance_npcname("???#spa03");
+	hideonnpc instance_npcname("悔恨的侯爵#spa05");
+	hideonnpc instance_npcname("提亞拉公主#spa04");
+	
+	hideonnpc instance_npcname("悔恨之柱#01");
+	hideonnpc instance_npcname("悔恨之柱#02");
+	hideonnpc instance_npcname("悔恨之柱#03");
+	hideonnpc instance_npcname("#trap01");
+	hideonnpc instance_npcname("#trap02");
+	hideonnpc instance_npcname("#trap03");
+	
+	donpcevent instance_npcname("#Zone1_Mid")+"::OnEnable";
+	
+	//======================================
+	//======================================
+	end;
+}
+
+//==================傳點資訊==============
+1@spa2,52,259,0	warp	Tomb_Warp01	1,1,1@spa2,216,198
+1@spa2,213,254,0	warp	Tomb_Warp02	1,1,1@spa2,57,22
+1@spa2,58,40,0	warp	Tomb_Warp03	1,1,1@spa2,211,60
+//========================================
+
+1@spa2,1,1,0	script	#Zone1_Mid	-1,2,2,{
+
+	end;
+	
+OnEnable://呼叫怪物
+	donpcevent instance_npcname("#Zone1_Mid")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone1_L1")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone1_L3")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone1_R2")+"::OnCallMob";
+	end;
+	
+OnCallMob:
+	
+	set 'map$,instance_mapname("1@spa2");
+	set 'Mr_mob1_Mid,12;
+	set .@killmob$, instance_npcname("#Zone1_Mid")+"::OnKillMob";
+	monster 'map$,51,215,"悔恨的悔恨的侯爵",20899,1,.@killmob$;
+	monster 'map$,51,215,"悔恨的僕人",20900,5,.@killmob$;
+	
+	monster 'map$,51,240,"悔恨的僕人",20900,5,.@killmob$;
+	monster 'map$,51,240,"悔恨的悔恨的侯爵",20899,1,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob1_Mid,'Mr_mob1_Mid-1;
+	if('Mr_mob1_Mid){
+		mapannounce 'map$,"剩餘"+'Mr_mob1_Mid+"隻",bc_map,"0xFFFF00";
+	}else{
+		set 'Zone1_Clear,'Zone1_Clear+1;
+		if ('Zone1_Clear == 4){
+			hideoffnpc instance_npcname("Tomb_Warp01");
+			enablenpc instance_npcname("Tomb_Warp01");
+			mapannounce 'map$, "悔恨的侯爵：解放了這樓層的怨念，北邊出現了通往下個區域的傳送點了!",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("#Zone2_01")+"::OnCallMob";
+
+		}
+	}
+	end;
+}
+
+1@spa2,1,1,0	script	#Zone1_L1	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob1_L1,10;
+	set .@killmob$, instance_npcname("#Zone1_L1")+"::OnKillMob";
+	
+	areamonster 'map$,20,209,33,202,"悔恨的士兵",20895,3,.@killmob$;
+	areamonster 'map$,20,209,33,202,"悔恨的弓箭手",20896,1,.@killmob$;
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone1_L1")+"::OnKillMob";
+	
+	areamonster 'map$,20,209,33,202,"悔恨的士兵",20895,3,.@killmob$;
+	areamonster 'map$,20,209,33,202,"悔恨的弓箭手",20896,3,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob1_L1,'Mr_mob1_L1-1;
+	if('Mr_mob1_L1){
+		if('Mr_mob1_L1 == 6){
+			donpcevent instance_npcname("#Zone1_L1")+"::OnCallMob2";
+		}
+		mapannounce 'map$,"剩餘"+'Mr_mob1_L1+"隻",bc_map,"0xFFFF00";
+	}else{
+		set 'Zone1_Clear,'Zone1_Clear+1;
+		if ('Zone1_Clear == 4){
+			hideoffnpc instance_npcname("Tomb_Warp01");
+			enablenpc instance_npcname("Tomb_Warp01");
+			mapannounce 'map$, "悔恨的侯爵：解放了這樓層的怨念，北邊出現了通往下個區域的傳送點了!",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("#Zone2_01")+"::OnCallMob";
+
+		}
+	}
+	end;
+}
+
+
+1@spa2,1,1,0	script	#Zone1_L3	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob1_L3,5;
+	set .@killmob$, instance_npcname("#Zone1_L3")+"::OnKillMob";
+	
+	areamonster 'map$,22,254,33,246,"悔恨的士兵",20895,3,.@killmob$;
+	areamonster 'map$,22,254,33,246,"悔恨的女巫師",20898,2,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob1_L3,'Mr_mob1_L3-1;
+	if('Mr_mob1_L3){
+	
+	}else{
+		set 'Zone1_Clear,'Zone1_Clear+1;
+		if ('Zone1_Clear == 4){
+			hideoffnpc instance_npcname("Tomb_Warp01");
+			enablenpc instance_npcname("Tomb_Warp01");
+			mapannounce 'map$, "悔恨的侯爵：解放了這樓層的怨念，北邊出現了通往下個區域的傳送點了!",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("#Zone2_01")+"::OnCallMob";
+
+		}
+	}
+	end;
+}
+
+1@spa2,1,1,0	script	#Zone1_R2	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob1_R2,6;
+	set .@killmob$, instance_npcname("#Zone1_R2")+"::OnKillMob";
+	
+	areamonster 'map$,68,223,81,232,"悔恨的士兵",20895,3,.@killmob$;
+	areamonster 'map$,68,223,81,232,"悔恨的女巫師",20898,3,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob1_R2,'Mr_mob1_R2-1;
+	if('Mr_mob1_R2){
+	
+	}else{
+		set 'Zone1_Clear,'Zone1_Clear+1;
+		if ('Zone1_Clear == 4){
+			hideoffnpc instance_npcname("Tomb_Warp01");
+			enablenpc instance_npcname("Tomb_Warp01");
+			mapannounce 'map$, "悔恨的侯爵：解放了這樓層的怨念，北邊出現了通往下個區域的傳送點了!",bc_map,"0xFFFF00";
+			donpcevent instance_npcname("#Zone2_01")+"::OnCallMob";
+
+		}
+	}
+	end;
+}
+
+//回憶1
+1@spa2,28,228,4	script	#Past1_1	4_purple_warp,{
+	donpcevent instance_npcname("薩克萊#spa01")+"::OnStart";
+	donpcevent instance_npcname("提亞拉公主#spa01")+"::OnStart";
+	hideoffnpc instance_npcname("薩克萊#spa01");
+	hideoffnpc instance_npcname("提亞拉公主#spa01");
+	hideoffnpc instance_npcname("#Past1_1");
+	disablenpc instance_npcname("#Past1_1");
+	set 'Past,'Past+1;
+	end;
+}
+
+1@spa2,25,222,8	script	薩克萊#spa01	686,{
+end;
+OnStart:
+	specialeffect 6;
+	initnpctimer;
+	npctalk "薩克萊：公主，你總是都是在彈奏同一首歌呢！";
+	end;
+OnTimer4000:
+	npctalk "薩克萊：因為我一直都在你身旁呀";
+	end;
+OnTimer8000:
+	npctalk "薩克萊：我是....我會一直在公主身邊..為公主服務";
+	end;
+OnTimer14000:
+	npctalk "薩克萊：我甚麼也沒聽到！";
+	end;
+OnTimer22000:
+	npctalk "薩克萊：........";
+	end;
+OnTimer24000:
+	npctalk "薩克萊：........";
+	end;
+OnTimer26000:
+	npctalk "薩克萊：........";
+	end;
+OnTimer30000:
+	npctalk "薩克萊：好的.....公主";
+	end;
+OnTimer34000:
+	npctalk "薩克萊：我會努力的...公主";
+	end;
+OnTimer36000:
+	stopnpctimer;
+	specialeffect 16;
+	end;
+}
+
+1@spa2,28,224,2	script	提亞拉公主#spa01	640,{
+end;
+OnStart:
+	specialeffect 6;
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "提亞拉公主：我都不知道你一直有在注意聽";
+	end;
+OnTimer6000:
+	npctalk "提亞拉公主：這樣啊，就算我嫁過去成為鄰國的公主也是嗎？";
+	end;
+OnTimer10000:
+	npctalk "提亞拉公主：好的，我知道了，你會一直在我身邊。";
+	end;
+OnTimer12000:
+	npctalk "提亞拉公主：薩克萊接下來都是我的自言自語...你聽聽就好";
+	end;
+OnTimer16000:
+	npctalk "提亞拉公主：因為我是公主，所以我的職責是接受世人們安排的事情，和一般人不一樣。";
+	end;
+OnTimer18000:
+	npctalk "提亞拉公主：結婚是每個國家公主必須的事情，這不需要培養出親情或是愛。";
+	end;
+OnTimer20000:
+	npctalk "提亞拉公主：但這是我有身以來第一次不想盡到自己的職責。";
+	end;
+OnTimer22000:
+	npctalk "提亞拉公主：雖然我是公主，但我也是平凡的女孩，我愛著身邊那個忠實可愛的男孩。";
+	end;
+OnTimer24000:
+	npctalk "提亞拉公主：如果我能夠和他一起長大成人，結婚成為夫婦的話那該有多幸福啊....";
+	end;
+OnTimer26000:
+	npctalk "提亞拉公主：如果我們兩個能互相依靠，活在愛裡那有多好啊！";
+	end;
+OnTimer28000:
+	npctalk "提亞拉公主：抱歉！薩克萊，我自言自語的太長了。";
+	end;
+OnTimer32000:
+	npctalk "提亞拉公主：我累了，送我回去寢室吧！";
+	end;
+OnTimer36000:
+	npctalk "提亞拉公主：薩克萊.....";
+	stopnpctimer;
+	hideonnpc instance_npcname("薩克萊#spa01");
+	hideonnpc instance_npcname("提亞拉公主#spa01");
+	specialeffect 16;
+	end;
+}
+//========================================
+//===================ZONE2================
+//========================================
+
+1@spa2,1,1,0	script	#Zone2_01	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob2,23;
+	set .@killmob$, instance_npcname("#Zone2_01")+"::OnKillMob";
+	
+	areamonster 'map$,205,235,227,222,"悔恨的騎士",20894,3,.@killmob$;
+	areamonster 'map$,205,235,227,222,"悔恨的男巫師",20897,3,.@killmob$;
+	areamonster 'map$,205,235,227,222,"悔恨的女巫師",20898,3,.@killmob$;
+
+	areamonster 'map$,205,235,207,222,"悔恨的弓箭手",20896,3,.@killmob$;
+	areamonster 'map$,223,233,229,220,"悔恨的弓箭手",20896,3,.@killmob$;
+
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone2_01")+"::OnKillMob";
+	
+	areamonster 'map$,205,235,227,222,"悔恨的士兵",20895,4,.@killmob$;
+	areamonster 'map$,205,235,227,222,"悔恨的男巫師",20897,4,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob2,'Mr_mob2-1;
+	if('Mr_mob2){
+		if('Mr_mob2 == 8){
+			donpcevent instance_npcname("#Zone2_01")+"::OnCallMob2";
+			mapannounce 'map$, "悔恨的侯爵：這些都是死在塔薩諾斯之下無法超渡的亡靈",bc_map,"0xFFFF00";
+			mapannounce 'map$, "悔恨的侯爵：希望你們能讓他們得到安息",bc_map,"0xFFFF00";
+
+		}
+	}else{
+		mapannounce 'map$, "悔恨的侯爵：可憐的公主提亞拉...請幫她解脫！！！",bc_map,"0xFFFF00";
+		donpcevent instance_npcname("#Zone2_Boss")+"::OnCallMob";
+	}
+	end;
+}
+
+1@spa2,1,1,0	script	#Zone2_Boss	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set .@killmob$, instance_npcname("#Zone2_Boss")+"::OnKillMob";
+	
+	monster 'map$,215,242,"失控的公主提亞拉",20893,1,.@killmob$;
+	'BossID = $@mobid[0];
+	initnpctimer;
+	set 'bossf2,0;
+	end;
+OnKillMob:
+		donpcevent instance_npcname("塔薩諾斯#spa02")+"::OnStart";
+		set 'bossf2,1;
+	end;
+	
+OnTimer30000:
+	if ('bossf2 != 1){
+	getunitdata 'BossID,'amdaraisdata;//取得怪物數據
+	.@x = 'amdaraisdata[6];
+	.@y = 'amdaraisdata[7];
+	.@gid = 'BossID;
+	.@skill = rand(1,2);
+	
+	switch(.@skill) {
+	case 1:  //廣範圍隕石
+		unittalk 'BossID, "失控的公主提亞拉: 去死吧！！";
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ('bossf2 == 1){break;}
+				if ( checkcell('map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_METEOR", 10, .@x+.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_METEOR", 10, .@x+.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_METEOR", 10, .@x-.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_METEOR", 10, .@x-.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+	case 2: //廣範圍怒雷
+			unittalk 'BossID, "失控的公主提亞拉: 去死吧！！";
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ('bossf2 == 1){break;}
+				if ( checkcell('map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_VERMILION", 10, .@x+.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_VERMILION", 10, .@x+.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_VERMILION", 10, .@x-.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					unitskillusepos .@unit_id, "WZ_VERMILION", 10, .@x-.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+	}
+	
+	sleep 1000;
+			for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+		mobremove .@bot[.@i];
+	}
+	if(!'bossf2)
+		initnpctimer;
+	end;
+	}
+}
+
+1@spa2,219,237,8	script	塔薩諾斯#spa02	685,{
+end;
+OnStart:
+	hideoffnpc instance_npcname("塔薩諾斯#spa02");
+	initnpctimer;
+	npctalk "塔薩諾斯：薩克萊，你又回來了嗎？";
+	end;
+OnTimer4000:
+	npctalk "薩克萊：我只是想去我想去的地方，你不要阻止我！";
+	end;
+OnTimer6000:
+	npctalk "塔薩諾斯：是誰說過要擺脫人類脆弱的人性的？";
+	end;
+OnTimer8000:
+	npctalk "薩克萊：別吵！我沒有其他的選擇。";
+	end;
+OnTimer10000:
+	npctalk "塔薩諾斯：你就算這樣，到最後結果不也都是相同嗎？";
+	end;
+OnTimer12000:
+	npctalk "薩克萊：吵死了！你不要再說了！";
+	end;
+OnTimer14000:
+	npctalk "塔薩諾斯：唯一要取勝的辦法就是我們必須要一起合作";
+	end;
+OnTimer16000:
+	npctalk "塔薩諾斯：在獻上我的血之前，你的靈魂是我的了！";
+	end;
+OnTimer18000:
+	npctalk "塔薩諾斯：我們沒有時間繼續在這邊浪費了";
+	end;
+OnTimer22000:
+	npctalk "塔薩諾斯：現在城內人數沒以前多，不曉得現在還能吸收到足夠的血嗎....";
+	end;
+OnTimer24000:
+	npctalk "塔薩諾斯：血！渴望更多！！！！！！！";
+	specialeffect 16;
+	hideonnpc instance_npcname("塔薩諾斯#spa02");
+	end;
+OnTimer25000:
+	stopnpctimer;
+	donpcevent instance_npcname("???#spa03")+"::OnStart";
+	end;
+}
+
+1@spa2,221,234,8	script	???#spa03	656,{
+end;
+OnStart:
+	hideoffnpc instance_npcname("???#spa03");
+	specialeffect 6;
+	initnpctimer;
+	npctalk "希梅爾茲：嗯~看到契約者就追了上去，是不是很有趣阿？";
+	end;
+OnTimer2000:
+	npctalk "希梅爾茲：呵呵呵，你有沒有感覺到整個皇宮都是死亡屍體氣息？";
+	end;
+OnTimer4000:
+	npctalk "希梅爾茲：其實這些根本就不夠";
+	end;
+OnTimer6000:
+	npctalk "希梅爾茲：就這樣結果,好像不太好玩，我來加點東西給他們";
+	end;
+OnTimer8000:
+	npctalk "希梅爾茲：哈哈哈.亡靈起來吧~來點樂子給他們！！";
+	end;
+OnTimer10000:
+	npctalk "希梅爾茲：....好像不小心召喚的太多了，看起來我是沒有機會再見到他們了。";
+	end;
+OnTimer11000:
+	stopnpctimer;
+
+	specialeffect 16;
+	hideonnpc instance_npcname("???#spa03");
+	hideoffnpc instance_npcname("Tomb_Warp02");
+	enablenpc instance_npcname("Tomb_Warp02");
+	mapannounce 'map$, "悔恨的侯爵：房間北方的樓梯出現通往下個區域的傳送點了。",bc_map,"0xFFFF00";
+
+	donpcevent instance_npcname("#Zone3_L1")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone3_L2")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone3_R1")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone3_R2")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone3_M1")+"::OnCallMob";
+	end;
+}
+
+//記憶碎片
+1@spa2,75,211,4	script	#Memory1_1	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於皇宮內薩克萊與提亞拉公主的快樂時光回憶片段！",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory1_1");
+	end;
+}
+
+1@spa2,25,203,4	script	#Memory1_2	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於皇宮內薩克萊年幼時的回憶片段！",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory1_2");
+	end;
+}
+
+1@spa2,82,256,4	script	#Memory1_3	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於鄰國王子向提亞拉公主求婚的回憶片段！",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory1_3");
+	end;
+}
+
+1@spa2,215,245,4	script	#Memory2_1	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於提亞拉公主成為鄰國的王妃後薩克萊失落的回憶片段！",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory2_1");
+	end;
+}
+1@spa2,201,254,4	script	#Memory2_2	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於薩克萊遭到他人誣陷被關入監獄中回憶片段！",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory2_2");
+	end;
+}
+1@spa2,230,252,4	script	#Memory2_3	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於薩克萊逃離了監獄回憶片段!",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory2_3");
+	end;
+}
+1@spa2,83,27,4	script	#Memory3_1	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於薩克萊向黑暗之心請求力量，來抵禦塔薩諾斯的誘惑回憶片段!",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory3_1");
+	end;
+}
+1@spa2,33,54,4	script	#Memory3_2	4_purple_warp,{
+	npctalk "[記憶碎片] :一段關於的薩克萊，與被俘虜提亞拉的笑容!",instance_npcname(strnpcinfo(0)),bc_map,"0xFF3500";
+	set 'Memory,'Memory+1;
+	hideonnpc instance_npcname("#Memory3_2");
+	end;
+}
+//========================================
+//===================ZONE3================
+//========================================
+
+1@spa2,1,1,0	script	#Zone3_L1	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	
+
+	set 'Mr_mob3_L1,15;
+	set .@killmob$, instance_npcname("#Zone3_L1")+"::OnKillMob";
+	
+	areamonster 'map$,25,35,40,16,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,25,35,40,16,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,25,35,40,16,"--ja--",rand(20894,20898),3,.@killmob$;
+
+
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone3_L1")+"::OnKillMob";
+	
+	areamonster 'map$,25,35,40,16,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,25,35,40,16,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnKillMob:
+	set 'Mr_mob3_L1,'Mr_mob3_L1-1;
+	if('Mr_mob3_L1){
+		if('Mr_mob3_L1 == 6){
+			donpcevent instance_npcname("#Zone3_L1")+"::OnCallMob2";
+			mapannounce 'map$, "悔恨的侯爵：在之前這裡是皇族們死後埋葬的墓地。",bc_map,"0xFFFF00";
+			mapannounce 'map$, "悔恨的侯爵：但現在已經變成大量殭屍出沒的地點了。",bc_map,"0xFFFF00";
+
+		}
+	}else{
+		donpcevent instance_npcname("#Zone3_Clear")+"::OnClearMob";
+	}
+	end;
+}
+1@spa2,1,1,0	script	#Zone3_L2	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob3_L2,12;
+	set .@killmob$, instance_npcname("#Zone3_L2")+"::OnKillMob";
+	
+	areamonster 'map$,25,63,41,45,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,25,63,41,45,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone3_L2")+"::OnKillMob";
+	
+	areamonster 'map$,25,63,41,45,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,25,63,41,45,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnKillMob:
+	set 'Mr_mob3_L2,'Mr_mob3_L2-1;
+	if('Mr_mob3_L2){
+		if('Mr_mob3_L2 == 9){
+			donpcevent instance_npcname("#Zone3_L2")+"::OnCallMob2";
+		}
+	}else{
+		donpcevent instance_npcname("#Zone3_Clear")+"::OnClearMob";
+	}
+	end;
+}
+1@spa2,1,1,0	script	#Zone3_R1	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob3_R1,12;
+	set .@killmob$, instance_npcname("#Zone3_R1")+"::OnKillMob";
+	
+	areamonster 'map$,75,35,90,16,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,75,35,90,16,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone3_R1")+"::OnKillMob";
+	
+	areamonster 'map$,75,35,90,16,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,75,35,90,16,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnKillMob:
+	set 'Mr_mob3_R1,'Mr_mob3_R1-1;
+	if('Mr_mob3_R1){
+		if('Mr_mob3_R1 == 9){
+			donpcevent instance_npcname("#Zone3_R1")+"::OnCallMob2";
+		}
+	}else{
+		donpcevent instance_npcname("#Zone3_Clear")+"::OnClearMob";
+	}
+	end;
+}
+
+1@spa2,1,1,0	script	#Zone3_R2	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob3_R2,15;
+	set .@killmob$, instance_npcname("#Zone3_R2")+"::OnKillMob";
+	
+	areamonster 'map$,75,63,90,45,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,75,63,90,45,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,75,63,90,45,"--ja--",rand(20894,20898),3,.@killmob$;
+
+
+	end;
+OnCallMob2:
+	set .@killmob$, instance_npcname("#Zone3_R2")+"::OnKillMob";
+	
+	areamonster 'map$,75,63,90,45,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,75,63,90,45,"--ja--",rand(20894,20898),3,.@killmob$;
+
+	end;
+OnKillMob:
+	set 'Mr_mob3_R2,'Mr_mob3_R2-1;
+	if('Mr_mob3_R2){
+		if('Mr_mob3_R2 == 9){
+			donpcevent instance_npcname("#Zone3_R2")+"::OnCallMob2";
+		}
+	}else{
+		donpcevent instance_npcname("#Zone3_Clear")+"::OnClearMob";
+	}
+	end;
+}
+
+1@spa2,1,1,0	script	#Zone3_M1	-1,2,2,{
+
+	end;
+	
+OnCallMob:
+	set 'Mr_mob3_M1,15;
+	set .@killmob$, instance_npcname("#Zone3_M1")+"::OnKillMob";
+	
+	areamonster 'map$,49,81,63,17,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,49,81,63,17,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,49,81,63,17,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,49,81,63,17,"--ja--",rand(20894,20898),3,.@killmob$;
+	areamonster 'map$,49,81,63,17,"--ja--",rand(20894,20898),3,.@killmob$;
+	end;
+OnKillMob:
+	set 'Mr_mob3_M1,'Mr_mob3_M1-1;
+	if('Mr_mob3_M1){
+	}else{
+		donpcevent instance_npcname("#Zone3_Clear")+"::OnClearMob";
+	}
+	end;
+}
+
+1@spa2,230,252,4	script	#Zone3_Clear	844,{
+	end;
+OnClearMob:
+	set 'Zone3_Clear,'Zone3_Clear-1;
+	if('Zone3_Clear <= 0){
+		hideoffnpc instance_npcname("Tomb_Warp03");
+		enablenpc instance_npcname("Tomb_Warp03");
+		mapannounce 'map$, "悔恨的侯爵：房間的中間出現通往下個區域的傳送點了。",bc_map,"0xFFFF00";
+	}
+	end;
+}
+//回憶2
+1@spa2,81,54,4	script	#Past2_1	844,{
+	donpcevent instance_npcname("悔恨的侯爵#spa05")+"::OnStart";
+	donpcevent instance_npcname("提亞拉公主#spa04")+"::OnStart";
+	hideoffnpc instance_npcname("#Past2_1");
+	disablenpc instance_npcname("#Past2_1");
+	set 'Past,'Past+1;
+}
+
+1@spa2,85,57,6	script	悔恨的侯爵#spa05	20899,{
+end;
+OnStart:
+	hideoffnpc instance_npcname("悔恨的侯爵#spa05");
+	specialeffect 6;
+	initnpctimer;
+	npctalk "悔恨的侯爵：公主大人，你終於恢復理智了！";
+	end;
+OnTimer2000:
+	npctalk "悔恨的侯爵：在不久之前您還想咬我呢！公主大人";
+	end;
+OnTimer8000:
+	npctalk "悔恨的侯爵：是的公主大人，就如你所見的，我們都死亡了，而且還被某人當作了殭屍來撫養";
+	end;
+OnTimer10000:
+	npctalk "悔恨的侯爵：除了我以外...不..我和公主，其他所有人都不受控制的再互相攻擊";
+	end;
+OnTimer14000:
+	npctalk "悔恨的侯爵：我不知道，我對這種事完全無法理解，看來我們得去找找原因了";
+	end;
+OnTimer16000:
+	npctalk "悔恨的侯爵：在那一夜我們被塔薩諾斯..不！是持有塔薩諾斯的劍士屠殺後，就只剩下我和您能說話了";
+	end;
+OnTimer20000:
+	npctalk "悔恨的侯爵：公主，這可不是玩笑...但我明白你的立場";
+	end;
+OnTimer28000:
+	npctalk "悔恨的侯爵：但公主您的身體....";
+	end;
+OnTimer32000:
+	npctalk "悔恨的侯爵：公主先讓我找個地方讓你休息吧！";
+	end;
+OnTimer34000:
+	stopnpctimer;
+	specialeffect 16;
+	hideonnpc instance_npcname("悔恨的侯爵#spa05");
+	end;
+}
+
+
+1@spa2,80,57,8	script	提亞拉公主#spa04	20893,{
+end;
+OnStart:
+	hideoffnpc instance_npcname("提亞拉公主#spa04");
+	specialeffect 6;
+	initnpctimer;
+	end;
+OnTimer4000:
+	npctalk "提亞拉公主：悔恨的侯爵，這是怎麼一回事？這麼會變成這樣？";
+	end;
+OnTimer12000:
+	npctalk "提亞拉公主：為什麼我們死了也不能享受安息？";
+	end;
+OnTimer18000:
+	npctalk "提亞拉公主：薩克萊...他錯了....他不會這樣的";
+	end;
+OnTimer22000:
+	npctalk "提亞拉公主：悔恨的侯爵，我要去請人來幫忙";
+	end;
+OnTimer24000:
+	npctalk "提亞拉公主：我們不能一直在這裡看他們永遠的在互相殘殺著";
+	end;
+OnTimer26000:
+	npctalk "提亞拉公主：雖然這看起來不太能完成，但我會試著努力去尋找的";
+	end;
+OnTimer30000:
+	npctalk "提亞拉公主：希望我不會再傷害你一次，悔恨的侯爵。";
+	end;
+OnTimer34000:
+	stopnpctimer;
+	npctalk "提亞拉公主：謝謝你！悔恨的侯爵";
+	specialeffect 16;
+	hideonnpc instance_npcname("提亞拉公主#spa04");
+	end;
+}
+
+//========================================
+//===================ZONE4================
+//========================================
+1@spa2,211,67,4	script	魔劍士薩克萊#spa06	20892,{
+cutin "cry-b",4;
+	if(.@spa06 != 1){
+		donpcevent instance_npcname("魔劍士薩克萊#spa06")+"::OnStart";
+	}
+	sleep2 10000;
+cutin "",255;
+end;
+OnStart:
+	set .@spa06,1;
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "塔薩諾斯：你為什麼還在這裡？";
+	end;
+OnTimer4000:
+	npctalk "魔劍士薩克萊：我只是想要看看公主，順便看看這裡發生了甚麼";
+	end;
+OnTimer6000:
+	npctalk "塔薩諾斯：哦..是那時候的公主阿....這裡的確改變了很多";
+	end;
+OnTimer8000:
+	npctalk "塔薩諾斯：這那之前..你還是先獻上你的鮮血吧！";
+	end;
+OnTimer10000:
+	npctalk "魔劍士薩克萊：(我必須趕快找到公主)";
+	end;
+OnTimer12000:
+	npctalk "塔薩諾斯：不要廢話多說了，你的魔劍我要了！";
+	end;
+OnTimer14000:
+	stopnpctimer;
+	hideonnpc instance_npcname("魔劍士薩克萊#spa06");
+	donpcevent instance_npcname("#Zone3_Boss")+"::OnCallMob";
+	donpcevent instance_npcname("#Zone3_Boss_organ")+"::OnStart";
+	
+	end;
+OnInstanceInit:	
+	unitaura getnpcid(0),1091;
+	end;	
+}
+
+1@spa2,1,1,0	script	#Zone3_Boss	-1,2,2,{
+	end;
+	
+OnCallMob:
+	set .@killmob$, instance_npcname("#Zone3_Boss")+"::OnKillMob";
+	
+	monster 'map$,211,67,"魔劍士薩克萊",20892,1,.@killmob$;
+	'BossID = $@mobid[0];
+	setunitdata 'BossID,UMOB_AURA,1091;
+	initnpctimer;
+	set 'bossf3,0;
+	end;
+OnKillMob:
+		set 'bossf3,1;
+		donpcevent instance_npcname("#Zone3_Boss_organ")+"::OnStop";
+		donpcevent instance_npcname("#Zone3_Boss")+"::OnStop";
+		enablenpc instance_npcname("魔劍士薩克萊#spa07");
+		hideoffnpc instance_npcname("悔恨之柱#01");
+		hideoffnpc instance_npcname("悔恨之柱#02");
+		hideoffnpc instance_npcname("悔恨之柱#03");
+		disablenpc instance_npcname("悔恨之柱#01");
+		disablenpc instance_npcname("悔恨之柱#02");
+		disablenpc instance_npcname("悔恨之柱#03");
+		
+
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+	
+OnTimer1000:
+
+	if ('bossf3 != 1){
+	getunitdata 'BossID,'amdaraisdata;//取得怪物數據
+	.@x = 'amdaraisdata[6];
+	.@y = 'amdaraisdata[7];
+	.@gid = 'BossID;
+	.@skill = rand(1,5);
+
+
+	switch(.@skill) {
+	case 1:  //廣範圍隕石
+			unittalk 'BossID, "魔劍士薩克萊: 血劍-爆裂！！";
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ('bossf3 == 1){break;}
+				if ( checkcell('map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskilluseid <GID>,<skill id>,<skill lvl>{,<target id>,<casttime>};
+					//unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					//unitskillusepos .@unit_id, 2006, 10, .@x+.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x+.@i, .@y-.@i, -5000;
+					//unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x-.@i, .@y-.@i, -5000;
+					//unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x-.@i, .@y+.@i, -5000;
+					//unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+	case 2: //暴風雪
+			unittalk 'BossID, "魔劍士薩克萊: 血劍-爆裂！！";
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ('bossf3 == 1){break;}
+				if ( checkcell('map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskilluseid <GID>,<skill id>,<skill lvl>{,<target id>,<casttime>};
+					unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					//unitskillusepos .@unit_id, 2006, 10, .@x+.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x+.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x+.@i, .@y-.@i, -5000;
+					unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y-.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x-.@i, .@y-.@i, -5000;
+					unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x-.@i, .@y+.@i, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1089;
+					//unitskillusepos .@unit_id, 2006, 10, .@x-.@i, .@y+.@i, -5000;
+					unitskilluseid .@unit_id,2006,10,.@unit_id,-5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+	case 3: //大暴雨
+			unittalk 'BossID, "魔劍士薩克萊: 死亡劍舞！！";
+						if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x, .@y, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1098;
+					unitskillusepos .@unit_id, 2418, 10, .@x, .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 5000;
+				setunitdata .@unit_id,UMOB_AURA,0;
+		
+			break;
+	case 4:
+			unittalk 'BossID, "魔劍士薩克萊: 嘗嘗死亡的滋味";
+			addrid(4,0,.@x-19,.@y-19,.@x+19,.@y+19);
+			if(Hp>2){
+			if(!getstatus(SC_DEADLY_DEFEASANCE))
+				sc_start SC_DEADLY_DEFEASANCE,180000,10;
+			}
+			break;
+	case 5:
+			unittalk 'BossID, "魔劍士薩克萊: 斷葬-落!!";
+						if ( checkcell('map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster 'map$, .@x, .@y, "", 20562, 1, "";
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					setunitdata .@unit_id,UMOB_AURA,1095;
+					//unitskillusepos .@unit_id, 5267, 10, .@x, .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 1000;
+				setunitdata .@unit_id,UMOB_AURA,0;
+				for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+					mobremove .@bot[.@i];
+				}
+				
+			addrid(4,0,.@x-9,.@y-9,.@x+9,.@y+9);
+			if(Hp>2){
+				percentheal -50,-50;
+			//if(!getstatus(SC_DEADLY_DEFEASANCE))
+			//	sc_start SC_DEADLY_DEFEASANCE,180000,10;
+			}
+			sleep 3000;
+			
+			break;	
+	
+	
+	
+	
+	
+	
+	}
+	//sleep ( rand(2,4) * 10000 );//技能施放間格時間設定
+	for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+		mobremove .@bot[.@i];
+	}
+	initnpctimer;
+	end;
+	}
+}
+
+//特殊事件
+1@spa2,1,1,0	script	#Zone3_Boss_organ	-1,2,2,{
+
+OnStart:
+	initnpctimer;
+	set 'OrganEnd,1;
+	end;
+OnStop:
+	stopnpctimer;
+	hideonnpc instance_npcname("悔恨之柱#01");
+	hideonnpc instance_npcname("悔恨之柱#02");
+	hideonnpc instance_npcname("悔恨之柱#03");
+	end;
+OnTimer10000:
+	if ('bossf3 == 1){
+		end;
+	}
+	else {
+		sleep ( rand(4,7) * 10000 );//特殊事件間格時間設定
+		if('OrganEnd == 1){//判斷是否為無敵狀態
+			getunitdata 'BossID,'amdaraisdata;//取得怪物數據
+			'BossDEF = 'amdaraisdata[37];
+			'BossMDEF = 'amdaraisdata[38];
+			
+			setunitdata 'BossID,UMOB_DAMAGETAKEN,1;
+			set 'Organ,3;//設定三個柱子
+			set 'OrganEnd,0;//設定為無敵狀態
+			hideoffnpc instance_npcname("悔恨之柱#01");
+			hideoffnpc instance_npcname("悔恨之柱#02");
+			hideoffnpc instance_npcname("悔恨之柱#03");
+			mapannounce 'map$, "悔恨的侯爵：魔劍士薩克萊的悔恨之石.為他提供強大力量。",bc_map,"0xFFFF00";
+			initnpctimer;
+		}
+		else{
+			initnpctimer;
+		}
+	}
+	end;
+}
+1@spa2,1,1,0	script	#Zone3_Boss_organEnd	-1,2,2,{
+		end;
+OnStart:
+	if ('bossf3 == 1){
+	}
+	else{
+		setunitdata 'BossID,UMOB_DAMAGETAKEN,900;
+		mapannounce 'map$, "悔恨的侯爵：悔恨之石的力量解除了！！。",bc_map,"0xFFFF00";
+		set 'OrganEnd,1;
+	}
+	end;
+}
+
+
+1@spa2,186,60,4	script	悔恨之柱#01	21070,{
+	donpcevent instance_npcname("悔恨之柱#01")+"::OnStart";	
+	end;
+OnStart:
+	if ('trap01 == 1){end;}
+	set 'trap01,1;
+
+	progressbar_npc "ffff00",10;
+	donpcevent instance_npcname("#trap01")+"::OnStart";		
+	specialeffect 16;
+	set 'trap01,0;
+	hideonnpc instance_npcname("悔恨之柱#01");
+	set 'Organ,'Organ-1;
+	if ('Organ == 0){
+		donpcevent instance_npcname("#Zone3_Boss_organEnd")+"::OnStart";	
+	}
+	end;
+}	
+1@spa2,193,60,0	script	#trap01	20562,{
+	end;
+OnStart:
+	initnpctimer;
+	end;
+OnTimer500:
+	monster 'map$, 193, 60, "", 20562, 1, "";
+	.@unit_id = $@mobid[0];
+	setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+	setunitdata .@unit_id, UMOB_CLASS, 139;
+	unitskillusepos .@unit_id, "NPC_PSYCHIC_WAVE", 5, 193, 60, -5000;
+	.@bot[getarraysize(.@bot)] = .@unit_id;
+	sleep 1500;
+	for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+		mobremove .@bot[.@i];
+	}
+	end;
+}
+
+1@spa2,237,60,4	script	悔恨之柱#02	21070,{
+	donpcevent instance_npcname("悔恨之柱#02")+"::OnStart";	
+	end;
+OnStart:
+	if ('trap02 == 1){end;}
+	set 'trap02,1;
+
+	progressbar_npc "ffff00",10;
+	donpcevent instance_npcname("#trap02")+"::OnStart";		
+	specialeffect 16;
+	hideonnpc instance_npcname("悔恨之柱#02");
+	set 'trap02,0;
+	set 'Organ,'Organ-1;
+	if ('Organ == 0){
+		donpcevent instance_npcname("#Zone3_Boss_organEnd")+"::OnStart";	
+	}
+	end;
+}	
+1@spa2,229,60,0	script	#trap02	20562,{
+	end;
+OnStart:
+	initnpctimer;
+	end;
+OnTimer500:
+	monster 'map$, 229, 60, "", 20562, 1, "";
+	.@unit_id = $@mobid[0];
+	setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+	setunitdata .@unit_id, UMOB_CLASS, 139;
+	unitskillusepos .@unit_id, "NPC_PSYCHIC_WAVE", 5, 229, 60, -5000;
+	.@bot[getarraysize(.@bot)] = .@unit_id;
+		sleep 1500;
+	for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+		mobremove .@bot[.@i];
+	}
+	end;
+}
+
+1@spa2,212,87,4	script	悔恨之柱#03	21070,{
+	donpcevent instance_npcname("悔恨之柱#03")+"::OnStart";	
+	end;
+OnStart:
+	if ('trap03 == 1){end;}
+	set 'trap03,1;
+
+	progressbar_npc "ffff00",10;
+	donpcevent instance_npcname("#trap03")+"::OnStart";	
+	
+	specialeffect 16;
+	set 'trap03,0;
+	hideonnpc instance_npcname("悔恨之柱#03");
+	set 'Organ,'Organ-1;
+	if ('Organ == 0){
+		donpcevent instance_npcname("#Zone3_Boss_organEnd")+"::OnStart";	
+	}
+	end;
+}	
+1@spa2,212,77,0	script	#trap03	20562,{
+	end;
+OnStart:
+	initnpctimer;
+	end;
+OnTimer50:
+	monster 'map$, 212, 77, "", 20562, 1, "";
+	.@unit_id = $@mobid[0];
+	setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+	setunitdata .@unit_id, UMOB_CLASS, 139;
+	unitskillusepos .@unit_id, "NPC_PSYCHIC_WAVE", 5, 212, 77, -5000;
+	.@bot[getarraysize(.@bot)] = .@unit_id;
+		sleep 1500;
+	for(set .@i,0;.@i < getarraysize(.@bot); set .@i,.@i+1) {
+		mobremove .@bot[.@i];
+	}
+	end;
+}
+
+1@spa2,211,67,4	script	魔劍士薩克萊#spa07	20892,{
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+	if ( 'ClearInatance == 1 ){
+		message strcharinfo(0),"遊戲提示 : 副本完成!";
+		end;
+	}
+	'ClearInatance = 1;
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@spa2")+"::OnEnable";
+	disablenpc instance_npcname("魔劍士薩克萊#spa07");
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+//------獎勵領取
+//寶箱
+1@spa2,0,0,0	script	副本寶箱#1@spa2	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940044,10;
+	getitem 930000,5;
+	getitem 6909,15;
+	getitem 1000367,20;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

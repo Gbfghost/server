@@ -1,0 +1,26 @@
+(11/12/2023 22:10:17) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:10:17) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:10:17) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:10:31) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:10:31) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:10:31) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:10:46) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:10:46) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:10:46) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:11:27) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:11:27) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:11:27) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:11:54) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:11:54) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:11:54) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:12:08) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:12:08) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:12:08) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:16:35) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:16:35) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:16:35) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:16:49) [ SQL Error ] : Access denied for user 'root'@'localhost' (using password: YES)
+(11/12/2023 22:16:49) [ Error ] : Couldn't connect with uname='root',passwd='root',host='127.0.0.1',port='3306',database='log'
+(11/12/2023 22:16:49) [ Debug ] : at C:\SeverCode\Giraffe_easy_code\src\login\loginlog.cpp:216
+(11/12/2023 22:32:51) [ Error ] : make_listen_bind: bind failed (socket #1, error 10048: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+)!

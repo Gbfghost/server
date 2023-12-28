@@ -1,0 +1,1952 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@lab	mapflag	noteleport
+1@lab	mapflag	nosave	SavePoint
+1@lab	mapflag	nomemo
+1@lab	mapflag	nobranch
+1@lab	mapflag	noicewall
+1@lab	mapflag	restricted	6
+1@lab	mapflag	monster_noteleport
+1@lab	mapflag	partylock
+1@lab	mapflag	novending
+1@lab	mapflag	nochat
+
+
+amatsu,108,143,5	script	[副本]中央實驗室	458,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "中央實驗室";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 28;
+
+//
+	waitingroom "[副本]中央實驗室",0;
+	setnpcicon getnpcid(0),22,"[副本]中央實驗室";
+	end;
+}
+
+//副本流程
+
+1@lab,104,34,5	script	實習研究員#lab01	865,{
+	if('LABNPC) {
+		mes "[實習研究員]";
+		mes "本次實驗代碼為^0000ff"+'LABNUM+"^000000。";
+		close;
+	}
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "[實習研究員]";
+		mes "你們的代表在哪？實驗就要開始了。";
+		close;
+	}
+	mes "[實習研究員]";
+	mes "是參加本次實驗的助理人員麼？本次實驗代碼為^0000ff"+'LABNUM+"^000000。";
+	npctalk "實習研究員：是參加本次實驗的助理人員麼？本次實驗代碼為"+'LABNUM+"。";
+	next;
+	mes "[實習研究員]";
+	mes "開啟大門需要5秒時間，在此期間內請記住實驗代碼。";
+	npctalk "實習研究員：開啟大門需要5秒時間，在此期間內請記住實驗代碼。";
+	initnpctimer;
+	'LABNPC = 1;
+	close;
+OnTimer3000:
+	npctalk "實習研究員：實驗即將開始，請在大門的開啟後進入室內。";
+	end;
+OnTimer5000:
+	stopnpctimer;
+	enablenpc instance_npcname("#labwarp1");
+	enablenpc instance_npcname("#labwarp2");
+	enablenpc instance_npcname("#labwarp3");
+	npctalk "實習研究員：大門已經打開，快進去吧。";	
+	end;
+OnInstanceInit:
+	'LABNPC = 0;
+	set 'LABNUM,5*rand(1,51);
+	end;
+}
+
+1@lab,102,28,0	script	#labwarp1	45,1,1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#labwarp1");
+	end;
+OnTouch:
+	warp instance_mapname("1@lab"),98,28;
+	end;
+}
+
+1@lab,80,28,0	script	#labwarp2	45,1,1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#labwarp2");
+	end;
+OnTouch:
+	warp instance_mapname("1@lab"),76,28;
+	end;
+}
+
+1@lab,58,28,0	script	#labwarp3	45,1,1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#labwarp3");
+	end;
+OnTouch:
+	warp instance_mapname("1@lab"),54,28;
+	end;
+}
+
+1@lab,45,32,3	script	研究員#lab02	865,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "[研究員]";
+		mes "你們的代表在哪？快來驗證身份。";
+		close;
+	}
+	if('LABNPC == 2) {
+		mes "[研究員]";
+		mes "為了安保需要，請輸入實驗代碼。";
+		mes "調整後面牆壁上的控制開關就行了。";
+		mes "'ON' = 1, 'OFF' = 0";
+		mes "完成後去安保系統驗證就行了。";
+		close;
+	}
+	mes "[研究員]";
+	mes "你們就是這次的助理研究人員？";
+	mes "由於本次實驗涉密程度很高，";
+	mes "要進入實驗室的話，請先輸入實驗代碼。";
+	next;
+	donpcevent instance_npcname("控制開關#ctrl1") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl2") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl3") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl4") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl5") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl6") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl7") + "::OnEnable";
+	donpcevent instance_npcname("控制開關#ctrl8") + "::OnEnable";
+	enablenpc instance_npcname("安保系統#save1");
+	mes "[研究員]";
+	mes "調整後面牆壁上的控制開關就行了。";
+	mes "'ON' = 1, 'OFF' = 0";
+	mes "如果是真的助理研究人員的話，";
+	mes "這點基本知識還是知道的吧？";
+	'LABNPC = 2;
+	close;
+}
+
+1@lab,37,37,0	script	控制開關#ctrl1	844,{
+	mes "這是進入中央實驗室大門的 ^0000ff"+charat(strnpcinfo(2),4)+"號^000000控制開關。";
+	mes "當前的狀態是 ^0000ff"+((getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]") == "1")?"ON":"OFF")+"^000000";
+	mes "要怎麼調整？";
+	next;
+	switch(select((getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]") == "1")?"OFF":"",(getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]") == "0")?"ON":"","取消")) {
+			case 1:
+			set getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]"),"0";
+			break;
+		case 2:
+			set getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]"),"1";
+			break;
+		case 3:
+			close;
+	}
+	mes "開關狀態設為 "+((getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]") == "1")?"ON":"OFF");
+	doevent instance_npcname("安保系統#save1") + "::OnCheck";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	set getd("'LABCTRL$["+charat(strnpcinfo(2),4)+"]"),"1";
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));	
+OnTimer2000:
+	switch(charat(strnpcinfo(2),4)) {
+			case 1:
+			specialeffect 204;
+			break;
+		case 2:
+			specialeffect 205;
+			break;
+		case 3:
+			specialeffect 206;
+			break;
+		case 4:
+			specialeffect 207;
+			break;
+		case 5:
+			specialeffect 208;
+			break;
+		case 6:
+			specialeffect 209;
+			break;
+		case 7:
+			specialeffect 210;
+			break;
+		case 8:
+			specialeffect 211;
+			break;
+	}
+	stopnpctimer;
+	initnpctimer;
+	end;
+}
+
+1@lab,39,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl2	844
+1@lab,41,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl3	844
+1@lab,43,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl4	844
+1@lab,46,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl5	844
+1@lab,48,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl6	844
+1@lab,50,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl7	844
+1@lab,52,37,0	duplicate(控制開關#ctrl1)	控制開關#ctrl8	844
+
+//單機測試 SEAR 因為有碰撞
+1@lab,34,35,0	script	安保系統#save1	844,{
+//1@lab,34,37,0	script	安保系統#save1	844,{
+
+
+
+	function	2hex	{
+	set .@omg,getarg(0);
+	for(.@i=0; .@i<30; .@i++){
+	set .@p,.@p+1;
+	set .@cx,.@omg;
+	set .@omg,.@omg/2;
+	set .@y,.@cx%2;
+	set .@save[.@p],.@y;
+	if(.@y>.@omg) break;
+	}//for
+
+
+	for(.@b=.@p; .@b>0; .@b--){
+
+	set .@str$,.@str$+(.@save[.@b]);
+	}//for
+	set .@2hex,implode(.@str$,"");
+	//mes "轉二進制: ^ff0000"+.@2hex+"^000000";
+	set 'abc,.@2hex;
+	return;
+	}
+
+	mes "這裡是實驗室的大門安保系統。";
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "等待隊長驗證實驗代碼吧。";
+		close;
+	}
+	
+	2hex('LABNUM);
+	set .@test,atoi(implode('LABCTRL$));
+	npctalk "此次驗證碼: "+.@test+" 答案公布 十進位是 "+'LABNUM+" 轉二進位 答案是"+'abc+"";
+
+	mes "黑洞洞的槍口正指著你。";
+	mes "要進行什麼操作麼？";
+	if(select("驗證實驗代碼","取消") == 2) close;
+
+	//將字符串 轉 數字 連接 'LABCTRL$
+	//strtol - ra用法,2進位; 然後'LABNUM 要跟著轉二進位 而不是和ra == 'LABNUM
+	
+	
+	
+	if(.@test == 'abc) {
+		mes "驗證成功！";
+		npctalk "安保系統：實驗代碼正確，打開前往中央實驗室的大門。";
+		enablenpc instance_npcname("#labwarp4");
+		close;
+	}
+
+	mes "驗證失敗！";
+	close2;
+	npctalk "安保系統：實驗代碼錯誤！消滅不明入侵者！";
+	specialeffect2 EF_SUI_EXPLOSION;
+	percentheal -100,0;
+	end;
+OnCheck:
+	set .@test,atoi(implode('LABCTRL$));
+	//npctalk "檢測到開關變動，當前輸入的代碼是 "+.@test+"";
+	announce "檢測到開關變動，當前輸入的代碼是 "+.@test+"",bc_map,"0xFF82FF";
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("安保系統#save1");
+	initnpctimer;
+	end;
+OnTimer2000:
+	specialeffect 203;
+	stopnpctimer;
+	initnpctimer;
+	end;
+}
+
+1@lab,29,37,0	script	#labwarp4	45,1,1,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#labwarp4");
+	end;
+OnTouch:
+	warp instance_mapname("1@lab"),29,41;
+	end;
+}
+
+1@lab,47,82,0	warp	#labwarp5		1,1,1@lab,52,82
+
+1@lab,81,93,5	script	文森特#lab03	865,{
+	end;
+OnTalk4:
+	npctalk "文森特：啊~~快點結束吧，我想去喝冰涼的啤酒！";
+	end;
+OnTalk14:
+	npctalk "文森特：發電機啟動，開始供電。";
+	end;
+OnTalk22:
+	npctalk "文森特：加速器內溫度上升中！";
+	end;
+OnTalk23:
+	npctalk "文森特：320度！";
+	end;
+OnTalk24:
+	npctalk "文森特：670度！溫度上升速度超出預定範圍！";
+	end;
+OnTalk25:
+	npctalk "文森特：超過1000度了，貝裡尼博士！申請終止實驗！";
+	end;
+OnTalk32:
+	npctalk "文森特：到底發生了什麼！誰快去把那破爛的電源切了啊！！";
+	end;
+OnTalk41:
+	npctalk "文森特：可惡！沒有時間了，快把主服務器的電源切斷...";
+	end;
+OnTalk50:
+	npctalk "文森特：啊~~~所以我早說了，要使用新的AICPU吧！";
+	end;
+OnTalk53:
+	npctalk "文森特：管它什麼毛病，當務之急是要把那台破爛給關掉！";
+	end;
+OnTalk81:
+	npctalk "文森特：話說回來，你們...身體能動彈嗎？";
+	end;
+OnTalk88:
+	npctalk "文森特：哈哈，明明是個機器，卻不聽從人類的指令...貝裡尼博士，聽見了嗎？這是非常事項，快啟動應急預案吧！";
+	end;
+OnTalk89:
+	npctalk "文森特：為了不把其他的實驗室也捲入進來，我們也想點辦法把這次危害控制在最小範圍內！";
+	end;
+OnTalk99:
+	npctalk "文森特：其他的研究員都已經撤離了吧？";
+	end;
+}
+
+1@lab,80,90,5	script	希爾維亞#lab04	982,{
+	end;
+OnTalk3:
+	npctalk "希爾維亞：畢竟是第一次這樣的實驗，還是謹慎一點比較好。";
+	end;
+OnTalk5:
+	npctalk "希爾維亞：啊啊！我也一起！";
+	end;
+OnTalk20:
+	npctalk "希爾維亞：發電機電壓不穩！但仍在容許範圍內。";
+	end;
+OnTalk21:
+	npctalk "希爾維亞：！？等等！！加速器和觸媒裝置之間檢測到不明熱源反應...但仍在誤差之內。";
+	end;
+OnTalk27:
+	npctalk "希爾維亞：我也提議終止，加速器的表現已經偏離預定。";
+	end;
+OnTalk43:
+	npctalk "菲迪裡克：貝裡尼！快下決定！";
+	end;
+OnTalk52:
+	npctalk "希爾維亞：又是和剛剛一樣的事情，到底哪裡出了毛病？";
+	end;
+OnTalk63:
+	npctalk "希爾維亞：要切斷主電源了？";
+	end;
+OnTalk67:
+	npctalk "希爾維亞：終於！記得切斷電源！";
+	end;
+OnTalk73:
+	npctalk "希爾維亞：看來終於結束了呢！";
+	end;
+OnTalk80:
+	npctalk "希爾維亞：這些之後再討論吧，我們先出去。";
+	end;
+OnTalk85:
+	npctalk "希爾維亞：啊！！！我要喝瑪絲黛拉果酒！！！我要吃醬燒肉！！！";
+	end;
+OnTalk91:
+	npctalk "希爾維亞：哈，貝裡尼你應該不會理解不了啊，這對我們來說，也是直接體驗次元移動的大好機會啊！";
+	end;
+OnTalk102:
+	npctalk "希爾維亞：...啊啊~~這個時候真想來杯冰鎮瑪絲黛拉酒和一大盤醬燒肉啊！";
+	end;
+}
+
+1@lab,80,87,8	script	菲迪裡克#lab05	865,{
+	end;
+OnTalk1:
+	npctalk "菲迪裡克：好了，我們也該開始了吧，貝裡尼博士還沒好麼？";
+	end;
+OnTalk7:
+	npctalk "菲迪裡克：噢...看來好了！";
+	end;
+OnTalk15:
+	npctalk "菲迪裡克：發電機轉速達到10,000RPM，維持輸出功率。";
+	end;
+OnTalk16:
+	npctalk "菲迪裡克：回轉加速器內電壓達到預定值。";
+	end;
+OnTalk34:
+	npctalk "菲迪裡克：這是...結束了嗎？";
+	end;
+OnTalk49:
+	npctalk "菲迪裡克：不行了...！又有什麼來了！";
+	end;
+OnTalk51:
+	npctalk "菲迪裡克：不行了...要逃跑了...";
+	end;
+OnTalk58:
+	npctalk "菲迪裡克：偉大的創造神啊，我向您虔誠的祈禱。神吶，讓這個垃圾電腦快停下來吧...";
+	end;
+OnTalk74:
+	npctalk "菲迪裡克：安全起見，把那破爛電腦的CPU拔了吧...";
+	end;
+OnTalk79:
+	npctalk "菲迪裡克：我認為這次失敗有貝裡尼獨斷專行的原因，不過更重要的還是MA-4885本身的問題...";
+	end;
+OnTalk83:
+	npctalk "菲迪裡克：怎麼回事！不是斷電了嗎？實驗不是終止了嗎？！";
+	end;
+OnTalk87:
+	npctalk "菲迪裡克：怎麼辦？MA-4885好像擅自開始了危險的實驗...";
+	end;
+OnTalk97:
+	npctalk "菲迪裡克：噢...這就要次元移動了...有點小激動啊。";
+	end;
+}
+
+1@lab,81,84,8	script	阿爾特彌婭#lab06	982,{
+	end;
+OnTalk2:
+	npctalk "阿爾特彌婭：她可能還在做最後的檢查吧，畢竟是前所未有的大功率實驗。";
+	end;
+OnTalk11:
+	npctalk "阿爾特彌婭：哈...總有些哪裡不對勁的預感。";
+	end;
+OnTalk13:
+	npctalk "阿爾特彌婭：各人員保護裝置穿戴確認，實驗開始。";
+	end;
+OnTalk19:
+	npctalk "阿爾特彌婭：......第一觸媒裝置，與加速器連接開始。";
+	end;
+OnTalk29:
+	npctalk "阿爾特彌婭：（他是瘋了嗎？...）";
+	end;
+OnTalk31:
+	npctalk "阿爾特彌婭：貝裡尼博士！主服務器已經做出了實驗危險的判斷，請切斷電源！";
+	end;
+OnTalk37:
+	npctalk "阿爾特彌婭：怎麼回事！？誰給的命令！？快點停下！";
+	end;
+OnTalk39:
+	npctalk "阿爾特彌婭：什麼情況！貝裡尼博士，這個情況不可能再進行實驗了啊！停止吧！";
+	end;
+OnTalk57:
+	npctalk "阿爾特彌婭：那個破爛鐵塊，到底在計算些什麼？和異次元生命直接接觸？";
+	end;
+OnTalk61:
+	npctalk "阿爾特彌婭：貝裡尼博士！這和實驗計劃完全不一樣啊！！";
+	end;
+OnTalk71:
+	npctalk "阿爾特彌婭：呼...這總算結束了吧？";
+	end;
+OnTalk78:
+	npctalk "阿爾特彌婭：結束了呢。";
+	end;
+OnTalk92:
+	npctalk "阿爾特彌婭：...新物質生成和這次元移動相比...好像就微不足道了呢。";
+	end;
+OnTalk100:
+	npctalk "阿爾特彌婭：啊，還沒有談過一次戀愛的，就這樣要結束了麼？有點點後悔啊...";
+	end;
+}
+
+1@lab,0,0,8	script	#labsystem	139,{
+	end;
+OnTalk6:
+	mapannounce instance_mapname("1@lab"),"??：喂...喂喂...麥克風測試。",0x9,0x00ff00;
+	end;
+OnTalk8:
+	mapannounce instance_mapname("1@lab"),"??：項目名，粒子加速器初啟動實驗，總負責人羅澤 貝裡尼。",0x9,0x00ff00;
+	end;
+OnTalk9:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：現在的時間"+gettime(6)+"月"+gettime(5)+"日"+gettime(3)+"時"+gettime(2)+"分。",0x9,0x00ff00;
+	end;
+OnTalk10:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：粒子加速器對周圍開放空間影響的測試準備工作已經完成。",0x9,0x00ff00;
+	end;
+OnTalk12:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：主任研究員，菲迪裡克，阿爾特彌婭，希爾維亞，文森特，以及助理研究員們，實驗開始！",0x9,0x00ff00;
+	end;
+OnTalk17:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：實驗如果成功，我們就能製造出從未存在於這個世界的新物質！",0x9,0x00ff00;
+	end;
+OnTalk18:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：旁邊的記錄裝置會詳細的記載今天的一切！",0x9,0x00ff00;
+	end;
+OnTalk26:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：等等，問題應該不大。",0x9,0x00ff00;
+	end;
+OnTalk28:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：還在預定內，繼續實驗。",0x9,0x00ff00;
+	end;
+OnTalk30:
+	mapannounce instance_mapname("1@lab"),"MA-4885：主服務器感知到異常狀況，粒子加速器與觸媒裝置之間出現次元扭曲現象。",0x9;
+	end;
+OnTalk33:
+	mapannounce instance_mapname("1@lab"),"MA-4885：...加速器主裝置停止確認。次元裂縫中出現未知生命體！",0x9;
+	end;
+OnTalk35:
+	mapannounce instance_mapname("1@lab"),"MA-4885：......",0x9;
+	end;
+OnTalk36:
+	mapannounce instance_mapname("1@lab"),"MA-4885：主裝置再啟動命令確認，準備重啟加速器...",0x9;
+	end;
+OnTalk38:
+	mapannounce instance_mapname("1@lab"),"MA-4885：研究主任 阿爾特彌婭，身份確認。無法執行停止命令。",0x9;
+	end;
+OnTalk40:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：......",0x9,0x00ff00;
+	end;
+OnTalk42:
+	mapannounce instance_mapname("1@lab"),"MA-4885：粒子加速器再啟動第一階段開始。",0x9;
+	end;
+OnTalk44:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：切...",0x9,0x00ff00;
+	end;
+OnTalk45:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：現在時間"+gettime(3)+"時"+gettime(2)+"分，粒子加速器實驗暫時中斷！",0x9,0x00ff00;
+	end;
+OnTalk46:
+	mapannounce instance_mapname("1@lab"),"MA-4885：博士 貝裡尼，身份確認。無法執行停止命令。",0x9;
+	end;
+OnTalk47:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：我是實驗負責人，貝裡尼！重複一遍命令，實驗暫時中斷！",0x9,0x00ff00;
+	end;
+OnTalk48:
+	mapannounce instance_mapname("1@lab"),"MA-4885：無法執行停止命令。",0x9;
+	end;
+OnTalk54:
+	mapannounce instance_mapname("1@lab"),"MA-4885：回答希爾維婭博士的詢問，現在加速器附近空間相位錯亂。",0x9;
+	end;
+OnTalk55:
+	mapannounce instance_mapname("1@lab"),"MA-4885：為維持空間相位均衡，判斷有必要同異次元生命體進行直接接觸。",0x9;
+	end;
+OnTalk56:
+	mapannounce instance_mapname("1@lab"),"MA-4885：引起相位扭曲的生命體本體確認中，計算開始...",0x9;
+	end;
+OnTalk59:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：......MA-4885，你現在是在嘗試吸納異次元？融合這個扭曲的空間？",0x9,0x00ff00;
+	end;
+OnTalk60:
+	mapannounce instance_mapname("1@lab"),"MA-4885：貝裡尼博士，就是如此。",0x9;
+	end;
+OnTalk62:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：嗯，我知道。",0x9,0x00ff00;
+	end;
+OnTalk64:
+	mapannounce instance_mapname("1@lab"),"MA-4885：粒子加速確認，第一次接觸開始。",0x9;
+	end;
+OnTalk65:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：現在時間"+gettime(3)+"時"+gettime(2)+"分，粒子加速器實驗廢棄！",0x9,0x00ff00;
+	end;
+OnTalk66:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：廢棄理由，主服務器行為異常，加速器功率異常。記錄完畢。",0x9,0x00ff00;
+	end;
+OnTalk68:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：主服務器MA-4885的電力供給終止。",0x9,0x00ff00;
+	end;
+OnTalk69:
+	mapannounce instance_mapname("1@lab"),"MA-4885：收到命令，總負責人貝裡尼，身份確認。記錄終止，電力供給終止。執行命令。",0x9;
+	end;
+OnTalk70:
+	mapannounce instance_mapname("1@lab"),"MA-4885：執行命令...執行...命令...",0x9;
+	end;
+OnTalk72:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：主服務器MA-4885電力供給完全停止，裝置已經關閉。",0x9,0x00ff00;
+	end;
+OnTalk75:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：實驗記錄到此為止，項目完全終止。",0x9,0x00ff00;
+	end;
+OnTalk76:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：請反思實驗失敗的原因，為下次實驗做好準備。",0x9,0x00ff00;
+	end;
+OnTalk77:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：各位，辛苦了。",0x9,0x00ff00;
+	end;
+OnTalk82:
+	mapannounce instance_mapname("1@lab"),"MA-4885：CODE NAME - DESCENT",0x9,0xff0000,0x190,18,0,0;
+	end;
+OnTalk84:
+	mapannounce instance_mapname("1@lab"),"MA-4885：最終相位變化開始。",0x9;
+	end;
+OnTalk86:
+	mapannounce instance_mapname("1@lab"),"MA-4885：計算扭曲的次元空間相位。",0x9;
+	end;
+OnTalk90:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：但是...你們還是應該先逃離這裡...",0x9,0x00ff00;
+	end;
+OnTalk93:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：明白了...菲迪裡克，希爾維亞，文森特，阿爾特彌婭，謝謝你們的挺身而出。",0x9,0x00ff00;
+	end;
+OnTalk94:
+	mapannounce instance_mapname("1@lab"),"羅澤 貝裡尼：對不起...謝謝你們...",0x9,0x00ff00;
+	end;
+OnTalk95:
+	mapannounce instance_mapname("1@lab"),"管理系統：警告！警告！粒子實驗室進入最高級警報狀態，所有研究員迅速撤離實驗室。",0x9,0xff0000,0x190,18,0,0;
+	end;
+OnTalk96:
+	mapannounce instance_mapname("1@lab"),"管理系統：重複一遍！粒子實驗室進入最高級警報狀態，所有研究員迅速撤離實驗室。",0x9,0xff0000,0x190,18,0,0;
+	end;
+OnTalk98:
+	mapannounce instance_mapname("1@lab"),"MA-4885：次元空間融合進程......20%，探測到不明生命體正在干擾當前次元。",0x9;
+	end;
+OnTalk101:
+	mapannounce instance_mapname("1@lab"),"MA-4885：次元空間融合進程......78%，Demi-Plane正在侵蝕異次元。",0x9;
+	end;
+OnTalk103:
+	mapannounce instance_mapname("1@lab"),"MA-4885：次元空間融合進程完成。Demi-Plane的次元相位已經穩定。",0x9;
+	end;
+OnTalk104:
+	mapannounce instance_mapname("1@lab"),"MA-4885：實驗室3點鐘方向與Demi-Plane接觸，可以進行次元間移動。",0x9;
+	end;
+OnTalk105:
+	mapannounce instance_mapname("1@lab"),"MA-4885：次元傳送的危險性未知，以現有情報無法判斷可能導致的後果。",0x9;
+	end;
+OnTalk106:
+	mapannounce instance_mapname("1@lab"),"MA-4885：實驗室中仍存留的生命體，祝你們好運。",0x9;
+	end;
+OnTalk107:
+	mapannounce instance_mapname("1@lab"),"現在可以使用實驗室東部的出口。",0x9;
+	end;
+}
+
+1@lab,80,87,0	script	#controllab	139,10,10,{
+	end;
+OnTouch:
+	if ('touch) {
+		set 'touch,0;
+		hideonnpc instance_npcname("#controllab");
+		donpcevent instance_npcname("#firststart")+"::OnEnable";
+	}
+	end;
+OnInstanceInit:
+	'touch = 1;
+	end;
+}
+
+1@lab,0,0,0	script	#firststart	139,{
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("#firststart");
+	end;
+OnEnable:
+	enablenpc instance_npcname("#firststart");
+	initnpctimer;
+	end;
+OnSecond:
+	initnpctimer;
+	setnpctimer 100000;
+	end;
+OnThird:
+	initnpctimer;
+	setnpctimer 300000;
+	end;
+OnEnd:
+	initnpctimer;
+	setnpctimer 400000;
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk1";
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk2";
+	end;
+OnTimer9000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk3";
+	end;
+OnTimer12000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk4";
+	end;
+OnTimer14000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk5";
+	end;
+OnTimer16000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk6";
+	end;
+OnTimer17000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk7";
+	end;
+OnTimer19000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk8";
+	end;
+OnTimer22000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk9";
+	end;
+OnTimer25000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk10";
+	end;
+OnTimer28000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk11";
+	end;
+OnTimer31000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk12";
+	end;
+OnTimer34000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk13";
+	end;
+OnTimer37000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk14";
+	end;
+OnTimer40000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk15";
+	end;
+OnTimer43000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk16";
+	end;
+OnTimer46000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk17";
+	end;
+OnTimer49000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk18";
+	end;
+OnTimer52000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk19";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer55000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk20";
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer57000:
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	end;
+OnTimer57500:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer58000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk21";
+	end;
+OnTimer58500:
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer61000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk22";
+	end;
+OnTimer63000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk23";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer64000:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer65000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk24";
+	end;
+OnTimer65500:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer66000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer67000:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer67500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer68000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk25";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	end;
+OnTimer68500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer69000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer69500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer70000:
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	end;
+OnTimer70500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer71000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk26";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer71500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer72000:
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer72500:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer73000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer73500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;	
+OnTimer74000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk27";
+	end;
+OnTimer74250:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer74750:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer75000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer75250:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer75500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer76000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk28";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer76500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer77000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer77500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer78000:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer78500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer79000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk29";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer79500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer80000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer80500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer81000:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer81500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer82000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk30";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer82500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer83000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer83500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer84000:
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer84500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer85000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk31";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer85500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer86000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer86250:
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer86500:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer87000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk32";
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer87500:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer88000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer88500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer89000:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer89500:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer90000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk33";
+	donpcevent instance_npcname("#bossrand")+"::OnFirst";
+	stopnpctimer;
+	end;
+OnTimer102000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk34";
+	end;
+OnTimer104000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk35";
+	end;
+OnTimer106000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk36";
+	end;
+OnTimer109000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk37";
+	end;
+OnTimer112000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk38";
+	end;
+OnTimer115000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk39";
+	end;
+OnTimer118000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk40";
+	end;
+OnTimer121000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk41";
+	end;
+OnTimer124000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk42";
+	end;
+OnTimer126000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk43";
+	end;
+OnTimer128000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk44";
+	end;
+OnTimer129000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk45";
+	end;
+OnTimer132000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk46";
+	end;
+OnTimer135000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk47";
+	end;
+OnTimer138000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk48";
+	end;
+OnTimer139000:
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer141000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk49";
+	end;
+OnTimer142000:
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer143000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk50";
+	end;
+OnTimer144000:
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer144500:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer145000:
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer146000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk51";
+	end;
+OnTimer148000:
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk52";
+	end;
+OnTimer151000:
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk53";
+	end;
+OnTimer154000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk54";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer157000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk55";
+	end;
+OnTimer157500:
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer159000:
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer159500:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer160000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk56";
+	end;
+OnTimer160500:
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer161500:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer163000:
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk57";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer164500:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer165000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer166000:
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk58";
+	end;
+OnTimer166500:
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer167000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer167500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	end;
+OnTimer167750:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer168250:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer168750:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer169000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk59";
+	end;
+OnTimer169500:
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer170000:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer170500:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer170750:
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer171250:
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer171750:
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer172000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk60";
+	end;
+OnTimer172500: 
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer173000: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer173500: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer174000: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer174250: 
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer174500: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer174750: 
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer175000: 
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk61";
+	end;
+OnTimer175250: 
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer175750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer176250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer176750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer177250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer177750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer178000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk62";
+	end;
+OnTimer178250: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer178750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer179250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer179750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer180250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer180750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer181000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk63";
+	end;
+OnTimer181500: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer182000: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer182500: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer183000: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer183500: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer184000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk64";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer184250: 
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer184500: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer185000: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer185500: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer186000: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer186500: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer187000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk65";
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer187250: 
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer187500: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer188000: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer188500: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer189000: 
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer189500: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer189750:
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer190000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk66";
+	end;
+OnTimer190250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer190500: 
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer190750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer191250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer191750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer192250: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer192750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer193000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk67";
+	end;
+OnTimer193250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer193750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer194250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer194750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer195250: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer195750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer196000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk68";
+	end;
+OnTimer196250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer196750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer197250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer197750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer198250: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer198750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer199000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk69";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer199250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer199750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer200250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer200750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer201250: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer201750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer202000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk70";
+	donpcevent instance_npcname("#bossrand")+"::OnSecond";
+	stopnpctimer;
+	end;
+OnTimer302000: 
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk71";
+	end;
+OnTimer305000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk72";
+	end;
+OnTimer308000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk73";
+	end;
+OnTimer311000: 
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk74";
+	end;
+OnTimer314000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk75";
+	end;
+OnTimer317000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk76";
+	end;
+OnTimer320000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk77";
+	end;
+OnTimer322000: 
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk78";
+	end;
+OnTimer325000: 
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk79";
+	end;
+OnTimer328000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk80";
+	end;
+OnTimer331000: 
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk81";
+	end;
+OnTimer334000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk82";
+	end;
+OnTimer337000: 
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk83";
+	end;
+OnTimer340000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk84";
+	end;
+OnTimer343000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk85";
+	end;
+OnTimer346000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk86";
+	end;
+OnTimer349000: 
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk87";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer352000: 
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk88";
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer354000: 
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer354500: 
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer355000: 
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk89";
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	end;
+OnTimer358000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk90";
+	end;
+OnTimer361000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk91";
+	end;
+OnTimer364000: 
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk92";
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	end;
+OnTimer367000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk93";
+	donpcevent instance_npcname("#effect41")+"::OnEffect";
+	end;
+OnTimer368500: 
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer369250: 
+	donpcevent instance_npcname("#effect61")+"::OnEffect";
+	donpcevent instance_npcname("#effect71")+"::OnEffect";
+	donpcevent instance_npcname("#effect81")+"::OnEffect";
+	donpcevent instance_npcname("#effect91")+"::OnEffect";
+	end;
+OnTimer369750: 
+	donpcevent instance_npcname("#effect31")+"::OnEffect";
+	end;
+OnTimer370000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk94";
+	end;
+OnTimer370250: 
+	donpcevent instance_npcname("#effect11")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer371750: 
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer372250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer373000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk95";
+	end;
+OnTimer373250: 
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	end;
+OnTimer373750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	end;
+OnTimer374250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	end;
+OnTimer374750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer375250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer375750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer376000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk96";
+	end;
+OnTimer376250: 
+	donpcevent instance_npcname("#effect73")+"::OnEffect";
+	end;
+OnTimer376500: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer376750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer377250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer377500: 
+	donpcevent instance_npcname("#effect43")+"::OnEffect";
+	end;
+OnTimer377750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer378250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer378750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer379000: 
+	donpcevent instance_npcname("菲迪裡克#lab05")+"::OnTalk97";
+	donpcevent instance_npcname("#effect13")+"::OnEffect";
+	donpcevent instance_npcname("#effect23")+"::OnEffect";
+	end;
+OnTimer379250: 
+	donpcevent instance_npcname("#effect21")+"::OnEffect";
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer379750: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer380000: 
+	donpcevent instance_npcname("#effect83")+"::OnEffect";
+	donpcevent instance_npcname("#effect93")+"::OnEffect";
+	end;
+OnTimer380250: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer380500: 
+	donpcevent instance_npcname("#effect33")+"::OnEffect";
+	donpcevent instance_npcname("#effect63")+"::OnEffect";
+	end;
+OnTimer380750: 
+	donpcevent instance_npcname("#effect32")+"::OnEffect";
+	donpcevent instance_npcname("#effect72")+"::OnEffect";
+	donpcevent instance_npcname("#effect82")+"::OnEffect";
+	end;
+OnTimer381250: 
+	donpcevent instance_npcname("#effect12")+"::OnEffect";
+	donpcevent instance_npcname("#effect42")+"::OnEffect";
+	end;
+OnTimer381750: 
+	donpcevent instance_npcname("#effect22")+"::OnEffect";
+	donpcevent instance_npcname("#effect62")+"::OnEffect";
+	donpcevent instance_npcname("#effect92")+"::OnEffect";
+	end;
+OnTimer382000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk98";
+	donpcevent instance_npcname("#bossrand")+"::OnThird";
+	stopnpctimer;
+	end;
+OnTimer404000: 
+	donpcevent instance_npcname("文森特#lab03")+"::OnTalk99";
+	end;
+OnTimer406000: 
+	donpcevent instance_npcname("阿爾特彌婭#lab06")+"::OnTalk100";
+	end;
+OnTimer409000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk101";
+	end;
+OnTimer412000: 
+	donpcevent instance_npcname("希爾維亞#lab04")+"::OnTalk102";
+	end;
+OnTimer415250: 
+	donpcevent instance_npcname("#effect23")+"::OnEffect2";
+	end;
+OnTimer415500: 
+	donpcevent instance_npcname("#effect63")+"::OnEffect2";
+	end;
+OnTimer415750: 
+	donpcevent instance_npcname("#effect43")+"::OnEffect2";
+	end;
+OnTimer416000: 
+	donpcevent instance_npcname("#effect83")+"::OnEffect2";
+	end;
+OnTimer416250: 
+	donpcevent instance_npcname("#effect13")+"::OnEffect2";
+	end;
+OnTimer416500: 
+	donpcevent instance_npcname("#effect93")+"::OnEffect2";
+	end;
+OnTimer416750: 
+	donpcevent instance_npcname("#effect73")+"::OnEffect2";
+	end;
+OnTimer417000: 
+	donpcevent instance_npcname("#labsystem")+"::OnTalk103";
+	donpcevent instance_npcname("#effect33")+"::OnEffect2";
+	hideonnpc instance_npcname("文森特#lab03");
+	hideonnpc instance_npcname("希爾維亞#lab04");
+	hideonnpc instance_npcname("菲迪裡克#lab05");
+	hideonnpc instance_npcname("阿爾特彌婭#lab06");
+	end;
+OnTimer418000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk104";
+	end;
+OnTimer421000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk105";
+	end;
+OnTimer424000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk106";
+	end;
+OnTimer427000:
+	donpcevent instance_npcname("#labsystem")+"::OnTalk107";
+	end;
+}
+
+1@lab,84,82,0	script	#effect11	139,{
+	end;
+OnEffect:
+	specialeffect 182;
+	end;
+}
+
+1@lab,84,81,0	script	#effect12	139,{
+	end;
+OnEffect:
+	specialeffect 106;
+	end;
+}
+
+1@lab,83,80,0	script	#effect13	139,{
+	end;
+OnEffect:
+	specialeffect 90;
+	end;
+OnEffect2:
+	specialeffect 894;
+	end;
+}
+
+1@lab,90,78,0	duplicate(#effect11)	#effect21	139
+1@lab,96,82,0	duplicate(#effect11)	#effect31	139
+1@lab,98,88,0	duplicate(#effect11)	#effect61	139
+1@lab,96,94,0	duplicate(#effect11)	#effect91	139
+1@lab,90,98,0	duplicate(#effect11)	#effect81	139
+1@lab,84,94,0	duplicate(#effect11)	#effect71	139
+1@lab,82,88,0	duplicate(#effect11)	#effect41	139
+1@lab,90,79,0	duplicate(#effect12)	#effect22	139
+1@lab,97,82,0	duplicate(#effect12)	#effect32	139
+1@lab,99,88,0	duplicate(#effect12)	#effect62	139
+1@lab,97,94,0	duplicate(#effect12)	#effect92	139
+1@lab,90,97,0	duplicate(#effect12)	#effect82	139
+1@lab,84,95,0	duplicate(#effect12)	#effect72	139
+1@lab,81,88,0	duplicate(#effect12)	#effect42	139
+1@lab,90,80,0	duplicate(#effect13)	#effect23	139
+1@lab,98,81,0	duplicate(#effect13)	#effect33	139
+1@lab,100,88,0	duplicate(#effect13)	#effect63	139
+1@lab,98,95,0	duplicate(#effect13)	#effect93	139
+1@lab,90,96,0	duplicate(#effect13)	#effect83	139
+1@lab,83,96,0	duplicate(#effect13)	#effect73	139
+1@lab,80,88,0	duplicate(#effect13)	#effect43	139
+
+1@lab,0,0,0	script	#bossrand	139,{
+	end;
+OnFirst:
+	if(rand(100) >= 10){
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'mvplist1[rand(getarraysize('mvplist1))],1,instance_npcname("#bossrand")+"::OnFirstDead"; 
+	} else {
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'bosslist[rand(getarraysize('bosslist))],1,instance_npcname("#bossrand")+"::OnFirstDead"; 
+	}
+	end;
+OnFirstDead:
+	donpcevent instance_npcname("#firststart")+"::OnSecond";	
+	end;
+OnSecond:
+	if(rand(100) >= 10){
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'mvplist2[rand(getarraysize('mvplist2))],1,instance_npcname("#bossrand")+"::OnSecondDead"; 
+	} else {
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'bosslist[rand(getarraysize('bosslist))],1,instance_npcname("#bossrand")+"::OnSecondDead"; 
+	}
+	end;
+OnSecondDead:
+	donpcevent instance_npcname("#firststart")+"::OnThird";	
+	end;
+OnThird:
+	if(rand(100) >= 10){
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'mvplist3[rand(getarraysize('mvplist3))],1,instance_npcname("#bossrand")+"::OnThirdDead"; 
+	} else {
+		monster instance_mapname("1@lab"),90,88,"未知生命體",'bosslist[rand(getarraysize('bosslist))],1,instance_npcname("#bossrand")+"::OnSecondDead"; 
+	}
+	end;
+OnThirdDead:
+	donpcevent instance_npcname("#firststart")+"::OnEnd";
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@lab")+"::OnEnable";
+	'ClearInatance = 1;	
+	end;
+OnInstanceInit:
+	setarray 'mvplist1[0],1038,1039,1046,1059,1086,1087,1115,1147,1150,1159,1190,1389,1688;
+	setarray 'mvplist2[0],1112,1157,1251,1252,1272,1373,1630,1708,1779,1980,2068,2156;
+	setarray 'mvplist3[0],1312,1418,1623,1719,1734,1751,1768,1785,1832,1874,2087,2253,2255;
+	setarray 'bosslist[0],1088,1089,1090,1093,1096,1120,1092;
+	end;
+}
+
+
+1@lab,0,0,0	script	離開副本#1@lab	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940028,10;
+	Instance_PassAnnounce;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

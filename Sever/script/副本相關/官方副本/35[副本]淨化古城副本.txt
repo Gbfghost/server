@@ -1,0 +1,760 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@gl_prq	mapflag	noteleport
+1@gl_prq	mapflag	nosave	SavePoint
+1@gl_prq	mapflag	nomemo
+1@gl_prq	mapflag	nobranch
+1@gl_prq	mapflag	noicewall
+1@gl_prq	mapflag	restricted	6
+1@gl_prq	mapflag	monster_noteleport
+1@gl_prq	mapflag	partylock
+1@gl_prq	mapflag	novending
+1@gl_prq	mapflag	nochat
+
+amatsu,108,108,5	script	[副本]施密特國王	655,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "施密特國王副本";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 35;
+
+//
+	waitingroom "[副本]施密特國王副本",0;
+	setnpcicon getnpcid(0),22,"[副本]施密特國王副本";
+	end;
+}
+
+
+1@gl_prq,14,16,0	script	#glprqstart	139,1,1,{
+	end;
+OnTouch_:
+	donpcevent instance_npcname("#glprqmobctrl")+"::OnStart1";
+	hideonnpc instance_npcname("#glprqstart");
+	disablenpc instance_npcname("#glprqstart");	
+	end;
+}
+
+1@gl_prq,0,0,0	script	#glprqmobctrl	139,{
+	end;
+OnStart1:
+	areamonster instance_mapname("1@gl_prq"),20,75,71,36,"--ja--",20392,19,instance_npcname("#glprqmobctrl")+"::OnMobDead1";
+	areamonster instance_mapname("1@gl_prq"),20,75,71,36,"火焰荊棘",20250,6;
+	for(set .@i,0;.@i < 6;set .@i,.@i+1) {
+		getunitdata $@mobid[.@i],.@thorndata;
+		monster instance_mapname("1@gl_prq"),.@thorndata[6],.@thorndata[7],"詛咒火焰",20426,1;	
+	}
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：這裡是以前用作烹飪的場所。",bc_map,"0x00ff00";
+	sleep 5000;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：所以這裡的受害者都是一些正在準備飯菜的女僕。",bc_map,"0x00ff00";
+	sleep 5000;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：你唯一能做的就是讓她們免受更多的痛苦。",bc_map,"0x00ff00";
+	sleep 5000;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：如果你淨化了全部的被詛咒者，通往下一個場所的時間縫隙就會自動出現。",bc_map,"0x00ff00";
+	sleep 5000;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：在那之前由於這裡時間不斷重複的性質所以轉移會很難。",bc_map,"0x00ff00";
+	sleep 5000;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：對了，如果看到火焰荊棘的話請一定要避開。那是這個空間裡最讓人頭痛的東西。",bc_map,"0x00ff00";
+	end;
+OnMobDead1:
+	if(mobcount(instance_mapname("1@gl_prq"),instance_npcname("#glprqmobctrl")+"::OnMobDead1") < 1) {
+		mapannounce instance_mapname("1@gl_prq"),"奧斯卡：第一段的時間流逝恢復正常了。那麼轉移到下一段吧。",bc_map,"0x00ff00";
+		enablenpc instance_npcname("#glprqwarp1");
+		hideoffnpc instance_npcname("#glprqwarp1");
+		hideoffnpc instance_npcname("奧斯卡#glprq1");
+		sleep 5000;
+		areawarp instance_mapname("1@gl_prq"),0,0,320,320,instance_mapname("1@gl_prq"),121,64,123,62;
+	}
+	end;
+OnStart2:
+	for(set .@i,0;.@i < 10;set .@i,.@i+1) {
+		if(rand(100) < 10) {
+			areamonster instance_mapname("1@gl_prq"),134,66,179,21,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead2";
+		} else {
+			areamonster instance_mapname("1@gl_prq"),134,66,179,21,"--ja--",20389,1,instance_npcname("#glprqmobctrl")+"::OnMobDead2";
+		}
+	}
+	areamonster instance_mapname("1@gl_prq"),134,66,179,21,"火焰荊棘",20250,8;
+	for(set .@i,0;.@i < 8;set .@i,.@i+1) {
+		getunitdata $@mobid[.@i],.@thorndata;
+		monster instance_mapname("1@gl_prq"),.@thorndata[6],.@thorndata[7],"詛咒火焰",20426,1;	
+	}
+	end;
+OnMobDead2:
+	set 'mobcount2,'mobcount2+1;
+	if('mobcount2 >= 24) {
+		mapannounce instance_mapname("1@gl_prq"),"奧斯卡：第二段的時間流逝恢復正常了。那麼轉移到下一段吧。",bc_map,"0x00ff00";
+		killmonster instance_mapname("1@gl_prq"),instance_npcname("#glprqmobctrl")+"::OnMobDead2";
+		enablenpc instance_npcname("#glprqwarp2");
+		hideoffnpc instance_npcname("#glprqwarp2");
+		hideoffnpc instance_npcname("奧斯卡#glprq2");
+		sleep 5000;
+		areawarp instance_mapname("1@gl_prq"),0,0,320,320,instance_mapname("1@gl_prq"),148,116,150,114;
+	} else {
+		if(rand(100) < 10) {
+			areamonster instance_mapname("1@gl_prq"),134,66,179,21,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead2";
+		} else {
+			areamonster instance_mapname("1@gl_prq"),134,66,179,21,"--ja--",20389,1,instance_npcname("#glprqmobctrl")+"::OnMobDead2";
+		}
+	}
+	end;
+OnStart3:
+	for(set .@i,0;.@i < 10;set .@i,.@i+1) {
+		if(rand(100) < 10) {
+			areamonster instance_mapname("1@gl_prq"),134,178,179,122,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead3";
+		} else {
+			areamonster instance_mapname("1@gl_prq"),134,178,179,122,"--ja--",20391,1,instance_npcname("#glprqmobctrl")+"::OnMobDead3";
+		}
+	}
+	areamonster instance_mapname("1@gl_prq"),134,178,179,122,"火焰荊棘",20250,10;
+	for(set .@i,0;.@i < 10;set .@i,.@i+1) {
+		getunitdata $@mobid[.@i],.@thorndata;
+		monster instance_mapname("1@gl_prq"),.@thorndata[6],.@thorndata[7],"詛咒火焰",20426,1;	
+	}
+	end;
+OnMobDead3:
+	set 'mobcount3,'mobcount3+1;
+	if('mobcount3 >= 29) {
+		mapannounce instance_mapname("1@gl_prq"),"奧斯卡：第三段的時間流逝恢復正常了。那麼轉移到下一段吧。",bc_map,"0x00ff00";
+		killmonster instance_mapname("1@gl_prq"),instance_npcname("#glprqmobctrl")+"::OnMobDead3";
+		enablenpc instance_npcname("#glprqwarp3");
+		hideoffnpc instance_npcname("#glprqwarp3");
+		hideoffnpc instance_npcname("奧斯卡#glprq3");
+		sleep 5000;
+		areawarp instance_mapname("1@gl_prq"),0,0,320,320,instance_mapname("1@gl_prq"),76,178,78,176;
+	} else {
+		if(rand(100) < 10) {
+			areamonster instance_mapname("1@gl_prq"),134,178,179,122,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead3";
+		} else {
+			areamonster instance_mapname("1@gl_prq"),134,178,179,122,"--ja--",20391,1,instance_npcname("#glprqmobctrl")+"::OnMobDead3";
+		}
+	}
+	end;
+OnStart4:
+	for(set .@i,0;.@i < 10;set .@i,.@i+1) {
+		switch(rand(5)) {
+		case 0:
+		case 1:
+		case 2:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		case 3:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20391,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		case 4:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20389,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		}
+	}
+	areamonster instance_mapname("1@gl_prq"),20,177,65,127,"火焰荊棘",20250,12;
+	for(set .@i,0;.@i < 12;set .@i,.@i+1) {
+		getunitdata $@mobid[.@i],.@thorndata;
+		monster instance_mapname("1@gl_prq"),.@thorndata[6],.@thorndata[7],"詛咒火焰",20426,1;	
+	}
+	end;
+OnMobDead4:
+	set 'mobcount4,'mobcount4+1;
+	if('mobcount4 >= 15) {
+		mapannounce instance_mapname("1@gl_prq"),"奧斯卡：這是最後的房間了。讓我們來看看施密特國王的邪念體是否在徘徊。",bc_map,"0x00ff00";
+		killmonster instance_mapname("1@gl_prq"),instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+		enablenpc instance_npcname("#glprqwarp4");
+		hideoffnpc instance_npcname("#glprqwarp4");
+		hideoffnpc instance_npcname("奧斯卡#glprq");
+		hideoffnpc instance_npcname("被詛咒的國王#glprq");
+		enablenpc instance_npcname("#glprqbossstart");
+		hideoffnpc instance_npcname("#glprqbossstart");
+		sleep 5000;
+		areawarp instance_mapname("1@gl_prq"),0,0,320,320,instance_mapname("1@gl_prq"),52,246,54,244;
+	} else {
+		switch(rand(5)) {
+		case 0:
+		case 1:
+		case 2:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20394,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		case 3:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20391,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		case 4:
+			areamonster instance_mapname("1@gl_prq"),20,177,65,127,"--ja--",20389,1,instance_npcname("#glprqmobctrl")+"::OnMobDead4";
+			break;
+		}
+	}
+	end;
+OnInstanceInit:
+	set 'mobcount2,0;
+	set 'mobcount3,0;
+	set 'mobcount4,0;
+	end;
+}
+
+1@gl_prq,79,69,0	script	#glprqwarp1	45,2,2,{
+	end;
+OnTouch:
+	warp instance_mapname("1@gl_prq"),rand(121,123),rand(62,64);
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("#glprqwarp1");
+	disablenpc instance_npcname("#glprqwarp1");
+	end;
+}
+
+1@gl_prq,153,73,0	script	#glprqwarp2	45,2,2,{
+	end;
+OnTouch:
+	warp instance_mapname("1@gl_prq"),rand(148,150),rand(114,116);
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("#glprqwarp2");
+	disablenpc instance_npcname("#glprqwarp2");
+	end;
+}
+
+1@gl_prq,115,127,0	script	#glprqwarp3	45,2,2,{//npc位置待證實
+	end;
+OnTouch:
+	warp instance_mapname("1@gl_prq"),rand(76,78),rand(176,178);
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("#glprqwarp3");
+	disablenpc instance_npcname("#glprqwarp3");
+	end;
+}
+
+1@gl_prq,31,124,0	script	#glprqwarp4	45,2,2,{
+	end;
+OnTouch:
+	warp instance_mapname("1@gl_prq"),rand(52,54),rand(244,246);
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("#glprqwarp4");
+	disablenpc instance_npcname("#glprqwarp4");
+	end;
+}
+
+1@gl_prq,127,63,3	script	奧斯卡#glprq1	10307,2,2,{
+	end;
+OnTouch_:
+	if(!'glprqtalk1) {
+		set 'glprqtalk1,1;
+		npctalk "奧斯卡：這裡是騎士團交接工作的場所。";
+		donpcevent instance_npcname("#glprqmobctrl")+"::OnStart2";
+		sleep 4000;
+		npctalk "奧斯卡：當時交班後暫作休息的人還沒來得及撤離。";
+		sleep 4000;
+		npctalk "奧斯卡：和做飯的女僕是一樣的。";
+		sleep 4000;
+		npctalk "奧斯卡：為了前往下一個時間段，請給予他們安息吧。";
+		sleep 4000;
+		hideonnpc instance_npcname("奧斯卡#glprq1");
+	}
+	end;
+OnInstanceInit:
+	set 'glprqtalk1,0;
+	hideonnpc instance_npcname("奧斯卡#glprq1");
+	end;
+}
+
+1@gl_prq,148,121,3	script	奧斯卡#glprq2	10307,2,2,{
+	end;
+OnTouch_:
+	if(!'glprqtalk2) {
+		set 'glprqtalk2,1;
+		npctalk "奧斯卡：這裡是二號宿舍兼食堂和休息室的場所。";
+		donpcevent instance_npcname("#glprqmobctrl")+"::OnStart3";
+		sleep 4000;
+		npctalk "奧斯卡：早上配給的食物從烹飪間運送到這裡，詛咒就像毒藥一樣散播在食物中。";
+		sleep 4000;
+		npctalk "奧斯卡：不知情而伸手拿食物的人們最終也無法逃脫。";
+		sleep 4000;
+		npctalk "奧斯卡：不需要我親自出手也好。你能把這裡也清理一下嗎？";
+		sleep 4000;
+		hideonnpc instance_npcname("奧斯卡#glprq2");
+	}
+	end;
+OnInstanceInit:
+	set 'glprqtalk2,0;
+	hideonnpc instance_npcname("奧斯卡#glprq2");
+	end;
+}
+
+1@gl_prq,67,176,3	script	奧斯卡#glprq3	10307,2,2,{
+	end;
+OnTouch_:
+	if(!'glprqtalk3) {
+		set 'glprqtalk3,1;
+		npctalk "奧斯卡：這裡是保管軍事書籍的場所。";
+		donpcevent instance_npcname("#glprqmobctrl")+"::OnStart4";
+		sleep 4000;
+		npctalk "奧斯卡：主要是高階指揮官使用的場所。";
+		sleep 4000;
+		npctalk "奧斯卡：所以在這裡徘徊的邪念體很強大。請小心。";
+		sleep 4000;
+		hideonnpc instance_npcname("奧斯卡#glprq3");
+	}
+	end;
+OnInstanceInit:
+	set 'glprqtalk3,0;
+	hideonnpc instance_npcname("奧斯卡#glprq3");
+	end;
+}
+
+1@gl_prq,52,270,0	script	#glprqbossstart	139,3,3,{
+	end;
+OnTouch_:
+	donpcevent instance_npcname("奧斯卡#glprq")+"::OnStart";
+	hideonnpc instance_npcname("#glprqbossstart");
+	disablenpc instance_npcname("#glprqbossstart");	
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("#glprqbossstart");
+	disablenpc instance_npcname("#glprqbossstart");
+	end;
+}
+
+1@gl_prq,52,281,3	script	被詛咒的國王#glprq	10306,{
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("被詛咒的國王#glprq");
+	end;
+}
+
+1@gl_prq,52,270,3	script	奧斯卡#glprq	10307,{
+	end;
+OnStart:
+	npctalk "奧斯卡：邪念體一如既往地在這裡徘徊。";
+	hideoffnpc instance_npcname("被詛咒的國王#glprq");
+	sleep 2000;
+	npctalk "奧斯卡：如果消去次元壁的話，你可能會因此受傷或者死亡。務必小心。";
+	sleep 2000;
+	npctalk "奧斯卡：那雖然是施密特國王的模樣，但跟施密特沒有任何的關係，所以攻擊它的時候不必有良心的譴責。";
+	sleep 6000;
+	npctalk "奧斯卡：我會慢慢收回時間結界。準備開始戰鬥吧。";
+	sleep 5000;
+	hideonnpc instance_npcname("奧斯卡#glprq");
+	hideonnpc instance_npcname("被詛咒的國王#glprq");
+	areawarp instance_mapname("1@gl_prq"),0,0,320,320,instance_mapname("1@gl_prq"),52,273,54,271;
+	donpcevent instance_npcname("#glprqfirectrl")+"::OnStart";
+	donpcevent instance_npcname("#glprqfireup")+"::OnStart";
+	donpcevent instance_npcname("#glprqfiredown")+"::OnStart";
+	donpcevent instance_npcname("#glprqfireleft")+"::OnStart";
+	donpcevent instance_npcname("#glprqfireright")+"::OnStart";
+	monster instance_mapname("1@gl_prq"),52,281,"--ja--",20387,1,instance_npcname("奧斯卡#glprq")+"::OnBossDie";	
+	'BossID = $@mobid[0];
+	sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'BossID;
+	end;
+OnBossDie:
+	donpcevent instance_npcname("#glprqfireup")+"::OnStop";
+	donpcevent instance_npcname("#glprqfiredown")+"::OnStop";
+	donpcevent instance_npcname("#glprqfireleft")+"::OnStop";
+	donpcevent instance_npcname("#glprqfireright")+"::OnStop";
+	donpcevent instance_npcname("#glprqfirectrl")+"::OnStop";
+	donpcevent instance_npcname("#glprqfdb")+"::OnStop";
+	for(set .@i,1;.@i <= 30;set .@i,.@i+1) {
+		if(getd("'FireupID["+.@i+"]")) {
+			mobremove getd("'FireupID["+.@i+"]");
+		}
+		if(getd("'FiredownID["+.@i+"]")) {
+			mobremove getd("'FiredownID["+.@i+"]");
+		}
+	}
+	for(set .@i,1;.@i <= 23;set .@i,.@i+1) {
+		if(getd("'FireleftID["+.@i+"]")) {
+			mobremove getd("'FireleftID["+.@i+"]");
+		}
+		if(getd("'FirerightID["+.@i+"]")) {
+			mobremove getd("'FirerightID["+.@i+"]");
+		}
+	}
+	hideonnpc instance_npcname("奧斯卡#glprqpause1");
+	hideonnpc instance_npcname("奧斯卡#glprqpause2");
+	hideonnpc instance_npcname("奧斯卡#glprqpause3");
+	hideonnpc instance_npcname("奧斯卡#glprqpause4");
+	hideonnpc instance_npcname("#glprqfdebuff1");
+	hideonnpc instance_npcname("#glprqfdebuff2");
+	hideonnpc instance_npcname("#glprqfdebuff3");
+	hideonnpc instance_npcname("#glprqfdebuff4");
+	disablenpc instance_npcname("#glprqfdebuff1");
+	disablenpc instance_npcname("#glprqfdebuff2");
+	disablenpc instance_npcname("#glprqfdebuff3");
+	disablenpc instance_npcname("#glprqfdebuff4");
+	hideoffnpc instance_npcname("奧斯卡#glprqwin");
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("奧斯卡#glprq");
+	end;
+}
+
+1@gl_prq,0,0,0	script	#glprqfirectrl	139,{
+	end;
+OnStart:
+	initnpctimer;
+	end;
+OnTimer5000:
+	stopnpctimer;
+	if(rand(100) < 5) {
+		set .@i,rand(1,4);
+		if (.@i != 'glprqfirectrl) {
+			if('glprqfirectrl) {
+				hideonnpc instance_npcname("奧斯卡#glprqpause"+'glprqfirectrl);
+			}
+			set 'glprqfirectrl,.@i;
+			hideoffnpc instance_npcname("奧斯卡#glprqpause"+'glprqfirectrl);
+			npctalk "奧斯卡：如果想暫時定住火焰海嘯的話就握住我的手。",instance_npcname("奧斯卡#glprqpause"+'glprqfirectrl);
+			set 'firepause,0;
+		}
+	}
+	if(rand(100) < 2) {
+		if(!'glprqfdbyes) {
+			set 'glprqfdbyes,1; 
+			enablenpc instance_npcname("#glprqfdebuff1");
+			enablenpc instance_npcname("#glprqfdebuff2");
+			enablenpc instance_npcname("#glprqfdebuff3");
+			enablenpc instance_npcname("#glprqfdebuff4");
+			hideoffnpc instance_npcname("#glprqfdebuff1");
+			hideoffnpc instance_npcname("#glprqfdebuff2");
+			hideoffnpc instance_npcname("#glprqfdebuff3");
+			hideoffnpc instance_npcname("#glprqfdebuff4");
+			mapannounce instance_mapname("1@gl_prq"),"蘊含施密特邪念體的力量的氣息出現了，將它們全部關閉以封印施密特邪念體吧。",bc_map,"0x9400D3";
+		}
+	}
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	set 'glprqfirectrl,0;
+	set 'glprqfdb,0;
+	set 'glprqfdbyes,0;
+	end;
+}
+
+1@gl_prq,45,282,5	script	奧斯卡#glprqpause1	10307,{
+	progressbar "0xFFFF00",2;
+	if(!'firepause) {
+		set 'fireuppause,1;
+		set 'firedownpause,1;
+		set 'fireleftpause,1;
+		set 'firerightpause,1;
+		set 'firepause,1;
+		hideonnpc instance_npcname(strnpcinfo(0));
+		mapannounce instance_mapname("1@gl_prq"),"奧斯卡：我暫停了火嘯的時間。盡力活下來吧。",bc_map,"0x00ff00";
+	}
+	end;
+OnInstanceInit:
+	set 'fireuppause,0;
+	set 'firedownpause,0;
+	set 'fireleftpause,0;
+	set 'firerightpause,0;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@gl_prq,59,282,3	duplicate(奧斯卡#glprqpause1)	奧斯卡#glprqpause2	10307
+1@gl_prq,45,269,7	duplicate(奧斯卡#glprqpause1)	奧斯卡#glprqpause3	10307
+1@gl_prq,59,269,1	duplicate(奧斯卡#glprqpause1)	奧斯卡#glprqpause4	10307
+
+1@gl_prq,39,276,0	script	#glprqfdebuff1	10042,3,3,{
+	end;
+OnTouch_:
+	set 'glprqfdb,'glprqfdb+1;
+	if('glprqfdb == 4) {
+		set 'glprqfdb,0;
+		donpcevent instance_npcname("#glprqfdb")+"::OnStart";	
+	}
+	hideonnpc instance_npcname(strnpcinfo(0));
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@gl_prq,51,288,0	duplicate(#glprqfdebuff1)	#glprqfdebuff2	10044,3,3
+1@gl_prq,64,276,0	duplicate(#glprqfdebuff1)	#glprqfdebuff3	10043,3,3
+1@gl_prq,52,263,0	duplicate(#glprqfdebuff1)	#glprqfdebuff4	10046,3,3
+
+1@gl_prq,0,0,0	script	#glprqfdb	139,{
+	end;
+OnStart:
+	initnpctimer;
+	set 'glprqfdbyes,2; 
+	sc_end SC_ATKPOTION,'BossID;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：邪念體平靜下來了。現在它有一段時間不能很好地作出攻擊了。",bc_map,"0x00ff00";	
+	end;
+OnTimer5000:	
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：還有邪念體的狂暴化狀態解除了。現在是攻擊的好時機。",bc_map,"0x00ff00";
+	end;
+OnTimer15000:
+	stopnpctimer;
+	set 'glprqfdbyes,0;
+	sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'BossID;
+	mapannounce instance_mapname("1@gl_prq"),"奧斯卡：邪念體的力量恢復了。請調整攻擊的速度。",bc_map,"0x00ff00"; 
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+}	
+	
+1@gl_prq,0,0,0	script	#glprqfireup	139,{
+	end;
+OnStart:
+	initnpctimer;
+	set 'fireuprand,rand(10,18);
+OnTimer250:
+	stopnpctimer;
+	if('fireupy < 244) {
+		set 'fireupy,311;
+		set 'fireuprand,rand(10,18);
+		set 'fireuppause,0;
+	}
+	if(!'fireuppause) {
+		for(set .@i,1;.@i <= 30;set .@i,.@i+1) {
+			if(getd("'FireupID["+.@i+"]")) {
+				mobremove getd("'FireupID["+.@i+"]");
+			}
+		}
+		for(set .@i,0; .@i<30; set .@i,.@i+1){
+			setarray 'FireupID[.@i+1],0;
+			if(.@i <'fireuprand || .@i >'fireuprand+2) {
+				monster instance_mapname("1@gl_prq"),7+3*.@i,'fireupy,"--ja--",20426,1,instance_npcname("#glprqfireup")+"::OnFire";	
+				setarray 'FireupID[.@i+1],$@mobid[0];
+				if('glprqfdbyes != 2) {		
+					sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'FireupID[.@i+1];
+				}
+			}
+		}
+	}
+	set 'fireupy,'fireupy-1;
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	set 'fireupy,311;
+	set 'fireuprand,0;
+	set 'fireuppause,0;
+	end;
+}
+
+1@gl_prq,0,0,0	script	#glprqfiredown	139,{
+	end;
+OnStart:
+	initnpctimer;
+	set 'firedownrand,rand(10,18);
+OnTimer250:
+	stopnpctimer;
+	if('firedowny > 311) {
+		set 'firedowny,244;
+		set 'firedownrand,rand(10,18);
+		set 'firedownpause,0;
+	}
+	if(!'firedownpause) {
+		for(set .@i,1;.@i <= 30;set .@i,.@i+1) {
+			if(getd("'FiredownID["+.@i+"]")) {
+				mobremove getd("'FiredownID["+.@i+"]");
+			}
+		}
+		for(set .@i,0; .@i<30; set .@i,.@i+1){
+			setarray 'FiredownID[.@i+1],0;
+			if(.@i <'firedownrand || .@i >'firedownrand+2) {
+				monster instance_mapname("1@gl_prq"),7+3*.@i,'firedowny,"--ja--",20426,1,instance_npcname("#glprqfiredown")+"::OnFire";	
+				setarray 'FiredownID[.@i+1],$@mobid[0];
+				if('glprqfdbyes != 2) {			
+					sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'FiredownID[.@i+1];
+				}
+			}
+		}
+	}
+	set 'firedowny,'firedowny+1;
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	set 'firedowny,244;
+	set 'firedownrand,0;
+	set 'firedownpause,0;
+	end;
+}
+
+1@gl_prq,0,0,0	script	#glprqfireleft	139,{
+	end;
+OnStart:
+	initnpctimer;
+	set 'fireleftrand,rand(6,13);
+OnTimer250:
+	stopnpctimer;
+	if('fireleftx > 97) {
+		set 'fireleftx,7;
+		set 'fireleftrand,rand(6,13);
+		set 'fireleftpause,0;
+	}
+	if(!'fireleftpause) {
+		for(set .@i,1;.@i <= 23;set .@i,.@i+1) {
+			if(getd("'FireleftID["+.@i+"]")) {
+				mobremove getd("'FireleftID["+.@i+"]");
+			}
+		}
+		for(set .@i,0; .@i<23; set .@i,.@i+1){
+			setarray 'FireleftID[.@i+1],0;
+			if(.@i <'fireleftrand || .@i >'fireleftrand+2) {
+				monster instance_mapname("1@gl_prq"),'fireleftx,244+3*.@i,"--ja--",20426,1,instance_npcname("#glprqfireleft")+"::OnFire";	
+				setarray 'FireleftID[.@i+1],$@mobid[0];
+				if('glprqfdbyes != 2) {			
+					sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'FireleftID[.@i+1];
+				}
+			}
+		}
+	}
+	set 'fireleftx,'fireleftx+1;
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	set 'fireleftx,7;
+	set 'fireleftrand,0;
+	set 'fireleftpause,0;
+	end;
+}
+
+1@gl_prq,0,0,0	script	#glprqfireright	139,{
+	end;
+OnStart:
+	sleep 6000;
+	initnpctimer;
+	set 'firerightrand,rand(6,13);
+OnTimer250:
+	stopnpctimer;
+	if('firerightx < 7) {
+		set 'firerightx,97;
+		set 'firerightrand,rand(6,13);
+		set 'firerightpause,0;
+	}
+	if(!'firerightpause) {
+		for(set .@i,1;.@i <= 23;set .@i,.@i+1) {
+			if(getd("'FirerightID["+.@i+"]")) {
+				mobremove getd("'FirerightID["+.@i+"]");
+			}
+		}
+		for(set .@i,0; .@i<23; set .@i,.@i+1){
+			setarray 'FirerightID[.@i+1],0;
+			if(.@i <'firerightrand || .@i >'firerightrand+2) {
+				monster instance_mapname("1@gl_prq"),'firerightx,244+3*.@i,"--ja--",20426,1,instance_npcname("#glprqfireright")+"::OnFire";	
+				setarray 'FirerightID[.@i+1],$@mobid[0];
+				if('glprqfdbyes != 2) {					
+					sc_start SC_ATKPOTION,INFINITE_TICK,1000,10000,SCSTART_NOAVOID,'FirerightID[.@i+1];
+				}
+			}
+		}
+	}
+	set 'firerightx,'firerightx-1;
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+OnInstanceInit:
+	set 'firerightx,97;
+	set 'firerightrand,0;
+	set 'firerightpause,0;
+	end;
+}
+
+1@gl_prq,52,278,3	script	奧斯卡#glprqwin	10307,{
+	mes "[奧斯卡]";
+	mes "是一場艱難的戰鬥吧？";
+	mes "雖然比我親自出手花費更多的時間，但你們還是很出色。";
+	next;
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@gl_prq")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("奧斯卡#glprqwin");
+	end;
+OnInstanceInit:
+	hideonnpc instance_npcname("奧斯卡#glprqwin");
+	end;
+}
+
+1@gl_prq,0,0,0	script	副本寶箱#1@gl_prq	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;	
+	getitem 940035,10;
+	getitem 930000,5;
+	getitem    25739,5;
+	getitem    25740,5;
+	getitem 6909,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

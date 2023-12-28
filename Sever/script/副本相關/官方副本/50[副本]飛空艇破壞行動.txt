@@ -1,0 +1,663 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@whl	mapflag	noteleport
+1@whl	mapflag	nosave	SavePoint
+1@whl	mapflag	nomemo
+1@whl	mapflag	nobranch
+1@whl	mapflag	noicewall
+1@whl	mapflag	restricted	6
+1@whl	mapflag	monster_noteleport	//魔物無法瞬移
+1@whl	mapflag	partylock			//無法加入組隊
+1@whl	mapflag	novending			//無法開露天商店
+1@whl	mapflag	nochat				//無法開聊天室
+
+amatsu,127,121,5	script	[副本]飛空艇破壞行動	20637,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "飛空艇破壞行動";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 50;
+
+//
+	waitingroom "[副本]飛空艇破壞行動",0;
+	setnpcicon getnpcid(0),22,"[副本]飛空艇破壞行動";
+	end;
+}
+
+
+
+//除錯模式
+// 1@whl,36,44,3	script	飛空艇管理員#Test	20637,3,3,{
+	// enablenpc instance_npcname("天鷹座-阿奎拉#whl_BOSS");
+	// warp 'map$,160,165;
+	// end;
+// }
+
+1@whl,0,0,0	script	#飛空艇破壞行動	-1,{   
+	end;
+OnInstanceInit:
+	'map$ = instance_mapname("1@whl");
+	'talk = 0;
+	'mode = 0;
+	'mob_time = 0;
+	'select_mode = 0;
+	'open = 1;
+	'effect_on = 1;
+	'defmode = 0;
+	 'Win = 0;
+	setarray 'mob,20630,20631,20632,20633,20634,20635,20636,20637,20638,20639,20640,20641;
+	//setd "'effect_0"+.@index,0;
+	'effect_0 = 0;
+	'effect_1 = 0;
+	'effect_2 = 0;
+	'effect_3 = 0;
+	'effect_4 = 0;
+	'effect_5 = 0;
+	'effect_6 = 0;
+	'effect_7 = 0;
+	
+	disablenpc instance_npcname("#whl_warp_1");
+	disablenpc instance_npcname("#whl_warp_2");
+	disablenpc instance_npcname("#whl_warp_3");
+	disablenpc instance_npcname("#whl_warp_4");
+	disablenpc instance_npcname("#whl_warp_5");
+	disablenpc instance_npcname("#whl_warp_6");
+	disablenpc instance_npcname("#whl_warp_7");
+                                        
+	end;	
+}
+
+
+//傳送
+1@whl,53,75,0	warp	#whl_warp_1	1,1,1@whl,53,79
+1@whl,53,97,0	warp	#whl_warp_2	1,1,1@whl,53,101
+1@whl,37,161,0	warp	#whl_warp_3	1,1,1@whl,140,17
+1@whl,69,161,0	warp	#whl_warp_4	1,1,1@whl,179,17
+1@whl,159,43,0	warp	#whl_warp_5	1,1,1@whl,159,47
+1@whl,159,117,0	warp	#whl_warp_6	1,1,1@whl,159,121
+1@whl,159,129,0	warp	#whl_warp_7	1,1,1@whl,159,133
+
+//callfunc("#ticket_name",'mode)
+function	script	#ticket_name	{
+	switch(getarg(0)){
+		case 0:
+			return "經濟艙";
+		case 1:
+			return "商務艙";
+		case 2:
+			return "頭等艙";			
+	}
+}
+
+
+1@whl,36,54,3	script	飛空艇管理員#17_2_1mu	20637,3,3,{
+	if('talk != 2)end;
+		if(getcharid(0) != getpartyleader(getcharid(1),2)) {	
+			end;
+		}
+		if('select_mode)end;
+		mes "飛空艇管理員";
+		mes "是乘客嗎?我要確認一下你機票的座位等級";
+		mes "當前你的座位等級為-"+callfunc("#ticket_name",'mode);
+		next;
+		switch(select("稍等一會","隨便給她一張假機票","我要改變座位等級")){
+			case 1:
+				close;
+			case 2:
+				close2;
+				'select_mode = 1;
+				setunitdata getnpcid(0), UNPC_CLASS, 20637;
+				npcspeed 150;
+				unitwalk getnpcid(0),47,55,instance_npcname(strnpcinfo(0))+"::OnWalkenevt";	
+				npctalk "飛空艇管理員: 第一次見這種機票.我要確認一下.請稍等.我馬上回來。 ";
+				end;
+			case 3:
+		mes "飛空艇管理員";
+		mes "我們會根據您預定的機票等級提供服務";
+		mes "你當前座位等級是-"+callfunc("#ticket_name",'mode);	
+		mes "請選擇你要升級的座位";
+		next;
+		switch(select("取消","商務艙","頭等艙")){
+			case 1:
+				close;
+			case 2:
+				if(select("確定升艙:取消")==2)close;
+				'mode = 1;
+				mes "飛空艇管理員";
+				mes "艙位變更成功";
+				mes "把你的座位調整到-"+callfunc("#ticket_name",'mode);	
+				close;	
+			case 3:
+				'mode = 2;
+				mes "飛空艇管理員";
+				mes "艙位變更成功";
+				mes "把你的座位調整到-"+callfunc("#ticket_name",'mode);	
+				close;			
+		}
+
+		}
+		
+
+end;
+OnTouch:
+		if(getcharid(0) != getpartyleader(getcharid(1),2)) {	
+			end;
+		}
+		if(!'talk){
+			'talk = 1;
+			npctalk "飛空艇管理員: 乘客居然是人類。 ";
+			sleep 3000;
+			npctalk "飛空艇管理員: 乘客數量大概是......";
+			'talk = 2;
+			
+		}
+		
+		end;
+OnWalkenevt:
+	hideonnpc instance_npcname(strnpcinfo(0));
+	sleep 3000;
+	instance_announce 0,"飛空艇管理員: 有人持假機票上了飛機.請全體機器人出動攻擊.清除非法入侵人員",bc_all;
+	sleep 3000;
+	instance_announce 0,"飛空艇管理員: 對應座位等級為: "+callfunc("#ticket_name",'mode),bc_all;
+	sleep 3000;				
+	donpcevent instance_npcname("#whl_mob_crt")+"::OnEnableMob0";
+	end;
+
+}
+
+
+
+
+
+//關鍵魔物事件總控臺
+1@whl,0,0,0	script	#whl_mob_crt	-1,{
+	end;
+mob_refresh:
+		for(.@i=0;.@i<getarg(4);.@i++){
+			areamonster 'map$,getarg(0),getarg(1),getarg(2),getarg(3),"飛空艇警衛機器人",'mob[rand(getarraysize('mob))],1,instance_npcname(strnpcinfo(0))+"::Onkill_dead";
+			.@mobgid = $@mobid[0];
+			getunitdata .@mobgid,.@mobarr;
+			setunitdata .@mobgid,UMOB_LEVEL,215;
+			setunitdata .@mobgid,UMOB_MAXHP,.@mobarr[UMOB_MAXHP]*(getarg(5)+'mode*2);
+			setunitdata .@mobgid,UMOB_ATKMIN,.@mobarr[UMOB_ATKMIN]+getarg(6)+'mode*2000;				
+			setunitdata .@mobgid,UMOB_MATKMIN,.@mobarr[UMOB_MATKMIN]+getarg(7)+'mode*2000;
+			setunitdata .@mobgid,UMOB_DEF,.@mobarr[UMOB_DEF]+getarg(8)+'mode*100;
+			setunitdata .@mobgid,UMOB_MDEF,.@mobarr[UMOB_MDEF]+getarg(9)+'mode*100;	
+
+			switch('mode){
+				case 0:
+					setunitdata .@mobgid,UMOB_DAMAGETAKEN,1000;	
+					break;	
+				case 1:
+					setunitdata .@mobgid,UMOB_DAMAGETAKEN,800;	
+					break;	
+				case 2:
+					setunitdata .@mobgid,UMOB_DAMAGETAKEN,500;
+				break;						
+			}			
+		}	
+	
+	return;
+	
+OnEnableMob0:
+	callsub mob_refresh,
+		30,51,79,71,
+		15,1,0,0,0,0;	
+		end;
+		
+OnEnableMob1:
+	callsub mob_refresh,
+		35,81,72,97,
+		15,1,0,0,0,0;	
+		end;
+		
+OnEnableMob2:
+	callsub mob_refresh,
+		30,105,72,153,
+		15,1,0,0,0,0;	
+		end;	
+OnEnableMob3:
+	callsub mob_refresh,
+		136,17,188,42,
+		15,1,0,0,0,0;	
+		end;	
+OnEnableMob4:
+	callsub mob_refresh,
+		132,49,186,113,
+		15,1,0,0,0,0;	
+		end;		
+Onkill_dead:
+		.@mob_dead_num = mobcount('map$,instance_npcname(strnpcinfo(0))+"::Onkill_dead");
+
+	if (!.@mob_dead_num) {
+		switch('mob_time){
+			case 0:
+				enablenpc instance_npcname("#whl_warp_1");
+				sleep 3000;
+				instance_announce 0,"???: 警報!非法入侵人員可能出現在第二區域.請警衛進行清除",bc_all;
+				sleep 3000;
+				instance_announce 0,"???: 加派警衛到所有進入駕駛室路口.從現在開始.請封鎖",bc_all;		
+				donpcevent instance_npcname(strnpcinfo(0))+"::OnEnableMob1";					
+				break;
+			case 1:
+				enablenpc instance_npcname("#whl_warp_2");
+				sleep 3000;			
+				instance_announce 0,"???: 重復!!通知所有貨倉外人員馬上進入休息室.",bc_all;				
+				sleep 3000;	
+				instance_announce 0,"???: 最好忽略貨艙的生命反應。不需要大的戰鬥能力。所有人攻擊朝向機房的外部入侵者.",bc_all;		
+				sleep 3000;	
+				instance_announce 0,"???: 如果你們現在離開，我們就不會剝奪你們的性命。請做出明智的選擇.",bc_all;		
+				sleep 3000;						
+				donpcevent instance_npcname(strnpcinfo(0))+"::OnEnableMob2";				
+				break;
+			case 2:
+				enablenpc instance_npcname("#whl_warp_3");
+				enablenpc instance_npcname("#whl_warp_4");
+				sleep 3000;			
+				instance_announce 0,"???: 重復!!潛入休息空間的入侵者進入機房了。請停止貨艙的全部搜查，前往機房支援.",bc_all;				
+
+				sleep 3000;	
+				instance_announce 0,"???: 根據本機器的計算，該飛船配置的警衛90%的是無用的。此次事態結束後，將進行適當的重新部署.",bc_all;				
+				sleep 3000;	
+				instance_announce 0,"???: 每個個體的平均生命是3.7秒，太了不起了，本機器為了維修而拆卸帕特羅的螺母和螺栓時比這還要長。你們是在防禦嗎?.",bc_all;				
+				sleep 3000;	
+				donpcevent instance_npcname(strnpcinfo(0))+"::OnEnableMob3";			
+				break;			
+			case 3:
+				enablenpc instance_npcname("#whl_warp_5");
+				sleep 3000;			
+				instance_announce 0,"???: 重復!!請將潛入機房的入侵人員全部殲滅，嚴禁進入機房核心部位。.",bc_all;	
+				sleep 3000;					
+				donpcevent instance_npcname(strnpcinfo(0))+"::OnEnableMob4";	
+				break;	
+			case 4:
+				enablenpc instance_npcname("#whl_warp_6");
+				enablenpc instance_npcname("#whl_warp_7");
+				enablenpc instance_npcname("天鷹座-阿奎拉#whl_BOSS");
+				break;					
+		}
+
+		'mob_time++;
+			
+	}		
+}
+
+//關鍵魔物事件總控臺
+1@whl,160,165,0	script	天鷹座-阿奎拉#whl_BOSS	21588,{
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {	
+			end;
+	}
+	if('LastBoss == 1) { end; }
+	mes "[阿奎拉]";
+	mes "現在還不晚。如果我們停止破壞，回到過去，我也不會做出進一步的回應";
+	mes "";
+	next;
+	if(select("我還是回去吧","但我做不到。")==1)close;
+		hideonnpc instance_npcname(strnpcinfo(0));
+		monster 'map$,160,165,"天鷹座-阿奎拉",21588,1,instance_npcname(strnpcinfo(0))+"::OnMVPdie";
+		'LastBoss = 1;
+		'BossID = $@mobid[0];
+		getunitdata 'BossID,.@mobarr;
+		setunitdata 'BossID,UMOB_MAXHP,.@mobarr[UMOB_MAXHP]*(1+'mode);
+		setunitdata 'BossID,UMOB_ATKMIN,.@mobarr[UMOB_ATKMIN]+'mode*2000;				
+		setunitdata 'BossID,UMOB_MATKMIN,.@mobarr[UMOB_MATKMIN]+'mode*2000;
+		setunitdata 'BossID,UMOB_DEF,.@mobarr[UMOB_DEF]+'mode*100;
+		setunitdata 'BossID,UMOB_MDEF,.@mobarr[UMOB_MDEF]+'mode*100;
+		donpcevent instance_npcname("#掃地機器人")+"::OnEnable";
+		donpcevent instance_npcname("#BOSSss")+"::OnEnable";	
+		end;
+
+OnMVPdie:
+	'Win = 1;
+	stopnpctimer instance_npcname("#掃地機器人");
+	stopnpctimer instance_npcname("#BOSSss");
+	enablenpc instance_npcname("#whl_exit");
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+
+
+1@whl,137,174,0	script	#BOSSss	-1,{
+	end;
+OnEnable:
+		initnpctimer;
+		end;
+OnTimer5000:
+		if('defmode){
+			'defmode = 0;
+			setunitdata 'BossID,UMOB_DAMAGETAKEN,500;
+			instance_announce 0,"內核中正常供給能量，消除超負荷狀態!",bc_all,0x23a712;
+			stopnpctimer;
+			initnpctimer;
+		}
+	end;
+
+
+OnTimer10001:
+		if(!'defmode){
+			'defmode = 1;
+			instance_announce 0,"由於長時間運轉能量不足,請立即充能!內核能量枯竭核心轉換為超負荷模式!",bc_all,0xfff21c;
+			setunitdata 'BossID,UMOB_DAMAGETAKEN,1;
+			'open = 0;
+			'effect_on = 0;
+		}
+		
+		stopnpctimer;
+		end;
+
+}
+
+1@whl,0,0,0	script	#掃地機器人	-1,{
+	end;
+
+OnEnable:
+	if('Win)end;
+	initnpctimer;
+	instance_announce 0,"核心管理室未經許可，外部人員不得侵入，請立即進行清掃。",bc_all,0xfd0a54;
+	end;
+OnTimer5000:	
+	instance_announce 0,"完成區域布置的機器人，請依次進入清掃作業",bc_all,0xfd0a54;
+	
+	callsub mob_refresh,
+		130,132,189,187,
+		15*(1+'mode*5),1,0,0,0,0;
+	end;
+OnTimer10000:	
+	callsub mob_skill1;	
+	end;	
+OnTimer15000:
+	instance_announce 0,"運行凈化系統",bc_all,0xfd0a54;
+	callsub mob_skill2;
+	end;	
+OnTimer20000:
+	stopnpctimer;
+	initnpctimer;
+	end;
+mob_refresh:
+	.@k = 0;
+		for(.@i=0;.@i<getarg(4);.@i++){
+			
+			areamonster 'map$,getarg(0),getarg(1),getarg(2),getarg(3),"機器人",20640,1,instance_npcname(strnpcinfo(0))+"::Onkill_dead";
+			'mobgid[.@k] = $@mobid[0];
+			getunitdata 'mobgid[.@k],.@mobarr;
+			setunitdata 'mobgid[.@k],UMOB_LEVEL,215;
+			setunitdata 'mobgid[.@k],UMOB_MAXHP,.@mobarr[UMOB_MAXHP]*getarg(5);
+			setunitdata 'mobgid[.@k],UMOB_ATKMIN,.@mobarr[UMOB_ATKMIN]+getarg(6);				
+			setunitdata 'mobgid[.@k],UMOB_MATKMIN,.@mobarr[UMOB_MATKMIN]+getarg(7);
+			setunitdata 'mobgid[.@k],UMOB_DEF,.@mobarr[UMOB_DEF]+getarg(8);
+			setunitdata 'mobgid[.@k],UMOB_MDEF,.@mobarr[UMOB_MDEF]+getarg(9);	
+
+			switch('mode){
+				case 0:
+					setunitdata 'mobgid[.@k],UMOB_DAMAGETAKEN,1000;	
+					break;	
+				case 1:
+					setunitdata 'mobgid[.@k],UMOB_DAMAGETAKEN,800;	
+					break;	
+				case 2:
+					setunitdata 'mobgid[.@k],UMOB_DAMAGETAKEN,500;
+				break;						
+			}	
+			
+			setunitdata 'mobgid[.@k],UMOB_MODE,14468;
+			setunitdata 'mobgid[.@k],UMOB_DMGIMMUNE,1;
+			.@k++;
+		}	
+	
+	return;	
+mob_skill1:
+		for(.@k=0;.@k<getarraysize('mobgid);.@k++){
+			if(unitexists('mobgid[.@k]) == true){	
+			unitaura 'mobgid[.@k],1104;
+			}
+		}
+	return;	
+mob_skill2:	
+		for(.@k=0;.@k<getarraysize('mobgid);.@k++){
+			if(unitexists('mobgid[.@k]) == true){				
+			getunitdata 'mobgid[.@k],.@mobarr;
+			unitskilluseid 'mobgid[.@k],173,10;
+			}
+		}		
+
+	return;	
+Onkill_dead:
+
+	end;	
+}
+//綠
+1@whl,137,174,0	script	#whl_light_0	844,3,3,{
+	end;
+OnEnable:
+	unitaura getnpcid(0),1103;
+	end;
+OnTouch:
+	if('Win)end;
+	.@index = atoi(replacestr(strnpcinfo(0),"#whl_light_",""));
+	if(getd("'effect_"+.@index)){
+		setd "'effect_"+.@index,0;
+		unitaura getnpcid(0),0;
+		if(rand(10)<5){
+			instance_announce 0,"能量補能完成，功率5秒後至完全穩定，核心防禦力消失。",bc_all,0x23a712;
+			donpcevent instance_npcname("#BOSSss")+"::OnEnable";
+		}
+		else {
+			instance_announce 0,"核心的綠色能量供應錯誤。充能開頭重啟需要10秒",bc_all;
+			sleep 10000;
+			'open = 0;
+			'effect_on = 0;
+		}
+		end;
+
+	}
+	end;
+}
+
+//綠                                                              
+1@whl,138,145,0	duplicate(#whl_light_0)	#whl_light_1	844,3,3
+//綠                                                            
+1@whl,182,145,0	duplicate(#whl_light_0)	#whl_light_2	844,3,3
+//綠                                                           
+1@whl,181,173,0	duplicate(#whl_light_0)	#whl_light_3	844,3,3
+//黃                                                           
+1@whl,146,162,0	duplicate(#whl_light_0)	#whl_light_4	844,3,3
+//黃                                                           
+1@whl,173,162,0	duplicate(#whl_light_0)	#whl_light_5	844,3,3
+
+1@whl,159,173,0	script	#充能開關	844,{
+	if('Win)end;
+	if(!'open){
+		progressbar "#00FF00",1;
+		'open = 1;
+		//hideonnpc instance_npcname(strnpcinfo(0));
+		if(!'effect_on){
+		'effect_on = 1;
+		specialeffect 465;
+		sleep 3000;
+		removespecialeffect 465;
+		.@index = rand(6);
+		donpcevent instance_npcname("#whl_light_"+.@index)+"::OnEnable";
+		setd "'effect_"+.@index,1;
+		//donpcevent instance_npcname("#掃地機器人")+"::OnEnable";
+		}
+	
+	}
+	end;	
+}
+
+
+1@whl,160,158,0	script	#whl_exit	10007,{
+	if ( !'Win )
+	{
+		message strcharinfo(0),"副本尚未完成。";
+		end;
+	}
+
+	if ( !is_party_leader())
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+
+	//設定玩家獲得的獎勵
+	setArray .@item_id_r,1000608,1000811,1000812,1000813,1000814;
+	//設定一一對應獎勵數量
+	setArray .@item_co,rand(1,10),rand(1,5),rand(1,3),rand(1,2),1;
+	//設定一一對應掉落的機率 範圍 :1-100
+	setArray .@item_rate,100,100,'mode*30,'mode*20,'mode==2?'mode*10:0;	
+
+	for(.@i =0;.@i<getarraysize(.@item_id_r) ;.@i++)
+	{
+		if(rand(100)<.@item_rate[.@i])
+			makeitem .@item_id_r[.@i],.@item_co[.@i],strnpcinfo(4),159+rand(-5,5),160+rand(-5,5);
+	}
+	
+	//(經濟艙)
+	if ('mode == 0)
+	{
+	
+		//設定玩家獲得的獎勵
+		setArray .@item_id_0,1001029,1001030,1001031,1001032,1001033;
+		
+		//設定一一對應獎勵數量
+		setArray .@item_co0,rand(1,5),rand(1,3),rand(1,3),rand(1,2),rand(1,1);
+		
+		//設定一一對應掉落的機率 範圍 :1-100
+		setArray .@item_rate0,100,50,20,10,3;	
+	
+		for(.@i =0;.@i<getarraysize(.@item_id_0) ;.@i++)
+		{
+			if(rand(100)<.@item_rate0[.@i])
+			makeitem .@item_id_0[.@i],.@item_co0[.@i],strnpcinfo(4),159+rand(-5,5),160+rand(-5,5);
+		}
+	}
+	//(商務艙)
+	if ('mode == 1)
+	{
+	
+		//設定玩家獲得的獎勵
+		setArray .@item_id_1,1001029,1001030,1001031,1001032,1001033;
+		
+		//設定一一對應獎勵數量
+		setArray .@item_co1,rand(3,5),rand(3,5),rand(2,3),rand(2,3),rand(2,2);
+		
+		//設定一一對應掉落的機率 範圍 :1-100
+		setArray .@item_rate1,100,100,40,30,5;	
+	
+		for(.@i =0;.@i<getarraysize(.@item_id_1) ;.@i++)
+		{
+			if(rand(100)<.@item_rate1[.@i])
+			makeitem .@item_id_1[.@i],.@item_co1[.@i],strnpcinfo(4),159+rand(-5,5),160+rand(-5,5);
+		}
+	}	
+	//(頭等艙)
+	if ('mode == 2)
+	{
+	
+		//設定玩家獲得的獎勵
+		setArray .@item_id_2,1001029,1001030,1001031,1001032,1001033;
+		
+		//設定一一對應獎勵數量
+		setArray .@item_co2,rand(5,5),rand(5,5),rand(3,3),rand(3,3),rand(3,3);
+		
+		//設定一一對應掉落的機率 範圍 :1-100
+		setArray .@item_rate2,100,100,60,40,10;
+	
+		for(.@i =0;.@i<getarraysize(.@item_id_2) ;.@i++)
+		{
+			if(rand(100)<.@item_rate2[.@i])
+			makeitem .@item_id_2[.@i],.@item_co2[.@i],strnpcinfo(4),159+rand(-5,5),160+rand(-5,5);
+		}
+	}
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@whl")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("#whl_exit");
+	end;
+OnInstanceInit:	
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+
+}
+
+1@whl,0,0,0	script	副本寶箱#1@whl	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;	
+	getitem 940050,10;
+	getitem 6909,1;
+	getitem 930000,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}
+

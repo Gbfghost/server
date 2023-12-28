@@ -1,0 +1,96 @@
+-	script	#MVP點數	-1,{
+OnNPCKillEvent:
+	getmapxy(.@map$,.@x,.@y);
+	setarray .@mvp[0],1038,1039,1046,1059,1086,1087,1112,1115,1147,1150,1157,1159,1190,1251,1252,1272,1312,1373,1389,1418,1492,1511,1518,1583,
+						1623,1630,1646,1647,1648,1649,1650,1651,1658,1685,1688,1708,1719,1734,1751,1768,1779,1785,1832,1871,1874,1885,1917,
+						2068,2087,2156,2165,2202,2235,2236,2237,2238,2239,2240,2241,2244,2249,2251,2253,2255,2362,2441,2442,3074,3220,3221,
+						3222,3223,3224,3225,3240,3241,3242,3243,3244,3245,3246,3505,3741,3757,3758,3796,3804,20260,20273,20277,20381,20419,
+						20421,20422,20520,20601,20610,20611,20618,20811,20928,20934,20943,21301,21395,21537;
+	for( .@i = 0 ; .@i<getarraysize(.@mvp) ; .@i++){
+	if ( .@map$ != "bossnia_04" && .@map$ != "1@ch_t"  && .@map$ != "1@tower" && .@map$ != "izlude" 
+								&& .@map$ != "guild_vs1" && .@map$ != "guild_vs2" && .@map$ != "guild_vs3" && .@map$ != "guild_vs4" && .@map$ != "guild_vs5" ){
+		if( killedrid == .@mvp[.@i]){
+	set	#randpoint , rand(1,5); 
+	set #MVPPOINTS, #MVPPOINTS+#randpoint;
+	dispbottom "您的 MVP點數 增加 "+#randpoint+" 目前已累計： " + #MVPPOINTS + " 點。";
+	//announce "[全服公告] 玩家 '" + strcharinfo(0) + "' 擊殺了MVP魔物 '" + strmobinfo(2, killedrid) + "' 獲得了 "+#randpoint+" 點MVP點數。", bc_all|bc_blue;
+		if(rand(1,100) > 95){getitem 950014,1;}
+		if(rand(1,100) > 95){getitem 950015,1;}
+	}
+	}
+	}
+	end;
+	}
+	
+	
+	
+	
+-	shop	#MVP點數商店(服飾)	-1,512:-1
+
+uttycty,150,133,3	script	MVP點數商店	10210,{
+	message strcharinfo(0),"此商店只能使用[ MVP點數 ]進行交易。"; //此處告訴玩家此商店使用什麼作為商店貨幣
+	dispbottom "您現在有[ "+ #MVPPOINTS +" ] MVP點數。"; //有多少點數
+	callshop "#MVP點數商店(服飾)",1; //開啟商店
+	npcshopattach "#MVP點數商店(服飾)"; //關聯腳本
+	end;
+	
+//購買事件
+OnBuyItem:
+	set .@i,0; //初始化購買個數為0
+	while (.@i < getarraysize(@bought_nameid)) {
+		set .@j, 0;
+		while (.@j < getarraysize(.Commodity)) {
+			if(.Commodity[.@j] == @bought_nameid[.@i]) {
+				set @itemcost, .Price[.@j] * @bought_quantity[.@i];
+				set @totalcost, @totalcost + @itemcost;
+				break; 
+			}
+			set .@j, .@j+1; 
+		}
+		set .@i, .@i+1; 
+	}
+	if (@totalcost > #MVPPOINTS) dispbottom "抱歉!您沒有足夠的[ MVP點數 ]。";
+	else {
+		set .@i,0;
+		while (.@i < getarraysize(@bought_nameid)) {
+			getitem @bought_nameid[.@i], @bought_quantity[.@i];
+			dispbottom "成功購買[ "+@bought_quantity[.@i]+" ]個[ "+getitemname(@bought_nameid[.@i])+" ]。";
+			set .@i, .@i+1; 
+		}
+		//購買成功，扣除點數
+		set #MVPPOINTS,#MVPPOINTS - @totalcost; 
+		dispbottom "您消費了[ "+@totalcost+" ]點﹐還剩餘[ "+ #MVPPOINTS +" ]MVP點數。";
+	}
+	//初始化玩家變量
+	set @totalcost, 0;
+	deletearray @bought_nameid[0],128;
+	deletearray @bought_quantity[0],128;
+	end;
+OnInit:
+//---------------------------------------------------
+	//設置商品的ID
+	setarray .Commodity[0],23926,950001,20509,20516,20530,20578,20579,31737,480082,480199,20511,20527,20528,480202,20571,20602,20607,20517,20598,480095,
+							20584,20586,20588,20590,20574,20575,20615,20616,20507,20518,20521,20542,20543,20570,20582,20585,20596,480110,480137,480158;
+	//設置商品價格[對應商品ID]
+	setarray .Price[0],300,900,350,350,350,350,350,350,350,350,200,200,200,200,350,350,350,350,350,350,350,350,350,350,200,200,200,200,200,200,300,300,
+						200,200,200,200,200,200,200,200;
+// --------------------------------------------------
+//初始化商店中物品
+	set .@j,0;
+	if (getarraysize(.Commodity) != getarraysize(.Price))
+	{
+		debugmes "[錯誤],您設置的商品ID與商品價格不對應";
+		debugmes "[錯誤],商品ID共["+getarraysize(.Commodity)+"],商品價格["+getarraysize(.Price)+"]";
+		debugmes "//========================================//";
+		end;
+	}
+	while (.@j < getarraysize(.Commodity)) {
+		npcshopdelitem "#MVP點數商店(服飾)",512;
+		npcshopadditem "#MVP點數商店(服飾)",.Commodity[.@j],.Price[.@j];
+		set .@j,.@j+1; 
+	}
+	waitingroom "★ MVP商店1 ★ ",0;
+	end;
+}
+	
+	

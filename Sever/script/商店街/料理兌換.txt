@@ -1,0 +1,25 @@
+uttycty,115,167,4	script	料理兌換	548,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"料理兌換";
+	waitingroom "★ 料理兌換 ★",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+	
+    sellitem(60501,50000,-1);
+	sellitemcurrency(12429,1);
+	sellitemcurrency(12430,1);
+	sellitemcurrency(12431,1);
+	sellitemcurrency(12432,1);
+	sellitemcurrency(12433,1);
+    endsellitem();
+    sellitem(60502,50000,-1);
+	sellitemcurrency(60501,1);
+	sellitemcurrency(12434,1);
+    endsellitem();
+
+
+OnBuyItem:
+end;
+}

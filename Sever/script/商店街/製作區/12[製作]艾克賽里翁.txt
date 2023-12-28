@@ -1,0 +1,27 @@
+uttycty,64,175,5	trader	[製作]艾克賽里翁	10147,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]艾克賽里翁";
+	waitingroom "[製作]艾克賽里翁",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+
+	sellitem(15128, 10000, -1);
+	sellitemcurrency(6961, 30);
+	sellitemcurrency(6962, 20);
+	endsellitem();
+	
+	sellitem(15129, 10000, -1);
+	sellitemcurrency(6961, 30);
+	sellitemcurrency(6962, 20);
+	endsellitem();	
+	
+	sellitem(40000, 50000, -1);
+	sellitemcurrency(6962, 5);
+	endsellitem();
+
+	end;
+OnBuyItem:
+end;
+}

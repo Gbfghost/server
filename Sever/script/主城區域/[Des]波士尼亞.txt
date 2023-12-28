@@ -1,0 +1,247 @@
+/*=======================================================================================================================
+
+- 腳本名稱: 波士尼亞
+- 腳本作者：滿意工作室
+- 適用環境: PADAS 
+- 注意事項：
+- 學術研究用途,請勿用於違法行為,後果自負.
+- 請勿轉載,公開上傳等.
+- 請保留以上資訊.
+
+=======================================================================================================================
+新增步驟:
+1.db/re(pre)/instance_db 新增 
+
+舊版
+副本編號,波士尼亞,7200,0,bossnia_04,203,200
+
+新版
+  - Id: 6
+    Name: 波士尼亞
+    TimeLimit: 7200
+    Enter:
+      Map: bossnia_04
+      X: 203
+      Y: 200
+=========================================================================================================================*/
+
+uttycty,149,157,4	script	波士尼亞入口	796,{
+
+	.@md_name$="波士尼亞";
+
+	if ( Zeny < 5000) {
+		mes "[波士尼亞副本]";
+		mes "你現在攜帶的金幣不足.....";
+		mes "所以去拿5000金幣後再來找我.";
+		close;
+		}
+		
+			mes "[副本] 波士尼亞";
+			mes "副本名稱 : 波士尼亞";
+			mes "等級限制 : 無限制";
+			mes "組隊人數 : 無限制";
+			mes "挑戰時間 : 2 小 時";
+			mes "冷卻時間 : 無";
+			next;
+	switch(select((getpartyleader(getcharid(1),2) == getcharid(0))?"申請^007fd4"+.@md_name$+"^000000資格":"","進入^007fd4"+.@md_name$+"^000000",(getpartyleader(getcharid(1),2) == getcharid(0))?"銷毀資格":"")){
+
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "- ^FF0000請稍候^000000 -";
+			sleep2 200;
+			clear;
+
+	case 1:
+		
+		if(Zeny < 2){
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "金額不足。";
+			close;
+		}
+		if (!instance_check_party(getcharid(1),1)) {
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "請組成兩人以上的隊伍再來.";
+			close;
+		}
+		if (instance_create(.@md_name$) < 0) {
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "隊伍名稱: "+getpartyname(getcharid(1));
+			mes "隊　　長: "+strcharinfo(0);
+			mes "^0000ff"+.@md_name$+" ^000000- 創建失敗!";
+			close;
+		}
+		
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "- ^FF0000創建成功^000000 -";
+			mes "- 目前可進入^007fd4"+.@md_name$+"^000000 -";
+			close;			
+	case 2:
+
+		if ( instance_id(IM_PARTY)) {
+		if (getinstancevar('Start, instance_id(IM_PARTY))) {
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "您的隊長已開啟關卡，若中途離開或者放棄挑戰，請隊長選擇^FF0000銷毀資格^000000選項，重啟道管。";
+			close;
+			end;
+			}
+		}
+
+	if ( countitem(7227) < 1) {
+		mes "[波士尼亞副本]";
+		mes "你現在沒有攜帶入場券.....";
+		mes "所以去拿入場券幣後再來找我.";
+		close;
+		}
+		
+		switch(instance_enter(.@md_name$)) {
+		case 3:
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes .@md_name$+" 副本不存在";
+			mes "請組成兩人以上的隊伍再來";
+			break;
+		case 2:
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes .@md_name$+" 副本不存在";
+			mes "隊長尚未申請記憶迷宮";
+			break;
+		case 1:
+			mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+			mes "只有申請 "+.@md_name$+" 副本的隊員才可以進入";
+			break;
+		case 0:
+			delitem 7227,1;
+			sleep2 1;
+			announce ""+getpartyname(getcharid(1))+"隊伍的"+strcharinfo(0)+"隊員進入"+.@md_name$+"。",bc_all,"0x00ff99";
+			break;
+		}
+		close;
+	case 3:
+		if ( instance_id(IM_PARTY)) instance_destroy  instance_id(IM_PARTY);
+		mes "[^FF7700"+strnpcinfo(1)+"^000000]";
+		mes "副本已銷毀，你可以進行"+.@md_name$+"。";
+
+		end;		
+		}
+	}
+
+bossnia_04,0,0,0	script	#bsnaControl	-1,{
+
+OnInstanceInit:
+		.@a = 2; // 王數量
+		monster strnpcinfo(4),0,0,"--ja--",1646,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 職業進2轉王
+		monster strnpcinfo(4),0,0,"--ja--",1647,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1648,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1649,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1650,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1651,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",2237,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",2238,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",2239,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",2240,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",2241,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		
+
+
+		monster strnpcinfo(4),0,0,"--ja--",1651,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 賽尼亞
+
+		monster strnpcinfo(4),0,0,"--ja--",3220,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 職業三轉王
+		monster strnpcinfo(4),0,0,"--ja--",3221,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3222,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3223,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; //
+		monster strnpcinfo(4),0,0,"--ja--",3224,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3225,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3240,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3241,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3242,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3243,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3244,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3245,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+		monster strnpcinfo(4),0,0,"--ja--",3246,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 
+
+		monster strnpcinfo(4),0,0,"--ja--",20611,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 英格麗
+		monster strnpcinfo(4),0,0,"--ja--",300013,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 雷吉麗芙
+		monster strnpcinfo(4),0,0,"--ja--",3505,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 巨大蛋黃波利
+		monster strnpcinfo(4),0,0,"--ja--",2253,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 將軍大賢
+		monster strnpcinfo(4),0,0,"--ja--",2087,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 女王甲蟲
+		monster strnpcinfo(4),0,0,"--ja--",2251,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 喬伊亞
+		monster strnpcinfo(4),0,0,"--ja--",20667,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 席瓦帕皮利亞
+		monster strnpcinfo(4),0,0,"--ja--",3757,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 憤怒德古拉
+		monster strnpcinfo(4),0,0,"--ja--",3758,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 憤怒月夜貓
+		monster strnpcinfo(4),0,0,"--ja--",3796,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 甦醒水晶龍
+		monster strnpcinfo(4),0,0,"--ja--",3074,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 時間支配者
+		monster strnpcinfo(4),0,0,"--ja--",3473,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 歐內斯特 斯特凡˙傑克
+		monster strnpcinfo(4),0,0,"--ja--",20421,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 汙染蜘蛛女王
+		monster strnpcinfo(4),0,0,"--ja--",20422,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 汙染黑暗之王
+		monster strnpcinfo(4),0,0,"--ja--",2068,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 波伊塔塔
+		monster strnpcinfo(4),0,0,"--ja--",2249,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 淘汰者傅立葉
+		monster strnpcinfo(4),0,0,"--ja--",20811,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 深海魔鬼大烏賊
+		monster strnpcinfo(4),0,0,"--ja--",20520,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 混沌巴風特
+		monster strnpcinfo(4),0,0,"--ja--",20601,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 珠寶溫古力安特
+		monster strnpcinfo(4),0,0,"--ja--",1765,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 巴基力 蘭特克力斯
+		monster strnpcinfo(4),0,0,"--ja--",3741,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 蜘蛛戰車
+		monster strnpcinfo(4),0,0,"--ja--",2156,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 讓特
+		monster strnpcinfo(4),0,0,"--ja--",1685,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; //貝思波
+		monster strnpcinfo(4),0,0,"--ja--",20618,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 骨骸迪塔勒泰晤勒斯
+		monster strnpcinfo(4),0,0,"--ja--",2194,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 章魚大王
+		monster strnpcinfo(4),0,0,"--ja--",1885,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 青冠龍
+		monster strnpcinfo(4),0,0,"--ja--",2202,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 魔鬼大烏賊
+		monster strnpcinfo(4),0,0,"--ja--",3804,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 不祥烏龜將軍
+		monster strnpcinfo(4),0,0,"--ja--",20943,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 死亡女巫
+		monster strnpcinfo(4),0,0,"--ja--",2322,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead"; // 食月暴龍
+
+		monster strnpcinfo(4),193,199,"--ja--",1252,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1768,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1272,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1046,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1389,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1112,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1719,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1147,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1059,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1039,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1658,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1511,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1785,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1115,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1038,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1190,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1087,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1492,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1150,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1373,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1779,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1734,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1708,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1688,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1583,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1312,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1157,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1251,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1871,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1159,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1086,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1418,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1623,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1617,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),137,118,"--ja--",.@a,1,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),0,0,"--ja--",1874,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		//monster strnpcinfo(4),45,118,"--ja--",1873,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),196,122,"--ja--",1751,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+		monster strnpcinfo(4),142,61,"--ja--",1832,.@a,instance_npcname(strnpcinfo(0))+"::OnBossDead";
+	end;
+OnBossDead:
+	if ( !mobcount(strnpcinfo(4),instance_npcname(strnpcinfo(0))+"::OnBossDead") ) addtimer 5000,instance_npcname(strnpcinfo(0))+"::OnEnd";
+	end;
+OnEnd:
+	instance_warpall "prontera",151,120,instance_id();
+	end;
+}
+
+bossnia_04	mapflag	nomemo
+bossnia_04	mapflag	noteleport
+bossnia_04	mapflag	nosave	SavePoint
+bossnia_04	mapflag	nopenalty
+bossnia_04	mapflag	nobranch
+//bossnia_04	mapflag	nomobloot	50
+//bossnia_04	mapflag	notoken
+//bossnia_04	mapflag	mobinfo	118
+

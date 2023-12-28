@@ -1,0 +1,50 @@
+uttycty,85,171,5	trader	[製作]不朽戰靴	4_TOWER_16,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]不朽戰靴";
+	waitingroom "[製作]不朽戰靴",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(1000363,1000000,-1);	//魔力碎石
+	sellitemcurrency(1000364,50);	//汙染碎石
+    endsellitem(); 
+	
+	sellitem(470071,100000000,-1);	//不朽力量戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(470072,100000000,-1);	//不朽靈巧戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(470073,100000000,-1);	//不朽生命力戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(470074,100000000,-1);	//不朽魔力戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(470076,100000000,-1);	//不朽敏捷戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(470077,100000000,-1);	//不朽幸運戰靴
+	sellitemcurrency(1000363,25);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(100476,30000,-1);	//神奇魔珠
+	sellitemcurrency(1000363,5);	//魔力碎石
+    endsellitem(); 
+	
+	sellitem(100462,0,-1);	//汙染集卡冊
+	sellitemcurrency(1000363,50);	//魔力碎石
+    endsellitem(); 
+
+
+end;
+OnBuyItem:
+end;
+}

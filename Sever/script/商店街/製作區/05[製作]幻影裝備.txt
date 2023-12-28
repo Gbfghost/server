@@ -1,0 +1,245 @@
+uttycty,75,167,5	trader	[製作]幻影裝備	3765,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]幻影裝備";
+	waitingroom "[製作]幻影裝備",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	//===[ 幻影德古拉男爵 ]===
+	sellitem(28022, 10000, -1);
+	sellitemcurrency(25271,30);
+	endsellitem();
+	sellitem(28023, 10000, -1);
+	sellitemcurrency(25271,30);
+	endsellitem();
+	sellitem(2039, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(18149, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(28612, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(20840, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(28508, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(28509, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+
+	//===[ 幻影月夜貓 ]===
+	sellitem(26109, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(16063, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(28725, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(26007, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(19209, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(19210, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(20838, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(22133, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	
+	//===[ 幻影烏龜島 ]===	
+	sellitem(13469, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(1326, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(32005, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(13338, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(16065, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(19247, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+
+
+	//===[ 幻影冰凍穴 ]===
+	sellitem(1846, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(13337, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(19223, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(20847, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+	sellitem(28922, 10000, -1);
+	sellitemcurrency(25271,30);	
+	endsellitem();
+
+	//===[ 幻影泰迪熊 ]===
+	sellitem(28745, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(28244, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(2051, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(22190, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(19344, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+
+	//===[ 幻影盧安達 ]===
+	sellitem(28626, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(18174, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(19366, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(15348, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(22192, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(20923, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+
+	//===[ 幻影迷藏森林 ]===
+	sellitem(19428, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(20948, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(32238, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(32239, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(28254, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(21050, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(20840, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+	sellitem(28762, 10000, -1);
+	sellitemcurrency(25271,50);	
+	endsellitem();
+
+	//===[ 幻影海底洞穴 ]===
+	sellitem(400053, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(450144, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(450145, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(450146, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(480054, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(490069, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(490070, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(570008, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(580008, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(600011, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(610012, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(630006, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+	sellitem(630007, 10000, -1);
+	sellitemcurrency(25271,80);	
+	endsellitem();
+
+	//===[ 幻影螞蟻洞穴 ]===
+	sellitem(460017, 10000, -1);
+	sellitemcurrency(25271,150);	
+	endsellitem();
+	sellitem(460018, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(450182, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(470066, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(490120, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(490121, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(500030, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(510034, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(530015, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(550030, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(550031, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+	sellitem(620010, 10000, -1);
+	sellitemcurrency(25271,150);
+	endsellitem();
+
+OnBuyItem:
+end;
+}
+

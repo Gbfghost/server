@@ -1,0 +1,89 @@
+uttycty,64,183,5	trader	[製作]挑戰古城	10300,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]挑戰古城";
+	waitingroom "[製作]挑戰古城",0;
+	.@p = 0; //購買價格
+	.@cash = 940047; //副本點數
+	tradertype(NST_EXPANDED_BARTER);
+
+//材料
+	sellitem(25865,.@p,-1);	//超時空寶石原石
+	sellitemcurrency(.@cash,10);
+    endsellitem(); 
+	sellitem(25867,.@p,-1);	//超時空魔力碎片
+	sellitemcurrency(.@cash,1);
+    endsellitem(); 
+	sellitem(25866,.@p,-1);	//超時空魔力
+	sellitemcurrency(.@cash,10);
+    endsellitem(); 
+	sellitem(25864,.@p,-1);	//封印超時空頭冠
+	sellitemcurrency(.@cash,5);
+    endsellitem(); 
+
+//卡片
+	sellitem(27382,.@p,-1);	//無限墮落根莖卡
+	sellitemcurrency(.@cash,200);
+    endsellitem(); 
+	sellitem(27383,.@p,-1);	//闇達幻影卡
+	sellitemcurrency(.@cash,200);
+    endsellitem();
+	sellitem(27381,.@p,-1);	//希梅幻影卡
+	sellitemcurrency(.@cash,400);
+    endsellitem();
+//頭盔
+	sellitem(19474,0,-1, 25864, 5);
+	sellitem(19475,0,-1, 25864, 5);
+	sellitem(19476,0,-1, 25864, 5);
+	sellitem(19477,0 ,-1, 25864, 5);
+	sellitem(19478,0,-1, 25864, 5);
+	sellitem(19479,0,-1, 25864, 5);
+	sellitem(19480,0,-1, 25864, 5);
+	sellitem(19481,0,-1, 25864, 5);
+	sellitem(19482,0,-1, 25864, 5);
+	sellitem(19483,0,-1, 25864, 5);
+	sellitem(19484,0,-1, 25864, 5);
+	sellitem(19485,0,-1, 25864, 5);
+	sellitem(19486,0,-1, 25864, 5);
+	sellitem(19487,0,-1, 25864, 5);
+	sellitem(19488,0,-1, 25864, 5);
+	sellitem(19489,0,-1, 25864, 5);
+	sellitem(19490,0,-1, 25864, 5);
+	sellitem(19491,0,-1, 25864, 5);
+	sellitem(19492,0,-1, 25864, 5);
+
+//武器
+	sellitem(1336,0,-1, 25866,10);
+	sellitem(2060,0,-1, 25866,10);
+	sellitem(1870,0,-1, 25866, 10);
+	sellitem(28774,0,-1, 25866, 5);
+	sellitem(28775,0,-1, 25866, 5);
+	sellitem(18191,0,-1, 25866, 10);
+	sellitem(21055,0,-1, 25866, 10);
+	sellitem(26165,0,-1, 25866, 10);
+	sellitem(26166,0,-1, 25866, 10);
+	sellitem(26216,0,-1, 25866, 10);
+	sellitem(28046,0,-1, 25866, 10);
+	sellitem(28141,0,-1, 25866, 10);
+	sellitem(28636,0,-1, 25866, 10);
+	sellitem(28776,0,-1, 25866, 10);
+	sellitem(32027,0,-1, 25866, 10);
+	sellitem(32111,0,-1, 25866, 10);
+	sellitem(32353,0,-1, 25866, 10);
+	sellitem(32401,0,-1, 25866, 10);
+	sellitem(32402,0,-1, 25866, 10);
+	sellitem(32403,0,-1, 25866, 10);
+	sellitem(13347,0,-1, 25866, 10);
+	sellitem(18198,0,-1, 25866, 10);
+	sellitem(26172,0,-1, 25866, 10);
+	sellitem(32304,0,-1, 25866, 10);
+//卡片
+
+	sellitem(27384,0,-1, 25866, 50);
+	sellitem(27385,0,-1, 25866, 50);
+
+
+OnBuyItem:
+end;
+}

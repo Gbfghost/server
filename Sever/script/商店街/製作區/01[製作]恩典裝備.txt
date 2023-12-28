@@ -1,0 +1,61 @@
+uttycty,70,167,5	script	[製作]恩典裝備	4_M_ORIENT02,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]恩典裝備";
+	waitingroom "[製作]恩典裝備",0;
+	tradertype(NST_BARTER);
+
+	sellitem 100130, -1, 6380, 30;
+	sellitem 100133, -1, 6380, 100;
+	sellitem 100134, -1, 6380, 100;
+	sellitem 100137, -1, 6380, 100;
+	sellitem 100138, -1, 6380, 100;
+	sellitem 450086, -1, 6380, 50;
+	sellitem 450087, -1, 6380, 50;
+	sellitem 450088, -1, 6380, 50;
+	sellitem 450089, -1, 6380, 50;
+	sellitem 450090, -1, 6380, 50;
+	sellitem 450091, -1, 6380, 50;
+	sellitem 450092, -1, 6380, 50;
+	sellitem 450093, -1, 6380, 50;
+	sellitem 450094, -1, 6380, 50;
+	sellitem 450095, -1, 6380, 50;
+	sellitem 450096, -1, 6380, 50;
+	sellitem 450097, -1, 6380, 50;
+	sellitem 450098, -1, 6380, 50;
+	sellitem 450099, -1, 6380, 50;
+	sellitem 450100, -1, 6380, 50;
+	sellitem 450101, -1, 6380, 50;
+	sellitem 450102, -1, 6380, 50;
+	sellitem 450103, -1, 6380, 50;
+	sellitem 450104, -1, 6380, 50;
+	sellitem 450105, -1, 6380, 50;
+	sellitem 450106, -1, 6380, 50;
+	sellitem 450107, -1, 6380, 50;
+	sellitem 450108, -1, 6380, 50;
+	sellitem 450109, -1, 6380, 50;
+	sellitem 450110, -1, 6380, 50;
+	sellitem 450111, -1, 6380, 50;
+	sellitem 450112, -1, 6380, 50;
+	sellitem 450113, -1, 6380, 50;
+	sellitem 450114, -1, 6380, 50;
+	sellitem 450115, -1, 6380, 50;
+	sellitem 450116, -1, 6380, 50;
+	sellitem 450117, -1, 6380, 50;
+	sellitem 450118, -1, 6380, 50;
+	sellitem 450119, -1, 6380, 50;
+	sellitem 450125, -1, 6380, 50;
+	sellitem 450126, -1, 6380, 50;
+	sellitem 470020, -1, 6380, 50;
+	sellitem 470021, -1, 6380, 50;
+	sellitem 480018, -1, 6380, 50;
+	sellitem 480019, -1, 6380, 50;
+	sellitem 490019, -1, 6380, 50;
+	sellitem 490020, -1, 6380, 50;
+	end;
+OnBuyItem:
+end;
+}
+
+

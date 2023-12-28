@@ -1,0 +1,255 @@
+function	script	F_instanceinfo	{
+	disable_items;
+
+	// 組隊判斷
+	if ( !getcharid(1) ){
+		mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+		mes "請先加入組隊";
+		end;
+	}
+	// 展示內容
+	mes "[ ^FF3333"+@colorA$+""+getarg(0)+""+@colorB$+"^000000 ]";
+	mes "副本名稱 : ^00AA88 "+getarg(1)+" ^000000 ";
+	if ( getarg(3) != 185 ) mes "^7700FF等級限制^000000 : "+getarg(2)+" ~ "+getarg(3)+" 等間可進入.";
+	if ( getarg(3) == 185 ) mes "^7700FF等級限制^000000 : "+getarg(2)+" 等以上可進入.";
+	if ( getarg(4)+getarg(5) > 2 ) mes "^FF44AA組隊人數^000000 : "+getarg(4)+" ~ "+getarg(5)+" 人間可申請.";
+	if ( getarg(4)+getarg(5) <= 2 ) mes "^00AA88組隊人數^000000 : 僅 "+getarg(4)+" 人可申請.";
+	if ( ( getarg(6) % 60 ) == 0 ) mes "^FF3333挑戰時間^000000 : "+((getarg(6)/60))+" 分";
+	if ( ( getarg(6) % 60 ) != 0 ) mes "^7700FF挑戰時間^000000 : "+((getarg(6)/60))+" 分 "+(getarg(6)%60)+" 分";
+	if ( ( getarg(7) % 60 ) == 0 ) mes "^888888冷卻時間^000000 : "+((getarg(7)/60))+" 分";
+	if ( ( getarg(7) % 60 ) != 0 ) mes "^888888冷卻時間^000000 : "+((getarg(7)/60))+" 分 "+(getarg(7)%60)+" 秒";
+	return;
+}
+
+//隊長與隊友選項函數
+function	script	F_instancemenu	{
+	disable_items;
+	
+	//99999 = 可以設置消除副本冷卻的物品
+	
+	// 隊長選項
+	if ( is_party_leader(getcharid(1)) ){
+		switch(select((instance_id()?"":"> "+@colorA$+"01"+@colorB$+".創建"+getarg(1)+"."),(!instance_id()?"":"> "+@colorA$+"01"+@colorB$+".進入"+getarg(1)+"."),(!instance_id()?"":"> "+@colorA$+"02"+@colorB$+".銷毀副本"),(!instance_id()&&!countitem(99999)?"":"> "+@colorA$+"03"+@colorB$+".清除副本冷卻"),(!instance_id()&&!countitem(99999)?"> "+@colorA$+"03"+@colorB$+".取消對話":"> "+@colorA$+"04"+@colorB$+".取消對話"))){
+			case 1:
+				return 1;
+			case 2:
+				return 2;
+			case 3:
+				return 3;
+			case 4:
+				return 4;
+			case 5:
+				end;
+		}
+		return 0;
+	} else {
+		// 隊員選項
+		switch(select((!instance_id()?"":"> "+@colorA$+"01"+@colorB$+".進入"+getarg(1)+"."),(!instance_id()&&!countitem(99999)?"":"> "+@colorA$+"02"+@colorB$+".清除"+getarg(1)+"冷卻."),(!instance_id()&&!countitem(99999)?"> "+@colorA$+"03"+@colorB$+".取消對話":"> "+@colorA$+"02"+@colorB$+".取消對話"))){
+			case 1:
+				return 2;
+			case 2:
+				return 4;
+			case 3:
+				end;
+		}
+	}
+	return 0;
+}
+
+//副本建立函數
+function	script	F_instancecreat	{
+	disable_items;
+	if(instance_create(getarg(1)) < 0) 
+	{
+		message strcharinfo(0),""+getarg(1)+"副本創建失敗!";
+		end;
+	}
+
+	// 獲取隊長 Account ID
+	.@UserAid = getcharid(3);
+	// 副本名稱設置
+	'ins_name$ = getarg(1);
+	// 清空陣列 & 副本變數
+	deletearray 'partymnl$;
+	deletearray 'Reward$;
+	'partymembercount = 0;
+	'party_id = getcharid(1);
+	// 獲取隊員名稱 & Account ID
+	getpartymember getcharid(1),0;
+	getpartymember getcharid(1),1;
+	getpartymember getcharid(1),2;
+	.@partymembercount = $@partymembercount;
+	// 複製隊員資訊到陣列內
+	copyarray .@partymembername$,$@partymembername$[0],.@partymembercount;
+	copyarray .@partymembercid,$@partymembercid[0],.@partymembercount;
+	copyarray .@partymemberaid,$@partymemberaid[0],.@partymembercount;
+	// 檢查報名人數各項資訊是否吻合
+	for ( .@i = 0; .@i < .@partymembercount; .@i++ )
+	{
+		if ( !isloggedin(.@partymemberaid[.@i],.@partymembercid[.@i]) ) continue;
+		if ( readparam(Baselevel,.@partymembercid[.@i]) < getarg(2) ) continue;
+		if ( readparam(Baselevel,.@partymembercid[.@i]) > getarg(3) ) continue;
+		'partymnl$[getarraysize('partymnl$)] = .@partymembername$[.@i];
+		'level[getarraysize('level)] = readparam(Baselevel,.@partymembercid[.@i]);
+		'partymembercount++;
+	}
+	
+	'time = gettimetick(2);
+	
+	
+	messagecolor "進入 "+'ins_name$+" 副本 該隊伍符合條件 - 共 "+'partymembercount+" 位玩家。","FFD306",bc_self;
+	
+
+	for ( .@i = 0; .@i < 'partymembercount; .@i++ )
+	{
+		if ( .@i < 10 ) messagecolor "No."+(.@i+1)+". "+'partymnl$[.@i]+" - <Lv - "+'level[.@i]+">","FF95CA",bc_self;
+		if ( .@i >= 10 ) messagecolor "No."+(.@i+1)+". "+'partymnl$[.@i]+" - <Lv - "+'level[.@i]+">","FF95CA",bc_self;
+	}
+
+	messagecolor "將紀錄組隊人員資訊。後續加入人員不可挑戰副本!","F9F900",bc_self;
+	end;
+}
+
+
+//副本進入函數
+function	script	F_instancenter	{
+	disable_items;
+	// 進入審核前
+	
+	// 冷卻計算
+	.@cooldown = getd("cooldown"+getarg(4))-gettimetick(2)+getarg(5);
+	.@cooldown2 = getd("#cooldown"+getarg(4))-gettimetick(2)+getarg(5);	
+	.@Hertired = (.@cooldown/3600)%60;
+	.@Mintired = (.@cooldown/60)%60;
+	.@Sectired = .@cooldown%60;
+	.@Hertired2 = (.@cooldown2/3600)%60;
+	.@Mintired2 = (.@cooldown2/60)%60;
+	.@Sectired2 = .@cooldown2%60;
+
+	if ( .@cooldown > 0 ) { clear;  mes "‧剩餘冷卻時間 : "+.@Hertired+"時"+.@Mintired+"分"+.@Sectired+"秒"; end; }
+	if ( .@cooldown2 > 0 ) {  clear; mes "‧剩餘冷卻時間 : "+.@Hertired2+"時"+.@Mintired2+"分"+.@Sectired2+"秒"; end; }
+	
+	// 進入審核
+	.@index = searcharray('partymnl$,strcharinfo(0));
+	.@index2 = searcharray('Reward$,strcharinfo(0));
+	if ( .@index == -1 )
+	{
+		clear;
+		mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+		mes ""+strcharinfo(0)+",您並沒有在報名副本列表內.";
+		end;
+	}
+	
+	if ( .@index2 != -1 )
+	{
+		clear; 
+		mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+		mes ""+strcharinfo(0)+", 不可在進入.";
+		end;
+	}
+	
+	if ( 'ClearInatance )
+	{
+		clear; 
+		mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+		mes "副本已完成, 無法在進入。";
+		end;
+	}
+
+	//--------------------------------等級判斷--------------------------------
+	if( BaseLevel < getarg(2))
+	{
+		mesclear;
+		mes "^FF0000等級不足^000000";
+		end;
+	}
+
+	//--------------------------------額外獨立設置副本人數制度--------------------------------
+
+	// if ( getarg(1) == "欺詐別墅" )
+	// {
+		// if('partymembercount < 2 )
+		// {
+			// mesclear;
+			// mes "組隊人數必須大於2人。";
+			// end;
+		// }
+	// }
+
+	//------------------------------------------------------------------------------------
+	//設定特定副本走帳號冷卻	
+	if ( getarg(1) == "高階道館" )
+	{
+		//冷卻計算
+		.@cooldown = getd("#cooldown"+getarg(4))-gettimetick(2)+getarg(5);
+		.@Hertired = (.@cooldown/3600)%60;
+		.@Mintired = (.@cooldown/60)%60;
+		.@Sectired = .@cooldown%60;
+		if( gettimetick(2) - getd("#cooldown"+getarg(4)) < .@cooldown || .@cooldown > 0 )
+		{ 	
+			clear; 
+			mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+			mes "‧剩餘冷卻時間 : "+.@Hertired+"時"+.@Mintired+"分"+.@Sectired+"秒";
+			end;
+		}
+	}
+	else
+	{
+	//一般都是角色冷卻
+
+		// 冷卻計算
+		.@cooldown = getd("cooldown"+getarg(4))-gettimetick(2)+getarg(5);
+		.@Hertired = (.@cooldown/3600)%60;
+		.@Mintired = (.@cooldown/60)%60;
+		.@Sectired = .@cooldown%60;
+		if( gettimetick(2) - getd("cooldown"+getarg(4)) < .@cooldown || .@cooldown > 0 )
+		{
+			clear; 
+			mes "["+@colorA$+""+getarg(0)+""+@colorB$+"]";
+			mes "剩餘冷卻時間 : "+.@Hertired+"時"+.@Mintired+"分"+.@Sectired+"秒";
+			end;
+		}
+	}
+	
+	
+	// 副本進入
+	switch(instance_enter(getarg(1))) 
+	{
+		case IE_NOMEMBER: message strcharinfo(0),""+getarg(1)+"副本數據不存在!"; break;
+		case IE_NOINSTANCE: message strcharinfo(0),"請先申請副本!"; break;
+		case IE_OTHER: message strcharinfo(0),"副本場地已滿或副本數據不存在!"; break;
+		default:
+		
+			if ( .@point ){ #INSTANCEPOINT -= .@point; }
+			if ( .@zeny ) { Zeny -= .@zeny; }
+
+			// 冷卻設置
+			if ( getarg(1) == "高階道館" )
+				setd("#cooldown"+getarg(4)),gettimetick(2);		
+			else
+				setd("cooldown"+getarg(4)),gettimetick(2);
+			break;
+	}
+	
+	return;
+}
+
+//銷毀副本函數
+function	script	F_instancedestroy	{
+	disable_items;
+	if ( instance_id() ) instance_destroy;
+	return;
+}
+
+
+//清除副本冷卻函數
+function	script	F_instancedelcool	{
+	disable_items;
+	.@number = getarg(0);
+	if ( getargcount() > 2 ) end;
+	if ( getd("cooldown"+.@number) > 0 )
+		setd("cooldown"+.@number),0;
+	if ( getd("#cooldown"+.@number) > 0 )
+		setd("#cooldown"+.@number),0;
+	return;
+}

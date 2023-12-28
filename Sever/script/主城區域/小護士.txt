@@ -1,0 +1,21 @@
+
+
+uttycty,101,106,3	script	小護士	864,{
+percentheal 100,100; //回100%血魔
+    healap 200; //回200AP
+    sc_start SC_BLESSING,900000,10; //天使之賜福
+    sc_start SC_INCREASEAGI,600000,10; //加速術
+    sc_start SC_IMPOSITIO,600000,10; //神威祈福
+    sc_start SC_SUFFRAGIUM,600000,5; //犧牲祈福
+    sc_start SC_MAGNIFICAT,600000,5; //聖母之頌歌
+    sc_start SC_ANGELUS,600000,10; //天使之障壁
+    sc_start SC_WINDWALK,600000,10; //風之步
+
+specialeffect2 66;
+Oninit:
+OnTimer2000:
+showscript "★ 補血++ ★ ";
+	setnpcicon getnpcid(0),1028,"小護士";
+initnpctimer;
+end;
+}

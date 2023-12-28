@@ -1,0 +1,29 @@
+function	script	idcardV1	{
+	if (gettime(7) > #time8 || gettime(6) > #time9 || gettime(5) > #time10 || gettime(4) > #time11) {
+		set #zhuangtai11, 0;
+		set #zhuangtaiVIP1, 0;
+		set #jinglian1, 0;
+		set #wupin1, 0;
+	}
+	if (!#zhuangtaiVIP1 && !#zhuangtai11 && !#jianlian1 && !#wupin1) {
+		set #time8,gettime(7);
+		set #time9,gettime(6);
+		set #time10,gettime(5);
+		set #time11,gettime(4);
+}
+	mes "^0AA770========== ^FF99FF貴 賓 V I P ^0AA770==========^000000";
+	mes "　   ^5599FF是否確定開通貴賓 V I P^000000";
+	mes "　   ^5599FF確定後期限將增加 ^FF00001 ^5599FF個月^000000";
+	mes "^0AA770=================================^000000";
+			next;
+			switch(select(" ^5599FF確定開通貴賓VIP")) {
+				case 1:
+	mes "^0AA770========== ^FF99FF貴 賓 V I P ^0AA770==========^000000";
+						set #exptick1,(#exptick1?0:gettimetick(2))+2592000+#exptick1;
+						announce "您的帳號 貴 賓 V I P 期限增加了 1 個月的使用時間。",3;
+						attachrid .@gmid;
+						delitem 60748,1;
+						getitem 60745,1;
+			}
+	end;
+}

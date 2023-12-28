@@ -1,0 +1,1306 @@
+//===== rAthena Script ======================================= 
+//= Hazy Forest
+//===== By: ================================================== 
+//= Euphy
+//===== Current Version: ===================================== 
+//= 1.2
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//===== Description: ========================================= 
+//= [Official Conversion]
+//= Cross through the Hazy Forest to reach the Bifrost.
+//= Contains the "Wandering Guardian" quest.
+//===== Additional Comments: ================================= 
+//= 1.0 First version. [Euphy]
+//= 1.1 Instance system rewrite. [Euphy]
+//= 1.2 翻譯成繁體中文及修正部分問題 [天波工作組]
+//============================================================ 
+
+// Instance Creation :: md_mistwoods_enter
+//============================================================
+1@mist	mapflag	nomemo
+1@mist	mapflag	pvp	off
+1@mist	mapflag	nosave
+1@mist	mapflag	noteleport
+1@mist	mapflag	monster_noteleport
+1@mist	mapflag	nowarpto
+1@mist	mapflag	partylock
+
+bif_fild01,155,340,6	script	迷霧森林#02	837,{
+
+	mes "----------------------------";	
+	mes ">> 副本獎勵清單";
+	mes "----------------------------";
+	mes "<ITEM>穆拉村硬幣<INFO>6380</INFO></ITEM>";
+	mes "<ITEM>烏魯鎧甲<INFO>15036</INFO></ITEM>";
+	mes "<ITEM>烏魯斗篷<INFO>2574</INFO></ITEM>";
+	mes "<ITEM>烏魯戰靴<INFO>2475</INFO></ITEM>";
+	mes "<ITEM>烏魯印鑑<INFO>2883</INFO></ITEM>";
+	mes "<ITEM>費歐茲鎧甲<INFO>15037</INFO></ITEM>";
+	mes "<ITEM>費歐茲斗篷<INFO>2575</INFO></ITEM>";
+	mes "<ITEM>費歐茲戰靴<INFO>2476</INFO></ITEM>";
+	mes "<ITEM>費歐茲印鑑<INFO>2884</INFO></ITEM>";
+	mes "<ITEM>沙巴赫風衣<INFO>15038</INFO></ITEM>";
+	mes "<ITEM>沙巴赫披風<INFO>2577</INFO></ITEM>";
+	mes "<ITEM>沙巴赫戰靴<INFO>2477</INFO></ITEM>";
+	mes "<ITEM>沙巴赫魔戒<INFO>2886</INFO></ITEM>";
+	mes "<ITEM>納福風衣<INFO>15039</INFO></ITEM>";
+	mes "<ITEM>納福披風<INFO>2578</INFO></ITEM>";
+	mes "<ITEM>納福戰靴<INFO>2478</INFO></ITEM>";
+	mes "<ITEM>納福魔戒<INFO>2887</INFO></ITEM>";
+	mes "<ITEM>天使羽翼戰袍<INFO>15042</INFO></ITEM>";
+	mes "<ITEM>天使羽翼斗篷<INFO>2580</INFO></ITEM>";
+	mes "<ITEM>天使羽翼戰靴<INFO>2479</INFO></ITEM>";
+	mes "<ITEM>天使羽翼胸針<INFO>2890</INFO></ITEM>";
+	mes "<ITEM>惡魔羽翼戰袍<INFO>15043</INFO></ITEM>";
+	mes "<ITEM>惡魔羽翼斗篷<INFO>2581</INFO></ITEM>";
+	mes "<ITEM>惡魔羽翼戰靴<INFO>2480</INFO></ITEM>";
+	mes "<ITEM>惡魔羽翼胸針<INFO>2891</INFO></ITEM>";
+	mes "<ITEM>鈦合金魔杖<INFO>2007</INFO></ITEM>";
+	mes "<ITEM>鈦合金魔杖Ⅱ<INFO>2011</INFO></ITEM>";
+	mes "<ITEM>鈦合金靈球<INFO>2859</INFO></ITEM>";
+	mes "<ITEM>鈦合金外袍<INFO>15025</INFO></ITEM>";
+	mes "<ITEM>鈦合金風靴<INFO>2467</INFO></ITEM>";
+	mes "<ITEM>水精靈魔杖<INFO>2008</INFO></ITEM>";
+	mes "<ITEM>水精靈魔杖Ⅱ<INFO>2012</INFO></ITEM>";
+	mes "<ITEM>水精靈靈球<INFO>2860</INFO></ITEM>";
+	mes "<ITEM>水精靈外袍<INFO>15026</INFO></ITEM>";
+	mes "<ITEM>水精靈雨靴<INFO>2468</INFO></ITEM>";
+	mes "<ITEM>叢林王魔杖<INFO>2010</INFO></ITEM>";
+	mes "<ITEM>叢林王魔杖Ⅱ<INFO>2014</INFO></ITEM>";
+	mes "<ITEM>叢林王靈球<INFO>2862</INFO></ITEM>";
+	mes "<ITEM>叢林王外袍<INFO>15028</INFO></ITEM>";
+	mes "<ITEM>叢林王綠靴<INFO>2470</INFO></ITEM>";
+	mes "<ITEM>赤火焰魔杖<INFO>2009</INFO></ITEM>";
+	mes "<ITEM>赤火焰魔杖Ⅱ<INFO>2013</INFO></ITEM>";
+	mes "<ITEM>赤火焰靈球<INFO>2861</INFO></ITEM>";
+	mes "<ITEM>赤火焰外袍<INFO>15027</INFO></ITEM>";
+	mes "<ITEM>赤火焰火靴<INFO>2469</INFO></ITEM>";
+	mes "<ITEM>慈悲法杖<INFO>1657</INFO></ITEM>";
+	mes "<ITEM>慈悲法杖Ⅱ<INFO>1660</INFO></ITEM>";
+	mes "<ITEM>慈悲外袍<INFO>15029</INFO></ITEM>";
+	mes "<ITEM>慈悲披巾<INFO>2569</INFO></ITEM>";
+	mes "<ITEM>慈悲戰靴<INFO>2471</INFO></ITEM>";
+	mes "<ITEM>審判鐵錘<INFO>16013</INFO></ITEM>";
+	mes "<ITEM>審判鐵錘Ⅱ<INFO>16018</INFO></ITEM>";
+	mes "<ITEM>審判外袍<INFO>15030</INFO></ITEM>";
+	mes "<ITEM>審判披巾<INFO>2570</INFO></ITEM>";
+	mes "<ITEM>審判戰靴<INFO>2472</INFO></ITEM>";
+	mes "<ITEM>治癒之戒<INFO>2864</INFO></ITEM>";
+	mes "<ITEM>聖堂之戒<INFO>2865</INFO></ITEM>";
+	mes "<ITEM>大主教之戒<INFO>2866</INFO></ITEM>";
+	mes "<ITEM>誓言之書(壹)<INFO>2156</INFO></ITEM>";
+	mes "----------------------------";
+	close2;
+	cutin "",255;
+	end;
+}
+wr_city,79,60,5	script	守護精靈士兵#mist2	447,{
+	callfunc ("CheckQuestIP");
+
+	set .@qid ,7211;
+	set .@md_name$,"霧林迷宮";
+	.@nb = query_sql("SELECT `time` from quest where char_id = '" + getcharid(0) + "' and quest_id = '"+.@qid+"'",.@qtime1);
+	.@nb = query_sql("select UNIX_TIMESTAMP() from dual",.@current_timestamp);
+	set .@cooldowntime1, .@qtime1 - .@current_timestamp;
+	callfunc ("QuestInfoNPC",.@md_name$,.@qid,.@cooldowntime1,0,100,0);
+OnInit:
+	waitingroom "  霧林迷宮",0;
+	end;
+}
+
+bif_fild01,158,340,5	script	守護精靈士兵#mist	447,{
+
+	set .@party_id,getcharid(1);
+	set .@md_name$,"霧林迷宮";
+
+	mes "[守護精靈士兵]";
+	mes "你打算要進去森林裡嗎？";
+	next;
+	if (!.@party_id) {
+		mes "[守護精靈士兵]";
+		mes "你確定你不會太急躁嗎？";
+		mes "至少先找個組隊吧？";
+		close;
+	}else if(BaseLevel<100){
+		mes "[守護精靈士兵]";
+		mes "你確定你有能力進入嗎？";
+		mes "等你到100等時再來找我吧。";
+		close;
+	}
+	set .@playtime, checkquest(7211,PLAYTIME);
+	if (getcharid(0) == getpartyleader(.@party_id,2)) {
+		if (.@playtime == 0 || .@playtime == 1) {
+			mes "[守護精靈士兵]";
+			mes "...你確定你不會努力得太過頭嗎？";
+			mes "我認為你最好休息一下。";
+			mes "你努力過頭的話會讓自己筋疲力盡的";
+			next;
+			mes "[守護精靈士兵]";
+			mes "我認為上面也不會給你許可。";
+			mes "甚至 GM 也會被禁止進入這個森林。";
+			next;
+			select("你說我們的語言說得不錯呦？");
+			mes "[守護精靈士兵]";
+			mes "...真的嗎？";
+			mes "事實上我說的語言跟你不同。";
+			mes "我說的是精靈話。";
+			next;
+			mes "[守護精靈士兵]";
+			mes "但這是精靈的其中一個奧秘。";
+			mes "即便我們說的是不同的語言，我們仍然能夠了解對方在說什麼。";
+			next;
+			mes "[守護精靈士兵]";
+			mes "能夠跟任何人對話...";
+			mes "或許這就是精靈的力量。";
+			close;
+		} else if (.@playtime == 2) {
+			mes "[守護精靈士兵]";
+			mes "太棒了！";
+			mes "現在森林不會拒絕你了。";
+			mes "你現在打算怎麼做？";
+			erasequest 7211;
+		} else {
+			mes "[守護精靈士兵]";
+			mes "你們人類的冒險家真是令人難以置信...";
+			mes "總是想要進入那個沒人敢進入的森林。";
+			next;
+			mes "[守護精靈士兵]";
+			mes "不過為了要以防萬一。";
+			mes "每個進入森林的人，我都必須要通報上面。";
+			next;
+			mes "[守護精靈士兵]";
+			mes "在你註冊之後";
+			mes "你就能拿到許可。";
+			mes "你要進入迷霧森林中冒險了嗎？";
+		}
+		next;
+		switch(select("進入森林冒險。:放棄。")) {
+		case 1:
+			//callfunc "PartyIPCheck";			
+			mes "[守護精靈士兵]";
+			mes "隊伍名稱："+getpartyname(.@party_id)+"...";
+			mes "隊長："+strcharinfo(0)+"...";
+			if (instance_create(.@md_name$) < 0) {
+				mes "嗯...";
+				next;
+				mes "[守護精靈士兵]";
+				if (.@playtime == -1)
+					mes "這個森林是非常危險的。";
+				else
+					mes "這個森林充滿著緊張的氣氛...";
+				mes "...你今天怎麼不打算回家休息？";
+				close;
+			}
+			//'party_id = getcharid(1);
+			mes "我懂了。 我會將它們寫在報告中。";
+			next;
+			mes "[守護精靈士兵]";
+			mes "你很快地就會拿到許可的。";
+			mes "等等你就到那上面通往叢林的唯一出入口原木隧道。";
+			mes "明白吧？";
+			next;
+			mes "[守護精靈士兵]";
+			mes "我們並不能反抗森林，";
+			mes "但或許你們人類可以。";
+			mes "祝你好運！";
+			announce "★ 副本公告 ★ 隊伍 [ "+getpartyname(getcharid(1)) +" ] 準備挑戰【 霧林迷宮 】副本！",15,0x33ea91;
+
+			close;
+		case 2:
+			mes "[守護精靈士兵]";
+			mes "嗯...你做了對的決定。";
+			if (.@playtime == -1)
+				mes "這才是對你好的決定。";
+			close;
+		}
+	} else {
+		mes "[守護精靈士兵]";
+		mes "你們的隊長在哪裡？";
+		mes "裡面是非常危險的。";
+		next;
+		if (.@playtime == 2) {
+			mes "[守護精靈士兵]";
+			mes "我看你以前好像進入過這個森林了。";
+			mes "至少它不會拒絕你。";
+			mes "但是...";
+			erasequest 7211;
+			next;
+		}
+		mes "[守護精靈士兵]";
+		mes "站在我的立場想一想，身為入口的守衛，讓我見一見你們隊伍的隊長。";
+		mes "我必須跟他討論一些事情。";
+		close;
+	}
+}
+
+bif_fild01,161,355,0	script	原木隧道	844,{
+	mes "透過原木隧道我看到了迷霧森林。";
+	mes "看起來我通過原木隧道後，就能進入迷霧森林了。";
+	next;
+	if(select("進入森林。:放棄。") == 2) close;
+	if(BaseLevel<100){
+		mes "這裡需至少100等才可進入。";
+		close;
+	}
+	set .@playtime, checkquest(7211,PLAYTIME);
+	if (.@playtime == 0 || .@playtime == 1) {
+		mes "[守護精靈士兵]";
+		mes "...你確定你不會努力得太過頭嗎？";
+		mes "我認為你最好休息一下。";
+		mes "你努力過頭的話會讓自己筋疲力盡的";
+		close;
+	}else{
+		//callfunc "PartyIPCheck";		
+		switch(instance_enter("霧林迷宮")) {
+		case 3:
+			mes "[守護精靈士兵]";
+			mes "事情不太對勁... 看起來有些可怕的事情要發生了，所以你今天最好回去。";
+			close;
+		case 2:
+			mes "你嘗試爬進樹幹，但一個神祕的力量用一陣風將你推回去";
+			mes "看來你無法強行進入森林。";
+			close;
+		case 1:
+			mes "[守護精靈士兵]";
+			mes "嘿！看！";
+			mes "你要一個人進去嗎？";
+			mes "這是不可能的，太魯莽了。";
+			mes "跟朋友組隊在一起進去吧！";
+			close;
+		case 0:
+			if (.@playtime == 2) erasequest 7211;
+			if (.@playtime == -1) setquest 7211;			
+			mapannounce strnpcinfo(4),"隊伍 " + getpartyname(getcharid(1)) + " 裡的勇者 " + strcharinfo(0) + " 開始進行【迷霧森林】副本了",bc_map,"0x00ff99";
+			warp "1@mist",89,29;
+			close;
+		default:
+			mes "在原木隧道之後的世界看起來十分黑暗且讓人感到窒息...";
+			mes "你的直覺告訴你這個森林是十分危險的。";
+			close;
+		}
+	}
+}
+
+// Instance Scripts :: md_mistwoods_in
+//============================================================
+1@mist,89,29,0	script	#Whisper_mist	844,1,1,{
+	end;
+OnInstanceInit:
+	enablenpc instance_npcname("#Whisper_mist");
+	end;
+OnTouch:
+	disablenpc instance_npcname("#Whisper_mist");
+	initnpctimer;
+	end;
+OnTimer10000:
+OnTimer20000:
+	mapannounce instance_mapname("1@mist"),"耳語：這是誰？ 這到底是誰？！ 森林已經開啟！ 你們給我醒醒! 快醒醒！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer60000:
+	mapannounce instance_mapname("1@mist"),"大聲的耳語：森林的管理員在做什麼？ 園丁在幹嘛？",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer120000:
+	mapannounce instance_mapname("1@mist"),"大聲的耳語：別出去，永遠在這周圍漫步，並且跟我們玩吧！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer180000:
+	mapannounce instance_mapname("1@mist"),"大聲的耳語： 沒有用的，沒有用的！ 在這流浪一圈又一圈之後你就會看到盡頭的！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+}
+
+// callfunc "F_Mora_Mist",<warp to enable>,<success message>,<fail message>{,<end flag>}
+function	script	F_Mora_Mist	{
+	set .@map$, instance_mapname("1@mist");
+	if (mobcount(.@map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0) {
+		mes "很明顯的，沒有人在照顧它。";
+		mes "你似乎可以砍下花園中的樹。";
+		next;
+		if(select("砍下花園中的樹。:放棄。") == 2)
+			close;
+		if(getarg(3,0)){
+			mes "你可以砍下那些擋住迷宮去路的樹， 清出一條通出森林的路。";
+		}else{
+			mes "你可以砍下那些擋住迷宮去路的樹， 現在你能夠繼續進行了。";
+		}
+		mapannounce .@map$,getarg(1),bc_map,"0xccffcc";
+		enablenpc instance_npcname(getarg(0));
+		disablenpc instance_npcname(strnpcinfo(0));
+		close;
+	} else
+		mapannounce .@map$,((getarg(3,0))?getarg(2):getarg(2)+"的哭聲 : 蛤？是誰在這裡對我的樹做壞事呀？"),bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+}
+
+1@mist,251,121,3	script	湯姆的花園	858,{ end; }
+1@mist,247,123,0	script	湯姆的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"a25_a18-1",
+		"大吼：湯姆的門閂已經壞掉了！小心！托姆巴。小心！托姆巴！",
+		"湯姆";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),249,120,"湯姆",2136,1,instance_npcname("湯姆的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,226,95,3	script	托姆巴的花園	858,{ end; }
+1@mist,225,98,0	script	托姆巴的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"a27-2_af1-2",
+		"大吼：托姆巴 花園中的樹已經跟托姆巴一起走了，雷米你接下來打算怎麼做？",
+		"托姆巴";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),200,64,"托姆巴",2136,1,instance_npcname("托姆巴的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,157,183,3	script	雷米的花園	858,{ end; }
+1@mist,159,184,0	script	雷米的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"a15-2_a4-1",
+		"大吼：雷米, 雷米花園中的樹被砍了下來，雷姆下一個就是你。可憐的雷姆！",
+		"雷米";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),154,184,"疲累的雷米",2137,1,instance_npcname("雷米的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,58,39,3	script	疲累雷姆的花園	858,{ end; }
+1@mist,61,39,0	script	疲累雷姆的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"a4-2_a11",
+		"雷姆絕望的哭泣： 唉... 雷姆現在要睡覺了，而且永遠不會醒來了！",
+		"雷姆";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),101,107,"園丁 雷姆",2136,1,instance_npcname("疲累雷姆的樹木")+"::OnMyMobDead";
+	end;
+OnTimer10000:
+	mapannounce instance_mapname("1@mist"),"森林的低語：所以湯姆、托姆巴、雷米，還有雷姆的花園的樹都被砍倒了？",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer15000:
+	mapannounce instance_mapname("1@mist"),"森林的低語：麻煩了，麻煩了，我們有大麻煩了！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer20000:
+	mapannounce instance_mapname("1@mist"),"大聲的耳語：森林深處的園丁來到了第二深的森林，小心！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,227,179,3	script	羅恩的花園	858,{ end; }
+1@mist,230,179,0	script	羅恩的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b4-2_b2",
+		"羅恩園丁的哭泣：我要休息了！別再找第二個園丁羅恩了！！",
+		"羅恩";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),227,178,"園丁 羅恩",2134,1,instance_npcname("羅恩的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,288,226,3	script	羅爾的花園	858,{ end; }
+1@mist,285,225,0	script	羅爾的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b7_bf1-2",
+		"大聲的耳語：羅恩跟羅爾的樹都被砍下來了。是誰在迫使他進入森林呢？究竟是誰？",
+		"羅爾";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),304,237,"園丁 羅爾",2134,1,instance_npcname("羅爾的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,159,318,3	script	莫娜的花園	858,{ end; }
+1@mist,161,316,0	script	莫娜的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b31_b16",
+		"喊叫的耳語：莫娜，種子搜尋者的樹已經倒了！莫娜也倒下了！納蒙會沒事的，因為他很勇敢，沒錯吧？納蒙你還好嗎？",
+		"莫娜";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),239,253,"種子搜尋者 莫娜",2133,1,instance_npcname("莫娜的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,205,300,3	script	納蒙的花園	858,{ end; }
+1@mist,204,299,0	script	納蒙的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b27-3_bN-1",
+		"喊叫的耳語：勇敢的納蒙見到他的命運時並沒有那麼勇敢... *傻笑著*",
+		"納蒙";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),89,173,"勇敢的納蒙",2134,1,instance_npcname("納蒙的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,219,232,3	script	傷心的蘿拉花園	858,{ end; }
+1@mist,221,236,0	script	傷心的蘿拉樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b6-1_b33",
+		"感歎的耳語：傷心的蘿拉心情已經變好了！蜘蛛史派特，你打算怎麼做？你現在打算怎麼做啊？",
+		"蘿拉";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),143,265,"傷心的蘿拉",2137,1,instance_npcname("傷心的蘿拉樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,206,202,3	script	史派特的花園	858,{ end; }
+1@mist,206,200,0	script	史派特的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"b5_b14",
+		"沮喪的耳語：現在第二深的森林已經結束了，園丁都已經倒下了...",
+		"史派特";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),209,200,"八隻腳的史派特",2132,1,instance_npcname("史派特的樹木")+"::OnMyMobDead";
+	end;
+OnTimer5000:
+	mapannounce instance_mapname("1@mist"),"咆哮的耳語：這條通道即將被開啟。原本緊緊鎖上的門閂已經被移開。",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer9000:
+	mapannounce instance_mapname("1@mist"),"咆哮的耳語：一個森林已經開放，另一個也已經開放，還有一個也即將被開放。 提托 及 普巴 他們正朝著你前來！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	end;
+OnTimer13000:
+	mapannounce instance_mapname("1@mist"),"咆哮的耳語：當你在不斷的流浪之後，所遇到的全部的園丁將會手中拿著剪子等著你！",bc_map,"0xccffcc"; //FW_NORMAL 12 0 0
+	stopnpctimer;
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,96,288,3	script	提托的花園	858,{ end; }
+1@mist,95,287,0	script	提托的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"c1_c13-1",
+		"提托的哭泣：嗚..嗚.. 提托現在就要走了！提托不做了！",
+		"提托";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),264,291,"有著蛙腳的提托",2133,1,instance_npcname("提托的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,326,325,3	script	普巴的花園	858,{ end; }
+1@mist,324,325,0	script	普巴的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"c13-3_c4",
+		"大聲的耳語：認真的工人提托被擊敗了！別再玩了，快去工作。泰特！快開始工作！",
+		"普巴";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),309,165,"懶惰的普巴",2134,1,instance_npcname("普巴的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,278,345,3	script	泰特的花園	858,{ end; }
+1@mist,280,344,0	script	泰特的樹木	527,{
+	callfunc "F_Mora_Mist",
+		"c19_c4",
+		"耳語：他們很厲害，真的很厲害... 我們現在該怎麼辦？還有園丁在嗎？",
+		"泰特";
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),277,343,"悠閒的泰特",2136,1,instance_npcname("泰特的樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,345,186,0	script	樹木	527,{
+	callfunc "F_Mora_Mist",
+		"#to_bif02",
+		"大聲的耳語：森林會記得你的！他會記得你的，那個破壞剪子跟打倒園丁的人！",
+		"園丁：我們還沒死！！！！",1;
+	end;
+OnInstanceInit:
+	set .@map$, instance_mapname("1@mist");
+	monster .@map$,318,137,"寶貝湯姆",2136,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,321,137,"寶貝托姆巴",2136,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,324,137,"疲累的雷米",2137,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,319,135,"疲累的雷姆",2136,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,323,135,"前任園丁羅恩",2134,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,320,133,"前任園丁羅爾",2134,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,323,133,"種子搜尋者莫娜",2133,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,317,132,"膽小的納蒙",2134,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,326,132,"冷漠的蘿拉",2137,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,317,129,"七隻腳的史派特",2132,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,320,129,"有著蛙腳的提托",2133,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,324,129,"懶惰的普巴",2134,1,instance_npcname("樹木")+"::OnMyMobDead";
+	monster .@map$,327,129,"粗心的泰特",2136,1,instance_npcname("樹木")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	end;
+}
+
+1@mist,73,290,0	script	神秘的花#1	844,{
+	specialeffect EF_LEVEL99_4;
+	disablenpc instance_npcname(strnpcinfo(0));
+	getitem 12561,1; //Mysterious_Seed
+	end;
+}
+1@mist,69,295,0	duplicate(神秘的花#1)	神秘的花#2	844
+1@mist,62,291,0	duplicate(神秘的花#1)	神秘的花#3	844
+1@mist,54,293,0	duplicate(神秘的花#1)	神秘的花#4	844
+1@mist,48,286,0	duplicate(神秘的花#1)	神秘的花#5	844
+1@mist,54,277,0	duplicate(神秘的花#1)	神秘的花#6	844
+1@mist,52,270,0	duplicate(神秘的花#1)	神秘的花#7	844
+1@mist,62,268,0	duplicate(神秘的花#1)	神秘的花#8	844
+1@mist,72,271,0	duplicate(神秘的花#1)	神秘的花#9	844
+1@mist,72,276,0	duplicate(神秘的花#1)	神秘的花#10	844
+1@mist,118,194,0	duplicate(神秘的花#1)	神秘的花#11	844
+1@mist,122,204,0	duplicate(神秘的花#1)	神秘的花#12	844
+1@mist,137,209,0	duplicate(神秘的花#1)	神秘的花#13	844
+1@mist,144,203,0	duplicate(神秘的花#1)	神秘的花#14	844
+1@mist,146,186,0	duplicate(神秘的花#1)	神秘的花#15	844
+1@mist,142,182,0	duplicate(神秘的花#1)	神秘的花#16	844
+1@mist,132,179,0	duplicate(神秘的花#1)	神秘的花#17	844
+1@mist,123,184,0	duplicate(神秘的花#1)	神秘的花#18	844
+1@mist,194,118,0	duplicate(神秘的花#1)	神秘的花#19	844
+1@mist,188,109,0	duplicate(神秘的花#1)	神秘的花#20	844
+1@mist,193,94,0	duplicate(神秘的花#1)	神秘的花#21	844
+1@mist,205,92,0	duplicate(神秘的花#1)	神秘的花#22	844
+1@mist,213,96,0	duplicate(神秘的花#1)	神秘的花#23	844
+1@mist,216,103,0	duplicate(神秘的花#1)	神秘的花#24	844
+1@mist,212,116,0	duplicate(神秘的花#1)	神秘的花#25	844
+1@mist,207,120,0	duplicate(神秘的花#1)	神秘的花#26	844
+1@mist,169,310,0	duplicate(神秘的花#1)	神秘的花#27	844
+1@mist,172,296,0	duplicate(神秘的花#1)	神秘的花#28	844
+1@mist,191,301,0	duplicate(神秘的花#1)	神秘的花#30	844
+1@mist,195,301,0	duplicate(神秘的花#1)	神秘的花#31	844
+1@mist,192,316,0	duplicate(神秘的花#1)	神秘的花#32	844
+1@mist,187,320,0	duplicate(神秘的花#1)	神秘的花#33	844
+1@mist,174,318,0	duplicate(神秘的花#1)	神秘的花#34	844
+1@mist,308,136,0	duplicate(神秘的花#1)	神秘的花#35	844
+1@mist,314,122,0	duplicate(神秘的花#1)	神秘的花#36	844
+1@mist,321,118,0	duplicate(神秘的花#1)	神秘的花#37	844
+1@mist,331,123,0	duplicate(神秘的花#1)	神秘的花#38	844
+1@mist,335,126,0	duplicate(神秘的花#1)	神秘的花#39	844
+1@mist,332,141,0	duplicate(神秘的花#1)	神秘的花#40	844
+1@mist,328,144,0	duplicate(神秘的花#1)	神秘的花#41	844
+1@mist,314,144,0	duplicate(神秘的花#1)	神秘的花#42	844
+1@mist,238,224,0	duplicate(神秘的花#1)	神秘的花#43	844
+1@mist,244,231,0	duplicate(神秘的花#1)	神秘的花#44	844
+1@mist,257,232,0	duplicate(神秘的花#1)	神秘的花#45	844
+1@mist,262,229,0	duplicate(神秘的花#1)	神秘的花#46	844
+1@mist,265,216,0	duplicate(神秘的花#1)	神秘的花#47	844
+1@mist,260,214,0	duplicate(神秘的花#1)	神秘的花#48	844
+1@mist,252,206,0	duplicate(神秘的花#1)	神秘的花#49	844
+1@mist,244,211,0	duplicate(神秘的花#1)	神秘的花#50	844
+
+// Wandering Guardian Quest
+//============================================================
+
+// ----------------- Part of md_mistwoods_in -----------------
+1@mist,2,2,0	script	#Dragon Herder	844,{
+	end;
+OnInstanceInit:
+	switch(rand(1,6)) {
+		case 1: setarray .@c[0],77,240; break;
+		case 2: setarray .@c[0],147,261; break;
+		case 3: setarray .@c[0],182,263; break;
+		case 4: setarray .@c[0],194,350; break;
+		case 5: setarray .@c[0],268,183; break;
+		case 6: setarray .@c[0],65,278; break;
+	}
+	monster instance_mapname("1@mist"),.@c[0],.@c[1],"殭屍龍",2131,1,instance_npcname("#Dragon Herder")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	if (mobcount(.@map$,instance_npcname("#Dragon Herder")+"::OnMyMobDead") == 0) {
+		donpcevent instance_npcname("倒地的女孩#mist")+"::OnEnable";
+		donpcevent instance_npcname("神秘的年輕人#mis")+"::OnEnable";
+		donpcevent instance_npcname("洛基#mist")+"::OnEnable";
+		mapannounce .@map$,"龍的哭泣：我被懲罰了... 因為拋棄... 身為守護者的責任...？",bc_map,"0xffff00"; //FW_NORMAL 12 0 0
+		disablenpc instance_npcname("#Dragon Herder");
+		initnpctimer;
+	}
+	end;
+OnTimer3000:
+	stopnpctimer;
+	mapannounce instance_mapname("1@mist"),"腦海中的聲音：...你...會救我嗎？拜託......",bc_map,"0xffff00"; //FW_NORMAL 12 0 0
+	end;
+}
+/*
+1@mist,0,0,3	script	傳送人員#mist	512,{
+	mes "[傳送人員]";
+	mes "你確定要離開這裡嗎？";
+	next;
+	if(select("確定:取消")==1) {
+		
+	}
+	
+	close;
+	
+OnInstanceInit:
+	hideonnpc instance_npcname("傳送人員#mist");
+	end;
+OnEnable:
+	hideoffnpc instance_npcname("傳送人員#mist");
+	end;
+}*/
+
+1@mist,97,30,3	script	神秘的年輕人#mis	512,{
+	if (BaseLevel < 98) {
+		mes "[神秘的年輕人]";
+		mes "蛤？你打算穿過這裡嗎？";
+		mes ".....恐怕這不是你的能力所及之處，";
+		mes "但我不會對你決定的事情插手。";
+		close;
+	}
+	if (ep14_1_mistwoods == 0) {
+		if (ep13_3_secret > 23) {
+			mes "[神秘的年輕人]";
+			mes "你...我記得我在營地看過你。";
+			mes "你給我關於 Ahat 的資訊十分有用。";
+			mes "謝了！";
+			next;
+			mes "[神秘的年輕人]";
+			mes "但你是不是打算通過這裡？";
+			mes "到 Bifrost 有什麼好處?";
+			next;
+		} else {
+			mes "[神秘的年輕人]";
+			mes "但你是不是打算通過這裡？";
+			mes "我不建議你通過這裡，如果你只是出於好奇心。";
+			mes "這只會提早將你引導至死亡...";
+			next;
+		}
+		mes "[神秘的年輕人]";
+		mes "如果你打算穿過這裡，";
+		mes "我會請你幫我一個忙。";
+		next;
+		select("你是誰？");
+		mes "[洛基]";
+		mes "我來自刺客工會 .";
+		mes "洛基... 這是我的名字。";
+		mes "你的大名是？";
+		next;
+		mes "["+strcharinfo(0)+"]";
+		mes "....";
+		mes "是"+strcharinfo(0)+".";
+		next;
+		mes "[洛基]";
+		mes "我懂了..."+strcharinfo(0)+".";
+		mes "我再問你一次，";
+		mes "你是不是打算穿越這個森林？";
+		next;
+		switch(select("是的。:不，我沒有。")) {
+		case 1:
+			mes "[洛基]";
+			mes "那接著我會問你一個問題";
+			mes "你有沒有看過一個守衛...是一個有著紫色頭髮的人？";
+			next;
+			switch(select("不，我沒看過。:有，我好像有看過...")) {
+			case 1:
+				mes "[洛基]";
+				mes "所以你沒看過。";
+				mes "你說的是實話。";
+				next;
+				break;
+			case 2:
+				mes "[洛基]";
+				mes "等一下...";
+				mes "(洛基靠近你)";
+				mes "...不";
+				mes "你說的是實話。";
+				next;
+				break;
+			}
+			mes "[洛基]";
+			mes "我們會再見面的，";
+			mes "如果你從這片森林中生還的話。";
+			set ep14_1_mistwoods,2;
+			if(isbegin_quest(7212) == 0)
+				setquest 7212;
+			close;
+		case 2:
+			mes "[洛基]";
+			mes "我懂了。";
+			mes "如果你還沒準備好。先後退吧";
+			mes "這片森林不喜歡陌生人。";
+			set ep14_1_mistwoods,1;
+			close;
+		}
+	} else if (ep14_1_mistwoods == 1) {
+		mes "[洛基]";
+		mes "我叫你 後退，如果你還不想死的話";
+		mes "要穿越這片森林不容易，";
+		mes "或許會賠上你的性命的!!";
+		next;
+		switch(select("好吧。:你想要什麼？")) {
+		case 1:
+			mes "- 當你後退的時候";
+			mes "洛基微微的點頭並且看向遠方 -";
+			close;
+		case 2:
+			mes "[洛基]";
+			mes "我再找一個人";
+			mes "你有沒有看過一個守衛...是一個有著紫色頭髮的人？";
+			next;
+			switch(select("不，我沒有。:有，我有看過...")) {
+			case 1:
+				mes "[洛基]";
+				mes "所以你沒看過。";
+				mes "你說的是實話。";
+				next;
+				break;
+			case 2:
+				mes "[洛基]";
+				mes "等一下";
+				mes "(洛基靠近你)";
+				mes "...不";
+				mes "你說的是實話。";
+				next;
+				break;
+			}
+			mes "[洛基]";
+			mes "我們會再見面的，";
+			mes "希望我們能在 穆拉 再見面。";
+			set ep14_1_mistwoods,2;
+			if(isbegin_quest(7212) == 0)
+				setquest 7212;
+			close;
+		}
+	} else if (ep14_1_mistwoods == 2) {
+		mes "[洛基]";
+		mes "我不想要跟你一起去。";
+		mes "希望我們能在 穆拉 再見面。";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[洛基]";
+		mes "我們又見面了。";
+		mes "你習慣這個地方了嗎？";
+		mes "來 穆拉 的旅店，";
+		mes "我有東西要給你。";
+		close;
+	} else {
+		mes "[洛基]";
+		mes "我們彼此已經看過很多次了";
+		mes "看來你對這個地方很熟悉了。";
+		mes "你最好不要太驕傲。";
+		close;
+	}
+	end;
+OnEnable:
+	enablenpc instance_npcname("神秘的年輕人#mis");
+	end;
+OnDisable:
+	disablenpc instance_npcname("神秘的年輕人#mis");
+	end;
+}
+
+1@mist,183,304,3	script	洛基#mist	512,{
+	if (ep14_1_mistwoods < 2) {
+		mes "[洛基]";
+		mes "我是一個在森林裡的冒險家";
+		mes ".....";
+		mes "你可以穿過這個森林到穆拉村。";
+		close;
+	} else if (ep14_1_mistwoods == 2) {
+		mes "[洛基]";
+		mes "對付囂張傢伙的是你們嗎？";
+		mes "我想我應該感謝你。";
+		mes "多虧各位安靜多了。";
+		next;
+		select("發生什麼事了？ :這個女孩是...?");
+		mes "[洛基]";
+		mes "雖然外表改變但天生的獨特的光芒是不變的。";
+		mes "幾乎可麻痺嗅覺的濃厚香氣。";
+		next;
+		mes "[洛基]";
+		mes "這是 天地樹的守護者，";
+		mes "也就是我在找的人。";
+		mes "現在他不會再四處遊蕩了。";
+		next;
+		select("你現在打算做什麼？");
+		mes "[洛基]";
+		mes "我會等他醒來，然後離開這座森林。";
+		mes "這事我自己也做的到。";
+		mes "希望我們能在穆拉村再見面。";
+		set ep14_1_mistwoods,3;
+		if(isbegin_quest(7212))
+			erasequest 7212;
+		setquest 7213;
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[洛基]";
+		mes "我不想跟你走";
+		mes "我能夠自己照顧她。";
+		mes "如果你有話要講，等我們離開了這座森林再說。";
+		close;
+	} else {
+		mes "[洛基]";
+		mes "我不想跟你走";
+		mes "如果你有話要講，等我們離開了這座森林再說。";
+		close;
+	}
+	end;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("洛基#mist");
+	end;
+OnEnable:
+	enablenpc instance_npcname("洛基#mist");
+	end;
+}
+
+1@mist,181,303,3	script	倒地的女孩#mist	511,{
+	mes "你看見一個有著神祕頭髮的女孩倒在地上。";
+	mes "當你一靠近他，你就聞到了強烈的花香，讓你感到頭暈。";
+	close;
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("倒地的女孩#mist");
+	end;
+OnEnable:
+	enablenpc instance_npcname("倒地的女孩#mist");
+	end;
+}
+
+// --------------- Part of md_mistwoods_enter ----------------
+mora,46,152,5	script	有著花香的小姐	510,{
+	if (ep14_1_mistwoods < 3) {
+		mes "[有著花香的小姐]";
+		mes "我需要休息...";
+		mes "我已經沒力氣跟你說話了...";
+		mes "對不起...";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[守護者尼德霍格]";
+		mes "我一直在等你";
+		mes "我一直很困惑，但我知道我錯在哪了。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "如果不是因為你，我可能會在無盡的黑暗中遊蕩。";
+		mes "我發自內心地感謝你。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "我對自己感到羞恥，因為在我寂寞的時候陷入了他的誘惑。";
+		mes "....";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "我不該再擔任守護者了";
+		mes "一條龍已經發瘋了，不適合再擔任守護者了。";
+		next;
+		mes "[洛基]";
+		mes "世界之樹 可不這麼想。";
+		mes "Nidi 可不要忘記你的責任。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "你是...?";
+		mes "我懂了...";
+		mes "我以為我被拋棄了...";
+		next;
+		mes "守護者慢慢地看向遠方，彷彿在想著什麼事情...";
+		set ep14_1_mistwoods,4;
+		close2;
+	} else if (ep14_1_mistwoods == 4) {
+		mes "- 他似乎沉思著 -";
+		close;
+	} else {
+		mes "[守護者尼德霍格]";
+		mes "我的力量還沒完全恢復";
+		mes "我無法保護你，對不起...";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "洛基說...";
+		mes "我不會再因為孤單而哭泣...";
+		mes "因為我永遠有個像你一樣的朋友...";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "...我失去了所有的東西，但我現在仍然很高興。";
+		close;
+	}
+}
+
+mora,48,152,3	script	有著銳利眼神的人	512,{
+	if (checkweight(1201,1) == 0 || MaxWeight - Weight < 1000) {
+		mes "- 你身上有太多東西了 -";
+		close;
+	}
+	if (ep14_1_mistwoods < 3) {
+		mes "他不會看你，就好像他對你一點興趣都沒有。";
+		close;
+	} else if (ep14_1_mistwoods == 3) {
+		mes "[洛基]";
+		mes "你穿過了這座森林";
+		mes "看來尼帝有話要對你說。";
+		close;
+	} else if (ep14_1_mistwoods == 4) {
+		mes "[洛基]";
+		mes "尼德霍格曾經是世界之樹的其中一個守護者";
+		mes "但當他陷入夢羅克的誘惑，他拋棄了他的職責。";
+		next;
+		mes "[洛基]";
+		mes "有蠢蛋做了解開 封印的儀式";
+		mes "儀式並沒有成功。夢羅克的僕人並沒有成功解開封印。";
+		next;
+		mes "[洛基]";
+		mes "但封印變得十分脆弱，隨時都可能被打破。";
+		mes "是因為那個世界之樹才能防止封印被解除。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "這就對了，世界樹的力量串連了整個世界。";
+		mes "當守護者與世界之樹的連結斷開，世界之樹變得十分不穩定。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "這就是為什麼世界之樹發生了那麼多的災難。";
+		mes "當世界之樹變得不穩定，影響到了封印，以至於變得脆弱。";
+		next;
+		mes "[洛基]";
+		mes "同時夢羅克自己將封印破除";
+		mes "儘管他使用了大部分的力量在破除封印上...";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "這都是我的錯...";
+		mes "我沒辦法從 夢羅克 的誘惑中逃出";
+		mes "持續了好... 好長一段時間...";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "...我想舒緩我千年以來的孤獨...";
+		mes "當時我並沒有做出正確的決定...";
+		mes "當我斷開與 世界之樹 的連結時，並沒有任何的人能阻止我...";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "我失去了控制，並且做出了不該做的事...";
+		mes "另外一面的我便成了陰影中蠻橫的暴君，";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "面對這世界，我了解到...";
+		mes "我感到十分的失意... 這比我千年來的孤獨還要痛苦許多。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "這就是為什麼我獨自離開";
+		mes "我感到十分的失意... 這比我千年來的孤獨還要痛苦許多。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "因此我成為了罪人，被這世界遺忘...";
+		next;
+		mes "[洛基]";
+		mes "這並不會太晚";
+		mes "你仍然是名守護者";
+		mes "你還有事情要做。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "...你說的對，這一切都來的及，我仍然有守護者的職責要完成。";
+		mes "現在我知道我會親自摧毀夢羅克。";
+		mes "我會完成我身為守護者的責任。";
+		next;
+		switch(select("你並不孤單。 : 這可是些十分重要的責任。")) {
+		case 1:
+			mes "[守護者尼德霍格]";
+			mes "你說的對。";
+			mes "這就是為什麼我會被拋棄 - 讓我了解到我並不孤單";
+			mes "你真是個好人。";
+			next;
+			break;
+		case 2:
+			mes "[守護者尼德霍格]";
+			mes "這可是我贖罪的機會";
+			mes "雖然我很高興";
+			mes "因為我並不用在孤獨的戰鬥。";
+			next;
+			break;
+		}
+		mes "[守護者尼德霍格]";
+		mes strcharinfo(0)+"...";
+		mes "感謝你聽我這麼長的故事。";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "這跟了我一輩子。";
+		mes "我在將來的某一天一定會保護你的！";
+		next;
+		mes "[洛基]";
+		mes "(將他的領巾拿下來交給你)";
+		next;
+		mes "[守護者尼德霍格]";
+		mes "或許世界之樹會保佑你...";
+		set ep14_1_mistwoods,10;
+		completequest 7213;
+	getitem 930000,5;
+		getitem 6909,1;
+		getitem 2568,1; //Muffler_Of_Roki
+		getitem 2858,1; //Pendant_Of_Guardian
+	getitem 940009,10;
+		getexp 400000,400000;
+		close;
+	} else {
+		mes "[洛基]";
+		mes "我會在這待一陣子，";
+		mes "或許我們會再見面。";
+		next;
+		mes "[洛基]";
+		mes "當夢羅克揭開他卑鄙的真面目時...";
+		mes "我會等他的。";
+		close;
+	}
+}
+
+// Monster Spawns :: md_mist_mob
+//============================================================
+1@mist,1,1,0	script	#Mist Mobs Respawn1	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"異形毛毛怪",2137,15,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 15 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"異形毛毛怪",2137,.@num_mobs,instance_npcname("#Mist Mobs Respawn1")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,2,0	script	#Mist Mobs Respawn2	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"食人蜘蛛",2132,35,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"食人蜘蛛",2132,.@num_mobs,instance_npcname("#Mist Mobs Respawn2")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,3,0	script	#Mist Mobs Respawn3	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"瘋狂螳螂",2133,35,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"瘋狂螳螂",2133,.@num_mobs,instance_npcname("#Mist Mobs Respawn3")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,4,0	script	#Mist Mobs Respawn4	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"惡魔啄木鳥",2134,35,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 35 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"惡魔啄木鳥",2134,.@num_mobs,instance_npcname("#Mist Mobs Respawn4")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,5,0	script	#Mist Mobs Respawn5	844,{
+	end;
+OnInstanceInit:
+	monster instance_mapname("1@mist"),0,0,"玩偶魔妖",2136,15,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	set .@map$, instance_mapname("1@mist");
+	set .@num_mobs, 15 - mobcount(.@map$,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead");
+	if (.@num_mobs > 0)
+		monster .@map$,0,0,"玩偶魔妖",2136,.@num_mobs,instance_npcname("#Mist Mobs Respawn5")+"::OnMyMobDead";
+	end;
+}
+
+1@mist,1,6,0	script	#Fragments of Memory	844,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("#Fragments of Memory");
+	monster instance_mapname("1@mist"),0,0,"守護者記憶碎片(藍色)",2138,15;
+	end;
+}
+
+// Warp Portals :: md_mist_in_link
+//============================================================
+bif_fild01,38,374,0	script	神秘的花#ep14_1	844,{
+	mes "有一朵巨大的花有一股神祕的能量。";
+	if (countitem(12561)) {
+		mes "這是你有的神祕花種子給你的反應";
+		next;
+		switch(select("觀察這段反應。:停止這段反應。")) {
+		case 1:
+			mes "花開始劇烈的抖動";
+			mes "並且不斷地向前擺動，就好像它想把種子散佈到最遠的地方!!!";
+			close2;
+			delitem 12561,1; //Mysterious_Seed
+			warp "Save",0,0;
+			end;
+		case 2:
+			mes "當你緊緊的握住種子，";
+			mes "花開始劇烈抖動，接著恢復正常。";
+			close;
+		}
+	}
+	mes "看起來它有著特殊的功能，但你並不知道那是什麼。";
+	close;
+}
+
+1@mist,104,23,0	warp	#to_bif01	1,1,bif_fild01,160,352
+
+1@mist,109,70,0	script	a1_a2	45,1,1,{
+	end;
+OnTouch:
+	if (checkquest(7211,PLAYTIME) == -1)
+		setquest 7211;
+	warp instance_mapname("1@mist"),116,40;
+	end;
+}
+
+1@mist,113,40,0	warp	a2_a7	1,1,1@mist,90,81
+1@mist,93,81,0	warp	a7_a14	1,1,1@mist,108,152
+1@mist,111,154,0	warp	a14_a24	1,1,1@mist,236,108
+1@mist,236,110,0	warp	a24_a1	1,1,1@mist,106,69
+1@mist,161,67,0	warp	a18-1_a22	1,1,1@mist,159,85
+1@mist,180,116,0	warp	a23_a18-1	1,1,1@mist,164,66
+1@mist,180,63,0	warp	a18-2_a9	1,1,1@mist,141,90
+1@mist,116,84,0	warp	a8_a26	1,1,1@mist,222,133
+1@mist,220,133,0	warp	a26_a27-1	1,1,1@mist,200,64
+1@mist,197,64,0	warp	a27-1_a23	1,1,1@mist,177,116
+1@mist,146,194,0	warp	af1-2_a27-2	1,1,1@mist,225,96
+1@mist,133,195,0	warp	af1-1_af2-1	1,1,1@mist,202,110
+1@mist,202,107,0	warp	af2-1_af1-1	1,1,1@mist,134,189
+1@mist,217,110,0	warp	af2-2_a20-1	1,1,1@mist,240,56
+1@mist,240,54,0	warp	a20-1_af2-2	1,1,1@mist,214,110
+1@mist,234,67,0	warp	a20-2_a21	1,1,1@mist,239,80
+1@mist,242,77,0	warp	a21_a15-1	1,1,1@mist,153,137
+1@mist,156,139,0	warp	a15-1_a3	1,1,1@mist,123,55
+1@mist,124,51,0	warp	a3_a20-1	1,1,1@mist,240,56
+1@mist,48,41,0	warp	a4-1_a17	1,1,1@mist,174,165
+1@mist,171,165,0	warp	a17_a16	1,1,1@mist,168,143
+1@mist,169,141,0	warp	a16_a10	1,1,1@mist,101,107
+1@mist,99,107,0	warp	a10_a4-2	1,1,1@mist,57,38
+1@mist,65,113,0	warp	a11_a28	1,1,1@mist,218,151
+1@mist,221,151,0	warp	a28_a13	1,1,1@mist,117,126
+1@mist,114,126,0	warp	a13_a5	1,1,1@mist,36,62
+1@mist,61,88,0	warp	a6_a19	1,1,1@mist,189,139
+1@mist,186,140,0	warp	a19_a12	1,1,1@mist,98,126
+1@mist,101,126,0	warp	a12_a29-1	1,1,1@mist,238,151
+1@mist,235,152,0	warp	a29-1_af1-2	1,1,1@mist,144,194
+1@mist,254,151,0	warp	a29-2E_b1	1,1,1@mist,271,164
+1@mist,275,211,0	warp	b1_b13	1,1,1@mist,277,112
+1@mist,301,141,0	warp	b14_b24	1,1,1@mist,99,232
+1@mist,99,230,0	warp	b24_b25	1,1,1@mist,103,255
+1@mist,102,253,0	warp	b25_b4-1	1,1,1@mist,215,177
+1@mist,212,177,0	warp	b4-1_b1	1,1,1@mist,276,208
+1@mist,289,167,0	warp	b2_b19	1,1,1@mist,152,219
+1@mist,149,219,0	warp	b19_b20	1,1,1@mist,119,227
+1@mist,115,227,0	warp	b20_b23	1,1,1@mist,230,353
+1@mist,233,353,0	warp	b23_b7	1,1,1@mist,289,225
+1@mist,76,273,0	warp	bf1-2_b7	1,1,1@mist,289,225
+1@mist,61,282,0	warp	bf1-1_bf2-1	1,1,1@mist,256,220
+1@mist,252,220,0	warp	bf2-1_bf1-1	1,1,1@mist,65,282
+1@mist,267,213,0	warp	bf2-2_b28	1,1,1@mist,214,268
+1@mist,212,265,0	warp	b28_b12	1,1,1@mist,288,266
+1@mist,285,266,0	warp	b12_b21	1,1,1@mist,143,234
+1@mist,143,231,0	warp	b21_b29	1,1,1@mist,222,281
+1@mist,223,279,0	warp	b29_b31	1,1,1@mist,158,317
+1@mist,134,287,0	warp	b30_b3	1,1,1@mist,293,195
+1@mist,295,197,0	warp	b3_b10	1,1,1@mist,239,253
+1@mist,236,253,0	warp	b10_b12	1,1,1@mist,288,266
+1@mist,111,203,0	warp	b16_b34	1,1,1@mist,202,333
+1@mist,199,333,0	warp	b34_b27-1	1,1,1@mist,203,251
+1@mist,206,249,0	warp	b27-1_b22	1,1,1@mist,168,239
+1@mist,165,239,0	warp	b22_b15	1,1,1@mist,89,173
+1@mist,177,265,0	warp	b27-2_a14	1,1,1@mist,108,152
+1@mist,166,314,0	warp	bN-1_b27-3	1,1,1@mist,206,297
+1@mist,197,299,0	warp	bN-2_b17	1,1,1@mist,167,200
+1@mist,165,200,0	warp	b17_bN-2	1,1,1@mist,193,299
+1@mist,86,173,0	warp	b15_b32	1,1,1@mist,218,313
+1@mist,215,313,0	warp	b32_b28	1,1,1@mist,214,268
+1@mist,230,324,0	warp	b33_b6-1	1,1,1@mist,221,233
+1@mist,230,230,0	warp	b6-2_b11	1,1,1@mist,263,261
+1@mist,263,258,0	warp	b11_b9	1,1,1@mist,272,246
+1@mist,269,246,0	warp	b9_b26	1,1,1@mist,143,265
+1@mist,140,265,0	warp	b26_b5	1,1,1@mist,209,200
+1@mist,195,206,0	warp	b18_b35	1,1,1@mist,169,341
+1@mist,166,341,0	warp	b35_b36	1,1,1@mist,198,354
+1@mist,201,354,0	warp	b36_b37-1	1,1,1@mist,83,224
+1@mist,87,224,0	warp	b37-1_b35	1,1,1@mist,169,341
+1@mist,84,273,0	warp	b37-2_c1	1,1,1@mist,98,287
+1@mist,111,298,0	warp	c2_c3	1,1,1@mist,82,307
+1@mist,79,307,0	warp	c3_c7	1,1,1@mist,284,89
+1@mist,281,89,0	warp	c7_c12	1,1,1@mist,264,291
+1@mist,261,291,0	warp	c12_c2	1,1,1@mist,115,298
+1@mist,326,275,0	warp	c13-1_b13	1,1,1@mist,277,112
+1@mist,294,293,0	warp	c13-2_c5	1,1,1@mist,78,330
+1@mist,81,330,0	warp	c5_c17	1,1,1@mist,308,330
+1@mist,308,327,0	warp	c17_c10	1,1,1@mist,309,165
+1@mist,306,165,0	warp	c10_c13-2	1,1,1@mist,298,293
+1@mist,46,316,0	warp	c4_c6	1,1,1@mist,113,328
+1@mist,95,328,0	warp	c6_c9	1,1,1@mist,342,157
+1@mist,339,157,0	warp	c9_c16	1,1,1@mist,343,328
+1@mist,343,325,0	warp	c16_c8-2	1,1,1@mist,346,120
+1@mist,344,123,0	warp	c8-2_c19	1,1,1@mist,277,343
+1@mist,256,313,0	warp	c18_c15	1,1,1@mist,343,307
+1@mist,342,305,0	warp	c15_cKEY	1,1,1@mist,332,121
+1@mist,335,120,0	warp	cKEY_c18	1,1,1@mist,259,313
+1@mist,317,89,0	warp	c8-1_c14	1,1,1@mist,339,284
+1@mist,339,281,0	warp	c14_c11-1	1,1,1@mist,332,172
+1@mist,329,171,0	warp	c11-1_c8-2	1,1,1@mist,346,120
+1@mist,301,237,0	warp	b8_b2	1,1,1@mist,289,170
+
+// Disable Garden Tree warps.
+// Custom, but saves processing and lines.
+1@mist,1,1,0	script	#mist_warp_init	844,{
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname("a25_a18-1");
+	disablenpc instance_npcname("a27-2_af1-2");
+	disablenpc instance_npcname("a15-2_a4-1");
+	disablenpc instance_npcname("a4-2_a11");
+	disablenpc instance_npcname("b4-2_b2");
+	disablenpc instance_npcname("b7_bf1-2");
+	disablenpc instance_npcname("b31_b16");
+	disablenpc instance_npcname("b27-3_bN-1");
+	disablenpc instance_npcname("b6-1_b33");
+	disablenpc instance_npcname("b5_b14");
+	disablenpc instance_npcname("c1_c13-1");
+	disablenpc instance_npcname("c13-3_c4");
+	disablenpc instance_npcname("c19_c4");
+	disablenpc instance_npcname("#to_bif02");
+	disablenpc instance_npcname("#mist_warp_init");
+	end;
+}
+1@mist,247,123,0	warp	a25_a18-1	1,1,1@mist,164,66	//湯姆
+1@mist,225,98,0	warp	a27-2_af1-2	1,1,1@mist,144,194	//托姆巴
+1@mist,159,184,0	warp	a15-2_a4-1	1,1,1@mist,49,37	//雷米
+1@mist,61,39,0	warp	a4-2_a11	1,1,1@mist,68,113	//雷姆
+1@mist,230,179,0	warp	b4-2_b2	1,1,1@mist,289,170	//Ron
+1@mist,285,225,0	warp	b7_bf1-2	1,1,1@mist,72,274	//羅爾
+1@mist,161,316,0	warp	b31_b16	1,1,1@mist,108,203	//莫娜
+1@mist,204,299,0	warp	b27-3_bN-1	1,1,1@mist,169,314	//納蒙
+1@mist,221,236,0	warp	b6-1_b33	1,1,1@mist,233,324	//蘿拉
+1@mist,206,200,0	warp	b5_b14	1,1,1@mist,298,142	//史派特
+1@mist,95,287,0	warp	c1_c13-1	1,1,1@mist,323,276	//提托
+1@mist,324,325,0	warp	c13-3_c4	1,1,1@mist,49,316	//普巴
+1@mist,280,344,0	warp	c19_c4	1,1,1@mist,49,316	//泰特
+1@mist,345,186,0	warp	#to_bif02	1,1,bif_fild02,151,121	//樹木

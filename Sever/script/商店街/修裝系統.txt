@@ -1,0 +1,73 @@
+uttycty,104,167,4	script	修裝系統	4_f_08,{
+	disable_items;	
+	//修理需要的物品
+	//最多支援至 127 項物品
+	setarray .@Item,999;
+
+	//修理需要的物品數量
+	setarray .@INum,1;
+
+	//修理需要的費用
+	setarray .@Zeny,50000;
+
+//================================================//
+	if (getbrokenid(1) == null ) {
+		mes "[修裝系統]";
+		mes "我沒看到你身上有壞掉的裝備呀？！";
+		end;
+	}
+	mes "[修裝系統]";
+	mes "請選擇您要修理的物品選項。";
+	next;
+	set .@checkitem,1;
+	if (getbrokenid(.@checkitem) == 0) 
+	{
+		end;
+	}
+	if (!.@checkitem) 
+	{
+		mes "[修裝系統]";
+		mes "噢!這真是難以置信";
+		mes "你肯定非常關心你的物品!沒有一件損壞了哦";
+		next;
+		mes "[修裝系統]";
+		mes "如果每個人都像你這樣，我就會要失業了!";
+		end;
+	}
+	
+	mes "[修裝系統]";
+	mes "修理 ^0000FF"+getitemname(getbrokenid(.@checkitem))+"^000000 這項物品";
+	mes "需要準備 ^FF0000 "+.@Zeny+"^000000 z";
+	mes "需要準備 ^FF0000"+getitemname(.@Item)+"^000000 "+.@INum+"^000000 個";
+	next;
+	if (select("是的！","不了！")==1) 
+	{
+
+		if ( Zeny < .@Zeny ) {
+			mes "[修裝系統]";
+			mes "抱歉您身上的金錢不足！";
+			end;
+		}
+
+		if ( countitem(.@Item) < .@INum ) 
+		{
+			mes "[修裝系統]";
+			mes "抱歉您身上的物品不足！";
+			end;
+		}
+
+		set Zeny,Zeny - .@Zeny;
+		delitem .@Item,.@INum;
+
+
+		mes "[修裝系統]";
+		mes "鏘！鏘！鏘！";
+		mes "恭喜您物品已修理完成了！";
+		repair(.@checkitem);
+	}
+	end;
+Oninit:	
+	setnpcicon getnpcid(0),1016,"修裝系統";
+	waitingroom "★ 修裝系統 ★ ",0;	
+	end;
+}

@@ -1,0 +1,9 @@
+uttycty,104,172,3	script	©x¤èµû¯Å	1_m_hof,{
+	disable_items;
+	enchantgradeui();
+	end;
+Oninit:
+	setnpcicon getnpcid(0),1015,"©x¤èµû¯Å";
+	waitingroom "¡¹ ©x¤èµû¯Å ¡¹ ",0;
+	end;
+}

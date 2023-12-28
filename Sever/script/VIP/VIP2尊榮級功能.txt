@@ -1,0 +1,125 @@
+function	script	membervip2	{
+	if (!#exptick2) {
+		announce "請先開啟尊榮級VIP功能後，即可享用VIP功能。",3;
+		end;
+	}
+	if (#exptick2 <= gettimetick(2)) {
+		announce "您的會員服務已經過期。",3;
+		end;
+	}
+	if (gettime(7) > #time7 || gettime(6) > #time6 || gettime(5) > #time5 || gettime(4) > #time4) {
+		set #zhuangtai22, 0;
+		set #zhuangtaiVIP2, 0;
+		set #jinglian2, 0;
+		set #wupin2, 0;
+	}
+	if (!#wupin2) for (set .@i,1; .@i<=14; set .@i,.@i+1 ) setd "#enit"+.@i, 0;
+	if (!#zhuangtaiVIP2 && !#zhuangtai22 && !#jianlian2 && !#wupin2) {
+		set #time7,gettime(7);
+		set #time6,gettime(6);
+		set #time5,gettime(5);
+		set #time4,gettime(4);
+	}
+	set .@timeleft, #exptick2-gettimetick(2);
+	set .@dayleft, .@timeleft/86400;
+	set .@hourleft, .@timeleft%86400/3600;
+	set .@minleft, .@timeleft%86400%3600/60;
+	set .@secleft, .@timeleft%86400%3600%60;
+
+	
+	mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+	mes "　   　  ^5599FF歡迎進入VIP系統^000000";
+	mes "　     ^5599FF請問您需要哪種服務呢？^000000";
+	mes "^0088FF期效：^FF0000"+.@dayleft+" ^0088FF天^FF0000 "+.@hourleft+" ^0088FF小時^FF0000 "+.@minleft+" ^0088FF分鐘^FF0000 "+.@secleft+" 秒^000000";
+	mes "^0AA770=================================^000000";
+	next;
+	switch(select("^FF0000(1).^5599FF販賣物品","^FF0000(3).^5599FF狀態BUFF","^FF0000(4).^5599FF掉寶加倍","^FF0000(5).^5599FF隨地廣播","^FF0000(6).^5599FF隨地修理裝備","^FF0000(7).^5599FF領取尊榮VIP積分^000000","")) {
+		case 1:
+			callshop	"道具商店",2;
+			end;
+		case 2:
+			if (#zhuangtaiVIP2 >= 40 ) {
+			mes "^0AA770==========^000000 ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF今日使用次數已滿^000000";
+			mes "^0AA770=================================^000000";
+			} else {
+				mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+				mes "　   ^5599FF狀態BUFF剩餘使用次數 ^FF0000"+(40-#zhuangtaiVIP2)+"^000000 ^5599FF次^000000";
+				mes "^0AA770=================================";
+				next;
+				menu " ^5599FF使用狀態BUFF^000000",-;
+				sc_end all;
+				sc_start SC_INCREASEAGI,1200000,10; 		//天使之賜福
+				sc_start SC_BLESSING,1200000,10; 		//加速術
+				sc_start SC_CONCENTRATE,600000,7; 		//心神凝聚
+				sc_start SC_ANGELUS,900000,10; 			//天使之障壁
+				sc_start SC_IMPOSITIO,600000,5; 		//神威祈福
+				sc_start SC_SUFFRAGIUM,900000,3; 		//犧牲祈福
+				sc_start SC_MAGNIFICAT,900000,5; 		//聖母之頌歌
+				sc_start SC_GLORIA,900000,5; 			//幸運之歌
+				sc_start SC_WEAPONPERFECTION,900000,5; //無視體型攻擊
+				sc_start SC_MAXIMIZEPOWER,900000,5; 	//武器值最大化
+				sc_start SC_LOUD,900000,1; 				//大聲?喊
+				sc_start SC_ASPDPOTION2,1200000,10; 		//菠色克藥水
+				sc_start SC_ATKPOTION,900000,30; 		//增加ATK   10分鐘
+				sc_start SC_MATKPOTION,900000,30; 		//增加MATK  10分鐘
+				sc_start SC_CP_WEAPON,900000,5; 		//化學武器保護
+				sc_start SC_CP_SHIELD,900000,5; 		//化學盾牌保護
+				sc_start SC_CP_ARMOR,900000,5; 			//化學鎧甲保護
+				sc_start SC_CP_HELM,900000,5; 			//化學頭盔保護
+				sc_start SC_ASSUMPTIO,600000,5; 		//聖母之祈福
+				sc_start SC_ADRENALINE2,480000,1; 		//所有速度激發
+				sc_start SC_KAIZEL,900000,7; 			//凱易哲
+				sc_start SC_KAUPE,900000,3; 			//凱誣僕
+				sc_start SC_2011RWC_SCROLL,600000,5;	//萬能年糕
+				sc_start SC_EXPBOOST,3600000,400;		//400%經驗倍增
+				set #zhuangtaiVIP2, #zhuangtaiVIP2+1;
+			}
+			break;
+		case 3:
+			if (#zhuangtai22 >= 20 ) {
+			mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF今日使用次數已滿^000000";
+			mes "^0AA770=================================^000000";
+			} else {
+			mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　   ^5599FF掉寶率加倍剩餘使用次數 ^FF0000"+(20-#zhuangtai22)+"^000000 ^5599FF次^000000";
+			mes "^0AA770=================================^000000";
+				next;
+				menu " ^5599FF使用掉寶率加倍^000000",-;
+				sc_end all;
+				sc_start SC_ITEMBOOST,1800000,300; //300倍掉寶倍增
+				set #zhuangtai22, #zhuangtai22+1;
+			}
+			break;
+		case 4:
+			callfunc "Megaphone_announcevip";
+			close;
+		case 5:			
+			mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　        ^5599FF已成功修復裝備^000000";
+			mes "^0AA770=================================^000000";
+			atcommand "@repairall";
+			close;
+
+		case 6:
+			mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF尊榮VIP積分領取^000000";
+			mes "^0AA770=================================^000000";
+			if (select(" ^5599FF領取尊榮VIP積分^000000"," ^FF99FF取消^000000") == 1) {
+			next;
+				if (!#wupin2) {
+					#wupin2++;
+					getitem 60834,1;
+				} else
+			mes "";
+			mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+			mes "　   　  ^5599FF今日使用次數已滿^000000";
+			mes "^0AA770=================================^000000";
+			}
+			break;
+		case 7:
+			close;
+	}
+	close;
+}

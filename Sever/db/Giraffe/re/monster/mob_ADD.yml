@@ -1,0 +1,4446 @@
+﻿# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Monster Database
+###########################################################################
+#
+# Monster Settings
+#
+###########################################################################
+# - Id                      Monster ID.
+#   AegisName               Server name to reference the monster in scripts and lookups, should use no spaces.
+#   Name                    Name in English.
+#   JapaneseName            Name in Japanese. (Default: 'Name' value)
+#   Level                   Level. (Default: 1)
+#   Hp                      Total HP. (Default: 1)
+#   Sp                      Total SP. (Default: 1)
+#   BaseExp                 Base experience gained. (Default: 0)
+#   JobExp                  Job experience gained. (Default: 0)
+#   MvpExp                  MVP experience gained. (Default: 0)
+#   Attack                  Minimum attack in pre-renewal and base attack in renewal. (Default: 0)
+#   Attack2                 Maximum attack in pre-renewal and base magic attack in renewal. (Default: 0)
+#   Defense                 Physical defense of the monster, reduces melee and ranged physical attack/skill damage. (Default: 0)
+#   MagicDefense            Magic defense of the monster, reduces magical skill damage. (Default: 0)
+#   Resistance              Physical resistance of the monster, reduces melee and ranged physical attack/skill damage. (Default: 0)
+#   MagicResistance         Magic resistance of the monster, reduces magical skill damage. (Default: 0)
+#   Str                     Strength which affects attack. (Default: 1)
+#   Agi                     Agility which affects flee. (Default: 1)
+#   Vit                     Vitality which affects defense. (Default: 1)
+#   Int                     Intelligence which affects magic attack. (Default: 1)
+#   Dex                     Dexterity which affects hit rate. (Default: 1)
+#   Luk                     Luck which affects perfect dodge/lucky flee/perfect flee/lucky dodge rate. (Default: 1)
+#   AttackRange             Attack range. (Default: 0)
+#   SkillRange              Skill cast range. (Default: 0)
+#   ChaseRange              Chase range. (Default: 0)
+#   Size                    Size. (Default: Small)
+#   Race                    Race. (Default: Formless)
+#   RaceGroups:             List of secondary groups the monster may be part of. (Optional)
+#     <group>: <value>      Group to toggle.
+#   Element                 Element. (Default: Neutral)
+#   ElementLevel            Level of element. (Default: 1)
+#   WalkSpeed               Walk speed. (Default: DEFAULT_WALK_SPEED)
+#   AttackDelay             Attack speed. (Default: 0)
+#   AttackMotion            Attack animation speed. (Default: 0)
+#   DamageMotion            Damage animation speed. (Default: 0)
+#   DamageTaken             怪物受到傷害的倍率。（默認：1000）
+#   Ai                      Aegis monster type AI behavior. (Default: 06)
+#   Class                   Aegis monster class. (Default: Normal)
+#   Modes:                  List of unique behavior not defined by AI, Class, or Attribute. (Optional)
+#     <mode>: <value>       Mode to toggle.
+#   MvpDrops:               List of possible MVP prize items. Max of MAX_MVP_DROP. (Optional)
+#     - Item                Item name.
+#       Rate                Drop rate of item. (Default: 1)
+#       RandomOptionGroup   Random Option Group applied to item on drop. (Default: None)
+#       Index               Index used for overwriting item. (Optional)
+#   Drops:                  List of possible normal item drops. Max of MAX_MOB_DROP. (Optional)
+#     - Item                Item name.
+#       Rate                Drop rate of item. (Default: 1)
+#       StealProtected      If the item is shielded from TF_STEAL. (Default: false)
+#       RandomOptionGroup   Random Option Group applied to item on drop. (Default: None)
+#       Index               Index used for overwriting item. (Optional)
+###########################################################################
+
+Header:
+  Type: MOB_DB
+  Version: 3
+
+Body:
+#墜落的飛空艇
+  - Id: 20886
+    AegisName: MD_Airboat_Tree
+    Name: MD_Airboat_Tree
+    JapaneseName: 腐爛樹木
+    Level: 236
+    Hp: 17421722
+    BaseExp: 280335
+    JobExp: 193287
+    Attack: 12347
+    Attack2: 4542
+    Defense: 300
+    MagicDefense: 100
+    Str: 150
+    Agi: 95
+    Vit: 50
+    Int: 100
+    Dex: 110
+    Luk: 80
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Undead
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 100
+    AttackDelay: 400
+    AttackMotion: 480
+    DamageMotion: 460
+    DamageTaken: 3500
+    Modes:
+      CanMove: true
+      Aggressive: true
+      Assist: true
+      CastSensorIdle: true
+      CanAttack: true
+      Detector: true
+    Drops:
+      - Item: 1000322
+        Rate: 5
+      - Item: MD_Airboat_Ore
+        Rate: 5
+      - Item: 300170
+        Rate: 1
+  - Id: 20887
+    AegisName: MD_Airboat_Poring
+    Name: MD_Airboat_Poring
+    JapaneseName: 融化波利
+    Level: 230
+    Hp: 13275524
+    BaseExp: 274550
+    JobExp: 182144
+    Attack: 9872
+    Attack2: 2841
+    Defense: 288
+    MagicDefense: 77
+    Str: 130
+    Agi: 80
+    Vit: 60
+    Int: 90
+    Dex: 100
+    Luk: 110
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 400
+    AttackMotion: 460
+    DamageMotion: 450
+    DamageTaken: 3500
+    Ai: 21
+    Drops:
+      - Item: 1000322
+        Rate: 5
+      - Item: MD_Airboat_Ore
+        Rate: 5
+      - Item: 300174
+        Rate: 1
+  - Id: 20888
+    AegisName: MD_Airboat_Worm
+    Name: MD_Airboat_Worm
+    JapaneseName: 墳墓蠕蟲
+    Level: 238
+    Hp: 18797121
+    BaseExp: 284018
+    JobExp: 194596
+    Attack: 9872
+    Attack2: 2841
+    Defense: 288
+    MagicDefense: 77
+    Str: 150
+    Agi: 80
+    Vit: 90
+    Int: 60
+    Dex: 100
+    Luk: 110
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 400
+    AttackMotion: 460
+    DamageMotion: 450
+    DamageTaken: 3500
+    Ai: 21
+    Drops:
+      - Item: 1000322
+        Rate: 5
+      - Item: MD_Airboat_Ore
+        Rate: 5
+      - Item: 300171
+        Rate: 1
+  - Id: 20889
+    AegisName: MD_Airboat_LEECH
+    Name: MD_Airboat_LEECH
+    JapaneseName: 吸腦蟲
+    Level: 235
+    Hp: 16734022
+    BaseExp: 279566
+    JobExp: 186455
+    Attack: 12444
+    Attack2: 3584
+    Defense: 237
+    MagicDefense: 155
+    Str: 150
+    Agi: 100
+    Vit: 112
+    Int: 85
+    Dex: 97
+    Luk: 96
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 120
+    AttackDelay: 521
+    AttackMotion: 600
+    DamageMotion: 480
+    DamageTaken: 3500
+    Ai: 21
+    Drops:
+      - Item: 1000322
+        Rate: 5
+      - Item: MD_Airboat_Ore
+        Rate: 5
+      - Item: 300172
+        Rate: 1
+  - Id: 20890
+    AegisName: MD_Airboat_Mos
+    Name: MD_Airboat_Mos
+    JapaneseName: 蚊子
+    Level: 233
+    Hp: 15358623
+    BaseExp: 277940
+    JobExp: 186854
+    Attack: 11254
+    Attack2: 3541
+    Defense: 231
+    MagicDefense: 168
+    Str: 110
+    Agi: 185
+    Vit: 80
+    Int: 123
+    Dex: 180
+    Luk: 152
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 150
+    AttackDelay: 611
+    AttackMotion: 584
+    DamageMotion: 470
+    DamageTaken: 3500
+    Ai: 21
+    Drops:
+      - Item: 1000322
+        Rate: 5
+      - Item: MD_Airboat_Ore
+        Rate: 5
+      - Item: 300173
+        Rate: 1
+  - Id: 20891
+    AegisName: MD_Airboat_Boss
+    Name: MD_Airboat_Boss
+    JapaneseName: 未知生物
+    Level: 240
+    Hp: 1843970467
+    BaseExp: 3860254
+    JobExp: 2671730
+    MvpExp: 80000
+    Attack: 15348
+    Attack2: 5841
+    Defense: 412
+    MagicDefense: 980
+    Str: 356
+    Agi: 234
+    Vit: 251
+    Int: 188
+    Dex: 255
+    Luk: 266
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Insect
+    Element: Neutral
+    ElementLevel: 4
+    WalkSpeed: 120
+    AttackDelay: 254
+    AttackMotion: 905
+    DamageMotion: 624
+    DamageTaken: 900
+    Class: Boss
+    Modes:
+      CanMove: true
+      Aggressive: true
+      Assist: true
+      CastSensorIdle: true
+      CanAttack: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: MD_Airboat_Tokken
+        Rate: 2000
+      - Item: MD_Airboat_Random
+        Rate: 2000
+    Drops:
+      - Item: 1000322
+        Rate: 50
+      - Item: MD_Airboat_Ore
+        Rate: 5000
+      - Item: MD_Airboat_Random
+        Rate: 100
+      - Item: 300175
+        Rate: 1
+  - Id: 21062
+    AegisName: MD_Airboat_Boss2
+    Name: MD_Airboat_Boss2
+    JapaneseName: 未確認生物
+    Level: 240
+    Hp: 1843970467
+    BaseExp: 3860254
+    JobExp: 2671730
+    MvpExp: 80000
+    Attack: 19348
+    Attack2: 6841
+    Defense: 588
+    MagicDefense: 980
+    Str: 389
+    Agi: 268
+    Vit: 289
+    Int: 205
+    Dex: 268
+    Luk: 289
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Insect
+    Element: Neutral
+    ElementLevel: 4
+    WalkSpeed: 120
+    AttackDelay: 454
+    AttackMotion: 905
+    DamageMotion: 824
+    DamageTaken: 900
+    Class: Boss
+    Modes:
+      CanMove: true
+      Aggressive: true
+      Assist: true
+      CastSensorIdle: true
+      CanAttack: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: MD_Airboat_Tokken
+        Rate: 2000
+      - Item: MD_Airboat_Random
+        Rate: 2000
+    Drops:
+      - Item: 1000322
+        Rate: 50
+      - Item: MD_Airboat_Tokken
+        Rate: 5000
+      - Item: 300176
+        Rate: 1
+#悔恨之墓
+  - Id: 20892
+    AegisName: MD_SAKRAY
+    Name: SAKRAY
+    JapaneseName: 魔劍士薩克萊
+    Level: 240
+    Hp: 1835856994
+    BaseExp: 6119523
+    JobExp: 4283666
+    Attack: 13000
+    Attack2: 5000
+    Defense: 800
+    MagicDefense: 400
+    Str: 340
+    Agi: 200
+    Vit: 400
+    Int: 100
+    Dex: 400
+    Luk: 120
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Fire
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 76
+    AttackMotion: 384
+    DamageMotion: 288
+    DamageTaken: 900
+    Class: Boss
+    Ai: 21
+    Modes:
+      CastSensorChase: true
+      CastSensorIdle: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: 1000367
+        Rate: 10000
+      - Item: 25729
+        Rate: 5000
+      - Item: 25731
+        Rate: 5000
+      - Item: 300192
+        Rate: 1
+  - Id: 20893
+    AegisName: MD_TIARA
+    Name: TIARA
+    JapaneseName: 失控的公主提亞拉
+    Level: 240
+    Hp: 1262852763
+    BaseExp: 4370221
+    JobExp: 3059155
+    Attack: 11000
+    Attack2: 3500
+    Defense: 320
+    MagicDefense: 800
+    Str: 260
+    Agi: 240
+    Vit: 160
+    Int: 320
+    Dex: 300
+    Luk: 120
+    AttackRange: 9
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demihuman
+    Element: Holy
+    ElementLevel: 4
+    WalkSpeed: 125
+    AttackDelay: 1152
+    AttackMotion: 384
+    DamageMotion: 288
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      CanMove: true
+      Aggressive: true
+      Assist: true
+      CastSensorIdle: true
+      CanAttack: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: 1000367
+        Rate: 10000
+      - Item: 25729
+        Rate: 5000
+      - Item: 25731
+        Rate: 5000
+      - Item: 300193
+        Rate: 1
+  - Id: 20894
+    AegisName: MD_UNDEAD_KNIGHT
+    Name: UNDEAD_KNIGHT
+    JapaneseName: 懺悔的騎士
+    Level: 200
+    Hp: 10000000
+    BaseExp: 35000
+    JobExp: 35000
+    Attack: 8500
+    Attack2: 3000
+    Defense: 350
+    MagicDefense: 40
+    Str: 200
+    Agi: 180
+    Vit: 60
+    Int: 90
+    Dex: 250
+    Luk: 60
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Undead
+    ElementLevel: 1
+    WalkSpeed: 350
+    AttackDelay: 528
+    AttackMotion: 1000
+    DamageMotion: 396
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20895
+    AegisName: MD_UNDEAD_SOLDIER
+    Name: UNDEAD_SOLDIER
+    JapaneseName: 懺悔的士兵
+    Level: 200
+    Hp: 10000000
+    BaseExp: 35000
+    JobExp: 35000
+    Attack: 8000
+    Attack2: 3000
+    Defense: 666
+    MagicDefense: 77
+    Str: 220
+    Agi: 200
+    Vit: 80
+    Int: 70
+    Dex: 210
+    Luk: 60
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 824
+    AttackMotion: 780
+    DamageMotion: 420
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20896
+    AegisName: MD_UNDEAD_ARCHER
+    Name: UNDEAD_ARCHER
+    JapaneseName: 懺悔的弓箭手
+    Level: 200
+    Hp: 10000000
+    BaseExp: 35000
+    JobExp: 35000
+    Attack: 8000
+    Attack2: 2000
+    Defense: 400
+    MagicDefense: 80
+    Str: 120
+    Agi: 180
+    Vit: 40
+    Int: 90
+    Dex: 350
+    Luk: 60
+    AttackRange: 9
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Undead
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 960
+    AttackMotion: 1152
+    DamageMotion: 480
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20897
+    AegisName: MD_UNDEAD_WIZARD
+    Name: UNDEAD_WIZARD
+    JapaneseName: 懺悔的男巫師
+    Level: 200
+    Hp: 10000000
+    BaseExp: 70000
+    JobExp: 70000
+    Attack: 1650
+    Attack2: 2600
+    Defense: 64
+    MagicDefense: 51
+    Str: 62
+    Agi: 27
+    Vit: 25
+    Int: 55
+    Dex: 85
+    Luk: 20
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 150
+    AttackDelay: 1056
+    AttackMotion: 1056
+    DamageMotion: 336
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20898
+    AegisName: MD_UNDEAD_MAGICIAN
+    Name: UNDEAD_MAGICIAN
+    JapaneseName: 懺悔的女巫師
+    Level: 200
+    Hp: 10000000
+    BaseExp: 70000
+    JobExp: 70000
+    Attack: 1650
+    Attack2: 2600
+    Defense: 237
+    MagicDefense: 118
+    Str: 62
+    Agi: 27
+    Vit: 25
+    Int: 55
+    Dex: 85
+    Luk: 20
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Fire
+    ElementLevel: 3
+    WalkSpeed: 150
+    AttackDelay: 1056
+    AttackMotion: 1056
+    DamageMotion: 336
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20899
+    AegisName: MD_UNDEAD_NOBLE
+    Name: UNDEAD_NOBLE
+    JapaneseName: 懺悔的侯爵
+    Level: 200
+    Hp: 15000000
+    BaseExp: 10000
+    JobExp: 10000
+    Attack: 3500
+    Attack2: 1000
+    Defense: 150
+    MagicDefense: 50
+    Str: 120
+    Agi: 90
+    Vit: 60
+    Int: 70
+    Dex: 120
+    Luk: 60
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Dark
+    ElementLevel: 1
+    WalkSpeed: 250
+    AttackDelay: 756
+    AttackMotion: 480
+    DamageMotion: 504
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 20900
+    AegisName: MD_UNDEAD_SERVANT
+    Name: UNDEAD_SERVANT
+    JapaneseName: 懺悔的僕人
+    Level: 200
+    Hp: 10000000
+    BaseExp: 70000
+    JobExp: 70000
+    Attack: 4050
+    Attack2: 4700
+    Defense: 297
+    MagicDefense: 105
+    Str: 81
+    Agi: 50
+    Vit: 64
+    Int: 56
+    Dex: 127
+    Luk: 23
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Demihuman
+    Element: Undead
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 1960
+    AttackMotion: 576
+    DamageMotion: 420
+    DamageTaken: 3500
+    Ai: 21
+    Modes:
+      Detector: true
+    Drops:
+      - Item: 1000367
+        Rate: 5
+  - Id: 21070
+    AegisName: HIDDEN_MOB8
+    Name: 悔恨之柱外觀
+    Level: 170
+    Hp: 200000
+    Attack: 1800
+    Attack2: 9
+    Defense: 9
+    MagicDefense: 600
+    Dex: 6
+    Luk: 5
+    AttackRange: 1500
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 1000
+    AttackDelay: 96
+    AttackMotion: 1
+    DamageMotion: 480
+    Modes:
+      NoRandomWalk: true
+      TeleportBlock: true
+#星座之塔
+  - Id: 20994
+    AegisName: MD_BETELGEUSE
+    Name: BETELGEUSE
+    JapaneseName: 參宿四
+    Level: 240
+    Hp: 500000000
+    BaseExp: 926859
+    JobExp: 116903
+    MvpExp: 10
+    Attack: 15000
+    Attack2: 4200
+    Defense: 300
+    MagicDefense: 180
+    Resistance: 200
+    MagicResistance: 200
+    Str: 240
+    Agi: 240
+    Vit: 240
+    Int: 240
+    Dex: 240
+    Luk: 240
+    AttackRange: 3
+    SkillRange: 12
+    ChaseRange: 12
+    Size: Large
+    Race: Dragon
+    Element: Neutral
+    ElementLevel: 4
+    WalkSpeed: 80
+    AttackDelay: 201
+    AttackMotion: 221
+    DamageMotion: 223
+    DamageTaken: 800
+    Class: Boss
+    Modes:
+      CanMove: true
+      Aggressive: true
+      Assist: true
+      CastSensorIdle: true
+      CanAttack: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: Betelgeuse_Soul
+        Rate: 1000
+  - Id: 20995
+    AegisName: MD_G_DEADSOUL
+    Name: DEADSOUL
+    JapaneseName: 星魂
+    Level: 150
+    Hp: 100000
+    MvpExp: 10
+    Attack: 1000
+    Attack2: 1000
+    Defense: 10
+    MagicDefense: 10
+    Str: 100
+    Agi: 100
+    Vit: 100
+    Int: 100
+    Dex: 100
+    Luk: 100
+    AttackRange: 3
+    SkillRange: 12
+    ChaseRange: 12
+    Size: Small
+    Race: Demon
+    Element: Neutral
+    ElementLevel: 4
+    WalkSpeed: 200
+    AttackDelay: 300
+    AttackMotion: 200
+    DamageMotion: 480
+    Ai: 25
+    Modes:
+      Aggressive: true
+  - Id: 20996
+    AegisName: MD_NAGHT_SIEGER
+    Name: MD_NAGHT_SIEGER
+    JapaneseName: 夜勝魔
+    Level: 230
+    Hp: 300000000
+    MvpExp: 10
+    Attack: 1500
+    Attack2: 1800
+    Defense: 280
+    MagicDefense: 180
+    Str: 200
+    Agi: 200
+    Vit: 200
+    Int: 200
+    Dex: 200
+    Luk: 200
+    AttackRange: 3
+    SkillRange: 12
+    ChaseRange: 12
+    Size: Large
+    Race: Demon
+    Element: Ghost
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 80
+    AttackMotion: 300
+    DamageMotion: 504
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      CanMove: true
+      Angry: true
+      TeleportBlock: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: Twin_Edge_B
+        Rate: 1000
+      - Item: Twin_Edge_R
+        Rate: 1000
+      - Item: Flame_Manteau
+        Rate: 9000
+      - Item: Bone_Helm
+        Rate: 9000
+      - Item: Old_Card_Album
+        Rate: 9000
+      - Item: Pauldron
+        Rate: 9000
+      - Item: Turquoise
+        Rate: 9000
+      - Item: Nahtzigger_Card
+        Rate: 1
+      - Item: Naght_Sieger_Soul
+        Rate: 1000
+#EP19
+  - Id: 21523
+    AegisName: EP19_ICE_STRAW
+    Name: EP19_ICE_STRAW
+    JapaneseName: 冰園鰻
+    Level: 200
+    Hp: 4980352
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 1580
+    Defense: 600
+    MagicDefense: 100
+    Resistance: 200
+    MagicResistance: 200
+    Str: 80
+    Agi: 80
+    Vit: 80
+    Int: 80
+    Dex: 80
+    Luk: 80
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Fish
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 150
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000608
+        Rate: 3
+      - Item: 7561
+        Rate: 3000
+      - Item: 7066
+        Rate: 3000
+      - Item: 1000707
+        Rate: 300
+      - Item: 1000830
+        Rate: 300
+      - Item: 1000322
+        Rate: 5
+      - Item: 300361
+        Rate: 1
+  - Id: 21524
+    AegisName: EP19_SHINING_SEAWEED
+    Name: EP19_SHINING_SEAWEED
+    JapaneseName: 發光海草
+    Level: 200
+    Hp: 4980352
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 1580
+    Defense: 600
+    MagicDefense: 100
+    Resistance: 170
+    MagicResistance: 170
+    Str: 80
+    Agi: 80
+    Vit: 80
+    Int: 80
+    Dex: 80
+    Luk: 80
+    AttackRange: 7
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Neutral
+    ElementLevel: 2
+    WalkSpeed: 1000
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000608
+        Rate: 5
+      - Item: 7067
+        Rate: 3000
+      - Item: 7013
+        Rate: 3000
+      - Item: 1000831
+        Rate: 100
+      - Item: 1000322
+        Rate: 5
+      - Item: 300360
+        Rate: 1
+  - Id: 21525
+    AegisName: EP19_ICE_GANGU
+    Name: EP19_ICE_GANGU
+    JapaneseName: 冰鋼庫
+    Level: 200
+    Hp: 4698470
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 1580
+    Defense: 117
+    MagicDefense: 133
+    Resistance: 150
+    MagicResistance: 150
+    Str: 125
+    Agi: 130
+    Vit: 44
+    Int: 40
+    Dex: 132
+    Luk: 120
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Insect
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 345
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000608
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300359
+        Rate: 1
+  - Id: 21520
+    AegisName: EP19_LIMACINA
+    Name: EP19_LIMACINA
+    JapaneseName: 海天使
+    Level: 213
+    Hp: 5145174
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 8868
+    Attack2: 7752
+    Defense: 240
+    MagicDefense: 168
+    Resistance: 240
+    MagicResistance: 168
+    Str: 132
+    Agi: 123
+    Vit: 38
+    Int: 120
+    Dex: 176
+    Luk: 200
+    AttackRange: 10
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Fish
+    Element: Water
+    ElementLevel: 2
+    WalkSpeed: 177
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000608
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 7326
+        Rate: 2000
+      - Item: 7066
+        Rate: 3000
+      - Item: 1000828
+        Rate: 200
+      - Item: 300363
+        Rate: 1
+  - Id: 21521
+    AegisName: EP19_UNFROST_FLOWER
+    Name: 不凍花
+    JapaneseName: 不凍花
+    Level: 212
+    Hp: 5286316
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 8874
+    Attack2: 5868
+    Defense: 180
+    MagicDefense: 130
+    Resistance: 180
+    MagicResistance: 130
+    Str: 160
+    Agi: 103
+    Vit: 45
+    Int: 351
+    Dex: 172
+    Luk: 151
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 1000
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000829
+        Rate: 100
+      - Item: 936
+        Rate: 3000
+      - Item: 1000322
+        Rate: 5
+      - Item: 300362
+        Rate: 1
+  - Id: 21522
+    AegisName: EP19_CALMARING
+    Name: 卡拉馬波利
+    JapaneseName: 卡拉馬波利
+    Level: 209
+    Hp: 5163610
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 2189
+    Attack2: 3688
+    Defense: 171
+    MagicDefense: 167
+    Resistance: 171
+    MagicResistance: 167
+    Str: 135
+    Agi: 121
+    Vit: 41
+    Int: 120
+    Dex: 129
+    Luk: 160
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Water
+    ElementLevel: 2
+    WalkSpeed: 188
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000608
+        Rate: 5
+      - Item: 1000824
+        Rate: 100
+      - Item: 7565
+        Rate: 3000
+      - Item: 7193
+        Rate: 3000
+      - Item: 1000322
+        Rate: 5
+      - Item: 300364
+        Rate: 1
+  - Id: 21526
+    AegisName: EP19_RGAN_A
+    Name: 原始蠕管
+    JapaneseName: 原始蠕管
+    Level: 210
+    Hp: 4620550
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 3285
+    Defense: 202
+    MagicDefense: 192
+    Resistance: 202
+    MagicResistance: 192
+    Str: 158
+    Agi: 143
+    Vit: 122
+    Int: 50
+    Dex: 143
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Poison
+    ElementLevel: 1
+    WalkSpeed: 165
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000822
+        Rate: 100
+      - Item: 1000823
+        Rate: 100
+      - Item: 1000707
+        Rate: 100
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300365
+        Rate: 1
+  - Id: 21527
+    AegisName: EP19_RGAN_B
+    Name: 最下級蠕管
+    Level: 212
+    Hp: 4983460
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 204
+    MagicDefense: 143
+    Resistance: 202
+    MagicResistance: 143
+    Str: 158
+    Agi: 143
+    Vit: 122
+    Int: 50
+    Dex: 143
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 177
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300366
+        Rate: 1
+  - Id: 21537
+    AegisName: EP19_LIMACINA_BOSS
+    Name: EP19_LIMACINA_BOSS
+    JapaneseName: 超級海天使
+    Level: 245
+    Hp: 80811000
+    BaseExp: 3675120
+    JobExp: 2572590
+    Attack: 13890
+    Attack2: 16880
+    Defense: 450
+    MagicDefense: 236
+    Resistance: 500
+    MagicResistance: 500
+    Str: 218
+    Agi: 278
+    Vit: 50
+    Int: 155
+    Dex: 216
+    Luk: 155
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Fish
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 80
+    AttackDelay: 376
+    AttackMotion: 300
+    DamageMotion: 480
+    DamageTaken: 500
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: 1000811
+        Rate: 50
+      - Item: 1000812
+        Rate: 10
+      - Item: 1000322
+        Rate: 50
+      - Item: 6635
+        Rate: 15
+      - Item: 1000337
+        Rate: 15
+      - Item: 300377
+        Rate: 1
+  - Id: 21528
+    AegisName: EP19_RGAN_C
+    Name: 下級蠕管
+    JapaneseName: 下級蠕管
+    Level: 214
+    Hp: 5109580
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 1189
+    Attack2: 1688
+    Defense: 292
+    MagicDefense: 183
+    Resistance: 292
+    MagicResistance: 183
+    Str: 158
+    Agi: 143
+    Vit: 44
+    Int: 50
+    Dex: 143
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 3
+    WalkSpeed: 220
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 101639
+        Rate: 5
+      - Item: 1000822
+        Rate: 3000
+      - Item: 1000823
+        Rate: 100
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000608
+        Rate: 10
+      - Item: 1000811
+        Rate: 5
+      - Item: 1000707
+        Rate: 1
+      - Item: 300367
+        Rate: 1
+  - Id: 21529
+    AegisName: EP19_RGAN_D
+    Name: 中級蠕管
+    JapaneseName: 中級蠕管
+    Level: 215
+    Hp: 5809080
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 1580
+    Defense: 205
+    MagicDefense: 134
+    Resistance: 205
+    MagicResistance: 134
+    Str: 158
+    Agi: 143
+    Vit: 44
+    Int: 50
+    Dex: 143
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 180
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 654
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 101639
+        Rate: 5
+      - Item: 1000823
+        Rate: 100
+      - Item: 1000707
+        Rate: 100
+      - Item: 1000822
+        Rate: 100        
+      - Item: 1000608
+        Rate: 12
+      - Item: 1000811
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300368
+        Rate: 1
+  - Id: 21599
+    AegisName: EP19_HEARTHUNTER_AT
+    Name: 邪心獵人_AT
+    JapaneseName: 邪心獵人_AT    
+    Level: 210
+    Hp: 4807050
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 216
+    MagicDefense: 149
+    Resistance: 216
+    MagicResistance: 149
+    Str: 60
+    Agi: 103
+    Vit: 45
+    Int: 35
+    Dex: 172
+    Luk: 15
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demihuman
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 199
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 654
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 7110
+        Rate: 1000
+      - Item: 25159
+        Rate: 1000
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300381
+        Rate: 1
+  - Id: 21538
+    AegisName: EP19_WASTED_RGAN_A
+    Name: EP19_WASTED_RGAN_A
+    JapaneseName: 被遺棄的原始蠕管
+    Level: 234
+    Hp: 6920300
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 214
+    MagicDefense: 147
+    Resistance: 214
+    MagicResistance: 147
+    Str: 206
+    Agi: 186
+    Vit: 100
+    Int: 100
+    Dex: 143
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Poison
+    ElementLevel: 3
+    WalkSpeed: 192
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000822
+        Rate: 100
+      - Item: 1000823
+        Rate: 100
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300369
+        Rate: 1
+  - Id: 21540
+    AegisName: EP19_CAVE_CALMARING
+    Name: EP19_CAVE_CALMARING
+    JapaneseName: 洞穴卡拉馬波利
+    Level: 232
+    Hp: 7450800
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 4688
+    Defense: 287
+    MagicDefense: 190
+    Resistance: 180
+    MagicResistance: 180
+    Str: 235
+    Agi: 142
+    Vit: 41
+    Int: 140
+    Dex: 158
+    Luk: 220
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 176
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 7565
+        Rate: 2000
+      - Item: 7326
+        Rate: 2000
+      - Item: 1000825
+        Rate: 100
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300371
+        Rate: 1
+  - Id: 21541
+    AegisName: EP19_CAVE_FLOWER
+    Name: EP19_CAVE_FLOWER
+    JapaneseName: 洞穴不凍花
+    Level: 233
+    Hp: 7652220
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 7688
+    Defense: 219
+    MagicDefense: 150
+    Resistance: 219
+    MagicResistance: 150
+    Str: 250
+    Agi: 256
+    Vit: 50
+    Int: 230
+    Dex: 188
+    Luk: 130
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 1000
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 1000825
+        Rate: 100
+      - Item: 7365
+        Rate: 3000
+      - Item: 7326
+        Rate: 3000
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300372
+        Rate: 1
+  - Id: 21543
+    AegisName: EP19_HALLUCIGENIA_BABY
+    Name: EP19_HALLUCIGENIA_BABY
+    JapaneseName: 怪誕幼蟲   
+    Level: 234
+    Hp: 7459700
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 4688
+    Defense: 113
+    MagicDefense: 165
+    Resistance: 113
+    MagicResistance: 165
+    Str: 197
+    Agi: 145
+    Vit: 60
+    Int: 130
+    Dex: 183
+    Luk: 150
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Insect
+    Element: Water
+    ElementLevel: 2
+    WalkSpeed: 158
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 7565
+        Rate: 1000
+      - Item: 1000826
+        Rate: 1000
+      - Item: 587
+        Rate: 30
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300373
+        Rate: 1
+  - Id: 21539
+    AegisName: EP19_WASTED_RGAN_C
+    Name: EP19_WASTED_RGAN_C
+    JapaneseName: 被遺棄的中級蠕管
+    Level: 253
+    Hp: 8453210
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 163
+    MagicDefense: 245
+    Resistance: 163
+    MagicResistance: 245
+    Str: 206
+    Agi: 186
+    Vit: 100
+    Int: 110
+    Dex: 172
+    Luk: 155
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Wind
+    ElementLevel: 3
+    WalkSpeed: 135
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 930
+        Rate: 3000
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300370
+        Rate: 1
+  - Id: 21542
+    AegisName: EP19_HALLUCIGENIA
+    Name: EP19_HALLUCIGENIA
+    JapaneseName: 怪誕蟲
+    Level: 252
+    Hp: 9106120
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 7688
+    Defense: 229
+    MagicDefense: 155
+    Resistance: 229
+    MagicResistance: 155
+    Str: 235
+    Agi: 245
+    Vit: 60
+    Int: 100
+    Dex: 183
+    Luk: 250
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 177
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 943
+        Rate: 3000
+      - Item: 587
+        Rate: 2000
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000811
+        Rate: 5
+      - Item: 300374
+        Rate: 1
+  - Id: 21544
+    AegisName: EP19_ONE_EYE_DOLLOCARIS
+    Name: EP19_ONE_EYE_DOLLOCARIS
+    JapaneseName: 獨眼袋頭蝦
+    Level: 251
+    Hp: 8115484
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 7480
+    Attack2: 5688
+    Defense: 240
+    MagicDefense: 161
+    Resistance: 240
+    MagicResistance: 161
+    Str: 250
+    Agi: 148
+    Vit: 44
+    Int: 150
+    Dex: 206
+    Luk: 120
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Dark
+    ElementLevel: 3
+    WalkSpeed: 192
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 7125
+        Rate: 3000
+      - Item: 960
+        Rate: 3000
+      - Item: 1000827
+        Rate: 100
+      - Item: 943
+        Rate: 3000
+      - Item: 101639
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 300375
+        Rate: 1
+  - Id: 21545
+    AegisName: EP19_DOLLOCARIS
+    Name: EP19_DOLLOCARIS
+    JapaneseName: 雙眼袋頭蝦
+    Level: 253
+    Hp: 8895080
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 6189
+    Attack2: 7688
+    Defense: 321
+    MagicDefense: 136
+    Resistance: 321
+    MagicResistance: 136
+    Str: 250
+    Agi: 148
+    Vit: 44
+    Int: 150
+    Dex: 206
+    Luk: 120
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Fish
+    Element: Earth
+    ElementLevel: 3
+    WalkSpeed: 185
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 101639
+        Rate: 5
+      - Item: 960
+        Rate: 3000
+      - Item: 943
+        Rate: 2000
+      - Item: 1000827
+        Rate: 100
+      - Item: EP19_Thin_Nipper
+        Rate: 10
+      - Item: 1000322
+        Rate: 5
+      - Item: 300376
+        Rate: 1
+  - Id: 21601
+    AegisName: EP19_ET_RGAN_D
+    Name: EP19_ET_RGAN_D
+    JapaneseName: 糾纏的中級蠕管
+    Level: 252
+    Hp: 8621258
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 7688
+    Defense: 316
+    MagicDefense: 291
+    Resistance: 316
+    MagicResistance: 291
+    Str: 60
+    Agi: 103
+    Vit: 45
+    Int: 35
+    Dex: 172
+    Luk: 15
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Poison
+    ElementLevel: 2
+    WalkSpeed: 177
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5	
+      - Item: 101639
+        Rate: 5
+      - Item: 1000823
+        Rate: 100		
+      - Item: 1000822
+        Rate: 100
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000608
+        Rate: 15
+      - Item: 300380
+        Rate: 1
+  - Id: 21588
+    AegisName: EP19_MD_AQUILA_B
+    Name: EP19_MD_AQUILA_B
+    JapaneseName: 天鷹座-阿奎拉
+    Level: 215
+    Hp: 299990000
+    Attack: 9900
+    Attack2: 6000
+    Defense: 456
+    MagicDefense: 112
+    Resistance: 500
+    MagicResistance: 500    
+    Str: 211
+    Agi: 211
+    Vit: 145
+    Int: 135
+    Dex: 231
+    Luk: 88
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 3
+    WalkSpeed: 80
+    AttackDelay: 334
+    AttackMotion: 335
+    DamageMotion: 345
+    DamageTaken: 700
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    Drops:
+      - Item: 300382
+        Rate: 1
+  - Id: 21530
+    AegisName: EP19_RGAN_E
+    Name: 高級蠕管
+    JapaneseName: 高級蠕管
+    Level: 234
+    Hp: 7266315
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 200
+    MagicDefense: 191
+    Str: 158
+    Agi: 143
+    Vit: 44
+    Int: 50
+    Dex: 143
+    Luk: 158
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Formless
+    Element: Earth
+    ElementLevel: 3
+    WalkSpeed: 154
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000608
+        Rate: 10
+      - Item: EP19_Shell_Of_Rgan
+        Rate: 10
+      - Item: EP19_Unknown_Cell
+        Rate: 10
+      - Item: 300379
+        Rate: 1
+  - Id: 21534
+    AegisName: EP19_MD_RGAN_E
+    Name: EP19_MD_RGAN_E
+    JapaneseName: 高級蠕管
+    Level: 234
+    Hp: 55966175
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 121
+    MagicDefense: 36
+    Str: 121
+    Agi: 132
+    Vit: 80
+    Int: 157
+    Dex: 224
+    Luk: 38
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 120
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000608
+        Rate: 10
+  - Id: 21590
+    AegisName: EP19_MD_RGAN_ES
+    Name: EP19_MD_RGAN_ES
+    JapaneseName: 高級蠕管
+    Level: 234
+    Hp: 55966175
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 5189
+    Attack2: 5688
+    Defense: 121
+    MagicDefense: 36
+    Str: 121
+    Agi: 132
+    Vit: 80
+    Int: 157
+    Dex: 224
+    Luk: 38
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 120
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000608
+        Rate: 10
+  - Id: 21600
+    AegisName: EP19_RE_RGAN_E
+    Name: EP19_RE_RGAN_E
+    JapaneseName: 蛇姬
+    Level: 234
+    Hp: 80811000
+    BaseExp: 367512
+    JobExp: 257259
+    Attack: 8800
+    Attack2: 3600
+    Defense: 200
+    MagicDefense: 191
+    Resistance: 200
+    MagicResistance: 191
+    Str: 160
+    Agi: 103
+    Vit: 145
+    Int: 135
+    Dex: 288
+    Luk: 115
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 117
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 480
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5
+      - Item: 1000823
+        Rate: 100		
+      - Item: 1000822
+        Rate: 100
+      - Item: 101639
+        Rate: 5
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 300379
+        Rate: 1
+  - Id: 21536
+    AegisName: EP19_MD_HEARTHUNTER_AT
+    Name: EP19_MD_HEARTHUNTER_AT
+    JapaneseName: 邪心獵人_AT
+    Level: 210
+    Hp: 4807050
+    Attack: 5189
+    Attack2: 5688
+    Defense: 216
+    MagicDefense: 149
+    Resistance: 216
+    MagicResistance: 149
+    Str: 88
+    Agi: 79
+    Vit: 45
+    Int: 45
+    Dex: 262
+    Luk: 34
+    AttackRange: 5
+    SkillRange: 12
+    ChaseRange: 12
+    Size: Medium
+    Race: Demihuman
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 177
+    AttackDelay: 476
+    AttackMotion: 500
+    DamageMotion: 654
+    DamageTaken: 2000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000811
+        Rate: 5
+      - Item: 7110
+        Rate: 1000
+      - Item: 25159
+        Rate: 1000
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 300381
+        Rate: 1
+  - Id: 21533
+    AegisName: EP19_MD_JUNCEA_S
+    Name: 朱希婭
+    JapaneseName: 朱希婭
+    Level: 215
+    Hp: 224220147
+    BaseExp: 8000000
+    JobExp: 4000000
+    Attack: 12000
+    Attack2: 4800
+    Defense: 575
+    MagicDefense: 100
+    Resistance: 350
+    MagicResistance: 350
+    Str: 260
+    Agi: 240
+    Vit: 240
+    Int: 240
+    Dex: 310
+    Luk: 120
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Angel
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 65
+    AttackDelay: 144
+    AttackMotion: 121
+    DamageMotion: 137
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: 994
+        Rate: 500
+      - Item: 616
+        Rate: 2000
+    Drops:
+      - Item: Snow_F_Stone1
+        Rate: 1000
+      - Item: Snow_F_Stone2
+        Rate: 100
+      - Item: 300378
+        Rate: 1
+#生態圈
+#霸肋門德的生物圈
+  - Id: 21548
+    AegisName: ECO_CORNUS
+    Name: ECO_CORNUS_21548
+    JapaneseName: 草原的獨角飛馬
+    Level: 254
+    Hp: 4537500
+    BaseExp: 129643
+    JobExp: 86429
+    Attack: 3625
+    Attack2: 5237
+    Defense: 366
+    MagicDefense: 395
+    Str: 151
+    Agi: 147
+    Vit: 159
+    Int: 199
+    Dex: 193
+    Luk: 177
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Formless
+    Element: Holy
+    ElementLevel: 3
+    WalkSpeed: 230
+    AttackDelay: 517
+    AttackMotion: 231
+    DamageMotion: 367
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 7063
+        Rate: 9000
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 200
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000636
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21549
+    AegisName: ECO_PINGUICULA
+    Name: ECO_PINGUICULA_21549
+    JapaneseName: 草原的捕捉蟲
+    Level: 252
+    Hp: 3652050
+    BaseExp: 104344
+    JobExp: 69563
+    Attack: 4786
+    Attack2: 6970
+    Defense: 346
+    MagicDefense: 377
+    Str: 167
+    Agi: 160
+    Vit: 164
+    Int: 207
+    Dex: 164
+    Luk: 134
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Plant
+    Element: Earth
+    ElementLevel: 1
+    WalkSpeed: 1000
+    AttackDelay: 517
+    AttackMotion: 231
+    DamageMotion: 367
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 7939
+        Rate: 10
+      - Item: 7063
+        Rate: 80
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000636
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 480144
+        Rate: 1
+  - Id: 21550
+    AegisName: ECO_HUNTER_FLY
+    Name: ECO_HUNTER_FLY_21550
+    JapaneseName: 草原的紅蒼蠅
+    Level: 255
+    Hp: 3361500
+    BaseExp: 96043
+    JobExp: 64029
+    Attack: 2189
+    Attack2: 3093
+    Defense: 346
+    MagicDefense: 320
+    Str: 132
+    Agi: 172
+    Vit: 122
+    Int: 125
+    Dex: 179
+    Luk: 115
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Insect
+    Element: Wind
+    ElementLevel: 2
+    WalkSpeed: 188
+    AttackDelay: 517
+    AttackMotion: 231
+    DamageMotion: 367
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 992
+        Rate: 50
+      - Item: 943
+        Rate: 50
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000636
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 480144
+        Rate: 1
+  - Id: 21551
+    AegisName: ECO_ROCKER
+    Name: ECO_ROCKER_21551
+    JapaneseName: 草原的蝗蟲
+    Level: 253
+    Hp: 4520250
+    BaseExp: 129150
+    JobExp: 86100
+    Attack: 1877
+    Attack2: 2637
+    Defense: 316
+    MagicDefense: 303
+    Str: 112
+    Agi: 118
+    Vit: 108
+    Int: 110
+    Dex: 117
+    Luk: 105
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 1
+    WalkSpeed: 221
+    AttackDelay: 517
+    AttackMotion: 231
+    DamageMotion: 367
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 520
+        Rate: 80
+      - Item: 752
+        Rate: 3
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 1000636
+        Rate: 5        
+      - Item: 6224
+        Rate: 15
+      - Item: 480144
+        Rate: 1
+  - Id: 21552
+    AegisName: ECO_SAVAGE
+    Name: ECO_SAVAGE_21552
+    JapaneseName: 草原的野豬
+    Level: 252
+    Hp: 5261100
+    BaseExp: 150317
+    JobExp: 100211
+    Attack: 1851
+    Attack2: 2575
+    Defense: 426
+    MagicDefense: 303
+    Str: 156
+    Agi: 121
+    Vit: 154
+    Int: 110
+    Dex: 147
+    Luk: 115
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 321
+    AttackDelay: 517
+    AttackMotion: 231
+    DamageMotion: 367
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1028
+        Rate: 80    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000636
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21553
+    AegisName: ECO_FLORA
+    Name: ECO_FLORA_21553
+    JapaneseName: 草原的噬人花
+    Level: 254
+    Hp: 3352800
+    BaseExp: 95794
+    JobExp: 63863
+    Attack: 1851
+    Attack2: 2575
+    Defense: 399
+    MagicDefense: 329
+    Str: 149
+    Agi: 129
+    Vit: 135
+    Int: 105
+    Dex: 142
+    Luk: 180
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Plant
+    Element: Earth
+    ElementLevel: 1
+    WalkSpeed: 1000
+    AttackDelay: 711
+    AttackMotion: 215
+    DamageMotion: 258
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1032
+        Rate: 80    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000636
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21554
+    AegisName: ECO_HILL_WIND
+    Name: ECO_HILL_WIND_21554
+    JapaneseName: 草原的希爾士兵
+    Level: 252
+    Hp: 3375000
+    BaseExp: 96429
+    JobExp: 64286
+    Attack: 2965
+    Attack2: 4421
+    Defense: 309
+    MagicDefense: 315
+    Str: 149
+    Agi: 129
+    Vit: 135
+    Int: 105
+    Dex: 142
+    Luk: 180
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Formless
+    Element: Wind
+    ElementLevel: 3
+    WalkSpeed: 150
+    AttackDelay: 188
+    AttackMotion: 250
+    DamageMotion: 200
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 7054
+        Rate: 70    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000636
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21555
+    AegisName: ECO_MISTRESS
+    Name: ECO_MISTRESS_21555
+    JapaneseName: 草原的蜂后
+    Level: 260
+    Hp: 21255000
+    BaseExp: 607286
+    JobExp: 404857
+    Attack: 8416
+    Attack2: 12356
+    Defense: 487
+    MagicDefense: 492
+    Str: 276
+    Agi: 386
+    Vit: 288
+    Int: 313
+    Dex: 372
+    Luk: 279
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Insect
+    Element: Wind
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 76
+    AttackMotion: 432
+    DamageMotion: 504
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Rough_Wind
+        Rate: 1500
+      - Item: Royal_Jelly
+        Rate: 4000
+      - Item: Scarlet_Jewel
+        Rate: 3000
+    Drops:
+      - Item: 1000640
+        Rate: 8000
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 450201
+        Rate: 100
+      - Item: 480145
+        Rate: 100
+      - Item: 470108
+        Rate: 100
+  - Id: 21556
+    AegisName: ECO_EXPLOSION
+    Name: ECO_EXPLOSION_21556
+    JapaneseName: 炙烈的爆炎蝙蝠
+    Level: 252
+    Hp: 4628250
+    BaseExp: 132236
+    JobExp: 88157
+    Attack: 2246
+    Attack2: 4451
+    Defense: 412
+    MagicDefense: 388
+    Str: 191
+    Agi: 151
+    Vit: 163
+    Int: 150
+    Dex: 165
+    Luk: 160
+    AttackRange: 1
+    SkillRange: 14
+    ChaseRange: 14
+    Size: Small
+    Race: Formless
+    Element: Fire
+    ElementLevel: 3
+    WalkSpeed: 165
+    AttackDelay: 645
+    AttackMotion: 450
+    DamageMotion: 336
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 7097
+        Rate: 70    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21557
+    AegisName: ECO_DELETER
+    Name: ECO_DELETER_21557
+    JapaneseName: 炙烈的七彩飛龍
+    Level: 252
+    Hp: 3689700
+    BaseExp: 105420
+    JobExp: 70280
+    Attack: 4080
+    Attack2: 5284
+    Defense: 411
+    MagicDefense: 353
+    Str: 205
+    Agi: 155
+    Vit: 153
+    Int: 168
+    Dex: 167
+    Luk: 173
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Dragon
+    Element: Fire
+    ElementLevel: 2
+    WalkSpeed: 121
+    AttackDelay: 645
+    AttackMotion: 450
+    DamageMotion: 336
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1036
+        Rate: 100    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21558
+    AegisName: ECO_JAKK
+    Name: ECO_JAKK_21558
+    JapaneseName: 炙烈的南瓜先生
+    Level: 252
+    Hp: 3528000
+    BaseExp: 100800
+    JobExp: 67200
+    Attack: 3322
+    Attack2: 4411
+    Defense: 390
+    MagicDefense: 325
+    Str: 158
+    Agi: 143
+    Vit: 142
+    Int: 125
+    Dex: 155
+    Luk: 115
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Formless
+    Element: Fire
+    ElementLevel: 2
+    WalkSpeed: 150
+    AttackDelay: 521
+    AttackMotion: 220
+    DamageMotion: 337
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1062
+        Rate: 100    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21559
+    AegisName: ECO_LAVA_GOLEM
+    Name: ECO_LAVA_GOLEM_21559
+    JapaneseName: 炙烈的熔岩巨石
+    Level: 254
+    Hp: 5715000
+    BaseExp: 163286
+    JobExp: 108857
+    Attack: 5200
+    Attack2: 6400
+    Defense: 599
+    MagicDefense: 431
+    Str: 226
+    Agi: 142
+    Vit: 203
+    Int: 128
+    Dex: 177
+    Luk: 115
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Fire
+    ElementLevel: 4
+    WalkSpeed: 400
+    AttackDelay: 990
+    AttackMotion: 990
+    DamageMotion: 336
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 7096
+        Rate: 100    
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21560
+    AegisName: ECO_MAJORUROS
+    Name: ECO_MAJORUROS_21560
+    JapaneseName: 炙烈的米洛斯
+    Level: 253
+    Hp: 5199150
+    BaseExp: 148547
+    JobExp: 99031
+    Attack: 5200
+    Attack2: 6400
+    Defense: 411
+    MagicDefense: 375
+    Str: 212
+    Agi: 158
+    Vit: 165
+    Int: 135
+    Dex: 172
+    Luk: 149
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Fire
+    ElementLevel: 2
+    WalkSpeed: 250
+    AttackDelay: 550
+    AttackMotion: 550
+    DamageMotion: 422
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Nose_Ring
+        Rate: 2207   
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21561
+    AegisName: ECO_HYDRO
+    Name: ECO_HYDRO_21561
+    JapaneseName: 炙烈的三頭龍
+    Level: 255
+    Hp: 5622750
+    BaseExp: 160650
+    JobExp: 107100
+    Attack: 4526
+    Attack2: 5821
+    Defense: 390
+    MagicDefense: 358
+    Str: 220
+    Agi: 172
+    Vit: 167
+    Int: 166
+    Dex: 188
+    Luk: 158
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Dragon
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 160
+    AttackDelay: 330
+    AttackMotion: 330
+    DamageMotion: 241
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Dragon's_Skin
+        Rate: 2000  
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21562
+    AegisName: ECO_ACIDUS
+    Name: ECO_ACIDUS_21562
+    JapaneseName: 炙烈的希托斯
+    Level: 254
+    Hp: 4425696
+    BaseExp: 126448
+    JobExp: 84299
+    Attack: 4526
+    Attack2: 5821
+    Defense: 390
+    MagicDefense: 358
+    Str: 206
+    Agi: 210
+    Vit: 161
+    Int: 153
+    Dex: 195
+    Luk: 158
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Dragon
+    Element: Dark
+    ElementLevel: 4
+    WalkSpeed: 160
+    AttackDelay: 168
+    AttackMotion: 500
+    DamageMotion: 300
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Light_Granule
+        Rate: 250  
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000637
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21563
+    AegisName: ECO_DETALE
+    Name: ECO_DETALE_21563
+    JapaneseName: 炙烈的迪塔勒泰晤勒斯
+    Level: 260
+    Hp: 40950000
+    BaseExp: 1170000
+    JobExp: 780000
+    Attack: 11470
+    Attack2: 16893
+    Defense: 664
+    MagicDefense: 588
+    Str: 365
+    Agi: 353
+    Vit: 371
+    Int: 336
+    Dex: 385
+    Luk: 272
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Dragon
+    Element: Fire
+    ElementLevel: 4
+    WalkSpeed: 150
+    AttackDelay: 200
+    AttackMotion: 450
+    DamageMotion: 180
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Old_Violet_Box
+        Rate: 5500
+      - Item: Old_Blue_Box
+        Rate: 5000
+      - Item: Crystal_Jewel__
+        Rate: 2000
+    Drops:
+      - Item: 1000641
+        Rate: 8000
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 450200
+        Rate: 1
+      - Item: 480146
+        Rate: 1
+      - Item: 470109
+        Rate: 1
+  - Id: 21564
+    AegisName: ECO_ICE_TITAN
+    Name: ECO_ICE_TITAN_21564
+    JapaneseName: 酷寒的冰巨人
+    Level: 252
+    Hp: 6350400
+    BaseExp: 181440
+    JobExp: 120960
+    Attack: 4526
+    Attack2: 6590
+    Defense: 644
+    MagicDefense: 311
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 178
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 250
+    AttackDelay: 861
+    AttackMotion: 330
+    DamageMotion: 150
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Ice_Heart
+        Rate: 2500 
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21565
+    AegisName: ECO_SIROMA
+    Name: ECO_SIROMA_21565
+    JapaneseName: 酷寒的小雪獸
+    Level: 252
+    Hp: 4593300
+    BaseExp: 131237
+    JobExp: 87491
+    Attack: 3200
+    Attack2: 4500
+    Defense: 364
+    MagicDefense: 338
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 178
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Formless
+    Element: Water
+    ElementLevel: 3
+    WalkSpeed: 180
+    AttackDelay: 432
+    AttackMotion: 648
+    DamageMotion: 240
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Ice_Piece
+        Rate: 750
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21566
+    AegisName: ECO_SNOWIER
+    Name: ECO_SNOWIER_21566
+    JapaneseName: 酷寒的雪獸
+    Level: 254
+    Hp: 5415750
+    BaseExp: 154736
+    JobExp: 103157
+    Attack: 3500
+    Attack2: 6000
+    Defense: 421
+    MagicDefense: 347
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 178
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Formless
+    Element: Water
+    ElementLevel: 2
+    WalkSpeed: 180
+    AttackDelay: 936
+    AttackMotion: 544
+    DamageMotion: 225
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Ice_Heart
+        Rate: 1500
+      - Item: Ice_Piece
+        Rate: 500
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21567
+    AegisName: ECO_CENTIPEDE
+    Name: ECO_CENTIPEDE_21567
+    JapaneseName: 酷寒的蜈蚣
+    Level: 252
+    Hp: 3969000
+    BaseExp: 113400
+    JobExp: 75600
+    Attack: 3600
+    Attack2: 5100
+    Defense: 443
+    MagicDefense: 325
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 178
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Medium
+    Race: Insect
+    Element: Poison
+    ElementLevel: 2
+    WalkSpeed: 120
+    AttackDelay: 500
+    AttackMotion: 367
+    DamageMotion: 336
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Cold_Heart
+        Rate: 80
+      - Item: Black_Cat
+        Rate: 10
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21568
+    AegisName: ECO_AQUA_ELEMENTAL
+    Name: ECO_AQUA_ELEMENTAL_21568
+    JapaneseName: 酷寒的水精靈
+    Level: 253
+    Hp: 3816150
+    BaseExp: 109033
+    JobExp: 72689
+    Attack: 4000
+    Attack2: 6000
+    Defense: 323
+    MagicDefense: 308
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Water
+    ElementLevel: 4
+    WalkSpeed: 150
+    AttackDelay: 300
+    AttackMotion: 660
+    DamageMotion: 471
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Crystalized_Teardrop
+        Rate: 500
+      - Item: Fluorescent_Liquid
+        Rate: 2500
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21569
+    AegisName: ECO_ANGELGOLT
+    Name: ECO_ANGELGOLT_21569
+    JapaneseName: 酷寒的方體惡魔
+    Level: 254
+    Hp: 4991100
+    BaseExp: 142603
+    JobExp: 95069
+    Attack: 5800
+    Attack2: 8600
+    Defense: 546
+    MagicDefense: 371
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Angel
+    Element: Holy
+    ElementLevel: 4
+    WalkSpeed: 150
+    AttackDelay: 252
+    AttackMotion: 442
+    DamageMotion: 271
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Soft_Feather
+        Rate: 350
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21570
+    AegisName: ECO_RHYNCHO
+    Name: ECO_RHYNCHO_21570
+    JapaneseName: 酷寒的靈克
+    Level: 255
+    Hp: 5250000
+    BaseExp: 150000
+    JobExp: 100000
+    Attack: 4300
+    Attack2: 6500
+    Defense: 368
+    MagicDefense: 312
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Formless
+    Element: Water
+    ElementLevel: 4
+    WalkSpeed: 200
+    AttackDelay: 250
+    AttackMotion: 330
+    DamageMotion: 300
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Fluorescent_Liquid
+        Rate: 2500
+      - Item: Karvodailnirol
+        Rate: 3
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000638
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21571
+    AegisName: ECO_KTULLANUX
+    Name: ECO_KTULLANUX_21571
+    JapaneseName: 酷寒的寒冰龍
+    Level: 255
+    Hp: 39000000
+    BaseExp: 1114286
+    JobExp: 742857
+    Attack: 11000
+    Attack2: 16000
+    Defense: 429
+    MagicDefense: 378
+    Str: 285
+    Agi: 326
+    Vit: 230
+    Int: 325
+    Dex: 377
+    Luk: 312
+    AttackRange: 3
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Large
+    Race: Formless
+    Element: Water
+    ElementLevel: 4
+    WalkSpeed: 200
+    AttackDelay: 221
+    AttackMotion: 420
+    DamageMotion: 216
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Yggdrasilberry
+        Rate: 5500
+      - Item: Old_Violet_Box
+        Rate: 5000
+      - Item: Old_Violet_Box
+        Rate: 5000
+    Drops:
+      - Item: 1000642
+        Rate: 8000
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 450203
+        Rate: 1
+      - Item: 480148
+        Rate: 1
+      - Item: 470111
+        Rate: 1
+  - Id: 21572
+    AegisName: ECO_ANCIENT_MUMMY
+    Name: ECO_ANCIENT_MUMMY_21572
+    JapaneseName: 死亡的的木乃伊
+    Level: 253
+    Hp: 5950000
+    BaseExp: 141429
+    JobExp: 94286
+    Attack: 6000
+    Attack2: 8000
+    Defense: 393
+    MagicDefense: 351
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Medium
+    Race: Undead
+    Element: Undead
+    ElementLevel: 2
+    WalkSpeed: 175
+    AttackDelay: 1772
+    AttackMotion: 120
+    DamageMotion: 384
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Rotten_Bandage
+        Rate: 2207
+      - Item: Mementos
+        Rate: 900
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21573
+    AegisName: ECO_LUDE
+    Name: ECO_LUDE_21573
+    JapaneseName: 死亡的的警衛
+    Level: 252
+    Hp: 3652050
+    BaseExp: 104344
+    JobExp: 69563
+    Attack: 6000
+    Attack2: 8000
+    Defense: 390
+    MagicDefense: 353
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Undead
+    Element: Undead
+    ElementLevel: 1
+    WalkSpeed: 150
+    AttackDelay: 440
+    AttackMotion: 500
+    DamageMotion: 320
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Pumpkin_Bucket
+        Rate: 1600
+      - Item: Ectoplasm
+        Rate: 2862
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21574
+    AegisName: ECO_RAGGED_ZOMBIE
+    Name: ECO_RAGGED_ZOMBIE_21574
+    JapaneseName: 死亡的腐屍
+    Level: 252
+    Hp: 4407300
+    BaseExp: 125923
+    JobExp: 83949
+    Attack: 6000
+    Attack2: 8000
+    Defense: 385
+    MagicDefense: 335
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Medium
+    Race: Undead
+    Element: Undead
+    ElementLevel: 3
+    WalkSpeed: 120
+    AttackDelay: 400
+    AttackMotion: 250
+    DamageMotion: 370
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Clattering_Skull
+        Rate: 1500
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21575
+    AegisName: ECO_WRAITH
+    Name: ECO_WRAITH_21575
+    JapaneseName: 死亡的惡靈
+    Level: 254
+    Hp: 3711750
+    BaseExp: 106050
+    JobExp: 70700
+    Attack: 6000
+    Attack2: 8000
+    Defense: 385
+    MagicDefense: 340
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Medium
+    Race: Undead
+    Element: Undead
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 650
+    AttackMotion: 250
+    DamageMotion: 240
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Transparent_Cloth
+        Rate: 2910
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 470107
+        Rate: 1
+  - Id: 21576
+    AegisName: ECO_FLAME_SKULL
+    Name: ECO_FLAME_SKULL_21576
+    JapaneseName: 死亡的骷髏頭
+    Level: 252
+    Hp: 3667950
+    BaseExp: 104799
+    JobExp: 69866
+    Attack: 6500
+    Attack2: 8500
+    Defense: 377
+    MagicDefense: 421
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Small
+    Race: Demon
+    Element: Ghost
+    ElementLevel: 3
+    WalkSpeed: 100
+    AttackDelay: 322
+    AttackMotion: 352
+    DamageMotion: 288
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Skull
+        Rate: 2500
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21577
+    AegisName: ECO_BANSHEE
+    Name: ECO_BANSHEE_21577
+    JapaneseName: 死亡的惡耗女妖
+    Level: 254
+    Hp: 4724400
+    BaseExp: 134983
+    JobExp: 89989
+    Attack: 7500
+    Attack2: 8800
+    Defense: 404
+    MagicDefense: 388
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 1
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Medium
+    Race: Demon
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 100
+    AttackDelay: 323
+    AttackMotion: 250
+    DamageMotion: 250
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Old_White_Cloth
+        Rate: 1500
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 450199
+        Rate: 1
+  - Id: 21578
+    AegisName: ECO_KNIGHT_OF_ABYSS
+    Name: 21578_KNIGHT_OF_ABYSS
+    JapaneseName: 死亡的深淵騎士
+    Level: 255
+    Hp: 5625000
+    BaseExp: 160714
+    JobExp: 107143
+    Attack: 7800
+    Attack2: 9000
+    Defense: 428
+    MagicDefense: 404
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: DemiHuman
+    Element: Dark
+    ElementLevel: 4
+    WalkSpeed: 144
+    AttackDelay: 500
+    AttackMotion: 250
+    DamageMotion: 350
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: 1000639
+        Rate: 5
+      - Item: 480144
+        Rate: 1
+  - Id: 21579
+    AegisName: ECO_LORD_OF_DEATH
+    Name: ECO_LORD_OF_DEATH_21579
+    JapaneseName: 死亡的怨靈騎士
+    Level: 255
+    Hp: 34905000
+    BaseExp: 997286
+    JobExp: 664857
+    Attack: 12000
+    Attack2: 16000
+    Defense: 636
+    MagicDefense: 341
+    Str: 340
+    Agi: 299
+    Vit: 230
+    Int: 309
+    Dex: 300
+    Luk: 290
+    AttackRange: 3
+    SkillRange: 12
+    ChaseRange: 14
+    Size: Large
+    Race: Demon
+    Element: Dark
+    ElementLevel: 3
+    WalkSpeed: 120
+    AttackDelay: 550
+    AttackMotion: 447
+    DamageMotion: 180
+    DamageTaken: 1000
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Yggdrasilberry
+        Rate: 5500
+      - Item: Crystal_Jewel__
+        Rate: 5000
+      - Item: Old_Violet_Box
+        Rate: 5000
+    Drops:
+      - Item: 1000643
+        Rate: 8000
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 450202
+        Rate: 1
+      - Item: 480147
+        Rate: 1
+      - Item: 470110
+        Rate: 1

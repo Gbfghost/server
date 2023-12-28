@@ -1,0 +1,19 @@
+//===== Giraffe Script =======================================
+//= ein_dun03 Spawn Script
+//=作者 : Leo
+//============================================================
+
+//==================================================
+// ein_dun03 - Mine Dungeon
+//==================================================
+ein_dun03	monster	"--ja--"	20592,35
+ein_dun03	monster	"--ja--"	20593,35
+ein_dun03	monster	"--ja--"	20594,40
+ein_dun03	monster	"--ja--"	20595,40
+ein_dun03	monster	"--ja--"	20596,40
+ein_dun03	monster	"--ja--"	20597,40
+ein_dun03	monster	"--ja--"	20603,20
+ein_dun03	monster	"--ja--"	20602,22
+ein_dun03	monster	"--ja--"	20598,20
+ein_dun03	monster	"--ja--"	20600,3
+ein_dun03	boss_monster	"--ja--"	20601,1,7200000,600000,0

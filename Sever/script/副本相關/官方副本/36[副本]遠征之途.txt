@@ -1,0 +1,1252 @@
+
+
+
+//===== Description: ==============================
+//
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@gol1	mapflag	noteleport
+1@gol1	mapflag	nosave	SavePoint
+1@gol1	mapflag	nomemo
+1@gol1	mapflag	nobranch
+1@gol1	mapflag	noicewall
+1@gol1	mapflag	restricted	6
+1@gol1	mapflag	monster_noteleport
+1@gol1	mapflag	partylock
+1@gol1	mapflag	novending
+1@gol1	mapflag	nochat
+
+1@gol2	mapflag	noteleport
+1@gol2	mapflag	nosave	SavePoint
+1@gol2	mapflag	nomemo
+1@gol2	mapflag	nobranch
+1@gol2	mapflag	noicewall
+1@gol2	mapflag	restricted	6
+1@gol2	mapflag	monster_noteleport
+1@gol2	mapflag	partylock
+1@gol2	mapflag	novending
+1@gol2	mapflag	nochat
+
+
+amatsu,108,103,5	script	[副本]遠征之途	931,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "遠征之途";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 36;
+
+//
+	waitingroom "[副本]遠征之途",0;
+	setnpcicon getnpcid(0),22,"[副本]遠征之途";
+	end;
+}
+
+
+1@gol1,196,38,5	script	賽拉#ghinstance2	982,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		mes "[賽拉]";
+		mes "由於目前情況危急";
+		mes "我們派追隊很難分析當前的數據.";
+		npctalk "賽拉：由於目前情況危急，我們派追隊很難分析當前的數據.";
+		cutin "3rd_gn_demi01",2;
+		next;
+		mes "[賽拉]";
+		mes "我只能提供給你們情報,";
+		mes "沒有辦法給予實際上的幫助，";
+		mes "以免造成更多的危險發生.";
+		npctalk "賽拉：我只能提供給你們情報，沒有辦法給予實際上的幫助，以免造成更多的危險發生";
+		next;
+		mes "[賽拉]";
+		mes "那麼，我們就前往第1個戰鬥場地了";
+		npctalk "賽拉：那麼，我們就前往第一個戰鬥場地了";
+		mes "那是之前非正式派追隊初次戰鬥的地點'總統接見等候室'.";
+		npctalk "賽拉：那是之前非正式派追隊初次戰鬥的地點'總統接見等候室'.";
+		next;
+		cutin "3rd_gn_demi01",255;
+		donpcevent instance_npcname("#Gol_Main")+"::OnEnable";
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),162,190;
+		end;
+	}else{
+		mes "[賽拉]";
+		mes "麻煩請叫隊長來找我。";
+	}
+	close;
+}
+//========================第一部分====================================
+1@gol1,172,204,3	script	賽拉#ghinstance3	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：在總統接見等候室賽倫和他的非正式派遣隊因為吸入睡眠毒氣而昏迷。";
+	end;
+OnTimer2000:
+	npctalk "賽拉：除了勉強堅持的埃雷梅斯蓋爾帶著凱倫逃跑外。";
+	end;
+OnTimer4000:
+	stopnpctimer;
+	npctalk "賽拉：其他人他們就這樣被帶到各個職業群體準備的實驗室。";
+	detachnpctimer;
+	end;
+
+}
+//============================================================
+1@gol1,172,203,4	script	#Gol_Main	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main");
+	donpcevent instance_npcname("#Gol_Main")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main")+"::OnKillMob";
+	
+	set 'Mr_mob1,12;
+	areamonster .@map$,157,192,159,185,"雷根貝勒警備隊",20542,3,.@label$;
+	areamonster .@map$,155,205,159,201,"雷根貝勒警備隊長",20541,3,.@label$;
+	areamonster .@map$,173,205,178,200,"雷根貝勒科學家",20543,3,.@label$;
+	areamonster .@map$,173,193,178,186,"雷根貝勒科學家",20543,3,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob1,'Mr_mob1-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob1){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob1+"隻",bc_map,"0xFFFF00";
+	}else{
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),66,274;
+		donpcevent instance_npcname("#Gol_Main1")+"::OnEnable";
+	}
+	end;
+}
+//============================================================
+//=====================第二部分==============================
+1@gol1,64,276,3	script	賽拉#ghinstance4	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：賽依連溫莎被移植了'核心’代替原有的心臟，使得他不斷的向著死亡湛進，";
+	end;
+OnTimer2000:
+	npctalk "賽拉：但是成為死心病的他帶著拯救所有人的強烈信念開始尋找其他人。";
+	end;
+OnTimer4000:
+	npctalk "賽拉：但是我也要提醒你一下，為了防止路德,奈特,賽倫的騷亂，檢查實驗室裏已經等候著不少人的警衛了。";
+	end;
+OnTimer6000:
+	stopnpctimer;
+	npctalk "賽拉：等你清理好，我們就換到下一區域吧！";
+	detachnpctimer;
+	end;
+
+}
+
+//============================================================
+1@gol1,172,206,4	script	#Gol_Main1	-1,{
+
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main1");
+	donpcevent instance_npcname("#Gol_Main1")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main1")+"::OnKillMob";
+	
+	set 'Mr_mob2,34;
+	areamonster .@map$,72,296,76,290,"雷根貝勒警備隊",20542,3,.@label$;
+	areamonster .@map$,72,296,76,290,"雷根貝勒警備隊長",20541,2,.@label$;
+	areamonster .@map$,72,296,76,290,"雷根貝勒科學家",20543,3,.@label$;
+	//--zone2
+	areamonster .@map$,76,309,22,300,"雷根貝勒警備隊",20542,8,.@label$;
+	areamonster .@map$,76,309,22,300,"雷根貝勒警備隊長",20541,3,.@label$;
+	areamonster .@map$,76,309,22,300,"雷根貝勒科學家",20543,4,.@label$;
+	areamonster .@map$,76,309,22,300,"無名的服事",20538,2,.@label$;
+	//--zone3
+	areamonster .@map$,17,308,6,323,"雷根貝勒警備隊",20542,4,.@label$;
+	areamonster .@map$,17,308,6,323,"雷根貝勒警備隊長",20541,2,.@label$;
+	areamonster .@map$,17,308,6,323,"雷根貝勒科學家",20543,2,.@label$;
+	areamonster .@map$,17,308,6,323,"無名的服事",20538,1,.@label$;
+	end;
+
+OnKillMob:
+	set 'Mr_mob2,'Mr_mob2-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob2){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob2+"隻",bc_map,"0xFFFF00";
+	}else{
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),109,193;
+		donpcevent instance_npcname("#Gol_Main2")+"::OnEnable";
+	}
+	end;
+}
+//============================================================
+//=====================第三部分==============================
+1@gol1,115,198,3	script	賽拉#ghinstance5	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：艾勒梅斯蓋爾雖然帶著凱特莉哪凱倫逃跑，但也落人敵人的陷阱裡，等於把凱特莉哪白白交到對方手上了";
+	end;
+OnTimer2000:
+	npctalk "賽拉：在那之後自己也被抓住，被強迫移植了核心.";
+	end;
+OnTimer4000:
+	npctalk "賽拉：被移植核心之後，會受到核心的影響失去理智而暴走，最終眼前只會剩下無限的殺戮而已.";
+	end;
+OnTimer6000:
+	stopnpctimer;
+	npctalk "賽拉：不過只要找到賽依連便可以找回意識與原有的記憶";
+	detachnpctimer;
+	end;
+
+}
+
+//============================================================
+1@gol1,172,206,4	script	#Gol_Main2	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main2");
+	donpcevent instance_npcname("#Gol_Main2")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main2")+"::OnKillMob";
+	
+	set 'Mr_mob3,39;
+	areamonster .@map$,104,197,109,192,"雷根貝勒警備隊",20542,3,.@label$;
+	areamonster .@map$,122,204,127,189,"雷根貝勒警備隊長",20541,2,.@label$;
+	areamonster .@map$,104,207,111,200,"雷根貝勒科學家",20543,9,.@label$;
+	areamonster .@map$,122,204,127,189,"雷根貝勒警備隊",20542,4,.@label$;
+	//--zone2
+	areamonster .@map$,127,216,110,225,"雷根貝勒科學家",20543,8,.@label$;
+	areamonster .@map$,84,232,95,210,"雷根貝勒警備隊",20542,10,.@label$;
+	areamonster .@map$,84,232,95,210,"雷根貝勒警備隊長",20541,3,.@label$;
+	end;
+	
+	
+OnKillMob:
+	set 'Mr_mob3,'Mr_mob3-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob3){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob3+"隻",bc_map,"0xFFFF00";
+	}else{
+
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),80,110;
+		donpcevent instance_npcname("#Gol_Main3")+"::OnEnable";
+	}
+	end;
+}
+//============================================================
+//=====================第四部分==============================
+1@gol1,75,118,3	script	賽拉#ghinstance6	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：在這裡如果不小心注意一點的話，是很難觀察到周圍環境的。";
+	end;
+OnTimer2000:
+	npctalk "賽拉：視野會漸漸變得模糊，行動上會更加困難，竟快把這裡的守衛解決前往下一個實驗室吧！";
+	end;
+OnTimer6000:
+	stopnpctimer;
+	npctalk "賽拉：我會在走廊的盡頭設置'視野調節裝置'，當視野嚴重受到影響變得昏暗時可以找到裝置並使用恢復";
+	detachnpctimer;
+	end;
+
+}
+
+1@gol1,78,112,0	script	#Blind01	-1,9,9,{
+	end;
+OnTouch:
+	specialeffect2 EF_BLIND;
+	end;
+}
+1@gol1,93,135,0	script	#Blind02	-1,9,9,{
+	end;
+OnTouch:
+	specialeffect2 EF_BLIND;
+	end;
+}
+1@gol1,64,90,0	script	#Blind03	-1,9,9,{
+	end;
+OnTouch:
+	specialeffect2 EF_BLIND;
+	end;
+}
+1@gol1,101,108,0	script	視野調整裝置	649,{
+	getmapxy(.@map$,.@x,.@y,BL_PC);
+	warp .@map$,.@x,.@y;
+}
+//============================================================
+1@gol1,172,206,4	script	#Gol_Main3	-1,{
+
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main3");
+	donpcevent instance_npcname("#Gol_Main3")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main3")+"::OnKillMob";
+	
+	set 'Mr_mob4,60;
+	areamonster .@map$,58,119,67,106,"雷根貝勒警備隊",20542,6,.@label$;
+	areamonster .@map$,58,119,67,106,"雷根貝勒警備隊長",20541,3,.@label$;
+	areamonster .@map$,58,119,67,106,"雷根貝勒科學家",20543,6,.@label$;
+	//--zone2
+	areamonster .@map$,101,95,53,84,"雷根貝勒科學家",20543,8,.@label$;
+	areamonster .@map$,101,95,53,84,"雷根貝勒警備隊",20542,10,.@label$;
+	areamonster .@map$,101,95,53,84,"雷根貝勒警備隊長",20541,5,.@label$;
+	areamonster .@map$,101,95,53,84,"無名的服事",20538,2,.@label$;
+	//--zone3
+	areamonster .@map$,88,133,36,163,"雷根貝勒科學家",20543,8,.@label$;
+	areamonster .@map$,88,133,36,163,"雷根貝勒警備隊",20542,7,.@label$;
+	areamonster .@map$,88,133,36,163,"雷根貝勒警備隊長",20541,5,.@label$;
+
+	end;
+
+	
+OnKillMob:
+	set 'Mr_mob4,'Mr_mob4-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob4){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob4+"隻",bc_map,"0xFFFF00";
+	}else{
+
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),117,26;
+		donpcevent instance_npcname("系統#controlGH1")+"::OnEnable";
+		donpcevent instance_npcname("#Gol_Main4_1")+"::OnEnable";
+	}
+	end;
+}
+//============================================================
+//=====================第五部分==============================
+//--中間路障
+1@gol1,118,23,0	script	系統#controlGH1	4_MACHINE_DEVICE,{
+	end;
+OnDisable:
+	npctalk "即將解除出入限制。";
+	end;
+OnEnable:
+	enablenpc instance_npcname("系統#controlGH1");
+	set .@map$,instance_mapname("1@gol1");
+	setcell .@map$,127,37,132,37,cell_walkable,0;
+	initnpctimer;
+	npctalk "滋~禁言程序加載中…倒數5秒";
+	end;
+OnTimer2000:
+	npctalk "滋~禁言程序加載中…倒數3秒";
+	end;
+OnTimer4000:
+	npctalk "滋~禁言程序加載中…倒數1秒";
+	end;
+OnTimer6000:
+	npctalk "滋~禁言程序加載完成，禁言啟動中";
+	stopnpctimer;
+	end;
+}
+1@gol1,127,37,4	script	#tr001	4_BRICKPILE,4,4,{
+end;}
+//--中間
+1@gol1,129,37,4	duplicate(#tr001)	#tr002	4_BRICKPILE,4,4
+1@gol1,131,37,4	duplicate(#tr001)	#tr003	4_BRICKPILE,4,4
+//--右上
+1@gol1,137,57,4	duplicate(#tr001)	#tr010	4_BRICKPILE,4,4
+1@gol1,139,57,4	duplicate(#tr001)	#tr011	4_BRICKPILE,4,4
+1@gol1,141,57,4	duplicate(#tr001)	#tr012	4_BRICKPILE,4,4
+1@gol1,143,57,4	duplicate(#tr001)	#tr013	4_BRICKPILE,4,4
+1@gol1,145,57,4	duplicate(#tr001)	#tr014	4_BRICKPILE,4,4
+1@gol1,147,57,4	duplicate(#tr001)	#tr015	4_BRICKPILE,4,4
+//--左上
+1@gol1,88,57,4	duplicate(#tr001)	#tr016	4_BRICKPILE,4,4
+1@gol1,90,57,4	duplicate(#tr001)	#tr017	4_BRICKPILE,4,4
+1@gol1,92,57,4	duplicate(#tr001)	#tr018	4_BRICKPILE,4,4
+1@gol1,94,57,4	duplicate(#tr001)	#tr019	4_BRICKPILE,4,4
+1@gol1,96,57,4	duplicate(#tr001)	#tr020	4_BRICKPILE,4,4
+1@gol1,98,57,4	duplicate(#tr001)	#tr021	4_BRICKPILE,4,4
+//--左下
+1@gol1,84,32,4	duplicate(#tr001)	#tr022	4_BRICKPILE,4,4
+1@gol1,86,32,4	duplicate(#tr001)	#tr023	4_BRICKPILE,4,4
+1@gol1,88,32,4	duplicate(#tr001)	#tr024	4_BRICKPILE,4,4
+1@gol1,90,32,4	duplicate(#tr001)	#tr025	4_BRICKPILE,4,4
+1@gol1,92,32,4	duplicate(#tr001)	#tr026	4_BRICKPILE,4,4
+1@gol1,94,32,4	duplicate(#tr001)	#tr027	4_BRICKPILE,4,4
+//--右下
+1@gol1,140,32,4	duplicate(#tr001)	#tr028	4_BRICKPILE,4,4
+1@gol1,142,32,4	duplicate(#tr001)	#tr029	4_BRICKPILE,4,4
+1@gol1,144,32,4	duplicate(#tr001)	#tr030	4_BRICKPILE,4,4
+1@gol1,146,32,4	duplicate(#tr001)	#tr031	4_BRICKPILE,4,4
+1@gol1,148,32,4	duplicate(#tr001)	#tr032	4_BRICKPILE,4,4
+1@gol1,150,32,4	duplicate(#tr001)	#tr033	4_BRICKPILE,4,4
+
+//----------路障設置END------------
+//=========================5-1===================================
+1@gol1,115,27,3	script	賽拉#ghinstance7	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：雖然凱特莉哪受到艾勒梅斯的幫助才能從房間逃出來，但她已經被毒氣搞到處於麻醉的狀態。";
+	end;
+OnTimer2000:
+	stopnpctimer;
+	npctalk "賽拉：最終還是被人再次被捕獲並帶到原先的試驗管內。";
+	detachnpctimer;
+	end;
+
+}
+1@gol1,172,206,4	script	#Gol_Main4_1	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main4_1");
+	donpcevent instance_npcname("#Gol_Main4_1")+"::OnStart";
+	donpcevent instance_npcname("#zone5")+"::OnEnable";
+		for ( .@i = 10; .@i <= 33; .@i++ ) {
+		hideonnpc instance_npcname("#tr0" + .@i);
+		}
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main4_1")+"::OnKillMob";
+	
+	set 'Mr_mob5_1,16;
+	areamonster .@map$,107,31,115,16,"雷根貝勒警備隊",20542,6,.@label$;
+	areamonster .@map$,107,31,115,16,"雷根貝勒警備隊長",20541,4,.@label$;
+	areamonster .@map$,107,31,115,16,"雷根貝勒科學家",20543,6,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob5_1,'Mr_mob5_1-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob5_1){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob5_1+"隻",bc_map,"0xFFFF00";
+	}else{
+		setcell .@map$,127,37,132,37,cell_walkable,1;
+		specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr001");
+		hideonnpc instance_npcname("#tr001");
+		specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr002");
+		hideonnpc instance_npcname("#tr002");
+		specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr003");
+		hideonnpc instance_npcname("#tr003");
+		donpcevent instance_npcname("系統#controlGH1")+"::OnDisable";
+		
+	}
+	end;
+}
+//=======================5-2=====================================
+1@gol1,141,68,0	script	#Touch01	-1,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#Gol_Main4_2")+"::OnEnable";
+	donpcevent instance_npcname("系統#controlGH2")+"::OnEnable";
+	disablenpc instance_npcname("#Touch01");
+
+
+	end;
+}
+1@gol1,142,69,0	script	系統#controlGH2	4_MACHINE_DEVICE,{
+	end;
+OnDisable:
+	npctalk "即將解除出入限制。";
+	end;
+OnEnable:
+	enablenpc instance_npcname("系統#controlGH2");
+	set .@map$,instance_mapname("1@gol1");
+	initnpctimer;
+	npctalk "滋~禁言程序加載中…倒數5秒";
+	end;
+OnTimer2000:
+	npctalk "滋~禁言程序加載中…倒數3秒";
+	end;
+OnTimer4000:
+	npctalk "滋~禁言程序加載中…倒數1秒";
+	end;
+OnTimer6000:
+	npctalk "滋~禁言程序加載完成，禁言啟動中";
+	stopnpctimer;
+	end;
+}
+1@gol1,172,206,4	script	#Gol_Main4_2	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main4_2");
+	donpcevent instance_npcname("#Gol_Main4_2")+"::OnStart";
+		for ( .@i = 10; .@i <= 15; .@i++ ) {
+		hideoffnpc instance_npcname("#tr0" + .@i);
+		}
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main4_2")+"::OnKillMob";
+	setcell .@map$,136,57,148,57,cell_walkable,0;
+	set 'Mr_mob5_2,14;
+	areamonster .@map$,137,77,147,61,"雷根貝勒警備隊",20542,9,.@label$;
+	areamonster .@map$,137,77,147,61,"雷根貝勒警備隊長",20541,5,.@label$;
+	end;
+
+OnKillMob:
+	set 'Mr_mob5_2,'Mr_mob5_2-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob5_2){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob5_2+"隻",bc_map,"0xFFFF00";
+	}else{
+		setcell .@map$,136,57,148,57,cell_walkable,1;
+			for ( .@i = 10; .@i <= 15; .@i++ ) {
+			specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr0" + .@i);
+			hideonnpc instance_npcname("#tr0" + .@i);
+			}
+		donpcevent instance_npcname("系統#controlGH2")+"::OnDisable";
+		donpcevent instance_npcname("#zone5")+"::OnEnd";
+	}
+	end;
+}
+//=======================5-3=====================================
+1@gol1,93,69,0	script	#Touch02	-1,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#Gol_Main4_3")+"::OnEnable";
+	donpcevent instance_npcname("系統#controlGH3")+"::OnEnable";
+	disablenpc instance_npcname("#Touch02");
+	end;
+}
+1@gol1,93,70,0	script	系統#controlGH3	4_MACHINE_DEVICE,{
+	end;
+OnDisable:
+	npctalk "即將解除出入限制。";
+	end;
+OnEnable:
+	enablenpc instance_npcname("系統#controlGH3");
+	initnpctimer;
+	npctalk "滋~禁言程序加載中…倒數5秒";
+	end;
+OnTimer2000:
+	npctalk "滋~禁言程序加載中…倒數3秒";
+	end;
+OnTimer4000:
+	npctalk "滋~禁言程序加載中…倒數1秒";
+	end;
+OnTimer6000:
+	npctalk "滋~禁言程序加載完成，禁言啟動中";
+	stopnpctimer;
+	end;
+}
+1@gol1,172,206,4	script	#Gol_Main4_3	-1,{
+
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main4_3");
+	donpcevent instance_npcname("#Gol_Main4_3")+"::OnStart";
+		for ( .@i = 16; .@i <= 21; .@i++ ) {
+		hideoffnpc instance_npcname("#tr0" + .@i);
+		}
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main4_3")+"::OnKillMob";
+	setcell .@map$,88,57,100,57,cell_walkable,0;
+	set 'Mr_mob5_3,20;
+	areamonster .@map$,88,77,99,63,"雷根貝勒警備隊",20542,10,.@label$;
+	areamonster .@map$,88,77,99,63,"雷根貝勒警備隊長",20541,5,.@label$;
+	areamonster .@map$,88,77,99,63,"無名的服事",20538,5,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob5_3,'Mr_mob5_3-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob5_3){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob5_3+"隻",bc_map,"0xFFFF00";
+	}else{
+		setcell .@map$,88,57,100,57,cell_walkable,1;
+			for ( .@i = 16; .@i <= 21; .@i++ ) {
+			specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr0" + .@i);
+			hideonnpc instance_npcname("#tr0" + .@i);
+			}
+		donpcevent instance_npcname("系統#controlGH3")+"::OnDisable";
+		donpcevent instance_npcname("#zone5")+"::OnEnd";
+	}
+	end;
+}
+//-----------------5-4-----------------
+1@gol1,90,22,0	script	#Touch03	-1,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#Gol_Main4_4")+"::OnEnable";
+	donpcevent instance_npcname("系統#controlGH4")+"::OnEnable";
+	disablenpc instance_npcname("#Touch03");
+	end;
+}
+1@gol1,90,21,0	script	系統#controlGH4	4_MACHINE_DEVICE,{
+	end;
+OnDisable:
+	npctalk "即將解除出入限制。";
+	end;
+OnEnable:
+	enablenpc instance_npcname("系統#controlGH4");
+	initnpctimer;
+	npctalk "滋~禁言程序加載中…倒數5秒";
+	end;
+OnTimer2000:
+	npctalk "滋~禁言程序加載中…倒數3秒";
+	end;
+OnTimer4000:
+	npctalk "滋~禁言程序加載中…倒數1秒";
+	end;
+OnTimer6000:
+	npctalk "滋~禁言程序加載完成，禁言啟動中";
+	stopnpctimer;
+	end;
+}
+1@gol1,172,206,4	script	#Gol_Main4_4	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main4_4");
+	donpcevent instance_npcname("#Gol_Main4_4")+"::OnStart";
+		for ( .@i = 22; .@i <= 27; .@i++ ) {
+		hideoffnpc instance_npcname("#tr0" + .@i);
+		}
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main4_4")+"::OnKillMob";
+	setcell .@map$,84,32,96,32,cell_walkable,0;
+	set 'Mr_mob5_4,20;
+	areamonster .@map$,84,27,95,14,"雷根貝勒警備隊",20542,10,.@label$;
+	areamonster .@map$,84,27,95,14,"雷根貝勒警備隊長",20541,5,.@label$;
+	areamonster .@map$,84,27,95,14,"無名的服事",20538,5,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob5_4,'Mr_mob5_4-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob5_4){
+	}else{
+		setcell .@map$,84,32,96,32,cell_walkable,1;
+			for ( .@i = 22; .@i <= 27; .@i++ ) {
+			specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr0" + .@i);
+			hideonnpc instance_npcname("#tr0" + .@i);
+			}
+		donpcevent instance_npcname("系統#controlGH4")+"::OnDisable";
+		donpcevent instance_npcname("#zone5")+"::OnEnd";
+	}
+	end;
+}
+//--------------5-5--------------
+1@gol1,146,20,0	script	#Touch04	-1,9,9,{
+	end;
+OnTouch:
+	donpcevent instance_npcname("#Gol_Main4_5")+"::OnEnable";
+	donpcevent instance_npcname("系統#controlGH5")+"::OnEnable";
+	disablenpc instance_npcname("#Touch04");
+	end;
+}
+1@gol1,146,19,0	script	系統#controlGH5	4_MACHINE_DEVICE,{
+	end;
+OnDisable:
+	npctalk "即將解除出入限制。";
+	end;
+OnEnable:
+	enablenpc instance_npcname("系統#controlGH5");
+	initnpctimer;
+	npctalk "滋~禁言程序加載中…倒數5秒";
+	end;
+OnTimer2000:
+	npctalk "滋~禁言程序加載中…倒數3秒";
+	end;
+OnTimer4000:
+	npctalk "滋~禁言程序加載中…倒數1秒";
+	end;
+OnTimer6000:
+	npctalk "滋~禁言程序加載完成，禁言啟動中";
+	stopnpctimer;
+	end;
+}
+1@gol1,172,206,4	script	#Gol_Main4_5	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main4_5");
+	donpcevent instance_npcname("#Gol_Main4_5")+"::OnStart";
+		for ( .@i = 28; .@i <= 33; .@i++ ) {
+		hideoffnpc instance_npcname("#tr0" + .@i);
+		}
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main4_5")+"::OnKillMob";
+	setcell .@map$,140,32,152,32,cell_walkable,0;
+	set 'Mr_mob5_5,17;
+	areamonster .@map$,140,26,151,13,"雷根貝勒警備隊",20542,10,.@label$;
+	areamonster .@map$,140,26,151,13,"雷根貝勒警備隊長",20541,7,.@label$;
+	end;
+
+OnKillMob:
+	set 'Mr_mob5_5,'Mr_mob5_5-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob5_5){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob5_5+"隻",bc_map,"0xFFFF00";
+	}else{
+		setcell .@map$,140,32,152,32,cell_walkable,1;
+			for ( .@i = 28; .@i <= 33; .@i++ ) {
+			specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#tr0" + .@i);
+			hideonnpc instance_npcname("#tr0" + .@i);
+			}
+		donpcevent instance_npcname("系統#controlGH5")+"::OnDisable";
+		donpcevent instance_npcname("#zone5")+"::OnEnd";
+	}
+	end;
+}
+//-----------判定第5部分結束--------------
+1@gol1,172,206,4	script	#zone5	-1,{
+OnEnable:
+	enablenpc instance_npcname("#zone5");
+	set 'zone5check,4;
+	end;
+OnEnd:
+	set 'zone5check,'zone5check-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('zone5check){
+	}else{
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),168,106;
+		donpcevent instance_npcname("#Gol_Main5")+"::OnEnable";
+	}
+	end;
+}
+//==============第6部分====================
+1@gol1,159,112,3	script	賽拉#ghinstance8	982,{
+	attachnpctimer;
+	initnpctimer;
+	npctalk "賽拉：哈沃德特艾森在移植手術結束後，恢復意識打破了玻璃實驗管逃了出來，";
+	end;
+OnTimer2000:
+	npctalk "賽拉：然後再躲躲藏藏之中遇見了賽依連，隨後兩人便開始一起行動著。";
+	end;
+OnTimer4000:
+	stopnpctimer;
+	npctalk "賽拉：另外我要說明一下這個實驗室裡有著特殊形態的陷阱，請各位小心。";
+	detachnpctimer;
+	end;
+
+}
+
+//============================================================
+1@gol1,172,206,4	script	#Gol_Main5	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main5");
+	donpcevent instance_npcname("#Gol_Main5")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main5")+"::OnKillMob";
+	
+	set 'Mr_mob6,44;
+	areamonster .@map$,142,121,157,106,"雷根貝勒警備隊",20542,6,.@label$;
+	areamonster .@map$,142,121,157,106,"雷根貝勒科學家",20543,6,.@label$;
+	areamonster .@map$,142,121,157,106,"無名的商人",20539,5,.@label$;
+
+	//--zone2
+	areamonster .@map$,191,130,138,141,"雷根貝勒警備隊",20542,6,.@label$;
+	areamonster .@map$,191,130,138,141,"雷根貝勒科學家",20543,6,.@label$;
+	areamonster .@map$,191,130,138,141,"無名的服事",20538,5,.@label$;
+	areamonster .@map$,191,130,138,141,"無名的商人",20539,5,.@label$;
+	areamonster .@map$,191,130,138,141,"無名的劍士",20537,5,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob6,'Mr_mob6-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob6){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob6+"隻",bc_map,"0xFFFF00";
+	}else{
+
+		mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol1"),159,298;
+		donpcevent instance_npcname("#Gol_Main6")+"::OnEnable";
+	}
+	end;
+}
+
+1@gol1,185,136,0	script	陷阱#trap	3142,9,9,{
+	end;
+OnTouch:
+	set .@GID, getnpcid(0, strnpcinfo(3));
+	unitskilluseid .@GID, 653, 1;
+	disablenpc instance_npcname("陷阱#trap");
+	hideonnpc instance_npcname("陷阱#trap");
+	end;
+}
+//==================第7部分===========
+1@gol1,170,305,3	script	賽拉#ghinstance9	982,{
+	end;
+OnEnd:
+	npctalk "我這就帶你們前往實驗室的內部房間。";
+	mapwarp instance_mapname("1@gol1"),instance_mapname("1@gol2"),49,18;
+	end;
+
+}
+
+//============================================================
+1@gol1,172,206,4	script	#Gol_Main6	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Gol_Main6");
+	donpcevent instance_npcname("#Gol_Main6")+"::OnStart";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol1");
+	set .@label$, instance_npcname("#Gol_Main6")+"::OnKillMob";
+	
+	set 'Mr_mob7,19;
+	areamonster .@map$,147,309,152,304,"雷根貝勒警備隊",20542,6,.@label$;
+	
+	areamonster .@map$,148,299,153,294,"雷根貝勒警備隊長",20541,4,.@label$;
+	areamonster .@map$,148,299,153,294,"無名的服事",20538,4,.@label$;
+	
+	areamonster .@map$,167,305,173,298,"無名的劍士",20537,5,.@label$;
+	end;
+	
+OnKillMob:
+	set 'Mr_mob7,'Mr_mob7-1;
+	set .@map$, instance_mapname("1@gol1");
+	if('Mr_mob7){
+		//mapannounce .@map$,"衛兵剩餘"+'Mr_mob7+"隻",bc_map,"0xFFFF00";
+	}else{
+
+		donpcevent instance_npcname("賽拉#ghinstance9")+"::OnEnd";
+	}
+	end;
+}
+//===================================================
+//======================BOSS=========================
+//===================================================
+//左下
+1@gol2,48,60,4	script	#w010	4_NFWISP,4,4,{
+end;
+}
+1@gol2,48,58,4	duplicate(#w010)	#w014	4_NFWISP,4,4
+1@gol2,48,56,4	duplicate(#w010)	#w018	4_NFWISP,4,4
+1@gol2,48,54,4	duplicate(#w010)	#w022	4_NFWISP,4,4
+1@gol2,47,53,4	duplicate(#w010)	#w026	4_NFWISP,4,4
+1@gol2,45,53,4	duplicate(#w010)	#w030	4_NFWISP,4,4
+1@gol2,43,53,4	duplicate(#w010)	#w034	4_NFWISP,4,4
+1@gol2,41,53,4	duplicate(#w010)	#w038	4_NFWISP,4,4
+1@gol2,41,55,4	duplicate(#w010)	#w042	4_NFWISP,4,4
+1@gol2,41,57,4	duplicate(#w010)	#w046	4_NFWISP,4,4
+1@gol2,41,59,4	duplicate(#w010)	#w050	4_NFWISP,4,4
+1@gol2,42,60,4	duplicate(#w010)	#w054	4_NFWISP,4,4
+1@gol2,44,60,4	duplicate(#w010)	#w058	4_NFWISP,4,4
+1@gol2,46,60,4	duplicate(#w010)	#w062	4_NFWISP,4,4
+//左上
+1@gol2,48,65,4	duplicate(#w010)	#w011	4_NFWISP,4,4
+1@gol2,48,67,4	duplicate(#w010)	#w015	4_NFWISP,4,4
+1@gol2,48,69,4	duplicate(#w010)	#w019	4_NFWISP,4,4
+1@gol2,48,71,4	duplicate(#w010)	#w023	4_NFWISP,4,4
+1@gol2,47,72,4	duplicate(#w010)	#w027	4_NFWISP,4,4
+1@gol2,45,72,4	duplicate(#w010)	#w031	4_NFWISP,4,4
+1@gol2,43,72,4	duplicate(#w010)	#w035	4_NFWISP,4,4
+1@gol2,41,72,4	duplicate(#w010)	#w039	4_NFWISP,4,4
+1@gol2,41,70,4	duplicate(#w010)	#w043	4_NFWISP,4,4
+1@gol2,41,68,4	duplicate(#w010)	#w047	4_NFWISP,4,4
+1@gol2,41,66,4	duplicate(#w010)	#w051	4_NFWISP,4,4
+1@gol2,42,65,4	duplicate(#w010)	#w055	4_NFWISP,4,4
+1@gol2,44,65,4	duplicate(#w010)	#w059	4_NFWISP,4,4
+1@gol2,46,65,4	duplicate(#w010)	#w063	4_NFWISP,4,4
+//右下
+1@gol2,52,60,4	duplicate(#w010)	#w012	4_NFWISP,4,4
+1@gol2,52,58,4	duplicate(#w010)	#w016	4_NFWISP,4,4
+1@gol2,52,56,4	duplicate(#w010)	#w020	4_NFWISP,4,4
+1@gol2,52,54,4	duplicate(#w010)	#w024	4_NFWISP,4,4
+1@gol2,53,53,4	duplicate(#w010)	#w028	4_NFWISP,4,4
+1@gol2,55,53,4	duplicate(#w010)	#w032	4_NFWISP,4,4
+1@gol2,57,53,4	duplicate(#w010)	#w036	4_NFWISP,4,4
+1@gol2,59,53,4	duplicate(#w010)	#w040	4_NFWISP,4,4
+1@gol2,59,55,4	duplicate(#w010)	#w044	4_NFWISP,4,4
+1@gol2,59,57,4	duplicate(#w010)	#w048	4_NFWISP,4,4
+1@gol2,59,59,4	duplicate(#w010)	#w052	4_NFWISP,4,4
+1@gol2,58,60,4	duplicate(#w010)	#w056	4_NFWISP,4,4
+1@gol2,56,60,4	duplicate(#w010)	#w060	4_NFWISP,4,4
+1@gol2,54,60,4	duplicate(#w010)	#w064	4_NFWISP,4,4
+//右上
+1@gol2,52,65,4	duplicate(#w010)	#w013	4_NFWISP,4,4
+1@gol2,52,67,4	duplicate(#w010)	#w017	4_NFWISP,4,4
+1@gol2,52,69,4	duplicate(#w010)	#w021	4_NFWISP,4,4
+1@gol2,52,71,4	duplicate(#w010)	#w025	4_NFWISP,4,4
+1@gol2,53,72,4	duplicate(#w010)	#w029	4_NFWISP,4,4
+1@gol2,55,72,4	duplicate(#w010)	#w033	4_NFWISP,4,4
+1@gol2,57,72,4	duplicate(#w010)	#w037	4_NFWISP,4,4
+1@gol2,59,72,4	duplicate(#w010)	#w041	4_NFWISP,4,4
+1@gol2,59,70,4	duplicate(#w010)	#w045	4_NFWISP,4,4
+1@gol2,59,68,4	duplicate(#w010)	#w049	4_NFWISP,4,4
+1@gol2,59,66,4	duplicate(#w010)	#w053	4_NFWISP,4,4
+1@gol2,58,65,4	duplicate(#w010)	#w057	4_NFWISP,4,4
+1@gol2,56,65,4	duplicate(#w010)	#w061	4_NFWISP,4,4
+1@gol2,54,65,4	duplicate(#w010)	#w065	4_NFWISP,4,4
+//------------路障NPC END---------
+1@gol2,51,44,4	script	#tr034	4_BRICKPILE,4,4,{
+end;
+}
+
+1@gol2,49,18,0	script	#wall01	-1,2,2,{
+	end;
+OnTouch:
+	hideonnpc instance_npcname("#tr034");
+	hideonnpc instance_npcname("寶箱#ghinstanceBEND");
+	disablenpc instance_npcname("#wall01");
+		for ( .@i = 10; .@i <= 65; .@i++ ) {
+		hideonnpc instance_npcname("#w0" + .@i);
+		}
+	end;
+}
+
+
+
+1@gol2,50,26,3	script	賽拉#ghinstanceB1	982,{
+	mes "[賽拉]";
+	mes "前面的實驗室房就是當初他們與實驗體的最後戰鬥場所。";
+	npctalk "賽拉：前面的實驗室房就是當初他們與實驗體的最後戰鬥場所。";
+	cutin "3rd_gn_demi01",2;
+	next;
+	mes "[賽拉]";
+	mes "準備好了就請沿著走廊朝12點方向上去吧。";
+	npctalk "賽拉：準備好了就請沿著走廊朝12點方向上去吧。";
+	cutin "3rd_gn_demi01",255;
+	close2;
+	hideonnpc instance_npcname("賽拉#ghinstanceB1");
+	end;
+}
+1@gol2,52,65,3	script	賽拉#ghinstanceB2	982,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		mes "[賽拉]";
+		mes "這裡就是最後的實驗室了，保羅協夫在這裡對這些非正式派遣隊的成員做了各種試驗。";
+		npctalk "賽拉：這裡就是最後的實驗室了，保羅協夫在這裡對這些非正式派遣隊的成員做了各種試驗。";
+		cutin "3rd_gn_demi01",2;
+		next;
+		mes "[賽拉]";
+		mes "在這之前的1號試驗樣本是最強大的，唯有與他交手我才能獲得數據報告。";
+		npctalk "在這之前的1號試驗樣本是最強大的，唯有與他交手我才能獲得數據報告。";
+		next;
+		mes "[賽拉]";
+		mes "你們準備好要與她戰鬥了嗎？她是非常強大的思念體，請務必小心應戰。";
+		npctalk "你們準備好要與她戰鬥了嗎？她是非常強大的思念體，請務必小心應戰。";
+		next;
+			if(select("準備好了:等等")==1) {
+			set .@map$, instance_mapname("1@gol2");
+			setcell .@map$,50,44,53,44,cell_walkable,0;
+			hideoffnpc instance_npcname("#tr034");
+			hideonnpc instance_npcname("賽拉#ghinstanceB2");
+			mapwarp instance_mapname("1@gol2"),instance_mapname("1@gol2"),50,64;
+			donpcevent instance_npcname("#Dc_BOSS")+"::OnEnable";
+			
+		}
+		cutin "3rd_gn_demi01",255;
+		end;
+	}else{
+		mes "[賽拉]";
+		mes "麻煩請隊長來找我。";
+	}
+	close;
+}
+1@gol2,2,3,4	script	#Dc_BOSS	-1,{
+
+OnEnable:
+	enablenpc instance_npcname("#Dc_BOSS");
+	donpcevent instance_npcname("#Dc_BOSS")+"::OnStart";
+	donpcevent instance_npcname("#RandomEvent")+"::OnEnable";
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol2");
+	set .@label$, instance_npcname("#Dc_BOSS")+"::OnKillMob";
+	monster .@map$,49,62,"強大的無名劍士",20536,1,.@label$;
+	end;
+	
+OnKillMob:
+	hideoffnpc instance_npcname("寶箱#ghinstanceBEND");
+	donpcevent instance_npcname("#RandomEvent")+"::Onstoptime";
+	donpcevent instance_npcname("#Dc_BOSS_ZONE")+"::Onstoptime";
+	donpcevent instance_npcname("#Dc_BOSS")+"::Onclear";
+	end;
+	
+OnEND:
+	initnpctimer;
+	end;
+
+//圈圈跑完後等待8秒統一傳送至中間
+Onclear:
+	//右下
+	setarray .@walkable1[0], 52,60,59,60,59,53,52,53,52,60;
+	//左下
+	setarray .@walkable2[0], 48,53,41,53,41,60,48,60,48,53;
+	//左上
+	setarray .@walkable3[0], 48,65,41,65,41,72,48,72,48,65;
+	//右上
+	setarray .@walkable4[0], 52,72,59,72,59,65,52,65,52,72;
+	set .@map$, instance_mapname("1@gol2");
+		for ( .@i = 0; .@i <= 6; .@i=.@i+2 ) {
+			setcell .@map$,.@walkable1[.@i],.@walkable1[.@i+1],.@walkable1[.@i+2],.@walkable1[.@i+3],cell_walkable,1;
+			setcell .@map$,.@walkable2[.@i],.@walkable2[.@i+1],.@walkable2[.@i+2],.@walkable2[.@i+3],cell_walkable,1;
+			setcell .@map$,.@walkable3[.@i],.@walkable3[.@i+1],.@walkable3[.@i+2],.@walkable3[.@i+3],cell_walkable,1;
+			setcell .@map$,.@walkable4[.@i],.@walkable4[.@i+1],.@walkable4[.@i+2],.@walkable4[.@i+3],cell_walkable,1;
+		}
+		for ( .@i = 10; .@i <= 65; .@i++ ) {
+			hideonnpc instance_npcname("#w0" + .@i);
+		}
+	if('callmob==1){
+		for ( .@i = 0; .@i <= 3; .@i++ ) {
+			if('Zone_Mob_kill[.@i] == 0){
+				set 'systemkillmob,1;
+				unitkill 'gid[.@i];
+				}
+		}
+	}
+	stopnpctimer;
+	end;
+//圈圈跑完叫出怪物後等待8秒傳送至中間
+OnTimer8000:
+	donpcevent instance_npcname("#Dc_BOSS")+"::Oncheckhp";
+	donpcevent instance_npcname("#Dc_BOSS")+"::Onclear";
+	donpcevent instance_npcname("#RandomEvent")+"::OnEnable";
+	end;
+
+Oncheckhp:
+		addrid(4,0,1,1,90,90);
+		warp instance_mapname("1@gol2"),50,64;
+		if ( Hp >= 1 ) {
+			percentheal 'killmobhp,0;
+		}
+		else{
+		}
+		if ( Hp == 1 ) {
+			percentheal -100,0;
+		}
+		
+	end;
+
+
+}
+
+
+
+1@gol2,2,2,4	script	#RandomEvent	-1,{
+
+OnEnable:
+	set 'RandomEvent,1000;//設定召喚圈圈機率每一秒隨機減0~200直到0為止
+	set 'callmob,0;
+	enablenpc instance_npcname("#RandomEvent");
+	initnpctimer;
+	end;
+
+Onstoptime:
+	stopnpctimer;
+	end;
+
+OnTimer1000:
+	if ('RandomEvent <= 0){
+		stopnpctimer;
+		donpcevent instance_npcname("#Dc_BOSS_ZONE")+"::OnEnable";
+		end;
+	}
+	set .@rand, rand(200);
+	set 'RandomEvent,'RandomEvent - .@rand;
+	initnpctimer;
+	end;
+
+}
+
+
+1@gol2,2,2,4	script	#Dc_BOSS_ZONE	-1,{
+function BOSSWALL;
+
+Onstoptime:
+	stopnpctimer;
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("#Dc_BOSS_ZONE");
+	set 'ZONE,0;
+	initnpctimer;
+	end;
+
+OnStart:
+	set .@map$,instance_mapname("1@gol2");
+	setarray .@Dc_Mob_ID[0], 20541, 20542, 20543, 20539, 20538,20537;
+	setarray 'Zone_Mob_kill[0], 0, 0, 0, 0;//右下,左下,左上,右上
+	setarray 'gid[0], 0, 0, 0, 0;
+	set 'systemkillmob,0;
+	set 'killmobhp,-100;//如每有殘留一個小區域怪物則全體-25%HP(4個-100%)
+	
+	set  'gid[0], bg_monster(0,.@map$,56,56,"--ja--",.@Dc_Mob_ID[rand(6)],instance_npcname("#Dc_BOSS_ZONE")+"::OnKillMob1");
+	set  'gid[1], bg_monster(0,.@map$,45,56,"--ja--",.@Dc_Mob_ID[rand(6)],instance_npcname("#Dc_BOSS_ZONE")+"::OnKillMob2");
+	set  'gid[2], bg_monster(0,.@map$,45,69,"--ja--",.@Dc_Mob_ID[rand(6)],instance_npcname("#Dc_BOSS_ZONE")+"::OnKillMob3");
+	set  'gid[3], bg_monster(0,.@map$,56,69,"--ja--",.@Dc_Mob_ID[rand(6)],instance_npcname("#Dc_BOSS_ZONE")+"::OnKillMob4");
+	set 'callmob,1;
+	//右下
+	setarray .@walkable1[0], 52,60,59,60,59,53,52,53,52,60;
+	//左下
+	setarray .@walkable2[0], 48,53,41,53,41,60,48,60,48,53;
+	//左上
+	setarray .@walkable3[0], 48,65,41,65,41,72,48,72,48,65;
+	//右上
+	setarray .@walkable4[0], 52,72,59,72,59,65,52,65,52,72;
+		for ( .@i = 0; .@i <= 6; .@i=.@i+2 ) {
+			setcell .@map$,.@walkable1[.@i],.@walkable1[.@i+1],.@walkable1[.@i+2],.@walkable1[.@i+3],cell_walkable,0;
+			setcell .@map$,.@walkable2[.@i],.@walkable2[.@i+1],.@walkable2[.@i+2],.@walkable2[.@i+3],cell_walkable,0;
+			setcell .@map$,.@walkable3[.@i],.@walkable3[.@i+1],.@walkable3[.@i+2],.@walkable3[.@i+3],cell_walkable,0;
+			setcell .@map$,.@walkable4[.@i],.@walkable4[.@i+1],.@walkable4[.@i+2],.@walkable4[.@i+3],cell_walkable,0;
+		}
+	setcell .@map$,52,60,59,53,CELL_SHOOTABLE,0;
+	setcell .@map$,41,60,48,53,CELL_SHOOTABLE,0;
+	setcell .@map$,41,72,48,65,CELL_SHOOTABLE,0;
+	setcell .@map$,52,65,59,72,CELL_SHOOTABLE,0;
+	
+	end;
+	
+
+
+
+OnKillMob1:
+		if('systemkillmob != 1)
+		{
+		set 'killmobhp,'killmobhp+25;
+		set 'Zone_Mob_kill[0],1;
+		}
+	end;
+
+OnKillMob2:
+		if('systemkillmob != 1)
+		{
+		set 'killmobhp,'killmobhp+25;
+		set 'Zone_Mob_kill[1],1;
+		}
+	end;
+
+OnKillMob3:
+		if('systemkillmob != 1)
+		{
+		set 'killmobhp,'killmobhp+25;
+		set 'Zone_Mob_kill[2],1;
+		}
+	end;
+
+OnKillMob4:
+		if('systemkillmob != 1)
+		{
+		set 'killmobhp,'killmobhp+25;
+		set 'Zone_Mob_kill[3],1;
+		}
+	end;
+	
+OnTimer0500:
+	if('ZONE==14){
+		stopnpctimer;
+		donpcevent instance_npcname("#Dc_BOSS_ZONE")+"::OnStart";//呼叫怪物
+		donpcevent instance_npcname("#Dc_BOSS")+"::OnEND";
+		end;
+	}
+	setarray .@a[0], 10,14,18,22,26,30,34,38,42,46,50,54,58,62;
+	setarray .@b[0], 13,17,21,25,29,33,37,41,45,49,53,57,61,65;
+	BOSSWALL(.@a['ZONE],.@b['ZONE]);
+	set 'ZONE,'ZONE + 1;
+	initnpctimer;
+	end;
+	
+	
+function BOSSWALL {
+	for ( .@i = getarg(0); .@i <= getarg(1); .@i++ ) {
+		hideoffnpc instance_npcname("#w0" + .@i);
+		specialeffect EF_SUMMONSLAVE, AREA, instance_npcname("#w0" + .@i);
+	}
+}
+}
+
+
+1@gol2,50,64,5	script	寶箱#ghinstanceBEND	10005,{
+	getmapxy(.@m$,'passx,'passy,BL_NPC,instance_npcname(strnpcinfo(0)));
+	setarray .@waepon[0],21051,21052,32023,32350,32024,32025,1333,16092,28138,32351,16093,16094,28765,28766,28044,28042,28767,28768,18184,26158,2055,2056,28633,26159,26160,26161,2057,16095,1865,1866,16096,18185,18186,18187,18188,32107,32108,26212,26213;
+	makeitem .@waepon[rand(38)],1,.@m$,'passx+rand(-2,2),'passy+rand(-2,2),2048;
+	'ClearInatance = 1;
+	hideonnpc instance_npcname("寶箱#ghinstanceBEND");
+	donpcevent instance_npcname("副本寶箱#1@gol2")+"::OnEnable";
+	end;
+}
+
+// 寶箱
+
+1@gol2,49,61,0	script	副本寶箱#1@gol2	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 930000,5;
+	getitem 6909,5;
+	getitem 940036,10;
+	getitem 25786,50; // 卷宗
+	getitem 25787,30;  // 零件
+	Instance_PassAnnounce;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

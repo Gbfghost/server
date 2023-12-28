@@ -1,0 +1,80 @@
+//===== rAthena Script =======================================
+//===== Giraffe 模擬器 - 文檔 ====================
+
+
+//
+//更高階版本------歡迎洽詢
+//*************************************************
+////==============================================
+
+uttycty	mapflag	nightenabled
+uttycty	mapflag	nobranch
+uttycty	mapflag	noicewall
+uttycty	mapflag	nopenalty
+uttycty	mapflag	pvp	off
+uttycty	mapflag	reset
+uttycty	mapflag	restricted	6
+uttycty	mapflag	town
+uttycty	mapflag	privateairship_source
+uttycty	mapflag	privateairship_destination
+
+amatsu	mapflag	nightenabled
+amatsu	mapflag	nobranch
+amatsu	mapflag	noicewall
+amatsu	mapflag	nopenalty
+amatsu	mapflag	pvp	off
+amatsu	mapflag	reset
+amatsu	mapflag	restricted	6
+amatsu	mapflag	town
+amatsu	mapflag	privateairship_source
+amatsu	mapflag	privateairship_destination
+
+
+-	script	City_Speed_Script	-1,{
+	end;
+	
+OnPCLoginEvent:
+.@map$ = strcharinfo(3);
+//上線自動撿取卡片
+atcommand "@autoloottype +"+6;
+end;
+OnPCEnterMapExpress:
+
+	if (strcharinfo(3) == "uttycty" || strcharinfo(3) == "amatsu") 
+	{
+		sc_start SC_CITY_SPEED,360000000,1;
+		percentheal 100,100;
+		sc_start SC_BLESSING,600000,10;
+		sc_start SC_INCREASEAGI,600000,10;
+	}
+	//剛登入並且在主城
+	if (@frommap_id == 0 && @tomap_name$ == "uttycty" || @tomap_name$ == "amatsu")
+	{
+		sc_start SC_CITY_SPEED,360000000,1;
+		percentheal 100,100;
+		sc_start SC_BLESSING,600000,10;
+		sc_start SC_INCREASEAGI,600000,10;
+		end;
+	}
+
+	//回到主城&&副本區
+	if (@tomap_name$ == "uttycty" || @tomap_name$ == "amatsu")
+	{
+		sc_start SC_CITY_SPEED,360000000,1;
+		percentheal 100,100;
+		sc_start SC_BLESSING,600000,10;
+		sc_start SC_INCREASEAGI,600000,10;
+		end;
+	}
+	
+	//如果不是預設加速地圖 - 強制刪除狀態
+	if (@tomap_name$ != "uttycty" || @tomap_name$ != "amatsu")
+	{
+		sc_end SC_CITY_SPEED;
+		sc_end SC_BLESSING;
+		sc_end SC_INCREASEAGI;
+		end;
+	}
+	
+end;
+}

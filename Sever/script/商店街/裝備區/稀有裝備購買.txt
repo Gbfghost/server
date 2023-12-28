@@ -1,0 +1,1333 @@
+uttycty,118,150,4	script	稀有裝備鎧甲	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備鎧甲";
+	waitingroom "★ 稀有鎧甲 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(480136,.@p,-1);	//席琳衣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(15137,.@p,-1);	//泰甲
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(450179,.@p,-1);	//基米衣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480136,.@p,-1);	//席琳衣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(15374,.@p,-1);	//月袍
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480136,.@p,-1);	//席琳衣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(450175,.@p,-1);	//布林喜德
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2383,.@p,-1);	//超越甲
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(15278,.@c,-1);	//時光力甲
+    endsellitem(); 
+	sellitem(15279,.@c,-1);	//時光智慧甲
+    endsellitem(); 
+	sellitem(15347,.@c,-1);	//時光體力甲
+    endsellitem(); 
+	sellitem(15354,.@c,-1);	//時光靈巧甲
+    endsellitem(); 
+	sellitem(15353,.@c,-1);	//時光敏捷甲
+    endsellitem(); 
+	sellitem(15346,.@c,-1);	//時光幸運甲
+    endsellitem(); 
+OnBuyItem:
+end;
+}
+
+uttycty,123,150,4	script	稀有裝備鞋子	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備鞋子";
+	waitingroom "★ 稀有鞋子 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(22202,.@p,-1);	//超越靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470095,.@p,-1);	//滅世靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470129,.@p,-1);	//墮落靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470177,.@p,-1);	//虛空陰暗長靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470187,.@p,-1);	//猛獸靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470098,.@p,-1);	//翡翠靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470120,.@p,-1);	//鋁合金靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470127,.@p,-1);	//深紅魔力之靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(22222,.@p,-1);	//審判決議長靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470029,.@p,-1);	//歐羅萊昂廚靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(22071,.@p,-1);	//尼羅河鞋
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(22167,.@p,-1);	//阿斯靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470086,.@p,-1);	//守護精靈鞋
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470033,.@p,-1);	//四大元素魔靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2410,.@p,-1);	//史靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(22202,.@p,-1);	//超越靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem();  
+	sellitem(470247,.@p,-1);	//米德騎士戰靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(470122,.@p,-1);	//野獸皮靴
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+OnBuyItem:
+end;
+}
+
+uttycty,128,150,4	script	稀有裝備頭飾	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備頭飾";
+	waitingroom "★ 稀有頭飾 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(420106,.@p*5,-1);	//超越樹苗
+	sellitemcurrency(6909,.@meow*20);
+    endsellitem(); 
+	sellitem(5966,.@p,-1);	//柯耳
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19299,.@p,-1);	//神木嫩葉
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420199,.@p,-1);	//幽魅火球
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(5966,.@p,-1);	//柯耳
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19181,.@p,-1);	//新浪潮墨鏡
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(5966,.@p,-1);	//柯耳
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400440,.@p,-1);	//懺悔魔咒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400447,.@p,-1);	//懺悔勇氣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400457,.@p,-1);	//懺悔霸氣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400469,.@p,-1);	//懺悔精巧
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400474,.@p,-1);	//懺悔造物
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400482,.@p,-1);	//懺悔榮耀
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410254,.@p,-1);	//古代夢羅克貴族首飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420236,.@p,-1);	//魔王夢羅克忠誠僕人
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410254,.@p,-1);	//古代夢羅克貴族首飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400401,.@p,-1);	//天地樹的信仰
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410183,.@p,-1);	//聖光寶石庇佑髮飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410184,.@p,-1);	//撒旦寶石詛咒髮飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410254,.@p,-1);	//古代夢羅克貴族首飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410235,.@p,-1);	//輕便望遠鏡
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420194,.@p,-1);	//求生哨
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420065,.@p,-1);	//永恆波利氣球
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420087,.@p,-1);	//魔力星陣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19393,.@p,-1);	//魔力之星
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(410254,.@p,-1);	//古代孟羅克貴族首飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(420239,.@p,-1);	//冒險幸運草
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19138,.@p,-1);	//熾天使花冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19327,.@p,-1);	//熾天使羽毛
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19246,.@p,-1);	//衛士頸鍊
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(18823,.@p,-1);	//帝國髮飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(5918,.@p,-1);	//賭徒印
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(19306,.@p,-1);	//紅心王牌
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(28502,.@p,-1);	//暴徒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2202,.@c,-1);	//太陽眼鏡
+    endsellitem(); 
+	sellitem(400134,.@p,-1);	//塔諾斯近戰頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400134,.@p,-1);	//塔諾斯近戰頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400141,.@p,-1);	//塔諾斯遠程頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400134,.@p,-1);	//塔諾斯近戰頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400141,.@p,-1);	//塔諾斯魔法頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400150,.@p,-1);	//塔諾斯暴力頭盔
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400078,.@p,-1);	//活體牡羊研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400079,.@p,-1);	//活體天秤研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400094,.@p,-1);	//活體寶瓶研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400095,.@p,-1);	//活體水瓶研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400098,.@p,-1);	//活體金牛研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400099,.@p,-1);	//活體公牛研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400116,.@p,-1);	//活體處女研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400117,.@p,-1);	//活體天平研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400118,.@p,-1);	//活體巨蟹研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400119,.@p,-1);	//活體獅子研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400120,.@p,-1);	//活體魔羯研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400121,.@p,-1);	//活體雙子研究頭冠
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400178,.@p,-1);	//信仰之盔(咒術士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400179,.@p,-1);	//信仰之盔 II(咒術士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400180,.@p,-1);	//信仰之盔(修羅)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400181,.@p,-1);	//信仰之盔 II(修羅)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400189,.@p,-1);	//信仰之盔(大主教)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400190,.@p,-1);	//信仰之盔 II(大主教)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400191,.@p,-1);	//信仰之盔(魅影追蹤者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400192,.@p,-1);	//信仰之盔 II(魅影追蹤者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400198,.@p,-1);	//信仰之盔(遊俠)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400199,.@p,-1);	//信仰之盔 II(遊俠)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400200,.@p,-1);	//(皇家禁衛隊)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400201,.@p,-1);	//信仰之盔 II(皇家禁衛隊)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400216,.@p,-1);	//信仰之盔(十字斬首者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400217,.@p,-1);	//信仰之盔 II(十字斬首者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400218,.@p,-1);	//信仰之盔(妖術師)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400219,.@p,-1);	//信仰之盔 II(妖術師)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400226,.@p,-1);	//信仰之盔(盧恩騎士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400227,.@p,-1);	//信仰之盔 II(盧恩騎士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400228,.@p,-1);	//信仰之盔(宮廷樂師與冷豔舞者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400229,.@p,-1);	//信仰之盔 II(宮廷樂師與冷豔舞者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400230,.@p,-1);	//信仰之盔(機械工匠)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400231,.@p,-1);	//信仰之盔 II(機械工匠)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400233,.@p,-1);	//信仰之盔(基因學者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400234,.@p,-1);	//信仰之盔 II(基因學者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400235,.@p,-1);	//信仰之盔(影狼&朧)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400236,.@p,-1);	//信仰之盔 II(影狼&朧)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400237,.@p,-1);	//信仰之盔(叛亂者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400238,.@p,-1);	//信仰之盔 II(叛亂者)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400239,.@p,-1);	//信仰之盔(獵靈士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400240,.@p,-1);	//信仰之盔 II(獵靈士)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400241,.@p,-1);	//信仰之盔(拳皇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400242,.@p,-1);	//信仰之盔 II(拳皇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400178,.@p,-1);	//信仰之盔(召喚師)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400243,.@p,-1);	//信仰之盔 II(召喚師)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(400087,.@p,-1);	//潛能激發冒險帽
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	
+
+	sellitem(410213,.@c,-1);	//血腥之耳
+    endsellitem(); 
+	sellitem(410215,.@c,-1);	//怨靈之耳
+    endsellitem(); 
+	sellitem(410216,.@c,-1);	//深淵之耳
+    endsellitem();
+	sellitem(19437,.@c,-1);	//花園髮圈
+    endsellitem(); 
+	sellitem(410091,.@c,-1);	//柯爾核心推助器
+    endsellitem(); 
+	sellitem(410090,.@c,-1);	//愛情紅暈
+    endsellitem(); 
+	sellitem(410197,.@c,-1);	//約定紅暈
+    endsellitem(); 
+	sellitem(420064,.@c,-1);	//貴族手帕
+    endsellitem(); 
+	sellitem(400368,.@c,-1);	//RO二十周年限定帽
+    endsellitem(); 
+	sellitem(18652,.@c,-1);	//武神之盔
+    endsellitem(); 
+	sellitem(420003,.@c,-1);	//自動光碟
+    endsellitem(); 
+	sellitem(19101,.@c*2,-1);	//夢魘古城旁觀者
+    endsellitem(); 
+	sellitem(19111,.@c,-1);	//鷹之激光
+    endsellitem(); 
+	sellitem(420186,.@c,-1);	//20週年慶生氣球
+    endsellitem(); 
+	
+OnBuyItem:
+end;
+}
+
+uttycty,118,146,4	script	稀有裝備斗篷	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備斗篷";
+	waitingroom "★ 稀有斗篷 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(480088,.@p,-1);	//烏爾斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480088,.@p,-1);	//烏爾斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480136,.@p,-1);	//魔劍
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480149,.@p,-1);	//鬥氣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480153,.@p,-1);	//豔陽斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480154,.@p,-1);	//惡火斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480175,.@p,-1);	//莫測斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480149,.@p,-1);	//鬥氣
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480242,.@p,-1);	//風神斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480276,.@p,-1);	//曼妙自然之力斗篷
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480291,.@p,-1);	//英雄恩惠斗篷
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(450217,.@p,-1);	//皮里恩飛行
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480076,.@p,-1);	//超越斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20963,.@p,-1);	//力斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20964,.@p,-1);	//敏斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20965,.@p,-1);	//體斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20966,.@p,-1);	//智斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20967,.@p,-1);	//靈巧斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(20968,.@p,-1);	//幸運斗
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480269,.@p,-1);	//夜勝魔復仇斗篷
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480270,.@p,-1);	//夜勝魔意念斗篷
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(480174,.@p,-1);	//海盜之王外套
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2541,.@p,-1);	//阿斯富力咖
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2541,.@p,-1);	//阿斯富力咖
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	
+
+	sellitem(480124,.@c,-1);	//超高頻物理推進
+    endsellitem(); 
+	sellitem(480125,.@c,-1);	//超高頻魔法推進
+    endsellitem(); 
+	sellitem(480197,.@c,-1);	//超高頻強運推進
+    endsellitem(); 
+	sellitem(20736,.@c,-1);	//無敵斗
+    endsellitem(); 
+	sellitem(480278,.@c,-1);	//強運緞帶
+    endsellitem(); 
+	sellitem(480192,.@c,-1);	//2022勝利大衣
+    endsellitem(); 
+	sellitem(480192,.@c,-1);	//勝利大衣
+    endsellitem(); 
+	sellitem(480328,.@c,-1);	//2023ROS決戰spark斗篷
+    endsellitem(); 
+	
+end;
+}
+
+uttycty,123,146,4	script	稀有裝備飾品	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備飾品";
+	waitingroom "★ 稀有飾品 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(490030,.@p,-1);	//時光超越戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490097,.@p,-1);	//超越者手觸
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+
+	sellitem(490257,.@p,-1);	//妖力結晶指環
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490258,.@p,-1);	//時空結晶神偷耳環
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490259,.@p,-1);	//魔力禁咒戒指
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490262,.@p,-1);	//堅定信仰魔戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490263,.@p,-1);	//皇軍圖騰戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490284,.@p,-1);	//風鷹狙殺戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490260,.@p,-1);	//陳舊推車造型吊飾
+	sellitemcurrency(6909,.@meow);
+    endsellitem();
+	sellitem(490238,.@p,-1);	//超時空寶石刀刃鍊
+	sellitemcurrency(6909,.@meow);
+    endsellitem();
+
+	sellitem(490269,.@p,-1);	//樞機之光
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490211,.@p,-1);	//不和諧破音pick
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490281,.@p,-1);	//裝甲驅動齒輪
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+               
+	sellitem(490219,.@p,-1);	//雙頭龍紋指環 
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490208,.@p,-1);	//王城魔戒 
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490168,.@p,-1);	//風妖靈戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490472,.@p,-1);	//惡火煉獄戒
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(32243,.@p,-1);	//魔力星環
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490094,.@p,-1);	//思念體破壞因子研究錄(劍士篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(32288,.@p,-1);	//思念體破壞因子研究錄(服事篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(32285,.@p,-1);	//思念體破壞因子研究錄(法師篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(32287,.@p,-1);	//思念體破壞因子研究錄(盜賊篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(32286,.@p,-1);	//思念體破壞因子研究錄(商人篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490095,.@p,-1);	//思念體破壞因子研究錄(弓箭手篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(490173,.@p,-1);	//思念體忿恨因子研究錄(劍士篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem();          
+	sellitem(490192,.@p,-1);	//思念體忿恨因子研究錄(服事篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem();          
+	sellitem(490170,.@p,-1);	//思念體忿恨因子研究錄(法師篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem();          
+	sellitem(490191,.@p,-1);	//思念體忿恨因子研究錄(盜賊篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem();          
+	sellitem(490175,.@p,-1);	//思念體忿恨因子研究錄(商人篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem();          
+	sellitem(490198,.@p,-1);	//思念體忿恨因子研究錄(弓箭手篇)
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+
+end;
+}
+
+uttycty,128,146,4	script	稀有裝備盾牌	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備盾牌";
+	waitingroom "★ 稀有盾牌 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(460027,.@p,-1);	//泰坦神盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2193,.@p,-1);	//墮落天使神盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(460003,.@p,-1);	//聖之羽翼神盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2198,.@p,-1);	//守護精靈神盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 		
+	sellitem(460038,.@p,-1);	//貴族天秤之盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(28902,.@p,-1);	//兔寶寶
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(2181,.@p,-1);	//海爾伯樂神盾
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	sellitem(460030,.@p,-1);	//仿生鋁合金花盆
+	sellitemcurrency(6909,.@meow);
+    endsellitem(); 
+	
+	sellitem(28901,.@c,-1);	//被詛咒兔寶寶
+    endsellitem(); 
+
+end;
+}
+
+uttycty,133,146,4	script	稀有裝備卡片	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備卡片";
+	waitingroom "★ 稀有卡片 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(27396,.@c,-1);	//愛子卡
+    endsellitem(); 
+	sellitem(27196,.@c,-1);	//尼西卡
+    endsellitem(); 
+	sellitem(27199,.@c,-1);	//史皮卡 卡
+    endsellitem(); 
+	sellitem(27333,.@c,-1);	//斯基亞卡
+    endsellitem(); 
+	sellitem(27197,.@c,-1);	//艾格尼絲卡
+    endsellitem(); 
+	sellitem(27198,.@c,-1);	//尤爾根卡
+    endsellitem(); 
+	sellitem(27331,.@c,-1);	//克羅內克卡
+    endsellitem();
+	sellitem(300128,.@c,-1);	//包孚卡
+    endsellitem();
+	sellitem(27394,.@c,-1);	//凱特琳卡
+    endsellitem();
+	sellitem(300308,.@c,-1);	//瑪依而卡
+    endsellitem();
+	sellitem(300310,.@c,-1);	//海茉特卡
+    endsellitem();
+	sellitem(300422,.@c,-1);	//凱瑟琳卡
+    endsellitem();
+	sellitem(300424,.@c,-1);	//弗里德里希卡
+    endsellitem();
+	sellitem(300426,.@c,-1);	//克魯斯卡
+    endsellitem();
+	
+end;
+}
+
+uttycty,133,141,4	script	稀有裝備改卡	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有裝備改卡";
+	waitingroom "★ 王卡改卡 ★",0;
+	.@p = 300000000;
+	.@c = 10000000; // 便宜貨
+	.@h = 15; //高級指定原卡需求數量
+	.@m = 10; //中級指定原卡需求數量
+	.@l = 5; //初級指定原卡需求數量
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(900001,.@p,-1);	//闇●盧恩騎士 賽依連卡片-改
+	sellitemcurrency(4679,.@h);
+    endsellitem(); 
+	sellitem(900002,.@p,-1);	//闇●皇家禁衛隊 蘭達卡片-改
+	sellitemcurrency(4680,.@h);
+    endsellitem(); 
+	sellitem(900003,.@p,-1);	//闇●機械工匠 哈沃得卡片-改
+	sellitemcurrency(4677,.@h);
+    endsellitem(); 
+	sellitem(900004,.@p,-1);	//闇●基因學者 普拉梅姆卡片-改
+	sellitemcurrency(4681,.@h);
+    endsellitem(); 
+	sellitem(900005,.@p,-1);	//闇●十字斬首者 艾勒梅斯卡片-改
+	sellitemcurrency(4674,.@h);
+    endsellitem(); 
+	sellitem(900006,.@p,-1);	//闇●魅影追蹤者 科迪卡片-改
+	sellitemcurrency(4682,.@h);
+    endsellitem(); 
+	sellitem(900007,.@p,-1);	//闇●大主教 瑪嘉雷特卡片-改
+	sellitemcurrency(4675,.@h);
+    endsellitem(); 
+	sellitem(900008,.@p,-1);	//闇●修羅 陳理歐卡片-改
+	sellitemcurrency(4672,.@h);
+    endsellitem(); 
+	sellitem(900009,.@p,-1);	//闇●咒術士 凱特莉娜卡片-改
+	sellitemcurrency(4678,.@h);
+    endsellitem(); 
+	sellitem(900010,.@p,-1);	//闇●妖術師 西里亞卡片-改
+	sellitemcurrency(4671,.@h);
+    endsellitem(); 
+	sellitem(900011,.@p,-1);	//闇●浪姬舞者 特蘭提尼卡片-改
+	sellitemcurrency(4683,.@h);
+    endsellitem(); 
+	sellitem(900012,.@p,-1);	//闇●宮廷樂師 雅歐帕奇爾卡片-改
+	sellitemcurrency(4673,.@h);
+    endsellitem(); 
+	sellitem(900013,.@p,-1);	//闇●遊俠 迪文卡片-改
+	sellitemcurrency(4676,.@h);
+    endsellitem(); 
+	sellitem(900014,.@p,-1);	//闇●騎士領主 賽依連卡片-改
+	sellitemcurrency(4357,.@h);
+    endsellitem(); 
+	sellitem(900015,.@p,-1);	//闇●十字軍 蘭達卡片-改
+	sellitemcurrency(4565,.@h*5);
+    endsellitem(); 
+	sellitem(900016,.@p,-1);	//闇●十字刺客 艾勒梅斯卡片-改
+	sellitemcurrency(4359,.@h);
+    endsellitem(); 
+	sellitem(900017,.@p,-1);	//闇●神行太保 科迪卡片-改
+	sellitemcurrency(4564,.@h);
+    endsellitem(); 
+	sellitem(900018,.@p,-1);	//闇●神工匠 哈沃得卡片-改
+	sellitemcurrency(4563,.@h);
+    endsellitem(); 
+	sellitem(900019,.@p,-1);	//闇闇●創造者 普拉梅姆卡片-改
+	sellitemcurrency(4679,.@h);
+    endsellitem(); 
+	sellitem(900020,.@p,-1);	//闇●神官 瑪嘉雷特卡片-改
+	sellitemcurrency(4363,.@h*2);
+    endsellitem(); 
+	sellitem(900021,.@p,-1);	//闇●武術宗師 陳理歐卡片-改
+	sellitemcurrency(4562,.@h);
+    endsellitem(); 
+	sellitem(900022,.@p,-1);	//闇●超魔導師 凱特莉娜卡片-改
+	sellitemcurrency(4365,.@h);
+    endsellitem(); 
+	sellitem(900023,.@p,-1);	//闇●智者 西里亞卡片-改
+	sellitemcurrency(4367,.@h);
+    endsellitem(); 
+	sellitem(900024,.@p,-1);	//闇●神射手 迪文卡片-改
+	sellitemcurrency(4679,.@h);
+    endsellitem(); 
+	sellitem(900025,.@p,-1);	//闇●搞笑藝人 雅歐帕奇爾卡片-改
+	sellitemcurrency(4560,.@l);
+    endsellitem(); 
+	sellitem(900026,.@p,-1);	//闇●冷豔舞姬 特蘭提尼卡片-改
+	sellitemcurrency(4566,.@l);
+    endsellitem(); 
+	sellitem(900027,.@p,-1);	//闇●劍士 賽尼亞卡片-改
+	sellitemcurrency(4352,.@l);
+    endsellitem(); 
+
+	sellitem(900028,.@p,-1);	//巴風特卡片-改
+	sellitemcurrency(4147,.@h);
+    endsellitem(); 
+	sellitem(900029,.@p,-1);	//死靈卡片-改
+	sellitemcurrency(4142,.@h);
+    endsellitem(); 
+	sellitem(900030,.@p,-1);	//黑暗之王卡片-改
+	sellitemcurrency(4168,.@h);
+    endsellitem(); 
+	sellitem(900031,.@p,-1);	//俄塞里斯卡片-改
+	sellitemcurrency(4144,.@h*5);
+    endsellitem(); 
+	sellitem(900032,.@p,-1);	//蜂后卡片-改
+	sellitemcurrency(4132,.@h);
+    endsellitem(); 
+	sellitem(900033,.@p,-1);	//黃金蟲卡片-改
+	sellitemcurrency(4128,.@h);
+    endsellitem(); 
+	sellitem(900034,.@p,-1);	//獸人英雄卡片-改
+	sellitemcurrency(4143,.@h);
+    endsellitem(); 
+	sellitem(900035,.@p,-1);	//海盜之王卡片-改
+	sellitemcurrency(4137,.@h);
+    endsellitem(); 
+	sellitem(900036,.@p,-1);	//虎王卡片-改 /
+	sellitemcurrency(4123,.@h);
+    endsellitem(); 
+	sellitem(900037,.@p,-1);	//蟻后卡片-改
+	sellitemcurrency(4146,.@h);
+    endsellitem(); 
+	sellitem(900038,.@p,-1);	//月夜貓卡片-改
+	sellitemcurrency(4131,.@h);
+    endsellitem(); 
+	sellitem(900039,.@p,-1);	//法老王卡片-改
+	sellitemcurrency(4148,.@h);
+    endsellitem(); 
+	sellitem(900040,.@p,-1);	//皮里恩卡片-改
+	sellitemcurrency(4121,.@h);
+    endsellitem(); 
+	sellitem(900041,.@p,-1);	//伊夫利特卡片-改
+	sellitemcurrency(4430,.@h);
+    endsellitem(); 
+	sellitem(900042,.@p,-1);	//元靈武士卡片-改
+	sellitemcurrency(4263,.@h);
+    endsellitem(); 
+	sellitem(900043,.@p,-1);	//光芒泰迪熊卡片-改
+	sellitemcurrency(27287,.@h);
+    endsellitem(); 
+	sellitem(900044,.@p,-1);	//冰暴騎士卡片-改
+	sellitemcurrency(4318,.@h);
+    endsellitem(); 
+	sellitem(900045,.@p,-1);	//劇毒凱美拉卡片-改
+	sellitemcurrency(27150,.@h);
+    endsellitem(); 
+	sellitem(900046,.@p,-1);	//卡崙卡片-改
+	sellitemcurrency(4324,.@h);
+    endsellitem(); 
+	sellitem(900047,.@p,-1);	//古代塔奧群卡卡片-改
+	sellitemcurrency(27294,.@h);
+    endsellitem(); 
+	sellitem(900048,.@p,-1);	//古埃及王卡片-改
+	sellitemcurrency(4236,.@h);
+    endsellitem(); 
+	sellitem(900049,.@p,-1);	//滅絕古埃及王卡卡片-改
+	sellitemcurrency(4652,.@h);
+    endsellitem(); 
+	sellitem(900050,.@p,-1);	//喬伊亞卡片-改
+	sellitemcurrency(4576,.@h);
+    endsellitem(); 
+	sellitem(900051,.@p,-1);	//嗒妮小姐卡片-改 x
+	sellitemcurrency(4376,.@h);
+    endsellitem(); 
+	
+	sellitem(900052,.@p,-1);	//堅硬穆希貝斯寇卡片-改 x
+	sellitemcurrency(27346,.@h);
+    endsellitem(); 
+	sellitem(900053,.@p,-1);	//塔奧群卡卡片-改 x
+	sellitemcurrency(4302,.@h);
+    endsellitem(); 
+	sellitem(900054,.@p,-1);	//墨蛇君卡片-改 x
+	sellitemcurrency(4330,.@h);
+    endsellitem(); 
+	sellitem(900055,.@p,-1);	//墮落大神官卡片-改 x
+	sellitemcurrency(4441,.@h);
+    endsellitem(); 
+	sellitem(900056,.@p,-1);	//大王喵喵卡片-改 x
+	sellitemcurrency(300107,.@h*20);
+    endsellitem(); 
+	sellitem(900057,.@p,-1);	//女王甲蟲卡片-改 x
+	sellitemcurrency(4507,.@h);
+    endsellitem(); 
+	sellitem(900058,.@p,-1);	//將軍大賢卡片-改 x
+	sellitemcurrency(4574,.@h);
+    endsellitem(); 
+	sellitem(900059,.@p,-1);	//小可愛卡片-改 x
+	sellitemcurrency(27152,.@h);
+    endsellitem(); 
+	sellitem(900060,.@p,-1);	//尼德霍格幻影卡片-改 x
+	sellitemcurrency(4456,.@h);
+    endsellitem(); 
+	sellitem(900061,.@p,-1);	//大型蛋黃波利卡片-改 x
+	sellitemcurrency(4662,.@h);
+    endsellitem(); 
+	sellitem(900062,.@p,-1);	//英格麗卡片-改 x
+	sellitemcurrency(300014,.@h);
+    endsellitem(); 
+	
+
+	sellitem(900063,.@p,-1);	//雷吉麗芙卡片-改 x
+	sellitemcurrency(300013,.@h);
+    endsellitem(); 
+	sellitem(900064,.@p,-1);	//希梅爾茲幻影卡片-改 x
+	sellitemcurrency(27381,.@h);
+    endsellitem(); 
+	sellitem(900065,.@p,-1);	//席琳基米卡片-改 x
+	sellitemcurrency(31023,.@h);
+    endsellitem(); 
+	sellitem(900066,.@p,-1);	//席瓦帕皮利亞卡片-改 x
+	sellitemcurrency(300099,.@h);
+    endsellitem(); 
+	sellitem(900067,.@p,-1);	//幽暗夢魘卡片-改 x
+	sellitemcurrency(4408,.@h);
+    endsellitem(); 
+	sellitem(900068,.@p,-1);	//德古拉伯爵卡片-改 x
+	sellitemcurrency(4134,.@h);
+    endsellitem(); 
+	sellitem(900069,.@p,-1);	//憤怒德古拉伯爵卡片-改 x
+	sellitemcurrency(27104,.@h);
+    endsellitem(); 
+	sellitem(900070,.@p,-1);	//憤怒月夜貓卡片-改 x
+	sellitemcurrency(27081,.@h);
+    endsellitem();
+	sellitem(900071,.@p,-1);	//甦醒水晶龍卡片-改 x
+	sellitemcurrency(27113,.@h);
+    endsellitem();
+	sellitem(900072,.@p,-1);	//時間支配者卡片-改 x
+	sellitemcurrency(4625,.@h*30);
+    endsellitem(); 
+	sellitem(900073,.@p,-1);	//暴力腔棘魚卡片-改 x
+	sellitemcurrency(4529,.@h);
+    endsellitem(); 
+	sellitem(900074,.@p,-1);	//歐內斯特 斯特凡˙傑克卡片-改 x
+	sellitemcurrency(31026,.@h);
+    endsellitem(); 
+	sellitem(900075,.@p,-1);	//死靈騎士卡片-改 x
+	sellitemcurrency(4276,.@h);
+    endsellitem(); 
+	sellitem(900076,.@p,-1);	//水晶龍卡片-改 x
+	sellitemcurrency(4419,.@h);
+    endsellitem(); 
+	sellitem(900077,.@p,-1);	//汙染蜘蛛女王卡片-改 x
+	sellitemcurrency(27362,.@h);
+    endsellitem(); 
+	sellitem(900078,.@p,-1);	//汙染黑暗之王卡片-改 x
+	sellitemcurrency(27363,.@h);
+    endsellitem(); 
+	
+	sellitem(900079,.@p,-1);	//波伊塔塔卡片-改 x
+	sellitemcurrency(27126,.@h);
+    endsellitem(); 
+	sellitem(900080,.@p,-1);	//淘汰者傅立葉卡片-改 x
+	sellitemcurrency(4578,.@h);
+    endsellitem(); 
+	sellitem(900081,.@p,-1);	//深海魔鬼大烏賊卡片-改 x
+	sellitemcurrency(300151,.@h);
+    endsellitem(); 
+	sellitem(900082,.@p,-1);	//混沌巴風特卡片-改 x
+	sellitemcurrency(27334,.@h);
+    endsellitem(); 
+	sellitem(900083,.@p,-1);	//烏龜將軍卡片-改 x
+	sellitemcurrency(4305,.@h);
+    endsellitem(); 
+	sellitem(900084,.@p,-1);	//獸人酋長卡片-改 x
+	sellitemcurrency(4135,.@h);
+    endsellitem(); 
+	sellitem(900085,.@p,-1);	//珠寶溫古力安特卡片-改 x
+	sellitemcurrency(300007,.@h);
+    endsellitem(); 
+	sellitem(900086,.@p,-1);	//畢尤卡片-改 x
+	sellitemcurrency(4636,.@h);
+    endsellitem(); 
+	sellitem(900087,.@p,-1);	//白素貞卡片-改 x
+	sellitemcurrency(4372,.@h);
+    endsellitem(); 
+	sellitem(900088,.@p,-1);	//米古爾卡片-改 x
+	sellitemcurrency(27318,.@h);
+    endsellitem(); 
+	sellitem(900089,.@p,-1);	//巴基力 蘭特克力斯卡片-改 x
+	sellitemcurrency(4407,.@h);
+    endsellitem(); 
+	sellitem(900090,.@p,-1);	//蜘蛛戰車卡片-改 x
+	sellitemcurrency(27180,.@h);
+    endsellitem(); 
+	
+	sellitem(900091,.@p,-1);	//覺醒墮落根莖卡片-改 x
+	sellitemcurrency(4604,.@h);
+    endsellitem(); 
+	sellitem(900092,.@p,-1);	//覺醒闇答萊屍卡片-改 x
+	sellitemcurrency(4602,.@h);
+    endsellitem(); 
+	sellitem(900093,.@p,-1);	//詛咒施密特國王卡片-改 x
+	sellitemcurrency(27329,.@h);
+    endsellitem(); 
+	sellitem(900094,.@p,-1);	//貝雷傑卡片-改 x
+	sellitemcurrency(4145,.@h);
+    endsellitem(); 
+	sellitem(900095,.@p,-1);	//變種腔棘魚卡片-改 x
+	sellitemcurrency(4528,.@h);
+    endsellitem(); 
+	sellitem(900096,.@p,-1);	//讓特卡片-改 x
+	sellitemcurrency(4520,.@h);
+    endsellitem(); 
+	sellitem(900097,.@p,-1);	//貝思波卡片-改 x
+	sellitemcurrency(4374,.@h);
+    endsellitem(); 
+	sellitem(900098,.@p,-1);	//絕望之神夢羅克卡片-改 x
+	sellitemcurrency(27321,.@h);
+    endsellitem(); 
+	sellitem(900099,.@p,-1);	//迪塔勒泰晤勒斯卡片-改 x
+	sellitemcurrency(4386,.@h);
+    endsellitem(); 
+	sellitem(900100,.@p,-1);	//章魚大王卡片-改 x
+	sellitemcurrency(4534,.@h);
+    endsellitem(); 
+	sellitem(900101,.@p,-1);	//邪心獵人 伊芙卡片-改 x
+	sellitemcurrency(27151,.@h);
+    endsellitem(); 
+	sellitem(900102,.@p,-1);	//阿特羅斯卡片-改 x
+	sellitemcurrency(4425,.@h);
+    endsellitem(); 
+	sellitem(900103,.@p,-1);	//青冠龍卡片-改 x
+	sellitemcurrency(27162,.@h);
+    endsellitem(); 
+	sellitem(900104,.@p,-1);	//驚駭森靈皇后卡片-改 x
+	sellitemcurrency(27164,.@h);
+    endsellitem(); 
+	sellitem(900105,.@p,-1);	//骷髏迪塔勒泰晤勒斯卡片-改 x
+	sellitemcurrency(300021,.@h);
+    endsellitem(); 
+	sellitem(900106,.@p,-1);	//魔劍士 達納托斯的記憶卡片-改 x
+	sellitemcurrency(4399,.@h);
+    endsellitem(); 
+	sellitem(900107,.@p,-1);	//魔鬼大烏賊卡片-改 x
+	sellitemcurrency(4525,.@h);
+    endsellitem(); 
+	sellitem(900108,.@p,-1);	//黑暗腔棘魚卡片-改 x
+	sellitemcurrency(4527,.@h);
+    endsellitem(); 
+	sellitem(900109,.@p,-1);	//齊爾-D-01卡片-改 x
+	sellitemcurrency(4403,.@h);
+    endsellitem(); 
+	sellitem(900110,.@p,-1);	//EL-A17T卡片-改 x
+	sellitemcurrency(27305,.@h);
+    endsellitem(); 
+	sellitem(900111,.@p,-1);	//R001-Bestia卡片-改 x
+	sellitemcurrency(300281,.@h);
+    endsellitem(); 
+	sellitem(900112,.@p,-1);	//R48-85-BESTIA卡片-改 x
+	sellitemcurrency(27319,.@h);
+    endsellitem(); 
+	sellitem(900113,.@p,-1);	//RSX-0806卡片-改 x
+	sellitemcurrency(4342,.@h);
+    endsellitem(); 
+	sellitem(900114,2000000000,-1);	//T W O卡片-改 x
+	sellitemcurrency(27020,.@h);
+    endsellitem(); 
+	sellitem(900115,.@p,-1);	//不祥烏龜將軍卡片-改 x
+	sellitemcurrency(27119,.@h);
+    endsellitem(); 
+	sellitem(900116,.@p,-1);	//亡者君主卡片-改 x
+	sellitemcurrency(27025,.@h);
+    endsellitem(); 
+	sellitem(900117,.@p,-1);	//亡靈的守護者卡德斯卡片-改 x
+	sellitemcurrency(4580,.@h*3);
+    endsellitem(); 
+	sellitem(900118,.@p,-1);	//破壞的達納托斯的記憶卡片-改 x
+	sellitemcurrency(300280,.@h);
+    endsellitem(); 
+	sellitem(900119,.@p,-1);	//死亡女巫卡片-改 x
+	sellitemcurrency(300248,.@h);
+    endsellitem(); 
+	sellitem(900120,.@p,-1);	//食月暴龍卡片-改 x
+	sellitemcurrency(4591,.@h);
+    endsellitem(); 
+		
+	sellitem(900121,.@p,-1);	//噩夢死神卡片-改 x
+	sellitemcurrency(4590,.@h);
+    endsellitem(); 
+	sellitem(900122,.@p,-1);	//墮落根莖卡片-改 x
+	sellitemcurrency(4603,.@h);
+    endsellitem(); 
+	sellitem(900123,.@p,-1);	//夜勝魔卡片-改 x
+	sellitemcurrency(4457,.@h);
+    endsellitem(); 
+	sellitem(900124,.@p,-1);	//寶箱巨鱷卡片-改 x
+	sellitemcurrency(4592,.@h);
+    endsellitem(); 
+	sellitem(900125,.@p,-1);	//波蜜卡片-改 x
+	sellitemcurrency(27105,.@h);
+    endsellitem(); 
+	sellitem(900126,.@p,-1);	//船長裴陸卡片-改 x
+	sellitemcurrency(27182,.@h);
+    endsellitem(); 
+	sellitem(900127,.@p,-1);	//查爾斯頓卡片-改 x
+	sellitemcurrency(4697,.@h);
+    endsellitem(); 
+	sellitem(900128,.@p,-1);	//漂流浪人-改 x
+	sellitemcurrency(4426,.@h);
+    endsellitem(); 
+	sellitem(900129,.@p,-1);	//潘利爾卡片-改 x
+	sellitemcurrency(4556,.@h);
+    endsellitem(); 
+	sellitem(900130,.@p,-1);	//火蜥蝪卡片-改 x
+	sellitemcurrency(4429,.@h);
+    endsellitem(); 
+	sellitem(900131,.@p,-1);	//火鳥卡片-改 x
+	sellitemcurrency(4431,.@h);
+    endsellitem(); 
+	sellitem(900132,.@p,-1);	//無限墮落根莖卡片-改 x
+	sellitemcurrency(27382,.@h);
+    endsellitem(); 
+	sellitem(900133,.@p,-1);	//狄瓦伊卡片-改 x
+	sellitemcurrency(27262,.@h);
+    endsellitem(); 
+	sellitem(900134,.@p,-1);	//硬石猛瑪卡片-改 x
+	sellitemcurrency(4462,.@h);
+    endsellitem(); 
+	sellitem(900135,.@p,-1);	//覺醒貝爾卡片-改 x
+	sellitemcurrency(27106,.@h);
+    endsellitem(); 
+	sellitem(900136,.@p,-1);	//野貓騎士卡片-改 x
+	sellitemcurrency(4532,.@h);
+    endsellitem(); 
+	sellitem(900137,.@p,-1);	//闇答萊屍卡片-改 x
+	sellitemcurrency(4601,.@h);
+    endsellitem();
+	sellitem(900138,.@p,-1);	//骷髏觸角魔卡片-改 x
+	sellitemcurrency(4451,.@h);
+    endsellitem(); 
+
+	
+end;
+}
+
+uttycty,110,72,4	script	封印兌卡機	910,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"封印兌卡機";
+	waitingroom "★ 封印兌卡機 ★",0;
+	.@a = 8; //封印兌換數量
+	.@c = 0; //兌卡價格
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(4403,.@c,-1);	// 72
+	sellitemcurrency(4480,.@a);
+    endsellitem(); 
+	sellitem(4419,.@c,-1);	// 水晶龍
+	sellitemcurrency(4481,.@a);
+    endsellitem(); 
+	sellitem(4352,.@c,-1);	// 闇●劍士賽尼亞
+	sellitemcurrency(4482,.@a);
+    endsellitem(); 
+	sellitem(4134,.@c,-1);	// 德古拉伯爵
+	sellitemcurrency(4483,.@a);
+    endsellitem(); 
+	sellitem(4132,.@c,-1);	// 蜂后
+	sellitemcurrency(4484,.@a);
+    endsellitem(); 
+	sellitem(4408,.@c,-1);	// 幽暗夢魘
+	sellitemcurrency(4485,.@a);
+    endsellitem(); 
+	sellitem(4145,.@c,-1);	// 貝雷傑
+	sellitemcurrency(4486,.@a);
+    endsellitem();
+	 sellitem(4430,.@c,-1);	// 伊夫利特
+	sellitemcurrency(4487,.@a);
+    endsellitem();
+	 sellitem(4168,.@c,-1);	// 黑暗之王
+	sellitemcurrency(4488,.@a);
+    endsellitem();
+	 sellitem(4148,.@c,-1);	// 法老王
+	sellitemcurrency(4489,.@a);
+    endsellitem();
+	 sellitem(4131,.@c,-1);	// 月夜貓
+	sellitemcurrency(4490,.@a);
+    endsellitem();
+	 sellitem(4367,.@c,-1);	// 神射手迪文
+	sellitemcurrency(4491,.@a);
+    endsellitem();
+	 sellitem(4143,.@c,-1);	// 獸人英雄
+	sellitemcurrency(4492,.@a);
+    endsellitem();
+	 sellitem(4302,.@c,-1);	// 塔奧群卡
+	sellitemcurrency(4493,.@a);
+    endsellitem();
+	 sellitem(4305,.@c,-1);	// 烏龜將軍
+	sellitemcurrency(4494,.@a);
+    endsellitem();
+	 sellitem(4236,.@c,-1);	// 古埃及王
+	sellitemcurrency(4495,.@a);
+    endsellitem();
+	 sellitem(4318,.@c,-1);	// 冰暴騎士
+	sellitemcurrency(4497,.@a);
+    endsellitem();
+	 sellitem(4376,.@c,-1);	// 嗒妮小姐
+	sellitemcurrency(4498,.@a);
+    endsellitem();
+	 sellitem(4263,.@c,-1);	// 元靈武士
+	sellitemcurrency(4499,.@a);
+    endsellitem();
+	 sellitem(4135,.@c,-1);	// 獸人酋長
+	sellitemcurrency(4500,.@a);
+    endsellitem();
+ 	 sellitem(4363,.@c,-1);	// 神官瑪嘉雷特
+	sellitemcurrency(4501,.@a);
+    endsellitem();
+	 sellitem(4361,.@c,-1);	// 神工匠 哈沃得
+	sellitemcurrency(4502,.@a);
+    endsellitem();
+	 sellitem(4374,.@c,-1);	// 貝思波
+	sellitemcurrency(4503,.@a);
+    endsellitem();
+	 sellitem(4123,.@c,-1);	// 虎王
+	sellitemcurrency(4504,.@a);
+    endsellitem();
+	 sellitem(4407,.@c,-1);	// 蘭特克力斯
+	sellitemcurrency(4535,.@a);
+    endsellitem();
+	 sellitem(4425,.@c,-1);	// 阿特羅斯
+	sellitemcurrency(4536,.@a);
+    endsellitem();
+	 sellitem(4121,.@c,-1);	// 皮里恩
+	sellitemcurrency(4537,.@a);
+    endsellitem();
+	 sellitem(4372,.@c,-1);	// 白素貞
+	sellitemcurrency(4538,.@a);
+    endsellitem();
+	 sellitem(4441,.@c,-1);	// 墮落大神官
+	sellitemcurrency(4539,.@a);
+    endsellitem();
+	 sellitem(4276,.@c,-1);	// 死靈騎士
+	sellitemcurrency(4540,.@a);
+    endsellitem();
+	 sellitem(4365,.@c,-1);	// 超魔導師 凱特莉娜
+	sellitemcurrency(4541,.@a);
+    endsellitem();
+	 sellitem(4386,.@c,-1);	// 迪塔勒泰晤勒斯
+	sellitemcurrency(4542,.@a);
+    endsellitem();
+	 sellitem(4324,.@c,-1);	// 卡崙
+	sellitemcurrency(4543,.@a);
+    endsellitem();
+	 sellitem(4330,.@c,-1);	// 墨蛇君
+	sellitemcurrency(4544,.@a);
+    endsellitem();
+	 sellitem(4507,.@c,-1);	// 女王甲蟲
+	sellitemcurrency(27209,.@a);
+    endsellitem();
+	 sellitem(4147,.@c,-1);	// 巴風特
+	sellitemcurrency(27211,.@a);
+    endsellitem();
+	 sellitem(4146,.@c,-1);	// 蟻后
+	sellitemcurrency(27212,.@a);
+    endsellitem();
+	 sellitem(4560,.@c,-1);	// 搞笑藝人 雅歐帕奇爾
+	sellitemcurrency(27213,.@a);
+    endsellitem();
+	 sellitem(4561,.@c,-1);	// 智者 西里亞
+	sellitemcurrency(27214,.@a);
+    endsellitem();
+	 sellitem(4562,.@c,-1);	// 武術宗師 陳理歐
+	sellitemcurrency(27215,.@a);
+    endsellitem();
+	 sellitem(4563,.@c,-1);	// 創造者 普拉梅姆
+	sellitemcurrency(27216,.@a);
+    endsellitem();
+	 sellitem(4564,.@c,-1);	// 神行太保 科迪
+	sellitemcurrency(27217,.@a);
+    endsellitem();
+	 sellitem(4565,.@c,-1);	// 聖殿十字軍 蘭達
+	sellitemcurrency(27218,.@a);
+    endsellitem();
+	 sellitem(4566,.@c,-1);	// 冷豔舞姬 特蘭提尼
+	sellitemcurrency(27219,.@a);
+    endsellitem();
+	 sellitem(4574,.@c,-1);	// 將軍大賢
+	sellitemcurrency(27220,.@a);
+    endsellitem();
+	 sellitem(4576,.@c,-1);	// 喬伊亞
+	sellitemcurrency(27221,.@a);
+    endsellitem();
+	 sellitem(4578,.@c,-1);	// 淘汰者傅立葉
+	sellitemcurrency(27222,.@a);
+    endsellitem();
+	 sellitem(4580,.@c,-1);	// 守護者卡德斯
+	sellitemcurrency(27224,.@a);
+    endsellitem();
+	 sellitem(4525,.@c,-1);	// 時間支配者
+	sellitemcurrency(27225,.@a);
+    endsellitem();
+	 sellitem(27287,.@c,-1);	// 光芒泰迪熊
+	sellitemcurrency(300207,.@a);
+    endsellitem();
+	 sellitem(4652,.@c,-1);	// 滅絕古埃及王
+	sellitemcurrency(300209,.@a);
+    endsellitem();
+
+end;
+}

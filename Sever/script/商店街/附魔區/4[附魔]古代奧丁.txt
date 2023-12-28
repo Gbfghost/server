@@ -1,0 +1,340 @@
+
+
+
+//===== Description: ==============================
+//
+//古代奧丁神殿附魔與重置附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,42,153,4	script	[附魔]古代奧丁	4_ep16_egeo,{	
+	disable_items;
+	cutin "16agn_nor",2;
+	switch(select("附魔&重置","查看裝備"))
+	{
+		case 1:
+			callfunc("odinec");
+			end;
+		case 2:
+			callfunc("oda_116");
+			end;
+	}
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]古代奧丁";
+	waitingroom "[附魔]古代奧丁",0;
+	end;
+}
+
+function	script	oda_116	{
+	disable_items;
+	
+	setarray .itemid,
+	15397,15398,15399,15400,15401,15402,20947,22209;
+	
+	freeloop(1);
+	for (.@i = 0; .@i < getarraysize(.itemid); .@i++) 
+	{
+		if (.itemid[.@i]) 
+		{
+			mes ""+(.@i+1)+".<ITEM>"+getitemname(.itemid[.@i])+"<INFO>"+getiteminfo(.itemid[.@i],17)+"</INFO></ITEM>";
+		}
+	}
+	freeloop(0);
+	close3;
+}
+
+function	script	odinec	{
+	disable_items;	
+	
+	mes "[古代奧丁附魔]";
+	mes "我可以對各屬聖袍、神職披風、神職之靴進行附魔…";
+	mes "你想要做什麼？";
+	next;
+	switch(select("進行附魔","重置附魔")) {
+	case 1:
+	setarray .@enhanceItemId[0]		, 25767	, 6417; // 天使之夢25767, 喵楊桃果實6909
+	setarray .@enhanceItemAmount[0]	, 5		, 5;
+	setarray .@enhanceZeny[0]		, 500000, 500000;
+	setarray .@enhanceRequireRefLv[0], 0		, 9;
+		mes "[古代奧丁附魔]";
+		mes "你可以選一種進行附魔:";
+		mes "1. 天使之夢5個跟50萬元";
+		mes "2. 獼猴桃果實5個跟50萬元 (僅限精煉值+9以上裝備)";
+		next;
+		.@type = select("方法1:方法2")-1;
+		
+		for (.@i=0;.@i<=2;.@i++){
+			if(countitem(.@enhanceItemId[.@type]) < .@enhanceItemAmount[.@type]) {
+				mes "[古代奧丁附魔]";
+				mes "我沒看到附魔需要的材料。";//天使之夢25767, 喵楊桃果實6909
+				close3;
+			}
+			if(Zeny < .@enhanceZeny[.@type]) {
+				mes "[古代奧丁附魔]";
+				mes "你身上的金錢好像不太夠啊…";
+				close3;
+			}
+		}
+		mes "[古代奧丁附魔]";
+		mes "我進行的附魔可不會失敗呢~";
+		mes "第一回合是對第四洞進行附魔。";
+		mes "第二回合是對第三洞進行附魔。";
+		mes "第三回合是對第二洞進行附魔。";
+		mes " ";
+		mes "^ff0000注意：附魔會對該洞進行覆蓋！^000000";
+		next;
+		switch(select("各屬聖袍:神職披風:神職之靴")) {
+		case 1:	
+			setarray .@equipment[0],15397,15398,15399,15400,15401,15402;			
+			.@equipSlot = EQI_ARMOR;
+			.@successRate = 100;
+			break;
+		case 2:	
+			setarray .@equipment[0],20947;			
+			.@equipSlot = EQI_GARMENT;
+			.@successRate = 100;
+			break;
+		case 3:	
+			setarray .@equipment[0],22209;			
+			.@equipSlot = EQI_SHOES;
+			.@successRate = 100;
+			break;
+		}
+		
+		.@idx = inarray(.@equipment, getequipid(.@equipSlot));
+		if(.@idx >= 0) {
+			for(.@i=3; .@i>=1; .@i--) {
+				if(!getequipcardid(.@equipSlot,.@i)) {
+					.@targetSlot = .@i;
+					break;
+				}
+			}
+		}else {
+			mes "[古代奧丁附魔]";
+			mes "^FF0000你身上沒有穿戴可以附魔的裝備！^000000";
+			close3;
+		}
+		
+		if(.@targetSlot == 0) {
+			mes "[古代奧丁附魔]";
+			mes "^FF0000裝備已經無法再進行附魔！^000000";
+			close3;
+		}
+
+		.@equipRefine = getequiprefinerycnt(.@equipSlot);
+		if(.@equipRefine < .@enhanceRequireRefLv[.@type]) {
+			mes "[古代奧丁附魔]";
+			mes "^FF0000該方法只適用於精煉值"+.@enhanceRequireRefLv[.@type]+"以上的裝備。^000000";
+			close3;
+		}
+		
+		if(.@equipRefine < 9) {
+			// 六屬+6~8
+			// CRI +5/7/10, FLEE +6/10, DEF +12/18, MDEF +2/4, MHP +3%/5%, SP +100/150
+			setarray .@randStone3[0],4705,4706,4707,4715,4716,4717,4725,4726,4727,4735,4736,4737,4745,4746,4747,4755,4756,4757,
+									4764,4765,29241,4762,29238,4794,4902,4786,4787,4867,4900,4801,4802;
+			// 六屬+6~8
+			// CRI +5/7/10, FLEE +6/10, DEF +12/18, MDEF +2/4, MHP +3%/5%, SP +100/150
+			setarray .@randStone2[0],4705,4706,4707,4715,4716,4717,4725,4726,4727,4735,4736,4737,4745,4746,4747,4755,4756,4757,
+									4764,4765,29241,4762,29238,4794,4902,4786,4787,4867,4900,4801,4802;
+			// 六屬+6~8
+			// CRI +5/7/10, FLEE +6/10, DEF +12/18, MDEF +2/4, MHP +3%/5%, SP +100/150
+			setarray .@randStone1[0],4705,4706,4707,4715,4716,4717,4725,4726,4727,4735,4736,4737,4745,4746,4747,4755,4756,4757,
+									4764,4765,29241,4762,29238,4794,4902,4786,4787,4867,4900,4801,4802;
+		} else {			
+			if(.@equipSlot == EQI_ARMOR) {
+			// 各屬聖袍
+			
+				// 六屬+7~8
+				// CRI +10, FLEE +10, DEF +21, MDEF +10, MHP +5%, SP +150
+				// 魔力 5~6, 鬥志 5~6, 名弓 4~5, 尖銳 4~5, 攻擊後延遲 3~4
+				setarray .@randStone3[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										29241,29238,4903,4790,4900,4802,
+										4812,4826,4820,4821,4835,4836,4843,4844,4873,4881;
+				// 六屬+7~8
+				// CRI +10,FLEE +10,DEF +21,MDEF +10,MHP +5%,SP +150
+				// 魔力 5~6,鬥志 5~6,名弓 4~5,尖銳 4~5,攻擊後延遲 3~4
+				setarray .@randStone2[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										29241,29238,4903,4790,4900,4802,
+										4812,4826,4820,4821,4835,4836,4843,4844,4873,4881;
+				// 六屬+7~8
+				// CRI +10,FLEE +10,DEF +21,MDEF +10,MHP +5%,SP +150
+				// 魔力 5~6,鬥志 5~6,名弓 4~5,尖銳 4~5,攻擊後延遲 3~4
+				// 力量的祝福,敏捷的祝福,體質的祝福,靈巧的祝福,智慧的祝福,幸運的祝福
+				setarray .@randStone1[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										29241,29238,4903,4790,4900,4802,
+										4812,4826,4820,4821,4835,4836,4843,4844,4873,4881,
+										310076,310077,310078,310079,310080,310081;
+			} else {
+			// 神職披風/神職之靴
+			
+				// 六屬+7~8
+				// CRI +7/10, FLEE +6/10, DEF +18/20, MDEF +6/8, MHP +3%/5%, SP +100/150
+				setarray .@randStone3[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										4765,29241,4762,29238,4902,29026,4788,4789,4867,4900,4801,4802;
+				// 六屬+7~8
+				// CRI +7/10,FLEE +6/10,DEF +18/20,MDEF +6/8,MHP +3%/5%,SP +100/150
+				setarray .@randStone2[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										4765,29241,4762,29238,4902,29026,4788,4789,4867,4900,4801,4802;
+				// 六屬+7~8
+				// CRI +7/10,FLEE +6/10,DEF +18/20,MDEF +6/8,MHP +3%/5%,SP +100/150
+				setarray .@randStone1[0],4706,4707,4716,4717,4726,4727,4736,4737,4746,4747,4756,4757,
+										4765,29241,4762,29238,4902,29026,4788,4789,4867,4900,4801,4802;
+			}
+			
+		}
+
+		mes "[古代奧丁附魔]";
+		mes "目前選擇：^888888"+getitemname(.@equipment[.@idx])+(.@equipRefine?"+"+.@equipRefine:"")+"^000000";		
+		mes "成功機率：^888888"+.@successRate+"%^000000";	
+		mes "附魔所屬類別：^FF0000"+(.@targetSlot==3?"第一回合":.@targetSlot==2?"第二回合":"第三回合")+"^000000";
+		if(.@successRate != 100)
+			mes "^FF0000請注意！失敗會造成裝備損毀。^000000";
+		next;
+		
+		if(.@successRate != 100) {
+			mes "[古代奧丁附魔]";			
+			mes "附魔有^FF0000失敗的風險^000000..";
+			mes "若失敗，裝備有機會^FF0000銷毀^000000...";
+			mes "你確定還要繼續嗎？";
+			next;
+			if(select("確定:^FF0000取消^000000")==2) close3;
+		}
+		specialeffect2 EF_MAPPILLAR;
+		progressbar "ffff00",1;
+		if(getequipid(.@equipSlot)!=.@equipment[.@idx]) end;
+		
+		if(.@enhanceItemId[.@type]) {
+			if(countitem(.@enhanceItemId[.@type]) < .@enhanceItemAmount[.@type])
+				end;
+			else
+				delitem .@enhanceItemId[.@type],.@enhanceItemAmount[.@type];
+		}
+		
+		if(.@enhanceZeny[.@type]) {
+			if(Zeny < .@enhanceZeny[.@type])
+				end;
+			else
+				Zeny -= .@enhanceZeny[.@type];
+		}
+		
+		
+		if(rand(100) > .@successRate) {
+			specialeffect2 EF_PHARMACY_FAIL;
+			dispbottom "附魔失敗…裝備銷毀！";
+		}else{
+			.@stone = getd(".@randStone"+.@targetSlot+"["+rand(getarraysize(getd(".@randStone"+.@targetSlot)))+"]");			
+
+			specialeffect2 EF_PHARMACY_OK;
+			set .@card_id1,getequipcardid(.@equipSlot,0);
+			set .@card_id2,(.@targetSlot==1?.@stone:getequipcardid(.@equipSlot,1));
+			set .@card_id3,(.@targetSlot==2?.@stone:getequipcardid(.@equipSlot,2));
+			set .@card_id4,(.@targetSlot==3?.@stone:getequipcardid(.@equipSlot,3));
+			getitem2 .@equipment[.@idx],1,1,.@equipRefine,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+			dispbottom "附魔成功！";
+		}
+		delequip .@equipSlot;
+		
+		break;
+	case 2:
+	
+	// 重置附魔需求
+	setarray .@resetItemId[0]			, 0		, 6417; // 無, 喵楊桃果實
+	setarray .@resetItemAmount[0]	, 0		, 3;
+	setarray .@resetZeny[0]			, 500000, 100000;
+	setarray .@resetChance[0]		, 70	, 100;
+		mes "[古代奧丁附魔]";
+		mes "你可以選一種重置附魔的方法:";
+		mes "1. (成功率70%)   50萬元";
+		mes "2. (成功率100%) 獼猴桃果實3個以及10萬元";
+		next;
+		.@type = select("方法1:方法2")-1;	
+		
+		mes "[古代奧丁附魔]";
+		mes "你想要對哪件裝備重置呢?";
+		mes " ";
+		mes "^ff0000注意：重置失敗裝備會損毀！^000000";
+		next;
+		switch(select("各屬聖袍:神職披風:神職之靴")) {
+		case 1:	
+			setarray .@equipment[0],15397,15398,15399,15400,15401,15402;			
+			.@equipSlot = EQI_ARMOR;
+			break;
+		case 2:	
+			setarray .@equipment[0],20947;
+			.@equipSlot = EQI_GARMENT;
+			break;
+		case 3:	
+			setarray .@equipment[0],22209;
+			.@equipSlot = EQI_SHOES;
+			break;
+		}
+		
+		.@idx = inarray(.@equipment, getequipid(.@equipSlot));
+		if(.@idx >= 0) {
+			for(.@i=3; .@i>=1; .@i--) {
+				if(getequipcardid(.@equipSlot,.@i)) {
+					.@hasEnhancement = true;
+					break;
+				}
+			}
+		}else {
+			mes "[古代奧丁附魔]";
+			mes "^FF0000你身上沒有穿戴可以附魔的裝備！^000000";
+			close3;
+		}
+		
+		if(!.@hasEnhancement) {
+			mes "[古代奧丁附魔]";
+			mes "^FF0000這件裝備沒有任何附魔～^000000";
+			close3;
+		}
+		
+		.@equipRefine = getequiprefinerycnt(.@equipSlot);
+		
+		mes "[古代奧丁附魔]";
+		mes "即將進行重置附魔。";
+		mes "目前選擇：^888888"+getitemname(.@equipment[.@idx])+(.@equipRefine?"+"+.@equipRefine:"")+"^000000";		
+		mes "成功機率：^888888"+.@resetChance[.@type]+"%^000000";
+		if(.@resetChance[.@type] != 100)
+//			mes "^FF0000請注意！失敗會造成裝備損毀。^000000";
+		mes " ";
+		mes "你確定還要繼續嗎？";
+		next;
+		if(select("確定:^FF0000取消^000000")==2) close3;
+		
+		if(.@resetItemId[.@type]) {
+			if(countitem(.@resetItemId[.@type]) < .@resetItemAmount[.@type]) {
+				mes "[古代奧丁附魔]";
+				mes "我沒看到重置需要的材料。";
+				close3;
+			}
+		}else if(Zeny < .@resetZeny[.@type]) {
+			mes "[古代奧丁附魔]";
+			mes "你身上的金錢好像不太夠啊…";
+			close3;
+		}
+		
+		if(getequipid(.@equipSlot)!=.@equipment[.@idx]) end;
+				
+		Zeny -= .@resetZeny[.@type];
+		if(.@resetItemId[.@type])
+			delitem .@resetItemId[.@type], .@resetItemAmount[.@type];
+		
+		.@card0 = getequipcardid(.@equipSlot,0);
+		delequip .@equipSlot;
+		
+		if(rand(100) > .@resetChance[.@type]) {
+			specialeffect2 EF_PHARMACY_FAIL;
+			dispbottom "重置附魔失敗…裝備銷毀！";
+		}else{			
+			specialeffect2 EF_PHARMACY_OK;
+			getitem2 .@equipment[.@idx],1,1,.@equipRefine,0,.@card0,0,0,0;			
+			dispbottom "重置附魔成功！";
+		}
+		close3;
+	}	
+	end;
+}

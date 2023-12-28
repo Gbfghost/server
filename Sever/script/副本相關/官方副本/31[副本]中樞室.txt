@@ -1,0 +1,1099 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@slw	mapflag	noteleport
+1@slw	mapflag	nosave	SavePoint
+1@slw	mapflag	nomemo
+1@slw	mapflag	nobranch
+1@slw	mapflag	noicewall
+1@slw	mapflag	restricted	6
+1@slw	mapflag	monster_noteleport
+1@slw	mapflag	partylock
+1@slw	mapflag	novending
+1@slw	mapflag	nochat
+
+
+amatsu,108,128,5	script	[副本]中樞室	727,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "中樞室";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 31;
+
+//
+	waitingroom "[副本]中樞室",0;
+	setnpcicon getnpcid(0),22,"[副本]中樞室";
+	end;
+}
+
+// warps
+1@slw,187,170,0	warp	#slwwarp01	1,1,1@slw,71,32
+1@slw,71,77,0	warp	#slwwarp02	1,1,1@slw,54,134
+
+// Entrance - event type
+1@slw,187,25,0	script	#sl_evt01	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	disablenpc instance_npcname("#sl_evt01");
+	if (terra_gloria_main == 21)
+		enablenpc instance_npcname("阿依建 維爾納#werner01");
+	else {
+		enablenpc instance_npcname("守衛#gard01");
+		enablenpc instance_npcname("守衛#gard02");
+		enablenpc instance_npcname("守衛#gard03");
+		enablenpc instance_npcname("守衛#gard04");
+	}
+	end;
+
+OnInstanceInit:
+	'device_state[0] = 'device_state[1] = 0;
+	'event_final = 0;
+
+	'map_slw$ = instance_mapname("1@slw");
+
+	disablenpc instance_npcname("#slwwarp01");
+	disablenpc instance_npcname("#slwwarp02");
+	disablenpc instance_npcname("Central Entrance#door");
+
+	disablenpc instance_npcname("阿依建 維爾納#werner01");
+	disablenpc instance_npcname("阿依建 維爾納#werner02");
+	disablenpc instance_npcname("阿依建 維爾納#werner03");
+	disablenpc instance_npcname("阿依建 維爾納#werner04");
+	disablenpc instance_npcname("阿依建 維爾納#werner05");
+
+	disablenpc instance_npcname("保全裝置#switch01");
+	disablenpc instance_npcname("保全裝置#switch02");
+	disablenpc instance_npcname("保全裝置#switch11");
+	disablenpc instance_npcname("保全裝置#switch12");
+
+	disablenpc instance_npcname("守衛#gard01");
+	disablenpc instance_npcname("守衛#gard02");
+	disablenpc instance_npcname("守衛#gard03");
+	disablenpc instance_npcname("守衛#gard04");
+	disablenpc instance_npcname("守衛#gard05");
+	disablenpc instance_npcname("守衛#gard06");
+	disablenpc instance_npcname("守衛#gard07");
+
+	disablenpc instance_npcname("賽依連 瓦恩薩#seiren");
+	disablenpc instance_npcname("魔力能量#seiren");
+	disablenpc instance_npcname("小可愛#boss_master");
+	end;
+}
+
+// Room 1
+// * Samples and devices
+1@slw,174,145,3	script	顯示樣本#01	CLEAR_NPC,{
+	setarray .@sample$[0],
+		"^4d4dff玫瑰^000000", "MT-Wxx0s57b",
+		"^ff0000純真^000000", "MT-Wxx00b21",
+		"^4d4dff矛盾^000000", "MT-Wxx023-f1",
+		"^4d4dff喜悅^000000", "OT-Wxx01-c",
+		"^4d4dff海洋^000000", "MT-Wxc1c1b",
+		"^ff0000永恆^000000", "MT-Wx267b",
+		"^4d4dff返鄉之路^000000", "OTM-Wxff01",
+		"^4d4dff孤獨^000000", "MT-Wxx00c46",
+		"^4d4dff晚霞^000000", "OT-Wxx4d4dff",
+		"^ff0000黎明^000000", "MT-Wff_01v",
+		"^4d4dff黃昏^000000", "OT-Wxx00c3b",
+		"^4d4dff少女^000000之 ^ff0000夢^000000", "MT-Wxx0ax2-1";
+	.@num = (atoi(strnpcinfo(2)) - 1) * 2;
+	mes "[" + .@sample$[.@num] + "]";
+	mes "Experiment_number: " + .@sample$[.@num+1] + "";
+	close;
+}
+1@slw,201,145,3	duplicate(顯示樣本#01)	顯示樣本#02	CLEAR_NPC
+1@slw,174,132,3	duplicate(顯示樣本#01)	顯示樣本#03	CLEAR_NPC
+1@slw,201,132,3	duplicate(顯示樣本#01)	顯示樣本#04	CLEAR_NPC
+1@slw,174,118,3	duplicate(顯示樣本#01)	顯示樣本#05	CLEAR_NPC
+1@slw,201,118,3	duplicate(顯示樣本#01)	顯示樣本#06	CLEAR_NPC
+1@slw,174,104,3	duplicate(顯示樣本#01)	顯示樣本#07	CLEAR_NPC
+1@slw,201,104,3	duplicate(顯示樣本#01)	顯示樣本#08	CLEAR_NPC
+1@slw,174,90,3	duplicate(顯示樣本#01)	顯示樣本#09	CLEAR_NPC
+1@slw,201,90,3	duplicate(顯示樣本#01)	顯示樣本#10	CLEAR_NPC
+1@slw,174,76,3	duplicate(顯示樣本#01)	顯示樣本#11	CLEAR_NPC
+1@slw,201,76,3	duplicate(顯示樣本#01)	顯示樣本#12	CLEAR_NPC
+
+// * Events - First entrance
+1@slw,188,42,3	script	阿依建 維爾納#werner01	4_M_EISEN,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "主角終於登場了。";
+	mes "我挺佩服的，沒想到你會一路來到這裡。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "無所謂";
+	mes "歡迎你。";
+	mes "躥迎來到我阿依建 維爾納的世界。";
+	next;
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "我完全沒料到會被偷襲，";
+	mes "但是，又有甚麼關係呢？";
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "反正我也早就不指望拯救這個研究所了，";
+	mes "要去參觀參觀嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "這裡像次元的隙縫一樣有不少東西，";
+	mes "甚至還有扭曲的時間流向。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "那叫做平行世界嗎？";
+	mes "還是說是類似穿越過去的某個時間點嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "所謂的時間...你有想過嗎？";
+	mes "流向其實是一種相對的概念。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "那小子停在那兒，";
+	mes "但以生物學上來說時間還在流逝，那表示正在老去。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "如果把他強制停住，";
+	mes "此時我們就會這樣表達。";
+	next;
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "時間已經停止。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "....";
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "要去裡面參觀嗎？";
+	mes "沿著走廊參觀一下吧！";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "我會跟你解說的。";
+	close2;
+	cutin "",255;
+	disablenpc instance_npcname("阿依建 維爾納#werner01");
+	enablenpc instance_npcname("阿依建 維爾納#werner02");
+	end;
+}
+
+1@slw,189,164,3	script	阿依建 維爾納#werner02	4_M_EISEN,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "好好的欣賞過我的作品了嗎？";
+	mes "為了讓愚昧的人重新開始，所以我決定回顧一下。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "但那不太容易....";
+	mes "......";
+	next;
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "如果能夠回到過去，那孩子也不至於變成那樣子了....";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "就算只是能夠停住時間，也是...";
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "會長...不知何原因他也非常執著於過去，多虧這樣我才能隨心所欲地做研究。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "你不好奇嗎？";
+	mes "他為什麼對過去如此執著。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "對了，如果要專月必須操作這左右的機具...你做得來嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "這只是一個很單純的裝置，沒問題吧？";
+	mes "將^ff0000紅色^000000轉往^4d4dff藍色^000000.";
+	mes "再將^4d4dff藍色^000000轉回^ff0000紅色^000000. 即可。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "如果好好看過我的作品，就能了解，";
+	mes "我們去看看下個區域吧！";
+	close2;
+	cutin "",255;
+	disablenpc instance_npcname("阿依建 維爾納#werner02");
+	enablenpc instance_npcname("保全裝置#switch01");
+	enablenpc instance_npcname("保全裝置#switch02");
+	end;
+}
+
+1@slw,155,191,3	script	保全裝置#switch01	CLEAR_NPC,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	.@number = atoi( replacestr( strnpcinfo(2), "switch", "" ) );
+	.@type = (.@number < 10) ? 0 : 1;
+	.@npc_num = (.@number < 10) ? .@number : (.@number-10);
+	if ('device_state[.@type] & .@npc_num) {
+		mes "他已經被開啟了";
+		close;
+	}
+	callsub S_Code, .@string$, .@answer;
+	mes "這裡寫著保全密碼。";
+	mes "[" + .@string$ + "]";
+	mes "要輸入甚麼呢？";
+	next;
+	if (select( "^4d4dff" + .@string$ + "^000000", "^ff0000" + .@string$ + "^000000" ) != .@answer) {
+		'device_state[.@type] = 0;
+		mes "設備已初始化。";
+		close;
+	}
+	'device_state[.@type] = 'device_state[.@type] | .@npc_num;
+	if ('device_state[.@type] != 3) {
+		mes "保全裝置已啟動";
+		mes "目前好像還剩下一個保全裝置。";
+		close;
+	}
+	mes "已開啟保全裝置.";
+	mes "門現在已開啟。";
+	switch( .@type ) {
+	case 0:
+		enablenpc instance_npcname("#slwwarp01");
+		if (terra_gloria_main == 21)// eventually replace following instance name
+			enablenpc instance_npcname("阿依建 維爾納#werner03");
+		else {
+			enablenpc instance_npcname("守衛#gard05");
+			enablenpc instance_npcname("守衛#gard06");
+			enablenpc instance_npcname("守衛#gard07");
+		}
+		break;
+	case 1:
+		if (terra_gloria_main == 21)
+			enablenpc instance_npcname("阿依建 維爾納#werner04");
+		else
+			enablenpc instance_npcname("Central Entrance#door");
+		enablenpc instance_npcname("#slwwarp02");
+		break;
+	}
+	close;
+
+S_Code:
+	setarray .@sample$[0],
+		"玫瑰", 1,
+		"純真", 2,
+		"矛盾", 1,
+		"喜悅", 1,
+		"海洋", 1,
+		"永恆", 2,
+		"返鄉之路", 1,
+		"孤獨", 1,
+		"晚霞", 1,
+		"黎明", 2,
+		"黃昏", 1,
+		"少女", 1;
+	.@size = getarraysize(.@sample$) / 2;
+	.@r = rand(.@size) * 2;
+	set getarg(0), .@sample$[.@r];
+	set getarg(1), .@sample$[.@r+1];
+	return;
+}
+1@slw,220,191,3	duplicate(保全裝置#switch01)	保全裝置#switch02	CLEAR_NPC
+1@slw,22,61,3	duplicate(保全裝置#switch01)	保全裝置#switch11	CLEAR_NPC
+1@slw,122,61,3	duplicate(保全裝置#switch01)	保全裝置#switch12	CLEAR_NPC
+
+
+// * Events - Daily
+1@slw,188,58,3	script	守衛#gard01	3622,4,4,{
+	end;
+OnTouch:
+	.@num = atoi( replacestr( strnpcinfo(2), "gard0", "" ) );
+	getmapxy .@map$,.@x,.@y, BL_NPC;
+	switch( .@num ) {
+	case 1:	// 2 spawn area
+		npctalk "...噹噹，你是怎麼進來的？";
+		areamonster .@map$, 186,92,190,94, "特殊守衛", 3622,3;	// EP16_2_MM_S_GUARDS
+		.@mob_count = 3;
+		break;
+	case 2:	// 3 spawn area
+		npctalk "...噹噹，你是怎麼進來的？";
+		areamonster .@map$, 186,142,190,143, "特殊守衛", 3622,3;	// EP16_2_MM_S_GUARDS
+		areamonster .@map$, 186,160,190,162, "特殊守衛", 3622,3;
+		.@mob_count = 3;
+		break;
+	case 5:
+		npctalk "...噹噹，你是怎麼進來的？";
+		.@mob_count = 3;
+		break;
+	case 3:
+		npctalk "...噹噹，你是怎麼進來的？";
+		.@mob_count = 1;
+		.@label$ = instance_npcname("#security_device_lab") + "::OnLeft1";
+		break;
+	case 4:
+		npctalk "...噹噹，你是怎麼進來的？";
+		.@mob_count = 3;
+		.@label$ = instance_npcname("#security_device_lab") + "::OnRight1";
+		break;
+	case 6:
+		npctalk "誰在那？";
+		.@mob_count = 3;
+		.@label$ = instance_npcname("#security_device_lab") + "::OnLeft2";
+		break;
+	case 7:
+		npctalk "讓我來結束你的生命！";
+		.@mob_count = 3;
+		.@label$ = instance_npcname("#security_device_lab") + "::OnRight2";
+		break;
+	}
+	disablenpc instance_npcname( strnpcinfo(0) );
+	areamonster .@map$, (.@x-2), (.@y-2), (.@x+2), (.@y+2), "特殊守衛", 3622, .@mob_count, .@label$;	// EP16_2_MM_S_GUARDS
+	end;
+}
+1@slw,189,117,3	duplicate(守衛#gard01)	守衛#gard02	3622,4,4
+1@slw,171,167,3	duplicate(守衛#gard01)	守衛#gard03	3622,4,4
+1@slw,206,167,3	duplicate(守衛#gard01)	守衛#gard04	3622,4,4
+1@slw,70,38,5	duplicate(守衛#gard01)	守衛#gard05	3622,4,4
+1@slw,33,52,3	duplicate(守衛#gard01)	守衛#gard06	3622,4,4
+1@slw,111,52,3	duplicate(守衛#gard01)	守衛#gard07	3622,4,4
+
+1@slw,1,1,3	script	#security_device_lab	HIDDEN_WARP_NPC,{
+	end;
+OnLeft1:
+	if (mobcount( 'map_slw$, instance_npcname("#security_device_lab") + "::OnLeft1" ) < 1) {
+		mapannounce 'map_slw$, "保全裝置 L-01 已被啟動。", bc_map,0xFF99;
+		enablenpc instance_npcname("保全裝置#switch01");
+	}
+	end;
+OnRight1:
+	if (mobcount( 'map_slw$, instance_npcname("#security_device_lab") + "::OnRight1" ) < 1) {
+		mapannounce 'map_slw$, "保全裝置 R-01 已被啟動。", bc_map,0xFF99;
+		enablenpc instance_npcname("保全裝置#switch02");
+	}
+	end;
+OnLeft2:
+	if (mobcount( 'map_slw$, instance_npcname("#security_device_lab") + "::OnLeft2" ) < 1) {
+		mapannounce 'map_slw$, "保全裝置 L-02 已被啟動。", bc_map,0xFF99;
+		enablenpc instance_npcname("保全裝置#switch11");
+	}
+	end;
+OnRight2:
+	if (mobcount( 'map_slw$, instance_npcname("#security_device_lab") + "::OnRight2" ) < 1) {
+		mapannounce 'map_slw$, "保全裝置 R-02 已被啟動。", bc_map,0xFF99;
+		enablenpc instance_npcname("保全裝置#switch12");
+	}
+	end;
+}
+
+
+// Room 2
+// * Events - First entrance
+1@slw,72,70,3	script	阿依建 維爾納#werner03	4_M_EISEN,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "甚麼？比我想像中還要簡單？";
+	mes "往後的保全裝置也都是類似型態，不用再重複說明吧！";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "參觀之後的心得如何？";
+	mes "不覺得很驚人嗎？";
+	mes "你去過^4d4dff貝魯茲^000000嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "我參考那裏建構了研究室，";
+	mes "完全是我喜愛的模樣，";
+	mes "......";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "當時的技術和現在真是天差地別，";
+	mes "我把能用的技術都用上了，";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "在你眼中看來如何？";
+	mes "還行嗎？";
+	next;
+	select("對我說這些的理由是？");
+	mes "[阿依建 維爾納]";
+	mes "恩亨，反正你也會死在這裡，";
+	mes "所以我只是想告訴你我的成就罷了。";
+	next;
+	select("我？會死？");
+	mes "[阿依建 維爾納]";
+	mes "當然會死，";
+	mes "你以為我會傻傻地留在這裡坐以待斃嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "我早知道你是為了盧恩";
+	mes "米德加茲王國的事才跑來這裡，所以我好好準備了一番。";
+	next;
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "你會隨著極大的感動一起死去的，";
+	mes "葬身在此處。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "所以說，這些小小的關照就收下吧！";
+	mes "往下一區行動吧！";
+	close2;
+	cutin "",255;
+	disablenpc instance_npcname("阿依建 維爾納#werner03");
+	enablenpc instance_npcname("保全裝置#switch11");
+	enablenpc instance_npcname("保全裝置#switch12");
+	end;
+}
+
+
+// Room 3
+// * Events - First entrance
+1@slw,57,141,3	script	阿依建 維爾納#werner04	4_M_EISEN,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2))
+		end;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "這道牆的後方，就有你想要找的東西。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "沒錯，就是那個雕刻成寶石裝飾王冠的東西，";
+	mes "那知道那是甚麼嗎？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "雖然只剩殘渣，但她依舊是依美樂的心臟碎片，";
+	mes "可不是粗製爛造的仿冒品可以比擬的。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "... 王國中那些傻子們不懂得使用擁有的力量，";
+	mes "真是叫人惋惜痛心";
+	mes "所以我才決定拿來使用...";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "是否將那東西帶回去，完全取決於你個人的能力，";
+	mes "但我也不是兩手空空的等你來取。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "我再說一遍，你可別嚇到了，";
+	mes "不對，被嚇到會更好吧？";
+	mes "呵呵呵呵呵呵....";
+	next;
+	cutin "ep16_eisen03.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "來見見我為你準備的禮物吧！";
+	close2;
+	cutin "",255;
+	disablenpc instance_npcname("阿依建 維爾納#werner04");
+	enablenpc instance_npcname("Central Entrance#door");
+	end;
+}
+
+1@slw,54,146,0	script	Central Entrance#door	WARPNPC,1,1,{
+	end;
+OnTouch:
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		warp 'map_slw$,55,153;
+		end;
+	}
+	if (terra_gloria_main == 21) {
+		if ('event_final == 0) {
+			'event_final = 1;
+			enablenpc instance_npcname("阿依建 維爾納#werner05");
+		}
+		warp 'map_slw$,55,153;
+		end;
+	}
+	switch( 'event_final ) {
+	case 1:
+		mes "重播故事。";
+		close2;
+		warp 'map_slw$,55,153;
+		end;
+	case 2:
+		warp 'map_slw$,55,153;
+		end;
+	}
+	mes "您在下一個區域中有兩個選擇。";
+	mes "看阿依建 維爾納的傑作，^4d4dff進行戰鬥^000000.";
+	next;
+	if (select( "進行戰鬥" ) == 1) {
+		mes "你選擇了對話。";
+		close2;
+		if ('event_final == 0) {
+			'event_final = 1;
+			enablenpc instance_npcname("阿依建 維爾納#werner05");
+		}
+		warp 'map_slw$,55,153;
+		end;
+	}
+	mes "你選擇了戰鬥。";
+	close2;
+	if ('event_final == 0) {
+		'event_final = 2;
+		enablenpc instance_npcname("小可愛#boss_master");
+	}
+	warp 'map_slw$,55,153;
+	end;
+}
+
+1@slw,56,171,3	script	魔力能量#seiren	4_ENERGY_BLACK,{
+	mes "在賽依連散去的位子上聚集著奇特的魔力能量。";
+	next;
+	mes "^4d4dff該活動為追加戰鬥建議LV 170以上，你再決定是否進行戰鬥。^000000";
+	next;
+	if(select("結束:進行")==1) close;
+	mes "你選擇繼續進行。";
+	initnpctimer;
+	close;
+
+OnTimer1000:
+	mapannounce 'map_slw$, "偵測到實驗編號Y.S.F.0.1. 分界符, 賽.依.連.的未完整消滅。", bc_map,0xFF99;
+	end;
+OnTimer4000:
+	mapannounce 'map_slw$, "實施指定通訊'回歸'。", bc_map,0xFF99;
+	end;
+OnTimer7000:
+	mapannounce 'map_slw$, "錯誤, 核心消失, 啟動緊急魔力陣。", bc_map,0xFF99;
+	specialeffect 895;
+	end;
+OnTimer10000:
+	mapannounce 'map_slw$, "'回歸' ...... 5%", bc_map,0xFF99;
+	end;
+OnTimer13000:
+	mapannounce 'map_slw$, "'回歸' ...... 15%", bc_map,0xFF99;
+	specialeffect 897;
+	end;
+OnTimer16000:
+	mapannounce 'map_slw$, "'回歸' ...... 47%", bc_map,0xFF99;
+	end;
+OnTimer19000:
+	mapannounce 'map_slw$, "'回歸' ...... 72%", bc_map,0xFF99;
+	specialeffect 897;
+	end;
+OnTimer22000:
+	mapannounce 'map_slw$, "'回歸' ...... 89%", bc_map,0xFF99;
+	classchange(4_M_SEIREN_UC);
+	specialeffect 518;
+	end;
+OnTimer23000:
+	classchange(4_ENERGY_BLACK);
+	end;	
+OnTimer25000:
+	mapannounce 'map_slw$, "'回歸' ..... 因錯誤, 核心消失, 而進行不完善", bc_map,0xFF99;
+	classchange( 4_M_SEIREN_UC);	
+	specialeffect 900;
+	specialeffect 518;
+	end;
+OnTimer26000:
+	classchange( 4_ENERGY_BLACK);
+	end;
+OnTimer28000:
+	mapannounce 'map_slw$, "'回歸' ...... 92%", bc_map,0xFF99;
+	classchange( 4_M_SEIREN_UC);
+	specialeffect 518;
+	specialeffect 899;
+	end;
+OnTimer29000:
+	classchange( 4_ENERGY_BLACK);
+	end;
+OnTimer31000:
+	mapannounce 'map_slw$, "'回歸' ...... 錯誤, 99%", bc_map,0xFF99;
+	classchange( 4_M_SEIREN_UC);
+	specialeffect 518;
+	end;
+OnTimer32000:
+	classchange( 4_ENERGY_BLACK);
+	end;
+OnTimer34000:
+	mapannounce 'map_slw$, "'回歸' ...... 實體回歸, 100%", bc_map,0xFF99;
+	classchange( 4_M_SEIREN_UC);
+	specialeffect 518;
+	end;
+OnTimer37000:
+	mapannounce 'map_slw$, "...... Y.S.F.0.1. 分界符, 賽.依.連.的實體 還原 結束。", bc_map,0xFF99;
+	end;
+OnTimer40000:
+	stopnpctimer;
+	specialeffect 903;
+	monster 'map_slw$,56,171,"--ja--", 2112, 1, instance_npcname("魔力能量#seiren") + "::OnMobDead";
+	'seiren_create = 1;
+	hideonnpc instance_npcname("魔力能量#seiren");
+	end;
+OnMobDead:
+	mapannounce 'map_slw$, "魔力場已消除，出現了出入口。", bc_map,0xFF99;
+	disablenpc instance_npcname("魔力能量#seiren");
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@slw")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+}
+
+1@slw,53,171,5	script	阿依建 維爾納#werner05	4_M_EISEN,{
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "^4d4dff只有隊長才能繼續進行任務。^000000";
+		close;
+	}
+	if (checkweight(501,1) == 0) {
+		mes "- 由於你擁有的物品太多，無法進行任務。 -";
+		close;
+	}
+	.@seyren$ = instance_npcname("賽依連 瓦恩薩#seiren");
+	.@seyren_energy$ = instance_npcname("魔力能量#seiren");
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "這裡就是研究室的癥結，可以看到我所有的研究。";
+	npctalk "這裡就是研究室的癥結，可以看到我所有的研究。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "生命的根源，世界的構成、擁有根源力量的物品，就是依美樂的心臟碎片。";
+	npctalk "生命的根源，世界的構成、擁有根源力量的物品，就是依美樂的心臟碎片。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "看好了，";
+	mes "你在找尋的東西，正在進行著多麼驚人之事！";
+	npctalk "看好了，你在找尋的東西，正在進行著多麼驚人之事！";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "在此處萃取的能量會對設置在地面上的魔法鎮..哈哈，雖說是以魔導學重新詮釋的魔法鎮";
+	npctalk "在此處萃取的能量會對設置在地面上的魔法鎮..哈哈，雖說是以魔導學重新詮釋的魔法鎮";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "總之，能量會提供應給實驗體...而我利用這個力量，來調整他們的時間。";
+	npctalk "總之，能量會提供應給實驗體...而我利用這個力量，來調整他們的時間。";
+	next;
+	cutin "ep16_eisen03.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "...當然，在過程中，也有可能引發細胞爆炸而死亡，哈哈！";
+	npctalk "...當然，在過程中，也有可能引發細胞爆炸而死亡，哈哈！";
+	next;
+	select("這就是你要說的嗎？");
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 這就是你要說的嗎？";
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "沒有，怎麼可能";
+	mes "我剛說的你這麼快就忘了嗎？";
+	mes "我替你準備好了禮物。";
+	npctalk "沒有，怎麼可能，我剛說的你這麼快就忘了嗎？我替你準備好了禮物。";
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "非常...";
+	mes "非常驚人的禮物喔！";
+	npctalk "非常...非常驚人的禮物喔！";
+	// close2;	// fix me
+	cutin "",255;
+	sleep2 3000;
+	enablenpc .@seyren$;
+	npctalk "......", .@seyren$;
+	sleep2 1000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : ... 賽依連?!";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "怎麼樣？我準備的禮物！";
+	mes "還滿意嗎？";
+	npctalk "怎麼樣？我準備的禮物！還滿意嗎？";
+	cutin "ep16_eisen01.bmp",1;
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "這小子曾是傻蛋王室的使節團，";
+	mes "多虧某個膽大妄為傢伙的實驗體，我才能獲得了好東西。";
+	npctalk "這小子曾是傻蛋王室的使節團，多虧某個膽大妄為傢伙的實驗體，我才能獲得了好東西。";
+	next;
+	select("你說的是人體試驗嗎？");
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 你說的是人體試驗嗎？";
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "沒錯，就是那個，";
+	mes "進行人體試驗的實驗體還多的是呢！至於荒謬的利用依美樂的心臟碎片來強化活的生命體。";
+	npctalk "沒錯，就是那個，進行人體試驗的實驗體還多的是呢！至於荒謬的利用依美樂的心臟碎片來強化活的生命體。";
+	next;
+	cutin "ep16_eisen01.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "沒錯，那傢伙是第一個";
+	mes "多虧他，人體實驗的方向也做出大幅調整。";
+	npctalk "沒錯，那傢伙是第一個，多虧他，人體實驗的方向也做出大幅調整。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "我也得以進行各種應用的實驗。";
+	npctalk "我也得以進行各種應用的實驗。！";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "先不說這個...";
+	mes "先打個招呼吧？";
+	npctalk "先不說這個...先打個招呼吧？";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "阿阿~也對，";
+	mes "即將赴死的傢伙，哪需要問候！";
+	npctalk "阿阿~也對，即將赴死的傢伙，哪需要問候！";
+	cutin "ep16_eisen03.bmp",1;
+	next;
+	cutin "ep16_eisen02.bmp",1;
+	mes "[阿依建 維爾納]";
+	mes "賽依連，送客人去地獄吧！";
+	mes "明白我說些甚麼吧？";
+	npctalk "賽依連，送客人去地獄吧！明白我說些甚麼吧？";
+	next;
+	cutin "ep16_seiren02.bmp",2;
+	mes "[賽依連]";
+	mes ".......";
+	npctalk "......", .@seyren$;
+	next;
+	cutin "ep16_evt_ws.bmp",4;
+	mes "[阿依建 維爾納]";
+	mes "恩恩？";
+	mes "你怎麼了？賽依連你現在想反抗嗎？";
+	npctalk "恩恩？你怎麼了？賽依連你現在想反抗嗎？";
+	next;
+	mes "[賽依連]";
+	mes "感覺好像從長久沉睡中書醒過來一樣";
+	mes "大概都是為了這一天的到來吧！";
+	npctalk "感覺好像從長久沉睡中書醒過來一樣，大概都是為了這一天的到來吧！", .@seyren$;
+	next;
+	mes "[阿依建 維爾納]";
+	mes "不要忘了你的本分，賽依連。";
+	mes "你只是個兵器，你不過是披著賽依連外皮的魁偶罷了。";
+	npctalk "不要忘了你的本分，賽依連。你只是個兵器，你不過是披著賽依連外皮的魁偶罷了。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "難道我需要一一說明給你聽嗎？";
+	mes "移植了依美樂的心臟推積物之後，因承受不住那力量肉體最終崩壞了。";
+	npctalk "難道我需要一一說明給你聽嗎？移植了依美樂的心臟推積物之後，因承受不住那力量肉體最終崩壞了。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "還有那股力量會一直複製本體後無止境地分裂在那過程中，不管是記憶意識，靈魂，精神或自我，全都會變成一盤散沙般毫無意義！";
+	npctalk "還有那股力量會一直複製本體後無止境地分裂在那過程中，不管是記憶意識，靈魂，精神或自我，全都會變成一盤散沙般毫無意義！";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "如果將伊美樂的心臟堆積物移植到精神與肉體都非常強大的人身上我們預期會得到一個更強大的活體兵器";
+	npctalk "如果將伊美樂的心臟堆積物移植到精神與肉體都非常強大的人身上我們預期會得到一個更強大的活體兵器";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "但是沒料到會無止盡地自我複製和分解，結果那實驗以失敗收場。";
+	npctalk "但是沒料到會無止盡地自我複製和分解，結果那實驗以失敗收場。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "最為致命的事只剩下不受控制的憤怒本能。";
+	npctalk "最為致命的事只剩下不受控制的憤怒本能。";
+	next;
+	mes "[賽依連]";
+	mes "我在這裡。";
+	npctalk "我在這裡。", .@seyren$;
+	next;
+	mes "[阿依建 維爾納]";
+	mes "你知道嗎？他們至今仍不斷的分裂中，";
+	mes "只是模仿本體，並在裡面成長之中。";
+	npctalk "你知道嗎？他們至今仍不斷的分裂中，只是模仿本體，並在裡面成長之中。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "他們依舊是不穩定的存在，自然想要變更完整，";
+	mes "不只是模糊的幻影，也不只是氣息凝聚模仿本體的假象";
+	npctalk "他們依舊是不穩定的存在，自然想要變更完整，不只是模糊的幻影，也不只是氣息凝聚模仿本體的假象";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "他們想要成為完整的個體。";
+	npctalk "他們想要成為完整的個體。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "還有，唯一一個成功的實驗體，就是現在被稱為賽依連的你。";
+	npctalk "還有，唯一一個成功的實驗體，就是現在被稱為賽依連的你。";
+	next;
+	cutin "ep16_seiren02.bmp",2;
+	mes "[賽依連]";
+	mes "...... 還有遺言嗎？";
+	npctalk "...... 還有遺言嗎？", .@seyren$;
+	next;
+	cutin "ep16_eisen03.bmp",0;
+	mes "[阿依建 維爾納]";
+	mes "不對，孩子啊？你應該聽我的話才對啊？";
+	npctalk "不對，孩子啊？你應該聽我的話才對啊？";
+	next;
+	cutin "ep16_eisen02.bmp",0;
+	mes "[阿依建 維爾納]";
+	mes "我千辛萬苦才把你從那地獄中帶出來，不要受死去傢伙的意識所影響啊！";
+	npctalk "我千辛萬苦才把你從那地獄中帶出來，不要受死去傢伙的意識所影響啊！";
+	next;
+	cutin "ep16_seiren02.bmp",2;
+	mes "[賽依連]";
+	mes "... 阿依建 維爾納.";
+	mes "我再問你一次，你的遺言都說完了嗎？";
+	npctalk "... 阿依建 維爾納. 我再問你一次，你的遺言都說完了嗎？", .@seyren$;
+	next;
+	cutin "ep16_eisen01.bmp",0;
+	mes "[阿依建 維爾納]";
+	mes "該死！";
+	mes "這完全出乎我意料之外！";
+	mes "這世界真的很有趣不是嗎？哈哈哈哈。";
+	npctalk "該死！這完全出乎我意料之外！這世界真的很有趣不是嗎？哈哈哈哈。";
+	next;
+	mes "[阿依建 維爾納]";
+	mes "可不要以為我山窮水盡了，";
+	mes "我根本不需要你這種失敗的實驗品。";
+	npctalk "可不要以為我山窮水盡了，我根本不需要你這種失敗的實驗品。";
+	// close2;	// fix me
+	cutin "",255;
+	specialeffect EF_BEGINSPELL3;
+	sleep2 1000;
+	specialeffect EF_SCREEN_QUAKE;
+	sleep2 1000;
+	specialeffect EF_LORD;
+	hideonnpc instance_npcname("阿依建 維爾納#werner05");
+	sleep2 2000;
+	npctalk "呼....", .@seyren$;
+	next;
+	mes "[賽依連]";
+	mes "... 阿依建，居然用這種方式拋棄了一切。";
+	npctalk "... 阿依建，居然用這種方式拋棄了一切。", .@seyren$;
+	//specialeffect2 EF_DEVIL3;
+	cutin "ep16_seiren01.bmp",2;
+	next;
+	mes "[賽依連]";
+	mes ".. 阿...";
+	npctalk ".. 阿...", .@seyren$;
+	cutin "ep16_seiren02.bmp",2;
+	next;
+	mes "[賽依連]";
+	mes "約束力開始減弱了，";
+	mes "現在我要傳達給你的話會更急迫。";
+	npctalk "約束力開始減弱了，現在我要傳達給你的話會更急迫。", .@seyren$;
+	next;
+	mes "[賽依連]";
+	mes "我等待了許久你的到來，正如阿依建所說，";
+	mes "我究竟是不是賽依連，已經不重要了。";
+	npctalk "我等待了許久你的到來，正如阿依建所說，我究竟是不是賽依連，已經不重要了。", .@seyren$;
+	next;
+	mes "[賽依連]";
+	mes "在我可以開始思考時，我根本不知道我是誰、也不知道我為何存在。";
+	npctalk "在我可以開始思考時，我根本不知道我是誰、也不知道我為何存在。";
+	next;
+	//specialeffect2 EF_DEVIL4;
+	mes "[賽依連]";
+	mes "反覆分裂過程中，出現了無數的自己。";
+	npctalk "反覆分裂過程中，出現了無數的自己。";
+	next;
+	mes "[賽依連]";
+	mes "纏繞在伊美樂的心臟堆積物上的力量，反映了我與我的同僚的意志一面想要變成一個，同時又不斷分裂著。";
+	npctalk "纏繞在伊美樂的心臟堆積物上的力量，反映了我與我的同僚的意志一面想要變成一個，同時又不斷分裂著。";
+	next;
+	//specialeffect2 EF_DEVIL5;
+	cutin "ep16_seiren01.bmp",2;
+	mes "[賽依連]";
+	mes "現在的我又是第幾次的分裂了呢？";
+	npctalk "現在的我又是第幾次的分裂了呢？";
+	next;
+	cutin "ep16_seiren02.bmp",2;
+	mes "[賽依連]";
+	mes "在反覆分裂之下遺忘了自我的我，成為唯-完整再生出過去面貌的賓驗體，這並不是偶然。";
+	npctalk "在反覆分裂之下遺忘了自我的我，成為唯-完整再生出過去面貌的賓驗體，這並不是偶然。";
+	next;
+	mes "[賽依連]";
+	mes "我認為這一定有其中的理由。";
+	npctalk "我認為這一定有其中的理由。";
+	next;
+	mes "[賽依連]";
+	mes "我看到^4d4dff特拉 葛洛麗雅^000000之後才領悟，";
+	mes "神賜給我這種機會的理由。";
+	npctalk "我看到特拉 葛洛麗雅之後才領悟，神賜給我這種機會的理由。";
+	next;
+	//specialeffect2 EF_DEVIL6;
+	cutin "ep16_seiren01.bmp",2;
+	mes "[賽依連]";
+	mes "你是來找這個的吧？";
+	mes "... 基座已消失，只剩下星辰。";
+	npctalk "你是來找這個的吧？... 基座已消失，只剩下星辰。";
+	next;
+	//specialeffect2 EF_DEVIL7;
+	cutin "ep16_seiren02.bmp",2;
+	mes "[賽依連]";
+	mes "阿依建的話沒錯^4d4dff賽依連不存在這個世上了^000000";
+	mes "剩下必須將某個東西傳達出去的強烈意志。";
+	npctalk "阿依建的話沒錯 賽依連 不存在這個世上了。剩下必須將某個東西傳達出去的強烈意志。";
+	next;
+	specialeffect2 EF_SCREEN_QUAKE;
+	//specialeffect2 EF_DEVIL8;
+	cutin "ep16_seiren01.bmp",2;
+	mes "[賽依連]";
+	mes "大概就是這一絲意志才讓我存在，";
+	mes "現在也走到盡頭了。";
+	npctalk "大概就是這一絲意志才讓我存在，現在也走到盡頭了。";
+	cutin "ep16_seiren02.bmp",2;
+	next;
+	//specialeffect2 EF_DEVIL9;
+	cutin "ep16_seiren01.bmp",2;
+	mes "[賽依連]";
+	mes ".....";
+	next;
+	mes "[賽依連]";
+	mes "時間不多了，";
+	mes "這個時間過後，我又會持續地^4d4dff分裂四散^000000";
+	npctalk "時間不多了，這個時間過後，我又會持續地分裂四散";
+	next;
+	mes "[賽依連]";
+	mes "還留有最後意志的此刻，我只有一件是要傳遞給你。";
+	next;
+	if (terra_gloria_main == 21) {
+		mes "[賽依連]";
+		mes "拜託你了，";
+		mes "普龍德拉的騎士，賽依連的任務已經失敗了。";
+		npctalk "拜託你了，普龍德拉的騎士，賽依連的任務已經失敗了。";
+		next;
+		mes "[賽依連]";
+		mes "^4d4dff我和同僚其實都在許久前已經死亡";
+		mes "請勿對這已死去的肉體有任何留戀^000000";
+		npctalk "我和同僚其實都在許久前已經死亡，請勿對這已死去的肉體有任何留戀";
+		next;
+		mes "[賽依連]";
+		mes "不過就只是披著外皮的幽靈罷了，";
+		mes "幸好我最後的意志，還能夠展現你的眼前。";
+		npctalk "不過就只是披著外皮的幽靈罷了，幸好我最後的意志，還能夠展現你的眼前。";
+		next;
+		mes "[賽依連]";
+		mes "這個是我和同僚們的^4d4dff遺物^000000";
+		mes "希望你轉達給我們的家人。";
+		npctalk "這個是我和同僚們的遺物，希望你轉達給我們的家人";
+		getitem 25179,1;
+		getitem 23087,1;
+		getitem 25155,5;
+		terra_gloria_main = 22;
+		// close2;	// fix me
+		cutin "",255;
+		specialeffect EF_ICECRASH, AREA, .@seyren$;
+		hideonnpc .@seyren$;
+		// monster 'map_slw$,56,171, "Seyren", SEYREN, 1;
+		sleep2 1000;
+		specialeffect2 EF_SCREEN_QUAKE;
+		sleep2 1000;
+		specialeffect2 EF_SCREEN_QUAKE;
+		specialeffect2 EF_RAIN_PARTICLE2;
+		enablenpc .@seyren_energy$;
+		end;
+	}
+	// daily
+	mes "[賽依連]";
+	mes "很高興見到你。";
+	mes "謝謝你，再見。";
+	npctalk "很高興見到你。謝謝你，再見。";
+	// close2;	// fix me
+	cutin "",255;
+	specialeffect EF_ICECRASH, AREA, .@seyren$;
+	hideonnpc .@seyren$;	
+	// monster 'map_slw$,56,171, "Seyren", SEYREN, 1;
+	sleep2 1000;
+	specialeffect2 EF_SCREEN_QUAKE;
+	sleep2 1000;
+	specialeffect2 EF_SCREEN_QUAKE;
+	specialeffect2 EF_RAIN_PARTICLE2;
+	enablenpc .@seyren_energy$;
+	disablenpc .@seyren$;
+	end;
+}
+
+1@slw,55,170,3	script	小可愛#boss_master	3621,{
+	.@npc_name$ = instance_npcname("小可愛#boss_master");
+	npctalk "你怎麼敢進來！ 你太勇敢了！", .@npc_name$;
+	sleep2 600;
+	npctalk "你必須有幸能與我作戰！", .@npc_name$;
+	sleep2 600;
+	npctalk ".......", .@npc_name$;
+	sleep2 600;
+	npctalk ".. 該死的沃納 你為什麼把我和狼關在一起？", .@npc_name$;
+	sleep2 600;
+	npctalk "不...不管如何，你已經是一具屍體了。", .@npc_name$;
+	sleep2 600;
+	npctalk "ㄓㄓ 準備!!!", .@npc_name$;
+	specialeffect EF_DANCE_BLADE_ATK, AREA, instance_npcname("小可愛#boss_master");
+	specialeffect EF_ALL_FULL_THROTTLE, AREA, instance_npcname("小可愛#boss_master");
+	donpcevent instance_npcname("#boss_master_lab") + "::OnStart";
+	mapannounce 'map_slw$, "魔術領域已被激活。", bc_map,0xFF99;
+	hideonnpc instance_npcname("小可愛#boss_master");
+	end;
+}
+
+1@slw,1,1,3	script	#boss_master_lab	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#boss_master_lab");
+	if (mobcount( 'map_slw$, instance_npcname("#boss_master_lab") + "::OnMobDead" ) < 1)
+		monster 'map_slw$,55,170, "小可愛", 3621, 1, instance_npcname("#boss_master_lab") + "::OnMobDead";	// EP16_2_MM_CUTIE
+	end;
+OnMobDead:
+	getitem 25155,8;
+	if (mobcount( 'map_slw$, instance_npcname("#boss_master_lab") + "::OnMobDead" ) < 1) {
+		mapannounce 'map_slw$, "魔術領域已被去除。 已經創建了出口。", bc_map,0xFF99;
+		disablenpc instance_npcname("#boss_master_lab");
+	}
+	end;
+}
+
+1@slw,0,0,0	script	離開副本#1@slw	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 940031,10;
+	getitem 930000,5;
+	Instance_PassAnnounce;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

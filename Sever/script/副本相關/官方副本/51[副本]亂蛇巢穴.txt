@@ -1,0 +1,835 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@jorchs	mapflag	noteleport
+1@jorchs	mapflag	nosave	SavePoint
+1@jorchs	mapflag	nomemo
+1@jorchs	mapflag	nobranch
+1@jorchs	mapflag	noicewall
+1@jorchs	mapflag	restricted	6
+1@jorchs	mapflag	monster_noteleport
+1@jorchs	mapflag	partylock
+1@jorchs	mapflag	novending
+1@jorchs	mapflag	nochat
+
+amatsu,127,117,3	script	[副本]亂蛇巢穴	21600,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "亂蛇巢穴";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 51;
+
+//
+	waitingroom "[副本]亂蛇巢穴",0;
+	setnpcicon getnpcid(0),22,"[副本]亂蛇巢穴";
+	end;
+}
+
+
+1@jorchs,0,0,0	script	#亂蛇巢穴	-1,{   
+	end;
+OnInstanceInit:
+	'boss = 0;
+	'talk_quest_1 = 0;
+	'talk_quest_2 = 0;
+	'talk_quest_3 = 0;
+	'talk_quest_4 = 0;
+	'talk_quest_5 = 0;
+	'talk_quest_6 = 0;
+	'boss_mob_co = 0;
+	'kill_mob_co = 0;
+	'talk = 0;
+	'mob_time = 0;
+	'map$ = instance_mapname("1@jorchs");
+	
+	disablenpc instance_npcname("1_2#snake1");
+	disablenpc instance_npcname("2_2#snake2");
+	disablenpc instance_npcname("3_2#snake3");
+	disablenpc instance_npcname("5_2#snake5");
+	disablenpc instance_npcname("6_2#snake6");
+	disablenpc instance_npcname("7_2#snake7");
+	disablenpc instance_npcname("4_2#snake4");
+
+	disablenpc instance_npcname("11_3#snake1");
+	disablenpc instance_npcname("21_3#snake2");
+	disablenpc instance_npcname("31_3#snake3");
+	disablenpc instance_npcname("1_3#snake1");
+	disablenpc instance_npcname("2_3#snake2");
+	disablenpc instance_npcname("3_3#snake3");
+	disablenpc instance_npcname("4_3#snake4");
+	disablenpc instance_npcname("5_3#snake5");
+	disablenpc instance_npcname("6_3#snake6");
+	disablenpc instance_npcname("7_3#snake7");
+	disablenpc instance_npcname("8_3#snake8");
+	disablenpc instance_npcname("9_3#snake9");
+	
+	disablenpc instance_npcname("0_4#snake0");
+	disablenpc instance_npcname("1_4#snake1");
+	disablenpc instance_npcname("2_4#snake2");
+	disablenpc instance_npcname("3_4#snake3");
+	disablenpc instance_npcname("4_4#snake4");
+	disablenpc instance_npcname("5_4#snake5");
+	disablenpc instance_npcname("6_4#snake6");
+	disablenpc instance_npcname("7_4#snake7");
+	disablenpc instance_npcname("8_4#snake8");
+	disablenpc instance_npcname("9_4#snake9");
+
+	disablenpc instance_npcname("註入裝置#snake1");
+	disablenpc instance_npcname("註入裝置#snake2");
+	disablenpc instance_npcname("註入裝置#snake3");
+	disablenpc instance_npcname("註入裝置#snake4");
+	disablenpc instance_npcname("註入裝置#snake5");	
+	
+	disablenpc instance_npcname("蛇人#snake_01");
+	disablenpc instance_npcname("蛇人#snake_02");
+	disablenpc instance_npcname("蛇人#snake_03");
+	disablenpc instance_npcname("蛇人#snake_04");
+	disablenpc instance_npcname("蛇人#snake_05");
+	disablenpc instance_npcname("蛇人#snake_06");
+	disablenpc instance_npcname("蛇人#snake_07");
+	disablenpc instance_npcname("蛇人#snake_08");
+	disablenpc instance_npcname("蛇人#snake_09");
+	disablenpc instance_npcname("蛇人#snake_10");
+	disablenpc instance_npcname("蛇人#snake_11");
+	disablenpc instance_npcname("蛇人#snake_12");
+	disablenpc instance_npcname("蛇人#snake_13");
+	disablenpc instance_npcname("蛇人#snake_14");
+	disablenpc instance_npcname("蛇人#snake_15");
+	disablenpc instance_npcname("蛇人#snake_16");
+	disablenpc instance_npcname("蛇人#snake_17");
+	disablenpc instance_npcname("蛇人#snake_18");
+	disablenpc instance_npcname("蛇人#snake_19");
+	disablenpc instance_npcname("蛇人#snake_20");
+	disablenpc instance_npcname("蛇人#snake_21");	
+	disablenpc instance_npcname("蛇人#snake_22");		
+	
+	end;
+}
+
+
+//除錯模式
+1@jorchs,242,35,5	script	1#snake133	4_ep18_miriam,{
+		if (getgmlevel() >= 90) 
+		{
+				enablenpc instance_npcname("蛇人#snake_01");
+				enablenpc instance_npcname("蛇人#snake_02");
+				enablenpc instance_npcname("蛇人#snake_03");
+				enablenpc instance_npcname("蛇人#snake_04");
+				enablenpc instance_npcname("蛇人#snake_05");
+				enablenpc instance_npcname("蛇人#snake_06");
+				enablenpc instance_npcname("蛇人#snake_07");
+				enablenpc instance_npcname("蛇人#snake_08");
+				enablenpc instance_npcname("蛇人#snake_09");
+				enablenpc instance_npcname("蛇人#snake_10");
+				enablenpc instance_npcname("蛇人#snake_11");
+				enablenpc instance_npcname("蛇人#snake_12");
+				enablenpc instance_npcname("蛇人#snake_13");
+				enablenpc instance_npcname("蛇人#snake_14");
+				enablenpc instance_npcname("蛇人#snake_15");
+				'boss = 1;
+				warp 'map$,37,274;
+				end;
+		}
+	end;	
+}
+
+
+
+1@jorchs,252,35,5	script	1#snake1	4_ep18_miriam,{end;}
+1@jorchs,253,37,5	script	2#snake2	4_ep19_voglinde,{end;}
+1@jorchs,256,38,3	script	3#snake3	4_ep19_leon,{end;}							  
+1@jorchs,255,33,7	script	5#snake5	21517,{end;}
+1@jorchs,257,35,7	script	6#snake6	21518,{end;}
+1@jorchs,257,32,7	script	7#snake7	21517,{end;}
+1@jorchs,258,37,3	script	4#snake4	4_ep19_aurelie,5,5,{
+	end;
+OnTouch:
+		if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+			//mes "需要隊長來開啟!";
+			end;
+		}
+		if(!'talk){
+			'talk = 1;
+		npctalk "雖然只有一個出入口大廳的入口可能會有，我先進去找找看 ";
+		sleep 3000;
+		npctalk "最後一批的援軍清理了,據先進入的部隊的說法，這裏與普通魔物不同，要做好準備";
+		sleep 3000;
+		
+		hideonnpc instance_npcname("1#snake1");
+		hideonnpc instance_npcname("2#snake2");
+		hideonnpc instance_npcname("3#snake3");
+		hideonnpc instance_npcname("5#snake5");
+		hideonnpc instance_npcname("6#snake6");
+		hideonnpc instance_npcname("7#snake7");
+		hideonnpc instance_npcname("4#snake4");
+		enablenpc instance_npcname("蛇人#1");
+		enablenpc instance_npcname("蛇人#2");
+		
+		donpcevent instance_npcname("#mg_monster_crt")+"::OnEnableMob1";
+		
+		
+		
+		}
+		
+end;
+}
+
+
+
+function	script	F_mg_mob	{
+		for(.@i=0;.@i<getarg(6);.@i++){
+			areamonster 'map$,getarg(0),getarg(1),getarg(2),getarg(3),getarg(4),getarg(5),1,instance_npcname(strnpcinfo(0))+"::Onkill_dead";
+			.@mobgid = $@mobid[0];
+			getunitdata .@mobgid,.@mobarr;
+			setunitdata .@mobgid,UMOB_MAXHP,.@mobarr[UMOB_MAXHP]*getarg(6);
+			setunitdata .@mobgid,UMOB_ATKMIN,.@mobarr[UMOB_ATKMIN]+getarg(7);				
+			setunitdata .@mobgid,UMOB_MATKMIN,.@mobarr[UMOB_MATKMIN]+getarg(8);
+			setunitdata .@mobgid,UMOB_DEF,.@mobarr[UMOB_DEF]+getarg(9);
+			setunitdata .@mobgid,UMOB_MDEF,.@mobarr[UMOB_MDEF]+getarg(10);			
+		}
+		return;	
+
+}
+
+//關鍵魔物事件總控臺
+1@jorchs,0,0,0	script	#mg_monster_crt	-1,{
+	end;
+
+OnEnableMob1:
+	callfunc "F_mg_mob",
+		104,21,271,256,
+		"--ja--",21601,50,1,0,0,0,0;	
+		end;
+		
+Onkill_dead:
+	.@mob_dead_num = mobcount('map$,instance_npcname(strnpcinfo(0))+"::Onkill_dead");
+
+	if (!.@mob_dead_num) {
+		'boss = 1;
+		instance_announce 0,"蠕管全部清除",bc_all,"0x00ff99";
+			
+	}
+	else {
+	instance_announce 0,"剩餘蠕管數量為 - "+.@mob_dead_num,bc_all,"0x00ff99";
+	}
+
+end;
+
+}
+
+1@jorchs,115,22,7	script	蛇人#1	21530,{
+	if ('use == 1){ end; }
+	set 'use, 1;
+	set .@label$, instance_npcname("蛇人#1")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) 
+	{
+		mes "需要隊長來開啟!";
+		end;
+	}
+	npctalk "我。我也會變成那樣的是..那些奸人到底對我做了什?…";
+	sleep 3000;
+	npctalk "人類?讓我變成這樣的人??";
+	sleep 3000;
+	monster 'map$,115,22,"--ja--",21530,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	hideonnpc instance_npcname(strnpcinfo(0));
+	end;
+
+OnMyMobDead:
+	'kill_mob_co++;
+	if('kill_mob_co == 2)
+	{
+		instance_announce 0,"過來這裡集合。",bc_all;
+		viewpoint 1,138,57,1,0xFFFF00;
+		enablenpc instance_npcname("1_2#snake1");
+		enablenpc instance_npcname("2_2#snake2");
+		enablenpc instance_npcname("3_2#snake3");
+		enablenpc instance_npcname("5_2#snake5");
+		enablenpc instance_npcname("6_2#snake6");
+		enablenpc instance_npcname("7_2#snake7");
+		enablenpc instance_npcname("4_2#snake4");
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+
+
+1@jorchs,249,79,3	script	蛇人#2	21530,{
+	if ('use == 2){ end; }
+	set 'use, 2;
+	set .@label$, instance_npcname("蛇人#2")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) 
+	{
+		mes "需要隊長來開啟!";
+		end;
+	}
+	npctalk "。。。身體怎?了";
+	sleep 3000;
+	npctalk "人類? ?你這家夥崔美娜? ?你對我做了什??你這個骯臟的人!";
+	sleep 3000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	monster 'map$,249,79,"--ja--",21530,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	'kill_mob_co++;
+	if('kill_mob_co == 2){
+		instance_announce 0,"過來這裡集合。",bc_all;
+		viewpoint 1,138,57,1,0xFFFF00;
+		enablenpc instance_npcname("1_2#snake1");
+		enablenpc instance_npcname("2_2#snake2");
+		enablenpc instance_npcname("3_2#snake3");
+		enablenpc instance_npcname("5_2#snake5");
+		enablenpc instance_npcname("6_2#snake6");
+		enablenpc instance_npcname("7_2#snake7");
+		enablenpc instance_npcname("4_2#snake4");
+	
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+
+1@jorchs,141,59,5	script	1_2#snake1	4_ep18_miriam,{end;}
+1@jorchs,140,59,5	script	2_2#snake2	4_ep19_voglinde,{end;}
+1@jorchs,137,59,3	script	3_2#snake3	4_ep19_leon,{end;}							  
+1@jorchs,141,55,7	script	5_2#snake5	21517,{end;}
+1@jorchs,141,62,7	script	6_2#snake6	21518,{end;}
+1@jorchs,141,65,7	script	7_2#snake7	21517,{end;}
+1@jorchs,138,57,3	script	4_2#snake4	4_ep19_aurelie,5,5,{
+	end;
+OnTouch:
+		if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+			//mes "需要隊長來開啟!";
+			end;
+		}
+
+		if('talk==1){
+			'talk = 2;
+		npctalk "離我們很遠的地方並沒有派遣最後的搜索 ";
+		sleep2 3000;
+		npctalk "到底是怎?回事?我生平第一次看到";
+		sleep2 3000;
+		//玩家變身魔物
+		transform 21530,30*60*1000;
+		hideonnpc instance_npcname("1_2#snake1");
+		hideonnpc instance_npcname("2_2#snake2");
+		hideonnpc instance_npcname("3_2#snake3");
+		hideonnpc instance_npcname("5_2#snake5");
+		hideonnpc instance_npcname("6_2#snake6");
+		hideonnpc instance_npcname("7_2#snake7");
+		hideonnpc instance_npcname("4_2#snake4");
+		enablenpc instance_npcname("蛇人#3");
+		enablenpc instance_npcname("蛇人#4");
+		//donpcevent instance_npcname("#mg_monster_crt")+"::OnEnableMob1";
+		}	
+	end;
+}
+
+1@jorchs,20,96,7	script	蛇人#3	21530,{
+	if ('use == 3){ end; }
+	set 'use, 3;
+	set .@label$, instance_npcname("蛇人#3")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "需要隊長來開啟!";
+		end;
+	}
+	npctalk "要趕快去中心處，怎?能咬著不走呢?從剛才開始就一直發出奇怪的聲音";
+	sleep 3000;
+	npctalk "在終於! !我也有機會成為主教。";
+	sleep 3000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	monster 'map$,20,96,"--ja--",21530,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	'kill_mob_co++;
+	if('kill_mob_co==4){
+		instance_announce 0,"發現他們了",bc_all;
+		viewpoint 1,155,150,1,0xFFFF00;
+		enablenpc instance_npcname("11_3#snake1");
+		enablenpc instance_npcname("21_3#snake2");
+		enablenpc instance_npcname("31_3#snake3");
+		enablenpc instance_npcname("1_3#snake1");
+		enablenpc instance_npcname("2_3#snake2");
+		enablenpc instance_npcname("3_3#snake3");
+		enablenpc instance_npcname("4_3#snake4");
+		enablenpc instance_npcname("5_3#snake5");
+		enablenpc instance_npcname("6_3#snake6");
+		enablenpc instance_npcname("7_3#snake7");
+		enablenpc instance_npcname("8_3#snake8");
+		enablenpc instance_npcname("9_3#snake9");
+	
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@jorchs,25,56,7	script	蛇人#4	21530,{
+	if ('use == 4){ end; }
+	set 'use, 4;
+	set .@label$, instance_npcname("蛇人#4")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) 
+	{
+		mes "需要隊長來開啟!";
+		end;
+	}
+	npctalk "要趕快去中心處，怎?能咬著不走呢?從剛才開始就一直發出奇怪的聲音";
+	sleep 3000;
+	npctalk "在終於! !我也有機會成為主教。";
+	sleep 3000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	monster 'map$,25,56,"--ja--",21530,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+	'kill_mob_co++;
+	if('kill_mob_co==4){
+		viewpoint 1,155,150,1,0xFFFF00;
+		instance_announce 0,"發現他們了",bc_all;	
+		enablenpc instance_npcname("11_3#snake1");
+		enablenpc instance_npcname("21_3#snake2");
+		enablenpc instance_npcname("31_3#snake3");
+		enablenpc instance_npcname("1_3#snake1");
+		enablenpc instance_npcname("2_3#snake2");
+		enablenpc instance_npcname("3_3#snake3");
+		enablenpc instance_npcname("4_3#snake4");
+		enablenpc instance_npcname("5_3#snake5");
+		enablenpc instance_npcname("6_3#snake6");
+		enablenpc instance_npcname("7_3#snake7");
+		enablenpc instance_npcname("8_3#snake8");
+		enablenpc instance_npcname("9_3#snake9");
+	}
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@jorchs,158,153,3	script	11_3#snake1	21599,{end;}
+1@jorchs,157,151,3	script	21_3#snake2	21599,{end;}
+1@jorchs,160,150,3	script	31_3#snake3	21599,{end;}
+
+
+1@jorchs,158,157,3	script	1_3#snake1	21601,{
+end;
+OnEnable:
+	specialeffect 636;
+
+end;}
+1@jorchs,160,155,3	script	2_3#snake2	21601,{end;}
+1@jorchs,160,153,3	script	3_3#snake3	21601,{
+end;
+OnEnable:
+	specialeffect 636;
+end;
+}							  
+1@jorchs,161,151,3	script	4_3#snake4	21601,{end;}
+1@jorchs,162,148,3	script	5_3#snake5	21601,{
+end;
+OnEnable:
+	specialeffect 636;
+end;}
+1@jorchs,164,151,3	script	6_3#snake6	21601,{end;}
+
+1@jorchs,152,150,7	script	7_3#snake7	21517,{end;}
+1@jorchs,155,146,7	script	8_3#snake8	21517,{end;}
+
+1@jorchs,155,150,7	script	9_3#snake9	21518,{
+	set .@label$, instance_npcname("9_3#snake9")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "需要隊長來開啟!";
+		end;
+	}
+	npctalk "找到他們了";
+	sleep 3000;
+	npctalk "快阻止他們前進。",instance_npcname("21_3#snake2");
+	sleep 3000;
+	npctalk "進攻";
+	donpcevent instance_npcname("3_3#snake3")+"::OnEnable";
+	donpcevent instance_npcname("1_3#snake1")+"::OnEnable";
+	donpcevent instance_npcname("5_3#snake5")+"::OnEnable";
+	sleep 3000;
+	hideonnpc instance_npcname("11_3#snake1");
+	hideonnpc instance_npcname("21_3#snake2");
+	hideonnpc instance_npcname("31_3#snake3");
+	hideonnpc instance_npcname("1_3#snake1");
+	hideonnpc instance_npcname("2_3#snake2");
+	hideonnpc instance_npcname("3_3#snake3");
+	hideonnpc instance_npcname("4_3#snake4");
+	hideonnpc instance_npcname("5_3#snake5");
+	hideonnpc instance_npcname("6_3#snake6");
+	hideonnpc instance_npcname("7_3#snake7");
+	hideonnpc instance_npcname("8_3#snake8");
+	hideonnpc instance_npcname("9_3#snake9");
+	monster 'map$,158,153,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,157,151,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,160,150,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,158,157,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,160,155,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,160,153,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,161,151,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,162,148,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	monster 'map$,164,151,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	end;
+OnMyMobDead:
+		.@mob_dead_num = mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead");
+			if (!.@mob_dead_num) 
+			{
+				viewpoint 1,252,172,1,0xFFFF00;
+				enablenpc instance_npcname("0_4#snake0");
+				enablenpc instance_npcname("1_4#snake1");
+				enablenpc instance_npcname("2_4#snake2");
+				enablenpc instance_npcname("3_4#snake3");
+				enablenpc instance_npcname("4_4#snake4");
+				enablenpc instance_npcname("5_4#snake5");
+				enablenpc instance_npcname("6_4#snake6");
+				enablenpc instance_npcname("7_4#snake7");
+				enablenpc instance_npcname("8_4#snake8");
+				enablenpc instance_npcname("9_4#snake9");
+			}
+end;
+}
+
+1@jorchs,242,173,4	script	0_4#snake0	21599,{end;}
+1@jorchs,244,174,4	script	1_4#snake1	21599,{end;}
+1@jorchs,246,176,4	script	2_4#snake2	21599,{end;}
+1@jorchs,248,177,4	script	3_4#snake3	21601,{end;}
+1@jorchs,250,177,4	script	4_4#snake4	21601,{end;}
+1@jorchs,248,175,4	script	5_4#snake5	21590,{end;}					  
+1@jorchs,245,172,4	script	6_4#snake6	21601,{end;}
+1@jorchs,249,174,4	script	7_4#snake7	21590,{end;}
+1@jorchs,249,170,8	script	8_4#snake8	4_ep18_miriam,{end;}
+
+
+1@jorchs,252,172,8	script	9_4#snake9	4_ep19_voglinde,{
+	set .@label$, instance_npcname("9_4#snake9")+"::OnMyMobDead";
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "需要隊長來開啟!";
+		end;
+	}
+		npctalk "切斷供應就行了?比我想象中還要難應付";
+		sleep 3000;
+		hideonnpc instance_npcname("0_4#snake0");		
+		hideonnpc instance_npcname("1_4#snake1");		
+		hideonnpc instance_npcname("2_4#snake2");		
+		hideonnpc instance_npcname("3_4#snake3");		
+		hideonnpc instance_npcname("4_4#snake4");		
+		hideonnpc instance_npcname("5_4#snake5");		
+		hideonnpc instance_npcname("6_4#snake6");		
+		hideonnpc instance_npcname("7_4#snake7");		
+		hideonnpc instance_npcname("8_4#snake8");		
+		hideonnpc instance_npcname("9_4#snake9");
+		monster 'map$,242,173,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,244,174,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,246,176,"--ja--",21599,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,248,177,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,250,177,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,248,175,"--ja--",21590,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,245,172,"--ja--",21601,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		monster 'map$,249,174,"--ja--",21590,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+		end;
+OnMyMobDead:
+	.@mob_dead_num = mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead");
+	if (!.@mob_dead_num) 
+	{
+		instance_announce 0,"註入裝置已啟動",bc_all;
+		viewpoint 1,219,146,1,0xFFFF00;
+		viewpoint 1,225,243,2,0xFFFF00;		
+		viewpoint 1,191,203,3,0xFFFF00;
+		viewpoint 1,20,196,4,0xFFFF00;
+		viewpoint 1,16,135,5,0xFFFF00;			
+		enablenpc instance_npcname("註入裝置#snake1");
+		enablenpc instance_npcname("註入裝置#snake2");
+		enablenpc instance_npcname("註入裝置#snake3");
+		enablenpc instance_npcname("註入裝置#snake4");
+		enablenpc instance_npcname("註入裝置#snake5");
+	}
+end;
+}
+
+1@jorchs,219,146,7	script	註入裝置#snake1	4_energy_blue,{
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+		end;
+	}
+		.@index = atoi(replacestr(strnpcinfo(0),"註入裝置#snake",""));
+	if(!getd("'point_"+.@index)){
+		progressbar "0xFFFF00",3;
+		setd "'point_"+.@index,1;	
+		hideonnpc instance_npcname(strnpcinfo(0));
+		'remove++;
+		if('remove==5){
+			
+			instance_announce 0,"註入裝置已全部解除.快前往飛空艇處",bc_all;
+				viewpoint 2,219,146,1,0xFFFF00;
+				viewpoint 2,225,243,2,0xFFFF00;		
+				viewpoint 2,191,203,3,0xFFFF00;
+				viewpoint 2,20,196,4,0xFFFF00;
+				viewpoint 2,16,135,5,0xFFFF00;	
+				enablenpc instance_npcname("蛇人#snake_01");
+				enablenpc instance_npcname("蛇人#snake_02");
+				enablenpc instance_npcname("蛇人#snake_03");
+				enablenpc instance_npcname("蛇人#snake_04");
+				enablenpc instance_npcname("蛇人#snake_05");
+				enablenpc instance_npcname("蛇人#snake_06");
+				enablenpc instance_npcname("蛇人#snake_07");
+				enablenpc instance_npcname("蛇人#snake_08");
+				enablenpc instance_npcname("蛇人#snake_09");
+				enablenpc instance_npcname("蛇人#snake_10");
+				enablenpc instance_npcname("蛇人#snake_11");
+				enablenpc instance_npcname("蛇人#snake_12");
+				enablenpc instance_npcname("蛇人#snake_13");
+				enablenpc instance_npcname("蛇人#snake_14");
+				enablenpc instance_npcname("蛇人#snake_15");
+		}
+	}
+	end;
+ }
+1@jorchs,225,243,0	duplicate(註入裝置#snake1)	註入裝置#snake2	4_energy_blue
+1@jorchs,191,203,0	duplicate(註入裝置#snake1)	註入裝置#snake3	4_energy_blue
+1@jorchs,20,196,0	duplicate(註入裝置#snake1)	註入裝置#snake4	4_energy_blue
+1@jorchs,16,135,0	duplicate(註入裝置#snake1)	註入裝置#snake5	4_energy_blue
+
+
+1@jorchs,33,258,3	script	蛇人#snake_01	21534,{}
+1@jorchs,35,258,3	script	蛇人#snake_02	21534,{}
+1@jorchs,35,256,3	script	蛇人#snake_03	21534,{}
+1@jorchs,37,259,3	script	蛇人#snake_04	21534,{}
+1@jorchs,37,257,3	script	蛇人#snake_05	21534,{}
+1@jorchs,39,255,3	script	蛇人#snake_06	21534,{}
+1@jorchs,41,258,3	script	蛇人#snake_07	21534,{}
+1@jorchs,41,256,3	script	蛇人#snake_08	21534,{}
+1@jorchs,41,260,3	script	蛇人#snake_09	21534,{}
+1@jorchs,41,257,3	script	蛇人#snake_10	21534,{}
+1@jorchs,39,259,3	script	蛇人#snake_11	21534,{}
+1@jorchs,35,250,4	script	蛇人#snake_12	21536,{}
+1@jorchs,40,252,4	script	蛇人#snake_13	21536,{}
+1@jorchs,39,250,4	script	蛇人#snake_14	21536,{}
+
+1@jorchs,37,252,5	script	蛇人#snake_15	4_ep18_bagot,{
+	if(getcharid(0) != getpartyleader(getcharid(1),2)) {
+		end;
+	}
+	if(!'boss){
+		dispbottom "蠕管還未清除完畢";
+		end;
+	}
+	if('boss ==2){
+		cutin "ep18_bagot_03",2;
+		mes "不錯.看看我的最新作品吧!";
+		close2;
+		hideonnpc instance_npcname(strnpcinfo(0));
+		enablenpc instance_npcname("蛇人#snake_16");
+		enablenpc instance_npcname("蛇人#snake_17");
+		enablenpc instance_npcname("蛇人#snake_18");
+		enablenpc instance_npcname("蛇人#snake_19");
+		enablenpc instance_npcname("蛇人#snake_20");
+		enablenpc instance_npcname("蛇人#snake_21");
+		enablenpc instance_npcname("蛇人#snake_22");
+		
+		 
+		donpcevent instance_npcname("蛇人#snake_16")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_17")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_18")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_19")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_20")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_21")+"::OnEnable";
+		donpcevent instance_npcname("蛇人#snake_22")+"::OnEnable";		
+		cutin "",255;
+		end;
+	}	
+         
+	    
+	cutin "ep18_bagot_03",2;
+	mes "終於追到了嗎.讓他們陪你們玩玩吧!";
+	close2;
+	cutin "",255;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	hideonnpc instance_npcname("蛇人#snake_01");
+	hideonnpc instance_npcname("蛇人#snake_02");
+	hideonnpc instance_npcname("蛇人#snake_03");
+	hideonnpc instance_npcname("蛇人#snake_04");
+	hideonnpc instance_npcname("蛇人#snake_05");
+	hideonnpc instance_npcname("蛇人#snake_06");
+	hideonnpc instance_npcname("蛇人#snake_07");
+	hideonnpc instance_npcname("蛇人#snake_08");
+	hideonnpc instance_npcname("蛇人#snake_09");
+	hideonnpc instance_npcname("蛇人#snake_10");
+	hideonnpc instance_npcname("蛇人#snake_11");
+	hideonnpc instance_npcname("蛇人#snake_12");
+	hideonnpc instance_npcname("蛇人#snake_13");
+	hideonnpc instance_npcname("蛇人#snake_14");
+
+	
+	monster 'map$,33,258,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,35,258,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,35,256,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,37,259,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,37,257,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,39,255,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,41,258,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,41,256,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,41,260,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,41,257,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,39,259,"--ja--",21534,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,35,250,"--ja--",21536,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,40,252,"--ja--",21536,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	monster 'map$,39,250,"--ja--",21536,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";	
+	end;
+		
+OnMyMobDead:
+	if (mobcount(instance_mapname("1@jorchs"),instance_npcname("蛇人#snake_15")+"::OnMyMobDead") < 1) 
+	{
+			'boss = 2;
+			hideoffnpc instance_npcname(strnpcinfo(0));
+	}
+	end;
+}
+
+1@jorchs,32,251,5	script	蛇人#snake_16	21600,{
+	end;
+OnEnable:
+	specialeffect 754;
+	sleep 5000;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	getmapxy(.@map$,.@x,.@y,BL_NPC);
+	monster 'map$,.@x,.@y,"--ja--",21600,1,instance_npcname(strnpcinfo(0))+"::OnLastFloor";
+	'boss_gid = $@mobid[0];
+	getunitdata 'boss_gid,.@boss_data;
+	getunitdata $@mobid[0],.@boss_data;
+	setunitdata $@mobid[0],UMOB_DAMAGETAKEN,500;
+	end;	
+OnLastFloor:
+	'boss_mob_co++;
+	if (mobcount(instance_mapname("1@jorchs"),instance_npcname("蛇人#snake_16")+"::OnLastFloor") < 1) 
+	{
+		if('boss_mob_co == 7)
+		{
+			'Win = 1;
+			enablenpc instance_npcname("蛇洞出口");
+		}
+	}
+	end;
+}
+
+1@jorchs,29,247,5	duplicate(蛇人#snake_16)	蛇人#snake_17	21600
+1@jorchs,31,243,5	duplicate(蛇人#snake_16)	蛇人#snake_18	21600
+1@jorchs,35,241,7	duplicate(蛇人#snake_16)	蛇人#snake_19	21600
+1@jorchs,40,241,7	duplicate(蛇人#snake_16)	蛇人#snake_20	21600
+1@jorchs,43,246,3	duplicate(蛇人#snake_16)	蛇人#snake_21	21600
+1@jorchs,43,250,3	duplicate(蛇人#snake_16)	蛇人#snake_22	21600
+
+                           
+1@jorchs,38,244,0	script	蛇洞出口	21600,{
+	if ( !'Win )
+	{
+		message strcharinfo(0),"副本尚未完成。";
+		end;
+	}
+
+	if ( !is_party_leader())
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+
+	//設定玩家獲得的獎勵
+	setArray .@item_id_r,1000608,1000811,1000812,1000813,1000814;
+	//設定一一對應獎勵數量
+	setArray .@item_co,rand(20,30),rand(1,5),rand(1,3),rand(1,2),1;
+	//設定一一對應掉落的機率 範圍 :1-100
+	setArray .@item_rate,100,80,60,30,20;
+	for(.@i =0;.@i<getarraysize(.@item_id_r) ;.@i++)
+	{
+		if(rand(100)<.@item_rate[.@i])
+		makeitem .@item_id_r[.@i],.@item_co[.@i],strnpcinfo(4),38+rand(-5,5),244+rand(-5,5);
+	}
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@jorchs")+"::OnEnable";
+	'ClearInatance = 1;
+	disablenpc instance_npcname("蛇洞出口");
+	end;
+OnInstanceInit:	
+disablenpc instance_npcname(strnpcinfo(0));
+end;
+}
+
+
+1@jorchs,0,0,0	script	副本寶箱#1@jorchs	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940051,10;	
+	getitem 6909,1;
+	getitem 930000,5;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

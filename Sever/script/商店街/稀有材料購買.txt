@@ -1,0 +1,25 @@
+uttycty,100,163,4	script	稀有材料購買商	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"稀有材料購買";
+	waitingroom "★ 稀有材料 ★",0;
+	.@p = 300000000;
+	.@meow = 15;
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(910132,100000000,-1);      //1E支票
+	
+	sellitem(1001174,.@p*3,-1);      //心臟
+	sellitemcurrency(6909,30);
+	sellitemcurrency(6417,100);
+	sellitemcurrency(4610,1);
+    endsellitem();
+	sellitem(1000620,.@p*3,-1);      //能量石
+	sellitemcurrency(4602,1);
+    endsellitem();
+	
+	
+OnBuyItem:
+end;
+}

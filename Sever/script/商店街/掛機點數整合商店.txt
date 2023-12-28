@@ -1,0 +1,122 @@
+-	script	PCLoginEvent	-1,{	
+OnInit:
+// 掛機點數系統設置
+	set $@BaseLevelpaodian,100; //獲得積分的最低等級
+	set $@Checkvending,0;		//掛店狀態是否獲得積分
+	set $@PDCkcartTimer,180000; //掛店狀態多少時間獲得積分（毫秒）
+	set $@PDTimer,60000;		//多少時間獲得積分（毫秒）
+	set $@paodian,1;			//玩家每次獲得積分
+	set $@Max,99999;			//人物最大積分數
+	end;
+OnPCLoginEvent:
+// 上線提示
+	dispbottom "══════════════════";
+	dispbottom "[登入時間]『"+gettimestr("%Y年%m月%d日 %H:%M:%S",50)+"』";
+	dispbottom "人物等級達到"+ $@BaseLevelpaodian +"級後開始累積掛機點數！";
+	dispbottom "您的掛機點數: [ "+ paodian +" ] 點";
+	dispbottom "══════════════════";
+	addtimer 60000,"掛機點數::OnGivejife";
+	end;
+}
+
+// 掛機點數系统
+-	script	掛機點數	-1,{
+OnGivejife:
+getmapxy(.@map$,.@x,.@y);
+//if(.@map$ == "prontera") {
+if(true){
+if (BaseLevel <= (($@BaseLevelpaodian)-1)) { end; }
+if (checkvending()) {
+	dispbottom "掛店或離線掛店期間不會獲得掛機點數。";
+	if (paodian==$@Max)
+	{
+		dispbottom "您的掛機點數已滿，無法繼續累積！";
+		end;
+	}
+	deltimer "掛機點數::OnGivejife";
+	addtimer $@PDCkcartTimer,"掛機點數::OnGivejife";
+	end;			
+}
+if(paodian==$@Max){
+	dispbottom "您的掛機點數已滿，無法繼續累積！";
+	end;
+}
+deltimer "掛機點數::OnGivejife";
+set paodian,paodian+$@paodian;
+addtimer $@PDTimer,"掛機點數::OnGivejife";
+end;
+OnPCLogoutEvent:
+	deltimer "掛機點數::OnGivejife";
+	end;
+}else{addtimer 60000,"掛機點數::OnGivejife";}
+}
+
+-	shop	PaoDian	-1,512:-1 //生成商店，腳本名稱需要和下面腳本中的名稱叫對應
+//腳本開始
+uttycty,90,80,5	script	掛機點數商城	910,{
+	message strcharinfo(0),"此商店只能使用 [ 掛機點數 ] 進行交易。"; //這裡告訴玩家此商店使用什麼作為商店貨幣
+	dispbottom "您現在有 [ "+paodian+" ] 掛機點數。"; //有多少点数
+	callshop "PaoDian",1; //開啟商店
+	npcshopattach "PaoDian"; //關聯腳本
+	end;
+//購買事件
+OnBuyItem:
+	set .@i,0; //初始化購買數為0
+	while (.@i < getarraysize(@bought_nameid)) {
+		set .@j, 0;
+		while (.@j < getarraysize(.Commodity)) {
+			if(.Commodity[.@j] == @bought_nameid[.@i]) {
+				set @itemcost, .Price[.@j] * @bought_quantity[.@i];
+				set @totalcost, @totalcost + @itemcost;
+				break; 
+			}
+			set .@j, .@j+1; 
+		}
+		set .@i, .@i+1; 
+	}
+	if (@totalcost > paodian) dispbottom "抱歉!您沒有足夠的 [掛機點數] 。";
+	else {
+		set .@i,0;
+		while (.@i < getarraysize(@bought_nameid)) {
+			getitembound @bought_nameid[.@i], @bought_quantity[.@i],Bound_Char;
+			dispbottom "成功購買 [ "+@bought_quantity[.@i]+" ] 個 [ "+getitemname(@bought_nameid[.@i])+" ]。";
+			set .@i, .@i+1; 
+		}
+		//購買成功，扣除點數
+		set paodian,paodian - @totalcost; 
+		dispbottom "您消費了 [ "+@totalcost+" ] 點, 還剩餘 [ "+paodian+" ] 掛機點數。";
+	}
+	//初始化玩家变量
+	set @totalcost, 0;
+	deletearray @bought_nameid[0],128;
+	deletearray @bought_quantity[0],128;
+	end;
+
+OnInit:
+//---------------------------------------------------
+	//設定商品的ID
+	setarray .Commodity[0],920005,12211,14887,23204,14597,14598,14602,14603,14604,12118,12119,12120,12121,6230,6234,6229,6233,17162,16683;
+	//設定商品價格[對應商品ID]
+	setarray .Price[0],2,2,20,50,50,50,50,50,50,20,20,20,20,50,50,100,100,150,500;
+// --------------------------------------------------
+//初始化商店中物品
+	debugmes "//======= 掛機點數商城載入中... ========//";
+	set .@j,0;
+	if (getarraysize(.Commodity) != getarraysize(.Price))
+	{
+		debugmes "[錯誤],您設定的商品ID與商品價格不對應";
+		debugmes "[錯誤],商品ID共["+getarraysize(.Commodity)+"],商品價格["+getarraysize(.Price)+"]";
+		debugmes "//====================================//";
+		end;
+	}
+	while (.@j < getarraysize(.Commodity)) {
+		npcshopdelitem "PaoDian",512;
+		npcshopadditem "PaoDian",.Commodity[.@j],.Price[.@j];
+		set .@j,.@j+1; 
+	}
+	debugmes "成功加載 [掛機點數商城] , 共有商品 "+getarraysize(.Commodity)+" 個";
+	debugmes "//======================================//";
+	waitingroom "★ 掛機商店 ★ ",0;
+	end;
+
+}

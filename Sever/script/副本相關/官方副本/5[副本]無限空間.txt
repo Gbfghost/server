@@ -1,0 +1,833 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@infi	mapflag	nobranch
+1@infi	mapflag	noicewall
+1@infi	mapflag	nomemo
+1@infi	mapflag	pvp	off
+1@infi	mapflag	nosave	SavePoint
+1@infi	mapflag	noteleport
+1@infi	mapflag	monster_noteleport
+1@infi	mapflag	nowarpto
+1@infi	mapflag	partylock
+1@infi	mapflag	restricted	6
+
+amatsu,103,163,5	script	[副本]無限空間	702,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "無限空間";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 5;
+
+//
+	waitingroom "[副本]無限空間",0;
+	setnpcicon getnpcid(0),22,"[副本]無限空間";
+	end;
+}
+
+1@infi,42,8,1	script	魯莽的冒險家#infi	4_F_GON,{ 
+if	('talk_1 == 1){end;}
+	mes "[魯莽的冒險家]";
+	mes "我已經找到刺激這裡怪物的方法了，消滅被惹惱的怪物獎勵也會比較多呢!";
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) 
+		close;
+	next;
+	mes "[魯莽的冒險家]";
+	mes "如何? 有沒有意願要挑戰看看呢?";
+	next;
+	select("開始吧!");
+	mes "[魯莽的冒險家]";
+	mes "沒問題，出發囉?";
+	donpcevent instance_npcname("魯莽的冒險家#infi")+"::OnTalk";
+	set 'talk_1,1;
+	close;
+
+OnTalk:
+	npctalk "魯莽的冒險家：哇! 以崩毀的地方來說，這裡算整齊呢?";
+	sleep 3000;
+	npctalk "魯莽的冒險家：不用說是燈塔，說這裡是古代遺址也會深信不疑，整理的非常井然有序…";
+	sleep 3000;
+	npctalk "魯莽的冒險家：你沒聽到什麼聲音嗎?";	
+	sleep 3000;
+	donpcevent instance_npcname("infinite_space")+"::OnStart";
+	npctalk "魯莽的冒險家：應該是在這裡會出現的怪物吧!";
+	sleep 3000;
+	npctalk "魯莽的冒險家：雖外表跟外面怪物沒什麼兩樣，但卻非常強大。";
+	sleep 3000;
+	npctalk "魯莽的冒險家：看起來比較危險，我先上去囉!我會在上面引導你。";
+	sleep 3000;
+	disablenpc 	instance_npcname("魯莽的冒險家#infi");
+	end;
+	
+}
+
+1@infi,101,107,4	script	infinite_space	HIDDEN_WARP_NPC,2,2,{
+	function summon_normal;
+	function summon_special;
+	function summon_guardian;
+	end;
+
+OnInstanceInit:
+	set 'instance_is_level, 0;
+	set .max_is_level, 50;
+	for(.@i=1; .@i<51; .@i++) 
+	disablenpc instance_npcname( "iswarp#"+.@i );
+	end;
+	
+OnStart:
+	set .@map$, strnpcinfo(4);
+	set .@npc_name$, instance_npcname( strnpcinfo(0) );
+	summon_normal(.@map$,.@npc_name$+"::OnNormalDied" );
+	end;
+	
+function	summon_normal	{
+	set .@map$, getarg(0);
+	set .@label$, getarg(1);
+	
+	'instance_is_level++;
+	
+	switch( 'instance_is_level ){
+		case 1:
+			setarray .@monster,3384,3385,3386;
+			setarray .@amount,5,5,5;
+			setarray .@coordinate,17,31,43,4;
+			break;
+		case 2:
+			setarray .@monster,3387,3386,3384;
+			setarray .@amount,6,6,6;
+			setarray .@coordinate,43,37,16,63;
+			break;
+		case 3:
+			setarray .@monster,3387,3386,3385;
+			setarray .@amount,5,5,5;
+			setarray .@coordinate,16,68,43,95;
+			break;
+		case 4:
+			setarray .@monster,3387,3386,3388;
+			setarray .@amount,3,6,2;
+			setarray .@coordinate,43,100,16,127;
+			break;
+		case 5:
+			setarray .@monster,3390,3386,3385,3389,3388,3391,3392,3387;
+			setarray .@amount,3,5,6,3,3,3,3,5;
+			setarray .@coordinate,10,132,49,171;
+			break;
+		case 6:
+			setarray .@monster,3390,3385,3389;
+			setarray .@amount,10,6,10;
+			setarray .@coordinate,16,216,43,243;
+			break;
+		case 7:
+			setarray .@monster,3389,3390,3388;
+			setarray .@amount,10,10,10;
+			setarray .@coordinate,43,248,16,275;
+			break;
+		case 8:
+			setarray .@monster,3390,3391,3389;
+			setarray .@amount,10,6,6;
+			setarray .@coordinate,16,282,43,307;
+			break;
+		case 9:
+			setarray .@monster,3389,3388,3391;
+			setarray .@amount,10,5,10;
+			setarray .@coordinate,43,312,16,339;
+			break;
+		case 11:
+			setarray .@monster,3392,3391;
+			setarray .@amount,10,10;
+			setarray .@coordinate,98,4,125,31;
+			break;
+		case 12:
+			setarray .@monster,3395,3392;
+			setarray .@amount,10,8;
+			setarray .@coordinate,125,36,98,63;
+			break;
+		case 13:
+			setarray .@monster,3394,3395,3393;
+			setarray .@amount,8,5,6;
+			setarray .@coordinate,98,68,125,95;
+			break;
+		case 14:
+			setarray .@monster,3394,3395,3396;
+			setarray .@amount,8,8,8;
+			setarray .@coordinate,98,127,125,100;
+			break;
+		case 15:
+			setarray .@monster,3394,3395,3396,3397,3393,3399,3400;
+			setarray .@amount,8,8,8,6,6,6,6;
+			setarray .@coordinate,92,132,131,171;
+			break;
+		case 16:
+			setarray .@monster,3396,3395,3397;
+			setarray .@amount,6,10,6;
+			setarray .@coordinate,98,216,125,243;
+			break;
+		case 17:
+			setarray .@monster,3396,3397,3398;
+			setarray .@amount,10,10,6;
+			setarray .@coordinate,98,275,125,248;
+			break;
+		case 18:
+			setarray .@monster,3397,3398,3399;
+			setarray .@amount,10,10,5;
+			setarray .@coordinate,98,280,125,307;
+			break;
+		case 19:
+			setarray .@monster,3400,3398,3399;
+			setarray .@amount,10,8,8;
+			setarray .@coordinate,98,338,125,312;
+			break;			
+		case 21:
+			setarray .@monster,3400,3401;
+			setarray .@amount,10,8;
+			setarray .@coordinate,184,4,211,31;
+			break;
+		case 22:
+			setarray .@monster,3401,3400,3402;
+			setarray .@amount,12,12,12;
+			setarray .@coordinate,184,63,211,36;
+			break;
+		case 23:
+			setarray .@monster,3401,3403,3402;
+			setarray .@amount,12,8,12;
+			setarray .@coordinate,184,68,211,95;
+			break;
+		case 24:
+			setarray .@monster,3402,3403,3401;
+			setarray .@amount,12,12,12;
+			setarray .@coordinate,184,127,211,100;
+			break;
+		case 25:
+			setarray .@monster,3402,3403,3404,3401,3405;
+			setarray .@amount,12,12,12,10,10;
+			setarray .@coordinate,178,132,217,171;
+			break;
+		case 26:
+			setarray .@monster,3405,3404,3402;
+			setarray .@amount,8,12,12;
+			setarray .@coordinate,180,208,206,235;
+			break;
+		case 27:
+			setarray .@monster,3405,3404;
+			setarray .@amount,10,10;
+			setarray .@coordinate,180,267,206,240;
+			break;
+		case 28:
+			setarray .@monster,3405,3407;
+			setarray .@amount,12,12;
+			setarray .@coordinate,180,272,206,299;
+			break;
+		case 29:
+			setarray .@monster,3406,3408;
+			setarray .@amount,12,12;
+			setarray .@coordinate,180,331,206,304;
+			break;			
+		case 31:
+			setarray .@monster,3409,3406;
+			setarray .@amount,12,12;
+			setarray .@coordinate,266,4,291,31;
+			break;
+		case 32:
+			setarray .@monster,3408,3409;
+			setarray .@amount,15,10;
+			setarray .@coordinate,266,63,291,36;
+			break;
+		case 33:
+			setarray .@monster,3409,3410,3411;
+			setarray .@amount,10,10,10;
+			setarray .@coordinate,266,68,291,95;
+			break;
+		case 34:
+			setarray .@monster,3411,3410,3412;
+			setarray .@amount,10,10,10;
+			setarray .@coordinate,266,127,291,100;
+			break;
+		case 35:
+			setarray .@monster,3410,3412,3413;
+			setarray .@amount,12,10,5;
+			setarray .@coordinate,266,132,293,171;
+			break;
+		case 36:
+			setarray .@monster,3413,3412,3411;
+			setarray .@amount,12,5,10;
+			setarray .@coordinate,266,208,293,235;
+			break;
+		case 37:
+			setarray .@monster,3413,3412,3414;
+			setarray .@amount,12,5,5;
+			setarray .@coordinate,266,267,293,240;
+			break;
+		case 38:
+			setarray .@monster,3414,3413,3415;
+			setarray .@amount,12,12,2;
+			setarray .@coordinate,266,272,293,299;
+			break;
+		case 39:
+			setarray .@monster,3415,3414,3409;
+			setarray .@amount,5,8,12;
+			setarray .@coordinate,266,331,293,304;
+			break;			
+		case 41:
+			setarray .@monster,3419,3417;
+			setarray .@amount,15,12;
+			setarray .@coordinate,348,4,375,31;
+			break;
+		case 42:
+			setarray .@monster,3419,3420,3418;
+			setarray .@amount,15,10,8;
+			setarray .@coordinate,348,63,375,36;
+			break;
+		case 43:
+			setarray .@monster,3419,3420,3417;
+			setarray .@amount,15,12,12;
+			setarray .@coordinate,348,68,374,95;
+			break;
+		case 44:
+			setarray .@monster,3419,3417,3420,3418;
+			setarray .@amount,8,15,12,12;
+			setarray .@coordinate,348,126,374,100;
+			break;
+		case 45:
+			setarray .@monster,3419,3420,3417,3416,3415,3413;
+			setarray .@amount,12,10,8,8,5,12;
+			setarray .@coordinate,342,132,380,171;
+			break;
+		case 46:
+			setarray .@monster,3419,3415;
+			setarray .@amount,15,12;
+			setarray .@coordinate,352,208,379,235;
+			break;
+		case 47:
+			setarray .@monster,3419,3420,3416;
+			setarray .@amount,15,15,10;
+			setarray .@coordinate,352,267,379,240;
+			break;
+		case 48:
+			setarray .@monster,3419,3420;
+			setarray .@amount,20,15;
+			setarray .@coordinate,352,272,377,299;
+			break;
+		case 49:
+			setarray .@monster,3419,3415,3420;
+			setarray .@amount,15,10,5;
+			setarray .@coordinate,352,304,379,331;
+			break;
+	}
+	set .@monster_size, getarraysize( .@monster );
+	for( set .@i, 0; .@i < .@monster_size; set .@i,.@i+1 ){
+		set .@target_amount, .@amount[.@i];
+		set .@size, 0;
+		areamonster .@map$,.@coordinate[0],.@coordinate[1],.@coordinate[2],.@coordinate[3],"--ja--",.@monster[.@i],.@target_amount,.@label$,.@size;
+	}
+	if(rand(5)<2) {	// 閃亮波利
+		if(unitexists('poring) == true) {
+			donpcevent instance_npcname("infinite_space")+"::OnPoringBomb";
+			sleep 100;
+		}
+		areamonster .@map$,.@coordinate[0],.@coordinate[1],.@coordinate[2],.@coordinate[3],"--ja--",3206,1,instance_npcname("infinite_space")+"::OnPoringDead";
+		'poring = $@mobid[0];
+		donpcevent instance_npcname("infinite_space")+"::OnPoringXYStart";
+	}
+	return;
+}
+
+function	summon_special	{
+	set .@map$, getarg(0);
+	set .@label$, getarg(1);
+	
+	'instance_is_level++;
+	
+	switch( 'instance_is_level ){
+		case 1:
+			setarray .@coordinate,17,31,43,4;
+			break;
+		case 2:
+			setarray .@coordinate,43,37,16,63;
+			break;
+		case 3:
+			setarray .@coordinate,16,68,43,95;
+			break;
+		case 4:
+			setarray .@coordinate,43,100,16,127;
+			break;
+		case 5:
+			setarray .@coordinate,10,132,49,171;
+			break;
+		case 6:
+			setarray .@coordinate,16,216,43,243;
+			break;
+		case 7:
+			setarray .@coordinate,43,248,16,275;
+			break;
+		case 8:
+			setarray .@coordinate,16,282,43,307;
+			break;
+		case 9:
+			setarray .@coordinate,43,312,16,339;
+			break;
+		case 11:
+			setarray .@coordinate,98,4,125,31;
+			break;
+		case 12:
+			setarray .@coordinate,125,36,98,63;
+			break;
+		case 13:
+			setarray .@coordinate,98,68,125,95;
+			break;
+		case 14:
+			setarray .@coordinate,98,127,125,100;
+			break;
+		case 15:
+			setarray .@coordinate,92,132,131,171;
+			break;
+		case 16:
+			setarray .@coordinate,98,216,125,243;
+			break;
+		case 17:
+			setarray .@coordinate,98,275,125,248;
+			break;
+		case 18:
+			setarray .@coordinate,98,280,125,307;
+			break;
+		case 19:
+			setarray .@coordinate,98,338,125,312;
+			break;			
+		case 21:
+			setarray .@coordinate,184,4,211,31;
+			break;
+		case 22:
+			setarray .@coordinate,184,63,211,36;
+			break;
+		case 23:
+			setarray .@coordinate,184,68,211,95;
+			break;
+		case 24:
+			setarray .@coordinate,184,127,211,100;
+			break;
+		case 25:
+			setarray .@coordinate,178,132,217,171;
+			break;
+		case 26:
+			setarray .@coordinate,180,208,206,235;
+			break;
+		case 27:
+			setarray .@coordinate,180,267,206,240;
+			break;
+		case 28:
+			setarray .@coordinate,180,272,206,299;
+			break;
+		case 29:
+			setarray .@coordinate,180,331,206,304;
+			break;			
+		case 31:
+			setarray .@coordinate,266,4,291,31;
+			break;
+		case 32:
+			setarray .@coordinate,266,63,291,36;
+			break;
+		case 33:
+			setarray .@coordinate,266,68,291,95;
+			break;
+		case 34:
+			setarray .@coordinate,266,127,291,100;
+			break;
+		case 35:
+			setarray .@coordinate,266,132,293,171;
+			break;
+		case 36:
+			setarray .@coordinate,266,208,293,235;
+			break;
+		case 37:
+			setarray .@coordinate,266,267,293,240;
+			break;
+		case 38:
+			setarray .@coordinate,266,272,293,299;
+			break;
+		case 39:
+			setarray .@coordinate,266,331,293,304;
+			break;			
+		case 41:
+			setarray .@coordinate,348,4,375,31;
+			break;
+		case 42:
+			setarray .@coordinate,348,63,375,36;
+			break;
+		case 43:
+			setarray .@coordinate,348,68,374,95;
+			break;
+		case 44:
+			setarray .@coordinate,348,126,374,100;
+			break;
+		case 45:
+			setarray .@coordinate,342,132,380,171;
+			break;
+		case 46:
+			setarray .@coordinate,352,208,379,235;
+			break;
+		case 47:
+			setarray .@coordinate,352,267,379,240;
+			break;
+		case 48:
+			setarray .@coordinate,352,272,377,299;
+			break;
+		case 49:
+			setarray .@coordinate,354,304,377,331;
+			break;
+	}
+
+	setarray .@monster,3421,3422,3423,3424,3425;
+	
+	set .@monster_size, getarraysize( .@monster );
+	set .@target_amount, 1;
+	set .@size, 0;
+
+	set .@mobId, .@monster[rand(0,.@monster_size - 1)];
+	areamonster .@map$,.@coordinate[0],.@coordinate[1],.@coordinate[2],.@coordinate[3],"--ja--",.@mobId,.@target_amount,.@label$,.@size;
+	if(rand(5)<2) {	// 閃亮波利
+		if(unitexists('poring) == true) {
+			donpcevent instance_npcname("infinite_space")+"::OnPoringBomb";
+			sleep 100;
+		}
+		areamonster .@map$,.@coordinate[0],.@coordinate[1],.@coordinate[2],.@coordinate[3],"--ja--",3206,1,instance_npcname("infinite_space")+"::OnPoringDead";
+		'poring = $@mobid[0];
+		donpcevent instance_npcname("infinite_space")+"::OnPoringXYStart";
+	}
+	return;
+}
+
+function	summon_guardian	{
+	set .@map$, getarg(0);
+	set .@label$, getarg(1);
+
+	'instance_is_level++;
+			
+	switch( 'instance_is_level ){
+		case 10:
+			setarray .@monster,3426;
+			setarray .@coordinate,10,344,48,381;
+			break;
+		case 20:
+			setarray .@monster,3427;
+			setarray .@coordinate,91,344,130,383;
+			break;
+		case 30:
+			setarray .@monster,3428;
+			setarray .@coordinate,164,395,223,336;
+			break;
+		case 40:
+			setarray .@monster,3429;	
+			setarray .@coordinate,250,336,309,395;
+			break;             
+		case 50:                
+			setarray .@monster,3430;
+			setarray .@coordinate,395,394,336,336;
+			break;
+		default: 
+			instance_announce instance_id(),"魯莽的冒險家：看來已經無路可走了，到外面去好了比較安全。",bc_map,0x00FF99;
+			return;
+	}
+	set .@monster_size, getarraysize( .@monster );
+	for( set .@i, 0; .@i < .@monster_size; set .@i,.@i+1 ){
+		set .@target_amount, 1;
+		set .@size, 0;
+		areamonster .@map$,.@coordinate[0],.@coordinate[1],.@coordinate[2],.@coordinate[3],"--ja--",.@monster[.@i],.@target_amount,.@label$,.@size;
+	}
+	return;
+}
+
+OnNormalDied:
+	set .@map$, strnpcinfo(4);
+	set .@npc_name$, instance_npcname( strnpcinfo(0) );
+	set .@mob_dead_num, mobcount(.@map$,.@npc_name$+"::OnNormalDied" );
+	
+	if(((.@mob_dead_num < 8 && .@mob_dead_num >= 1) || .@mob_dead_num % 5 == 0) && .@mob_dead_num > 0)
+		instance_announce instance_id(),"魯莽的冒險家：這區域還剩餘 "+.@mob_dead_num+" 隻怪物。",bc_map,0x00FF99;
+	
+	if( .@mob_dead_num == 0 ){
+		instance_announce instance_id(),"魯莽的冒險家：這區域很安全，透過通道前往第 "+ ('instance_is_level+1) +" 層吧!",bc_map,0x00FF99;
+		enablenpc instance_npcname( "iswarp#"+'instance_is_level );
+
+		if ('instance_is_level == 9 || 'instance_is_level == 19 || 'instance_is_level == 29 || 'instance_is_level == 39 || 'instance_is_level == 49)
+		{
+			summon_guardian(.@map$,.@npc_name$+"::OnGuardianDied" );
+		}
+		else
+		{
+			if(rand(0,10) <= 2)
+			{
+				summon_special(.@map$,.@npc_name$+"::OnSpecialDied" );
+			}
+			else
+			{
+				summon_normal(.@map$,.@npc_name$+"::OnNormalDied" );
+			}
+		}
+
+	}
+	end;
+	
+OnSpecialDied:
+	set .@map$, strnpcinfo(4);
+	set .@npc_name$, instance_npcname( strnpcinfo(0) );
+	set .@mob_dead_num, mobcount(.@map$,.@npc_name$+"::OnSpecialDied" );
+	
+	if( .@mob_dead_num < 5 || .@mob_dead_num % 5== 0 )
+		instance_announce instance_id(),"魯莽的冒險家：這區域還剩餘 "+.@mob_dead_num+" 隻怪物。",bc_map,0x00FF99;
+	
+	if( !.@mob_dead_num ){
+		instance_announce instance_id(),"魯莽的冒險家：這區域很安全，透過通道前往第 "+ ('instance_is_level+1) +" 層吧!",bc_map,0x00FF99;
+		enablenpc instance_npcname( "iswarp#"+'instance_is_level );
+
+		if ('instance_is_level == 9 || 'instance_is_level == 19 || 'instance_is_level == 29 || 'instance_is_level == 39 || 'instance_is_level == 49)
+		{
+			summon_guardian(.@map$,.@npc_name$+"::OnGuardianDied" );
+		}
+		else
+		{
+			if(rand(0,10) <= 2)
+			{
+				summon_special(.@map$,.@npc_name$+"::OnSpecialDied" );
+			}
+			else
+			{
+				summon_normal(.@map$,.@npc_name$+"::OnNormalDied" );
+			}
+		}
+	}
+	end;
+	
+OnGuardianDied:
+	set .@map$, strnpcinfo(4);
+	set .@npc_name$, instance_npcname( strnpcinfo(0) );
+	set .@mob_dead_num, mobcount(.@map$,.@npc_name$+"::OnGuardianDied" );
+	set .@boss_level, 'instance_is_level/10;	
+	
+	if( (.@mob_dead_num < 5 || .@mob_dead_num % 5 == 0) && .@mob_dead_num > 0 )
+		instance_announce instance_id(),"魯莽的冒險家：這區域還剩餘 "+.@mob_dead_num+" 隻怪物。",bc_map,0x00FF99;
+	
+	if( !.@mob_dead_num ) 
+	{		
+		enablenpc instance_npcname("無限寶箱#infi"+(.@boss_level));
+		
+		if ('instance_is_level == .max_is_level)
+		{
+			instance_announce instance_id(),"魯莽的冒險家：看來已經無路可走了，到外面去好了比較安全。",bc_map,0x00FF99;
+			getmapxy(.@m$,'passx,'passy,BL_PC);
+			donpcevent instance_npcname("副本寶箱#1@infi")+"::OnEnable";
+			'ClearInatance = 1;
+			end;
+		}else
+			instance_announce instance_id(),"魯莽的冒險家：這區域很安全，透過通道前往第 "+ ('instance_is_level+1) +" 層吧!",bc_map,0x00FF99;
+		
+		enablenpc instance_npcname( "iswarp#"+'instance_is_level );
+		sleep 5000;
+		if(rand(0,10) <= 2)
+		{
+			summon_special(.@map$,.@npc_name$+"::OnSpecialDied" );
+		}
+		else
+		{
+			summon_normal(.@map$,.@npc_name$+"::OnNormalDied" );
+		}
+	}
+	end;
+
+OnPoringDead:
+	stopnpctimer;
+	if('poringDestruct == 0) {		
+		setarray .@proTable[0], 100, 50, 30, 10;
+		.@total = 0;
+		.@rand = rand(100);
+		for(.@i=0; .@i<getarraysize(.@proTable); .@i++) {
+			if(.@rand<.@proTable[.@i])
+				.@total++;
+		}
+		
+		.@map$ = instance_mapname("1@infi");
+		for(.@i=0; .@i<.@total; .@i++) {
+			makeitem 6905,1,.@map$,'poringX+rand(-1,1),'poringY+rand(-1,1);
+		}
+	}else
+		'poringDestruct = 0;
+	end;
+
+OnPoringXYStart:
+	'timerCount = 0;
+	initnpctimer;
+	end;
+	
+OnPoringBomb:
+	'poringDestruct = 1;
+	unitskilluseid 'poring, 173, 1; // NPC_SELFDESTRUCTION			
+	end;
+
+OnTimer500:
+	initnpctimer;
+	'timerCount++;
+	if(unitexists('poring) == true) {
+		getunitdata('poring, .@arr);
+		set 'poringX, .@arr[UMOB_X];
+		set 'poringY, .@arr[UMOB_Y];
+		if('timerCount % 10 == 0 && rand(100) < 50) 
+			donpcevent instance_npcname(strnpcinfo(0))+"::OnPoringBomb";
+	}
+	end;
+}
+
+1@infi,30,371,3	script	無限寶箱#infi1	10005,{
+	setarray .@weapon[0],1938,1994,2024,7042,13126,13323,16038,18128,21014,28105,28703;
+	getmapxy(.@map$,.@x,.@y,BL_NPC,instance_npcname(strnpcinfo(0)));
+	specialeffect 10;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	.@pro = rand(100);
+	if(.@pro < 15)
+		.@nums = rand(10,20);
+	else if(.@pro < 30)
+		.@nums = rand(5,15);
+	else if(.@pro < 60)
+		.@nums = rand(5,10);
+	else
+		.@nums = rand(1,10);
+		
+	for(.@i=0; .@i<.@nums; .@i++)
+		makeitem 6905,1,.@map$,.@x+rand(3)-1,.@y+rand(3)-1;
+	if (rand(1,1000) <= 50)
+		makeitem .@weapon[rand(getarraysize(.@weapon))],1,.@map$,rand(.@x-2,.@x+2),rand(.@y-2,.@y+2);
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+//寶箱
+1@infi,0,0,0	script	離開副本#1@infi	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940005,10;
+	Instance_PassAnnounce;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}
+
+
+1@infi,112,371,3	duplicate(無限寶箱#infi1)	無限寶箱#infi2	10005
+1@infi,194,383,3	duplicate(無限寶箱#infi1)	無限寶箱#infi3	10005
+1@infi,280,383,3	duplicate(無限寶箱#infi1)	無限寶箱#infi4	10005
+1@infi,366,383,3	duplicate(無限寶箱#infi1)	無限寶箱#infi5	10005
+
+1@infi,29,31,5	warp	iswarp#1	2,2,1@infi,29,36
+1@infi,29,63,5	warp	iswarp#2	2,2,1@infi,29,68
+1@infi,29,95,5	warp	iswarp#3	2,2,1@infi,29,100
+1@infi,29,127,5	warp	iswarp#4	2,2,1@infi,29,132
+1@infi,29,168,5	warp	iswarp#5	2,2,1@infi,29,216
+1@infi,29,243,5	warp	iswarp#6	2,2,1@infi,29,250
+1@infi,29,275,5	warp	iswarp#7	2,2,1@infi,29,280
+1@infi,29,307,5	warp	iswarp#8	2,2,1@infi,29,312
+1@infi,29,339,5	warp	iswarp#9	2,2,1@infi,29,345
+1@infi,29,379,5	warp	iswarp#10	2,2,1@infi,111,4
+1@infi,111,31,5	warp	iswarp#11	2,2,1@infi,111,36
+1@infi,111,63,5	warp	iswarp#12	2,2,1@infi,111,68
+1@infi,111,95,5	warp	iswarp#13	2,2,1@infi,111,100
+1@infi,111,127,5	warp	iswarp#14	2,2,1@infi,111,132
+1@infi,111,168,5	warp	iswarp#15	2,2,1@infi,111,216
+1@infi,111,243,5	warp	iswarp#16	2,2,1@infi,111,248
+1@infi,111,275,5	warp	iswarp#17	2,2,1@infi,111,280
+1@infi,111,307,5	warp	iswarp#18	2,2,1@infi,111,312
+1@infi,111,339,5	warp	iswarp#19	2,2,1@infi,111,344
+1@infi,111,380,5	warp	iswarp#20	2,2,1@infi,197,4
+1@infi,197,31,5	warp	iswarp#21	2,2,1@infi,197,36
+1@infi,197,63,5	warp	iswarp#22	2,2,1@infi,197,68
+1@infi,197,95,5	warp	iswarp#23	2,2,1@infi,197,100
+1@infi,197,127,5	warp	iswarp#24	2,2,1@infi,197,132
+1@infi,197,167,5	warp	iswarp#25	2,2,1@infi,193,208
+1@infi,193,235,5	warp	iswarp#26	2,2,1@infi,193,240
+1@infi,193,267,5	warp	iswarp#27	2,2,1@infi,193,272
+1@infi,193,299,5	warp	iswarp#28	2,2,1@infi,193,305
+1@infi,193,331,5	warp	iswarp#29	2,2,1@infi,193,336
+1@infi,193,392,5	warp	iswarp#30	2,2,1@infi,279,4
+1@infi,279,31,5	warp	iswarp#31	2,2,1@infi,279,36
+1@infi,279,63,5	warp	iswarp#32	2,2,1@infi,279,68
+1@infi,279,95,5	warp	iswarp#33	2,2,1@infi,279,100
+1@infi,279,127,5	warp	iswarp#34	2,2,1@infi,279,132
+1@infi,279,167,5	warp	iswarp#35	2,2,1@infi,279,208
+1@infi,279,235,5	warp	iswarp#36	2,2,1@infi,279,240
+1@infi,279,267,5	warp	iswarp#37	2,2,1@infi,279,272
+1@infi,279,299,5	warp	iswarp#38	2,2,1@infi,279,305
+1@infi,279,331,5	warp	iswarp#39	2,2,1@infi,279,336
+1@infi,279,392,5	warp	iswarp#40	2,2,1@infi,361,4
+1@infi,361,30,5	warp	iswarp#41	2,2,1@infi,361,37
+1@infi,361,63,5	warp	iswarp#42	2,2,1@infi,361,68
+1@infi,361,95,5	warp	iswarp#43	2,2,1@infi,361,100
+1@infi,361,125,5	warp	iswarp#44	2,2,1@infi,361,132
+1@infi,361,167,5	warp	iswarp#45	2,2,1@infi,365,208
+1@infi,365,235,5	warp	iswarp#46	2,2,1@infi,365,240
+1@infi,365,267,5	warp	iswarp#47	2,2,1@infi,365,272
+1@infi,365,299,5	warp	iswarp#48	2,2,1@infi,365,305
+1@infi,365,331,5	warp	iswarp#49	2,2,1@infi,365,337

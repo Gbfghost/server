@@ -1,0 +1,87 @@
+
+
+
+//===== Description: ==============================
+//
+//[附魔]霸肋門德
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,42,128,3	script	[附魔]霸肋門德	4_m_thaiongbak,{
+	disable_items;
+
+	setarray .@Barmundtlist[0],
+	450201,470108,480145,
+	450200,470109,480146,
+	450203,470111,480148,
+	450202,470110,480147;
+	
+	.@Barmund = itemlist(.@Barmundtlist);
+	switch(.@Barmund)
+	{
+		case 450201:
+			disable_items;
+			item_enchant(16);
+			end;
+
+		case 470108:
+			disable_items;
+			item_enchant(16);
+			end;
+
+		case 480145:
+			disable_items;
+			item_enchant(16);
+			end;
+
+		case 450200:
+			disable_items;
+			item_enchant(17);
+			end;
+
+		case 470109:
+			disable_items;
+			item_enchant(17);
+			end;
+
+		case 480146:
+			disable_items;
+			item_enchant(17);
+			end;
+			
+		case 450203:
+			disable_items;
+			item_enchant(18);
+			end;
+
+		case 470111:
+			disable_items;
+			item_enchant(18);
+			end;
+
+		case 480148:
+			disable_items;
+			item_enchant(18);
+			end;
+			
+		case 450202:
+			disable_items;
+			item_enchant(19);
+			end;
+
+		case 470110:
+			disable_items;
+			item_enchant(19);
+			end;
+
+		case 480147:
+			disable_items;
+			item_enchant(19);
+			end;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]霸肋門德";
+	waitingroom "[附魔]霸肋門德",0;
+}

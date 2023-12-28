@@ -1,0 +1,9 @@
+uttycty,95,172,5	script	官方精煉	1_m_smith,{
+	disable_items;
+	refineui();
+	end;
+Oninit:
+	setnpcicon getnpcid(0),1016,"官方精煉";
+	waitingroom "★ 官方精煉 ★ ",0;
+	end;
+}

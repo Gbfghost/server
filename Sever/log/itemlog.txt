@@ -1,0 +1,80 @@
+更新道具
+item_combo.yml改動
+      if (.@r >= 39) {
+         bonus bIgnoreDefRace,Class_All;
+         bonus bIgnoreMDefRace,Class_All;
+      }
+      }
+  - Combos:
+      - Combo:
+          - 450263
+          - 490086
+    Script: |
+      bonus bSta,3;
+      bonus bWis,3;
+      bonus bFixedCast,300;
+  - Combos:
+      - Combo:
+          - 450263
+          - Marc_Card
+    Script: |
+      .@r = getrefine();
+      if(.@r>=7){bonus bMaxHPRate,25;bonus2 bAddSize,Size_All,15; bonus2 bMagicAddSize,Size_All,15;bonus2 bSubSize,Size_Medium,10;bonus2 bSubSize,Size_Large,10;}
+  - Combos:
+      - Combo:
+          - 450263
+          - Garm_Card
+    Script: |
+      .@r = getrefine();
+      if(.@r>=7){bonus bMaxHPRate,70;bonus2 bAddSize,Size_All,25; bonus2 bMagicAddSize,Size_All,25;bonus2 bSubSize,Size_Medium,15;bonus2 bSubSize,Size_Large,15;bonus2 bResEff,Eff_Freeze,10000;}
+
+//item_db_equip.yml改動
+      bonus bMaxSPrate,15;
+      bonus bDelayrate,-.@r;
+      bonus bFixedCastrate,-((.@r>=9)?70:(.@r>=7?50:0));
+  - Id: 450263
+    AegisName: 450263
+    Name:     k ] O ~ T-LT
+    ArmorLevel: 2
+    Type: Armor
+    Weight: 60
+    Defense: 120
+    Slots: 1
+    Locations:
+      Armor: true
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus2 bSubSize,Size_Medium,13;
+      bonus2 bSubSize,Size_Large,13;
+      bonus bMdef,10;
+      .@r = getrefine();
+      bonus bDelayrate,.@r*-1;
+      bonus bBaseAtk,.@r*15;
+      bonus bMatk,.@r*15;     
+      if(.@r>=9){bonus2 bAtkEle,Ele_All,15; bonus2 bMagicAtkEle,Ele_All,15;bonus bRes,30;bonus bMres,30; }
+      if(.@r>=13){bonus2 bAddEffWhenHit,Eff_Freeze,2000;}    
+      if (.@g >= ENCHANTGRADE_D) {
+            if(.@r>=13){.@STA = readparam(bSTA);.@WIS = readparam(bWIS);bonus bLongAtkDef,1*(.@STA/10);bonus bAtkDef,1*(.@WIS/10);}
+      if (.@g >= ENCHANTGRADE_C) {
+            if(.@r>=13){bonus bMaxHP,10000;bonus2 bAddEff,Eff_Freeze,800;}
+      if (.@g >= ENCHANTGRADE_B) {
+            bonus2 bAddEffWhenHit,Eff_Freeze,1500;
+      if (.@g >= ENCHANTGRADE_A) {
+            bonus2 bAddClass,Class_All,15;bonus2 bMagicAddClass,Class_All,15;
+               }
+            }
+         }
+      }
+  - Id: 15375
+    AegisName: lunar_eclipse_Armor
+    Name: Old Eclipse Outfit
+
+客戶端改動 \Giraffee\Giaffe.lub
+identifiedResourceName = "Lunar_E_Armor_LT",
+改成
+identifiedResourceName = "lunar_eclipse_Armor_",
+還有
+identifiedResourceName = "Lunar_E_Armor_LT",
+改成
+identifiedResourceName = "lunar_eclipse_Armor_",

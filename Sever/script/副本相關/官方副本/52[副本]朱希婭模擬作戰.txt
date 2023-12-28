@@ -1,0 +1,720 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@jorlab	mapflag	noteleport
+1@jorlab	mapflag	nosave	SavePoint
+1@jorlab	mapflag	nomemo
+1@jorlab	mapflag	nobranch
+1@jorlab	mapflag	noicewall
+1@jorlab	mapflag	restricted	6
+1@jorlab	mapflag	monster_noteleport
+1@jorlab	mapflag	partylock
+1@jorlab	mapflag	novending
+1@jorlab	mapflag	nochat
+
+
+amatsu,127,113,3	script	[副本]朱希婭模擬作戰	21533,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "朱希婭模擬作戰";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+//	.ins_time = 3600;
+	// 冷卻時間
+//	.ins_cooldown = 300;
+	// 冷卻編號
+//	.ins_collnum = 52;
+
+//
+	waitingroom "[副本]朱希婭模擬作戰",0;
+	setnpcicon getnpcid(0),22,"[副本]朱希婭模擬作戰";
+	end;
+}
+
+1@jorlab,0,0,0	script	#朱希婭模擬作戰	-1,{   
+	end;
+OnInstanceInit:
+'win = 0;
+'map$ = instance_mapname("1@jorlab");
+end;
+}
+
+1@jorlab,58,67,3	script	朱希婭#whl_start	21533,{
+	if(select("開始模擬!:稍等")==2)
+	{
+		end;
+	}
+	hideonnpc instance_npcname(strnpcinfo(0));
+	monster 'map$,58,67,"朱希婭",21533,1,instance_npcname(strnpcinfo(0))+"::OnMvpDead"; 
+	'jcy_boss = $@mobid[0];
+	initnpctimer instance_npcname("#cheat_Skill_jorlab");
+	initnpctimer;
+	end;
+OnMvpDead:
+	'win = 1;
+	enablenpc instance_npcname("朱希婭");
+	hideoffnpc instance_npcname(strnpcinfo(0));
+	disablenpc instance_npcname("朱希婭#whl_start");
+	end;
+}
+
+1@jorlab,65,76,3	script	朱希婭	21533,{
+	if ( !'win )
+	{
+		message strcharinfo(0),"副本尚未完成。";
+		end;
+	}
+	
+	if ( !is_party_leader())
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}	
+
+	if('win)
+	{
+		//第一組獎勵	
+		//設定玩家獲得的獎勵
+		setArray .@item_id_r,1000608,1000811,1000812,1000813,1000814,1001034,1001035,1001036,1001037;
+		//設定一一對應獎勵數量
+		setArray .@item_co,rand(5,15),rand(5,10),5,5,5,rand(5,15),rand(5,10),5,rand(5,10);
+		//設定一一對應掉落的機率 範圍 :1-100
+		setArray .@item_rate,100,100,50,25,10,100,50,10,75;
+		for(.@i =0;.@i<getarraysize(.@item_id_r) ;.@i++)
+		{
+			if(rand(100)<.@item_rate[.@i])
+			makeitem .@item_id_r[.@i],.@item_co[.@i],strnpcinfo(4),65+rand(-5,5),76+rand(-5,5);
+		}
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#1@jorlab")+"::OnEnable";
+		'ClearInatance = 1;
+		disablenpc instance_npcname("朱希婭");
+		end;
+	}
+	end;
+OnInstanceInit:	
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+
+1@jorlab,0,0,0	script	#cheat_Skill_jorlab	-1,{
+	end;
+	
+OnTimer2000:
+	if(unitexists('jcy_boss))
+	{
+		getunitdata 'jcy_boss, .@mob_data;
+		.@x = .@mob_data[UMOB_X];
+		.@y = .@mob_data[UMOB_Y];
+		if(rand(1,100) <= 75)
+		{
+			if('win)end;
+			callfunc "monskilluseid_jorlab", 'jcy_boss, rand(6,9), 'map$, .@x, .@y;
+			initnpctimer;
+		}
+	}
+	stopnpctimer;
+	initnpctimer;
+	end;
+}
+
+
+function	script	monskilluseid_jorlab	{
+	if(!unitexists(getarg(0))) return;
+	.@gid = getarg(0);
+	.@type = getarg(1);
+	.@map$ = getarg(2);
+	.@x = getarg(3);
+	.@y = getarg(4);
+	switch(.@type)
+	{
+		case 1: //
+				.@range = 2;
+				while(.@FireWall <= 5)
+				{
+					.@FireWall ++;
+					switch(.@FireWall)
+					{
+						case 1:	break;
+						case 2:	.@x = .@x+1;	.@y = .@y+1;	break;
+						case 3:	.@x = .@x+1;	.@y = .@y-1;	break;
+						case 4:	.@x = .@x-1;	.@y = .@y-1;	break;
+						case 5:	.@x = .@x-1;	.@y = .@y+1;	break;
+						default:	break;
+					}
+					for(.@i = 0; .@i < 12; .@i += .@range)
+					{
+						if ( checkcell(.@map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+						{
+							monster .@map$, .@x+.@i, .@y+.@i,"--ja--", 20562, 1;
+							.@unit_id = $@mobid[0];
+							setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+							setunitdata .@unit_id, UMOB_CLASS, 139;
+							monskillusepos .@unit_id, "MG_FIREWALL", 10, .@x+.@i, .@y+.@i, -1;
+							.@bot[getarraysize(.@bot)] = .@unit_id;
+						}
+						
+						if ( checkcell(.@map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+						{
+							monster .@map$, .@x+.@i, .@y-.@i,"--ja--", 20562, 1;
+							.@unit_id = $@mobid[0];
+							setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+							setunitdata .@unit_id, UMOB_CLASS, 139;
+							monskillusepos .@unit_id, "MG_FIREWALL", 10, .@x+.@i, .@y-.@i, -1;
+							.@bot[getarraysize(.@bot)] = .@unit_id;
+						}
+						
+						if ( checkcell(.@map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+						{
+							monster .@map$, .@x-.@i, .@y-.@i,"--ja--", 20562, 1;
+							.@unit_id = $@mobid[0];
+							setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+							setunitdata .@unit_id, UMOB_CLASS, 139;
+							monskillusepos .@unit_id, "MG_FIREWALL", 10, .@x-.@i, .@y-.@i, -1;
+							.@bot[getarraysize(.@bot)] = .@unit_id;
+						}
+						
+						if ( checkcell(.@map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+						{
+							monster .@map$, .@x-.@i, .@y+.@i,"--ja--", 20562, 1;
+							.@unit_id = $@mobid[0];
+							setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+							setunitdata .@unit_id, UMOB_CLASS, 139;
+							monskillusepos .@unit_id, "MG_FIREWALL", 10, .@x-.@i, .@y+.@i, -1;
+							.@bot[getarraysize(.@bot)] = .@unit_id;
+						}
+					}
+				}
+				break;
+			
+		// 崩裂術(9x9)
+		case 2:
+			.@range = 5;
+			if ( checkcell(.@map$, .@x-.@range, .@y+.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x-.@range, .@y+.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x-.@range, .@y+.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x, .@y+.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x, .@y+.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y+.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x+.@range, .@y+.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x+.@range, .@y+.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x+.@range, .@y+.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x-.@range, .@y, cell_chkpass) )
+			{
+				monster .@map$, .@x-.@range, .@y,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x-.@range, .@y, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x, .@y, cell_chkpass) )
+			{
+				monster .@map$, .@x, .@y,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x+.@range, .@y, cell_chkpass) )
+			{
+				monster .@map$, .@x+.@range, .@y,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x+.@range, .@y, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			if ( checkcell(.@map$, .@x-.@range, .@y-.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x-.@range, .@y-.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x-.@range, .@y-.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x, .@y-.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x, .@y-.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y-.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}	
+			if ( checkcell(.@map$, .@x+.@range, .@y-.@range, cell_chkpass) )
+			{
+				monster .@map$, .@x+.@range, .@y-.@range,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x+.@range, .@y-.@range, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			if ( checkcell(.@map$, .@x, .@y+(.@range*2), cell_chkpass) )
+			{
+				monster .@map$, .@x, .@y+(.@range*2),"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y+(.@range*2), -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			if ( checkcell(.@map$, .@x, .@y-(.@range*2), cell_chkpass) )
+			{
+				monster .@map$, .@x, .@y-(.@range*2),"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y-(.@range*2), -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			if ( checkcell(.@map$, .@x-(.@range*2), .@y, cell_chkpass) )
+			{
+				monster .@map$, .@x-(.@range*2), .@y,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x-(.@range*2), .@y, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			if ( checkcell(.@map$, .@x+(.@range*2), .@y, cell_chkpass) )
+			{
+				monster .@map$, .@x+(.@range*2), .@y,"--ja--", 20562, 1;
+				.@unit_id = $@mobid[0];
+				setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+				setunitdata .@unit_id, UMOB_CLASS, 139;
+				monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x+(.@range*2), .@y, -5000;
+				.@bot[getarraysize(.@bot)] = .@unit_id;
+			}
+			break;
+			
+		// 崩裂術(十字)
+		case 3:
+			.@range = 5;
+			for(.@i=1; .@i<9; .@i++)
+			{
+				if ( checkcell(.@map$, .@x, .@y, cell_chkpass) )
+				{
+					monster .@map$, .@x, .@y,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x, .@y+(.@range*.@i), cell_chkpass) )
+				{
+					monster .@map$, .@x, .@y+(.@range*.@i),"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y+(.@range*.@i), -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x, .@y-(.@range*.@i), cell_chkpass) )
+				{
+					monster .@map$, .@x, .@y-(.@range*.@i),"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x, .@y-(.@range*.@i), -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x-(.@range*.@i), .@y, cell_chkpass) )
+				{
+					monster .@map$, .@x-(.@range*.@i), .@y,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x-(.@range*.@i), .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x+(.@range*.@i), .@y, cell_chkpass) )
+				{
+					monster .@map$, .@x+(.@range*.@i), .@y,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_HEAVENDRIVE", 10, .@x+(.@range*.@i), .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+			}
+			break;
+			
+		case 4:
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ( checkcell(.@map$, .@x+.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x+.@i, .@y+.@i,"--ja--", 20582, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x+.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x+.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x+.@i, .@y-.@i,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x+.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x-.@i, .@y-.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x-.@i, .@y-.@i,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x-.@i, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x-.@i, .@y+.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x-.@i, .@y+.@i,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x-.@i, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+			
+		case 5:
+			.@range = 3;
+			for(.@i = 0; .@i < 15; .@i += .@range)
+			{
+				if ( checkcell(.@map$, .@x, .@y+.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x, .@y+.@i,"--ja--", 20582, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x, .@y+.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x+.@i, .@y, cell_chkpass) )
+				{
+					monster .@map$, .@x+.@i, .@y,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x+.@i, .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x, .@y-.@i, cell_chkpass) )
+				{
+					monster .@map$, .@x, .@y-.@i,"--ja--", 20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x, .@y-.@i, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				if ( checkcell(.@map$, .@x-.@i, .@y, cell_chkpass) )
+				{
+					monster .@map$, .@x-.@i, .@y,"--ja--",20562, 1;
+					.@unit_id = $@mobid[0];
+					setunitdata .@unit_id, UMOB_DMGIMMUNE, 1;
+					setunitdata .@unit_id, UMOB_CLASS, 139;
+					monskillusepos .@unit_id, "WZ_METEOR", 10, .@x-.@i, .@y, -5000;
+					.@bot[getarraysize(.@bot)] = .@unit_id;
+				}
+				sleep 600;
+			}
+			break;
+		case 6:
+			//咖般塔音	
+			sleep 1000;
+			.@k=0;
+			for(.@i = 0; .@i < 5; .@i++)
+			{
+				
+				for(.@j = 0; .@j < 5; .@j++){
+					monster .@map$,.@x-9+.@j*6,.@y+9-.@i*6,"--ja--",20562,1;					
+					.@id[.@k++] = $@mobid[0];
+					
+				}
+			}
+			for(.@i = 0; .@i < getarraysize(.@id);.@i++) 
+			{
+				monskilluseid .@id[.@i], 353, 1;
+			}
+			.@k=0;
+			sleep 500;
+			for(.@i = 0; .@i < 5; .@i++) {
+				
+				for(.@j = 0; .@j < 5; .@j++){
+					if(unitexists(.@id[.@i]) == true)
+						monskillusepos .@id[.@k++],483,5,.@x-9+.@j*6,.@y+9-.@i*6,-5;
+				}
+			}
+			sleep 3000;
+			for(set .@i,0;.@i < getarraysize(.@id);set .@i,.@i+1) {
+				if(unitexists(.@id[.@i]))
+				mobremove .@id[.@i];
+			}
+			break;			
+		default:
+			break;
+		case 7:	
+			for(.@i = 0; .@i < 5; .@i++)
+			{
+				monster .@map$,.@x-9+2*.@i,.@y+9-2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				.@k++;
+				
+				monster .@map$,.@x+9-2*.@i,.@y+9-2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				.@k++;
+				
+				
+			}
+			
+			for(.@i = 0; .@i < 5; .@i++)
+			{
+				
+				monster .@map$,.@x-9+2*.@i,.@y-9+2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				.@k++;
+				
+				monster .@map$,.@x+9-2*.@i,.@y-9+2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				.@k++;
+				
+				
+			}
+			
+			for(.@i = 0; .@i < 20; .@i++) 
+			{
+				monskilluseid .@id[.@i], 353, 1;
+			}
+			sleep 500;
+			.@k=0;
+			
+			for(.@i = 0; .@i < 10; .@i++)
+			{
+				
+				if(unitexists(.@id[.@k]) == true)
+				{
+					monskillusepos .@id[.@k],83,5,.@x-9+2*.@i,.@y+9-2*.@i,-10;
+					unitaura .@id[.@k],1071;
+					.@k++;
+				}
+			}
+			
+			for(.@i = 0; .@i < 10; .@i++)
+			{
+				
+				if(unitexists(.@id[.@k]) == true)
+				{
+					monskillusepos .@id[.@k],83,5,.@x+9-2*.@i,.@y-9+2*.@i,-10;
+					unitaura .@id[.@k],1071;
+					.@k++;
+				}
+			}
+			
+			sleep 1000;
+			for(set .@i,0;.@i < getarraysize(.@id); set .@i,.@i+1) 
+			{
+				mobremove .@id[.@i];
+			}
+			break;
+		case 8:
+			.@k=0;
+			for(.@i = 0; .@i < 5; .@i++)
+			{
+				//.@k=0;
+				monster .@map$,.@x-2-2*.@i,.@y+2+2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				monskilluseid .@id[.@i], 353, 1;
+				monskillusepos .@id[.@k],83,5,.@x-2-2*.@i,.@y+2+2*.@i,-10;	
+				unitaura .@id[.@k],1071;
+				.@k++;
+				
+				monster .@map$,.@x+2+2*.@i,.@y+2+2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				monskilluseid .@id[.@i], 353, 1;
+				monskillusepos .@id[.@k],83,5,.@x+2+2*.@i,.@y+2+2*.@i,-10;	
+				unitaura .@id[.@k],1071;
+				.@k++;
+				
+				monster .@map$,.@x+2+2*.@i,.@y-2-2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				monskilluseid .@id[.@i], 353, 1;
+				monskillusepos .@id[.@k],83,5,.@x+2+2*.@i,.@y-2-2*.@i,-10;	
+				unitaura .@id[.@k],1071;
+				.@k++;
+
+				monster .@map$,.@x-2-2*.@i,.@y-2-2*.@i,"--ja--",20562,1;
+				.@id[.@k] = $@mobid[0];
+				monskilluseid .@id[.@i], 353, 1;
+				monskillusepos .@id[.@k],83,5,.@x-2-2*.@i,.@y-2-2*.@i,-10;	
+				unitaura .@id[.@k],1071;
+				.@k++;	
+				sleep 1000;
+			}
+
+			for(set .@i,0;.@i < getarraysize(.@id); set .@i,.@i+1) 
+			{
+				mobremove .@id[.@i];
+			}
+			break;
+		case 9:
+			donpcevent instance_npcname("#死亡投射_jcy")+"::OnEnable";
+			break;
+	}
+	
+	if(rand(5)==0)
+	{
+		//咖般塔音	
+		sleep 1000;
+		.@k=0;
+		for(.@i = 0; .@i < 5; .@i++)
+		{
+			for(.@j = 0; .@j < 5; .@j++)
+			{
+				monster .@map$,.@x-9+.@j*6,.@y+9-.@i*6,"--ja--",20562,1;					
+				.@id[.@k++] = $@mobid[0];
+			}
+		}
+		for(.@i = 0; .@i < getarraysize(.@id);.@i++) 
+		{
+			monskilluseid .@id[.@i], 353, 1;
+		}
+		.@k=0;
+		sleep 500;
+		for(.@i = 0; .@i < 5; .@i++) 
+		{
+			for(.@j = 0; .@j < 5; .@j++)
+			{
+				if(unitexists(.@id[.@i]) == true)
+					monskillusepos .@id[.@k++],483,5,.@x-9+.@j*6,.@y+9-.@i*6,-5;
+			}
+		}
+		sleep 3000;
+		for(set .@i,0;.@i < getarraysize(.@id);set .@i,.@i+1) {
+			if(unitexists(.@id[.@i]))
+			mobremove .@id[.@i];
+		}
+	}
+
+	if(.@type == 1) sleep 5000;
+	else sleep 3000;
+	for(.@i=0; .@i<getarraysize(.@bot); .@i++)
+		if(unitexists(.@bot[.@i])) mobRemove .@bot[.@i];
+	return;	
+}
+
+1@jorlab,0,0,3	script	#死亡投射_jcy	139,{
+end;
+OnEnable:
+	getunitdata 'jcy_boss, .@mob_data;
+	.@x = .@mob_data[UMOB_X];
+	.@y = .@mob_data[UMOB_Y];	
+	addrid(4,0,.@x-19,.@y-19,.@x+19,.@y+19);
+	if(Hp>2)
+	{
+		if(!getstatus(SC_DEADLY_DEFEASANCE))
+		sc_start SC_DEADLY_DEFEASANCE,180000,5;
+	}
+	end;
+}
+
+1@jorlab,0,0,0	script	副本寶箱#1@jorlab	obj_a2,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 940052,10;
+	getitem 930000,5;
+	getitem 6909,2;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

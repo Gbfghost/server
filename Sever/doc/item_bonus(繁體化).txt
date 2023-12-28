@@ -1,0 +1,660 @@
+﻿//===== Giraffe模擬器-文檔 ====================
+//= 道具效果調整器 (Item Bonus) 說明文檔
+//===== 文檔描述 =============================================
+//= 此文檔對Giraffe模擬器添加的效果調整器進行說明.
+//============================================================
+
+--------------------------------------------------------------
+
+常量 - Constants
+----------------
+以下列出了所有可以在 bonus 系列指令中使用的常量.
+
+* 狀態效果 - Status effect (eff)
+	Eff_Bleeding, Eff_Blind, Eff_Burning, Eff_Confusion, Eff_Crystalize, Eff_Curse, Eff_DPoison,
+	Eff_Fear, Eff_Freeze, Eff_Poison, Eff_Silence, Eff_Sleep, Eff_Stone, Eff_Stun, Eff_Freezing,
+	Eff_Heat
+
+    Eff_Stone           //	石化(SC_STONEWAIT)		註：無法迴避/行動、MHP下降
+	Eff_Freeze          //	冰凍(SC_FREEZE)			註：不可迴避/行動、物理/魔法防禦力減少
+	Eff_Stun            //	暈眩(SC_STUN)			註：不可迴避/行動
+	Eff_Sleep           //	睡眠(SC_SLEEP)			註：不可迴避/行動、暴擊傷害機率增加
+	Eff_Poison          //	中毒(SC_POISON)			註：視野變窄、物理防禦力下降、每3秒MHP下降
+	Eff_Curse           //	詛咒(SC_CURSE)			註：減少移動速度、物理攻擊力、LUK 變為 0
+	Eff_Silence         //	沉默(SC_SILENCE)		註：無法使用技能
+	Eff_Confusion		//	混亂(SC_CONFUSION)		註：人物移動時，會隨機移動。
+	Eff_Blind			//	漆黑(SC_BLIND)			註：視野縮小、迴避、完全迴避減少
+	Eff_Bleeding		//	出血(SC_BLEEDING)		註：HP, SP 不能恢復、每10秒繪流失一定量的 HP
+    Eff_DPoison         //	猛毒(SC_DPOISON)		注: 抗毒屬性減少、DEF減少、定期減少HP
+    Eff_Fear            //	恐怖(SC_FEAR)			注: 魔物無法移動 5 秒、玩家無法移動 2 秒
+	Eff_Burning			//	著火(SC_BURNING)		註：2秒內法移動、命中率/迴避率減少
+    Eff_Crystalize		//	晶化(SC_CRYSTALIZE)		注: 地屬性狀態、無法移動、使用道具與技能、MDEF減少、受到傷害時解除
+	Eff_Freezing		//	冰凍(SC_FREEZING)		註：不可迴避/行動、物理/魔法防禦力減少
+	Eff_Heat			//	燙傷(SC_BURNT)			註：受到火屬性怪的傷害增加、對火屬性抗性減少、週期性火屬性傷害
+	Eff_Deepsleep		//	沉睡(SC_DEEPSLEEP)		註：通常傷害的 1.5倍，每2秒可恢復一定量的 HP/SP
+
+* 屬性 - Element (e)
+	Ele_Dark, Ele_Earth, Ele_Fire, Ele_Ghost, Ele_Holy, Ele_Neutral, Ele_Poison,
+	Ele_Undead, Ele_Water, Ele_Wind, Ele_All
+
+    Ele_Neutral         //	無屬性
+	Ele_Water           //	水屬性
+	Ele_Earth           //	地屬性
+	Ele_Fire            //	火屬性
+	Ele_Wind            //	風屬性
+	Ele_Poison          //	毒屬性
+	Ele_Holy            //	聖屬性
+	Ele_Dark            //	暗屬性
+    Ele_Ghost           //	念屬性
+    Ele_Undead          //	不死屬性
+    Ele_All             //	全部屬性
+	ELE_WEAPON			//	武器屬性				註：目前武器屬性
+	ELE_ENDOWED			//	狀態屬性				註：狀態賦予屬性(例如：灑水祈福)
+	ELE_RANDOM			//	隨機屬性				註：攻擊時隨機賦予任意屬性
+
+* Race (r)
+	RC_Angel, RC_Brute, RC_DemiHuman, RC_Demon, RC_Dragon, RC_Fish, RC_Formless,
+	RC_Insect, RC_Plant, RC_Player_Human (RC_Player deprecated), RC_Player_Doram, RC_Undead, RC_All
+
+    RC_Formless         //	無形
+	RC_Undead           //	不死
+	RC_Brute            //	動物
+	RC_Plant            //	植物
+    RC_Insect           //	昆蟲
+	RC_Fish             //	魚貝
+	RC_Demon            //	惡魔
+	RC_DemiHuman        //	人形(魔物)
+	RC_Angel            //	天使
+    RC_Dragon           //	龍族
+    RC_Player_Human     //	玩家(人)
+	RC_Player_Doram		//	玩家(貓)
+	RC_Player			//	玩家(人)				註：已棄用此項，系統自動預設為 RC_Player_Human
+    RC_All              //	全部種族
+
+* 魔物種族分類(Group) - Monster Race (mr)
+	RC2_Goblin, RC2_Kobold, RC2_Orc, RC2_Golem, RC2_Guardian, RC2_Ninja, RC2_GVG, RC2_Battlefield,
+	RC2_Treasure, RC2_BioLab, RC2_Manuk, RC2_Splendide, RC2_Scaraba, RC2_OGH_ATK_DEF, RC2_OGH_Hidden,
+	RC2_Bio5_Swordman_Thief, RC2_Bio5_Acolyte_Merchant, RC2_Bio5_Mage_Archer, RC2_Bio5_MVP,
+	RC2_Clocktower, RC2_Thanatos, RC2_Faceworm, RC2_Hearthunter, RC2_Rockridge, RC2_Werner_Lab,
+	RC2_Temple_Demon, RC2_Illusion_Vampire, RC2_Malangdo
+
+    RC2_Goblin					//	哥布林
+    RC2_Kobold					//	犬妖
+    RC2_Orc						//	獸人
+    RC2_Golem          			//	巖石
+    RC2_Guardian      			//	監護人
+    RC2_Ninja         			//	忍者
+	RC2_GVG						//	城戰
+	RC2_Battlefield				//	戰場
+	RC2_Treasure				//	寶藏箱
+	RC2_BioLab					//	拜歐斯
+	RC2_Manuk					//	魔怒克
+	RC2_Splendide				//	史波浪壯麗
+	RC2_SCARABA					//	獨角蟲
+	RC2_OGH_ATK_DEF				//	古城
+	RC2_OGH_Hidden				//	古城隱形魔物
+	RC2_Bio5_Swordman_Thief		//	生命體(近戰)
+	RC2_Bio5_Acolyte_Merchant	//	生命體(遠距離)
+	RC2_Bio5_Mage_Archer		//	生命體(魔法)
+	RC2_Bio5_MVP				//	生命體(MVP)
+	RC2_Clocktower				//	鐘塔
+	RC2_Thanatos				//	達納托斯
+	RC2_FACEWORM				//	驚駭森靈
+	RC2_Hearthunter				//	邪心獵人
+	RC2_Rockridge				//	洛克里奇嶺
+	RC2_Werner_Lab				//	中央實驗室
+	RC2_Temple_Demon			//	魔神殿
+	RC2_Illusion_Vampire		//	幻影調查團
+	RC2_Malangdo				//	綿綿島
+
+	註：根據 mob_db.yml - RaceGroups 專案進行判別
+
+* 魔物類別 - Class (c)
+	Class_Normal, Class_Boss, Class_Guardian, Class_All
+
+    Class_Normal        //	一般
+    Class_Boss          //	BOSS/MVP
+    Class_Guardian      //	監護人
+	Class_Battlefield	//	戰場
+	Class_Event			//	活動
+    Class_All           //	全部類別
+	
+* 體型 - Size (s)
+	Size_Small, Size_Medium, Size_Large, Size_All
+
+    Size_Small          //	小型
+    Size_Medium         //	中型
+    Size_Large          //	大型
+    Size_All            //	全部體型
+
+* 戰鬥觸發標準 - Trigger criteria (bf - battle flags)
+	BF_SHORT	= 近距離物理攻擊
+	BF_LONG		= 遠距離物理攻擊
+	 (若不指定, 預設為: BF_SHORT+BF_LONG)
+   
+	BF_WEAPON	= 物理攻擊 / 物理技能
+	BF_MAGIC	= 魔法攻擊 / 魔法技能
+	BF_MISC		= 其他特殊攻擊(例如: 獵鷹、陷阱)
+	(若不指定, 預設為: BF_WEAPON)
+   
+	BF_NORMAL	= 普通攻擊		註：僅物理普攻觸發
+	BF_SKILL	= 技能攻擊		註：物理 / 魔法技能攻擊皆觸發
+	(若不指定, 預設為: 若啟用了 BF_MISC 或 BF_MAGIC 則為 BF_SKILL, 若啟用了 BF_WEAPON 則為 BF_NORMAL)
+
+* 自動觸發標準 - Trigger criteria (atf - auto trigger flags)
+	受影響的目標: (若不指定, 預設為: ATF_TARGET)
+	ATF_SELF	= 觸發的效果最終最用在自己身上
+	ATF_TARGET	= 觸發的效果最終最用在目標身上
+	
+	攻擊距離標準: (若不指定, 預設為: BF_SHORT+BF_LONG)
+	ATF_SHORT	= 近距離物理攻擊
+	ATF_LONG	= 遠距離物理攻擊
+	
+	技能/攻擊型別標準: (若不指定, 預設為: ATF_WEAPON)
+	ATF_SKILL	= 使用物理 / 魔法技能觸發(ATF_MAGIC|ATF_MISC)
+	ATF_WEAPON	= 物理攻擊 / 物理技能
+	ATF_MAGIC	= 魔法攻擊 / 魔法技能
+	ATF_MISC	= 其他特殊攻擊(例如: 獵鷹、陷阱)
+
+* 其他型別的值 - Other values:
+	技能(sk): 詳情請參考 'db/(pre-)re/skill_db.yml' (提示: 可以使用技能編號和技能名稱, 使用技能名稱時需要用雙引號括起來)
+	魔物編號(mid): 詳情請參考 'db/(pre-)re/mob_db.yml'
+	物品編號(iid): 詳情請參考 'db/item_db.yml'
+	物品群組(ig): 詳情請參考 'db/(pre-)re/item_group_db.yml' 以及在 'src/map/script_constants.hpp' 中以 IG_* 作為字首的常量定義
+	武器型別(w): 詳情請參考 'doc/item_db.txt' -> SubType 武器型別
+
+
+效果控制器 - Bonuses
+-------
+以下列出了本文件中包含的各種效果控制器:
+    1. 基本效果控制器
+    2. 擴充套件效果控制器
+    3. 指定群組
+    4. 狀態相關
+    5. 自動詠唱
+    6. 其他效果控制器
+
+====================================
+|   1. 基本效果 - Basic Bonuses    |
+====================================
+
+基礎素質 - Base stats
+----------
+bonus bStr,n;      			STR + n
+bonus bAgi,n;      			AGI + n
+bonus bVit,n;      			VIT + n
+bonus bInt,n;      			INT + n
+bonus bDex,n;      			DEX + n
+bonus bLuk,n;      			LUK + n
+bonus bAllStats,n; 			STR + n, AGI + n, VIT + n, INT + n, DEX + n, LUK + n
+bonus bAgiVit,n;   			AGI + n, VIT + n
+bonus bAgiDexStr,n;			STR + n, AGI + n, DEX + n
+
+特性素質 - Trait Stats
+-----------
+bonus bPow,n;      			POW + n
+bonus bSta,n;      			STA + n
+bonus bWis,n;      			WIS + n
+bonus bSpl,n;      			SPL + n
+bonus bCon,n;      			CON + n
+bonus bCrt,n;      			CRT + n
+bonus bAllTraitStats,n; 		POW + n, STA + n, WIS + n, SPL + n, CON + n, CRT + n
+
+血量/魔力/AP - HP/SP/AP
+-----
+bonus bMaxHP,n;    			MaxHP + n
+bonus bMaxHPrate,n;			MaxHP + n% 
+bonus bMaxSP,n;    			MaxSP + n
+bonus bMaxSPrate,n;			MaxSP + n%
+bonus bMaxAP,n;    			MaxAP + n
+bonus bMaxAPrate,n;			MaxAP + n%
+
+攻擊/防禦 - Atk/Def
+-------
+bonus bBaseAtk,n;  			(Re復興後版本 - 武器攻擊力 / Pre復興前版本 - 基礎物理攻擊力) + n
+bonus bAtk,n;      			武器攻擊力 + n					註：非官方選項
+bonus bAtk2,n;     			基礎武器攻擊力 + n
+bonus bAtkRate,n;  			ATK + n% that won't interfere with Damage modifier and SC_EDP (renewal mode only)
+bonus bWeaponAtkRate,n; 	武器攻擊力 + n%
+bonus bMatk,n;     			魔法攻擊力 + n
+bonus bMatkRate,n; 			魔法攻擊力 + n%
+bonus bWeaponMatkRate,n;	武器魔法攻擊力 + n%				註：僅限Re復興後版本
+bonus bDef,n;      			裝備物理防禦(Def) + n
+bonus bDefRate,n;  			裝備物理防禦(Def) + n%
+bonus bDef2,n;     			VIT 基礎物理防禦(Def) + n
+bonus bDef2Rate,n; 			VIT 基礎物理防禦(Def) + n%
+bonus bMdef,n;     			裝備魔法防禦(Mdef) + n
+bonus bMdefRate,n; 			裝備魔法防禦(Mdef) + n%
+bonus bMdef2,n;    			INT 基礎魔法防禦(Mdef) + n
+bonus bMdef2Rate,n;			INT 基礎魔法防禦(Mdef) + n%
+
+擴充套件屬性 - Additional stats
+----------------
+bonus bHit,n;         			命中 + n
+bonus bHitRate,n;     			命中 + n%
+bonus bCritical,n;    			暴擊率 + n
+bonus bCriticalLong,n;			遠距離物理暴擊率 + n		註：不會顯示在角色屬性面板中
+bonus2 bCriticalAddRace,r,n;	對種族 r 的暴擊率 + n 
+bonus bCriticalRate,n;			暴擊率 + n%
+bonus bFlee,n;        			迴避率 + n
+bonus bFleeRate,n;    			迴避率 + n%
+bonus bFlee2,n;       			完全迴避 + n
+bonus bFlee2Rate,n;   			完全迴避 + n%
+bonus bPerfectHitRate,n;		誘導攻擊/必中攻擊 n%		註：同項目只取最高進行計算
+bonus bPerfectHitAddRate,n;		誘導攻擊/必中攻擊 + n%		註：與一般認知相同可進行疊加
+bonus bSpeedRate,n;   			移動速度 + n%				註：同項目只取最高進行計算, 不與 SC_SPEEDUP0, SC_SPEEDUP1 疊加
+bonus bSpeedAddRate,n;			移動速度 + n%				註：與一般認知相同可進行疊加
+bonus bAspd,n;        			攻擊速度 + n
+bonus bAspdRate,n;    			攻擊速度(攻擊後延遲) + n%	註：負數為增加延遲, 正數為減少延遲
+bonus bAtkRange,n;    			攻擊距離 + n
+bonus bAddMaxWeight,n;			最大負重量 + n				註：提升 n/10 負重量
+bonus bPAtk,n;         			特性物理攻擊力(P.Atk) + n
+bonus bPAtkRate,n;     			特性物理攻擊力(P.Atk) + n%
+bonus bSMatk,n;         		特性魔法攻擊力(S.Matk) + n
+bonus bSMatkRate,n;     		特性魔法攻擊力(S.Matk) + n%
+bonus bRes,n;         			物理抗性(Res) + n
+bonus bResRate,n;     			物理抗性(Res) + n%
+bonus bMRes,n;         			魔法抗性(Mres) + n
+bonus bMResRate,n;     			魔法抗性(Mres) + n%
+bonus bHPlus,n;         		特性治癒恢復量(H.Plus) + n
+bonus bHPlusRate,n;     		特性治癒恢復量(H.Plus) + n%
+bonus bCRate,n;         		暴擊傷害比例(C.Rate) + n
+bonus bCRateRate,n;     		暴擊傷害比例(C.Rate) + n%
+
+=======================================
+|   2. 擴充套件效果 - Extended Bonuses    |
+=======================================
+
+血量/魔力 - HP/SP
+-----
+bonus bHPrecovRate,n;   		HP 自然恢復量 + n%
+bonus bSPrecovRate,n;   		SP 自然恢復量 + n%
+bonus2 bHPRegenRate,n,t;		每 t 毫秒恢復 n 點 HP
+bonus2 bHPLossRate,n,t;			每 t 毫秒失去 n 點 HP
+bonus2 bSPRegenRate,n,t;		每 t 毫秒恢復 n 點 SP
+bonus2 bSPLossRate,n,t;			每 t 毫秒失去 n 點 SP
+bonus2 bRegenPercentHP,n,t;		每 t 毫秒恢復最大 HP 的 n%
+bonus2 bRegenPercentSP,n,t;		每 t 毫秒恢復最大 SP 的 n%
+bonus bNoRegen,x;				停止自然恢復 (x: 1=HP, 2=SP)
+
+bonus bUseSPrate,n;				SP 消耗量 + n%
+bonus2 bSkillUseSP,sk,n;		技能 sk 的 SP 消耗減少 n 點
+bonus2 bSkillUseSPrate,sk,n;	技能 sk 的 SP 消耗減少 n%
+
+攻擊/防禦 - Atk/Def
+-------
+bonus2 bSkillAtk,sk,n;			技能 sk 的傷害增加(技能傷害增加) n%
+bonus bShortAtkRate,n;			增加 n% 近距離攻擊傷害 (近距離傷害增加/近傷增加)
+bonus bLongAtkRate,n;			增加 n% 遠距離攻擊傷害 (遠距離傷害增加/遠傷增加)
+bonus bCritAtkRate,n;			增加 n% 暴擊傷害 (增加暴傷)
+bonus bCritDefRate,n;			減少 n% 暴擊傷害
+bonus bCriticalDef,n;			減少 n% 被暴擊的機率
+bonus2 bWeaponAtk,w,n;			裝備 w 型別武器時增加 n 攻擊力
+bonus2 bWeaponDamageRate,w,n;	裝備 w 型別武器時增加 n% 攻擊力
+
+bonus bNearAtkDef,n;			被近距離物理攻擊受到的傷害減少 n% //近距離減傷 近距離減少傷害 近傷減少
+bonus bLongAtkDef,n;			被遠距離物理攻擊受到的傷害減少 n% //遠距離減傷 遠距離減少傷害 遠傷減少
+bonus bMagicAtkDef,n;			被魔法攻擊受到的傷害減少 n% //魔法減傷 魔法減少傷害
+bonus bMiscAtkDef,n;			被其他特殊攻擊受到的傷害減少 n% (陷阱, 獵鷹, ...)
+
+bonus bNoWeaponDamage,n;		受到物理攻擊的傷害減少 n%
+bonus bNoMagicDamage,n;			受到魔法攻擊的傷害減少 n% (攻擊, 治癒, 輔助皆受影響), 例: 黃金蟲卡片(#4128)
+bonus bNoMiscDamage,n;			受到其他特殊攻擊的傷害減少 n%
+
+治癒 - Healing
+-------
+bonus bHealPower,n;						使用全部治癒系列技能的治癒效果增加 n%
+bonus bHealPower2,n;					被任意治癒技能治癒時, 治癒效果增加 n% 
+bonus2 bSkillHeal,sk,n;					治癒技能 sk 的治癒效果增加 n%
+bonus2 bSkillHeal2,sk,n;				被治癒技能 sk 治癒時, 治癒效果增加 n%
+bonus bAddItemHealRate,n;				所有恢復類道具的恢復效果增加 n%
+bonus2 bAddItemHealRate,iid,n;			使用物品編號為 iid 的恢復類道具進行恢復時, 恢復效果增加 n%
+bonus2 bAddItemGroupHealRate,ig,n;		使用物品群組為 ig 的恢復類道具進行恢復時, 恢復效果上升 n%
+bonus bAddItemSPHealRate,n;				所有恢復類道具的SP恢復效果增加 n%
+bonus2 bAddItemSPHealRate,iid,n;		使用物品編號為 iid 的恢復類道具進行恢復時, SP恢復效果增加 n%
+bonus2 bAddItemGroupSPHealRate,ig,n;	使用物品群組為 ig 的恢復類道具進行恢復時, SP恢復效果上升 n%
+
+詠唱時間/冷卻和使用間隔時間 - Cast time/delay ( 1秒 = 1000毫秒 )
+---------------
+bonus bCastrate,n;                   變動詠唱 + n%				註：與 bonus bVariableCastrate 共用語法, Re/Pre通用語法
+bonus2 bCastrate,sk,n;         	     增加 sk 技能 n% 變動詠唱	註：與 bonus2 bVariableCastrate 共用語法, Re/Pre通用語法
+
+bonus bFixedCastrate,n;        	     固定詠唱 + n%				註：僅適用Re復興後版本
+bonus2 bFixedCastrate,sk,n;    	     增加 sk 技能 n% 固定詠唱	註：僅適用Re復興後版本
+bonus bVariableCastrate,n;     	     變動詠唱 + n%				註：與 bonus bCastrate 共用語法, 僅適用Re復興後版本
+bonus2 bVariableCastrate,sk,n; 	     增加 sk 技能 n% 變動詠間	註：與 bonus2 bCastrate 共用語法, 僅適用Re復興後版本
+
+bonus bFixedCast,t;            	     所有技能固定詠唱 + t 毫秒	註：僅適用Re復興後版本
+bonus2 bSkillFixedCast,sk,t;   	     技能 sk 固定詠唱 + t 毫秒	註：僅適用Re復興後版本
+bonus bVariableCast,t;         	     所有技能變動詠唱 + t 毫秒
+bonus2 bSkillVariableCast,sk,t;	     技能 sk 變動詠唱 + t 毫秒
+
+bonus bNoCastCancel;                 防止詠唱被打斷	(防斷詠)			註：GvG(mapflag: mf_gvg) 無效
+bonus bNoCastCancel2;                防止詠唱被打斷	(防斷詠)			註：GvG(mapflag: mf_gvg) 有效
+
+bonus bDelayrate,n;                  所有技能共通延遲(AfterCastActDelay) + n%
+bonus2 bSkillDelay,sk,t;             技能 sk 共通延遲(AfterCastActDelay) + t 毫秒
+bonus2 bSkillCooldown,sk,t;          技能 sk 獨立延遲/冷卻(Cooldown) + t 毫秒
+
+=======================================
+|3. 指定群組 - Group-specific Bonuses |
+=======================================
+
+傷害修正 - Damage modifiers
+----------------
+bonus2 bAddEle,e,x;                  物理攻擊 e 屬性的單位時, 增加 x% 的傷害 (增加屬性傷害/對屬性敵人增加傷害)
+bonus3 bAddEle,e,x,bf;               物理攻擊 e 屬性的單位時, 在 bf 條件下增加 x% 的傷害
+bonus2 bMagicAddEle,e,x;             魔法攻擊 e 屬性的單位時, 增加 x% 的傷害
+bonus2 bSubEle,e,x;                  受到 e 屬性攻擊時, 減少 x% 的傷害 (減少屬性傷害)
+bonus3 bSubEle,e,x,bf;               受到 e 屬性攻擊時, 在 bf 條件下減少 x% 的傷害
+bonus2 bSubDefEle,e,x;               受到 e 屬性的單位攻擊時, 減少物理防禦 x% 的傷害 
+bonus2 bMagicSubDefEle,e,x;		     受到 e 屬性的單位攻擊時, 減少魔法防禦 x% 的傷害
+
+bonus2 bAddRace,r,x;                 物理攻擊 r 種族的單位時, 增加 x% 的傷害 (種族物理傷害/物理種族傷害) 
+bonus2 bMagicAddRace,r,x;            魔法攻擊 r 種族的單位時, 增加 x% 的傷害 (種族魔法傷害/魔法種族傷害)
+bonus2 bSubRace,r,x;                 受到 r 種族的單位攻擊時, 減少 x% 的傷害 (種族減少傷害/種族減少傷害) (增加種族抗性)
+bonus3 bSubRace,r,x,bf;              受到來自 r 種族的 bf 攻擊條件減少 x% 的傷害, 例：破壞的達納托斯的記憶卡片(#300280)
+
+bonus2 bAddClass,c,x;                物理攻擊 c 類別的單位時, 增加 x% 的傷害   (物理階級傷害/魔法階級傷害)
+bonus2 bMagicAddClass,c,x;           魔法攻擊 c 類別的單位時, 增加 x% 的傷害
+bonus2 bSubClass,c,x;                受到 c 類別的單位攻擊時, 減少 x% 的傷害
+
+bonus2 bAddSize,s,x;                 物理攻擊 s 體型的單位時, 增加 x% 的傷害 (體型物理傷害)
+bonus2 bMagicAddSize,s,x;            魔法攻擊 s 體型的單位時, 增加 x% 的傷害 (體型魔法傷害)
+bonus2 bSubSize,s,x;                 受到 s 體型的單位攻擊時, 減少 x% 的傷害 (減少體型傷害/體型減少傷害)
+bonus2 bWeaponSubSize,s,x;			 受到 s 體型的物理攻擊時, 減少 x% 的傷害
+bonus2 bMagicSubSize,s,x;			 受到 s 體型的魔法攻擊時, 減少 x% 的傷害
+bonus bNoSizeFix;       			 攻擊時無視敵方的體型壓制, 例：海盜之王卡片(#4137)
+
+bonus2 bAddDamageClass,mid,x;        物理攻擊編號為 mid 的魔物時, 增加 x% 的傷害
+bonus2 bAddMagicDamageClass,mid,x;   魔法攻擊編號為 mid 的魔物時, 增加 x% 的傷害
+                                     提示: 若想調整的不是魔物而是玩家的話, 這裡的 mid 參數可以填寫玩家的職業編號.
+                                     限制: 這些名稱包含 DamageClass 字樣的效果控制器最多隻能設定 10 個, 超過的將會被自動忽略.
+
+bonus2 bAddDefMonster,mid,x;         提高 x% 被編號為 mid 的魔物攻擊時的物理防禦抗性 (以便減少自己受到的傷害)
+bonus2 bAddMDefMonster,mid,x;        提高 x% 被編號為 mid 的魔物攻擊時的魔法防禦抗性 (以便減少自己受到的傷害)
+                                     提示: 若想調整的不是魔物而是玩家的話, 這裡的 mid 參數可以填寫玩家的職業編號.
+
+bonus2 bAddRace2,mr,x;               物理攻擊 mr 種族的單位時, 增加 x% 的傷害
+bonus2 bSubRace2,mr,x;               被 mr 種族的單位攻擊時, 減少 x% 的傷害
+bonus2 bMagicAddRace2,mr,x;          魔法攻擊 mr 種族的單位時, 增加 x% 的傷害
+
+bonus2 bSubSkill,sk,n;               被 sk 技能攻擊時, 能夠減少 n% 受到的傷害
+
+bonus bAbsorbDmgMaxHP,n;             當受到的傷害超過最大HP的 n% 時, 傷害將被調整為: [受到的傷害] - [最大HP的n%] (同項目只取最高進行計算)
+
+攻擊/防禦 - Atk/Def
+-------
+bonus bAtkEle,e;                     將玩家的攻擊附加上 e 屬性
+bonus bDefEle,e;                     將玩家的防禦附加上 e 屬性
+
+bonus2 bMagicAtkEle,e,x;             增加 x% 的 e 屬性魔法傷害 (增加魔法屬性傷害/增加自身魔法屬性傷害)
+
+bonus bDefRatioAtkRace,r;            刺穿 r 種族單位的物理防禦 (破甲/浸透勁效果)
+bonus bDefRatioAtkEle,e;             刺穿 e 屬性單位的物理防禦 (破甲/浸透勁效果)
+bonus bDefRatioAtkClass,c;           刺穿 c 類別單位的物理防禦 (破甲/浸透勁效果), 例：魔劍士 達納托斯的記憶卡片(#4399)
+
+bonus4 bSetDefRace,r,n,t,y;          物理攻擊 r 種族的單位時, 將有 n% 的機率使對方的 DEF 在 t 毫秒內被設定為 y
+bonus4 bSetMDefRace,r,n,t,y;         物理攻擊 r 種族的單位時, 將有 n% 的機率使對方的 MDEF 在 t 毫秒內被設定為 y
+
+無視防禦 - Ignore Def
+----------
+bonus bIgnoreDefEle,e;               無視 e 屬性魔物的物理防禦 (無視物理防禦) (無視魔法防禦)
+bonus bIgnoreDefRace,r;              無視 r 種族魔物的物理防禦
+bonus bIgnoreDefClass,c;             無視 c 類別魔物的物理防禦
+bonus bIgnoreMDefRace,r;             無視 r 種族魔物的魔法防禦
+bonus2 bIgnoreDefRaceRate,r,n;       無視 r 種族魔物 n% 的物理防禦
+bonus2 bIgnoreMdefRaceRate,r,n;      無視 r 種族魔物 n% 的魔法防禦
+bonus2 bIgnoreMdefRace2Rate,mr,n;    無視 mr 種族魔物 n% 的魔法防禦
+bonus bIgnoreMDefEle,e;              無視 e 屬性魔物的魔法防禦
+bonus2 bIgnoreDefClassRate,c,n;      無視 c 類別魔物 n% 的物理防禦
+bonus2 bIgnoreMdefClassRate,c,n;     無視 c 類別魔物 n% 的魔法防禦
+
+經驗值 - Experience
+----------
+bonus2 bExpAddRace,r,x;              當殺死 r 種族的單位所獲得的經驗值增加 x%
+bonus2 bExpAddClass,c,x;             當殺死 c 類別的單位所獲得的經驗值增加 x%
+
+=======================================
+|4. 狀態相關 - Status-related Bonuses |
+=======================================
+
+bonus2 bAddEff,eff,n;                   攻擊時將有 n/100% 的機率使敵方產生 eff 狀態
+bonus2 bAddEff2,eff,n;                  攻擊時將有 n/100% 的機率使自己產生 eff 狀態
+bonus2 bAddEffWhenHit,eff,n;            受到攻擊時將有 n/100% 的機率使敵方產生 eff 狀態
+bonus2 bResEff,eff,n;                   減少 n/100% 產生 eff 狀態的機率
+
+bonus3 bAddEff,eff,n,atf;               攻擊時將有 n/100% 的機率在 atf 條件下產生 eff 狀態
+bonus4 bAddEff,eff,n,atf,t;             攻擊時將有 n/100% 的機率在 atf 條件下產生 eff 狀態, 持續 t 秒
+bonus3 bAddEffWhenHit,eff,n,atf;        受到攻擊時將有 n/100% 的機率在 atf 條件下產生 eff 狀態
+bonus4 bAddEffWhenHit,eff,n,atf,t;      受到攻擊時將有 n/100% 的機率在 atf 條件下產生 eff 狀態, 持續 t秒
+                                        參數 aft 為觸發標準:
+                                            受影響的目標: (若不指定, 預設為: ATF_TARGET)
+                                            ATF_SELF   = 觸發的效果最終最用在自己身上
+                                            ATF_TARGET = 觸發的效果最終最用在攻擊目標身上
+
+                                            攻擊距離標準: (若不指定, 預設為: BF_SHORT+BF_LONG)
+                                            ATF_SHORT  = 近距離攻擊時觸發
+                                            ATF_LONG   = 遠距離攻擊時觸發
+
+                                            技能/攻擊型別標準: (若不指定, 預設為: ATF_WEAPON)
+											ATF_SKILL  = 使用"技能"時觸發
+                                            ATF_WEAPON = 使用物理攻擊 / 物理傷害型技能時觸發
+                                            ATF_MAGIC  = 使用魔法攻擊 / 魔法傷害型技能時觸發
+                                            ATF_MISC   = 使用其他特殊攻擊時觸發
+
+bonus3 bAddEffOnSkill,sk,eff,n;         n/100% 的機率在使用 sk 技能時, 可以使技能施放的目標單位產生 eff 狀態
+bonus4 bAddEffOnSkill,sk,eff,n,atf;     n/100% 的機率在使用 sk 技能時, 可以使 atf 單位產生 eff 狀態
+bonus5 bAddEffOnSkill,sk,eff,n,atf,t;   n/100% 的機率在使用 sk 技能時, 可以使 atf 單位產生 eff 狀態, 持續 t 秒
+                                        參數 aft 為觸發標準:
+                                            ATF_SELF   = 觸發效果最終 - 在[自己]身上
+                                            ATF_TARGET = 觸發效果最終 - 在[目標]身上
+
+bonus2 bComaClass,c,n;                  攻擊 c 類別單位時, 有 n/100% 機率使對方[瀕死狀態]
+bonus2 bComaRace,r,n;                   攻擊 r 種族單位時, 有 n/100% 機率使對方[瀕死狀態]
+										註：該專案所有造成傷害手段皆適用
+
+bonus2 bWeaponComaEle,e,n;              物理攻擊 e 屬性的單位時, 有 n/100% 機率使對方[瀕死狀態]
+bonus2 bWeaponComaClass,c,n;            物理攻擊 c 類別的單位時, 有 n/100% 機率使對方[瀕死狀態]
+bonus2 bWeaponComaRace,r,n;             物理攻擊 r 種族的單位時, 有 n/100% 機率使對方[瀕死狀態]
+
+==================================
+|5. 自動詠唱 - AutoSpell Bonuses |
+==================================
+
+提示:
+  - 所有的自動詠唱效果控制器, 在預設情況下詠唱的技能都不會檢查與目標的距離.
+  - 若開啟 conf/battle/battle.conf 文件中的 autospell_check_range 選項, 則會強制檢查目標必須在技能的可施放範圍內, 才會觸發自動詠唱.
+  - 自動詠唱的效果控制器如果指定了施法目標, 那麼不會理會這個技能是自身技能還是輔助技能(inf = 4/16), 都會施加在指定的目標身上.
+
+bonus3 bAutoSpell,sk,y,n;       		攻擊時有 n/10% 的機率自動詠唱 y 級技能 sk (支援技能名)
+bonus3 bAutoSpellWhenHit,sk,y,n;		被攻擊時有 n/10% 的機率自動詠唱 y 級技能 sk (支援技能名)
+
+bonus4 bAutoSpell,sk,y,n,i;          	攻擊時有 n/10% 的機率在 i 條件下自動詠唱 y 級技能 sk
+bonus5 bAutoSpell,sk,y,n,bf,i;       	攻擊時有 n/10% 的機率在 i 和 bf 條件下自動詠唱 y 級技能 sk
+bonus4 bAutoSpellWhenHit,sk,y,n,i;   	被攻擊時有 n/10% 的機率在 i 條件下自動詠唱 y 級技能 sk
+bonus5 bAutoSpellWhenHit,sk,y,n,bf,i;	被攻擊時有 n/10% 的機率在 i 和 bf 條件下自動詠唱 y 級技能 sk 
+                                        參數 i 的定義如下 (掩碼型別):
+                                             0 = 自動詠唱的技能 - 施放在[自己]身上
+                                             1 = 自動詠唱的技能 - 施放在[對方]身上
+                                             2 = 隨機使用技能等級 [1..y]
+                                             3 = 1+2 (隨機技能等級, 並施放在對方身上)
+
+bonus4 bAutoSpellOnSkill,sk,x,y,n;  	在使用 sk 技能時, 有 n/10% 的機率向 sk 技能的施法目標追加自動詠唱 y 級技能 x
+bonus5 bAutoSpellOnSkill,sk,x,y,n,i;	在使用 sk 技能時, 有 n/10% 的機率在 i 條件下自動詠唱 y 級技能 x
+                                        參數 i 的定義如下 (掩碼型別):
+                                             1 = 自動詠唱的技能強制施加在自己身上, 而不是 sk 技能的施法目標
+                                             2 = 隨機使用技能等級 [1..y]
+
+===================================
+|   6. 其他效果 - Misc Bonuses    |
+===================================
+
+吸收血量/魔力 - HP/SP drain
+-----------
+bonus bHPDrainValue,n;                物理攻擊時會恢復 n 點 HP
+bonus2 bHPDrainValueRace,r,n;         物理攻擊 r 種族的單位時會恢復 n 點 HP
+bonus2 bHpDrainValueClass,c,n;        物理攻擊 c 類別的單位時會恢復 n 點 HP
+
+bonus bSPDrainValue,n;                物理攻擊時會恢復 n 點 SP
+bonus2 bSPDrainValueRace,r,n;         物理攻擊 r 種族的單位時會恢復 n 點 SP
+bonus2 bSpDrainValueClass,c,n;        物理攻擊 c 類別的單位時會恢復 n 點 SP
+
+bonus2 bHPDrainRate,x,n;              物理攻擊時有 x/10 % 機率把所造成傷害的 n% 恢復到 HP 中
+bonus2 bSPDrainRate,x,n;              物理攻擊時有 x/10 % 機率把所造成傷害的 n% 恢復到 SP 中
+
+損失血量/魔力 - HP/SP vanish
+------------
+bonus2 bHPVanishRate,x,n;             物理攻擊時有 x/10 % 的機率減少對方 n% 的 HP
+bonus3 bHPVanishRaceRate,r,x,n;       物理攻擊 r 種族的單位時, 將有 x/10 % 的機率減少對方 n% 的 HP
+bonus3 bHPVanishRate,x,n,bf;	      觸發 bf 攻擊條件時 , 將有 x/10 % 的機率減少對方 n% 的 HP
+
+bonus2 bSPVanishRate,x,n;             物理攻擊時有 x/10 % 的機率減少對方 n% 的 SP
+bonus3 bSPVanishRaceRate,r,x,n;       物理攻擊 r 種族的單位時, 將有 x/10 % 的機率減少對方 n% 的 SP
+bonus3 bSPVanishRate,x,n,bf;	      觸發 bf 攻擊條件時 , 將有 x/10 % 的機率減少對方 n% 的 SP
+
+bonus3 bStateNoRecoverRace,r,x,t;     物理攻擊 r 種族的單位時, 將有 x/100% 的機率讓對方陷入無法恢復狀態, 持續 t 毫秒
+
+獲得血量/魔力 - HP/SP gain
+------------
+bonus bHPGainValue,n;                 物理攻擊殺死魔物時可以得到 n 點 HP
+bonus bSPGainValue,n;                 物理攻擊殺死魔物時可以得到 n 點 SP
+bonus2 bSPGainRace,r,n;               物理攻擊殺死 r 種族魔物時可以得到 n 點 SP
+bonus bLongHPGainValue,n;     		  遠程物理攻擊殺死魔物時可以得到 n 點 HP
+bonus bLongSPGainValue,n;     		  遠程物理攻擊殺死魔物時可以得到 n 點 SP
+bonus bMagicHPGainValue,n;            魔法攻擊殺死魔物時可以得到 n 點 HP
+bonus bMagicSPGainValue,n;            魔法攻擊殺死魔物時可以得到 n 點 SP
+
+傷害反射 - Damage return
+-------------
+bonus bShortWeaponDamageReturn,n;     受'近距離物理傷害'時, 反射 n% 的傷害給攻擊者
+bonus bLongWeaponDamageReturn,n;      受'遠距離物理傷害'時, 反射 n% 的傷害給攻擊者
+bonus bMagicDamageReturn,n;           受'魔法傷害'時, 將有 n% 的機率反射全部魔法傷害
+bonus bReduceDamageReturn,n;		  受到傷害時, 將有 n% 的機率反射全部傷害
+
+脫下/損壞裝備 - Strip/Break equipment
+---------------------
+bonus bUnstripableWeapon;             武器不會被流氓的技能脫下
+bonus bUnstripableArmor;              盔甲不會被流氓的技能脫下
+bonus bUnstripableHelm;               頭盔不會被流氓的技能脫下
+bonus bUnstripableShield;             盾牌不會被流氓的技能脫下
+bonus bUnstripable;                   全身裝備都不會被流氓的技能脫下
+
+bonus bUnbreakableGarment;            披肩不會因任何理由而被損壞
+bonus bUnbreakableWeapon;             武器不會因任何理由而被損壞
+bonus bUnbreakableArmor;              盔甲不會因任何理由而被損壞
+bonus bUnbreakableHelm;               頭盔不會因任何理由而被損壞
+bonus bUnbreakableShield;             盾牌不會因任何理由而被損壞
+bonus bUnbreakableShoes;              鞋子不會因任何理由而被損壞
+bonus bUnbreakable,n;                 減少全身裝備被損壞機率 n%
+
+bonus bBreakWeaponRate,n;             增加 n/100% 破壞對方武器的機率 (可以和其他武器破壞機率疊加)
+bonus bBreakArmorRate,n;              增加 n/100% 破壞對方盔甲的機率 (可以和其他盔甲破壞機率疊加)
+
+魔物掉落 - Monster drops
+-------------
+bonus2 bDropAddRace,r,x;                 當殺死 r 種族的魔物時, 此魔物的掉寶率將比正常情況增加 x%
+bonus2 bDropAddClass,c,x;                當殺死 c 類別的魔物時, 此魔物的掉寶率將比正常情況增加 x%
+
+bonus3 bAddMonsterIdDropItem,iid,mid,n;  當殺死編號為 mid 的魔物時, 將有 n/100% 的機率掉落編號為 iid 的物品
+
+bonus2 bAddMonsterDropItem,iid,n;        殺死魔物時, 將有 n/100% 的機率掉落編號為 iid 的物品
+bonus3 bAddMonsterDropItem,iid,r,n;      殺死 r 種族的魔物時, 將有 n/100% 的機率掉落編號為 iid 的物品
+bonus3 bAddClassDropItem,iid,c,n;        殺死 c 類別的魔物時, 將有 n/100% 的機率掉落編號為 iid 的物品
+bonus2 bAddMonsterDropItemGroup,ig,n;    殺死魔物時, 將有 n/100% 的機率得到 ig 物品群組中的 1 個物品
+bonus3 bAddMonsterDropItemGroup,ig,r,n;  殺死 r 種族的魔物時, 將有 n/100% 的機率得到 ig 物品群組中的 1 個物品
+bonus3 bAddClassDropItemGroup,ig,c,n;    殺死 c 類別的魔物時, 將有 n/100% 的機率得到 ig 物品群組中的 1 個物品
+                                         提示: 當參數 n 為負數的時候, 那麼概率公式將變成:
+                                               概率 = -n 乘以 (擊殺的魔物等級/10)+1
+                                         限制: 這些名稱包含 DropItem 字樣的效果控制器最多隻能設定 10 個, 超過的將會被自動忽略.
+
+bonus2 bGetZenyNum,x,n;                  殺死魔物, 有 n% 機率掉落 1 ~ x Zeny	註：同項目只取最高進行計算
+bonus2 bAddGetZenyNum,x,n;               殺死魔物, 有 n% 機率掉落 1 ~ x Zeny	註：與一般認知相同可進行疊加
+                                         注1: 參數 n 為負數(-)時, 掉落的 Zeny 上限公式為: -x 乘以 魔物等級.
+
+其他效果 - Misc effects
+------------
+bonus bDoubleRate,n;                  二刀連擊觸發率 n%		註：同項目只取最高進行計算
+bonus bDoubleAddRate,n;               二刀連擊觸發率 + n%	註：與一般認知相同可進行疊加
+bonus bSplashRange,n;                 濺射傷害範圍 n		註：同項目只取最高進行計算
+bonus bSplashAddRange,n;              濺射傷害範圍 + n 		註：與一般認知相同可進行疊加
+								      ----------------------------------------------------------
+								      參考 rAthena 相關服務端範圍設計模式(下方提供常用數據範圍)
+									  公式參考 Range(範圍x) = (n*2+1) x (n*2+1)
+                                      n = 1 ---> 3 x 3
+									  n = 2 ---> 5 x 5
+									  n = 3 ---> 7 x 7
+									  n = 4 ---> 9 x 9
+									  n = 5 ---> 11 x 11
+									  n = 6 ---> 13 x 13
+								      ----------------------------------------------------------
+bonus2 bAddSkillBlow,sk,n;            使用 sk 技能攻擊目標時, 目標擊退 n 格
+bonus bNoKnockback;                   角色不會被 Knockback 相關設定擊退, 例：布林喜德(#2383)
+bonus bNoGemStone;                    使用技能不再消耗魔力礦石
+                                      注1: 隨機技能仍需 -1 黃色魔力礦石
+									  注2：參考來源由原始碼判定物品 , 設定自定義礦石(Etc)為技能消耗不適用於該 bonus
+bonus bIntravision;                   看見偽裝或隱形的單位, 例：狂暴蟻后卡片(#4198)
+bonus bPerfectHide;                   隱藏/偽裝角色, 不被擁有 Mob_Mode - Detector  模式的魔物發現
+                                      注1: Mob Mode - Detector 專案為'發現隱匿'
+									  注2：參考來源 doc\mob_db_mode_list.txt
+bonus bRestartFullRecover;            角色復活時 HP/SP 全滿, 例：俄塞里斯卡片(#4144)
+bonus bClassChange,n;                 普通攻擊一般階級魔物時 n/100% 機率改變魔物, 例：變形短劍(#1235)
+bonus bAddStealRate,n;                技能'偷竊'成功率 + n/100%
+bonus bNoMadoFuel;                    魔導機甲狀態使用技能不需要消秏魔導機甲燃料#6146
+bonus bNoWalkDelay;					  移動無延遲即霸體效果, 例：虎王卡片(#4123)
+
+// 獲取裝備精煉
+// Resoure:https://okayro.com/thread-58825-1-1.html
+getequiprefinerycnt(<equipment slot>) - 取得指定位置的精練值
+getequipid(<equipment slot>) - 取得身上裝備的編號
+getrefine(); - 獲得精煉等級
+EQI_HEAD_TOP (1)  - [頭上]
+EQI_ARMOR (2)     - [身體]
+EQI_HAND_L (3)    - [左手]
+EQI_HAND_R (4)    - [右手]
+EQI_GARMENT (5)   - [斗篷]
+EQI_SHOES (6)     - [鞋子]
+EQI_ACC_L (7)     - [飾品左]
+EQI_ACC_R (8)     - [飾品右]
+EQI_HEAD_MID (9)  - [頭中]
+EQI_HEAD_LOW (10) - [頭下]
+EQI_COSTUME_HEAD_TOP - [服飾頭上]
+EQI_COSTUME_HEAD_MID - [服飾頭中]
+EQI_COSTUME_HEAD_LOW - [服飾頭下]
+EQI_COSTUME_HEAD_GARMENT - [服飾披肩]
+EQI_SHADOW_ARMOR - [影子鎧甲]
+EQI_SHADOW_WEAPON - [影子手套]
+EQI_SHADOW_SHIELD - [影子盾牌]
+EQI_SHADOW_SHOES - [影子鞋子]
+EQI_SHADOW_ACC_R - [影子飾品右]
+EQI_SHADOW_ACC_L - [影子飾品左]
+
+
+
+
+getequiprefinerycnt(EQI_HEAD_TOP); (頭上精煉)
+getequiprefinerycnt(EQI_ARMO);  (鎧甲精煉)
+getequiprefinerycnt(EQI_HAND_L);  (左手/盾牌精煉)
+getequiprefinerycnt(EQI_HAND_R);	 (右手/武器精煉)
+getequiprefinerycnt(EQI_GARMENT);  (斗篷精煉)
+getequiprefinerycnt(EQI_SHOES);  (鞋子精煉)
+getequiprefinerycnt(EQI_ACC_L);  (飾品左精煉)
+getequiprefinerycnt(EQI_ACC_R);	(飾品右精煉)
+getequiprefinerycnt(EQI_HEAD_MID);  (頭中精煉)
+getequiprefinerycnt(EQI_HEAD_LOW);	(頭下精煉)
+
+skill sk,n; 可使用sk技能n等級
+
+script 腳本(變身或其他設定)
+*autobonus <bonus script>,<rate>,<duration>{,<flag>,{<other script>}}; rate(n/10%) duration = ms
+*autobonus2 <bonus script>,<rate>,<duration>{,<flag>,{<other script>}};
+*autobonus3 <bonus script>,<rate>,<duration>,<skill id>,{<other script>};
+*autobonus3 <bonus script>,<rate>,<duration>,"<skill name>",{<other script>};
+
+eaclass()&EAJL_THIRD && BaseJob == "Job_基本職業" 判別基本職業三轉 (base基本職業)
+
+getenchantgrade(); 防具階級
+ENCHANTGRADE_D 階級D
+ENCHANTGRADE_C 階級C
+ENCHANTGRADE_B 階級B
+ENCHANTGRADE_A 階級A

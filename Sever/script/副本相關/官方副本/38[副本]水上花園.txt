@@ -1,0 +1,632 @@
+
+
+
+//===== Description: ==============================
+//
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@ghg	mapflag	noteleport
+1@ghg	mapflag	nosave	SavePoint
+1@ghg	mapflag	nomemo
+1@ghg	mapflag	nobranch
+1@ghg	mapflag	noicewall
+1@ghg	mapflag	restricted	6
+1@ghg	mapflag	monster_noteleport
+1@ghg	mapflag	partylock
+1@ghg	mapflag	novending
+1@ghg	mapflag	nochat
+
+amatsu,108,93,5	script	[副本]水上花園	601,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "水上花園";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 38;
+
+//
+	waitingroom "[副本]水上花園",0;
+	setnpcicon getnpcid(0),22,"[副本]水上花園";
+	end;
+}
+
+
+
+/******************************
+ - 傳送點設定
+******************************/
+1@ghg,76,68,0	warp	#Garden01	2,2,1@ghg,207,57
+1@ghg,269,68,0	warp	#Garden02	2,2,1@ghg,311,68
+1@ghg,343,97,0	warp	#Garden03	2,2,1@ghg,343,139
+1@ghg,343,184,0	warp	#Garden04	2,2,1@ghg,343,235
+1@ghg,265,309,0	warp	#Garden05	2,2,1@ghg,189,287
+
+/******************************
+ - 區域1園丁
+******************************/
+1@ghg,216,58,3	script	園丁#1	4_EP17_SCISSORE,{
+	'mode = #mode;
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+	
+		if ( !is_party_leader() ) end;
+		mes "請選擇難度";
+		.@i = select("水上花園(普通)","水上花園(困難)");
+		if(select("確定","取消") == 2) {end;}
+		if ( .@i == 1 )
+		{
+		'mode = 0;
+		'mode0name$ = "普通難度";
+		 messagecolor "您選擇的是 "+'mode0name$+" !","F9F900",bc_self;
+		}else 
+		{
+			'mode = 1;
+			'mode1name$ = "困難難度";
+			messagecolor "您選擇的是 "+'mode1name$+" !","F9F900",bc_self;
+		}
+		mes "["+strnpcinfo(1)+"]";
+		mes "歡迎來到水上花園。請問您想要去參觀花園內部嗎？只不過帕皮拉最近一直在花園內搗亂，令人非常頭疼…";
+		npctalk strnpcinfo(1)+": 歡迎來到水上花園。請問您想要去參觀花園內部嗎？只不過帕皮拉最近一直在花園內搗亂，令人非常頭疼…",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "帕皮拉會在這附近出現，他會使用危險的魔法!";
+		npctalk strnpcinfo(1)+": 帕皮拉會在這附近出現，他會使用危險的魔法!",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "園丁會使用廣播警告你們小心帕皮拉的魔法，不過要小心不要破壞了地上的所有植物";
+		npctalk strnpcinfo(1)+": 園丁會使用廣播警告你們小心帕皮拉的魔法，不過要小心不要破壞了地上的所有植物",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "當清除完畢時，請往3點鐘方向走，傳送點就會打開。";
+		npctalk strnpcinfo(1)+": 當清除完畢時，請往3點鐘方向走，傳送點就會打開。",instance_npcname(strnpcinfo(0));
+		close2;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+		warp 'map$,240,73;
+	}
+	end;
+	
+OnEvent:
+	initnpctimer;
+	switch('mode)
+	{
+		case 0:
+			areamonster 'map$,215,99,267,46,"--ja--",20674,rand(6,12),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,215,99,267,46,"--ja--",20677,rand(6,12),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+		case 1:
+			areamonster 'map$,215,99,267,46,"--ja--",20675,rand(6,12),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,215,99,267,46,"--ja--",20678,rand(6,12),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+	}
+	end;
+	
+OnTimer9000:
+	mapannounce 'map$,"帕皮拉的魔法咒語已被觸發，請小心!",bc_map;
+	switch('mode)
+	{
+		case 0:
+			if(!unitexists('PAPILIA[0])) { monster 'map$,257,76,"--ja--",20669,1; 'PAPILIA[0] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[1])) { monster 'map$,240,73,"--ja--",20669,1; 'PAPILIA[1] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[2])) { monster 'map$,253,91,"--ja--",20669,1; 'PAPILIA[2] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[3])) { monster 'map$,223,92,"--ja--",20669,1; 'PAPILIA[3] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[4])) { monster 'map$,228,79,"--ja--",20669,1; 'PAPILIA[4] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[5])) { monster 'map$,240,54,"--ja--",20669,1; 'PAPILIA[5] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[6])) { monster 'map$,225,59,"--ja--",20669,1; 'PAPILIA[6] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[7])) { monster 'map$,261,54,"--ja--",20669,1; 'PAPILIA[7] = $@mobid[0]; }
+			break;
+		case 1:
+			if(!unitexists('PAPILIA[0])) { monster 'map$,257,76,"--ja--",20670,1; 'PAPILIA[0] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[1])) { monster 'map$,240,73,"--ja--",20670,1; 'PAPILIA[1] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[2])) { monster 'map$,253,91,"--ja--",20670,1; 'PAPILIA[2] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[3])) { monster 'map$,223,92,"--ja--",20670,1; 'PAPILIA[3] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[4])) { monster 'map$,228,79,"--ja--",20670,1; 'PAPILIA[4] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[5])) { monster 'map$,240,54,"--ja--",20670,1; 'PAPILIA[5] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[6])) { monster 'map$,225,59,"--ja--",20670,1; 'PAPILIA[6] = $@mobid[0]; }
+			if(!unitexists('PAPILIA[7])) { monster 'map$,261,54,"--ja--",20670,1; 'PAPILIA[7] = $@mobid[0]; }
+			break;
+	}
+	//areamobuseskill 'map$,240,73,30,20669,"WL_HELLINFERNO",'mode ? 5 : 1,0,0,ET_AHA,3;
+	//areamobuseskill 'map$,240,73,30,20670,"WL_HELLINFERNO",'mode ? 5 : 1,0,0,ET_AHA,3;
+	initnpctimer;
+	end;
+	
+OnMyMobDead:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0)
+	{
+		if('Time < 2)
+		{
+			'Time ++;
+			donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+		}
+		else
+		{
+			stopnpctimer;
+			'Time = 0;
+			enablenpc instance_npcname("#Garden02");
+			mapannounce 'map$,"第一區域已清除完畢，請往3點鐘方向下一個區域移動。",bc_map;
+		}
+	}
+	end;
+OnInstanceInit:
+	'map$ = instance_mapname("1@ghg");
+	disablenpc instance_npcname("#Garden02");
+	disablenpc instance_npcname("#Garden03");
+	disablenpc instance_npcname("#Garden04");
+	disablenpc instance_npcname("#Garden05");
+	end;
+}
+
+/******************************
+ - 區域2園丁
+******************************/
+1@ghg,316,69,3	script	園丁#2	4_EP17_SCISSORE,{
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+		mes "["+strnpcinfo(1)+"]";
+		mes "這裡是辣椒園，請小心帕皮拉。";
+		npctalk strnpcinfo(1)+": 這裡是辣椒園，請小心帕皮拉。",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "在帕皮拉變色之後請各位需要更加小心。";
+		npctalk strnpcinfo(1)+": 在帕皮拉變色之後請各位需要更加小心。",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "再加上這裡曾經栽培庭院的園丁們有一部分已經損壞的樣子。";
+		npctalk strnpcinfo(1)+": 再加上這裡曾經栽培庭院的園丁們有一部分已經損壞的樣子。",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "總之，請小心不要破壞到環境了。";
+		npctalk strnpcinfo(1)+": 總之，請小心不要破壞到環境了。",instance_npcname(strnpcinfo(0));
+		close2;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+	}
+	end;
+	
+OnEvent:
+	mapannounce 'map$,"損壞的園丁出現了。",bc_map;
+	switch('mode)
+	{
+		case 0:
+			areamonster 'map$,318,93,347,64,"--ja--",20665,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20674,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20677,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20631,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+		case 1:
+			areamonster 'map$,318,93,347,64,"--ja--",20666,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20675,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20678,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			areamonster 'map$,318,93,347,64,"--ja--",20632,rand(3,6),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+	}
+	end;
+	
+OnMyMobDead:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0)
+	{
+		if('Time < 1)
+		{
+			'Time ++;
+			donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+		}
+		else
+		{
+			'Time = 0;
+			enablenpc instance_npcname("#Garden03");
+			mapannounce 'map$,"第二區域已清除完畢，請前往下一個區域。",bc_map;
+		}
+	}
+	end;
+}
+
+/******************************
+ - 區域3園丁
+******************************/
+1@ghg,341,143,3	script	園丁#3	4_EP17_SCISSORE,{
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+		mes "["+strnpcinfo(1)+"]";
+		mes "麻煩請幫我修剪一下植物，拜託你了";
+		npctalk strnpcinfo(1)+": 麻煩請幫我修剪一下植物，拜託你了",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "通過通道後前方會有花園管理員等候著你";
+		npctalk strnpcinfo(1)+": 通過通道後前方會有花園管理員等候著你",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "您可能需要稍作等待，因為迷宮花園內有著乘載量限制。";
+		npctalk strnpcinfo(1)+": 您可能需要稍作等待，因為迷宮花園內有著乘載量限制。",instance_npcname(strnpcinfo(0));
+		close2;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		enablenpc instance_npcname("invisable_mobs#1");
+		enablenpc instance_npcname("invisable_mobs#2");
+		enablenpc instance_npcname("invisable_mobs#3");
+		enablenpc instance_npcname("invisable_mobs#4");
+		enablenpc instance_npcname("invisable_mobs#5");
+		enablenpc instance_npcname("invisable_mobs#6");
+		enablenpc instance_npcname("invisable_mobs#7");
+		enablenpc instance_npcname("invisable_mobs#8");
+		enablenpc instance_npcname("invisable_mobs#9");
+	}
+	end;
+}
+
+1@ghg,316,150,0	script	invisable_mobs#1	139,5,5,{
+	end;
+
+OnTouch:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0)
+	{
+		getmapxy .@m$,.@x,.@y,BL_NPC;
+		switch('mode)
+		{
+			case 0:
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20665,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20674,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20677,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20631,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				break;
+			case 1:
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20666,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20675,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20678,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				areamonster 'map$,.@x-3,.@y+3,.@x+3,.@y-3,"--ja--",20632,rand(1,3),instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+				break;
+		}
+	}
+	end;
+
+OnMyMobDead:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0)
+	{
+		'aisle ++;
+		disablenpc instance_npcname(strnpcinfo(0));
+	}
+	if('aisle == 9) enablenpc instance_npcname("園丁#4");
+	end;
+	
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@ghg,303,150,0	duplicate(invisable_mobs#1)	invisable_mobs#2	139,5,5
+1@ghg,288,150,0	duplicate(invisable_mobs#1)	invisable_mobs#3	139,5,5
+1@ghg,261,150,0	duplicate(invisable_mobs#1)	invisable_mobs#4	139,5,5
+1@ghg,231,160,0	duplicate(invisable_mobs#1)	invisable_mobs#5	139,5,5
+1@ghg,254,173,0	duplicate(invisable_mobs#1)	invisable_mobs#6	139,5,5
+1@ghg,274,173,0	duplicate(invisable_mobs#1)	invisable_mobs#7	139,5,5
+1@ghg,290,173,0	duplicate(invisable_mobs#1)	invisable_mobs#8	139,5,5
+1@ghg,305,173,0	duplicate(invisable_mobs#1)	invisable_mobs#9	139,5,5
+
+/******************************
+ - 區域4園丁(花園迷宮入口)
+******************************/
+1@ghg,344,173,3	script	園丁#4	4_EP17_SCISSORE,{
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+		progressbar "0x000000",3;
+		mes "["+strnpcinfo(1)+"]";
+		mes "請往12點鐘方向前往下一個區域。";
+		npctalk strnpcinfo(1)+": 請往12點鐘方向前往下一個區域。",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "並清除在迷宮花園中內的所有害蟲。";
+		npctalk strnpcinfo(1)+": 並清除在迷宮花園中內的所有害蟲。",instance_npcname(strnpcinfo(0));
+		close2;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		disablenpc instance_npcname(strnpcinfo(0));
+		enablenpc instance_npcname("#Garden04");
+		donpcevent instance_npcname("園丁#5")+"::OnEnable";
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+/******************************
+ - 區域5園丁(花園內迷宮)
+******************************/
+1@ghg,288,272,3	script	園丁#5	4_EP17_SCISSORE,{
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+		mes "["+strnpcinfo(1)+"]";
+		mes "我會在這裡與你隨時保持聯繫，吃一些餅乾，補充一下能量稍作休息吧!";
+		npctalk strnpcinfo(1)+": 我會在這裡與你隨時保持聯繫，吃一些餅乾，補充一下能量稍作休息吧!",instance_npcname(strnpcinfo(0));
+		specialeffect2 166;
+		percentheal 100,100;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		close;
+	}
+	end;
+
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	switch('mode)
+	{
+		case 0:
+			monster 'map$,321,267,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,319,265,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,265,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,274,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,311,270,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,335,305,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,334,305,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,332,305,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,329,305,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,326,303,"--ja--",20677,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,323,295,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,319,298,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,311,296,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,297,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,316,285,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,284,278,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,280,281,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,276,281,"--ja--",20665,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,275,245,"--ja--",20671,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,275,299,"--ja--",20674,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+		case 1:
+			monster 'map$,321,267,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,319,265,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,265,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,274,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,311,270,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,335,305,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,334,305,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,332,305,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,329,305,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,326,303,"--ja--",20678,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,323,295,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,319,298,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,311,296,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,317,297,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,316,285,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,284,278,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,280,281,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,276,281,"--ja--",20666,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,275,245,"--ja--",20672,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			monster 'map$,275,299,"--ja--",20675,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+			break;
+	}
+	end;
+	
+OnMyMobDead:
+	if(mobcount('map$,instance_npcname(strnpcinfo(0))+"::OnMyMobDead") == 0)
+	{
+		enablenpc instance_npcname("#Garden05");
+		enablenpc instance_npcname("園丁#6");
+	}
+	end;
+}
+
+/******************************
+ - 區域6園丁(最終MVP)
+******************************/
+1@ghg,186,287,3	script	園丁#6	4_EP17_SCISSORE,{
+	if('FINISH)
+	{
+		mes "["+strnpcinfo(1)+"]";
+		mes "非常感謝您來參觀水上花園";
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "也謝謝你協助我們維護花園的整潔，不然這些害蟲真的非常令人傷透腦筋";
+		next;
+		warp "Save",0,0;
+		end;
+	}
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+		'mob_id = 'mode ? 20668 : 20667; 
+		mes "["+strnpcinfo(1)+"]";
+		mes "就剩下最後的修剪作業了";
+		npctalk strnpcinfo(1)+": 就剩下最後的修剪作業了",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "麻煩請你幫忙清理一下";
+		npctalk strnpcinfo(1)+": 麻煩請你幫忙清理一下",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "如果您在戰鬥中看見帕皮拉，請將他推到到相同顏色的光暈之中";
+		npctalk strnpcinfo(1)+": 如果您在戰鬥中看見帕皮拉，請將他推到到相同顏色的光暈之中",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "當帕皮拉進入光環之中，他會遭受到致命傷害後死亡";
+		npctalk strnpcinfo(1)+": 當帕皮拉進入光環之中，他會遭受到致命傷害後死亡",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "如果不理會帕皮拉的話，那麼發生什麼後果需要自行負責喔";
+		npctalk strnpcinfo(1)+": 如果不理會帕皮拉的話，那麼發生什麼後果需要自行負責喔",instance_npcname(strnpcinfo(0));
+		next;
+		mes "["+strnpcinfo(1)+"]";
+		mes "接著，我將使用氣味幫您引出"+getmonsterinfo('mob_id,MOB_NAME);
+		npctalk strnpcinfo(1)+": 接著，我將使用氣味幫您引出"+getmonsterinfo('mob_id,MOB_NAME),instance_npcname(strnpcinfo(0));
+		close2;
+		setd "'talk_"+atoi(strnpcinfo(2)), 1;
+		donpcevent instance_npcname("#GardenFinal")+"::OnDo";
+		disablenpc instance_npcname(strnpcinfo(0));
+	}
+	end;
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+/******************************
+ - MVP事件
+******************************/
+1@ghg,0,0,0	script	#GardenFinal	-1,{
+	end;
+
+OnDo:
+	enablenpc instance_npcname("#GardenHeal_1");
+	enablenpc instance_npcname("#GardenHeal_2");
+	monster 'map$,183,286,"--ja--",'mob_id,1,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
+	'PAPILIA_BOSS = $@mobid[0];
+	initnpctimer;
+	end;
+	
+OnTimer3000:
+	switch('mode)
+	{
+		case 0:
+			monster 'map$,183,285,"--ja--",F_Rand(20674,20671),1;
+			break;
+		case 1:
+			monster 'map$,181,286,"--ja--",F_Rand(20675,20672),1;
+			break;
+	}
+	'PAPILIA_SLAVE = $@mobid[0];
+	end;
+	
+OnTimer12000:
+	if(unitexists('PAPILIA_SLAVE))
+	{
+		mobRemove 'PAPILIA_SLAVE;
+		initnpctimer;
+		addrid(5,0,'map$);
+		percentheal -60,0;
+		warp 'map$,186,287;
+	}
+	end;
+
+OnMyMobDead:
+	'FINISH = 1;
+	addrid(2,0,getcharid(1));
+	if (strcharinfo(3)==instance_mapname("1@ghg"))
+	{
+		if ('mode == 0){
+
+
+		}else{
+
+
+		}
+		//set #hunter,#hunter+1;
+		getitem 1000103,'mode ? 5 : 10;
+	}
+	enablenpc instance_npcname("園丁#6");
+	disablenpc instance_npcname("#GardenHeal_1");
+	disablenpc instance_npcname("#GardenHeal_2");
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@ghg")+"::OnEnable";
+	'ClearInatance = 1;	
+	end;
+OnPAPILIADead:
+	if(unitexists('PAPILIA_BOSS) == 0)
+	{
+		hideonnpc instance_npcname("#GardenHeal_1");
+		hideonnpc instance_npcname("#GardenHeal_2");
+	}
+	else initnpctimer;
+	end;
+}
+
+1@ghg,0,0,0	script	離開副本#1@ghg	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 940038,10;
+	Instance_PassAnnounce;	
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}
+
+
+/******************************
+ - 光環
+******************************/
+1@ghg,179,294,0	script	#GardenHeal_1	4_ENERGY_BLUE,1,1,{
+	end;
+	
+OnTouchNPC:
+	.@GID = getattachedrid();
+	getunitdata .@GID, .@mob_data;
+	if(.@mob_data[UMOB_CLASS] == 20674 || .@mob_data[UMOB_CLASS] == 20675) 
+		unitkill .@GID;
+	end;
+	
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+
+1@ghg,187,280,0	script	#GardenHeal_2	4_ENERGY_RED,1,1,{
+	end;
+	
+OnTouchNPC:
+	.@GID = getattachedrid();
+	getunitdata .@GID, .@mob_data;
+	if(.@mob_data[UMOB_CLASS] == 20671 || .@mob_data[UMOB_CLASS] == 20672) 
+		unitkill .@GID;
+	end;
+	
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}

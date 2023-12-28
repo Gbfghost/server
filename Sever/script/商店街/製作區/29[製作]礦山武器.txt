@@ -1,0 +1,94 @@
+uttycty,80,167,5	trader	[製作]礦山武器	4_TOWER_16,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]礦山武器";
+	waitingroom "[製作]礦山武器",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(25814,1000000,-1);	//超神力礦石
+	sellitemcurrency(25809,1);	//紅色神力礦石
+	sellitemcurrency(25810,1);	//綠色神力礦石
+	sellitemcurrency(25811,1);	//橘色神力礦石
+	sellitemcurrency(25812,1);	//紫色神力礦石
+	sellitemcurrency(25813,1);	//白色神力礦石
+    endsellitem(); 
+	sellitem(9514, 1000000, -1);	//物理改造許可執照
+	sellitemcurrency(25814,30);	//超神力礦石
+	endsellitem();
+	sellitem(9529, 1000000, -1);	//魔法改造許\可執照
+	sellitemcurrency(25814,30);	//超神力礦石
+	endsellitem();
+	sellitem(32248, 100000000, -1);	//庇佑墜子R
+	sellitemcurrency(25814,75);	//超神力礦石
+	endsellitem();
+	sellitem(32249, 100000000, -1);	//庇佑墜子B
+	sellitemcurrency(25814,75);	//超神力礦石
+	endsellitem();
+	sellitem(32250, 100000000, -1);	//庇佑肩飾R
+	sellitemcurrency(25814,75);	//超神力礦石
+	endsellitem();
+	sellitem(32251, 100000000, -1);	//庇佑肩飾B
+	sellitemcurrency(25814,75);	//超神力礦石
+	endsellitem();
+	sellitem(28771, 100000000, -1);	//金屬探測器Mk47
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(28772, 100000000, -1);	//寶石探測器Mk47
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(32352, 100000000, -1);	//庇佑光劍
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(21054, 100000000, -1);	//戰神巨劍
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(32026, 100000000, -1);	//防禦槍矛
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(16099, 100000000, -1);	//木柄橡膠鎚
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(28140, 100000000, -1);	//顫慄鉅斧
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(26162, 100000000, -1);	//焊接魔杖
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(2058, 100000000, -1);	//感測魔杖
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(1867, 100000000, -1);	//庇佑拳套
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(28635, 100000000, -1);	//庇佑指南
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(28045, 100000000, -1);	//霹靂夾碎器
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(18190, 100000000, -1);	//霹靂十字弓
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(32303, 100000000, -1);	//霹靂手槍
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(32110, 100000000, -1);	//庇佑魯特琴
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(26215, 100000000, -1);	//庇佑鞭子
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(13346, 100000000, -1);	//砂輪風魔飛鏢
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+	sellitem(550006, 100000000, -1);	//庇佑狐尾杖
+	sellitemcurrency(25814,50);	//超神力礦石
+	endsellitem();
+
+
+end;
+OnBuyItem:
+end;
+}

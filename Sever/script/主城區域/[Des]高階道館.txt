@@ -1,0 +1,185 @@
+uttycty,149,169,3	script	道館挑戰[高階]	468,{
+	set .@md_name$,"道館挑戰[高階]";
+	set .@Zeny, 2000000; //挑戰金額
+	mes "=========道館挑戰========";
+	mes "- ^984AAC歡迎你參加普通道館挑戰^000000";
+	mes "- ^984AAC入場需求金額 : "+.@Zeny+" z^000000";
+	mes "=========================";
+	next;
+	mes "=========注意事項========";
+	mes "- ^984AAC道館內不會獲得經驗值^000000";
+	mes "- ^984AAC道館內不會掉落物品^000000";
+	mes "- ^984AAC道館內無法紀錄存點^000000";
+	mes "- ^984AAC道館內沒有死亡懲罰^000000";
+	mes "- ^984AAC每日首次通關獎勵兩倍";
+	mes "- ^984AAC並於午夜12點重置^000000";
+	mes "=========================";
+	next;
+	switch(select("申請道館挑戰[高階]:查看獎勵")){
+	case 1:
+				if( zeny< .@Zeny){
+			mes "=========道館挑戰========";
+			mes "- ^C63131Zeny不足^000000";
+			mes "=========================";
+			close;
+			}
+	if (instance_check_party(getcharid(1),1,99,260)) {
+		if (getpartyleader(getcharid(1),2) == getcharid(0)) {
+		if (instance_create("道館挑戰[高階]") < 0)  {	
+			mes "=========道館挑戰========";
+			mes "- ^C63131挑戰中無法進入!^000000";
+			mes "=========================";	
+			close;}
+			set Zeny,Zeny-.@Zeny;
+			instance_enter(.@md_name$);
+			warpparty "Leader",50,50,getcharid(1);
+			announce "隊伍 "+getpartyname(getcharid(1))+" 進入 "+.@md_name$+"。",0;
+			close;
+			}
+			mes "=========道館挑戰========";
+			mes "- ^C63131請隊長與我談話^000000";
+			mes "=========================";
+			close;
+		}else{
+			mes "=========道館挑戰========";
+			mes "- ^C63131很抱歉，隊伍中有成員等級不足。^000000";
+			mes "- ^C63131最低挑戰等級為 99^000000";
+			mes "=========================";
+			close;
+		}
+		case 2: 
+		mes "----------------------------";	
+		mes ">> 隨機獲得以下物品";
+		mes "----------------------------";
+		mes "<ITEM>武器精煉能力+8券<INFO>6229</INFO></ITEM>";
+		mes "<ITEM>防具精煉能力+8券<INFO>6233</INFO></ITEM>";
+		mes "<ITEM>封印王卡卡冊<INFO>22829</INFO></ITEM>";
+		mes "<ITEM>具有魔力的卡冊<INFO>12246</INFO></ITEM>";
+		mes "<ITEM>老舊收集冊<INFO>616</INFO></ITEM>";
+		mes "<ITEM>高密度鈽鐳礦石x4<INFO>6226</INFO></ITEM>";
+		mes "<ITEM>高密度鈣礦石x4<INFO>6225</INFO></ITEM>";
+		mes "<ITEM>高濃縮神之金屬x6<INFO>6240</INFO></ITEM>";
+		mes "<ITEM>高濃縮鋁x6<INFO>6241</INFO></ITEM>";
+		mes "<ITEM>鈽鐳礦石x6<INFO>6224</INFO></ITEM>";
+		mes "<ITEM>鈣礦石x6<INFO>6223</INFO></ITEM>";
+		mes "<ITEM>濃縮神之金屬x6<INFO>7620</INFO></ITEM>";
+		mes "<ITEM>濃縮鋁x6<INFO>7619</INFO></ITEM>";
+		mes "<ITEM>BOSS雷達x3<INFO>12214</INFO></ITEM>";
+		mes "----------------------------";
+		close;
+	}		
+OnInit:
+OnTimer1000:
+	showscript " [★高階道館] ";
+	initnpctimer;
+	end;
+
+}
+guild_vs3,50,49,5	script	道館裁判#rank3	470,{
+	//====================================================================================
+			setarray 'mobkid[1],1873,1646,1647,1648,1649,1650,1651,2235,2236,2237,2238,2239,2240,2241,1832,1751,1708,2202,3074;
+			setarray 'mobknum[1],1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10;	//每關幾隻(關卡回合數)
+			setarray 'round[1],10,20,30,40,50,60,70,80,90;	//幾關可以休息
+	//====================================================================================				
+	if (getcharid(0) != getpartyleader(getcharid(1),2)) {
+		mes "[道館裁判]";
+		mes "只有隊長有權力開起挑戰";
+		close;
+	}
+	mes "[道館裁判]";
+	mes "請問要開始挑戰了嗎？";
+	next;
+	switch(select("開始挑戰！","不小心點到！")){
+		case 1:
+			doevent instance_npcname ("#rankno3")+"::OnMobstart";
+			disablenpc  instance_npcname(strnpcinfo(0));
+			close;
+		case 2:
+			mes "[道館裁判]";
+			mes "沒事!";
+			close;
+	}
+}
+//guild_vs3,50,49,6	script	道館裁判#rank3_1	470,{
+//	if('win==0) {
+//OnInstanceInit:
+//		disablenpc  instance_npcname(strnpcinfo(0)); end;
+//	}
+//	mes "[道館裁判]";
+//	mes "挑戰成功了！竟然能擊倒MVP怪物，";
+//	mes "給您一些獎勵吧！";
+//	next;
+//	mes "[道館裁判]";
+//	mes "您確定您要領取獎品嗎？";
+//	next;
+//	if (select("我確定要領取！","讓我好好考慮一下！")==2) {close;}
+//	if (checkquest(55152,PLAYTIME)== 2){erasequest 55152;}
+//	if (checkquest(55152,PLAYTIME)== -1){
+//			getitem 61003,6;
+//			set #Mvp_Point,#Mvp_Point+30;
+//			setquest 55152;
+//			dispbottom "此為今日首次通關，獲得兩倍獎勵。";
+//			dispbottom "獲得道館點數 [30]，目前累積道館點數為 ["+#Mvp_Point+"]。";
+//			warp "SavePoint",0,0;
+//			end;	
+//		}
+//	getitem 61003,3;
+//	set #Mvp_Point,#Mvp_Point+15;
+//	dispbottom "獲得道館點數 [15]，目前累積道館點數為 ["+#Mvp_Point+"]。";
+//	warp "SavePoint",0,0;
+//	end;	
+//}
+guild_vs3,0,0,0	script	#rankno3	-1,{
+OnMobstart:
+	'Checkpoint++;
+	for(.@n=1;.@n<='mobknum['Checkpoint];.@n++) {
+		areamonster strnpcinfo(4),45,45,55,55,"--ja--",'mobkid[rand(1,getarraysize('mobkid)-1)],1,instance_npcname(strnpcinfo(0))+"::OnMobDead";
+		'BossID = $@mobid[0];
+		setunitdata 'BossID,UMOB_DAMAGETAKEN,5000;
+	}
+	end;
+OnMobDead:
+	set .@mobcount,mobcount(strnpcinfo(4),instance_npcname(strnpcinfo(0))+"::OnMobDead");
+	if(.@mobcount > 0) {
+		announce   "道館裁判 : 還剩下 ["+.@mobcount+"] 隻怪物",17; end;
+	}
+	if ('Checkpoint ==  getarraysize('mobknum)-1){
+		announce "恭喜隊伍 "+getpartyname(getcharid(1))+" 挑戰 '高階道館' 成功",0;
+		addrid(1);
+		set #Rand_Mvp_Point,rand(5,7);
+		set #Mvp_Point,#Mvp_Point+#Rand_Mvp_Point;
+		dispbottom "獲得道館點數 ["+#Rand_Mvp_Point+"]，目前累積道館點數為 ["+#Mvp_Point+"]。",0xFF0000;
+		getitem 61003,6;
+		warp "SavePoint",0,0;
+//		sleep2 2000;
+//		set 'win,1;
+//		enablenpc  instance_npcname("道館裁判#rank3_1");
+		end;
+	}
+	if ('Checkpoint ==  getarraysize('mobknum)-2 ){
+		announce  "道館裁判 : 恭喜第 ["+'Checkpoint+"] 關挑戰成功，最後一關挑戰將開始，請繼續努力！",17;
+	}else{
+		announce  "道館裁判 : 恭喜第 ["+'Checkpoint+"] 關挑戰成功！",17;
+			if ( 'Checkpoint%10 == 0 ){
+				addrid(1);
+				set #Rand_Mvp_Point,rand(5,7);
+				set #Mvp_Point,#Mvp_Point+#Rand_Mvp_Point;
+				dispbottom "獲得道館點數 ["+#Rand_Mvp_Point+"]，目前累積道館點數為 ["+#Mvp_Point+"]。",0xFF0000;
+			}
+	}
+	for(.@n=1;.@n<getarraysize('round);.@n++){
+		if ('Checkpoint ==  'round[.@n]){
+			enablenpc  instance_npcname("道館裁判#rank3"); end;
+		}
+	}
+	addtimer 1500,instance_npcname(strnpcinfo(0))+"::OnMobstart";
+	end;
+}
+
+guild_vs3	mapflag	nobranch
+guild_vs3	mapflag	noteleport
+guild_vs3	mapflag	nosave	SavePoint
+guild_vs3	mapflag	nopenalty
+guild_vs3	mapflag	nomemo
+guild_vs3	mapflag	noloot
+guild_vs3	mapflag	noexp

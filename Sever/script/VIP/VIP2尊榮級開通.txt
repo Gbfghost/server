@@ -1,0 +1,31 @@
+function	script	idcardV2	{
+	if (gettime(7) > #time7 || gettime(6) > #time6 || gettime(5) > #time5 || gettime(4) > #time4) {
+		set #zhuangtai22, 0;
+		set #zhuangtaiVIP2, 0;
+		set #jinglian2, 0;
+		set #wupin2, 0;
+	}
+	if (!#zhuangtaiVIP2 && !#zhuangtai22 && !#jianlian2 && !#wupin2) {
+		set #time7,gettime(7);
+		set #time6,gettime(6);
+		set #time5,gettime(5);
+		set #time4,gettime(4);
+	}
+
+	mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+	mes "　   ^5599FF是否確定開通尊榮 V I P^000000";
+	mes "　   ^5599FF確定後期限將增加 ^FF00001 ^5599FF個月^000000";
+	mes "^0AA770=================================^000000";
+			next;
+			switch(select(" ^5599FF確定開通尊榮VIP")) {
+				case 1:
+					mes "^0AA770========== ^FF99FF尊 榮 V I P ^0AA770==========^000000";
+						set #exptick2,(#exptick2?0:gettimetick(2))+2592000+#exptick2;
+						announce "您的帳號 尊 榮 V I P 期限增加了 1 個月的使用時間。",3;
+						attachrid .@gmid;
+						delitem 60749,1;
+						getitem 60746,1;
+			}
+
+	end;
+}

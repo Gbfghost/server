@@ -1,0 +1,65 @@
+
+
+
+//===== Description: ==============================
+//
+//[附魔]星座之塔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,40,98,4	script	[附魔]星座之塔	4_m_redsword,{
+	disable_items;
+
+	setarray .@starlist[0],
+	450169,
+	450170,
+	450171,
+	450172,
+	450173,
+	450174,
+	490137;
+	
+	.@StarArmor = itemlist(.@starlist);
+	switch(.@StarArmor)
+	{
+		case 450169:
+			disable_items;
+			item_enchant(7);
+			end;
+
+		case 450170:
+			disable_items;
+			item_enchant(8);
+			end;
+
+		case 450171:
+			disable_items;
+			item_enchant(9);
+			end;
+
+		case 450172:
+			disable_items;
+			item_enchant(10);
+			end;
+
+		case 450173:
+			disable_items;
+			item_enchant(11);
+			end;
+
+		case 450174:
+			disable_items;
+			item_enchant(12);
+			end;
+			
+		case 490137:
+			disable_items;
+			item_enchant(13);
+			end;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]星座之塔";
+	waitingroom "[附魔]星座之塔",0;
+}

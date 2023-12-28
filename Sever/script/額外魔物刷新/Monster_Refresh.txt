@@ -1,0 +1,293 @@
+//==================================================
+// wolfvill
+//==================================================
+wolfvill	mapflag	town
+gw_fild01	mapflag	nomemo
+gw_fild02	mapflag	nomemo
+oz_dun01	mapflag	nomemo
+oz_dun02	mapflag	nomemo
+ra_fild10	mapflag	nomemo
+ra_fild11	mapflag	nomemo
+gw_fild01	mapflag	noicewall
+gw_fild02	mapflag	noicewall
+oz_dun01	mapflag	noicewall
+oz_dun02	mapflag	noicewall
+ra_fild10	mapflag	noicewall
+ra_fild11	mapflag	noicewall
+
+gw_fild01,41,103,0	warp	huiwolfField1	1,1,wolfvill,269,28
+wolfvill,274,25,0	warp	huiwolfField2	1,1,gw_fild01,45,103
+ra_fild11,20,292,0	warp	huiwolfField3	1,1,ra_fild10,380,294
+ra_fild10,382,294,0	warp	huiwolfField4	1,1,ra_fild11,25,292
+ra_fild10,177,174,0	warp	huiwolfField5	1,1,oz_dun01,284,168
+oz_dun01,23,187,0	warp	huiwolfField6	1,1,gw_fild01,268,337
+gw_fild01,272,337,0	warp	huiwolfField7	1,1,oz_dun01,23,194
+gw_fild01,136,8,0	warp	huiwolfField8	1,1,gw_fild02,122,390
+gw_fild02,122,393,0	warp	huiwolfField9	1,1,gw_fild01,136,14
+
+oz_dun01,284,164,0	script	# ǯT  1 ӤJ f	45,2,2,{
+	warp "ra_fild10",177,170;
+	end;
+}
+
+oz_dun01,112,31,0	script	# ǯT  2 ӤJ f	45,2,2,{
+	warp "oz_dun02",147,257;
+	end;
+}
+
+
+oz_dun02,147,261,0	script	# ǯT  2 ӥX f	45,2,2,{
+	warp "oz_dun01",112,35;
+	end;
+}
+
+gw_fild01,0,0	monster	"--ja--"	21302,50
+gw_fild01,0,0	monster	"--ja--"	21303,70
+gw_fild01,0,0	monster	"--ja--"	21304,35
+
+gw_fild02,0,0	monster	"--ja--"	21303,15
+gw_fild02,0,0	monster	"--ja--"	21304,60
+gw_fild02,0,0	monster	"--ja--"	21305,25
+gw_fild02,0,0	monster	"--ja--"	21306,35
+gw_fild02,0,0	monster	"--ja--"	21307,35
+oz_dun01,0,0	monster	"--ja--"	21296,70
+oz_dun01,0,0	monster	"--ja--"	21295,65
+oz_dun01,0,0	monster	"--ja--"	21297,10
+
+oz_dun02,0,0	monster	"--ja--"	21297,25
+oz_dun02,0,0	monster	"--ja--"	21298,35
+oz_dun02,0,0	monster	"--ja--"	21299,25
+oz_dun02,0,0	monster	"--ja--"	21300,60
+oz_dun02,0,0	boss_monster	"--ja--"	21301,1,1,1,1
+
+ra_fild10,0,0	monster	"--ja--"	1781,5
+ra_fild10,0,0	monster	"--ja--"	1836,5
+ra_fild10,0,0	monster	"--ja--"	21324,50
+ra_fild10,0,0	monster	"--ja--"	21323,60
+ra_fild10,0,0	monster	"--ja--"	21296,5
+
+ra_fild11,0,0	monster	"--ja--"	1781,10
+ra_fild11,0,0	monster	"--ja--"	21324,50
+ra_fild11,0,0	monster	"--ja--"	21323,70
+ra_fild11,0,0	monster	"--ja--"	21296,5
+
+//==================================================
+//  J p   S ~ i  ` W a 1  
+//==================================================
+gl_cas01_,0,0,0,0	monster	"--ja--"	20367,49,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20368,77,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20369,27,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20370,26,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20371,32,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20379,42,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20380,41,0,0,0
+gl_cas01_,0,0,0,0	monster	"--ja--"	20420,33,0,0,0
+gl_cas01_,0,0,0,0	boss_monster	"--ja--"	20421,1,4800000,600000,1
+gl_cas01_,0,0,0,0	boss_monster	"--ja--"	20422,1,1,1,1
+
+
+//==================================================
+//  ۼv   }
+//==================================================
+iz_d04_i,0,0,0,0	monster	"--ja--"	20801,45,0,0,0
+iz_d04_i,0,0,0,0	monster	"--ja--"	20802,45,0,0,0
+iz_d04_i,0,0,0,0	monster	"--ja--"	20805,45,0,0,0
+iz_d04_i,0,0,0,0	monster	"--ja--"	20804,45,0,0,0
+iz_d04_i,0,0,0,0	monster	"--ja--"	20803,45,0,0,0
+iz_d04_i,0,0,0,0	boss_monster	"--ja--"	20811,1,1,1,1
+
+iz_d05_i,0,0,0,0	monster	"--ja--"	20808,45,0,0,0
+iz_d05_i,0,0,0,0	monster	"--ja--"	20807,45,0,0,0
+iz_d05_i,0,0,0,0	monster	"--ja--"	20809,45,0,0,0
+iz_d05_i,0,0,0,0	monster	"--ja--"	20806,45,0,0,0
+iz_d05_i,0,0,0,0	monster	"--ja--"	20810,45,0,0,0
+iz_d05_i,0,0,0,0	boss_monster	"--ja--"	20843,1,1,1,1
+
+//==================================================
+//  ۼv Ƭ}
+//==================================================
+ant_d02_i,0,0,0,0	monster	"--ja--"	21386,30,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21388,20,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21391,20,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21389,30,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21393,25,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21392,15,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21390,30,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21387,15,5000,0,0
+ant_d02_i,0,0,0,0	monster	"--ja--"	21394,15,5000,0,0
+ant_d02_i	boss_monster	"--ja--"	21395,1,4800000,600000,1
+
+//===========================================================
+//  ۼv l 尭
+//===========================================================
+gef_d01_i,0,0	monster	 ů 	1079,1,30000,0,0
+gef_d01_i,0,0	monster	 կ 	1082,10,30000,0,0
+gef_d01_i,0,0	monster	 r  Ĩۣ	3755,10,30000,0,0
+gef_d01_i,0,0	monster	     H	3752,30,30000,0,0
+gef_d01_i,0,0	monster	 ۼv      	3750,30,30000,0,0
+gef_d01_i,0,0	monster	     H	3751,5,30000,0,0
+gef_d01_i,0,0	monster	 ۼv   L	3754,30,30000,0,0
+gef_d01_i,0,0	monster	     H	3753,30,30000,0,0
+gef_d01_i,0,0	monster	 ɨ    i e	3756,5,30000,0,0
+gef_d01_i,0,0	boss_monster	   㪺 w j  	3757,1,10800000,600000,0
+
+//===========================================================
+//  ۼv  ]  
+//===========================================================
+pay_d03_i,0,0	monster	 ů 	1079,1,30000,0,0
+pay_d03_i,0,0	monster	 կ 	1082,5,30000,0,0
+pay_d03_i,0,0	monster	   	1080,1,30000,0,0
+pay_d03_i,0,0	monster	    	1081,1,30000,0,0
+pay_d03_i,0,0	monster	 ի  F	1185,1,30000,0,0
+pay_d03_i,0,0	monster	   몺 L  	3760,25,30000,0,0
+pay_d03_i,0,0	monster	   몺   D	3761,25,30000,0,0
+pay_d03_i,0,0	monster	   몺   k	3762,25,30000,0,0
+pay_d03_i,0,0	monster	 t ު  h L	3763,25,30000,0,0
+pay_d03_i,0,0	monster	   㪺 E    	3759,10,30000,0,0
+pay_d03_i,0,0	monster	 g     _ I a	3765,10,30000,0,0
+pay_d03_i,0,0	monster	 u z W ] ɮv	3764,5,30000,0,0
+pay_d03_i,0,0	boss_monster	   㪺  ]  	3758,1,10800000,600000,0
+
+-	script	illusion_mob#moonlight1	-1,{
+	OnInit:
+		monster "pay_d03_i",0,0,"   㪺 E    ",3759,25,strnpcinfo(0)+"::OnSummonMVP";
+		monster "pay_d03_i",0,0," g     _ I a",3765,25,strnpcinfo(0)+"::OnSummonWizard";
+		end;
+		
+	OnSummonMVP:
+		monster "pay_d03_i",0,0,"   㪺 E    ",3759,1,strnpcinfo(0)+"::OnSummonMVP";
+		$illusion_mvp += 1;
+		if($illusion_mvp == 1000){ //= jRO Summons the MVP after 800 kills or so
+			mapannounce "pay_d03_i"," ` B   n  :  O ֦b ۭt ڭ ?  ݨӦo   ·ФF!",bc_map;
+			monster "pay_d03_i",0,0,"   㪺  ]  ",3758,1;
+			$illusion_mvp = 0;
+		}
+		end;
+		
+	OnSummonWizard:
+		monster "pay_d03_i",0,0," g     _ I a",3765,1,strnpcinfo(0)+"::OnSummonWizard";
+		$illusion_3765 += 1;
+		if($illusion_3765 == 20){
+			monster "pay_d03_i",55,75,"--ja--",3764,1;
+			$illusion_3765 = 0;
+		}
+		end;
+}
+
+//===========================================================
+//  ۼv Q t q
+//===========================================================
+tur_d04_i,0,0	monster	   ԪG   t	3800,70,30000,0,0
+tur_d04_i,0,0	monster	   ԩ    t	3802,30,30000,0,0
+tur_d04_i,0,0	monster	   ԪG   t	3800,4,30000,0,0
+tur_d04_i,0,0	monster	   Ԥ  F t	3801,15,30000,0,0
+tur_d04_i,0,0	monster	   ԭ  F t	3799,41,30000,0,0
+tur_d04_i,0,0	monster	   ԩ    t	3802,40,30000,0,0
+tur_d04_i,0,0	monster	   Ԥ  K t	3803,33,30000,0,0
+tur_d04_i,99,93,20,20	boss_monster	   ԯQ t N x	3804,1,10800000,600000,0
+
+//===========================================================
+//  ۼv B } ]
+//===========================================================
+ice_d03_i,0,0	monster	    \ X    	3792,30,30000,0,0
+ice_d03_i,0,0	monster	   㳷 ~	3793,30,30000,0,0
+ice_d03_i,0,0	monster	    B   H	3794,30,30000,0,0
+ice_d03_i,0,0	monster	 W Q B W	3795,30,30000,0,0
+ice_d03_i,0,0	boss_monster	ı     s	3796,1,10800000,600000,0
+
+//===========================================================
+//  ۼv   }  
+//===========================================================
+ein_d02_i,0,0	monster	          	20255,35,30000,0,0
+ein_d02_i,0,0	monster	         	20256,35,30000,0,0
+ein_d02_i,0,0	monster	 A 񪱰   	20257,35,30000,0,0
+ein_d02_i,0,0	monster	 b ժ     	20258,10,30000,0,0
+ein_d02_i,0,0	monster	   Ū     	20259,10,30000,0,0
+ein_d02_i,0,0	monster	 ҸL q u ]	20261,10,30000,0,0
+ein_d02_i,0,0	monster	 F  H  	20262,10,30000,0,0
+ein_d02_i,0,0	monster	       `  	20263,5,30000,0,0
+//ein_d02_i	monster	 ҸL q u ]	27288,1,30000,0,0
+ein_d02_i,0,0	boss_monster	          	20260,1,10800000,600000,0
+
+//===========================================================
+//  ۼv g ô˪L
+//===========================================================
+prt_maze02,0,0,0,0	monster	 V P k A  	20521,5,0,0,0
+prt_maze02,0,0,0,0	monster	 V P k A  	20522,5,0,0,0
+prt_maze02,0,0,0,0	monster	 V P p ڭ  S	20525,20,0,0,0
+prt_maze02,0,0,0,0	monster	 V P ³D	20526,8,0,0,0
+prt_maze02,0,0,0,0	monster	 V P   a  	20527,8,0,0,0
+prt_maze02,0,0,0,0	monster	 V P    	20528,5,0,0,0
+prt_maze02,0,0,0,0	monster	 V P   F i Q	20529,1,0,0,0
+prt_maze02,0,0,0,0	monster	 V P g      	20530,5,0,0,0
+prt_maze02,0,0,0,0	monster	 V P i i Q	20531,10,0,0,0
+prt_maze02,0,0,0,0	monster	 V P Ǵ  F	20532,20,0,0,0
+prt_maze02,93,168,0,0	boss_monster	 V P ڭ  S	20520,1,900000,600000,0
+
+prt_mz03_i,0,0	monster	 V P A Ʀw w P	20521,15,30000,0,0
+prt_mz03_i,0,0	monster	 V P A ƨ    	20522,15,30000,0,0
+prt_mz03_i,0,0	monster	 V P A Ƨƥ˿ 	20523,15,30000,0,0
+prt_mz03_i,0,0	monster	 V P A Ʀw I  	20524,15,30000,0,0
+prt_mz03_i,0,0	monster	 V P p ڭ  S	20525,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P ³D	20526,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P   a  	20527,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P    	20528,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P g      	20530,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P i i Q	20531,30,30000,0,0
+prt_mz03_i,0,0	monster	 V P Ǵ  F	20532,30,30000,0,0
+prt_mz03_i,0,0	boss_monster	 V P ڭ  S	20520,1,10800000,600000,0
+prt_mz03_i,0,0	boss_monster	 V P   F i Q	20529,1,3600000,600000,0
+
+//===========================================================
+//  ۼv c w F
+//=========================================================== 
+com_d02_i,0,0	monster	"--ja--"	20270,70,5000,0,0
+com_d02_i,0,0	monster	"--ja--"	20271,70,5000,0,0
+com_d02_i,0,0	monster	"--ja--"	20272,70,5000,0,0
+com_d02_i,0,0	monster	"--ja--"	20276,70,5000,0,0
+com_d02_i,0,0	monster	"--ja--"	20275,70,5000,0,0
+com_d02_i,0,0	monster	"--ja--"	20274,70,5000,0,0
+com_d02_i,0,0	boss_monster	"--ja--"	20273,1,4800000,600000,1
+com_d02_i,0,0	boss_monster	"--ja--"	20277,1,4800000,600000,1
+
+//===========================================================
+//  ` W   4  
+//=========================================================== 
+abyss_04,0,0	monster	"--ja--"	20612,25,5000,0,0
+abyss_04,0,0	monster	"--ja--"	20613,15,5000,0,0
+abyss_04,0,0	monster	"--ja--"	20614,35,5000,0,0
+abyss_04,0,0	monster	"--ja--"	20615,35,5000,0,0
+abyss_04,0,0	monster	"--ja--"	20616,50,5000,0,0
+abyss_04,0,0	monster	"--ja--"	20617,50,5000,0,0
+abyss_04,0,0	boss_monster	"--ja--"	20618,1,4800000,600000,1
+
+//==================================================
+// tha_t10 - Thanatos Tower - Upper Level
+//==================================================
+tha_t10,0,0	monster	"--ja--"	20773,10,5000,0,0
+tha_t10,0,0	monster	"--ja--"	20774,10,5000,0,0
+tha_t10,0,0	monster	"--ja--"	20779,10,5000,0,0
+tha_t10,0,0	monster	"--ja--"	20780,10,5000,0,0
+tha_t10,0,0	monster	"--ja--"	20781,10,5000,0,0
+
+//==================================================
+// tha_t11 - Thanatos Tower - Upper Level
+//==================================================
+tha_t11,0,0	monster	"--ja--"	20845,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20844,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20773,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20774,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20779,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20780,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20776,10,5000,0,0
+tha_t11,0,0	monster	"--ja--"	20777,10,5000,0,0
+
+//==================================================
+// tha_t12 - Thanatos Tower - Upper Level
+//==================================================
+tha_t12,0,0	monster	"--ja--"	20780,10,5000,0,0
+tha_t12,0,0	monster	"--ja--"	20776,10,5000,0,0
+tha_t12,0,0	monster	"--ja--"	20777,10,5000,0,0
+tha_t12,0,0	monster	"--ja--"	20778,10,5000,0,0
+tha_t12,0,0	monster	"--ja--"	20775,10,5000,0,0
+

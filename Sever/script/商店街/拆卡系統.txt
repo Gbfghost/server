@@ -1,0 +1,176 @@
+
+
+
+//===== Description: ==============================
+//
+// 拆卡系統
+// 
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,95,167,5	script	拆卡系統	4_f_07,{
+	disable_items;
+	set .@zeny,1000000;		//拆卡費用
+	mes "[拆卡系統]";
+	mes "成功機率: ^0000FF100%^000000";
+	mes "拆卡費用: ^0000FF"+(.@zeny/10000)+" 萬^000000";
+	mes "請選擇 要拆卡的位置";
+	setarray .@position$[1],"[頭上]","[頭中]","[頭下]","[鎧甲]","[左手]","[右手]","[披肩]","[靴子]","[裝飾品左]","[裝飾品右]";
+	setarray .@indices[1], EQI_HEAD_TOP,EQI_HEAD_MID,EQI_HEAD_LOW,EQI_ARMOR,EQI_HAND_L,EQI_HAND_R,EQI_GARMENT,EQI_SHOES,EQI_ACC_L,EQI_ACC_R;
+	for(set .@i,1; .@i<=10; set .@i,.@i+1)
+		set .@menu$, .@menu$+((getequipisequiped(.@indices[.@i]))?.@position$[.@i]+"- [ ^0000FF"+getequipname(.@indices[.@i])+"^000000 ]":.@position$[.@i]+"- [ ^FF0000沒有裝備^000000 ]")+":";
+	set .@part, .@indices[ select(.@menu$) ];
+	
+	if (getequipisequiped(.@part) <= 0) {
+		clear;
+		mes "[拆卡系統]";
+		mes "選擇的位置沒有裝備。";
+		end;
+	}
+
+	set .@z0,getequipid(.@part);
+	set .@z1,getequiprefinerycnt(.@part);
+	set .@z2,getequipcardid(.@part,0);
+	set .@z3,getequipcardid(.@part,1);
+	set .@z4,getequipcardid(.@part,2);
+	set .@z5,getequipcardid(.@part,3);
+	.@pos = getequipidx(.@part);
+	set .@grade,getinventoryinfo(.@pos,28);
+
+
+setarray .@OptID[0],
+		getequiprandomoption(.@part,0,ROA_ID),
+		getequiprandomoption(.@part,1,ROA_ID),
+		getequiprandomoption(.@part,2,ROA_ID),
+		getequiprandomoption(.@part,3,ROA_ID),
+		getequiprandomoption(.@part,4,ROA_ID);
+setarray .@OptVal[0],
+		getequiprandomoption(.@part,0,ROA_VALUE),
+		getequiprandomoption(.@part,1,ROA_VALUE),
+		getequiprandomoption(.@part,2,ROA_VALUE),
+		getequiprandomoption(.@part,3,ROA_VALUE),
+		getequiprandomoption(.@part,4,ROA_VALUE);
+setarray .@OptParam[0],
+		getequiprandomoption(.@part,0,ROA_PARAM),
+		getequiprandomoption(.@part,1,ROA_PARAM),
+		getequiprandomoption(.@part,2,ROA_PARAM),
+		getequiprandomoption(.@part,3,ROA_PARAM),
+		getequiprandomoption(.@part,4,ROA_PARAM);
+
+	next;
+	mes "選擇拆除[ ^0000FF"+getequipname(.@part)+"^000000 ]的卡片.";
+	mes .@z2?"第一洞: ^0000FF"+getitemname(.@z2)+"^000000":"第一洞: ^666666無^000000";
+	mes .@z3?"第二洞: ^0000FF"+getitemname(.@z3)+"^000000":"第二洞: ^666666無^000000";
+	mes .@z4?"第三洞: ^0000FF"+getitemname(.@z4)+"^000000":"第三洞: ^666666無^000000";
+	mes .@z5?"第四洞: ^0000FF"+getitemname(.@z5)+"^000000":"第四洞: ^666666無^000000";
+	next;
+	switch(select("第一洞","第二洞","第三洞","第四洞"))
+	{
+	
+		if ( Zeny < .@zeny ) 
+		{
+			mes "[拆卡系統]";
+			mes "^FF0000需要 "+.@zeny+" Zeny^000000";
+			end;
+		}
+	
+		case 1:
+			if(.@z2<=0)
+			{
+				mes "[拆卡系統]";
+				mes "這個位置沒有插卡。";
+				end;
+			}
+			if(getiteminfo(getequipcardid(.@part,0),5)==0)
+			{
+				mes "[拆卡系統]";
+				mes "附魔能力是無法拆除的。";
+				end;
+			}
+			set .@qu1,1;
+			break;
+		case 2:
+			if(.@z3<=0)
+			{
+				mes "[拆卡系統]";
+				mes "這個位置沒有插卡。";
+				end;
+			}
+			if(getiteminfo(getequipcardid(.@part,1),5)==0)
+			{
+				mes "[拆卡系統]";
+				mes "附魔能力是無法拆除的。";
+				end;
+			}
+			set .@qu2,1;
+			break;
+		case 3:
+			if(.@z4<=0)
+			{
+				mes "[拆卡系統]";
+				mes "這個位置沒有插卡。";
+				end;
+			}
+			if(getiteminfo(getequipcardid(.@part,2),5)==0)
+			{
+				mes "[拆卡系統]";
+				mes "附魔能力是無法拆除的。";
+				end;
+			}
+			set .@qu3,1;
+			break;
+		case 4:
+			if(.@z5<=0)
+			{
+				mes "[拆卡系統]";
+				mes "這個位置沒有插卡。";
+				end;
+			}
+			if(getiteminfo(getequipcardid(.@part,3),5)==0)
+			{
+				mes "[拆卡系統]";
+				mes "附魔能力是無法拆除的。";
+				end;
+			}
+			set .@qu4,1;
+			break;
+	}
+	
+	if (select("繼續拆除","取消")==2) 
+	{
+		end;
+	}
+	
+	set Zeny,Zeny-.@zeny;
+	delequip .@part;
+	
+	if(.@qu1==1)
+	{
+		getgradeitem .@z0,1,1,.@z1,0,0,.@z3,.@z4,.@z5,.@grade,.@OptID,.@OptVal,.@OptParam;
+		getitem .@z2,1;
+	}
+	if(.@qu2==1)
+	{
+		getgradeitem .@z0,1,1,.@z1,0,.@z2,0,.@z4,.@z5,.@grade,.@OptID,.@OptVal,.@OptParam;
+		getitem .@z3,1;
+	}
+	if(.@qu3==1)
+	{
+		getgradeitem .@z0,1,1,.@z1,0,.@z2,.@z3,0,.@z5,.@grade,.@OptID,.@OptVal,.@OptParam;
+		getitem .@z4,1;
+	}
+	if(.@qu4==1)
+	{
+		getgradeitem .@z0,1,1,.@z1,0,.@z2,.@z3,.@z4,0,.@grade,.@OptID,.@OptVal,.@OptParam;
+		getitem .@z5,1;
+	}
+
+	specialeffect2 101;
+	mes "[拆卡系統]";
+	mes "終於大功告成。";
+	end;
+Oninit:
+	setnpcicon getnpcid(0),1017,"拆卡系統";
+	waitingroom "★ 拆卡系統 ★ ",0;
+	end;
+}

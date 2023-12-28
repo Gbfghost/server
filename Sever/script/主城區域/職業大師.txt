@@ -1,0 +1,1525 @@
+uttycty,109,110,3	script	職業服務員	811,{
+callfunc "Job_Main";
+end;
+Oninit:
+OnTimer2000:
+showscript "★ 職業服務員 ★ ";
+initnpctimer;
+setnpcicon getnpcid(0),22,"職業服務員";
+end;
+}
+
+//腳本各項功能設定，請自行依據需要調整
+-	script	Job_Main_OnInit	-1,{
+	OnInit:
+	set $@SkPt_Check,1;		//轉職是否檢查有剩餘技能點 (關閉:0 開啟:1)
+	set $@J3Item_Check,0;	//三轉是否需要繳交費用與道具，如開啟後請設定下列兩項 (關閉:0 開啟:1)
+	set $@J3Zeny,0;	//三轉費用，預設為 3,000,000 Zeny
+	set $@J3Item,0;		//三轉道具，預設為 擁有魔力的巴風特娃娃 (6004)
+	set $@RbZeny,0;	//轉生費用，預設為 1,285,000 Zeny
+	set $@RStZeny,500000;	//重置素質費用Zeny
+	set $@RSkZeny,500000;	//重置技能費用Zeny
+	set $@RAllZeny,800000;	//重置全部費用Zeny
+	set $@inccarry,0;		//是否習得 負重量上升R 技能 (關閉:0 開啟:1)
+
+}
+function	script	Job_Main	{
+	mes "[職業服務員]";
+	mes "歡迎使用綜合職業服務，";
+	mes "請問有甚麼能為您效勞?";
+	next;
+	switch(select("轉職服務","轉生服務","重置服務","租借服務","學習職業技能","結束")){
+		case 1:
+			callfunc "Job_Check";
+			end;
+		case 2:
+			callfunc "Job_Rebirth";
+			end;
+		case 3:
+			callfunc "Job_Reset";
+			end;
+		case 4:
+			callfunc "Job_Rent";
+			end;
+		case 5:
+			callfunc "Job_Skill";
+			end;
+		case 6:
+			mes "[職業服務員]";
+			mes "有需要歡迎隨時來找我幫忙!";
+			close;
+	}
+}
+
+function	script	Job_Check	{
+
+	//初心者
+	if ( Class == 0 || Class == 4001 ) {
+		if ( JobLevel < 10 ) {
+			mes "[職業服務員]";
+			mes "需要達到職業等級^FF000010級^000000才能進行轉職!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "Job1_Change";
+		end;	
+	}
+
+	//一轉職、進階一轉職及跆拳家
+	if (( Class >= 1 && Class <= 6 ) || ( Class >= 4002 && Class <= 4007 ) || ( Class == 4046 )) {
+		if ( JobLevel < 40 ) {
+			mes "[職業服務員]";
+			mes "需要達到職業等級^FF000040級^000000或以上才能進行轉職!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "Job2_Change";
+		end;	
+	}
+	
+	//二轉職
+	if (( Class >= 7 && Class <= 12 ) || ( Class >= 14 && Class <= 20 )) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到基本等級^FF000099級^000000才能進行轉職!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到職業等級^FF000050級^000000才能進行轉職!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "Job3_Change";
+		end;
+	}
+	
+	//進階二轉職
+	if (( Class >= 4008 && Class <= 4013 ) || ( Class >= 4015 && Class <= 4021 )) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "Job3_Change";
+		end;
+	}
+	if (( Class >= 4060 && Class <= 4065 ) || ( Class >= 4073 && Class <= 4079 )) {
+	if ( BaseLevel < 200 ) {
+		mes "[職業服務員]";
+		mes "需要達到指定等級才能進行等級擴充!";
+		close;
+	}
+	if ( JobLevel < 70 ) {
+		mes "[職業服務員]";
+		mes "需要達到指定等級才能進行等級擴充!";
+		close;
+	}
+	if ( $@SkPt_Check == 1 ){
+		if ( SkillPoint > 0 ) {
+			mes "[職業服務員]";
+			mes "有剩餘的技能點數時無法進行轉職!";
+			close;
+		}
+	}
+	callfunc "Job4_Change";
+	end;
+	}
+	//超級初心者
+	if ( Class == 23 ) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行等級擴充!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+	
+		//超級初心者三轉
+	if ( Class == 4190 ) {
+		if ( BaseLevel < 200 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行等級擴充!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+
+
+		//超級貓族三轉
+	if ( Class == 4218 ) {
+		if ( BaseLevel < 200 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 60 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行等級擴充!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+
+	//槍手及忍者
+	if ( Class == 24 || Class == 25 ) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 70 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+	//影狼隴擴充三轉
+	if ( Class == 4211 || Class == 4212 || Class == 4215  ) {
+		if ( BaseLevel < 200 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 70 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+	//拳聖及悟靈
+	if ( Class == 4047 || Class == 4049 ) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+	//拳聖及悟靈擴充三轉
+	if ( Class == 4239 || Class == 4240 ) {
+		if ( BaseLevel < 200 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 70 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "ExJob_Change";
+		end;	
+	}
+	//寶寶職業檢查
+	if ( Class >= 4024 && Class <= 4029 ) {
+		if ( JobLevel < 40 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "BbJob_Change";
+	}
+	
+	if (( Class >= 4030 && Class <= 4035 ) || ( Class >= 4037 && Class <= 4043 )) {
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到指定等級才能進行等級擴充!";
+			close;
+		}
+		if ( $@SkPt_Check == 1 ){
+			if ( SkillPoint > 0 ) {
+				mes "[職業服務員]";
+				mes "有剩餘的技能點數時無法進行轉職!";
+				close;
+			}
+		}
+		callfunc "BbJob_Change";
+	}
+	
+	mes "[職業服務員]";
+	mes "您的職業已經不能再進行轉職!";
+	close;
+}
+function	script	Job1_Change	{
+
+	//一轉職
+	if ( Class == 0 ) {
+		mes "[職業服務員]";
+		mes "請選擇想要轉職的職業:";
+		mes "提示:^FF0000轉生後將不能轉職成其他職業^000000";
+		next;
+		switch(select("劍士","魔法師","弓箭手","服事","商人","盜賊","超級初心者","槍手","忍者","跆拳家")) {
+			case 1:
+				jobchange 1;
+				set Job1_History,1;
+				goto Job1_Done;
+			case 2:
+				jobchange 2;
+				set Job1_History,2;
+				goto Job1_Done;
+			case 3:
+				jobchange 3;
+				set Job1_History,3;
+				goto Job1_Done;
+			case 4:
+				jobchange 4;
+				set Job1_History,4;
+				goto Job1_Done;
+			case 5:
+				jobchange 5;
+				set Job1_History,5;
+				goto Job1_Done;
+			case 6:
+				jobchange 6;
+				set Job1_History,6;
+				goto Job1_Done;
+			case 7:		//超級初心者於正服需要達到45級才能轉職
+				if ( BaseLevel < 45 ) {
+					mes "[職業服務員]";
+					mes "想要轉職成為超級初心者，";
+					mes "需要達到基本等級^FF000045級^000000才能進行轉職!";
+					close;
+				} else {
+					jobchange 23;
+					set Job1_History,7;
+					goto Job1_Done;
+				}
+			case 8:
+				jobchange 24;
+				set Job1_History,8;
+				goto Job1_Done;
+			case 9:
+				jobchange 25;
+				set Job1_History,9;
+				goto Job1_Done;
+			case 10:
+				jobchange 4046;
+				set Job1_History,10;
+				goto Job1_Done;
+		}
+	}
+
+	//進階一轉職
+	if ( Class == 4001 ) {
+		if ( Job1_History == 1 ) {
+			jobchange 4002;
+			goto Job1_Done;
+		}
+		if ( Job1_History == 2 ) {
+			jobchange 4003;
+			goto Job1_Done;
+		}
+		if ( Job1_History == 3 ) {
+			jobchange 4004;
+			goto Job1_Done;
+		}
+		if ( Job1_History == 4 ) {
+			jobchange 4005;
+			goto Job1_Done;
+		}
+		if ( Job1_History == 5 ) {
+			jobchange 4006;
+			goto Job1_Done;
+		}
+		if ( Job1_History == 6 ) {
+			jobchange 4007;
+			goto Job1_Done;
+		}
+	}
+
+	Job1_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//二轉職能自行選擇
+//進階二轉職會根據轉生前職業自動轉職
+
+function	script	Job2_Change	{
+
+	//二轉職
+	if (( Class >= 1 && Class <= 6 ) || Class == 4046 ) {
+		mes "[職業服務員]";
+		mes "請選擇想要轉職的職業:";
+		mes "提示:^FF0000轉生後將不能轉職成其他職業^000000";
+		
+		if ( Job1_History == 1 ) {
+			switch(select("騎士","十字軍")) {
+				case 1:
+					jobchange 7;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 14;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+		if ( Job1_History == 2 ) {
+			switch(select("巫師","賢者")) {
+				case 1:
+					jobchange 9;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 16;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+		if ( Job1_History == 3 ) {
+			if ( Sex == 1 ) {
+				switch(select("獵人","吟遊詩人 ")) {
+					case 1:
+						jobchange 11;
+						set Job2_History,1;
+						goto Job2_Done;
+					case 2:
+						jobchange 19;
+						set Job2_History,2;
+						goto Job2_Done;	
+				}
+			} else {
+				switch(select("獵人","舞孃")) {
+					case 1:
+						jobchange 11;
+						set Job2_History,1;
+						goto Job2_Done;
+					case 2:
+						jobchange 20;
+						set Job2_History,2;
+						goto Job2_Done;	
+				}
+			}
+		}
+		if ( Job1_History == 4 ) {
+			switch(select("祭司","武道家")) {
+				case 1:
+					jobchange 8;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 15;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+		if ( Job1_History == 5 ) {
+			switch(select("鐵匠","鍊金術士")) {
+				case 1:
+					jobchange 10;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 18;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+		if ( Job1_History == 6 ) {
+			switch(select("刺客","流氓")) {
+				case 1:
+					jobchange 12;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 17;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+		if ( Job1_History == 10 ) {
+			switch(select("拳聖","悟靈士")) {
+				case 1:
+					jobchange 4047;
+					set Job2_History,1;
+					goto Job2_Done;
+				case 2:
+					jobchange 4049;
+					set Job2_History,2;
+					goto Job2_Done;	
+			}
+		}
+	}
+
+	//進階二轉職
+	if ( Class >= 4002 && Class <= 4007 ) {
+		if (( Job1_History == 1 ) && ( Job2_History == 1 )) {	//騎士領主
+			jobchange 4008;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 1 ) && ( Job2_History == 2 )) {	//聖殿十字軍
+			jobchange 4015;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 2 ) && ( Job2_History == 1 )) {	//超魔導士
+			jobchange 4010;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 2 ) && ( Job2_History == 2 )) {	//智者
+			jobchange 4017;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 3 ) && ( Job2_History == 1 )) {	//神射手
+			jobchange 4012;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 3 ) && ( Job2_History == 2 )) {	//搞笑藝人,冷豔舞姬
+			if ( Sex == 1 ) {
+				jobchange 4020;
+				goto Job2_Done;
+			} else {
+				jobchange 4021;
+				goto Job2_Done;
+			}
+		}
+		if (( Job1_History == 4 ) && ( Job2_History == 1 )) {	//神官
+			jobchange 4009;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 4 ) && ( Job2_History == 2 )) {	//武術宗師
+			jobchange 4016;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 5 ) && ( Job2_History == 1 )) {	//神工匠
+			jobchange 4011;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 5 ) && ( Job2_History == 2 )) {	//創造者
+			jobchange 4019;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 6 ) && ( Job2_History == 1 )) {	//十字刺客
+			jobchange 4013;
+			goto Job2_Done;
+		}
+		if (( Job1_History == 6 ) && ( Job2_History == 2 )) {	//神行太保
+			jobchange 4018;
+			goto Job2_Done;
+		}
+	}
+	
+	Job2_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;	
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//三轉職會根據目前職業自動轉職
+//非轉生的二轉職會轉職成非轉生的三轉職
+
+function	script	Job3_Change	{
+	
+	//非進階二轉確認
+	if (( Class >= 7 && Class <= 12 ) || ( Class >= 14 && Class <= 20 )) {
+		mes "[職業服務員]";
+		mes "您是^FF0000非轉生^000000的角色，";
+		mes "確定要進行三轉轉職嗎?";
+		mes "提示:^FF0000轉職後將無法學習進階二轉職業技能^000000";
+		next;
+		mes "[職業服務員]";
+		mes "在跟你做一次最後確認!",
+		next;
+		mes "您是^FF0000非轉生^000000的角色，";
+		mes "確定要進行三轉轉職嗎?";
+		mes "提示:^FF0000轉職後將無法學習進階二轉職業技能^000000";
+		next;
+		switch(select("確定","取消")){
+			case 1:
+				if ( $@J3Item_Check == 1) {
+					goto Job3_Item;
+				} else {
+					goto Job3_Confirm;
+				}
+			case 2:
+				mes "[職業服務員]";
+				mes "有需要歡迎隨時來找我幫忙!";
+				close;
+		}
+	}
+
+	//道具確認
+	if ( $@J3Item_Check == 1) {
+		Job3_Item:
+		mes	"[職業服務員]";
+		mes	"進行三轉轉職需要";
+		mes	"^FF0000" + $@J3Zeny +"^000000金幣及";
+		mes	"[^FF0000" + getitemname($@J3Item) + "^000000]一個，";
+		mes	"請問您要進行轉職嗎?";
+		next;
+		switch(select("確定","取消")) {
+			case 1:
+				if ( Zeny < $@J3Zeny ) {
+					mes	"[職業服務員]";
+					mes	"很抱歉，您身上並持未有足夠金幣，";
+					mes	"無法進行轉職!";
+					close;
+				} else if ( countitem($@J3Item) < 1 ) {
+					mes	"[職業服務員]";
+					mes	"很抱歉，您身上並未持有";
+					mes	"[^FF0000" + getitemname($@J3Item) + "^000000]，";
+					mes	"無法進行轉職!";
+					close;
+				} else {
+					delitem $@J3Item,1;
+					goto Job3_Confirm;
+				}
+			case 2:
+				goto Job_Bye;
+		}
+	}
+
+	//三轉轉職
+	Job3_Confirm:
+		if ( Class == 4008 ) {
+			setlook 7,1; jobchange 4060;
+			goto Job3_Done;
+		}
+		if ( Class == 4009 ) {
+			setlook 7,1; jobchange 4063;
+			goto Job3_Done;
+		}
+		if ( Class == 4010 ) {
+			setlook 7,1; jobchange 4061;
+			goto Job3_Done;
+		}
+		if ( Class == 4011 ) {
+			setlook 7,1; jobchange 4064;
+			goto Job3_Done;
+		}
+		if ( Class == 4012 ) {
+			setlook 7,1; jobchange 4062;
+			goto Job3_Done;
+		}
+		if ( Class == 4013 ) {
+			setlook 7,1; jobchange 4065;
+			goto Job3_Done;
+		}
+		if ( Class == 4015 ) {
+			setlook 7,1; jobchange 4073;
+			goto Job3_Done;
+		}
+		if ( Class == 4016 ) {
+			setlook 7,1; jobchange 4077;
+			goto Job3_Done;
+		}
+		if ( Class == 4017 ) {
+			setlook 7,1; jobchange 4074;
+			goto Job3_Done;
+		}
+		if ( Class == 4018 ) {
+			setlook 7,1; jobchange 4079;
+			goto Job3_Done;
+		}
+		if ( Class == 4019 ) {
+			setlook 7,1; jobchange 4078;
+			goto Job3_Done;
+		}
+		if ( Class == 4020 ) {
+			setlook 7,1; jobchange 4075;
+			goto Job3_Done;
+		}
+		if ( Class == 4021 ) {
+			setlook 7,1; jobchange 4076;
+			goto Job3_Done;
+		}
+
+		
+	Job3_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;	
+}
+
+
+
+function	script	Job4_Change	{
+	
+	//道具確認
+	if ( $@J3Item_Check == 1) {
+		Job3_Item:
+		mes	"[職業服務員]";
+		mes	"進行四轉轉職需要";
+		mes	"^FF0000" + $@J3Zeny +"^000000金幣及";
+		mes	"[^FF0000" + getitemname($@J3Item) + "^000000]一個，";
+		mes	"請問您要進行轉職嗎?";
+		next;
+		switch(select("確定","取消")) {
+			case 1:
+				if ( Zeny < $@J3Zeny ) {
+					mes	"[職業服務員]";
+					mes	"很抱歉，您身上並持未有足夠金幣，";
+					mes	"無法進行轉職!";
+					close;
+				} else if ( countitem($@J3Item) < 1 ) {
+					mes	"[職業服務員]";
+					mes	"很抱歉，您身上並未持有";
+					mes	"[^FF0000" + getitemname($@J3Item) + "^000000]，";
+					mes	"無法進行轉職!";
+					close;
+				} else {
+					delitem $@J3Item,1;
+					goto Job4_Confirm;
+				}
+			case 2:
+				goto Job_Bye;
+		}
+	}
+
+	//四轉轉職
+	Job4_Confirm:
+		if ( Class == 4060 ) {
+			setlook 7,1; jobchange 4252;
+			goto Job4_Done;
+		}
+		if ( Class == 4063 ) {
+			setlook 7,1; jobchange 4256;
+			goto Job4_Done;
+		}
+		if ( Class == 4061 ) {
+			setlook 7,1; jobchange 4255;
+			goto Job4_Done;
+		}
+		if ( Class == 4064 ) {
+			setlook 7,1; jobchange 4253;
+			goto Job4_Done;
+		}
+		if ( Class == 4062 ) {
+			setlook 7,1; jobchange 4257;
+			goto Job4_Done;
+		}
+		if ( Class == 4065 ) {
+			setlook 7,1; jobchange 4254;
+			goto Job4_Done;
+		}
+		if ( Class == 4073 ) {
+			setlook 7,1; jobchange 4258;
+			goto Job4_Done;
+		}
+		if ( Class == 4077 ) {
+			setlook 7,1; jobchange 4262;
+			goto Job4_Done;
+		}
+		if ( Class == 4074 ) {
+			setlook 7,1; jobchange 4261;
+			goto Job4_Done;
+		}
+		if ( Class == 4079 ) {
+			setlook 7,1; jobchange 4260;
+			goto Job4_Done;
+		}
+		if ( Class == 4078 ) {
+			setlook 7,1; jobchange 4259;
+			goto Job4_Done;
+		}
+		if ( Class == 4075 ) {
+			setlook 7,1; jobchange 4263;
+			goto Job4_Done;
+		}
+		if ( Class == 4076 ) {
+			setlook 7,1; jobchange 4264;
+			goto Job4_Done;
+		}		
+	Job4_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;	
+}
+
+
+
+
+
+
+
+
+
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//寶寶二轉職能自行選擇
+//寶寶三轉職會根據目前職業自動轉職
+
+function	script	BbJob_Change	{
+
+	if ( Class >= 4024 && Class <= 4029 ) {
+		mes "[職業服務員]";
+		mes "請選擇想要轉職的職業:";
+		
+		if ( Job1_History == 1 ) {
+			switch(select("寶寶騎士","寶寶十字軍")) {
+				case 1:
+					jobchange 4030;
+					set Job2_History,1;
+					goto BbJob_Done;
+				case 2:
+					jobchange 4037;
+					set Job2_History,2;
+					goto BbJob_Done;	
+			}
+		}
+		if ( Job1_History == 2 ) {
+			switch(select("寶寶巫師","寶寶賢者")) {
+				case 1:
+					jobchange 4032;
+					set Job2_History,1;
+					goto BbJob_Done;
+				case 2:
+					jobchange 4039;
+					set Job2_History,2;
+					goto BbJob_Done;	
+			}
+		}
+		if ( Job1_History == 3 ) {
+			if ( Sex == 1 ) {
+				switch(select("寶寶獵人","寶寶吟遊詩人 ")) {
+					case 1:
+						jobchange 4034;
+						set Job2_History,1;
+						goto BbJob_Done;
+					case 2:
+						jobchange 4042;
+						set Job2_History,2;
+						goto BbJob_Done;	
+				}
+			} else {
+				switch(select("寶寶獵人","寶寶舞孃")) {
+					case 1:
+						jobchange 4034;
+						set Job2_History,1;
+						goto BbJob_Done;
+					case 2:
+						jobchange 4043;
+						set Job2_History,2;
+						goto BbJob_Done;	
+				}
+			}
+		}
+		if ( Job1_History == 4 ) {
+			switch(select("寶寶祭司","寶寶武道家")) {
+				case 1:
+					jobchange 4031;
+					set Job2_History,1;
+					goto BbJob_Done;
+				case 2:
+					jobchange 4038;
+					set Job2_History,2;
+					goto BbJob_Done;	
+			}
+		}
+		if ( Job1_History == 5 ) {
+			switch(select("寶寶鐵匠","寶寶鍊金術士")) {
+				case 1:
+					jobchange 4033;
+					set Job2_History,1;
+					goto BbJob_Done;
+				case 2:
+					jobchange 4041;
+					set Job2_History,2;
+					goto BbJob_Done;	
+			}
+		}
+		if ( Job1_History == 6 ) {
+			switch(select("寶寶刺客","寶寶流氓")) {
+				case 1:
+					jobchange 4035;
+					set Job2_History,1;
+					goto BbJob_Done;
+				case 2:
+					jobchange 4040;
+					set Job2_History,2;
+					goto BbJob_Done;	
+			}
+		}
+	}
+		
+	BbJob_Confirm:
+		if ( Class == 4030 ) {
+			jobchange 4096;
+			goto BbJob_Done;
+		}
+		if ( Class == 4031 ) {
+			jobchange 4099;
+			goto BbJob_Done;
+		}
+		if ( Class == 4032 ) {
+			jobchange 4097;
+			goto BbJob_Done;
+		}
+		if ( Class == 4033 ) {
+			jobchange 4100;
+			goto BbJob_Done;
+		}
+		if ( Class == 4034 ) {
+			jobchange 4098;
+			goto BbJob_Done;
+		}
+		if ( Class == 4035 ) {
+			jobchange 4101;
+			goto BbJob_Done;
+		}
+		if ( Class == 4037 ) {
+			jobchange 4102;
+			goto BbJob_Done;
+		}
+		if ( Class == 4038 ) {
+			jobchange 4106;
+			goto BbJob_Done;
+		}
+		if ( Class == 4039 ) {
+			jobchange 4103;
+			goto BbJob_Done;
+		}
+		if ( Class == 4040 ) {
+			jobchange 4108;
+			goto BbJob_Done;
+		}
+		if ( Class == 4041 ) {
+			jobchange 4107;
+			goto BbJob_Done;
+		}
+		if ( Class == 4042 ) {
+			jobchange 4104;
+			goto BbJob_Done;
+		}
+		if ( Class == 4033 ) {
+			jobchange 4105;
+			goto BbJob_Done;
+		}
+
+	BbJob_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;	
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//擴充職業符合轉職條件即會自動轉職
+//忍者會自行識別性別進行轉職
+
+function	script	ExJob_Change	{
+
+	if ( Class == 23 ) {	//超級初心者擴充等級
+		jobchange 4190;
+		goto ExJob_Done;
+	}
+	if ( Class == 24 ) {	//反叛者
+		jobchange 4215;
+		goto ExJob_Done;
+	}
+	if ( Class == 25 ) {	//影狼,朧
+		if ( sex  == 1 ) {
+			jobchange 4211;
+			goto ExJob_Done;
+		} else {
+			jobchange 4212;
+			goto ExJob_Done;
+		}
+	}
+	if ( Class == 4047 ) {	//拳皇
+		jobchange 4239;
+		goto ExJob_Done;
+	}
+	if ( Class == 4049 ) {	//獵靈
+		jobchange 4240;
+		goto ExJob_Done;
+	}
+		if ( Class == 4190 ) {	//超級初心者擴充三轉
+			jobchange 4307;
+			goto ExJob_Done;
+		}
+		if ( Class == 4218 ) {	//超級貓擴充三轉
+			jobchange 4308;
+			goto ExJob_Done;
+		}
+		if ( Class == 4215 ) {	//反叛者擴充三轉
+			jobchange 4306;
+			goto ExJob_Done;
+		}
+		if ( Class == 4211 ) {	//影狼擴充三轉
+			jobchange 4304;
+			goto ExJob_Done;
+		}
+		if ( Class == 4212 ) {	//朧擴充三轉
+			jobchange 4305;
+			goto ExJob_Done;
+		}
+		if ( Class == 4239 ) {	//拳皇擴充三轉
+			jobchange 4302;
+			goto ExJob_Done;
+		}
+		if ( Class == 4240 ) {	//獵靈擴充三轉
+			jobchange 4303;
+			goto ExJob_Done;
+		}
+	ExJob_Done:
+		mes "[職業服務員]";
+		mes "轉職已經順利完成!";
+		close;	
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//轉生時無需清空身上物品與金幣，只需解除租借物即可
+
+function	script	Job_Rebirth	{
+	
+	if (( class >= 7 && class <= 12 ) || ( class >= 14 && class <= 20 )) {
+	
+		if ( BaseLevel < 99 ) {
+			mes "[職業服務員]";
+			mes "需要達到基本等級^FF000099級^000000才能進行轉生!";
+			close;
+		}
+		if ( JobLevel < 50 ) {
+			mes "[職業服務員]";
+			mes "需要達到職業等級^FF000050級^000000才能進行轉生!";
+			close;
+		}
+		if ( checkfalcon() || checkcart() || checkriding() ) {
+			mes "[職業服務員]";
+			mes "請先解除所有^FF0000租借物品^000000才能進行轉生!";
+			close;
+		}
+		
+		mes "[職業服務員]";
+		mes "進行轉職需要 " + $@RbZeny + " Zeny，";
+		mes "請問您要進行轉生嗎?";
+		mes "提示:^FF0000轉生後將不能轉職成其他的職業^000000";
+		next;
+		switch(select("確定","取消")) {
+			case 1:
+				if ( Zeny >= $@RbZeny ) {
+					set Zeny,Zeny - $@RbZeny; 
+					jobchange 4001;
+					resetlvl(1);
+					mes "[職業服務員]";
+					mes "恭喜您，己順利進行轉生!";
+					close;
+				} else {
+					mes "[職業服務員]";
+					mes "很抱歉，您身上並持未有足夠Zeny!";
+					close;
+				}
+			case 2:
+				mes "[職業服務員]";
+				mes "有需要歡迎隨時來找我幫忙!";
+				close;
+		}
+	}
+	
+	mes "[職業服務員]";
+	mes "您的職業無法進行轉生!";
+	close;
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//重要事項:
+//如果是使用 rAthena 平台，請勿使用此腳本，需要轉用 Job_Rent.txt 文件!
+
+//租借項目，已包括寶寶職業
+
+function	script	Job_Rent	{
+	
+	mes "[職業服務員]";
+	mes	"請選擇您想要租借的項目:";
+	next;
+	switch(select("坐騎、魔導機甲","獵鷹","手推車")){
+		case 1:
+			if ( checkriding() ) {
+				goto Rent_Fail;
+			} else {
+				if ( Class == 7 || Class == 4008 || Class == 4030 || Class == 14 || Class == 4015 || Class == 4066 ||
+					Class == 4073 || Class == 4037 || Class == 4102  || Class == 4258 ) {
+					if ( !getskilllv(63) ) {
+						mes "[職業服務員]";
+						mes "很抱歉，需要習得^FF0000騎乘術^000000才能租借坐騎!";
+						close;
+					} else {
+						setriding;
+						goto Rent_Done;
+					}
+				}
+				if ( Class == 4054 || Class == 4060 || Class == 4096 || Class == 4252) {
+					if ( !getskilllv(2007) ) {
+						mes "[職業服務員]";
+						mes "很抱歉，需要習得^FF0000龍駕馭^000000才能租借坐騎!";
+						close;
+					} else {
+						setdragon;
+						goto Rent_Done;
+					}
+				}
+				if ( Class == 4058 || Class == 4064 || Class == 4100 || Class == 4253 ) {
+					if ( !getskilllv(2255) ) {
+						mes "[職業服務員]";
+						mes "很抱歉，需要習得^FF0000魔導機甲執照^000000才能租借坐騎!";
+						close;
+					} else {
+						setmadogear ;
+						goto Rent_Done;
+					}
+				}
+				goto Rent_Fail2;
+			}
+		case 2:
+			if ( checkfalcon() ) {
+				goto Rent_Fail;
+			} else {
+				if ( Class == 11 || Class == 4012 || Class == 4056 || Class == 4062 || Class == 4034 || Class == 4098  || Class == 4257) {
+					if ( !getskilllv(127) ) {
+						mes "[職業服務員]";
+						mes "很抱歉，需要習得^FF0000馴鷹術^000000才能租借獵鷹!";
+						close;
+					} else {
+						setfalcon;
+						goto Rent_Done;
+					}
+				}
+				goto Rent_Fail2;
+			}
+		case 3:
+			if ( checkcart() ) {
+				goto Rent_Fail;
+			} else {
+				//skill "MC_CARTDECORATE",1,2;
+				//skill "MC_CHANGECART",1,2;
+				//skill "MC_PUSHCART",10,2;
+				skill "MC_PUSHCART",10,3;
+				skill "MC_CHANGECART",1,3;
+				skill "MC_CARTDECORATE",1,3;
+				setcart;
+				goto Rent_Done;
+			}
+	}
+
+	
+	Rent_Fail:
+		mes "[職業服務員]";
+		mes "很抱歉，您已經租借過了!";
+		close;
+
+	Rent_Fail2:
+		mes "[職業服務員]";
+		mes "很抱歉，您的職業無法租借此項目!";
+		close;
+
+	Rent_Done:
+		mes "[職業服務員]";
+		mes "租借已經順利完成!";
+		close;
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//重置素質、技能
+
+function	script	Job_Reset	{
+	
+	mes "[職業服務員]";
+	mes "重置服務的收費如下:";
+	mes "1. 重置素質 - " + $@RStZeny + " Zeny";
+	mes "2. 重置技能 - " + $@RSkZeny + " Zeny";
+	mes "3. 重置全部 - " + $@RAllZeny + " Zeny";
+	next;
+	switch(select("重置素質","重置技能","重置全部")){
+		case 1:
+			if ( Zeny >= $@RStZeny ) {
+				set Zeny,Zeny - $@RStZeny;
+				ResetStatus;
+				goto Reset_Done;
+			} else {
+				goto Reset_Fail;
+			}
+		case 2:
+			if ( Zeny >= $@RSkZeny ) {
+				set Zeny,Zeny - $@RSkZeny;
+				ResetSkill;
+				goto Reset_Done;
+			} else {
+				goto Reset_Fail;
+			}
+		case 3:
+			if ( Zeny >= $@RAllZeny ) {
+				set Zeny,Zeny - $@RAllZeny;
+				ResetStatus;
+				ResetSkill;
+				goto Reset_Done;
+			} else {
+				goto Reset_Fail;
+			}
+	}
+	
+	Reset_Done:
+		mes "[職業服務員]";
+		mes "重置已經順利完成!";
+		close;
+		
+	Reset_Fail:
+		mes "[職業服務員]";
+		mes "很抱歉，您身上並持未有足夠Zeny!";
+		close;
+}
+//--------------------------------------------------//
+//--------------------------------------------------//
+//	名稱:	職業服務員
+//	版本:	v2.0
+//	相容:	rAthena Project, SeAr
+//	日期:	2015/08/27
+//	製作:	iisnowred(風萌夜雪)
+//	協助:	
+//	聲明:	請保留以上出處，謝謝
+//--------------------------------------------------//
+//--------------------------------------------------//
+
+//學習職業專屬的任務技能，其餘職業亦會習得緊急治療技能
+
+function	script	Job_Skill	{
+
+	//初心者
+	if ( Class == 0 || Class == 4001 ) {
+		skill 143,1,0;
+		goto Skill_Done;	
+	}
+	//劍士
+	if ( Class == 1 || Class == 4002 || Class == 4024 ) {
+		skill 144,1,0;
+		skill 145,1,0;
+		skill 146,1,0;
+		goto Skill_Done;
+	}
+	//騎士
+	if ( Class == 7 || Class == 4008 || Class == 4054 || Class == 4060 || Class == 4030 || Class == 4096 || Class == 4252 ) {
+		skill 144,1,0;
+		skill 145,1,0;
+		skill 146,1,0;
+		skill 1001,1,0;
+		goto Skill_Done;
+	}
+	//十字軍
+	if ( Class == 14 || Class == 4015 || Class == 4066 || Class == 4073 || Class == 4037 || Class == 4102 || Class == 4258 ) {
+		skill 144,1,0;
+		skill 145,1,0;
+		skill 146,1,0;
+		skill 1002,1,0;
+		goto Skill_Done;
+	}
+	//魔法師
+	if ( Class == 2 || Class == 4003 || Class == 4025 ) {
+		skill 157,1,0;
+		goto Skill_Done;
+	}
+	//巫師
+	if ( Class == 9 || Class == 4010 || Class == 4055 || Class == 4061 || Class == 4032 || Class == 4097  || Class == 4255) {
+		skill 157,1,0;
+		skill 1006,1,0;
+		goto Skill_Done;
+	}
+	//賢者
+	if ( Class == 16 || Class == 4017 || Class == 4067 || Class == 4074 || Class == 4039 || Class == 4103 || Class == 4261) {
+		skill 157,1,0;
+		skill 1007,1,0;
+		skill 1008,1,0;
+		skill 1017,1,0;
+		skill 1018,1,0;
+		skill 1019,1,0;
+	}
+	//弓箭手
+	if ( Class == 3 || Class == 4004 || Class == 4026) {
+		skill 147,1,0;
+		skill 148,1,0;
+		goto Skill_Done;
+	}
+	//獵人
+	if ( Class == 11 || Class == 4012 || Class == 4056 || Class == 4062 || Class == 4034 || Class == 4098 || Class == 4257 ) {
+		skill 147,1,0;
+		skill 148,1,0;
+		skill 1009,1,0;
+		goto Skill_Done;
+	}
+	//吟遊詩人
+	if ( Class == 19 || Class == 4020 || Class == 4068 || Class == 4075 || Class == 4042 || Class == 4104 || Class == 4263) {
+		skill 147,1,0;
+		skill 148,1,0;
+		skill 1010,1,0;
+		goto Skill_Done;
+	}
+	//舞孃
+	if ( Class == 20 || Class == 4021 || Class == 4069 || Class == 4076 || Class == 4043 || Class == 4105 || Class == 4264) {
+		skill 147,1,0;
+		skill 148,1,0;
+		skill 1011,1,0;
+		goto Skill_Done;
+	}
+	//服事
+	if ( Class == 4 || Class == 4005 || Class == 4027 ) {
+		skill 156,1,0;
+		goto Skill_Done;
+	}
+	//祭司
+	if ( Class == 8 || Class == 4009 || Class == 4057 || Class == 4063 || Class == 4031 || Class == 4099 || Class == 4256) {
+		skill 156,1,0;
+		skill 1014,1,0;
+		goto Skill_Done;
+	}
+	//武道家
+	if ( Class == 15 || Class == 4016 || Class == 4070 || Class == 4077 || Class == 4038 || Class == 4106 || Class == 4262) {
+		skill 156,1,0;
+		skill 1015,1,0;
+		skill 1016,1,0;
+		goto Skill_Done;
+	}
+	//商人
+	if ( Class == 5 || Class == 4006 || Class == 4028 ) {
+		skill 153,1,0;
+		skill 154,1,0;
+		skill 155,1,0;
+		skill 2544,1,0;
+		skill 2535,1,SKILL_PERM_GRANT;
+		goto Skill_Done;
+	}
+	//鐵匠
+	if ( Class == 10 || Class == 4011 || Class == 4058 || Class == 4064 || Class == 4033 || Class == 4100 || Class == 4253) {
+		skill 153,1,0;
+		skill 154,1,0;
+		skill 155,1,0;
+		skill 2535,1,SKILL_PERM_GRANT;
+		skill 1012,1,0;
+		skill 2544,1,0;
+		skill 1013,1,0;
+		goto Skill_Done;
+	}
+	//鍊金術師
+	if ( Class == 18 || Class == 4019 || Class == 4071 || Class == 4078 || Class == 4041 || Class == 4107 || Class == 4259) {
+		skill 153,1,0;
+		skill 154,1,0;
+		skill 155,1,0;
+		skill 2544,1,0;
+		skill 2535,1,SKILL_PERM_GRANT;
+		skill 238,1,0;
+		goto Skill_Done;
+	}
+	//盜賊
+	if ( Class == 6 || Class == 4007 || Class == 4029 ) {
+		skill 149,1,0;
+		skill 150,1,0;
+		skill 151,1,0;
+		skill 152,1,0;
+		goto Skill_Done;
+	}
+	//刺客
+	if ( Class == 12 || Class == 4013 || Class == 4059 || Class == 4065 || Class == 4035 || Class == 4101 || Class == 4254) {
+		skill 149,1,0;
+		skill 150,1,0;
+		skill 151,1,0;
+		skill 152,1,0;
+		skill 1003,1,0;
+		skill 1004,1,0;
+		goto Skill_Done;
+	}
+	//流氓
+	if ( Class == 17 || Class == 4018 || Class == 4072 || Class == 4079 || Class == 4040 || Class == 4108 || Class == 4260) {
+		skill 149,1,0;
+		skill 150,1,0;
+		skill 151,1,0;
+		skill 152,1,0;
+		skill 1005,1,0;
+		goto Skill_Done;
+	}
+	
+	Skill_Done:
+		skill 143,1,0;					//緊急治療
+		skill 142,1,0;					//緊急治療
+		if ( $@inccarry == 1 ) {
+			skill 681,10,SKILL_PERM_GRANT;	//負重量上升R
+		}
+		mes "[職業服務員]";
+		mes "已成功習得職業的專屬技能!";
+		close;
+
+}

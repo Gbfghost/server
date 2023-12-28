@@ -1,0 +1,313 @@
+
+
+
+//===== Description: ==============================
+//
+// 查理斯頓附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,103,5	script	[附魔]查理斯頓	4_ragfes_11,{
+	if (checkweight(1201,1) == 0) {
+		mes "你包裹滿了，整理整理再來吧.";
+		close3;
+	}
+	if (MaxWeight - Weight < 1000) {
+		mes "背這麼重的東西不辛苦嗎？清理一下包裹再來找我吧.";
+		close3;
+	}
+	disable_items;
+	cutin "2021ver_OSCAR01",2;
+	mes "[查理斯頓附魔]";
+	mes "我們正在強化查理斯頓工廠的產品。如果有相關產品可以找我強化。";
+	next;
+	.@resetmes$ = "";
+	.@reset = 0;
+	switch(select("瞭解詳情","裝備強化","強化效果重置")) {
+	case 1:
+		mes "[查理斯頓附魔]";
+		mes "每次強化或重置需要10萬zeny以及查理斯頓零件1個。";
+		next;
+		mes "[查理斯頓附魔]";
+		mes "另外, ^ff0000+9精煉度^000000以上時，可以強化更多的能力。";
+		next;
+		mes "[查理斯頓附魔]";
+		mes "另外再告訴你一件事情，強化對精煉度和卡片沒有任何影響，請你放心。";
+		close3;
+		
+	case 3:
+		.@reset$ = "重置";
+		.@reset = 1;
+	case 2:
+		mes "[查理斯頓附魔]";
+		mes "請先將需要"+.@reset$+"強化的物品裝備上，然後再選擇。";
+		next;
+		setarray .@parts[0], EQI_ARMOR, EQI_GARMENT, EQI_SHOES, EQI_ACC_L;
+		.@i = select("我先去穿裝備","身體-^0000FF"+getequipname(EQI_ARMOR)+"^000000","披肩-^0000FF"+getequipname(EQI_GARMENT)+"^000000","鞋子-^0000FF"+getequipname(EQI_SHOES)+"^000000","裝飾品(左)-^0000FF"+getequipname(EQI_ACC_L)+"^000000") - 2;
+		if(.@i < 0) {
+				mes "[查理斯頓附魔]";
+				mes "請穿好裝備再來。";
+				close3;
+		}
+		.@part = .@parts[.@i];
+		if (!getequipisequiped(.@part)) {
+				mes "[查理斯頓附魔]";
+				mes "請穿好裝備再來。";
+				close3;
+		}
+		.@equip_id = getequipid(.@part);
+		switch(.@equip_id) {
+		case 22073:
+		case 22043:
+		case 20776:
+		case 20777:
+		case 20732:
+		case 20733:
+		case 15110:
+		case 15148:
+		case 2995:
+		case 28368:
+		case 2996:
+		case 28369:
+		case 22074:
+		case 22044:
+			callsub L_Enchant,.@part,.@equip_id,1,.@reset;				
+		case 15111:
+		case 15149:
+			callsub L_Enchant,.@part,.@equip_id,2,.@reset; //different +9 refine category
+		default:
+			break;
+		}
+		mes "[查理斯頓附魔]";
+		mes "對不起，這件裝備不是查理斯頓工廠的產品，我無法強化。";
+		close3;
+	}
+	
+	end;
+
+L_Enchant:
+	.@part = getarg(0);
+	.@equip_id = getarg(1);
+	.@category = getarg(2)-1;
+	.@reset = getarg(3);
+	.@equip_refine = getequiprefinerycnt(.@part);
+	setarray .@equip_card[0], getequipcardid(.@part,0),getequipcardid(.@part,1),getequipcardid(.@part,2),getequipcardid(.@part,3);
+	if(!.@reset) {
+		.@slot = 0;
+		for(.@i = 3; .@i > 0 ; .@i -= 1) {
+				if(!.@equip_card[.@i]) {
+						.@slot = .@i;
+						break;
+				}
+		}
+		if(!.@slot) {
+				mes "[查理斯頓附魔]";
+				mes "你的裝備已經無法再次強化了。";
+				mes "你可以選擇重置強化效果。";
+				close3;
+		}
+		if(.@slot < 3) {
+			mes "[查理斯頓附魔]";
+			mes "你的裝備已經多次強化，";
+			mes "繼續下去有^0000FF強化效果全部消失^000000的危險。";
+			if(.@slot < 2) {
+				mes "^FF0000甚至裝備都可能完全損毀^000000。";
+			}
+			mes "你確定要繼續強化嗎？";
+			next;
+			if(select("繼續強化","取消") == 2) {
+				mes "[查理斯頓附魔]";
+				mes "明白了，有需要請再來。";
+				close3;
+			}
+		}
+		setarray .@cate$[0],"攻擊機能強化","防禦機能強化";
+		switch(.@part) {
+		case 2: //EQI_ARMOR
+			.@menu$ = "加速機能強化:" + ((.@equip_refine >= 9)?.@cate$[.@category]:"");
+			break;
+		case 6: //EQI_SHOES
+			.@menu$ = "鞋子強化:" + ((.@equip_refine >= 9)?"上級鞋子強化":"");
+			break;
+		case 5: //EQI_GARMENT
+			.@menu$ = "披肩強化:" + ((.@equip_refine >= 9)?"上級披肩強化":"");
+			break;
+		case 7: //EQI_ACC_L
+			.@menu$ = "裝飾品強化";
+			break;
+		default:
+			mes "[查理斯頓附魔]";
+			mes "對不起，不支持的強化類型！";
+			close3;
+		}
+		
+		mes "[查理斯頓附魔]";
+		mes "這是第"+(4-.@slot)+"次強化。";
+		mes "請選擇你想要強化的種類。";
+		next;
+		.@selection = select(.@menu$);
+		
+		if(!countitem(6752) || Zeny < 100000) {
+				mes "[查理斯頓附魔]";
+				mes "對不起，你的材料或者金錢不足。";
+				close3;
+		}
+		delitem 6752,1;
+		Zeny -= 100000;
+		
+		if(getequipid(.@part) != .@equip_id) { //Double Check
+				mes "[查理斯頓附魔]";
+				mes "請不要更換裝備！";
+				close3;
+		}
+		
+		delequip .@part;
+		
+		switch(.@part*3 + .@selection + .@category) {
+		case 7:
+			//加速機能強化
+			setarray .@enchant[0],4730,4859,4740,4860,4832,4933, //slot 4 0~5
+														4731,4762,4741,           //slot 3 0~9
+														4763,4732,4742;           //slot 2 3~14
+			break;
+		case 8:
+			//攻擊機能強化
+			setarray .@enchant[0],4731,4832,4720,4701,4833,4721, //slot 4 0~5
+														4732,4722,4763,           //slot 3 0~9
+														4834,4733,4723;           //slot 2 3~14
+			break;
+		case 9:			 
+			//防禦機能強化
+			setarray .@enchant[0],4741,4933,4861,4762,4934,4862, //slot 4 0~5
+														4742,4867,4763,           //slot 3 0~9
+														4935,4743,4868;           //slot 2 3~13
+			break;
+		case 19:
+			//鞋子強化
+			setarray .@enchant[0],4791,4740,4795,4792,4832,4796, //slot 4 0~5
+														4793,4741,4797,           //slot 3 0~9
+														4801,4742,4798;           //slot 2 3~13
+
+			break;
+		case 20:
+			//上級鞋子強化
+			setarray .@enchant[0],4762,4740,4796,4832,4741,4797, //slot 4 0~5
+														4833,4742,4798,           //slot 3 0~9
+														4861,4743,4862;           //slot 2 3~13
+			break;
+		case 16:
+			//披肩強化
+			setarray .@enchant[0],4859,4730,4795,4860,4832,4796, //slot 4 0~5
+														4762,4731,4797,           //slot 3 0~9
+														4763,4732,4798;           //slot 2 3~13
+			break;
+		case 17:
+			//上級披肩強化
+			setarray .@enchant[0],4811,4730,4860,4832,4731,4762, //slot 4 0~5
+														4833,4732,4763,           //slot 3 0~9
+														4810,4733,4809;           //slot 2 3~13
+
+			break;
+		case 22:
+			//裝飾品強化
+			setarray .@enchant[0],4720,4730,4795,4721,4731,4800, //slot 4 0~5
+														4722,4732,4796,           //slot 3 0~8
+														4723,4733,4801;           //slot 2 3~11
+			break;
+		default:
+			mes "[查理斯頓附魔]";
+			mes "對不起，不支持的強化類型！";
+			close3;
+		}
+		setarray .@rate[0],    100, 100, 100,  50,  50,  50,
+													  15,  15,  15,
+														 5,   5,   5;
+		switch(.@slot) {
+		case 3:
+				.@start = 0;
+				.@end = 5;
+				break;
+		case 2:
+				.@start = 0;
+				.@end = 8;
+				break;
+		case 1:
+				.@start = 3;
+				.@end = 11;
+				break;
+		default:
+			mes "[查理斯頓附魔]";
+			mes "對不起，不支持的強化類型！";
+				close3;
+		}
+		.@totalrate = 0;
+		for(.@i = .@start; .@i <= .@end; ++ .@i) {
+			.@totalrate += .@rate[.@i];
+		}
+		.@random = rand(.@totalrate);
+		for(.@i = .@start; .@i <= .@end; ++ .@i) {
+			if(.@random < .@rate[.@i]) {
+				.@equip_card[.@slot] = .@enchant[.@i];
+				break;
+			}
+			else {
+				.@random -= .@rate[.@i];
+			}
+		}
+
+		if(.@equip_card[.@slot] == 0) {
+				getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],0,0,0;
+				specialeffect2 EF_SHIELDCHARGE;
+				mes "[查理斯頓附魔]";
+				mes "對不起，強化過程出現錯誤！";
+				mes "裝備原有的強化效果消失了。";
+				close3;
+		} else if(.@equip_card[.@slot] == 9) {
+				specialeffect2 EF_SUI_EXPLOSION;
+				mes "[查理斯頓附魔]";
+				mes "對不起，強化過程出現了嚴重的錯誤！";
+				mes "你的裝備損毀了。";
+				close3;
+		} else {
+				getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+				specialeffect2 EF_REPAIRWEAPON;
+				mes "[查理斯頓附魔]";
+				mes "強化成功！";
+				mes "請收好你的裝備。";
+				close3;
+		}
+	} else {
+		if(!.@equip_card[3]) {
+				mes "[查理斯頓附魔]";
+				mes "你的裝備還沒有任何強化效果。";
+				mes "沒有必要重置。";
+				close3;
+		}
+		if(!countitem(6752) || Zeny < 100000) {
+				mes "[查理斯頓附魔]";
+				mes "對不起，你的材料或者金錢不足。";
+				close3;
+		}
+		delitem 6752,1; //Mora_Coin
+		Zeny -= 100000;
+		
+		if(getequipid(.@part) != .@equip_id) { //Double Check
+				mes "[查理斯頓附魔]";
+				mes "請不要更換裝備！";
+				close3;
+		}
+		delequip .@part;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],0,0,0;
+		specialeffect2 EF_SHIELDCHARGE;
+		mes "[查理斯頓附魔]";
+		mes "已經重置完畢，你可以開始新的強化了。";
+		close3;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]查理斯頓";
+	waitingroom "[附魔]查理斯頓",0;
+	end;
+}
+

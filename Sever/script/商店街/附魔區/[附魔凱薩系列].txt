@@ -1,0 +1,9 @@
+uttycty,50,94,4	script	[附魔]凱薩系列	562,{
+
+	disable_items;
+	item_enchant(10002);
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]凱薩系列";
+	waitingroom "[附魔]凱薩系列",0;
+}

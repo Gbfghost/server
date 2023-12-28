@@ -1,0 +1,46 @@
+uttycty,59,171,5	trader	[製作]幽靈皇宮	4_m_shadowchaser,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]幽靈皇宮";
+	waitingroom "[製作]幽靈皇宮",0;	
+	tradertype(NST_BARTER);	
+
+	sellitem 1496, -1, 6672, 30;
+	sellitem 1438, -1, 6672, 30;
+	sellitem 1669, -1, 6672, 30;
+	sellitem 1836, -1, 6672, 30;
+	sellitem 1933, -1, 6672, 30;
+	sellitem 1988, -1, 6672, 30;
+	sellitem 2023, -1, 6672, 30;
+	sellitem 2187, -1, 6672, 30;
+	sellitem 13441, -1, 6672, 30;
+	sellitem 13093, -1, 6672, 30;
+	sellitem 16028, -1, 6672, 30;
+	sellitem 21009, -1, 6672, 30;
+	sellitem 28000, -1, 6672, 30;
+	sellitem 28100, -1, 6672, 30;
+	sellitem 18119, -1, 6672, 30;
+	sellitem 18820, -1, 6672, 30;	
+	sellitem 20721, -1, 6672, 15;
+	sellitem 22033, -1, 6672, 15;
+	sellitem 15090, -1, 6672, 15;
+	sellitem 15091, -1, 6672, 15;
+	
+	//附魔
+	sellitem 23676, -1, 6672, 65;	
+	sellitem 23677, -1, 6672, 65;	
+	sellitem 23678, -1, 6672, 65;
+	
+	//塔諾斯武器改良方塊(中階)
+	sellitem 100592, -1, 6672, 50;
+
+	//塔諾斯改造箱(下級)
+	sellitem 100591, -1, 6672, 30;
+
+	//塔諾斯改良精煉錘
+	sellitem 100619, -1, 6672, 200;	
+	end;
+OnBuyItem:
+end;
+}

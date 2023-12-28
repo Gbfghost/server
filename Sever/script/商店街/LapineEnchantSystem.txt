@@ -1,0 +1,25 @@
+
+
+
+//===== Description: ==============================
+//Lapine 相容腳本
+//*************************************************
+//===================請保留以上資訊================
+
+//Example - 忽克連影子精煉鎚
+//http://ro.gnjoy.com/news/probability/View.asp?seq=3954806
+function	script	Shadow_Refine_Hammer	{
+
+	.@r = rand(10000);
+		 if (.@r < 440)  { set getarg(0), 1; return; }
+	else if (.@r < 1319) { set getarg(0), 2; return; }
+	else if (.@r < 3022) { set getarg(0), 3; return; }
+	else if (.@r < 6538) { set getarg(0), 4; return; }
+	else if (.@r < 8296) { set getarg(0), 5; return; }
+	else if (.@r < 9175) { set getarg(0), 6; return; }
+	else if (.@r < 9615) { set getarg(0), 7; return; }
+	else if (.@r < 9835) { set getarg(0), 8; return; }
+	else if (.@r < 9945) { set getarg(0), 9; return; }
+	else                 { set getarg(0), 10; return; }
+	return;
+}

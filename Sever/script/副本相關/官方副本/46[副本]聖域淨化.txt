@@ -1,0 +1,1126 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@nyr	mapflag	noteleport
+1@nyr	mapflag	nosave	SavePoint
+1@nyr	mapflag	nomemo
+1@nyr	mapflag	nobranch
+1@nyr	mapflag	noicewall
+1@nyr	mapflag	restricted	6
+1@nyr	mapflag	monster_noteleport
+1@nyr	mapflag	partylock
+1@nyr	mapflag	novending
+1@nyr	mapflag	nochat
+
+2@nyr	mapflag	noteleport
+2@nyr	mapflag	nosave	SavePoint
+2@nyr	mapflag	nomemo
+2@nyr	mapflag	nobranch
+2@nyr	mapflag	noicewall
+2@nyr	mapflag	restricted	6
+2@nyr	mapflag	monster_noteleport
+2@nyr	mapflag	partylock
+2@nyr	mapflag	novending
+2@nyr	mapflag	nochat
+
+amatsu,127,132,4	script	[副本]聖域淨化	4_M_RASWORD,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "聖域淨化";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 2;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 46;
+
+//
+	waitingroom "[副本]聖域淨化",0;
+	setnpcicon getnpcid(0),22,"[副本]聖域淨化";
+	end;
+}
+
+
+//除錯用
+// 1@nyr,199,34,1	script	守衛隊長#GM	4_M_RASWORD,{
+	// if (getgmlevel() < 80) end;
+	// warp instance_mapname("2@nyr"),174,135;
+	// donpcevent instance_npcname("#StP_Main7")+"::OnEnable";
+	// end;
+// }
+
+//==================================================
+//==================================================
+//==================================================
+//==================================================
+//隱藏NPC及獎勵設定
+1@nyr,1,1,0	script	#StP01	-1,2,2,{
+	end;
+OnInstanceInit:
+	//-------------------
+	//-----獎勵設定------
+	//-------------------
+	setarray 'item[0],1000405;//獎勵物品設定
+	setarray 'amount1[1],4;//物品1數量設定，依序為任務1,任務2以此類推....
+
+	//======================================
+	//====↓↓↓副本函數勿隨意更動↓↓↓==========
+	//======================================
+	set 'map1$,instance_mapname("1@nyr");
+	set 'map2$,instance_mapname("2@nyr");
+	set 'Mr_mob1,10;
+	set 'Mr_mob2,14;
+	set 'Mr_mob3,12;
+	set 'Mr_mob4,8;
+	//---隱藏NPC---
+	hideonnpc instance_npcname("守衛隊長#StP2");
+	disablenpc instance_npcname("守衛隊長#StP2");
+	//----
+	for (.@i = 1; .@i <= 14; .@i++) {
+		disablenpc instance_npcname(sprintf("StP_Warp0%01d", .@i));
+		hideonnpc instance_npcname(sprintf("StP_Warp0%01d", .@i));
+	}
+	for (.@i = 1; .@i <= 3; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP1_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP1_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 3; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 3; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP3_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP3_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 2; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP4_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP4_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 8; .@i++) {
+		disablenpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+		hideonnpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+	}
+	//牆壁
+	setcell 'map1$,149,24,149,154,cell_walkable,0;//第一區
+	setcell 'map1$,89,153,89,24,cell_walkable,0;//第二區
+	setcell 'map1$,90,154,97,154,cell_walkable,0;//第三區
+	setcell 'map1$,141,154,150,154,cell_walkable,0;//第三區
+	//初始事件
+	donpcevent instance_npcname("#Zone1_01")+"::OnEnable";
+	//======================================
+	//======================================
+	end;
+}
+function	script	StPDiag	{
+		unittalk getnpcid(0,instance_npcname(getarg(0) + getarg(1))),getarg(0)+"："+getarg(3);																												
+
+	return;
+}
+//==================傳點資訊==============
+//1@nyr,190,31,0	warp	StP_WarpAA	1,1,2@nyr,119,153
+
+1@nyr,152,144,0	warp	StP_Warp01	1,1,1@nyr,146,145
+1@nyr,90,31,0	warp	StP_Warp02	1,1,1@nyr,86,33
+1@nyr,88,144,0	warp	StP_Warp03	1,1,1@nyr,94,158
+1@nyr,119,181,0	warp	StP_Warp04	1,1,2@nyr,36,223
+
+2@nyr,56,104,0	warp	StP_Warp05	1,1,2@nyr,53,104
+2@nyr,49,55,0	warp	StP_Warp06	1,1,2@nyr,52,55
+2@nyr,119,71,0	warp	StP_Warp07	1,1,2@nyr,118,64
+2@nyr,119,66,0	warp	StP_Warp08	1,1,2@nyr,119,71
+2@nyr,183,104,0	warp	StP_Warp09	1,1,2@nyr,190,104
+2@nyr,185,104,0	warp	StP_Warp010	1,1,2@nyr,180,104
+2@nyr,119,123,0	warp	StP_Warp011	1,1,2@nyr,119,127
+2@nyr,119,137,0	warp	StP_Warp012	1,1,2@nyr,119,140
+
+2@nyr,120,140,0	warp	StP_Warp013	1,1,2@nyr,119,137
+2@nyr,153,130,0	warp	StP_Warp014	1,1,2@nyr,159,131
+//================================
+-	script	#StP_wall	2_MONEMUS,{ 
+mes "--前方區域被封鎖了--";
+end; }
+1@nyr,150,153,5	duplicate(#StP_wall)	界線#StP1_1	2_MONEMUS
+1@nyr,150,134,5	duplicate(#StP_wall)	界線#StP1_2	2_MONEMUS
+1@nyr,150,113,5	duplicate(#StP_wall)	界線#StP1_3	2_MONEMUS
+1@nyr,150,106,5	duplicate(#StP_wall)	界線#StP1_4	2_MONEMUS
+1@nyr,150,65,5	duplicate(#StP_wall)	界線#StP1_5	2_MONEMUS
+1@nyr,150,58,5	duplicate(#StP_wall)	界線#StP1_6	2_MONEMUS
+1@nyr,150,37,5	duplicate(#StP_wall)	界線#StP1_7	2_MONEMUS
+1@nyr,150,24,5	duplicate(#StP_wall)	界線#StP1_8	2_MONEMUS
+
+1@nyr,89,24,5	duplicate(#StP_wall)	界線#StP2_1	2_MONEMUS
+1@nyr,89,37,5	duplicate(#StP_wall)	界線#StP2_2	2_MONEMUS
+1@nyr,89,58,5	duplicate(#StP_wall)	界線#StP2_3	2_MONEMUS
+1@nyr,89,65,5	duplicate(#StP_wall)	界線#StP2_4	2_MONEMUS
+1@nyr,89,106,5	duplicate(#StP_wall)	界線#StP2_5	2_MONEMUS
+1@nyr,89,113,5	duplicate(#StP_wall)	界線#StP2_6	2_MONEMUS
+1@nyr,89,134,5	duplicate(#StP_wall)	界線#StP2_7	2_MONEMUS
+1@nyr,89,153,5	duplicate(#StP_wall)	界線#StP2_8	2_MONEMUS
+						   
+1@nyr,90,154,5	duplicate(#StP_wall)	界線#StP3_1	2_MONEMUS
+1@nyr,97,154,5	duplicate(#StP_wall)	界線#StP3_2	2_MONEMUS
+1@nyr,141,153,5	duplicate(#StP_wall)	界線#StP3_3	2_MONEMUS
+//========================================
+//===================ZONE1================
+//========================================
+1@nyr,1,1,0	script	#Zone1_01	-1,2,2,{
+OnEnable:
+	initnpctimer;
+	end;
+OnTimer3000:
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "首先！冒險者，十分感謝您參加了我們這場大掃除的行動。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "那麼...各位你們有動力嗎?");
+	sleep 1500;
+	for(.@i = 1; .@i <= 8; .@i++)
+	callfunc ("StPDiag","守衛","#StP1_"+.@i+"",0, "有！！");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "很好！那些背棄誓言的叛徒們正在試圖擾亂這裡。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "從這裡開始，一共三個花園區，一個寺廟入口區，總共四個區域已經被封鎖了，因此他們將被依次淨化。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "大家要註意不要攻擊到你的盟友了！因為這邊實在是太黑暗了");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP1",0, "那就各就各位了！");
+	hideonnpc instance_npcname("守衛隊長#StP1");
+	for(.@i = 1; .@i <= 8; .@i++)
+	hideonnpc instance_npcname("守衛#StP1_"+.@i);
+	
+	hideoffnpc instance_npcname("入侵者#StP1_1");
+	enablenpc instance_npcname("入侵者#StP1_1");
+	end;
+}
+1@nyr,189,30,1	script	守衛隊長#StP1	4_M_RASWORD,{
+	end;
+}
+-	script	#StP_c	4_M_RASWORD,{ end; }
+1@nyr,185,30,5	duplicate(#StP_c)	守衛#StP1_1	4_M_RASWORD
+1@nyr,186,31,5	duplicate(#StP_c)	守衛#StP1_2	4_M_RASWORD
+1@nyr,187,32,5	duplicate(#StP_c)	守衛#StP1_3	4_M_RASWORD
+1@nyr,188,33,5	duplicate(#StP_c)	守衛#StP1_4	4_M_RASWORD
+1@nyr,184,31,5	duplicate(#StP_c)	守衛#StP1_5	4_M_RASWORD
+1@nyr,185,32,5	duplicate(#StP_c)	守衛#StP1_6	4_M_RASWORD
+1@nyr,186,33,5	duplicate(#StP_c)	守衛#StP1_7	4_M_RASWORD
+1@nyr,187,34,5	duplicate(#StP_c)	守衛#StP1_8	4_M_RASWORD
+
+
+1@nyr,172,206,4	script	#StP_Main1	-1,{
+
+OnKillMob:
+	set 'Mr_mob1,'Mr_mob1-1;
+	if('Mr_mob1){
+		if('Mr_mob1 == 7){
+			mapannounce 'map1$, "2區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP1_2");
+			enablenpc instance_npcname("入侵者#StP1_2");
+		}
+		if('Mr_mob1 == 3){
+			mapannounce 'map1$, "1區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP1_3");
+			enablenpc instance_npcname("入侵者#StP1_3");
+		}
+	}else{
+			mapannounce 'map1$, "1區清理完畢！前往2區吧！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp01");
+			enablenpc instance_npcname("StP_Warp01");
+			hideoffnpc instance_npcname("入侵者#StP2_1");
+			enablenpc instance_npcname("入侵者#StP2_1");
+	}
+	end;
+}
+
+1@nyr,165,31,0	script	入侵者#StP1_1	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：沒有人能夠阻止我們！";
+	set .@killmob$, instance_npcname("#StP_Main1")+"::OnKillMob";
+	monster 'map1$,165,31,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,165,49,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,170,60,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP1_1");
+	end;
+}
+1@nyr,165,100,0	script	入侵者#StP1_2	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：我們已經變得很強大了！";
+	set .@killmob$, instance_npcname("#StP_Main1")+"::OnKillMob";
+	monster 'map1$,165,100,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,159,113,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,178,110,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,186,118,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP1_2");
+	end;
+}
+1@nyr,179,139,0	script	入侵者#StP1_3	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：何必像獵物一樣的驅趕我們呢？";
+	set .@killmob$, instance_npcname("#StP_Main1")+"::OnKillMob";
+	monster 'map1$,179,139,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,169,139,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,161,137,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP1_3");
+	end;
+}
+//========================================
+//===================ZONE2================
+//========================================
+1@nyr,172,206,4	script	#StP_Main2	-1,{
+
+OnKillMob:
+	set 'Mr_mob2,'Mr_mob2-1;
+	if('Mr_mob2){
+		if('Mr_mob2 == 12){
+			mapannounce 'map1$, "2區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_2");
+			enablenpc instance_npcname("入侵者#StP2_2");
+		}
+		if('Mr_mob2 == 6){
+			mapannounce 'map1$, "2區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_3");
+			enablenpc instance_npcname("入侵者#StP2_3");
+		}
+	}else{
+			mapannounce 'map1$, "2區清理完畢！前往3區吧！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp02");
+			enablenpc instance_npcname("StP_Warp02");
+			hideoffnpc instance_npcname("入侵者#StP3_1");
+			enablenpc instance_npcname("入侵者#StP3_1");
+	}
+	end;
+}
+
+1@nyr,138,138,0	script	入侵者#StP2_1	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你知道我們的用心嗎？！";
+	set .@killmob$, instance_npcname("#StP_Main2")+"::OnKillMob";
+	monster 'map1$,138,138,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,138,128,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_1");
+	end;
+}
+1@nyr,101,111,0	script	入侵者#StP2_2	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：受死吧！";
+	set .@killmob$, instance_npcname("#StP_Main2")+"::OnKillMob";
+	monster 'map1$,101,111,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,114,111,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,124,110,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,106,100,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,107,78,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,119,78,"--ja--",21311,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_2");
+	end;
+}
+1@nyr,137,78,0	script	入侵者#StP2_3	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你知道你會被我打嗎？";
+	set .@killmob$, instance_npcname("#StP_Main2")+"::OnKillMob";
+	monster 'map1$,137,78,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,137,64,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,131,49,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,120,35,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,103,35,"--ja--",21311,1,.@killmob$;
+	monster 'map1$,106,47,"--ja--",21311,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_3");
+	end;
+}
+//========================================
+//===================ZONE3================
+//========================================
+1@nyr,172,206,4	script	#StP_Main3	-1,{
+
+OnKillMob:
+	set 'Mr_mob3,'Mr_mob3-1;
+	if('Mr_mob3){
+		if('Mr_mob3 == 9){
+			mapannounce 'map1$, "3區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP3_2");
+			enablenpc instance_npcname("入侵者#StP3_2");
+		}
+		if('Mr_mob3 == 6){
+			mapannounce 'map1$, "3區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP3_3");
+			enablenpc instance_npcname("入侵者#StP3_3");
+		}
+	}else{
+			mapannounce 'map1$, "3區清理完畢！前往4區吧！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp03");
+			enablenpc instance_npcname("StP_Warp03");
+			hideoffnpc instance_npcname("入侵者#StP4_1");
+			enablenpc instance_npcname("入侵者#StP4_1");
+	}
+	end;
+}
+
+1@nyr,74,31,0	script	入侵者#StP3_1	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：我們做做了甚麼？";
+	set .@killmob$, instance_npcname("#StP_Main3")+"::OnKillMob";
+	monster 'map1$,74,31,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,74,39,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,58,31,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP3_1");
+	end;
+}
+1@nyr,54,63,0	script	入侵者#StP3_2	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你還是快逃吧！";
+	set .@killmob$, instance_npcname("#StP_Main3")+"::OnKillMob";
+	monster 'map1$,54,63,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,63,62,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,74,90,"--ja--",21310,1,.@killmob$;
+
+	disablenpc instance_npcname("入侵者#StP3_2");
+	end;
+}
+1@nyr,65,109,0	script	入侵者#StP3_3	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：殺阿？";
+	set .@killmob$, instance_npcname("#StP_Main3")+"::OnKillMob";
+	monster 'map1$,65,109,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,54,111,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,74,119,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,79,138,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,69,138,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,52,130,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP3_3");
+	end;
+}
+//========================================
+//===================ZONE4================
+//========================================
+1@nyr,172,206,4	script	#StP_Main4	-1,{
+
+OnKillMob:
+	set 'Mr_mob4,'Mr_mob4-1;
+	if('Mr_mob4){
+		if('Mr_mob4 == 4){
+			mapannounce 'map1$, "4區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP4_2");
+			enablenpc instance_npcname("入侵者#StP4_2");
+		}
+	}else{
+		mapannounce 'map1$, "OK！大家到門口集合吧！",bc_map,"0xFFFF00";
+		hideoffnpc instance_npcname("守衛隊長#StP2");
+		enablenpc instance_npcname("守衛隊長#StP2");
+		for (.@i = 1; .@i <= 8; .@i++) {
+			enablenpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+			hideoffnpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+		}
+	}
+	end;
+}
+
+1@nyr,108,167,0	script	入侵者#StP4_1	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你這樣很辛苦。";
+	set .@killmob$, instance_npcname("#StP_Main4")+"::OnKillMob";
+	monster 'map1$,108,167,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,94,183,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,81,181,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,58,183,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP4_1");
+	end;
+}
+1@nyr,107,178,0	script	入侵者#StP4_2	4_M_RASWORD,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你確定你不離開？";
+	set .@killmob$, instance_npcname("#StP_Main4")+"::OnKillMob";
+	monster 'map1$,107,178,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,118,174,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,147,181,"--ja--",21310,1,.@killmob$;
+	monster 'map1$,173,181,"--ja--",21310,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP4_2");
+	end;
+}
+//---------------------------------
+//---------------------------------
+1@nyr,172,206,4	script	#StP_Main5	-1,{
+
+OnEnable:
+	callfunc ("StPDiag","守衛隊長","#StP2",0, "大家都還可以嗎？");
+	sleep 1500;
+	for(.@i = 1; .@i <= 8; .@i++)
+	callfunc ("StPDiag","守衛","#StP2_"+.@i+"",0, "是！！");
+	end;
+}
+1@nyr,119,175,1	script	守衛隊長#StP2	4_M_RASWORD,{
+	if(getpartyleader(getcharid(1),1) == getcharid(3)) {
+		donpcevent instance_npcname("#StP_Main5")+"::OnEnable";
+
+		mes "[守衛隊長]";
+		mes "大家辛苦了，每天都要這樣清掃實在是很累人....";
+		mes "今天就這樣解散吧！";
+		next;
+		mes "[守衛隊長]";
+		mes "冒險家，謝謝你的幫助。";
+		next;
+		mes "[守衛隊長]";
+		mes "聽說你還參加了神殿內部的清理活動？真是辛苦你了。";
+		mes "你就直接從上方的入口進入集合吧！感謝你！";
+		hideoffnpc instance_npcname("StP_Warp04");
+		enablenpc instance_npcname("StP_Warp04");
+		hideonnpc instance_npcname("守衛隊長#StP2");
+		disablenpc instance_npcname("守衛隊長#StP2");
+		for (.@i = 1; .@i <= 8; .@i++) {
+			disablenpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+			hideonnpc instance_npcname(sprintf("守衛#StP2_%d", .@i));
+		}
+		close;
+	}else{
+		mes "[守衛隊長]";
+		mes "麻煩請隊長來找我。";
+	}
+}
+1@nyr,116,173,8	duplicate(#StP_c)	守衛#StP2_1	4_M_RASWORD
+1@nyr,118,173,8	duplicate(#StP_c)	守衛#StP2_2	4_M_RASWORD
+1@nyr,120,173,1	duplicate(#StP_c)	守衛#StP2_3	4_M_RASWORD
+1@nyr,122,173,1	duplicate(#StP_c)	守衛#StP2_4	4_M_RASWORD
+1@nyr,116,171,8	duplicate(#StP_c)	守衛#StP2_5	4_M_RASWORD
+1@nyr,118,171,8	duplicate(#StP_c)	守衛#StP2_6	4_M_RASWORD
+1@nyr,120,171,1	duplicate(#StP_c)	守衛#StP2_7	4_M_RASWORD
+1@nyr,122,171,1	duplicate(#StP_c)	守衛#StP2_8	4_M_RASWORD
+//========================================
+//========================================
+//=================2@nyr==================
+//========================================
+//========================================
+//========================================
+2@nyr,1,1,0	script	#StP02	-1,2,2,{
+	end;
+OnInstanceInit:
+	//======================================
+	//====↓↓↓副本函數勿隨意更動↓↓↓==========
+	//======================================
+	set 'password,rand(1000,9999);
+	//debugmes ""+'password+"";
+	set 'Mr_mob2_1,7;
+	set 'Mr_mob2_2,2;
+	set 'Mr_mob2_3,8;
+	set 'Mr_mob2_4,2;
+	set 'Mr_mob2_5,5;
+	//---隱藏NPC---
+	hideonnpc instance_npcname("守衛隊長#StP4");
+	disablenpc instance_npcname("守衛隊長#StP4");
+	
+	//----
+	for (.@i = 1; .@i <= 4; .@i++) {
+		disablenpc instance_npcname(sprintf("保全裝置#Security1_%d", .@i));
+		hideonnpc instance_npcname(sprintf("保全裝置#Security1_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 4; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_1_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_1_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 2; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_2_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_2_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 2; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_4_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_4_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 1; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_5_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_5_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 1; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP2_6_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP2_6_%d", .@i));
+	}
+	for (.@i = 1; .@i <= 6; .@i++) {
+		disablenpc instance_npcname(sprintf("守衛#StP4_%d", .@i));
+		hideonnpc instance_npcname(sprintf("守衛#StP4_%d", .@i));
+	}
+	end;
+}
+//========================================
+//===================ZONE2-1================
+//========================================
+1@nyr,172,206,4	script	#StP_Main6	-1,{
+
+OnEnable:
+	callfunc ("StPDiag","守衛隊長","#StP3",0, "那就請大家一路檢查下去，突破安檢並幹掉所有入侵者。");
+	sleep 1500;
+	for(.@i = 1; .@i <= 6; .@i++){
+		callfunc ("StPDiag","守衛","#StP3_"+.@i+"",0, "了解！！");
+	}
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP3",0, "那就出發吧。");
+	sleep 1500;
+	for (.@i = 1; .@i <= 6; .@i++) {
+		disablenpc instance_npcname(sprintf("守衛#StP3_%d", .@i));
+		hideonnpc instance_npcname(sprintf("守衛#StP3_%d", .@i));
+	}
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP3",0, "冒險家，十分感謝您參加我們的討伐任務。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP3",0, "我們將為隊長提供管理權限，請隊長為保全安全設施設置一個新的安全號碼。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP3",0, "今天的安全密碼為【"+'password+"】，請一定要確認好。");
+	mapannounce 'map2$, "今天的安全密碼為【"+'password+"】，請一定要確認好。",bc_map,"0xFFFF00";
+
+	hideoffnpc instance_npcname("入侵者#StP2_1_1");
+	enablenpc instance_npcname("入侵者#StP2_1_1");
+	end;
+}
+2@nyr,35,187,0	script	守衛隊長#StP3	4_M_RASWORD,4,4,{
+	//set 'Stp3,0;//**
+	if('Stp3 != 1) {
+		set 'Stp3,1;
+		donpcevent instance_npcname("#StP_Main6")+"::OnEnable";
+	}
+	
+	end;
+}
+2@nyr,35,189,5	duplicate(#StP_c)	守衛#StP3_1	4_M_RASWORD
+2@nyr,37,189,5	duplicate(#StP_c)	守衛#StP3_2	4_M_RASWORD
+2@nyr,33,189,5	duplicate(#StP_c)	守衛#StP3_3	4_M_RASWORD
+2@nyr,37,191,5	duplicate(#StP_c)	守衛#StP3_4	4_M_RASWORD
+2@nyr,35,191,5	duplicate(#StP_c)	守衛#StP3_5	4_M_RASWORD
+2@nyr,33,191,5	duplicate(#StP_c)	守衛#StP3_6	4_M_RASWORD
+
+2@nyr,172,206,4	script	#StP_Main2_1	-1,{
+
+OnKillMob:
+	set 'Mr_mob2_1,'Mr_mob2_1-1;
+	if('Mr_mob2_1){
+		if('Mr_mob2_1 == 6){
+			mapannounce 'map2$, "1區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_1_2");
+			enablenpc instance_npcname("入侵者#StP2_1_2");
+		}
+		if('Mr_mob2_1 == 5){
+			mapannounce 'map2$, "1區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_1_3");
+			enablenpc instance_npcname("入侵者#StP2_1_3");
+		}
+		if('Mr_mob2_1 == 4){
+			mapannounce 'map2$, "請前往1區圖書館附近清理，並執行保全系統重置。",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_1_4");
+			enablenpc instance_npcname("入侵者#StP2_1_4");
+			hideoffnpc instance_npcname("StP_Warp05");
+			enablenpc instance_npcname("StP_Warp05");	
+		}
+	}else{
+			mapannounce 'map2$, "1區圖書館清理完成！請至門外設置安全碼。",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp06");
+			enablenpc instance_npcname("StP_Warp06");	
+			hideonnpc instance_npcname("StP_Warp05");
+			disablenpc instance_npcname("StP_Warp05");
+			hideoffnpc instance_npcname("保全裝置#Security1_1");
+			enablenpc instance_npcname("保全裝置#Security1_1");	
+	}
+	end;
+}
+
+2@nyr,36,165,0	script	入侵者#StP2_1_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：哦..這真是個驚喜。";
+	set .@killmob$, instance_npcname("#StP_Main2_1")+"::OnKillMob";
+	monster 'map2$,36,165,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_1_1");
+	end;
+}
+2@nyr,36,147,0	script	入侵者#StP2_1_2	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：甚麼？為什麼是你？";
+	set .@killmob$, instance_npcname("#StP_Main2_1")+"::OnKillMob";
+	monster 'map2$,36,147,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_1_2");
+	end;
+}
+2@nyr,63,131,0	script	入侵者#StP2_1_3	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：受死吧。";
+	set .@killmob$, instance_npcname("#StP_Main2_1")+"::OnKillMob";
+	monster 'map2$,63,131,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_1_3");
+	end;
+}
+2@nyr,45,103,0	script	入侵者#StP2_1_4	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：還來啊？";
+	set .@killmob$, instance_npcname("#StP_Main2_1")+"::OnKillMob";
+	monster 'map2$,45,103,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,24,91,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,33,78,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,35,65,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_1_4");
+	end;
+}
+2@nyr,52,57,4	script	保全裝置#Security1_1	844,{
+	if (getpartyleader(getcharid(1),2)!=getcharid(0)) end;
+	mes "[保全裝置]";
+	mes "請輸入安全密碼以重置安全設定。";
+	//mes ""+'password+"";
+	input .@Securitypassword;
+	next;
+	if (.@Securitypassword == 'password){
+		mes "[保全裝置]";
+		mes "保全裝置已重置完成。";
+		mapannounce 'map2$, "1區圖書館保全設定完成，請到地圖6點鐘進入2區圖書館。",bc_map,"0xFFFF00";
+
+		navigateto( 'map2$,119,71,NAV_NONE,1 );
+		viewpoint 1,119,71,1,0xFFFFFF;
+		hideoffnpc instance_npcname("入侵者#StP2_2_1");
+		enablenpc instance_npcname("入侵者#StP2_2_1");
+		close;
+		
+	}
+	else{
+		mes "[保全裝置]";
+		mes "密碼輸入錯誤，請重新輸入。";
+		close;
+	}
+	
+}
+//========================================
+//===================ZONE2-2================
+//========================================
+2@nyr,172,206,4	script	#StP_Main2_2	-1,{
+
+OnKillMob:
+	set 'Mr_mob2_2,'Mr_mob2_2-1;
+	if('Mr_mob2_2){
+		if('Mr_mob2_2 == 1){
+			mapannounce 'map2$, "2區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_2_2");
+			enablenpc instance_npcname("入侵者#StP2_2_2");
+		}
+	}else{
+			mapannounce 'map2$, "2區清理完畢，進入2區圖書館吧。",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp07");
+			enablenpc instance_npcname("StP_Warp07");	
+			hideoffnpc instance_npcname("入侵者#StP2_3_1");
+			enablenpc instance_npcname("入侵者#StP2_3_1");
+	}
+	end;
+}
+
+2@nyr,68,103,0	script	入侵者#StP2_2_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你們這樣也太辛苦了吧。";
+	set .@killmob$, instance_npcname("#StP_Main2_2")+"::OnKillMob";
+	monster 'map2$,68,103,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_2_1");
+	end;
+}
+2@nyr,93,92,0	script	入侵者#StP2_2_2	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：還來？饒了我們吧。";
+	set .@killmob$, instance_npcname("#StP_Main2_2")+"::OnKillMob";
+	monster 'map2$,93,92,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_2_2");
+	end;
+}
+//========================================
+//===================ZONE2-3================
+//========================================
+2@nyr,172,206,4	script	#StP_Main2_3	-1,{
+
+OnKillMob:
+	set 'Mr_mob2_3,'Mr_mob2_3-1;
+	if('Mr_mob2_3){
+	}else{
+			mapannounce 'map2$, "2區圖書館清理完畢，去外面設置保全系統吧。",bc_map,"0xFFFF00";
+			hideonnpc instance_npcname("StP_Warp07");
+			disablenpc instance_npcname("StP_Warp07");
+			hideoffnpc instance_npcname("StP_Warp08");
+			enablenpc instance_npcname("StP_Warp08");	
+			hideoffnpc instance_npcname("保全裝置#Security1_2");
+			enablenpc instance_npcname("保全裝置#Security1_2");	
+	}
+	end;
+}
+
+2@nyr,94,62,0	script	入侵者#StP2_3_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你們也想找書？我的天啊。";
+	set .@killmob$, instance_npcname("#StP_Main2_3")+"::OnKillMob";
+	monster 'map2$,94,62,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,89,44,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,83,35,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,102,18,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,129,17,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,150,43,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,156,56,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,131,61,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_3_1");
+	end;
+}
+2@nyr,123,70,4	script	保全裝置#Security1_2	844,{
+	if (getpartyleader(getcharid(1),2)!=getcharid(0)) end;
+	mes "[保全裝置]";
+	mes "請輸入安全密碼以重置安全設定。";
+	//mes ""+'password+"";
+	input .@Securitypassword;
+	next;
+	if (.@Securitypassword == 'password){
+		mes "[保全裝置]";
+		mes "保全裝置已重置完成。";
+		mapannounce 'map2$, "2區圖書館保全設定完成，請到地圖3點鐘進入3區圖書館。",bc_map,"0xFFFF00";
+
+		hideoffnpc instance_npcname("入侵者#StP2_4_1");
+		enablenpc instance_npcname("入侵者#StP2_4_1");
+		close;
+		
+	}
+	else{
+		mes "[保全裝置]";
+		mes "密碼輸入錯誤，請重新輸入。";
+		close;
+	}
+	
+}
+//========================================
+//===================ZONE2-4================
+//========================================
+2@nyr,172,206,4	script	#StP_Main2_4	-1,{
+
+OnKillMob:
+	set 'Mr_mob2_4,'Mr_mob2_4-1;
+	if('Mr_mob2_4){
+		if('Mr_mob2_4 == 1){
+			mapannounce 'map2$, "3區還有敵人存在！繼續搜索！",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("入侵者#StP2_4_2");
+			enablenpc instance_npcname("入侵者#StP2_4_2");
+		}
+	}else{
+			mapannounce 'map2$, "3區清理完畢，進入3區圖書館吧。",bc_map,"0xFFFF00";
+			hideoffnpc instance_npcname("StP_Warp09");
+			enablenpc instance_npcname("StP_Warp09");	
+			hideoffnpc instance_npcname("入侵者#StP2_5_1");
+			enablenpc instance_npcname("入侵者#StP2_5_1");
+	}
+	end;
+}
+
+2@nyr,127,73,0	script	入侵者#StP2_4_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：我不會讓你走的！";
+	set .@killmob$, instance_npcname("#StP_Main2_4")+"::OnKillMob";
+	monster 'map2$,127,76,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_4_1");
+	end;
+}
+2@nyr,158,104,0	script	入侵者#StP2_4_2	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：等你很久啦。";
+	set .@killmob$, instance_npcname("#StP_Main2_4")+"::OnKillMob";
+	monster 'map2$,158,104,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_4_2");
+	end;
+}
+//========================================
+//===================ZONE2-5================
+//========================================
+2@nyr,172,206,4	script	#StP_Main2_5	-1,{
+
+OnKillMob:
+	set 'Mr_mob2_5,'Mr_mob2_5-1;
+	if('Mr_mob2_5){
+	}else{
+			mapannounce 'map2$, "3區圖書館清理完畢，去外面設置保全系統吧。",bc_map,"0xFFFF00";
+			hideonnpc instance_npcname("StP_Warp09");
+			disablenpc instance_npcname("StP_Warp09");
+			hideoffnpc instance_npcname("StP_Warp010");
+			enablenpc instance_npcname("StP_Warp010");	
+			hideoffnpc instance_npcname("保全裝置#Security1_3");
+			enablenpc instance_npcname("保全裝置#Security1_3");	
+	}
+	end;
+}
+
+2@nyr,195,97,0	script	入侵者#StP2_5_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：我們是第一個近來的！";
+	set .@killmob$, instance_npcname("#StP_Main2_5")+"::OnKillMob";
+	monster 'map2$,195,97,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,213,98,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,194,80,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,202,65,"--ja--",21312,1,.@killmob$;
+	monster 'map2$,216,60,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_5_1");
+	end;
+}
+2@nyr,183,100,4	script	保全裝置#Security1_3	844,{
+	if (getpartyleader(getcharid(1),2)!=getcharid(0)) end;
+	mes "[保全裝置]";
+	mes "請輸入安全密碼以重置安全設定。";
+	//mes ""+'password+"";
+	input .@Securitypassword;
+	next;
+	if (.@Securitypassword == 'password){
+		mes "[保全裝置]";
+		mes "保全裝置已重置完成。";
+		hideoffnpc instance_npcname("入侵者#StP2_6_1");
+		enablenpc instance_npcname("入侵者#StP2_6_1");
+		close;
+		
+	}
+	else{
+		mes "[保全裝置]";
+		mes "密碼輸入錯誤，請重新輸入。";
+		close;
+	}
+}
+//========================================
+//===================ZONE2-6================
+//========================================
+2@nyr,172,206,4	script	#StP_Main2_6	-1,{
+
+OnKillMob:
+	mapannounce 'map2$, "從中央進入儲藏室吧。",bc_map,"0xFFFF00";
+	hideoffnpc instance_npcname("StP_Warp011");
+	enablenpc instance_npcname("StP_Warp011");	
+	hideoffnpc instance_npcname("StP_Warp012");
+	enablenpc instance_npcname("StP_Warp012");	
+	end;
+}
+
+2@nyr,174,109,0	script	入侵者#StP2_6_1	21312,4,4,{
+	end;
+OnTouch:
+	npctalk "入侵者：你們這樣也太辛苦了吧。";
+	set .@killmob$, instance_npcname("#StP_Main2_6")+"::OnKillMob";
+	monster 'map2$,174,109,"--ja--",21312,1,.@killmob$;
+	disablenpc instance_npcname("入侵者#StP2_6_1");
+	end;
+}
+//========================================
+//===================ZONEBoss================
+//========================================
+-	script	#StP_cBoss	21312,{ end; }//**
+2@nyr,115,176,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_1	21312
+2@nyr,126,174,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_2	21312
+2@nyr,116,192,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_3	21312
+2@nyr,128,201,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_4	21312
+2@nyr,111,208,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_5	21312
+2@nyr,112,206,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_6	21312
+2@nyr,115,206,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_7	21312
+2@nyr,117,207,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_8	21312
+2@nyr,119,207,5	duplicate(#StP_cBoss)	入侵者#StP_Boss_9	21312
+2@nyr,172,206,4	script	#StP_Boss	-1,{
+
+OnEnable:
+	set 'StP_Boss,1;
+	hideoffnpc instance_npcname("入侵者首領#StP_Boss_1");
+	callfunc ("StPDiag","入侵者首領","#StP_Boss_1",0, "甚麼？有不速之客嗎？");
+	sleep 1500;
+	callfunc ("StPDiag","入侵者首領","#StP_Boss_1",0, "那些傢夥在搞啥？都沒有知道他們闖入了嗎？一群沒用的傢夥。");
+	sleep 1000;
+	callfunc ("StPDiag","入侵者","#StP_Boss_5",0, "很遺憾..我在正陶醉於使用機械魔法中。");
+	sleep 1000;
+	callfunc ("StPDiag","入侵者","#StP_Boss_7",0, "你再說甚麼？這是國家不允許的事情，你忘了嗎？。");
+	callfunc ("StPDiag","入侵者","#StP_Boss_5",0, "這不是國家允許的唯一魔法嗎？。");
+	callfunc ("StPDiag","入侵者","#StP_Boss_6",0, "是這樣嗎？");
+	callfunc ("StPDiag","入侵者","#StP_Boss_8",0, "奇怪操作臺怎都沒反應？");
+	callfunc ("StPDiag","入侵者","#StP_Boss_8",0, "他可能需要一點“暴力”");
+	sleep 1500;
+	callfunc ("StPDiag","入侵者首領","#StP_Boss_1",0, "看來操作臺的密碼被修改了，如果你願意告知我們，我們會很感謝你的。");
+	sleep 1500;
+	callfunc ("StPDiag","入侵者首領","#StP_Boss_1",0, "但我想你一定不肯..所以...");
+	sleep 1500;
+	callfunc ("StPDiag","入侵者首領","#StP_Boss_1",0, "我只好用力量來讓你交出了！");
+	donpcevent instance_npcname("#StP_Boss2")+"::OnStart";
+	donpcevent instance_npcname("#StP_Boss2")+"::OnEnable";
+	hideonnpc instance_npcname("入侵者首領#StP_Boss_1");
+	disablenpc instance_npcname("入侵者首領#StP_Boss_1");
+	for (.@i = 1; .@i <= 9; .@i++) {
+		disablenpc instance_npcname(sprintf("入侵者#StP_Boss_%d", .@i));
+		hideonnpc instance_npcname(sprintf("入侵者#StP_Boss_%d", .@i));
+	}
+	
+	end;
+}
+		
+2@nyr,116,201,0	script	入侵者首領#StP_Boss_1	21313,6,6,{
+	end;
+OnTouch:
+	if ('StP_Boss != 1)
+	donpcevent instance_npcname("#StP_Boss")+"::OnEnable";
+	end;
+}
+2@nyr,172,203,4	script	#StP_Boss2	-1,{
+OnEnable:
+	monster 'map2$,111,208,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,112,206,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,115,206,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,117,207,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,119,207,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,117,195,"入侵者",21312,1,.@killboss$;
+	monster 'map2$,123,196,"入侵者",21312,1,.@killboss$;
+	end;
+OnStart:
+	set .@killboss$, instance_npcname("#StP_Boss2")+"::OnKillMob";
+	monster 'map2$,116,201,"入侵者首領",21313,1,.@killboss$;
+	end;
+	
+OnKillMob:
+	mapannounce 'map2$, "儲藏室清理完畢，去外面設置保全系統吧。",bc_map,"0xFFFF00";
+	hideonnpc instance_npcname("StP_Warp012");
+	disablenpc instance_npcname("StP_Warp012");
+	hideoffnpc instance_npcname("StP_Warp013");
+	enablenpc instance_npcname("StP_Warp013");	
+	hideoffnpc instance_npcname("保全裝置#Security1_4");
+	enablenpc instance_npcname("保全裝置#Security1_4");	
+	end;
+}
+2@nyr,123,137,4	script	保全裝置#Security1_4	844,{
+	if (getpartyleader(getcharid(1),2)!=getcharid(0)) end;
+	mes "[保全裝置]";
+	mes "請輸入安全密碼以重置安全設定。";
+	input .@Securitypassword;
+	next;
+	if (.@Securitypassword == 'password){
+		mes "[保全裝置]";
+		mes "保全裝置已重置完成。";
+		mapannounce 'map2$, "請到右側的門外匯合吧！",bc_map,"0xFFFF00";
+		hideonnpc instance_npcname("保全裝置#Security1_4");
+		disablenpc instance_npcname("保全裝置#Security1_4");
+
+		hideoffnpc instance_npcname("StP_Warp014");
+		enablenpc instance_npcname("StP_Warp014");	
+		hideoffnpc instance_npcname("守衛隊長#StP4");
+		enablenpc instance_npcname("守衛隊長#StP4");	
+		for (.@i = 1; .@i <= 6; .@i++) {
+			enablenpc instance_npcname(sprintf("守衛#StP4_%d", .@i));
+			hideoffnpc instance_npcname(sprintf("守衛#StP4_%d", .@i));
+		}
+		close;
+		
+	}
+	else{
+		mes "[保全裝置]";
+		mes "密碼輸入錯誤，請重新輸入。";
+		close;
+	}
+}
+//---------------------------
+1@nyr,174,135,4	script	#StP_Main7	-1,{
+
+OnEnable:
+	callfunc ("StPDiag","守衛隊長","#StP4",0, "看來大家都很辛苦。");
+	sleep 1500;
+	for(.@i = 1; .@i <= 6; .@i++){
+		callfunc ("StPDiag","守衛","#StP4_"+.@i+"",0, "不會！！");
+	}
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP4",0, "希望他們不要再來了。");
+	sleep 1500;
+	callfunc ("StPDiag","守衛隊長","#StP4",0, "那麼大家就原地解散吧！再見！");
+	getmapxy(.@m$,'passx,'passy,BL_NPC);
+	donpcevent instance_npcname("副本寶箱#2@nyr")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+}
+
+2@nyr,174,135,5	script	守衛隊長#StP4	4_M_RASWORD,4,4,{
+
+	if('Stp4 != 1) {
+		set 'Stp4,1;
+		donpcevent instance_npcname("#StP_Main7")+"::OnEnable";
+	}
+	end;
+}
+2@nyr,175,132,1	duplicate(#StP_c)	守衛#StP4_1	4_M_RASWORD
+2@nyr,176,133,1	duplicate(#StP_c)	守衛#StP4_2	4_M_RASWORD
+2@nyr,177,134,1	duplicate(#StP_c)	守衛#StP4_3	4_M_RASWORD
+2@nyr,178,133,1	duplicate(#StP_c)	守衛#StP4_4	4_M_RASWORD
+2@nyr,177,132,1	duplicate(#StP_c)	守衛#StP4_5	4_M_RASWORD
+2@nyr,176,131,1	duplicate(#StP_c)	守衛#StP4_6	4_M_RASWORD
+
+//寶箱
+2@nyr,0,0,0	script	副本寶箱#2@nyr	4_ed_orb,{
+	mes "^33CC33【副本寶箱】^000000";
+	mes "你要領取獎勵了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆領取◆^000000",get422;
+get42:
+	end;
+get422:
+	Instance_PassAnnounce;
+	getitem 930000,5;
+	getitem 940046,10;
+	getitem 6752,5;
+	getitem 6909,15;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

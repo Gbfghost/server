@@ -1,0 +1,314 @@
+uttycty,110,167,3	script	打洞系統	4_f_across,{
+	getinventorylist;
+	if ( @inventorylist_count > 95 ) {
+		mes "請在這裡暫停一下 !! -";
+		mes "你所攜帶的物品太多了 -";
+		mes "所以不能獲得物品 -";
+		mes "請把身上的物品減輕之後 -";
+		mes "再來挑戰吧 -";
+		close;
+	}
+	mes "[打洞系統]";
+	mes "我是在一般武器或防具上";
+	mes "進行打洞的技術員";
+	mes "雖然這是相當辛苦的工作...";
+	mes "不過仍有許多樂趣";
+	mes "請選擇你要的進行打洞";
+	next;
+	switch(select("武器:防具:取消")) 
+	{
+		case 1:
+			mes "[打洞系統]";
+			mes "武器嘛... 武器大致依作業的";
+			mes "難易度來區分的話，共分成";
+			mes "4級，C級是最容易的，";
+			mes "S級是最困難的，首先";
+			mes "挑選難易度水準吧";
+			next;
+			switch(select("C級:B級:A級:S級")) 
+			{
+				case 1:
+					mes "[打洞系統]";
+					mes "C級嗎? 這樣啊! 那麼希望";
+					mes "我為你服務哪一種裝備呢?";
+					next;
+					switch(select("地靈之書:水靈之書:風靈之書:火靈之書:德瑞尹長戟:鞭子:小提琴")) 
+					{
+						case 1: callfunc "Func_Socket",1,1554,1569,40,66,200,1010,10; break;
+						case 2: callfunc "Func_Socket",1,1553,1568,40,66,200,1010,10; break;
+						case 3: callfunc "Func_Socket",1,1556,1571,40,66,200,1010,10; break;
+						case 4: callfunc "Func_Socket",1,1555,1570,40,66,200,1010,10; break;
+						case 5: callfunc "Func_Socket",1,1460,1461,40,66,200,1010,10; break;
+						case 6: callfunc "Func_Socket",1,1950,1951,40,66,200,1010,10; break;
+						case 7: callfunc "Func_Socket",1,1901,1902,40,66,200,1010,10; break;
+					}
+					break;
+				case 2:
+					mes "[打洞系統]";
+					mes "B級嗎? 這樣啊! 那麼希望";
+					mes "我為你服務哪一種裝備呢?";
+					next;
+					switch(select("獸人斧:彎刀:闇盲之錘:鏈錘:長柄短劍:角弓:步兵長矛:海東劍:魯特琴:鋼鐵鞭子:虎爪拳套:亞伯雷弓")) 
+					{
+						case 1:  callfunc "Func_Socket",1,1304,1309,40,61,200,984,1; break;
+						case 2:  callfunc "Func_Socket",1,1113,1114,40,61,200,984,1; break;
+						case 3:  callfunc "Func_Socket",1,1523,1538,40,61,300,984,1; break;
+						case 4:  callfunc "Func_Socket",1,1519,1520,40,61,300,1010,10; break;
+						case 5:  callfunc "Func_Socket",2,1219,1220,40,61,300,984,1,999,5; break;
+						case 6:  callfunc "Func_Socket",2,1714,1716,40,61,300,984,2,999,5; break;					
+						case 7:  callfunc "Func_Socket",1,1407,1408,40,61,300,1010,10; break;
+						case 8:  callfunc "Func_Socket",2,1123,1128,40,61,300,984,2,999,5; break;
+						case 9:  callfunc "Func_Socket",1,1905,1906,40,61,300,1011,10; break;					
+						case 10: callfunc "Func_Socket",1,1954,1955,40,61,300,1011,10; break;
+						case 11: callfunc "Func_Socket",1,1801,1802,40,61,300,1010,10; break;
+						case 12: callfunc "Func_Socket",2,1713,1715,40,61,300,984,2,999,5; break;
+					}
+					break;
+				case 3:
+					mes "[打洞系統]";
+					mes "A級嗎? 真棒! 那麼希望";
+					mes "我在哪一種裝備上打洞呢?";
+					next;
+					switch(select("天龍短劍:刺籐拳刃:火靈拳刃:冰靈拳刃:風靈拳刃:黃金之錘:琵琶:女王的鞭子:妖怪的槍:加野矛:風靈之劍:獵人之弓:生存的魔杖(INT):巨大雙手劍:水紋之劍:刺殺拳刃:貝利斯塔強弩:昏迷之錘:秘拳套 閃光:十字巨劍")) 
+					{
+						case 1:  callfunc "Func_Socket",1,13001,13030,40,61,500,984,2; break;
+						case 2:  callfunc "Func_Socket",1,1257,1276,40,61,500,984,2; break;
+						case 3:  callfunc "Func_Socket",1,1258,1277,40,61,500,984,2; break;
+						case 4:  callfunc "Func_Socket",1,1256,1275,40,61,500,984,2; break;
+						case 5:  callfunc "Func_Socket",1,1259,1278,40,61,500,984,2; break;
+						case 6:  callfunc "Func_Socket",1,1524,1539,40,61,500,984,2; break;
+						case 7:  callfunc "Func_Socket",1,1918,1922,40,61,500,984,2; break;
+						case 8:  callfunc "Func_Socket",1,1970,1976,40,61,500,984,2; break;
+						case 9:  callfunc "Func_Socket",1,1477,1479,40,61,500,984,2; break;
+						case 10: callfunc "Func_Socket",1,1474,1480,40,61,500,984,2; break;
+						case 11: callfunc "Func_Socket",1,1167,1178,40,61,500,984,2; break;
+						case 12: callfunc "Func_Socket",2,1718,1726,40,61,500,984,2,999,10; break;
+						case 13: callfunc "Func_Socket",2,1619,1620,40,61,500,984,2,999,10; break;
+						case 14: callfunc "Func_Socket",2,1168,1171,40,61,800,984,5,999,10; break;
+						case 15: callfunc "Func_Socket",2,1129,1149,40,61,500,984,2,999,10; break;
+						case 16: callfunc "Func_Socket",2,1261,1266,40,61,700,984,5,999,10; break;
+						case 17: callfunc "Func_Socket",2,1722,1727,40,61,500,984,5,999,10; break;
+						case 18: callfunc "Func_Socket",2,1522,1532,40,61,700,984,2,999,10; break;
+						case 19: callfunc "Func_Socket",2,1814,1816,40,61,700,984,5,999,10; break;
+						case 20: callfunc "Func_Socket",2,1163,1172,40,61,700,984,5,999,10; break;				
+					}
+					break;
+				case 4:
+					mes "[打洞系統]";
+					mes "哇! 呃! S級! 顫抖顫抖顫抖......";
+					mes "...你要弄哪一種S級的裝備呢?";
+					next;
+					switch(select("風靈之矛:破甲短劍:龍牙劍:削刃短劍:妖短劍 泣神怨:聖錘十字星:死神之劍:剛尼爾長矛:巨毒短劍:破甲短錐:砂塵短劍:卡卡普劍:狂擊之劍:死神之鐮:生存的魔杖(DEX)")) 
+					{
+						case 1:  callfunc "Func_Socket",2,1468,1481,40,51,1000,984,5,999,10; break;
+						case 2:  callfunc "Func_Socket",2,1225,13032,40,51,1000,984,5,999,10; break;
+						case 3:  callfunc "Func_Socket",2,1166,1180,40,51,1000,984,5,999,10; break;
+						case 4:  callfunc "Func_Socket",2,1224,13031,40,51,1000,984,5,999,10; break;
+						case 5:  callfunc "Func_Socket",2,1232,13033,40,51,1000,984,5,999,10; break;
+						case 6:  callfunc "Func_Socket",2,1528,1540,40,51,1000,984,5,999,10; break;
+						case 7:  callfunc "Func_Socket",2,1169,1179,40,51,1000,984,5,999,10; break;
+						case 8:  callfunc "Func_Socket",2,1413,1418,40,51,1000,984,5,999,10; break;
+						case 9:  callfunc "Func_Socket",2,1239,13016,40,51,1000,984,5,999,10; break;
+						case 10: callfunc "Func_Socket",2,1230,13017,40,51,1000,984,5,999,10; break;
+						case 11: callfunc "Func_Socket",2,1236,13018,40,51,1000,984,5,999,10; break;
+						case 12: callfunc "Func_Socket",2,13002,13019,40,51,1000,984,5,999,10; break;
+						case 13: callfunc "Func_Socket",2,1135,13400,40,51,1000,984,5,999,10; break;
+						case 14: callfunc "Func_Socket",2,1466,1476,40,51,1000,984,5,999,10; break;					
+						case 15: callfunc "Func_Socket",2,1617,1618,40,51,2000,984,5,999,10; break;
+					}
+					break;
+			}
+		break;
+	case 2:
+		mes "[打洞系統]";
+		mes "防具嘛... 防具大概依作業的";
+		mes "難易度來區分的話，共分成";
+		mes "4級，C級是最容易的，";
+		mes "S級是最困難的，首先";
+		mes "挑選難易度水準吧";
+		next;
+		switch(select("C級:B級:A級:S級")) 
+		{
+			case 1:
+				mes "[打洞系統]";
+				mes "C級嗎? 這樣啊! 那麼希望";
+				mes "我為你服務哪一種裝備呢?";
+				next;
+				switch(select("向日葵頭飾:學士帽:紅蝶髮帶:學生帽:大衣:長大衣:頭箍:聖職之帽")) 
+				{
+					case 1: callfunc "Func_Socket",1,2253,5351,40,66,100,999,3; break;
+					case 2: callfunc "Func_Socket",1,5012,5347,40,66,100,999,3; break;
+					case 3: callfunc "Func_Socket",1,2244,5348,40,66,100,999,5; break;
+					case 4: callfunc "Func_Socket",1,5016,5349,40,66,100,999,5; break;
+					case 5: callfunc "Func_Socket",1,2307,2308,40,66,200,999,3; break;
+					case 6: callfunc "Func_Socket",1,2309,2310,40,66,200,999,3; break;
+					case 7: callfunc "Func_Socket",1,2232,2233,40,66,200,999,3; break;
+					case 8: callfunc "Func_Socket",1,2216,2217,40,66,200,999,3; break;			
+				}
+				break;
+			case 2:
+				mes "[打洞系統]";
+				mes "B級嗎? 這樣啊! 那麼希望";
+				mes "我為你服務哪一種裝備呢?";
+				next;
+				switch(select("骷髏戒指:抗魔鞋:鏡盾:鋼鐵鎖子甲:聖職之衣:絲質外袍:戰士長靴:長靴:披肩:鐵盾:圓盾:鋼盾:妖道帽")) 
+				{
+					case 1:  callfunc "Func_Socket",1,2609,2715,40,61,300,999,5; break;
+					case 2:  callfunc "Func_Socket",1,2409,2432,40,61,300,999,5; break;
+					case 3:  callfunc "Func_Socket",1,2107,2108,40,61,250,999,5; break;
+					case 4:  callfunc "Func_Socket",1,2314,2315,40,61,250,999,5; break;
+					case 5:  callfunc "Func_Socket",1,2325,2326,40,61,300,999,5; break;
+					case 6:  callfunc "Func_Socket",1,2321,2322,40,61,300,999,5; break;
+					case 7:  callfunc "Func_Socket",1,2405,2406,40,61,300,999,5; break;
+					case 8:  callfunc "Func_Socket",1,2403,2404,40,61,300,999,5; break;
+					case 9:  callfunc "Func_Socket",1,2503,2504,40,61,300,999,5; break;
+					case 10: callfunc "Func_Socket",1,2101,2102,40,61,300,999,5; break;
+					case 11: callfunc "Func_Socket",1,2103,2104,40,61,300,999,5; break;				
+					case 12: callfunc "Func_Socket",1,2105,2106,40,61,250,999,5; break;
+					case 13: callfunc "Func_Socket",1,5046,5168,40,61,250,999,5; break;
+				}
+				break;
+			case 3:
+				mes "[打洞系統]";
+				mes "A級嗎? 真棒! 那麼希望";
+				mes "我在哪一種裝備上打洞呢?";
+				next;
+				switch(select("寶石頭盔:軟呢帽:謊言紀錄本:緊身便衣:秘銀金屬鎧甲:鋼鐵鎧甲:盜賊之衣:重靴:修女的帽子:斗篷:金屬頭盔:忍服 血櫻:獸人頭盔:伯爵斗篷:神聖之帽:黃金帽:敏捷別針:殭屍帽:海盜頭巾:黑色皮革長靴")) 
+				{
+					case 1:  callfunc "Func_Socket",1,2230,2231,40,61,400,985,1; break;
+					case 2:  callfunc "Func_Socket",1,5114,5120,40,61,400,985,1; break;
+					case 3:  callfunc "Func_Socket",1,2109,2121,40,61,400,985,1; break;
+					case 4:  callfunc "Func_Socket",1,2330,2331,40,61,400,985,1; break;
+					case 5:  callfunc "Func_Socket",1,2341,2342,40,61,400,985,1; break;
+					case 6:  callfunc "Func_Socket",1,2316,2317,40,61,400,985,1; break;
+					case 7:  callfunc "Func_Socket",1,2335,2336,40,61,400,985,1; break;
+					case 8:  callfunc "Func_Socket",1,2411,2412,40,61,400,985,1; break;
+					case 9:  callfunc "Func_Socket",1,5092,5093,40,61,400,985,1; break;
+					case 10: callfunc "Func_Socket",1,2505,2506,40,61,400,985,1; break;
+					case 11: callfunc "Func_Socket",1,2228,2229,40,61,400,985,1; break;
+					case 12: callfunc "Func_Socket",1,2337,2359,40,61,400,985,1; break;
+					case 13: callfunc "Func_Socket",1,2299,5157,40,61,400,985,1; break;
+					case 14: callfunc "Func_Socket",1,2507,2525,40,61,400,985,1; break;
+					case 15: callfunc "Func_Socket",1,2251,5158,40,61,400,985,1; break;
+					case 16: callfunc "Func_Socket",1,2246,5159,40,61,400,985,1; break;
+					case 17: callfunc "Func_Socket",1,2605,2625,40,61,400,985,1; break;
+					case 18: callfunc "Func_Socket",1,2264,5167,40,61,300,985,1; break;
+					case 19: callfunc "Func_Socket",1,2287,5350,40,61,500,985,1; break;
+					case 20: callfunc "Func_Socket",1,2425,2434,40,61,500,985,1; break;
+				}
+				break;
+			case 4:
+				mes "[打洞系統]";
+				mes "哇! 呃! S級! 顫抖顫抖顫抖......";
+				mes "...你要弄哪一種S級的裝備呢?";
+				next;
+				switch(select("魔法外套:天衣月舞:大天使之盾:襯衫:三角褲:山羊頭盔:尖角發圈:骨制頭盔:海盜船長帽:王冠:后冠:人面獅身帽:創作者外袍:智力耳環:力量戒指:神射手套")) 
+				{
+					case 1:  callfunc "Func_Socket",1,2334,2372,40,51,1000,985,1; break;
+					case 2:  callfunc "Func_Socket",1,2327,2373,40,51,1000,985,1; break;
+					case 3:  callfunc "Func_Socket",1,2111,2128,40,51,1000,985,1; break;
+					case 4:  callfunc "Func_Socket",1,2522,2523,40,51,1000,985,1; break;
+					case 5:  callfunc "Func_Socket",1,2339,2371,40,51,1000,985,1; break;
+					case 6:  callfunc "Func_Socket",1,2256,5160,40,51,2000,985,2; break;
+					case 7:  callfunc "Func_Socket",1,2258,5161,40,51,2000,985,2; break;
+					case 8:  callfunc "Func_Socket",1,5017,5162,40,51,2000,985,2; break;
+					case 9:  callfunc "Func_Socket",1,5019,5163,40,51,2000,985,2; break;
+					case 10: callfunc "Func_Socket",1,2235,5165,40,51,2000,985,2; break;
+					case 11: callfunc "Func_Socket",1,2234,5164,40,51,2000,985,2; break;
+					case 12: callfunc "Func_Socket",1,5053,5166,40,51,1000,985,2; break;
+					case 13: callfunc "Func_Socket",1,2343,2360,40,51,1000,985,2; break;
+					case 14: callfunc "Func_Socket",1,2602,2622,40,51,1000,985,2; break;
+					case 15: callfunc "Func_Socket",1,2601,2621,40,51,1000,985,2; break;
+					case 16: callfunc "Func_Socket",1,2619,2671,40,51,1000,985,2; break;
+				}
+				break;
+		}
+
+	}		
+end;
+Oninit:
+	setnpcicon getnpcid(0),1001,"打洞系統";
+	waitingroom "★ 打洞系統 ★ ",0;	
+	end;
+}
+
+
+function	script	Func_Socket	{
+	mes "[打洞系統]";
+	mes getitemname(getarg(1))+"...很好! 那個的話，";
+	if (getarg(0) == 1) 
+	{
+		mes "^FF0000費用為"+getarg(5) / 10+"萬金幣，材料是"+getitemname(getarg(6))+" "+getarg(7)+"個，";
+	}
+	else if (getarg(0) == 2) 
+	{
+		mes "^FF0000費用為"+getarg(5) / 10+"萬金幣，材料是";
+		mes "^FF0000"+getitemname(getarg(6))+" "+getarg(7)+"個和"+getitemname(getarg(8))+" "+getarg(9)+"個，";
+	}
+	mes "^FF0000"+getitemname(getarg(1))+"理所當然";
+	mes "^FF0000也要準備妥當^000000";
+	next;
+	mes "[打洞系統]";
+	mes "材料和費用都帶齊了嗎?";
+	mes "還有萬一失敗時材料和裝備";
+	mes "都會消失，即使洞成功了，";
+	mes "精煉值或已插上去的卡片，";
+	mes "都會消失不見，要銘記了";
+	next;
+	if ( select("我要打洞:改下次吧") == 2 ) 
+	{
+		mes "[打洞系統]";
+		mes "那麼歡迎下次再來";
+		end;
+	}
+	switch(getarg(0)) 
+	{
+		case 1:
+			if((Zeny < getarg(5)*1000) || (countitem(getarg(6)) < getarg(7)) || (!countitem(getarg(1)))) 
+			{
+				mes "[打洞系統]";
+				mes "那個... 材有些料不足，";
+				mes "請你再確認一下吧";
+				end;
+			}
+			break;
+		case 2:
+			if((Zeny < getarg(5)*1000) || (countitem(getarg(6)) < getarg(7)) || (countitem(getarg(8)) < getarg(9)) || (!countitem(getarg(1)))) 
+			{
+				mes "[打洞系統]";
+				mes "那個... 材有些料不足，";
+				mes "請你再確認一下吧";
+				end;
+			}
+			break;
+	}
+	mes "[打洞系統]";
+	mes "那麼開始進行吧? 請你";
+	mes "祈禱能圓滿成功，呵呵";
+	next;
+	set .@socketrand,rand(1,100);
+	if ((.@socketrand > getarg(3)) && (.@socketrand < getarg(4)))
+	{
+		specialeffect EF_LORD;
+		mes "[打洞系統]";
+		mes "洞打的很漂亮呢? 恭喜你啦";
+		delitem getarg(1),1;
+		delitem getarg(6),getarg(7);
+		if(getarg(0) == 2) delitem getarg(8),getarg(9);
+		set Zeny,Zeny - getarg(5)*1000;
+		getitem getarg(2),1;
+		end;
+	}
+	else 
+	{
+		specialeffect EF_SUI_EXPLOSION;
+		delitem getarg(1),1;
+		delitem getarg(6),getarg(7);
+		if(getarg(0) == 2) delitem getarg(8),getarg(9);
+		set Zeny,Zeny - getarg(5)*1000;
+		mes "[打洞系統]";
+		mes "嗚... 拍謝喔，失敗了...";
+		end;
+	}
+	end;
+}

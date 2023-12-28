@@ -1,0 +1,655 @@
+
+
+
+//===== Description: ==============================
+//
+// 挑戰古城附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+uttycty,42,141,4	script	[附魔]挑戰古城	4_ragfes_15_m,{
+	disable_items;
+	cutin "ep16_skia_nerius01",2;
+	mes "[挑戰古城附魔]";
+	mes "我發現每當處理汙染後種會留下一些奇怪的物質及碎片。";
+	mes "[挑戰古城附魔]";
+	mes "經過我的研究下，我發現這些物品可以使某些裝備提升很多能力。";
+	mes "[挑戰古城附魔]";
+	mes "但相對的由於它的能力太強大，所以每個職業的能力也是不相同的。";
+	mes "那麼...你也想來試試看嗎？";
+	next;
+	switch(select("我想體驗附魔", "我想把附魔初始化", "我想想看...")){
+	case 1:
+		setarray .@items[0],19474,19475,19476,19477,19478,19479,19480,19481,19482,19483,19484,19485,19486,19487,19488,19489,19490,19491,19492;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_HEAD_TOP) == .@items[.@i] || getequipid(EQI_HEAD_TOP) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";
+			}
+		}
+		break;
+	case 2:
+		set .DeletreqId, 6417;
+		set .reqCountDeletion, 2;
+		set .breakRateDeletion, 70;
+		/*mes "[挑戰古城附魔]";
+		mes "為了移除附魔效果，我需要 " + .reqCountDeletion + " 個 " + getitemname(.DeletreqId) + "。";
+		mes "或是使用500,000萬的zeny，但是有" + .breakRateDeletion + "% 的機率會損毀物品。";
+		mes "最重要的是，它會移除所有的附魔，而不是一個。";
+		if(select("開始吧","我考慮一下…") == 1)
+		{
+			goto S_Disenchant;
+		}*/
+		goto S_Disenchant;
+		close3;
+		
+	case 3:
+		mes "[挑戰古城附魔]";
+		mes "等你想好再跟我說吧！。";
+		close3;
+	}
+	if(getarraysize(.@realItems) == 0)
+	{
+		next;
+		mes "[挑戰古城附魔]";
+		mes "你必須穿上它，才能讓我附魔or附魔初始化。";
+		close3;
+	}
+	
+	callsub S_EnchantArmor, .@realItems, .@typeChoice;
+	end;
+//=========物品設定結束===========
+//========移除附魔
+S_Disenchant:
+	next;
+	mes "[挑戰古城附魔]";
+	mes "你想移除所有的附魔？";
+	mes "共需要 " + .reqCountDeletion + " 個 " + getitemname(.DeletreqId) + "。";
+	mes "或是使用500,000萬的zeny，但是有 " + .breakRateDeletion + "% 的機率會損毀物品。";
+	mes "確定要繼續嗎？";
+	next;
+	if(select("是的","離開") == 1)
+	{
+		setarray .@items[0],19474,19475,19476,19477,19478,19479,19480,19481,19482,19483,19484,19485,19486,19487,19488,19489,19490,19491,19492;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_HEAD_TOP) == .@items[.@i] || getequipid(EQI_HEAD_TOP) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";
+			}
+		}
+		if(getarraysize(.@realItems) == 0)
+		{
+			mes "[挑戰古城附魔]";
+			mes "你必須穿上它才能讓我移除附魔。";
+			close3;
+		}
+		set .@selectedItem, .@realItems;
+		
+		mes "[挑戰古城附魔]";
+		mes "請選擇你要支付的選項。";
+		next;
+		set .@deletetypeChoice, select("支付" + .reqCountDeletion + " 個 " + getitemname(.DeletreqId) + "。", "500,000萬的zeny");
+		switch(.@deletetypeChoice) {
+			case 1:
+				if (countitem(.DeletreqId) < .reqCountDeletion) {
+					mes "[挑戰古城附魔]";
+					mes "對不起，你沒有足夠的材料。";
+					close3;
+				}
+				set .@zenydeletye,0;
+				break;
+			case 2:
+				if (Zeny < 500000) {
+					mes "[挑戰古城附魔]";
+					mes "對不起，你沒有足夠的金錢。";
+					close3;
+				}
+				set .@zenydeletye,1;
+				break;
+		}
+		
+		mes "[挑戰古城附魔]";
+		mes "好的，那要開始移除 " + getitemname(.@selectedItem) + " 的附魔囉，不後悔嗎？";
+		next;
+		if(select("開始吧","等一下") == 1)
+		{		
+			set .@eqislot, -1;
+			set .@eqislot, EQI_HEAD_TOP;
+			set .@cSlot3, getequipcardid(EQI_HEAD_TOP, 3);
+			if(.@eqislot == -1)
+				{
+					mes "[挑戰古城附魔]";
+					mes "你必須穿著它才能讓我移除…";
+					close3;
+				}
+			
+		if (.@cSlot3 != 0){//第4洞有東西時
+			.@card0 = getequipcardid(.@eqislot,0);
+			set .@ref_lv,getequiprefinerycnt(.@eqislot);
+			if(.@zenydeletye == 1){//判斷是不是用zeny支付
+				
+				if(rand(100) <= .breakRateDeletion)
+				{
+					specialeffect 155;
+					mes "[挑戰古城附魔]";
+					mes "太糟糕了，對不起…";
+					mes "請求的裝備沒有移除附魔成功。";
+					//break item
+					delequip .@eqislot;
+					set zeny,zeny-500000;
+					close3;
+				}
+				else
+				{
+					mes "[挑戰古城附魔]";
+					mes "成功了！你的裝備在這！";
+					
+					delequip .@eqislot;
+					set zeny,zeny-500000;
+					getitem2 .@selectedItem, 1, 1, .@ref_lv, 0, .@card0, 0, 0, 0;
+					equip .@selectedItem;
+				}
+			}
+			else{
+				mes "[挑戰古城附魔]";
+				mes "成功了！你的裝備在這！";
+				delitem .DeletreqId, .reqCountDeletion;
+				delequip .@eqislot;
+				getitem2 .@selectedItem, 1, 1, .@ref_lv, 0, .@card0, 0, 0, 0;
+				equip .@selectedItem;
+			}
+		}
+		else{
+			mes "[挑戰古城附魔]";
+			mes "您的裝備並沒有被附魔過。";
+			close3;
+		}
+
+		}
+	}
+	close3;
+//========附魔
+S_EnchantArmor:
+	.@itemid = getarg(0);
+	.@typeChoice = getarg(1);
+	next;
+	mes "[挑戰古城附魔]";
+	mes "首先，你必須知道附魔後";
+	mes "^ff5555裝備及卡片會有機率一起消失不見^000000";
+	mes "你仍然想繼續附魔嗎？";
+	next;
+	if(select("痾…讓我考慮一下", "開始吧") == 1) {
+		mes "[挑戰古城附魔]";
+		mes "好吧，這我也不能怪你，安全第一！你說是吧？";
+		mes "祝你有美好的一天！";
+		close3;
+	}
+	if(countitem(.@itemId) > 1)
+	{
+		mes "[挑戰古城附魔]";
+		mes "抱歉，同樣的裝備只能持有一件。";
+		mes "否則，附魔時可能會混淆…";
+		close3;
+	}
+	
+	//find good slot
+	set .@slot, -1;
+	if(getequipid(EQI_HEAD_TOP) == .@itemid)
+	{
+		set .@Equipslot,EQI_HEAD_TOP;
+		set .@cSlot3, getequipcardid(EQI_HEAD_TOP, 3);
+		set .@cSlot2, getequipcardid(EQI_HEAD_TOP, 2);
+		set .@cSlot1, getequipcardid(EQI_HEAD_TOP, 1);
+		
+		if (.@cSlot3 != 0 && .@cSlot2 == 0){//第4洞有東西時(附魔第三洞)
+			set .@slot3Id, .@cSlot3;//保留原本第四洞的附魔
+			set .@slot, 3;
+		}
+		else if (.@cSlot3 != 0 && .@cSlot2 != 0 && .@cSlot1 == 0 ){//第4.3洞有東西時(附魔第二洞)
+			set .@slot3Id, .@cSlot3;//保留原本第四洞的附魔
+			set .@slot2Id, .@cSlot2;//保留原本第三洞的附魔
+			set .@slot, 2;
+		}
+		else if (.@cSlot3 != 0 && .@cSlot2 != 0 && .@cSlot1 != 0 ){//第4.3.2洞有東西時(第二洞特殊附魔)
+			set .@slot3Id, .@cSlot3;//保留原本第四洞的附魔
+			set .@slot2Id, .@cSlot2;//保留原本第三洞的附魔
+			set .@slot1Id, .@cSlot1;//保留原本第二洞的附魔
+			set .@slot, 1;
+		}
+		else
+		{
+			set .@slot, 4;
+		}
+	}
+	
+	if(.@slot == -1)
+	{
+		mes "[挑戰古城附魔]";
+		mes "你的裝備已經被附魔了三次…我無法再幫它附魔。";
+		close3;
+	}
+//====檢查洞的位置結束======
+	
+OnCheck:
+	//設定需求物品
+	set .@reqId1, 25867;//時間的碎片
+	set .@reqId2, 25865;//時間的寶石
+	set .@reqId3, 25866;//時間的魔力
+	//!!
+	setarray .@success_array[0],100,60,80,80;//成功機率依序為4洞、3洞一般模式、3洞高級模式、2洞一般模式
+	setarray .@remove_array[0],0,80,30,30;//裝備消失機率依序為4洞、3洞一般模式、3洞高級模式、2洞一般模式
+	setarray .@useamount_array[0],10,20,2,2;//物品數量需求依序為4洞、3洞一般模式、3洞高級模式、2洞一般模式
+	//--特殊附魔(各別等級個別設定機率)
+	setarray .@success_special[0],100,80,70,50,20,20,20,20,20,10;//成功機率
+	setarray .@useamount_special[0],4,6,8,10,12,16,20,28,40;//特殊附魔需求物品數量
+	
+	//設定附魔物品
+	setarray .@randstone4[0],4700,4701,4702,4703,4710,4711,4712,4713,4740,4741,4742,4743,4750,4751,4752,4753;
+	setarray .@randstone3a[0],29672,29673,29674,29675,29676,29677,29678,29679,29680,29681,29682,29683,29684,29685,29686,29687,29688,29689;
+	setarray .@randstone2[0],4818,4817,4816,4843,4832,4833,4834,4835,4869,4872,4873,4881,4812,4813,4814,4815,29061,29071,29081,29091,29101,29111,29706;
+
+
+
+
+	
+	//=====================================
+	switch(.@slot)
+	{
+		case 4:
+			set .@success_rate,.@success_array[0];
+			set .@remove_rate,.@remove_array[0];
+			set .@useamount,.@useamount_array[0];
+			set .@reqId,.@reqId1;
+			break;
+		case 3:
+			mes "[挑戰古城附魔]";
+			mes "第三洞的附魔可選擇[一般模式]及[高級模式]";
+			mes "請選擇您要的模式";
+			next;
+			if(select("一般模式", "高級模式") == 1) {
+				set .@success_rate,.@success_array[1];
+				set .@remove_rate,.@remove_array[1];
+				set .@useamount,.@useamount_array[1];
+				set .@reqId,.@reqId1;
+				//----第二洞附魔物品整合
+				for(.@i=0;.@i<16;.@i++){
+					.@randstone3[.@i] = .@randstone4[.@i];
+				}
+				for(.@i=0;.@i<18;.@i++){
+					.@randstone3[.@i+16] = .@randstone3a[.@i];
+				}
+				//----第二洞附魔物品整合END
+			}
+			else{
+				set .@success_rate,.@success_array[2];
+				set .@remove_rate,.@remove_array[2];
+				set .@useamount,.@useamount_array[2];
+				set .@reqId,.@reqId2;
+					for(.@i=0;.@i<18;.@i++){
+						.@randstone3[.@i] = .@randstone3a[.@i];
+					}
+			}
+			break;
+		case 2:
+			mes "[挑戰古城附魔]";
+			mes "第二洞的附魔可選擇[一般模式]及[指定模式]";
+			mes "請選擇您要的模式";
+			next;
+			if(select("一般模式", "指定模式") == 1) {
+			set .@success_rate,.@success_array[3];
+			set .@remove_rate,.@remove_array[3];
+			set .@useamount,.@useamount_array[3];
+			set .@reqId,.@reqId3;
+			}else{
+			mes "[挑戰古城附魔]";
+			mes "需求物品：<ITEM>超時空魔力<INFO>25866</INFO></ITEM> x 10";
+			mes "可選擇以下道具。";
+			mes "<ITEM>霸氣 Lv. 1<INFO>29061</INFO></ITEM>";
+			mes "<ITEM>魔精 Lv. 1<INFO>29071</INFO></ITEM>";
+			mes "<ITEM>銳氣 Lv. 1<INFO>29081</INFO></ITEM>";
+			mes "<ITEM>精弓 Lv. 1<INFO>29091</INFO></ITEM>";
+			mes "<ITEM>金剛 Lv. 1<INFO>29101</INFO></ITEM>";
+			mes "<ITEM>博愛 Lv. 1<INFO>29111</INFO></ITEM>";
+			mes "<ITEM>不屈 Lv. 1<INFO>29706</INFO></ITEM>";
+			switch(select("霸氣 Lv. 1","魔精 Lv. 1","銳氣 Lv. 1","精弓 Lv. 1","金剛 Lv. 1","博愛 Lv. 1","不屈 Lv. 1")){
+			next;
+			case 1:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[16];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 2:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[17];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 3:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[18];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 4:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[19];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 5:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[20];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 6:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[21];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			case 7:
+				if(countitem(.@reqId3) >= 10){
+				set .@success_rate,.@success_array[0];
+				set .@remove_rate,.@remove_array[0];
+				set .@useamount,10;
+				set .@reqId,.@reqId3;
+				.@randstone2 = .@randstone2[22];
+				goto OnEnchantPerfect;
+				}else{goto ItemStoneNo;}
+			}
+			}
+			break;
+		case 1://第2洞特殊附魔
+			for(.@i=0;.@i<15;.@i++){
+				if (.@slot1Id == .@randstone2[.@i]){
+					set .@slot , -1;
+				}
+			}
+			set .@Equipover ,1;
+			setarray .@specialstone1[0],29061,29062,29063,29064,29065,29066,29067,29068,29069,29070;
+			setarray .@specialstone2[0],29071,29072,29073,29074,29075,29076,29077,29078,29079,29080;
+			setarray .@specialstone3[0],29081,29082,29083,29084,29085,29086,29087,29088,29089,29090;
+			setarray .@specialstone4[0],29091,29092,29093,29094,29095,29096,29097,29098,29099,29100;
+			setarray .@specialstone5[0],29101,29102,29103,29104,29105,29106,29107,29108,29109,29110;
+			setarray .@specialstone6[0],29111,29112,29113,29114,29115,29116,29117,29118,29119,29120;
+			setarray .@specialstone7[0],29706,29707,29708,29709,29710,29711,29712,29716,29714,29715;
+			for(.@k=0;.@k<=9;.@k++){
+				if (.@slot1Id == .@specialstone1[.@k]){
+				set .@stonetype ,1;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone2[.@k]){
+				set .@stonetype ,2;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone3[.@k]){
+				set .@stonetype ,3;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone4[.@k]){
+				set .@stonetype ,4;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone5[.@k]){
+				set .@stonetype ,5;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone6[.@k]){
+				set .@stonetype ,6;
+				set .@stonelv ,.@k;
+				}
+				if (.@slot1Id == .@specialstone7[.@k]){
+				set .@stonetype ,7;
+				set .@stonelv ,.@k;
+				}
+			}
+			set .@success_rate,.@success_special[.@stonelv];
+			set .@specialuseamount,.@useamount_special[.@stonelv];
+			set .@reqId,.@reqId3;
+			set .@newstonelv,.@stonelv+1;
+			if(.@slot == -1 || .@stonelv >= 9)
+			{
+				mes "[挑戰古城附魔]";
+				mes "你的裝備已經達到極限，我無法再幫它繼續強化了。";
+				close3;
+			}
+			break;
+	}
+	
+	goto OnEnchantMain;
+OnEnchantPerfect:
+		mes "[挑戰古城附魔]";
+		mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+		mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@useamount+"";
+		mes "成功機率：^888888"+.@success_rate+"%^000000";
+		mes "選擇的洞數位置：^FF0000第"+.@slot+"洞^000000";
+		next;
+		if(select("確定:取消")==2) close3;
+		if((countitem(.@reqId) < .@useamount) ) {
+			mes "[挑戰古城附魔]";
+			mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+			close3;
+		}else{
+
+			delitem .@reqId,.@useamount;//移除物品
+			
+			if(rand(100) > .@success_rate) {
+				set .@rand, rand(100);
+				if(.@rand <= .@remove_rate ) {
+					delequip .@Equipslot;
+					specialeffect2 EF_PHARMACY_FAIL;
+					dispbottom "附魔失敗…裝備銷毀！";
+				}
+				else{
+					specialeffect2 EF_REPAIRWEAPON;
+					dispbottom "附魔失敗…什麼事也沒有發生。";
+				}
+			}else{
+				
+				specialeffect2 EF_PHARMACY_OK;
+				set .@card_id1,getequipcardid(.@Equipslot,0);//保留第一洞的卡片
+				set .@stone,.@randstone2;
+				set .@card_id2,.@stone;
+				set .@card_id3,getequipcardid(.@Equipslot,2);
+				set .@card_id4,getequipcardid(.@Equipslot,3);
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				equip .@itemid;
+				dispbottom "附魔成功！";
+				close3;
+				}
+				}
+OnEnchantMain:
+	if (.@Equipover == 1){
+			mes "[挑戰古城附魔]";
+			mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+			mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@specialuseamount+"^000000 ";
+			mes "成功機率：^888888"+.@success_rate+"%^000000";
+			mes "選擇的洞數位置：^FF0000第2洞^000000";
+			mes "原先附魔等級為：^FF8800"+(.@stonelv+1)+"^000000";
+			mes "升級後附魔等級為：^FF8800"+(.@stonelv+2)+"^000000";
+			next;
+				if(select("確定:取消")==2) close3;
+				if((countitem(.@reqId) < .@specialuseamount) ) {
+				mes "[神秘的考古員]";
+				mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+				close3;
+			}
+
+			delitem .@reqId,.@specialuseamount;//移除物品
+			
+			
+			if(rand(100) > .@success_rate) {//失敗
+			switch(.@stonetype)
+			{
+			if (.@newstonelv == 1){set .@newstonelv,2;}
+				case 1:
+				set .@randnewstone,.@specialstone1[.@newstonelv-2];
+				break;
+				case 2:
+				set .@randnewstone,.@specialstone2[.@newstonelv-2];
+				break;
+				case 3:
+				set .@randnewstone,.@specialstone3[.@newstonelv-2];
+				break;
+				case 4:
+				set .@randnewstone,.@specialstone4[.@newstonelv-2];
+				break;
+				case 5:
+				set .@randnewstone,.@specialstone5[.@newstonelv-2];
+				break;
+				case 6:
+				set .@randnewstone,.@specialstone6[.@newstonelv-2];
+				break;
+				case 7:
+				set .@randnewstone,.@specialstone7[.@newstonelv-2];
+				break;
+			}
+				if (.@randnewstone <=0 ){set .@randnewstone,0;}
+				set .@card_id1,getequipcardid(.@Equipslot,0);
+				set .@card_id2,.@randnewstone;
+				set .@card_id3,getequipcardid(.@Equipslot,2);
+				set .@card_id4,getequipcardid(.@Equipslot,3);
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				equip .@itemid;
+				specialeffect2 EF_PHARMACY_FAIL;
+				dispbottom "附魔失敗…第二洞退回前一級！";
+			}else{
+			switch(.@stonetype)
+			{
+				case 1:
+				set .@randnewstone,.@specialstone1[.@newstonelv];
+				break;
+				case 2:
+				set .@randnewstone,.@specialstone2[.@newstonelv];
+				break;
+				case 3:
+				set .@randnewstone,.@specialstone3[.@newstonelv];
+				break;
+				case 4:
+				set .@randnewstone,.@specialstone4[.@newstonelv];
+				break;
+				case 5:
+				set .@randnewstone,.@specialstone5[.@newstonelv];
+				break;
+				case 6:
+				set .@randnewstone,.@specialstone6[.@newstonelv];
+				break;
+				case 7:
+				set .@randnewstone,.@specialstone7[.@newstonelv];
+				break;
+			}
+				specialeffect2 EF_PHARMACY_OK;
+				set .@card_id1,getequipcardid(.@Equipslot,0);
+				set .@card_id2,.@randnewstone;
+				set .@card_id3,getequipcardid(.@Equipslot,2);
+				set .@card_id4,getequipcardid(.@Equipslot,3);
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				equip .@itemid;
+				dispbottom "附魔成功！";
+			}
+		}
+	else{
+		mes "[挑戰古城附魔]";
+		mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+		mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@useamount+"";
+		mes "成功機率：^888888"+.@success_rate+"%^000000";
+		mes "選擇的洞數位置：^FF0000第"+.@slot+"洞^000000";
+		next;
+		if(select("確定:取消")==2) close3;
+		if((countitem(.@reqId) < .@useamount) ) {
+			mes "[挑戰古城附魔]";
+			mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+			close3;
+		}else{
+
+			delitem .@reqId,.@useamount;//移除物品
+			
+			if(rand(100) > .@success_rate) {
+				set .@rand, rand(100);
+				if(.@rand <= .@remove_rate ) {
+					delequip .@Equipslot;
+					specialeffect2 EF_PHARMACY_FAIL;
+					dispbottom "附魔失敗…裝備銷毀！";
+				}
+				else{
+					specialeffect2 EF_REPAIRWEAPON;
+					dispbottom "附魔失敗…什麼事也沒有發生。";
+				}
+			}else{
+				
+				specialeffect2 EF_PHARMACY_OK;
+				set .@card_id1,getequipcardid(.@Equipslot,0);//保留第一洞的卡片
+				if(.@slot == 4){//附魔第4洞
+					set .@stone,.@randstone4[rand(getarraysize(.@randstone4))];
+					set .@card_id2,getequipcardid(.@Equipslot,1);
+					set .@card_id3,getequipcardid(.@Equipslot,2);
+					set .@card_id4,.@stone;
+				}
+				else if(.@slot == 3){//附魔第3洞
+					set .@stone,.@randstone3[rand(getarraysize(.@randstone3))];
+					set .@card_id2,getequipcardid(.@Equipslot,1);
+					set .@card_id3,.@stone;
+					set .@card_id4,getequipcardid(.@Equipslot,3);
+				}
+				else{
+					set .@stone,.@randstone2[rand(getarraysize(.@randstone2))];
+					set .@card_id2,.@stone;
+					set .@card_id3,getequipcardid(.@Equipslot,2);
+					set .@card_id4,getequipcardid(.@Equipslot,3);
+				}
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				equip .@itemid;
+				dispbottom "附魔成功！";
+				close3;
+			}
+		}
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]挑戰古城";
+	waitingroom "[附魔]挑戰古城",0;
+	end;
+ItemStoneNo:
+		mes "[挑戰古城附魔]";
+		mes "對不起，你沒有足夠的材料。";
+		close3;
+	
+}
+
+

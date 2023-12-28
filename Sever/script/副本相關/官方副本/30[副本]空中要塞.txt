@@ -1,0 +1,1200 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+1@sthb	mapflag	noteleport
+1@sthb	mapflag	nosave	SavePoint
+1@sthb	mapflag	nomemo
+1@sthb	mapflag	nobranch
+1@sthb	mapflag	noicewall
+1@sthb	mapflag	restricted	6
+1@sthb	mapflag	monster_noteleport
+1@sthb	mapflag	partylock
+1@sthb	mapflag	novending
+1@sthb	mapflag	nochat
+
+1@sthc	mapflag	noteleport
+1@sthc	mapflag	nosave	SavePoint
+1@sthc	mapflag	nomemo
+1@sthc	mapflag	nobranch
+1@sthc	mapflag	noicewall
+1@sthc	mapflag	restricted	6
+1@sthc	mapflag	monster_noteleport
+1@sthc	mapflag	partylock
+1@sthc	mapflag	novending
+1@sthc	mapflag	nochat
+
+1@sthd	mapflag	noteleport
+1@sthd	mapflag	nosave	SavePoint
+1@sthd	mapflag	nomemo
+1@sthd	mapflag	nobranch
+1@sthd	mapflag	noicewall
+1@sthd	mapflag	restricted	6
+1@sthd	mapflag	monster_noteleport
+1@sthd	mapflag	partylock
+1@sthd	mapflag	novending
+1@sthd	mapflag	nochat
+
+
+amatsu,108,133,5	script	[副本]空中要塞	865,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "空中要塞";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 30;
+
+//
+	waitingroom "[副本]空中要塞",0;
+	setnpcicon getnpcid(0),22,"[副本]空中要塞";
+	end;
+}
+
+
+// Warps
+1@sthb,73,71,0	warp2	#sthd_move_01_01	1,1,1@sthb,73,84
+1@sthb,93,77,0	warp2	#sthd_move_02_01	2,2,1@sthb,210,96
+1@sthb,190,54,0	warp2	#sthd_move_02_02	2,2,1@sthd,103,71
+
+// Event 1 entrance
+1@sthb,64,67,4	script	歐內斯特．斯特凡．傑克#sthd_01	4_AS_RAGGED_GOLEM,{ end; }
+1@sthb,64,67,4	script	歐內斯特．斯特凡．傑克#sthd_02	4_AS_RAGGED_GOLEM,{ end; }
+
+1@sthb,56,71,0	script	#sthd_event_1	HIDDEN_WARP_NPC,4,4,{
+	end;
+OnTouch:
+	if ('sky_status == 0) {
+		'sky_status = 1;
+		.@stefan$ = instance_npcname("歐內斯特．斯特凡．傑克#sthd_01");
+		unittalk getcharid(3), "" + strcharinfo(0) + " : 這裡就是入侵普隆德拉怪物們的源頭..空中要塞的內部嗎?？";
+		sleep2 4000;
+		cutin "stephan_j_e_w.bmp",2;
+		npctalk "魔狼： 有...入侵者...空中要塞..", .@stefan$;
+		specialeffect2 EF_LOCKON;
+		sleep2 2000;
+		npctalk "傑克： 趕快阻止入侵者...對我..畢尤是..", .@stefan$;
+		sleep2 2000;
+		unittalk getcharid(3), "" + strcharinfo(0) + " : 那個龐然大物..到底是甚麼？";
+		sleep2 200;
+		npctalk "歐內斯特： 小不點...人類...給我...滾開！", .@stefan$;
+		sleep2 1800;
+		cutin "",255;
+		specialeffect2 EF_LOCKON;
+		monster 'sthb_map$,64,67, "歐內斯特．斯特凡．傑克",3484,1, instance_npcname("#sthd_event_2") + "::OnMobDead";	// AS_D_RAGGED_GOLEM
+		'boss_id = $@mobid[0];
+		donpcevent instance_npcname("#sthd_event_2") + "::OnStefanHp";
+		disablenpc instance_npcname("#sthd_event_1");
+		disablenpc .@stefan$;
+	}
+	end;
+}
+
+// 1@sthb,68,65,0	script	#sthd_event_2	HIDDEN_WARP_NPC,{	// official coord
+1@sthb,1,1,0	script	#sthd_event_2	HIDDEN_WARP_NPC,{
+	end;
+OnStefanHp:
+	enablenpc instance_npcname("#sthd_event_2");
+	initnpctimer;
+	end;
+OnTimer1000:
+	getunitdata 'boss_id, .@data;
+	if ((.@data[UMOB_MAXHP] - .@data[UMOB_HP]) < (.@data[UMOB_MAXHP] / 10))	// lower than 90% hpmax ? 90% of 20M hp
+		initnpctimer;
+	else {
+		stopnpctimer;
+		killmonster 'sthb_map$, instance_npcname("#sthd_event_2") + "::OnMobDead";
+		donpcevent instance_npcname("#sthd_event_3") + "::OnEvent";
+		disablenpc instance_npcname("#sthd_event_2");
+	}
+	end;
+OnMobDead:
+	stopnpctimer;
+	donpcevent instance_npcname("#sthd_event_3") + "::OnEvent";
+	disablenpc instance_npcname("#sthd_event_2");
+	getmapxy(.@m$,'passx,'passy,BL_PC);
+	donpcevent instance_npcname("副本寶箱#1@sthd")+"::OnEnable";
+	'ClearInatance = 1;
+	end;
+}
+
+//寶箱
+1@sthd,0,0,0	script	副本寶箱#1@sthd	obj_a2,{
+	if ( !is_party_leader() )
+	{
+		showscript "請隊長與我領取獎勵。",getcharid(3),SELF;
+		end;
+	}
+	if ( !'ClearInatance ){
+		message strcharinfo(0),"遊戲提示 : 副本尚未完成!";
+		end;
+	}
+	Instance_PassAnnounce;	
+	Get_Instance_Prize('map_reward$,'party_id);
+	'Rewards++;
+	if ( 'Rewards >= 'partymembercount )
+		disablenpc instance_npcname(strnpcinfo(0));
+	getitem 940030,10;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@sthd");
+	end;
+}
+
+
+
+1@sthb,1,1,0	script	#sthd_event_3	HIDDEN_WARP_NPC,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("#sthd_event_3");
+	specialeffect EF_FLASHER;
+	initnpctimer;
+	end;
+OnTimer1500:
+	enablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_01");
+	end;
+OnTimer2500:
+	npctalk "斯凡特： 嗚嗚...嗚嗚...", instance_npcname("歐內斯特．斯特凡．傑克#sthd_01");
+	end;
+OnTimer4000:
+	npctalk "歐內斯特： 嗚..真是令人討厭的...臭蟲...", instance_npcname("歐內斯特．斯特凡．傑克#sthd_01");
+	mapannounce 'sthb_map$, "歐內斯特．斯特凡．傑克： 守衛......天空要塞......不朽......眾生......", bc_map,0xEBFF;
+	donpcevent instance_npcname("#sthd_event_4") + "::OnStart";
+	end;
+OnTimer5000:
+	disablenpc instance_npcname("#sthd_event_3");
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_01");
+	stopnpctimer;
+	end;
+}
+
+// official npc, overlap #sthd_event_1 range : the killer directly trigger the next event for now
+// 1@sthb,64,67,0	script	#Stefan_Action1	HIDDEN_WARP_NPC,8,8,{ end; }
+
+// 1@sthb,68,67,0	script	#sthd_event_4	HIDDEN_WARP_NPC,{	// official coord
+1@sthb,1,1,0	script	#sthd_event_4	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#sthd_event_4");
+	callsub S_Spawn;
+OnMobDead:
+	if (mobcount( 'sthb_map$, instance_npcname("#sthd_event_4") + "::OnMobDead" ) > 0)
+		end;
+	'sky_status++;
+	switch( 'sky_status ) {
+	case 2:
+		callsub S_Spawn;
+	case 3:
+		monster 'sthb_map$,56,79,"空中要塞鑰匙保管者",3478,1, instance_npcname("#sthd_event_4") + "::OnMobDead";	// AS_ZOMBIE_SLAUGHTER
+		callsub S_Spawn;
+	case 4:
+		// enablenpc instance_npcname("#Stefan_Action1");
+		enablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_02");
+		disablenpc instance_npcname("#sthd_event_4");
+		break;
+	}
+	// disablenpc instance_npcname("#Stefan_Action1");
+	sleep2 2000;
+	cutin "stephan_j_e_w.bmp",2;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 看來那個巨怪扮演空中要塞的重要角色。";
+	sleep2 2000;
+	npctalk "魔狼： 要塞的全部手下...去阻止入侵者....---畢尤的...命令...", instance_npcname("歐內斯特．斯特凡．傑克#sthd_02");
+	specialeffect2 EF_LOCKON;
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 這裡到底發生了什麼？";
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 先上去看看吧！一定能發現甚麼！";
+	sleep2 2000;
+	specialeffect2 EF_LOCKON;
+	sleep2 1000;
+	specialeffect EF_BAKU,AREA, instance_npcname("歐內斯特．斯特凡．傑克#sthd_02");
+	cutin "",255;
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_02");
+	for ( .@i = 1; .@i <= 6; .@i++ ) {
+		enablenpc instance_npcname("未開啟的傳點#sthd_mov_" + .@i);
+		enablenpc instance_npcname("#sthd_move_back_a_" + .@i);
+	}
+	enablenpc instance_npcname("#sthd_move_01_01");
+	enablenpc instance_npcname("#sthd_move_02_01");
+	enablenpc instance_npcname("#sthd_move_02_02");
+	enablenpc instance_npcname("#chest_spawn");
+
+	enablenpc instance_npcname("#Stefan_Action2");	// 2nd map
+	enablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_03");
+
+	// Mobs spots
+	for ( .@i = 5; .@i <= 18; .@i++ )
+		enablenpc instance_npcname("#sthd_event_" + .@i);
+
+	// Room Shuffle
+	donpcevent instance_npcname("#sthd_key_control") + "::OnShuffle";
+	end;
+S_Spawn:
+	.@label$ = instance_npcname("#sthd_event_4") + "::OnMobDead";
+	monster 'sthb_map$,48,75,"不死腐屍士兵",3476,1, .@label$;// AS_ZOMBIE
+	monster 'sthb_map$,56,75,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,63,74,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,63,67,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,63,61,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,56,60,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,48,60,"不死腐屍士兵",3476,1, .@label$;
+	monster 'sthb_map$,48,67,"不死腐屍士兵",3476,1, .@label$;
+	end;
+}
+
+// Shuffle warp room
+1@sthb,68,80,0	script	#sthd_key_control	HIDDEN_WARP_NPC,{
+	end;
+OnShuffle:
+	setarray .@index[0],0,1,2,3,4,5;
+	.@size = 6;
+
+	for ( .@i = 0; .@i < 6; .@i++ ) {
+		.@r = rand(.@size);
+		'room_in_coord[.@i] = .@index[.@r] * 2;	// index warp in
+		'room_back_coord[ .@index[.@r] ] = .@i * 2;	// index warp out
+		.@index[.@r] = .@index[ .@size - 1 ];
+		.@size--;
+	}
+	end;
+}
+
+// Warp outside
+1@sthc,66,88,0	script	#sthd_move_back_a_1	WARPNPC,2,2,{
+	end;
+OnTouch:
+	setarray .@coord[0],
+		 39,85,	// Activated Warp#sthd_mov_1
+		 83,95,	// Activated Warp#sthd_mov_2
+		 28,39,	// Activated Warp#sthd_mov_3
+		210,79,	// Activated Warp#sthd_mov_4
+		143,87,	// Activated Warp#sthd_mov_5
+		179,47;	// Activated Warp#sthd_mov_6
+	.@room_num = atoi( replacestr( strnpcinfo(2), "sthd_move_back_a_", "" ) ) - 1;
+	warp 'sthb_map$, .@coord[ 'room_back_coord[.@room_num] ], .@coord[ 'room_back_coord[.@room_num]+1 ];
+	end;
+}
+
+1@sthc,116,88,0	duplicate(#sthd_move_back_a_1)	#sthd_move_back_a_2	WARPNPC,2,2
+1@sthc,16,6,0	duplicate(#sthd_move_back_a_1)	#sthd_move_back_a_3	WARPNPC,2,2
+1@sthc,115,6,0	duplicate(#sthd_move_back_a_1)	#sthd_move_back_a_4	WARPNPC,2,2
+1@sthc,66,6,0	duplicate(#sthd_move_back_a_1)	#sthd_move_back_a_5	WARPNPC,2,2
+1@sthc,15,88,0	duplicate(#sthd_move_back_a_1)	#sthd_move_back_a_6	WARPNPC,2,2
+
+// Warp entrance
+1@sthb,34,86,1	script	開啟的傳點#sthd_mov_1	1_SHADOW_NPC,{
+	if (select( "不開啟傳點", "開啟傳點" ) == 1) {
+		mes "- 傳送點正在發出黑光閃耀。  -";
+		close;
+	}
+	mes "- 黑色的光線正在扭曲。 -";
+	close2;
+	setarray .@coord[0],
+		 66,96,	// #sthd_move_back_a_1, #sthd_event_13
+		116,96,	// #sthd_move_back_a_2, #sthd_event_14
+		 16,13,	// #sthd_move_back_a_3, #sthd_event_18, 不死的風魔巫師
+		115,14,	// #sthd_move_back_a_4, #sthd_event_15
+		 66,14,	// #sthd_move_back_a_5, #sthd_event_16
+		 15,96;	// #sthd_move_back_a_6, #sthd_event_17, 不死的詛咒騎士
+
+	.@room_num = atoi( replacestr( strnpcinfo(2), "sthd_mov_", "" ) ) - 1;
+	warp 'sthc_map$, .@coord[ 'room_in_coord[.@room_num] ], .@coord[ 'room_in_coord[.@room_num] + 1 ];
+	end;
+}
+
+1@sthb,84,99,1	duplicate(開啟的傳點#sthd_mov_1)	開啟的傳點#sthd_mov_2	1_SHADOW_NPC
+1@sthb,24,40,1	duplicate(開啟的傳點#sthd_mov_1)	開啟的傳點#sthd_mov_3	1_SHADOW_NPC
+1@sthb,206,80,1	duplicate(開啟的傳點#sthd_mov_1)	開啟的傳點#sthd_mov_4	1_SHADOW_NPC
+1@sthb,147,86,1	duplicate(開啟的傳點#sthd_mov_1)	開啟的傳點#sthd_mov_5	1_SHADOW_NPC
+1@sthb,179,51,1	duplicate(開啟的傳點#sthd_mov_1)	開啟的傳點#sthd_mov_6	1_SHADOW_NPC
+
+1@sthb,34,85,1	script	未開啟的傳點#sthd_mov_1	4_ENERGY_WHITE,{
+	if (select( "不開啟傳點", "開啟傳點" ) == 1) {
+		mes "- 你看到一扇封閉的門 -";
+		close;
+	}
+	if (countitem(6960) < 1) {
+		mes "- 要打開這個傳送點 -";
+		mes "- 你需要空中要塞的鑰匙。 -";
+		close;
+	}
+	delitem 6960,1;
+	mes "- 傳送點成功的 -";
+	mes "- 開啟了 -";
+	mes "- 陰沉的傳送點 -";
+	mes "- 發出黑光後 -";
+	mes "- 出現了。 -";
+	disablenpc instance_npcname( strnpcinfo(0) );
+	enablenpc instance_npcname("開啟的傳點#" + strnpcinfo(2));
+	close;
+}
+
+1@sthb,83,99,1	duplicate(未開啟的傳點#sthd_mov_1)	未開啟的傳點#sthd_mov_2	4_ENERGY_WHITE
+1@sthb,24,39,1	duplicate(未開啟的傳點#sthd_mov_1)	未開啟的傳點#sthd_mov_3	4_ENERGY_WHITE
+1@sthb,206,79,1	duplicate(未開啟的傳點#sthd_mov_1)	未開啟的傳點#sthd_mov_4	4_ENERGY_WHITE
+1@sthb,147,87,1	duplicate(未開啟的傳點#sthd_mov_1)	未開啟的傳點#sthd_mov_5	4_ENERGY_WHITE
+1@sthb,178,51,1	duplicate(未開啟的傳點#sthd_mov_1)	未開啟的傳點#sthd_mov_6	4_ENERGY_WHITE
+
+// Rooms
+1@sthc,66,94,0	script	#sthd_event_13	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnTreasure1";
+	monster 'sthc_map$,62,108,"要塞的惡夢之影",3481,1, .@label$;// AS_EVIL_SHADOW1
+	monster 'sthc_map$,70,108,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,70,101,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,66,115,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,70,116,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,69,127,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,64,132,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,61,127,"要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,62,116,"要塞的惡夢之影",3481,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_13");
+	end;
+}
+
+1@sthc,116,94,0	script	#sthd_event_14	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnTreasure2";
+	monster 'sthc_map$,112,101, "要塞的憤怒之影#1",3482,1, .@label$;// AS_EVIL_SHADOW2
+	monster 'sthc_map$,120,101, "要塞的憤怒之影#2",3482,1, .@label$;
+	monster 'sthc_map$,119,110, "要塞的憤怒之影#4",3482,1, .@label$;
+	monster 'sthc_map$,115,115, "要塞的憤怒之影#1",3482,1, .@label$;
+	monster 'sthc_map$,114,128, "要塞的憤怒之影#9",3482,1, .@label$;
+	monster 'sthc_map$,112,110, "要塞的憤怒之影#3",3482,1, .@label$;
+	monster 'sthc_map$,118,120, "要塞的憤怒之影#6",3482,1, .@label$;
+	monster 'sthc_map$,110,130, "要塞的憤怒之影#7",3482,1, .@label$;
+	monster 'sthc_map$,114,122, "要塞的憤怒之影#5",3482,1, .@label$;
+	monster 'sthc_map$,116,125, "要塞的憤怒之影#8",3482,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_14");
+	end;
+}
+
+1@sthc,115,12,0	script	#sthd_event_15	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnTreasure3";
+	monster 'sthc_map$,120,27, "要塞的惡夢之影",3481,1, .@label$;// AS_EVIL_SHADOW1
+	monster 'sthc_map$,120,19, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,111,27, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,115,33, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,111,36, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,111,45, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,114,49, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,119,36, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,119,45, "要塞的惡夢之影",3481,1, .@label$;
+	monster 'sthc_map$,116,18, "要塞的惡夢之影",3481,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_15");
+	end;
+}
+
+1@sthc,66,12,0	script	#sthd_event_16	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnTreasure4";
+	monster 'sthc_map$,70,18, "要塞的憤怒之影#2",3482,1, .@label$;// AS_EVIL_SHADOW2
+	monster 'sthc_map$,61,18, "要塞的憤怒之影#1",3482,1, .@label$;
+	monster 'sthc_map$,65,34, "要塞的憤怒之影#1",3482,1, .@label$;
+	monster 'sthc_map$,62,38, "要塞的憤怒之影#5",3482,1, .@label$;
+	monster 'sthc_map$,69,37, "要塞的憤怒之影#6",3482,1, .@label$;
+	monster 'sthc_map$,72,29, "要塞的憤怒之影#4",3482,1, .@label$;
+	monster 'sthc_map$,69,47, "要塞的憤怒之影#8",3482,1, .@label$;
+	monster 'sthc_map$,62,47, "要塞的憤怒之影#7",3482,1, .@label$;
+	monster 'sthc_map$,61,30, "要塞的憤怒之影#3",3482,1, .@label$;
+	monster 'sthc_map$,64,50, "要塞的憤怒之影#9",3482,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_16");
+	end;
+}
+
+1@sthc,15,94,0	script	#sthd_event_17	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnTreasureB";
+	monster 'sthc_map$,19,106, "要塞的詛咒之影#2",3483,1, .@label$;// AS_EVIL_SHADOW3
+	monster 'sthc_map$,12,105, "要塞的詛咒之影#1",3483,1, .@label$;
+	monster 'sthc_map$,14,115, "要塞的詛咒之影#3",3483,1, .@label$;
+	monster 'sthc_map$,19,119, "要塞的詛咒之影#4",3483,1, .@label$;
+	monster 'sthc_map$,13,116, "要塞的詛咒之影#3",3483,1, .@label$;
+	monster 'sthc_map$,18,127, "要塞的詛咒之影#6",3483,1, .@label$;
+	monster 'sthc_map$,19,128, "要塞的詛咒之影#6",3483,1, .@label$;
+	monster 'sthc_map$,12,126, "要塞的詛咒之影#5",3483,1, .@label$;
+	monster 'sthc_map$,20,119, "要塞的詛咒之影#4",3483,1, .@label$;
+	monster 'sthc_map$,11,127, "要塞的詛咒之影#5",3483,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_17");
+	end;
+}
+
+1@sthc,16,11,0	script	#sthd_event_18	HIDDEN_WARP_NPC,2,2,{
+	end;
+OnTouch:
+	.@label$ = instance_npcname("#chest_spawn") + "::OnWindGhostRoom";
+	monster 'sthc_map$,19,21, "要塞的詛咒之影#2",3483,1, .@label$;// AS_EVIL_SHADOW3
+	monster 'sthc_map$,12,21, "要塞的詛咒之影#1",3483,1, .@label$;
+	monster 'sthc_map$,11,30, "要塞的詛咒之影#3",3483,1, .@label$;
+	monster 'sthc_map$,10,31, "要塞的詛咒之影#3",3483,1, .@label$;
+	monster 'sthc_map$,16,38, "要塞的詛咒之影#5",3483,1, .@label$;
+	monster 'sthc_map$,15,38, "要塞的詛咒之影#5",3483,1, .@label$;
+	monster 'sthc_map$,15,45, "要塞的詛咒之影#6",3483,1, .@label$;
+	monster 'sthc_map$,14,45, "要塞的詛咒之影#6",3483,1, .@label$;
+	monster 'sthc_map$,19,31, "要塞的詛咒之影#4",3483,1, .@label$;
+	monster 'sthc_map$,19,32, "要塞的詛咒之影#4",3483,1, .@label$;
+	disablenpc instance_npcname("#sthd_event_18");
+	end;
+}
+
+1@sthc,1,1,0	script	#chest_spawn	HIDDEN_WARP_NPC,{
+	end;
+OnTreasure1: callsub( S_Treasure,1 );
+OnTreasure2: callsub( S_Treasure,2 );
+OnTreasure3: callsub( S_Treasure,3 );
+OnTreasure4: callsub( S_Treasure,4 );
+S_Treasure:
+	.@num = getarg(0);
+	if (mobcount( 'sthc_map$, instance_npcname("#chest_spawn") + "::OnTreasure" + .@num ) < 1)
+		enablenpc instance_npcname("空中要塞黃金寶藏#" + .@num);
+	end;
+OnTreasureB:
+	if (mobcount( 'sthc_map$, instance_npcname("#chest_spawn") + "::OnTreasureB" ) < 1)
+		enablenpc instance_npcname("空中要塞黃金寶藏 B");
+	end;
+OnKnightB:
+	if (mobcount( 'sthc_map$, instance_npcname("#chest_spawn") + "::OnKnightB" ) < 1)
+		mapannounce 'sthc_map$, "歐內斯特．斯特凡．傑克： 倒下... 不死的詛咒騎士... 悲傷... 殺了他... 入侵者...", bc_map,0xEBFF;
+	end;
+OnWindGhostRoom:
+	if (mobcount( 'sthc_map$, instance_npcname("#chest_spawn") + "::OnWindGhostRoom" ) < 1)
+		enablenpc instance_npcname("實驗中的風魔巫師");
+	end;
+OnWindDead:
+	if (mobcount( 'sthc_map$, instance_npcname("#chest_spawn") + "::OnWindDead" ) < 1)
+		mapannounce 'sthc_map$, "歐內斯特．斯特凡．傑克： 實驗... 變得強大... 不死的風魔巫師...以及死亡...全部都去死...", bc_map,0xEBFF;
+	end;
+}
+
+// Chest
+1@sthc,66,137,4	script	空中要塞黃金寶藏#1	4_TREASURE_BOX,{
+	mes "- 你找到了一個華麗的珍貴箱子 -";
+	next;
+	if (select( "打開箱子。", "不要打開箱子" ) == 2) {
+		mes "- 如果你打開盒子， -";
+		mes "- 一定會有一些好的物品。 -";
+		close;
+	}
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "- 非隊長的人無法開啟這個寶相 -";
+		close;
+	}
+	donpcevent instance_npcname( strnpcinfo(0) ) + "::OnBar";
+	sleep2 3000;
+	specialeffect EF_ENHANCE;
+	mes "- 在華麗寶箱內 -";
+	if (rand(100) < 50) {// Inaccurate / maybe more rewards
+		getitem 985,1;
+		mes "- 你找到了  鋁 -";
+	}
+	else {
+		getitem 984,1;
+		mes "- 你找到了 神之金屬 -";
+	}
+	disablenpc instance_npcname( strnpcinfo(0) );
+	close;
+OnBar:
+	progressbar_npc "000000",3;
+	end;
+}
+
+1@sthc,116,137,4	duplicate(空中要塞黃金寶藏#1)	空中要塞黃金寶藏#2	4_TREASURE_BOX
+1@sthc,116,55,4	duplicate(空中要塞黃金寶藏#1)	空中要塞黃金寶藏#3	4_TREASURE_BOX
+1@sthc,66,55,4	duplicate(空中要塞黃金寶藏#1)	空中要塞黃金寶藏#4	4_TREASURE_BOX
+
+// Cursed Knight
+1@sthc,16,132,4	script	空中要塞黃金寶藏 B	CLEAR_NPC,{
+	mes "- 你找到了一個華麗的珍貴箱子 -";
+	next;
+	if (select( "打開箱子。", "不要打開箱子" ) == 2) {
+		mes "- 如果你打開盒子， -";
+		mes "- 一定會有一些好的物品。 -";
+		close;
+	}
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "- 非隊長的人無法開啟這個寶相 -";
+		close;
+	}
+	mes "- 華麗的珍貴箱子被打開了 -";
+	mes "- 眼前突然閃耀了一下 -";
+	specialeffect EF_SILENT_BREEZE;
+	specialeffect EF_LOCKON;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 你可能碰觸到了錯誤的機關...";
+	disablenpc instance_npcname("空中要塞黃金寶藏 B");
+	donpcevent instance_npcname("不死的詛咒騎士#") + "::OnEvent";
+	close;
+}
+
+1@sthc,16,129,4	script	不死的詛咒騎士#	4_AS_BLOODY_KNIGHT,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("不死的詛咒騎士#");
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "不死的詛咒騎士: 什麼樣的入侵者試圖喚醒我...";
+	end;
+OnTimer4000:
+	npctalk "不死的詛咒騎士: 小矮人在堡壘裡垂涎寶藏的厄運......";
+	end;
+OnTimer6000:
+	disablenpc instance_npcname("不死的詛咒騎士#");
+	monster 'sthc_map$,16,129,"不死的詛咒騎士",3474,1, instance_npcname("#chest_spawn") + "::OnKnightB";	// AS_BLOODY_KNIGHT
+	stopnpctimer;
+	end;
+}
+
+// Wind Ghost
+1@sthc,16,54,4	script	實驗中的風魔巫師	CLEAR_NPC,{
+	if (select( "檢查試管。", "不要檢查試管。" ) == 2) {
+		mes "- 我確信有一些非常可怕的東西。 -";
+		close;
+	}
+	if (getpartyleader(getcharid(1),2) != getcharid(0)) {
+		mes "- 除隊長以外的人似乎無法操作試管。 -";
+		close;
+	}
+	mes "- 這個試管正在打開 -";
+	mes "- 突然有東西-";
+	mes "- 出現在前面。 -";
+	specialeffect EF_SILENT_BREEZE;
+	specialeffect EF_LOCKON;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 什麼......這是什麼？";
+	donpcevent instance_npcname("不死的風魔巫師#01") + "::OnEvent";
+	disablenpc instance_npcname("實驗中的風魔巫師");
+	close;
+}
+
+1@sthc,15,49,4	script	不死的風魔巫師#01	4_AS_WIND_GHOST,{
+	end;
+OnEvent:
+	enablenpc instance_npcname("不死的風魔巫師#01");
+	initnpctimer;
+	end;
+OnTimer2000:
+	npctalk "不死的風魔巫師: 愚蠢的人類......你正在為死亡而祈禱吧？......";
+	end;
+OnTimer4000:
+	npctalk "不死的風魔巫師: 我體內的力量沸騰......感覺很好......";
+	end;
+OnTimer6000:
+	stopnpctimer;
+	monster 'sthc_map$,15,49,"不死的風魔巫師",3475,1, instance_npcname("#chest_spawn") + "::OnWindDead";	// AS_WIND_GHOST
+	disablenpc instance_npcname("不死的風魔巫師#01");
+	end;
+}
+
+// Spawn Step 1
+1@sthb,65,86,0	script	#sthd_event_5	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_5");
+	monster 'sthb_map$,61,84,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,51,87,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,37,81,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,67,50,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,41,85,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,41,49,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,52,50,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,36,60,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,36,58,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,65,86,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+	
+1@sthb,62,49,0	script	#sthd_event_6	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_6");
+	monster 'sthb_map$,79,48,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,85,60,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,82,74,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,83,49,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,83,71,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,79,96,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,69,95,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,82,50,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,84,85,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,84,95,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,83,94,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,84,86,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,80,49,"空中要塞鑰匙保管者",3478,1;
+	end;
+}
+
+1@sthb,57,96,0	script	#sthd_event_7	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_7");
+	monster 'sthb_map$,52,94,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,42,98,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,29,91,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,28,96,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,25,78,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,43,41,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,27,69,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,26,55,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,32,41,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,29,68,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,29,67,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,27,42,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,26,43,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,57,96,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+
+1@sthb,32,39,0	script	#sthd_event_8	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_8");
+	monster 'sthb_map$,52,43,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,64,41,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,78,38,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,28,40,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,59,40,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,92,45,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,95,57,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,90,42,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,90,40,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,93,39,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,94,39,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,32,39,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+
+// Spawn Step 2
+1@sthb,209,64,0	script	#sthd_event_9	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_9");
+	monster 'sthb_map$,207,50,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,205,38,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,195,36,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,209,38,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,161,39,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,150,36,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,171,37,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,171,36,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,144,38,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,163,38,"空中要塞鑰匙保管者",3478,1;
+	end;
+}
+
+1@sthb,144,47,0	script	#sthd_event_10	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_10");
+	monster 'sthb_map$,142,61,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,145,71,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,142,83,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,147,94,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,143,64,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,144,78,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,165,95,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,173,92,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,156,91,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,144,93,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,143,94,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,155,92,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,144,47,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+
+1@sthb,178,94,0	script	#sthd_event_11	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_11");
+	monster 'sthb_map$,187,92,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,200,90,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,198,81,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,201,72,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,199,94,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,199,70,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,195,48,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,185,47,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,197,61,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,198,62,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,200,46,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,199,48,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,178,94,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+
+1@sthb,179,48,0	script	#sthd_event_12	HIDDEN_WARP_NPC,5,5,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#sthd_event_12");
+	monster 'sthb_map$,167,44,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,159,46,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,154,52,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,152,65,"不死要塞軍團士兵",3477,1;
+	monster 'sthb_map$,155,48,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,154,73,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,159,84,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,171,82,"不死腐屍突擊兵",3479,1;
+	monster 'sthb_map$,153,84,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,155,78,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,155,76,"不死腐屍詛咒士兵",3480,1;
+	monster 'sthb_map$,153,84,"不死腐屍詛咒士兵",3480,1;
+	if (rand(100) < 10)	// unknown rates
+		monster 'sthb_map$,179,48,"空中要塞鑰匙保管者",3478,1;	// unknown coord
+	end;
+}
+
+// 2nd step
+1@sthb,207,83,0	script	#Stefan_Action2	HIDDEN_WARP_NPC,6,6,{
+	end;
+OnTouch:
+	disablenpc instance_npcname("#Stefan_Action2");
+	sleep2 2000;
+	cutin "stephan_j_e_w.bmp",2;
+	npctalk "斯凡特： 嗚嗚嗚....", instance_npcname("歐內斯特．斯特凡．傑克#sthd_03");
+	sleep2 2000;
+	npctalk "歐內斯特： 可惡的人類..快去阻止...要塞..神聖的..", instance_npcname("歐內斯特．斯特凡．傑克#sthd_03");
+	specialeffect2 EF_LOCKON;
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 高度警戒我。";
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 如果繼續跟著那巨怪的蹤跡上去的話，";
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 一定能發現甚麼！";
+	sleep2 2000;
+	mapannounce 'sthb_map$, "歐內斯特．斯特凡．傑克： 神聖的要塞...入侵者...可惡..守護吧...", bc_map,0xEBFF;
+	cutin "",255;
+	sleep2 2000;
+	specialeffect2 EF_LOCKON;
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_03");
+	enablenpc instance_npcname("#Stefan for display3");
+	enablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_04");
+	end;
+}
+
+1@sthb,207,83,8	script	歐內斯特．斯特凡．傑克#sthd_03	4_AS_RAGGED_GOLEM,{ end; }
+
+// Final step
+1@sthd,103,115,6	script	歐內斯特．斯特凡．傑克#sthd_04	4_AS_RAGGED_GOLEM,{ end; }
+
+1@sthd,103,115,0	script	#Stefan for display3	HIDDEN_WARP_NPC,10,10,{
+	end;
+OnTouch:
+	.@stephan$ = instance_npcname("歐內斯特．斯特凡．傑克#sthd_04");
+	disablenpc instance_npcname("#Stefan for display3");
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 這是最後嗎？那就是入侵普隆德拉得源頭吧？";
+	sleep2 2000;
+	cutin "stephan_j_e_w.bmp",2;
+	npctalk "魔狼： 冒險家都是一群....不怕死的蠢蛋...", .@stephan$;
+	sleep2 2000;
+	npctalk "傑克： 我不需執行...命令...畢尤的..", .@stephan$;
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 畢尤嗎..？巨怪只是守護這裡的手下..景是這樣而已嗎？";
+	sleep2 2000;
+	npctalk "斯凡特： 嗚嗚...嗚嗚嗚....", .@stephan$;
+	sleep2 2000;
+	npctalk "歐內斯特： 可惡的臭蟲...活著出不去..不朽力量....我的體內..", .@stephan$;
+	sleep2 2000;
+	unittalk getcharid(3), "" + strcharinfo(0) + " : 首要之務是要消滅它。";
+	sleep2 2000;
+	mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 士兵們...畢尤的...要塞..把它粉身碎骨....我來出馬吧...殺光..全部..", bc_map,0xEBFF;
+	sleep2 2000;
+	cutin "",255;
+	specialeffect EF_LOCKON;
+	disablenpc .@stephan$;
+	enablenpc instance_npcname("#stefan_boss_event");
+	monster 'sthd_map$,103,115,"歐內斯特．斯特凡．傑克",3473,1, instance_npcname("#stefan_boss_event") + "::OnBossDead";		// AS_RAGGED_GOLEM
+	'boss_id = $@mobid[0];
+	donpcevent instance_npcname("#stefan_boss_status") + "::OnStart";
+	donpcevent instance_npcname("#stefan_boss_zombie") + "::OnStart";
+	initnpctimer;
+	end;
+OnTimer3000:
+	donpcevent instance_npcname("#stefan_boss_talk") + "::OnTalk";
+	end;
+OnTimer30000:
+	stopnpctimer;
+	donpcevent instance_npcname("#stefan_boss_cursed") + "::OnStart";
+	end;
+OnStop:
+	stopnpctimer;
+	end;
+}
+
+1@sthd,1,1,0	script	#stefan_boss_zombie	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#stefan_boss_zombie");
+	monster 'sthd_map$,0,0,"不死腐屍士兵",3476,10, instance_npcname("#stefan_boss_zombie") + "::OnMobDead";	// AS_ZOMBIE
+	end;
+OnMobDead:
+	initnpctimer;
+	end;
+OnTimer1000:
+	stopnpctimer;
+	.@count = mobcount( 'sthd_map$, instance_npcname("#stefan_boss_zombie") + "::OnMobDead" );
+	if (.@count <= 7)
+		monster 'sthd_map$,0,0,"不死腐屍士兵",3476,(10-.@count), instance_npcname("#stefan_boss_zombie") + "::OnMobDead";	// AS_ZOMBIE
+	end;
+OnStop:
+	stopnpctimer;
+	disablenpc instance_npcname("#stefan_boss_zombie");
+	killmonster 'sthd_map$, instance_npcname("#stefan_boss_zombie") + "::OnMobDead";
+	end;
+}
+
+1@sthd,1,1,0	script	#stefan_boss_cursed	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 被詛咒的士兵......來......帶上......", bc_map,0xEBFF;
+	monster 'sthd_map$,0,0,"畢尤的不死腐屍士兵",3485,5, instance_npcname("#stefan_boss_cursed") + "::OnMobDead";	// AS_D_CURSED_SOLDIER
+	end;
+OnStart2:
+	killmonster 'sthd_map$, instance_npcname("#stefan_boss_cursed") + "::OnMobDead";
+	monster 'sthd_map$,0,0,"畢尤的不死腐屍士兵",3485,10, instance_npcname("#stefan_boss_cursed") + "::OnMobDead";	// AS_D_CURSED_SOLDIER
+	end;
+OnMobDead:
+	end;
+OnStop:
+	disablenpc instance_npcname("#stefan_boss_cursed");
+	killmonster 'sthd_map$, instance_npcname("#stefan_boss_cursed") + "::OnMobDead";
+	end;
+}
+
+1@sthd,1,1,0	script	#stefan_boss_status	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	enablenpc instance_npcname("#stefan_boss_status");
+	initnpctimer;
+	end;
+OnTimer5000:	// ~5s - some announce can be skipped
+	getunitdata 'boss_id, .@data;
+	.@hp = .@data[UMOB_HP];
+
+	if (.@hp > 6000000 && .@hp < 13000000 && 'status_event == 0) {// announce non-spammed
+		'status_event = 1;
+		mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 強大...冒險家......吼...我的...士兵......滾出去......", bc_map,0xEBFF;
+	}
+	else if (.@hp > 5000000 && .@hp <= 6000000) {// announce spammed
+		'status_event = 0;
+		mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 我會毀了你......我會砸你的......來吧，被詛咒的士兵......震撼人心......", bc_map,0xEBFF;
+	}
+	else if (.@hp <= 5000000) {
+		'status_event = 0;
+		donpcevent instance_npcname("#stefan_boss_zombie") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_status") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_cursed") + "::OnStart2";
+		donpcevent instance_npcname("#pantheon_damage_main") + "::OnStart";
+		end;
+	}
+	initnpctimer;
+	end;
+OnStop:
+	stopnpctimer;
+	disablenpc instance_npcname("#stefan_boss_status");
+	end;
+}
+
+1@sthd,1,1,0	script	#pantheon_damage_main	HIDDEN_WARP_NPC,{
+	end;
+OnStart:
+	for ( .@i = 0; .@i < 25; .@i++ )
+		'npc_index[.@i] = .@i + 1;
+	donpcevent instance_npcname("#pantheon_damage_main") + "::OnEvent";
+	end;
+OnEvent:
+	if ('boss_id < 1 || unitexists('boss_id) == false) {
+		stopnpctimer;
+		end;
+	}
+	getunitdata 'boss_id, .@data;
+	if (.@data[UMOB_HP] > 5000000) {
+		stopnpctimer;
+		donpcevent instance_npcname("#stefan_boss_status") + "::OnStart";
+		end;
+	}
+	for ( .@i = 0; .@i < 5; .@i++ ) {// 5 earthquakes
+		.@size = 25 - .@i;
+		.@r = rand(.@size);
+		.@npc_num = 'npc_index[.@r];
+		donpcevent instance_npcname(.@npc_num + "#pantheon_damage") + "::OnEvent";
+		'npc_index[.@r] = 'npc_index[ .@size-1 ];
+		'npc_index[ .@size-1 ] = .@npc_num;
+	}
+	initnpctimer;
+	end;
+OnTimer6000:
+	donpcevent instance_npcname("#pantheon_damage_main") + "::OnEvent";
+	end;
+}
+
+// Simulate earthquake on random spot 
+1@sthd,94,119,0	script	1#pantheon_damage	HIDDEN_WARP_NPC,{
+	end;
+OnEvent:
+	specialeffect EF_GUMGANG4;
+	initnpctimer;
+	// progressbar_npc "000000",3;	// officially non-visible, replaced by initnpctimer
+	end;
+OnTimer3000:	// note: the timer continue and end after boss dead
+	stopnpctimer;
+	specialeffect EF_NPC_EARTHQUAKE;
+	donpcevent instance_npcname("#pantheon_damage" + strnpcinfo(1)) + "::OnEvent";
+	end;
+}
+1@sthd,96,109,0	duplicate(1#pantheon_damage)	2#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,104,110,0	duplicate(1#pantheon_damage)	3#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,110,110,0	duplicate(1#pantheon_damage)	4#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,113,117,0	duplicate(1#pantheon_damage)	5#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,112,103,0	duplicate(1#pantheon_damage)	6#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,104,103,0	duplicate(1#pantheon_damage)	7#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,97,103,0	duplicate(1#pantheon_damage)	8#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,92,97,0	duplicate(1#pantheon_damage)	9#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,99,95,0	duplicate(1#pantheon_damage)	10#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,108,95,0	duplicate(1#pantheon_damage)	11#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,116,95,0	duplicate(1#pantheon_damage)	12#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,112,87,0	duplicate(1#pantheon_damage)	13#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,104,88,0	duplicate(1#pantheon_damage)	14#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,95,87,0	duplicate(1#pantheon_damage)	15#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,96,78,0	duplicate(1#pantheon_damage)	16#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,94,72,0	duplicate(1#pantheon_damage)	17#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,104,81,0	duplicate(1#pantheon_damage)	18#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,111,81,0	duplicate(1#pantheon_damage)	19#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,114,72,0	duplicate(1#pantheon_damage)	20#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,100,71,0	duplicate(1#pantheon_damage)	21#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,91,101,0	duplicate(1#pantheon_damage)	22#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,117,101,0	duplicate(1#pantheon_damage)	23#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,117,90,0	duplicate(1#pantheon_damage)	24#pantheon_damage	HIDDEN_WARP_NPC
+1@sthd,90,90,0	duplicate(1#pantheon_damage)	25#pantheon_damage	HIDDEN_WARP_NPC
+// official
+// 1@sthd,100,71,0	duplicate(1#pantheon_damage)	23#pantheon_damage	HIDDEN_WARP_NPC
+// 1@sthd,91,101,0	duplicate(1#pantheon_damage)	24#pantheon_damage	HIDDEN_WARP_NPC
+// 1@sthd,117,101,0	duplicate(1#pantheon_damage)	25#pantheon_damage	HIDDEN_WARP_NPC
+// 1@sthd,117,90,0	duplicate(1#pantheon_damage)	26#pantheon_damage	HIDDEN_WARP_NPC
+// 1@sthd,90,90,0	duplicate(1#pantheon_damage)	27#pantheon_damage	HIDDEN_WARP_NPC
+
+// Kill the player
+1@sthd,94,119,0	script	#pantheon_damage1	HIDDEN_WARP_NPC,4,4,{
+	end;
+OnTouch:
+	unitkill getcharid(3);
+	end;
+OnEvent:
+	enablenpc instance_npcname( strnpcinfo(0) );
+	initnpctimer;
+	end;
+OnTimer1000:
+	stopnpctimer;
+	disablenpc instance_npcname( strnpcinfo(0) );
+	end;
+}
+1@sthd,96,109,0	duplicate(#pantheon_damage1)	#pantheon_damage2	HIDDEN_WARP_NPC,4,4
+1@sthd,104,110,0	duplicate(#pantheon_damage1)	#pantheon_damage3	HIDDEN_WARP_NPC,4,4
+1@sthd,110,110,0	duplicate(#pantheon_damage1)	#pantheon_damage4	HIDDEN_WARP_NPC,4,4
+1@sthd,113,117,0	duplicate(#pantheon_damage1)	#pantheon_damage5	HIDDEN_WARP_NPC,4,4
+1@sthd,112,103,0	duplicate(#pantheon_damage1)	#pantheon_damage6	HIDDEN_WARP_NPC,4,4
+1@sthd,104,103,0	duplicate(#pantheon_damage1)	#pantheon_damage7	HIDDEN_WARP_NPC,4,4
+1@sthd,97,103,0	duplicate(#pantheon_damage1)	#pantheon_damage8	HIDDEN_WARP_NPC,4,4
+1@sthd,92,97,0	duplicate(#pantheon_damage1)	#pantheon_damage9	HIDDEN_WARP_NPC,4,4
+1@sthd,99,95,0	duplicate(#pantheon_damage1)	#pantheon_damage10	HIDDEN_WARP_NPC,4,4
+1@sthd,108,95,0	duplicate(#pantheon_damage1)	#pantheon_damage11	HIDDEN_WARP_NPC,4,4
+1@sthd,116,95,0	duplicate(#pantheon_damage1)	#pantheon_damage12	HIDDEN_WARP_NPC,4,4
+1@sthd,112,87,0	duplicate(#pantheon_damage1)	#pantheon_damage13	HIDDEN_WARP_NPC,4,4
+1@sthd,104,88,0	duplicate(#pantheon_damage1)	#pantheon_damage14	HIDDEN_WARP_NPC,4,4
+1@sthd,95,87,0	duplicate(#pantheon_damage1)	#pantheon_damage15	HIDDEN_WARP_NPC,4,4
+1@sthd,96,78,0	duplicate(#pantheon_damage1)	#pantheon_damage16	HIDDEN_WARP_NPC,4,4
+1@sthd,94,72,0	duplicate(#pantheon_damage1)	#pantheon_damage17	HIDDEN_WARP_NPC,4,4
+1@sthd,104,81,0	duplicate(#pantheon_damage1)	#pantheon_damage18	HIDDEN_WARP_NPC,4,4
+1@sthd,111,81,0	duplicate(#pantheon_damage1)	#pantheon_damage19	HIDDEN_WARP_NPC,4,4
+1@sthd,114,72,0	duplicate(#pantheon_damage1)	#pantheon_damage20	HIDDEN_WARP_NPC,4,4
+1@sthd,100,71,0	duplicate(#pantheon_damage1)	#pantheon_damage21	HIDDEN_WARP_NPC,4,4
+1@sthd,91,101,0	duplicate(#pantheon_damage1)	#pantheon_damage22	HIDDEN_WARP_NPC,4,4
+1@sthd,117,101,0	duplicate(#pantheon_damage1)	#pantheon_damage23	HIDDEN_WARP_NPC,4,4
+1@sthd,117,90,0	duplicate(#pantheon_damage1)	#pantheon_damage24	HIDDEN_WARP_NPC,4,4
+1@sthd,90,90,0	duplicate(#pantheon_damage1)	#pantheon_damage25	HIDDEN_WARP_NPC,4,4
+// 1@sthd,100,71,0	duplicate(#pantheon_damage1)	#pantheon_damage23	HIDDEN_WARP_NPC,4,4
+// 1@sthd,91,101,0	duplicate(#pantheon_damage1)	#pantheon_damage24	HIDDEN_WARP_NPC,4,4
+// 1@sthd,117,101,0	duplicate(#pantheon_damage1)	#pantheon_damage25	HIDDEN_WARP_NPC,4,4
+// 1@sthd,117,90,0	duplicate(#pantheon_damage1)	#pantheon_damage26	HIDDEN_WARP_NPC,4,4
+// 1@sthd,90,90,0	duplicate(#pantheon_damage1)	#pantheon_damage27	HIDDEN_WARP_NPC,4,4
+
+1@sthd,1,1,0	script	#stefan_boss_event	HIDDEN_WARP_NPC,{
+	end;
+OnBossDead:
+	if (mobcount( 'sthd_map$, instance_npcname("#stefan_boss_event") + "::OnBossDead" ) < 1) {
+		donpcevent instance_npcname("#Stefan for display3") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_zombie") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_cursed") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_talk") + "::OnStop";
+		donpcevent instance_npcname("#stefan_boss_status") + "::OnStop";
+		mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 死了......我......但是......我不會死的......", bc_map,0xEBFF;
+		initnpctimer;
+	}
+	end;
+OnTimer3000:
+	stopnpctimer;
+	mapannounce 'sthd_map$, "歐內斯特．斯特凡．傑克： 我會回來...畢尤的力量...永遠的肉體...再次..", bc_map,0xEBFF;
+	donpcevent instance_npcname("空中要塞脫離傳送點") + "::OnEnable";
+	disablenpc instance_npcname("#stefan_boss_event");
+	end;
+}
+
+1@sthd,1,1,0	script	#stefan_boss_talk	HIDDEN_WARP_NPC,{
+	end;
+OnTalk:
+	enablenpc instance_npcname("#stefan_boss_talk");
+	initnpctimer;
+	end;
+OnTimer6000:
+	.@r = rand(100);
+	if (.@r < 10)
+		unittalk 'boss_id, "傑克： 我受傷了......我很害怕......但我會鼓起勇氣......我打你...";
+	else if (.@r < 20)
+		unittalk 'boss_id, "魔狼： 不要逃避......靠近我吧......我會殺了你......";
+	else if (.@r < 30)
+		unittalk 'boss_id, "歐內斯特： 我很生氣......很吵......我會把它們全部處理乾淨......";
+	else
+		unittalk 'boss_id, "斯凡特： 嗚嗚..吼";
+	end;
+OnStop:
+	stopnpctimer;
+	disablenpc instance_npcname("#stefan_boss_talk");
+	end;
+}
+
+1@sthd,104,96,4	script	空中要塞脫離傳送點	1_SHADOW_NPC,{
+	if (select( "不離開空中要塞", "離開空中要塞" ) == 1) {
+		mes "- 傳送點正在散發出明亮的光芒。 -";
+		close;
+	}
+	mes "- 開始移動 -";
+	close2;
+	//warp "prt_q",244,81; 這是傳到入侵的中央
+	warp "Save",0,0;
+	end;
+
+OnEnable:
+	initnpctimer;
+	enablenpc instance_npcname("空中要塞脫離傳送點");
+	end;
+OnTimer3000:
+	specialeffect EF_ENHANCE;
+	initnpctimer;
+	end;
+
+OnInstanceInit:
+	'sky_status = 0;
+	'status_event = 0;
+	'sthb_map$ = instance_mapname("1@sthb");
+	'sthc_map$ = instance_mapname("1@sthc");
+	'sthd_map$ = instance_mapname("1@sthd");
+
+	// warps
+	disablenpc instance_npcname("#sthd_move_01_01");
+	disablenpc instance_npcname("#sthd_move_02_01");
+	disablenpc instance_npcname("#sthd_move_02_02");
+
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_02");
+	// disablenpc instance_npcname("#Stefan_Action1");
+
+	for ( .@i = 1; .@i <= 6; .@i++ ) {
+		disablenpc instance_npcname("開啟的傳點#sthd_mov_" + .@i);
+		disablenpc instance_npcname("未開啟的傳點#sthd_mov_" + .@i);
+		disablenpc instance_npcname("#sthd_move_back_a_" + .@i);
+	}
+
+	disablenpc instance_npcname("#sthd_event_2");
+	disablenpc instance_npcname("#sthd_event_3");
+	disablenpc instance_npcname("#sthd_event_4");
+	for ( .@i = 5; .@i <= 18; .@i++ )
+		disablenpc instance_npcname("#sthd_event_" + .@i);
+
+	disablenpc instance_npcname("#sthd_key_control");
+
+	disablenpc instance_npcname("#chest_spawn");
+	disablenpc instance_npcname("空中要塞黃金寶藏#1");
+	disablenpc instance_npcname("空中要塞黃金寶藏#2");
+	disablenpc instance_npcname("空中要塞黃金寶藏#3");
+	disablenpc instance_npcname("空中要塞黃金寶藏#4");
+	disablenpc instance_npcname("空中要塞黃金寶藏 B");
+	disablenpc instance_npcname("實驗中的風魔巫師");
+	disablenpc instance_npcname("不死的詛咒騎士#");
+	disablenpc instance_npcname("不死的風魔巫師#01");
+
+	disablenpc instance_npcname("#Stefan_Action2");
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_03");
+	disablenpc instance_npcname("#Stefan for display3");
+	disablenpc instance_npcname("歐內斯特．斯特凡．傑克#sthd_04");
+	disablenpc instance_npcname("#stefan_boss_event");
+	disablenpc instance_npcname("#stefan_boss_talk");
+	disablenpc instance_npcname("#stefan_boss_status");
+	disablenpc instance_npcname("空中要塞脫離傳送點");
+	for ( .@i = 1; .@i <= 25; .@i++ )
+		disablenpc instance_npcname("#pantheon_damage" + .@i);
+	for ( .@i = 1; .@i <= 25; .@i++ )	// hideonnpc to display the effect
+		hideonnpc instance_npcname(.@i + "#pantheon_damage");
+	end;
+}

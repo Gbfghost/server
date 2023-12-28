@@ -1,0 +1,105 @@
+uttycty,75,171,5	trader	[製作]幻象裝備	10201,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]幻象裝備";
+	waitingroom "[製作]幻象裝備",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+
+	.@cash1 = 940032; //邪心基地
+	.@cash2 = 940033; //柯爾記憶
+	.@cash3 = 940034; // 二次搜查
+	.@cash4 = 940031; // 中樞室
+	.@p = 0; // 價格
+
+//材料
+	sellitem(25669,.@p,-1);	//神秘零件
+	sellitemcurrency(.@cash1,1);
+    endsellitem(); 
+	sellitem(25669,.@p,-1);	//神秘零件
+	sellitemcurrency(.@cash2,1);
+    endsellitem();
+	sellitem(25669,.@p,-1);	//神秘零件
+	sellitemcurrency(.@cash3,1);
+    endsellitem(); 
+
+	sellitem(25723,.@p,-1);	//核心元件
+	sellitemcurrency(.@cash1,5);
+    endsellitem(); 
+	sellitem(25723,.@p,-1);	//核心元件
+	sellitemcurrency(.@cash2,5);
+    endsellitem(); 
+	sellitem(25723,.@p,-1);	//核心元件
+	sellitemcurrency(.@cash3,5);
+    endsellitem(); 
+
+//卡片
+	sellitem(27151,.@p,-1);	//邪心eve卡
+	sellitemcurrency(.@cash1,200);
+	endsellitem();
+	sellitem(27320,.@p,-1);	//E-EA1L卡片
+	sellitemcurrency(.@cash2,200);
+	endsellitem();
+	sellitem(27318,.@p,-1);	//米古爾卡片
+	sellitemcurrency(.@cash3,200);
+	endsellitem();
+	sellitem(27152,.@p,-1);	//小可愛卡片
+	sellitemcurrency(.@cash4,200);
+	endsellitem();
+	
+	sellitem(23773, 10000, -1);
+	sellitemcurrency(25723,5);
+	endsellitem();
+	sellitem(23774, 10000, -1);
+	sellitemcurrency(25723,5);
+	endsellitem();
+	sellitem(23775, 10000, -1);
+	sellitemcurrency(25669,20);
+	sellitemcurrency(25723,5);
+	endsellitem();
+	sellitem(23772, 10000, -1);
+	sellitemcurrency(25723,50);
+	sellitemcurrency(25668,1);
+	endsellitem();
+
+	sellitem(15376, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(15377, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(20933, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(20934, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(22196, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(22197, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(32207, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(32208, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(32209, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	sellitem(32210, 10000, -1);
+	sellitemcurrency(25723,50);
+	endsellitem();
+	
+	sellitem(101355, 1000000, -1);
+	sellitemcurrency(25723,100);	
+	endsellitem();
+	
+	end;
+OnBuyItem:
+end;
+}
+

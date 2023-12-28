@@ -1,0 +1,252 @@
+/*================================================
+- 腳本名稱：綜合精鍊師
+- 腳本作者：瘋兔工作組
+- 測試環境：rAthena
+- 更新內容：
+- Ver 2.5 添加'refine_percent'函數支援給擴充RA端口使用
+- Ver 2.4 優化成功機率為100%時不顯示是否爆裝
+- Ver 2.3 修正+13~+14鐵匠的神乎其技消耗數量錯誤
+- Ver 2.2 修正高密度礦石消耗錯誤
+- Ver 2.1 修正一個顯示錯誤
+- Ver 2.0 修正一個潛在錯誤
+- Ver 1.9 修正左手武器精鍊錯誤
+- Ver 1.8 修正影子武器位置錯誤
+- Ver 1.7 failedrefitem2 -> downrefitem
+		  濃縮神之金屬、濃縮鋁的使用方法(+1~+10)
+- Ver 1.6 修正rA裝備位置寫法
+- Ver 1.5 新增影子裝備精鍊
+- Ver 1.0 完成架構
+>>>各位大哥大姐轉載請保留以上，萬分感激<<<
+================================================*/
+uttycty,115,172,4	script	精煉券強化#rosfrc	85,{
+	function	ckitem	{
+		return countitem(getarg(0))>=1?"^0066CC- "+getitemname(getarg(0))+"^000000":"^888888- "+getitemname(getarg(0))+"^000000";
+	}
+	function	ckitem2	{
+		return (countitem(getarg(0))>=getarg(1)&&countitem(getarg(2))>=getarg(3))?"^0066CC- "+getitemname(getarg(0))+"x"+getarg(1)+" & "+getitemname(getarg(2))+"x"+getarg(3)+"^000000":"^888888- "+getitemname(getarg(0))+"x"+getarg(1)+" & "+getitemname(getarg(2))+"x"+getarg(3)+"^000000";
+	}
+	function	refine_percent	{
+		// 一般版本
+		// return getequippercentrefinery(getarg(0));
+
+		
+	}
+	disable_items;
+	mes "[" + strnpcinfo(1) + "]";
+	mes "請選擇您的精鍊裝備及道具！";
+	setarray .@equip_EQI[0],EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID, EQI_COSTUME_HEAD_LOW, EQI_COSTUME_GARMENT, EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON, EQI_SHADOW_SHIELD, EQI_SHADOW_SHOES, EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+	setarray .@position$[0],"頭上","頭中","頭下", "鎧甲", "左手", "右手", "披肩", "鞋子", "服裝頭上", "服裝頭中", "服裝頭下", "服裝披肩", "影子鎧甲", "影子武器", "影子盾牌", "影子之靴", "影子耳環", "影子墜子";
+	for(.@i=0; .@i<getarraysize(.@equip_EQI); .@i++)
+		set .@menu$,.@menu$+(getequipisequiped(.@equip_EQI[.@i])?.@position$[.@i]+" - "+"[ ^ff1493+"+getequiprefinerycnt(.@equip_EQI[.@i])+"^000000 ^0066cc"+getequipname(.@equip_EQI[.@i])+"^000000 ]":"^888888"+.@position$[.@i]+" - [ 無裝備 ]^000000")+":";
+	next;
+	.@part = .@equip_EQI[select(.@menu$)-1];
+	if(getiteminfo(getequipid(.@part),2) == 5)
+		.@weapon = 1;
+	if(!getequipisequiped(.@part)) 
+	{
+		mes "[" + strnpcinfo(1) + "]";
+		mes "沒有裝備道具";
+		mes "我是要怎麼精鍊阿!";
+		emotion 6;
+		close;
+	}
+	if(!getequipisenableref(.@part))
+	{
+		mes "[" + strnpcinfo(1) + "]";
+		mes "這個道具屬於無法精鍊類型。";
+		close;
+	}
+	if(getequiprefinerycnt(.@part) == 20)
+	{
+		mes "[" + strnpcinfo(1) + "]";
+		mes "這個裝備已達最大精鍊值.";
+		close;
+	}
+	// 影子裝備系列最大值:10
+	if(.@part > EQI_SHADOW_ARMOR && getequiprefinerycnt(.@part) >= 10)
+	{
+		mes "[" + strnpcinfo(1) + "]";
+		mes "影子系列裝備已達最大精鍊值.";
+		close;
+	}
+RefineAgain:
+	mes "[" + strnpcinfo(1) + "]";
+	mes "精鍊裝備 : "+(.@part?"^46B046"+getequipname(.@part)+"^000000":"^46B046請選擇裝備^000000");
+	mes "精鍊礦石 : "+(.@array[0]?"^CC66FF"+getitemname(.@array[0])+"^000000":"^FFBB77請選擇精鍊道具^000000");
+	mes "精鍊程度 : "+(.@array[4]?"^FF1493+"+getequiprefinerycnt(.@part)+" 至 +"+.@array[4]+"^000000":"^FF0099+"+getequiprefinerycnt(.@part)+" 至 +?^000000");
+	if(.@array[0] && .@array[1] < 100)
+	{
+		mes "失敗爆裝 : "+(.@array[2]?"^FF0000是^000000":"^0000FF否^000000");
+		mes "精鍊度-1 : "+(.@array[3]?"^FF0000是^000000":"^0000FF否^000000");
+	}
+BackMenu:
+	set .@lv,getequiprefinerycnt(.@part);
+	set .@wlv,getequipweaponlv(.@part);
+	// 影子裝備精鍊
+	if(.@part >= EQI_SHADOW_ARMOR){
+		if(Zeny < 200000)
+		{
+			mes "金錢不足 ^FF000020萬^000000.";
+			close;
+		}
+		switch(select(.@lv<=10?ckitem(.@part==EQI_SHADOW_WEAPON?984:985):"",
+						.@lv<=10?ckitem(.@part==EQI_SHADOW_WEAPON?7620:7619):"",
+						.@lv>=7?ckitem(.@part==EQI_SHADOW_WEAPON?6240:6241):""
+				))
+		{
+			case 1:	// 神之金屬/鋁
+				setarray .@array,.@part==EQI_SHADOW_WEAPON?984:985,refine_percent(.@part),1,0,0;
+				break;
+			case 2:	// 濃縮神之金屬/濃縮鋁
+				setarray .@array,.@part==EQI_SHADOW_WEAPON?7620:7619,refine_percent(.@part)+20,1,0,0;
+				break;
+			case 3:	// 高濃縮神之金屬/高濃縮鋁
+				setarray .@array,.@part==EQI_SHADOW_WEAPON?6240:6241,refine_percent(.@part)+20,0,1,0;
+				break;
+		}
+	} 
+	else 
+	{
+		// 一般裝備精鍊
+		switch(select(
+						.@lv>=0&&.@lv<=6?ckitem((.@weapon)?6230:6234):"",
+						.@lv>=0&&.@lv<=7?ckitem((.@weapon)?6229:6233):"",
+						.@lv>=0&&.@lv<=8?ckitem((.@weapon)?6228:6232):"",
+						.@lv>=0&&.@lv<=9?ckitem((.@weapon)?6993:6994):"",
+						.@lv>=0&&.@lv<=10?ckitem((.@weapon)?6238:6239):"",
+						.@lv>=0&&.@lv<=11?ckitem((.@weapon)?6584:6585):"",
+						.@lv>=0&&.@lv<=12?ckitem((.@weapon)?6870:6876):"",
+						.@lv>=0&&.@lv<=13?ckitem((.@weapon)?6871:6877):"",
+						.@lv>=14&&.@lv<=14?ckitem((.@weapon)?6872:6878):"", //15
+						.@lv>=14&&.@lv<=15?ckitem((.@weapon)?6873:6879):"", //16
+						.@lv>=14&&.@lv<=16?ckitem((.@weapon)?6874:6880):"", //17
+						.@lv>=14&&.@lv<=17?ckitem((.@weapon)?6875:6881):"", //18
+						.@lv>=14&&.@lv<=18?ckitem((.@weapon)?6864:6865):"", // +19
+						.@lv>=14&&.@lv<=19?ckitem((.@weapon)?950012:950013):"", // +20
+						.@lv>=14&&.@lv<=20?ckitem((.@weapon)?6438:6439):"",
+						.@lv>=10?ckitem((.@weapon)?6226:6225):"",
+						.@lv==12?((.@weapon)?ckitem2(7650,1,6226,1):ckitem2(7650,1,6225,1)):"",
+						.@lv==13?((.@weapon)?ckitem2(7650,2,6226,1):ckitem2(7650,2,6225,1)):""
+				))
+		{
+			// [0]道具,[1]成功機率,[2]爆裝(0:否 1:是),[3]精鍊度-N(0:否 N:-N),[4]直接+幾(0:往上+1 N:+N)
+			
+			case 1:	// +7券
+				setarray .@array,(.@weapon)?6230:6234,100,0,0,7;
+				break;
+			case 2:	// +8券
+				setarray .@array,(.@weapon)?6229:6233,100,0,0,8;
+				break;
+			case 3:	// +9券
+				setarray .@array,(.@weapon)?6228:6232,100,0,0,9;
+				break;
+			case 4:	// +10券
+				setarray .@array,(.@weapon)?6993:6994,100,0,0,10;
+				break;
+			case 5:	// +11券
+				setarray .@array,(.@weapon)?6238:6239,100,0,0,11;
+				break;
+			case 6:	// +12券
+				setarray .@array,(.@weapon)?6584:6585,100,0,0,12;
+				break;
+			case 7:	// +13券
+				setarray .@array,(.@weapon)?6870:6876,100,0,0,13;
+				break;
+			case 8:	// +14券
+				setarray .@array,(.@weapon)?6871:6877,100,0,0,14;
+				break;
+			case 9:	// +15券
+				setarray .@array,(.@weapon)?6872:6878,100,0,0,15;
+				break;
+			case 10:	// +16券
+				setarray .@array,(.@weapon)?6873:6879,100,0,0,16;
+				break;
+			case 11:	// +17券
+				setarray .@array,(.@weapon)?6874:6880,100,0,0,17;
+				break;
+			case 12:	// +18券
+				setarray .@array,(.@weapon)?6875:6881,100,0,0,18;
+				break;
+			case 13:	// +19券
+				setarray .@array,(.@weapon)?6864:6865,100,0,0,19;
+				break;
+			case 14:	// 受祝福的武器礦石/受祝福的防具礦石
+				setarray .@array,(.@weapon)?6438:6439,refine_percent(.@part),0,0,0;
+				break;
+			case 15:	// 高密度鈽鐳礦石/高密度鈣礦石
+				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,1,0;
+				break;
+			case 16:	// 鐵匠的神乎其技 +12 ~ +13
+				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,0,0;
+				setarray .@stone,7650,1;
+				break;
+			case 17:	// 鐵匠的神乎其技 +13 ~ +14
+				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,0,0;
+				setarray .@stone,7650,2;
+				break;
+		}
+	}
+	next;
+	if(!countitem(.@array[0]))
+	{
+		mes "[" + strnpcinfo(1) + "]";
+		mes "你需要 1 個 ^0066CC"+getitemname(.@array[0])+"^000000";
+		close;
+	}
+	if(.@stone[0])
+	{
+		if(countitem(.@stone[0])<.@stone[1]) {
+			mes "[" + strnpcinfo(1) + "]";
+			mes "你需要 "+getitemname(.@stone[0])+" x "+.@stone[1]+"^000000";
+			close;
+		}
+	}
+	mes "[" + strnpcinfo(1) + "]";
+	mes "精鍊裝備 : "+(.@part?"^46B046"+getequipname(.@part)+"^000000":"^46B046請選擇裝備^000000");
+	mes "精鍊礦石 : "+(.@array[0]?"^CC66FF"+getitemname(.@array[0])+"^000000":"^FFBB77請選擇精鍊道具^000000");
+	mes "精鍊程度 : "+(.@array[4]?"^FF1493+"+getequiprefinerycnt(.@part)+" 至 +"+.@array[4]+"^000000":"^FF0099+"+getequiprefinerycnt(.@part)+" 至 +"+(getequiprefinerycnt(.@part)+1)+"^000000");
+	if(.@array[0] && .@array[1] < 100)
+	{
+		mes "失敗爆裝 : "+(.@array[2]?"^FF0000是^000000":"^0000FF否^000000");
+		if(!.@array[2])
+			mes (.@array[3]==3?"精鍊度-3 : ":"精鍊度-1 : ")+(.@array[3]?"^FF0000是^000000":"^0000FF否^000000");
+	}
+	if(select("確定 [ ^0066CC"+getitemname(.@array[0])+"^000000機率 ^3366FF"+.@array[1]+"%^000000 ]","返回")==2) goto BackMenu;
+	clear;
+	mes "[" + strnpcinfo(1) + "]";
+	// 影子裝備費用
+	if(.@part > EQI_SHADOW_ARMOR) 
+		Zeny -= 200000;
+	delitem .@array[0],1;
+
+	if(.@stone[0]) 
+		delitem .@stone[0],.@stone[1];
+
+	if( .@array[1] <= rand(100) )
+	{
+		
+		if(.@array[2]) 
+			failedrefitem .@part;
+		if(.@array[3]) 
+			downrefitem .@part,.@array[3];
+		mes .@array[2]?"非常抱歉，失敗了裝備沒保住！":"...失敗了，不過好險裝備保住了！";
+		mes .@array[3]==3?"精鍊失敗，精鍊度-3":.@array[3]==1?"精鍊失敗，精鍊度-1":"";
+		if(!.@array[2]) specialeffect2 155;
+	}
+	else 
+	{
+		if(.@array[4]) 
+			successrefitem .@part,.@array[4]-.@lv;
+		else 
+			successrefitem .@part;
+		clear;
+		goto RefineAgain;
+	}
+	close;
+
+
+Oninit:
+	setnpcicon getnpcid(0),1016,"精煉券強化";
+	waitingroom "★ 精煉券強化 ★ ",0;
+	end;
+}

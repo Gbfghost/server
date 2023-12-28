@@ -1,0 +1,76 @@
+//uttycty,96,100,5	script	測試npc	4_M_ORIENT02,{
+// getitem3 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>,<RandomIDArray>,<RandomValueArray>,<RandomParamArray>;
+//getitem3 31934,1,1,20,0,0,0,0,0,
+//close;
+//}
+
+
+
+
+	
+
+uttycty,96,100,5	script	裝備回收	4_STEELBOX,{
+
+		deletearray @sold_nameid[0],getarraysize(@sold_nameid);
+		callshop "card_shop1",2;
+		npcshopattach "card_shop1";
+		end;
+OnSellItem:
+	for(set .@i1,0; .@i1<getarraysize(@sold_nameid); set .@i1,.@i1+1)
+		if (@sold_nameid[.@i1] == 2470 || @sold_nameid[.@i1] ==2862 || @sold_nameid[.@i1] == 2864 
+		|| @sold_nameid[.@i1] == 2865 || @sold_nameid[.@i1] == 2866 || @sold_nameid[.@i1] == 2156 
+		|| @sold_nameid[.@i1] == 2011 || @sold_nameid[.@i1] == 2012 || @sold_nameid[.@i1] == 2013 
+		|| @sold_nameid[.@i1] == 2014 || @sold_nameid[.@i1] == 2469 || @sold_nameid[.@i1] == 2861 
+		|| @sold_nameid[.@i1] == 2010 || @sold_nameid[.@i1] == 2468 || @sold_nameid[.@i1] == 2860 
+		|| @sold_nameid[.@i1] == 2009 || @sold_nameid[.@i1] == 2467 || @sold_nameid[.@i1] == 2859 
+		|| @sold_nameid[.@i1] == 2008 || @sold_nameid[.@i1] == 2570 || @sold_nameid[.@i1] == 2472 
+		|| @sold_nameid[.@i1] == 2007 || @sold_nameid[.@i1] == 2569 || @sold_nameid[.@i1] == 2471 
+		|| @sold_nameid[.@i1] == 2581 || @sold_nameid[.@i1] == 2480 || @sold_nameid[.@i1] == 2891 
+		|| @sold_nameid[.@i1] == 2580 || @sold_nameid[.@i1] == 2479 || @sold_nameid[.@i1] == 2890 
+		|| @sold_nameid[.@i1] == 2578 || @sold_nameid[.@i1] == 2478 || @sold_nameid[.@i1] == 2887 
+		|| @sold_nameid[.@i1] == 2577 || @sold_nameid[.@i1] == 2477 || @sold_nameid[.@i1] == 2886 
+		|| @sold_nameid[.@i1] == 2575 || @sold_nameid[.@i1] == 2476 || @sold_nameid[.@i1] == 2884 
+		|| @sold_nameid[.@i1] == 15037 || @sold_nameid[.@i1] == 15038 || @sold_nameid[.@i1] == 15039 
+		|| @sold_nameid[.@i1] == 15042 || @sold_nameid[.@i1] == 15043 || @sold_nameid[.@i1] == 15029 
+		|| @sold_nameid[.@i1] == 16013 || @sold_nameid[.@i1] == 15030 || @sold_nameid[.@i1] == 15025 
+		|| @sold_nameid[.@i1] == 15026 || @sold_nameid[.@i1] == 15027 || @sold_nameid[.@i1] == 15028 
+		|| @sold_nameid[.@i1] == 16018 ) {
+			set .@sell_01[getarraysize(.@sell_01)], @sold_nameid[.@i1];
+			set .@sell__01[getarraysize(.@sell__01)], @sold_quantity[.@i1];
+		}
+	for(set .@i1,0; .@i1<getarraysize(.@sell_01); set .@i1,.@i1+1)
+	while (.@sell__01[.@i1] != 0) {
+		delitem .@sell_01[.@i1],1;
+		getitem 6380,10;
+		.@sell__01[.@i1] = .@sell__01[.@i1]-1;
+		specialeffect2 101;
+		sleep2 50;
+	}
+		for(set .@i1,0; .@i1<getarraysize(@sold_nameid); set .@i1,.@i1+1)
+		if (@sold_nameid[.@i1] == 13421 || @sold_nameid[.@i1] == 1189 || @sold_nameid[.@i1] == 1196 
+		|| @sold_nameid[.@i1] == 13431 || @sold_nameid[.@i1] == 13061 || @sold_nameid[.@i1] == 13070 
+		|| @sold_nameid[.@i1] == 13069 || @sold_nameid[.@i1] == 13062 || @sold_nameid[.@i1] == 13047 
+		|| @sold_nameid[.@i1] == 13046 || @sold_nameid[.@i1] == 1284 || @sold_nameid[.@i1] == 1285 
+		|| @sold_nameid[.@i1] == 1291 || @sold_nameid[.@i1] == 1290 || @sold_nameid[.@i1] == 1311 
+		|| @sold_nameid[.@i1] == 1392 || @sold_nameid[.@i1] == 1393 || @sold_nameid[.@i1] == 16000 
+		|| @sold_nameid[.@i1] == 16001 || @sold_nameid[.@i1] == 16010 || @sold_nameid[.@i1] == 18111 
+		|| @sold_nameid[.@i1] == 1745 || @sold_nameid[.@i1] == 18103 || @sold_nameid[.@i1] == 18109 
+		|| @sold_nameid[.@i1] == 1984 || @sold_nameid[.@i1] == 1985 || @sold_nameid[.@i1] == 1930 
+		|| @sold_nameid[.@i1] == 1435 || @sold_nameid[.@i1] == 1433 || @sold_nameid[.@i1] == 1647 
+		|| @sold_nameid[.@i1] == 1659 || @sold_nameid[.@i1] == 2005 || @sold_nameid[.@i1] == 2004 
+		|| @sold_nameid[.@i1] == 1646 ) {
+			set .@sell_02[getarraysize(.@sell_02)], @sold_nameid[.@i1];
+			set .@sell__02[getarraysize(.@sell__02)], @sold_quantity[.@i1];
+		}
+	for(set .@i1,0; .@i1<getarraysize(.@sell_02); set .@i1,.@i1+1)
+	while (.@sell__02[.@i1] != 0) {
+		delitem .@sell_02[.@i1],1;
+		getitem 6820,rand(1,3);
+		.@sell__02[.@i1] = .@sell__02[.@i1]-1;
+		specialeffect2 101;
+		sleep2 50;
+	}
+
+	}
+
+-	shop	card_shop1	-1,1201:10

@@ -1,0 +1,125 @@
+uttycty,64,171,5	trader	[製作]勇士之證	10058,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]勇士之證";
+	waitingroom "[製作]勇士之證",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+
+	sellitem(2981, 10000, -1);
+	sellitemcurrency(6684, 30);
+	endsellitem();
+	
+	sellitem(1187, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1281, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1282, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1310, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1382, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1426, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1486, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1546, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1576, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1577, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1640, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1641, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1743, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1826, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1827, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(1927, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(2002, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+
+	sellitem(13042, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13110, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13176, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13177, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13178, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13179, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13307, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13416, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13417, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	sellitem(13418, 10000, -1);
+	sellitemcurrency(6684, 800);
+	endsellitem();
+	
+	end;
+OnBuyItem:
+end;
+}

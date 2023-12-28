@@ -1,0 +1,18 @@
+//===== Giraffe 模擬器 - Script ===================
+//**********作者: [ Leo ]**************************
+// 聯繫方式: https://discord.gg/JVeaMmkRZD
+//===== Description: ==============================
+//
+//[附魔]LT英雄靴
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,31,98,4	script	[附魔]LT英雄靴	4_m_seiren_uc,{
+	disable_items;
+	item_enchant(21);
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]LT英雄靴";
+	waitingroom "[附魔]LT英雄靴",0;
+}

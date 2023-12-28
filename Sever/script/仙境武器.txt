@@ -1,0 +1,79 @@
+function	script	ragnarok_weapon	{
+    if (Class == 4054 || Class == 4060 || Class == 4252 || Class == 4096 ){
+	getitem 600012,1;	//盧恩騎士爆裂衝擊波雙手劍
+	getitem 630008,1;	//盧恩騎士百矛龍息雙手矛
+}
+	if (Class == 4066 || Class == 4073 || Class == 4258 || Class == 4102 ){
+	getitem 530005,1;	//皇家禁衛隊放逐加農砲單手矛
+	getitem 500015,1;	//皇家禁衛隊威壓創世之劍
+}
+	if (Class == 4058 || Class == 4064 || Class == 4253 || Class == 4100 ){
+	getitem 620003,1;	//機械工匠揮斧重擊颶風斧
+	getitem 590008,1;	//機械工匠飛拳加農砲鐵鎚
+}
+	if (Class == 4071 || Class == 4078 || Class == 4259 || Class == 4107 ){
+	getitem 590009,1;	//基因學者強酸火煙加農砲木錘
+	getitem 500016,1;	//基因學者地獄植物龍捲風長劍
+}
+	if (Class == 4059 || Class == 4065 || Class == 4254 || Class == 4101 ){
+	getitem 610013,1;	//十字斬首者迴旋十字刀刃拳刃
+	getitem 610028,1;	//十字斬首者反擊斬黑暗瞬間拳刃
+}
+	if (Class == 4072 || Class == 4079 || Class == 4260 || Class == 4108 ){
+	getitem 700014,1;	//魅影追蹤者三角虛擊炸彈弩弓
+	getitem 510018,1;	//魅影追蹤者暗詠致命威脅短劍
+}
+	if (Class == 4055 || Class == 4061 || Class == 4255 || Class == 4097 ){
+	getitem 640009,1;	//咒術士碧血地牛雙手杖
+	getitem 640010,1;	//咒術士凍僵連鎖閃電雙手杖
+}
+	if (Class == 4067 || Class == 4074 || Class == 4261 || Class == 4103 ){
+	getitem 540009,1;	//妖術師元素箭魔法書
+	getitem 550010,1;	//妖術師四大魔法權杖
+}
+	if (Class == 4057 || Class == 4063 || Class == 4256 || Class == 4099 ){
+	getitem 550011,1;	//大主教十字驅魔謳歌權杖
+	getitem 590010,1;	//大主教二道聖光審判錘
+}
+	if (Class == 4070 || Class == 4077 || Class == 4262 || Class == 4106 ){
+	getitem 560006,1;	//修羅爆氣散彈身彈指虎
+	getitem 560007,1;	//修羅天羅地網虎砲拳套
+}
+	if (Class == 4056 || Class == 4062 || Class == 4257 || Class == 4098 ){
+	getitem 700015,1;	//遊俠箭雨風暴神弓
+	getitem 700016,1;	//遊俠銳利射擊瞄準標靶穿心弓
+}
+	if (Class == 4068 || Class == 4075 || Class == 4263 || Class == 4104 ){
+	getitem 570024,1;	//宮廷樂師大暴雨提琴
+	getitem 570010,1;	//宮廷樂師重金屬音樂殘響小提琴
+}
+	if (Class == 4069 || Class == 4076 || Class == 4264 || Class == 4105 ){
+	getitem 580024,1;	//浪姬舞者大暴雨銳鞭
+	getitem 580010,1;	//浪姬舞者重金屬音樂殘響舞蹈鞭
+}
+	if (Class == 4218 || Class == 4308 || Class == 4220 ){
+	getitem 550050,1;	//喵族胡蘿蔔啄擊狐尾草
+	getitem 550051,1;	//喵族薄荷隕石梗槍狐尾杖
+}
+	if (Class == 4239 || Class == 4302 || Class == 4241 ){
+	getitem 540039,1;	//拳皇流星月光神錄
+	getitem 540040,1;	//拳皇太陽紅焰太極錄
+}
+	if (Class == 4211 || Class == 4212 || Class == 4304 || Class == 4305
+	|| Class == 4223 || Class == 4224 ){
+	getitem 650017,1;	//日月影忍者忍之三術飛鏢
+	getitem 650018,1;	//日月影忍者幽冥風魔飛舞飛鏢
+}
+	if (Class == 4215 || Class == 4306 || Class == 4229 ){
+	getitem 800008,1;	//叛亂者亡命殺戮左輪手槍
+	getitem 830007,1;	//叛亂者原桌舞蹈暴雨格林機槍
+}
+	if (Class == 4240 || Class == 4303 || Class == 4242 ){
+	getitem 550052,1;	//獵靈士艾斯靈魂手杖
+	getitem 550053,1;	//獵靈士邪靈爆炸手杖
+}
+	if (Class == 4190 || Class == 4191 || Class == 4307 ){
+	getitem 550079,1;	//超級初學者運氣手杖
+	getitem 510069,1;	//超級初學者運氣長劍
+}
+}

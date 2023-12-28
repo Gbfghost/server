@@ -1,0 +1,97 @@
+uttycty,95,163,4	script	★ 服飾強化石箱 ★	112,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1026,"服飾強化石箱購買商";
+	waitingroom "★ 服飾強化石箱購買 ★",0;
+
+	tradertype(NST_EXPANDED_BARTER);
+	.@amount = 1;
+    sellitem(14681,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(22826,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(22868,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(22905,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(22953,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23001,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23058,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23086,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23174,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23299,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23524,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23629,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23682,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(23770,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+
+    sellitem(9510,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+
+    sellitem(100019,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100052,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100202,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100314,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100502,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100721,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(100920,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(101103,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(101271,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(101416,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(101675,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+    sellitem(101876,0,-1);
+    sellitemcurrency(6417,.@amount);
+    endsellitem();
+
+
+OnBuyItem:
+end;
+}

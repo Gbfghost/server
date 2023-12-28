@@ -1,0 +1,5 @@
+/conf/import
+*.exe
+*.csv
+*.bat
+*.dll

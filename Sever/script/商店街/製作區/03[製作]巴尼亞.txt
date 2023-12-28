@@ -1,0 +1,30 @@
+uttycty,75,175,5	trader	[製作]巴尼亞	4_f_einwoman,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]巴尼亞";
+	waitingroom "[製作]巴尼亞",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(15052, 10000, -1);
+	sellitemcurrency(15051,1,9);
+	sellitemcurrency(6499,20);
+	endsellitem();
+	sellitem(2170, 10000, -1);
+	sellitemcurrency(2590,1,9);
+	sellitemcurrency(6499,20);
+	endsellitem();
+	sellitem(2591, 10000, -1);
+	sellitemcurrency(2590,1,9);
+	sellitemcurrency(6499,20);
+	endsellitem();
+	sellitem(2492, 10000, -1);
+	sellitemcurrency(2491,1,9);
+	sellitemcurrency(6499,20);
+	endsellitem();
+
+OnBuyItem:
+end;
+}
+

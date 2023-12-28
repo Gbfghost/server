@@ -1,0 +1,39 @@
+//*************************************************
+////==============================================
+
+
+pvp1_1	mapflag	pvp_noguild
+pvp1_1	mapflag	pvp
+pvp1_1	mapflag	noteleport
+pvp1_1	mapflag	nosave	SavePoint
+pvp1_1	mapflag	noreturn
+pvp1_1	mapflag	nomemo
+pvp1_1	mapflag	nocostume
+pvp1_1	mapflag	hidemobhpbar
+pvp1_1	mapflag	nobranch
+pvp1_1	mapflag	nopenalty
+pvp1_1	mapflag	nomvploot			//MVP無掉落物品
+pvp1_1	mapflag	noloot				//魔物無掉落物品
+pvp1_1	mapflag	noexppenalty		//死亡沒有經驗懲罰
+pvp1_1	mapflag	nozenypenalty		//死亡無金錢懲罰
+pvp1_1	mapflag	novending			//無法開露天商店
+pvp1_1	mapflag	nowarp				//無法使用傳送之陣
+pvp1_1	mapflag	nobaseexp			//沒有基本經驗		
+pvp1_1	mapflag	nojobexp			//沒有職業經驗
+
+
+uttycty,90,110,5	script	競技場	2109,{
+switch(select("羅盤房間"))
+{
+	case 1:
+		warp "pvp1_1",0,0;
+		end;
+}
+end;
+Oninit:
+OnTimer2000:
+showscript "★ PVP場 ★ ";
+	initnpctimer;
+setnpcicon getnpcid(0),22,"競技場";
+end;
+}

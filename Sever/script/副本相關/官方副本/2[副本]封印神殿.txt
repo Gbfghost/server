@@ -1,0 +1,1207 @@
+
+
+
+//===== Description: ==============================
+//
+//*************************************************
+//===================請保留以上資訊================
+
+
+1@cata	mapflag	noteleport
+1@cata	mapflag	nosave	SavePoint
+1@cata	mapflag	nomemo
+1@cata	mapflag	nobranch
+1@cata	mapflag	noicewall
+1@cata	mapflag	restricted	6
+1@cata	mapflag	monster_noteleport
+1@cata	mapflag	partylock
+1@cata	mapflag	novending
+1@cata	mapflag	nochat
+
+2@cata	mapflag	noteleport
+2@cata	mapflag	nosave	SavePoint
+2@cata	mapflag	nomemo
+2@cata	mapflag	nobranch
+2@cata	mapflag	noicewall
+2@cata	mapflag	restricted	6
+2@cata	mapflag	monster_noteleport
+2@cata	mapflag	partylock
+2@cata	mapflag	novending
+2@cata	mapflag	nochat
+
+amatsu,103,173,5	script	[副本]封印的神殿	867,{
+	// 展示資訊
+	F_instanceinfo(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Minplayer,.ins_Maxplayer,.ins_time,.ins_cooldown,.ins_collnum);
+	// 創建選單
+	switch(F_instancemenu(strnpcinfo(1),.ins_name$))
+	{
+		case 1:
+			// 創建副本 & 紀錄隊員訊息
+			F_instancecreat(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_Maxplayer);
+			end;
+		case 2:
+			// 進入副本 & 比對隊員訊息
+			F_instancenter(strnpcinfo(1),.ins_name$,.ins_MinLv,.ins_MaxLv,.ins_collnum,.ins_cooldown);
+			end;
+		case 3:
+			// 銷毀副本
+			F_instancedestroy;
+			end;
+		case 4:	
+			if ( !countitem(99999) ){
+				message strcharinfo(0),"你必須帶來 "+getitemname(99999)+" 才能消除冷卻!";
+				end;
+			}
+			// 銷毀冷卻
+			F_instancedelcool(.ins_collnum);
+			delitem 99999,1;
+			end;
+		default:
+			break;
+	}
+	end;
+OnInit:
+	// 副本名稱
+	.ins_name$ = "封印的神殿";
+	// 最小挑戰等級
+	.ins_MinLv = 1;
+	// 最大挑戰等級
+	.ins_MaxLv = 260;
+	// 最小組隊人數
+	.ins_Minplayer = 1;
+	// 最大組隊人數
+	.ins_Maxplayer = 12;
+	// 挑戰時間
+	.ins_time = 3600;
+	// 冷卻時間
+	.ins_cooldown = 300;
+	// 冷卻編號
+	.ins_collnum = 2;
+
+//
+	waitingroom "[副本]封印的神殿",0;
+	setnpcicon getnpcid(0),22,"[副本]封印的神殿";
+	end;
+}
+
+
+1@cata,1,2,0	script	ins_baphomet_lotto	-1,{
+OnEnable:
+	// Pick one "true" 發出聲響的墓穴 and 12 "false" 發出聲響的墓穴s.
+	set .@istrue, rand(1,14);
+	for(set .@i,1; .@i<=13; set .@i,.@i+1) {
+		hideonnpc instance_npcname("發出聲響的墓穴#1F_"+.@i+((.@i == .@istrue)? "F" : "T" ));
+	}
+	end;
+OnDisable:
+	disablenpc instance_npcname("ins_baphomet_lotto");
+	end;
+}
+
+1@cata,3,2,0	script	ins_baphomet_lotto2	-1,{
+OnEnable:
+	for(set .@i,1; .@i<=12; set .@i,.@i+1)
+		enablenpc instance_npcname("火炬#"+.@i);
+	end;
+}
+
+1@cata,4,2,0	script	ins_baphomet_lotto3	-1,{
+OnEnable:
+	set .@label$, instance_npcname("ins_baphomet_lotto3")+"::OnMyMobDead";
+	set .@map$, instance_mapname("1@cata");
+	monster .@map$,0,0,"巴風特的門徒",1869,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1291,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1869,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1291,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1869,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1291,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1869,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1132,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1117,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1132,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1117,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1132,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1291,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1117,1,.@label$;
+	monster .@map$,0,0,"巴風特的門徒",1869,1,.@label$;
+	end;
+
+OnDisable:
+	killmonster instance_mapname("1@cata"),instance_npcname("ins_baphomet_lotto3")+"::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	set .@map$, instance_mapname("1@cata");
+	if (mobcount(.@map$,instance_npcname("ins_baphomet_lotto3")+"::OnMyMobDead") < 1) {
+		mapannounce .@map$, "所有巴風特的門徒都消失了!",bc_map,"0x00ff99";
+	}
+	getitem 6002,1; //Token_Of_Apostle
+	end;
+}
+
+// Soul of hero near the north grave
+//============================================================
+1@cata,141,221,0	script	發出聲響的墓穴#	844,3,3,{
+	set .@party_id,getcharid(1);
+	if ('ins_baphomet == 0) {
+		mes "墓穴正在顫動著...";
+		next;
+		mes "觸碰墓穴後, 我聽到一個聲音";
+		next;
+		specialeffect2 EF_CONE;
+		mes "[墓穴的聲音]";
+		mes "我一直等待著像你這樣的勇士...";
+		next;
+		while(1) {
+			switch(select("你是誰?:一直等著我?:取消")) {
+			case 1:
+				mes "[墓穴的聲音]";
+				mes "我曾經是一名像你一樣阻截巴風特的戰士, 現在, 我已經死去, 只剩下靈魂...";
+				next;
+				mes "[墓穴的聲音]";
+				mes "你知道... 我們沒有多少時間, 你無法獨自阻止巴風特, 這個惡魔的力量在過去十年裡得到了很大的增強";
+				next;
+				mes "[墓穴的聲音]";
+				mes "我和我的同伴們曾經將巴風特封印在地下室2層的祭壇下, 並且封閉了入口";
+				next;
+				mes "[墓穴的聲音]";
+				mes "我將自己的靈魂附在了 ^0000FF靈魂的吊墜^000000上, 因此我還能存在於這個世界上, 並且成為了墓穴的守衛";
+				next;
+				break;
+			case 2:
+				mes "[墓穴的聲音]";
+				mes "巴風特的力量正在突破封印的困阻. 如果你不能重新激活封印, 巴風特的復活只是時間問題";
+				next;
+				mes "[墓穴的聲音]";
+				mes "要打開入口你必須使我的靈魂實體化, 當我實體化以後我就能打開入口, 並且重新激活越發虛弱的封印";
+				next;
+				mes "[墓穴的聲音]";
+				mes "使我的靈魂實體化的方法是找到 ^0000FF靈魂的吊墜^000000, 就在墓穴的附近";
+				next;
+				mes "[墓穴的聲音]";
+				mes "如果你們隊伍的 ^0000FF隊長^000000 將 ^0000FF靈魂的吊墜^000000 拿給我, 我的靈魂就能實體化, 請盡快!!";
+				set 'ins_baphomet,1;
+				donpcevent instance_npcname("ins_baphomet_lotto")+"::OnEnable";
+				close;
+			case 3:
+				mes "我能感覺到聲音變得越來越微弱";
+				close;
+			}
+		}
+	}
+	else if ('ins_baphomet == 1) {
+		mes "[墓穴的聲音]";
+		mes "要打開入口你必須使我的靈魂實體化, 當我實體化以後我就能打開入口, 並且重新激活越發虛弱的封印";
+		next;
+		mes "[墓穴的聲音]";
+		mes "使我的靈魂實體化的方法是找到 ^0000FF靈魂的吊墜^000000, 就在墓穴的附近";
+		next;
+		mes "[墓穴的聲音]";
+		mes "如果你們隊伍的 ^0000FF隊長^000000 將 ^0000FF靈魂的吊墜^000000 拿給我, 我的靈魂就能實體化, 請盡快!!";
+		close;
+	}
+	else if (('ins_baphomet == 2) && (getpartyleader(.@party_id,2) == getcharid(0))) {
+		mes "[墓穴的聲音]";
+		mes "你找到靈魂的吊墜了嗎?";
+		next;
+		if (countitem(6003) > 0) {
+			specialeffect EF_MAPPILLAR;
+			mes "[墓穴的聲音]";
+			mes "是的... 這是... 我靈魂的吊墜...";
+			next;
+			delitem 6003,1; //Soul_Pendant
+			enablenpc instance_npcname("遠古英雄的靈魂#1F");
+			disablenpc instance_npcname("發出聲響的墓穴#");
+			mes "[墓穴的聲音]";
+			mes "現在我可以將我的靈魂實體化了, 我會在墓穴中央的祭壇那裡等著你";
+			next;
+			mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 我會在墓穴中央的祭壇那裡等著你",bc_map,"0xFFFF00";
+			mes "我能感覺到聲音變得越來越微弱";
+			close;
+		}
+		else {
+			mes "[墓穴的聲音]";
+			mes "你還在嗎? 快點尋找我靈魂的吊墜";
+			next;
+			mes "[墓穴的聲音]";
+			mes "我的軀體就在墓穴附近, 去那裡找我魂的吊墜";
+			close;
+		}
+	}
+	else {
+		mes "[墓穴的聲音]";
+		mes "我想跟你們 ^0000FF隊伍的代表^000000 說話, 其他人等著";
+		close;
+	}
+	end;
+
+OnTouch:
+	if ('ins_baphomet == 0) {
+		mes "'咳... 咳...'";
+		next;
+		mes "我能感覺到墓穴中有一種奇怪的感覺, 就像一個人在心理呼喚著什麼...";
+		close;
+	}
+	end;
+
+OnInstanceInit: // Temporary fix for @reloadscript.
+	set 'ins_baphomet,0;
+	end;
+}
+
+1@cata,176,119,4	script	遠古英雄的靈魂#1F	411,{
+	set .@party_id,getcharid(1);
+	cutin "ins_cata_champ_n",2;
+	if ('ins_baphomet == 2) {
+		mes "[遠古英雄的靈魂]";
+		mes "因為你們的幫助我的靈魂能夠實體化了, 我想多說些什麼, 但是時間不夠了..";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "一小時左右我就可以完全實體化, 要到達地下的主祭壇, 你必須幫助我完成打開每一個封印的儀式";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "我告訴你該怎麼做, 首先, 從墓穴的每一個火把上收集 ^0000FF戰神的精魄^000000 ...";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "然後, 進入墓穴的每一個隊員都要攜帶 ^0000FF門徒的標示^000000 ";
+		next;
+		while(1) {
+			cutin "ins_cata_champ_n",2;
+			switch(select("什麼是戰神的精魄?:什麼是門徒的標示?:我應該怎麼做?:我準備好了")) {
+			case 1:
+				set .@ins_baphomet_1f_1,.@ins_baphomet_1f_1+1;
+				mes "[遠古英雄的靈魂]";
+				mes "這裡有很多火把, 這些火把是雷神托爾的精魄, 它們繼承我們的實體, 阻止虛弱的巴風特";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "為了打開封印的地底大門, 我必須繼承 ^0000FF戰神的精魄^000000 , 因此從火把上收集戰神的精魄吧";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "有一點你必須記住, 收集這些 ^0000FF戰神的精魄^000000 必須要有繼承人的信念";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "我將把繼承人的信念象徵記錄給隊長, 只有隊長可以收集 ^0000FF戰神的精魄^000000";
+				next;
+				break;
+			case 2:
+				set .@ins_baphomet_1f_2,.@ins_baphomet_1f_2+1;
+				mes "[遠古英雄的靈魂]";
+				mes "那時, 憑我們是無法征服惡魔巴風特的, 在許多英雄獻出他們的生命後, 我們僅僅能將它封印在修道院裡";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "論怎樣巴風特從來沒有放棄過, 它一直在積蓄力量, 而且它的力量將帶來一些新的魔物";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "這些魔物具有魔力, 巴風特稱他們為 '門徒'";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "門徒們用邪惡的能量克隆自己, 充滿了整個墓穴, 他們就是這個古墓中的怪物";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "殺死門徒, 因為他們擁有 ^0000FF門徒的標示^000000...";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "如果每一個隊員都持有一個 ^0000FF門徒的標示^000000, 巴風特就無法在你們進入地下墓穴的祭壇時察覺";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "如果你們通過封印門時被巴風特發覺, 它可能會釋放出巨大的魔法力量, 修道院將被完全摧毀";
+				next;
+				mes "[遠古英雄的靈魂]";
+				mes "殺死門徒, 取得 ^0000FF門徒的標示^000000";
+				next;
+				break;
+			case 3:
+				set .@ins_baphomet_1f_3,.@ins_baphomet_1f_3+1;
+				if (getpartyleader(.@party_id,2) == getcharid(0)) {
+					mes "[遠古英雄的靈魂]";
+					mes "看起來你是這個隊伍的隊長, 那麼你需要去各個火把處取得總共 ^0000FF10個戰神的精魄^000000";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "現在我要雕刻你的繼承者信仰象徵, 注意: 你的隊伍中除了你, 沒人能夠得到 ^0000FF10個戰神的精魄^000000";
+					next;
+					specialeffect2 EF_HOLYHIT;
+					mes "[遠古英雄的靈魂]";
+					mes "你也應該攜帶 ^0000FF門徒的標示^000000";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "當你們全部準備好的時候通知我, 我會打開封印之門";
+					next;
+				}
+				else {
+					mes "[遠古英雄的靈魂]";
+					mes "請確保隊長知道自己和隊員應該做什麼";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "殺死巴風特的門徒, 得到 ^0000FF門徒的標示^000000";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "最好將墓穴中的怪物全部殺死, 因為門徒們有很多克隆, 你很難區分它們";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "你準備好了嗎?";
+					mes "在你說準備好了之前請確信你已經明白了我所說的一切";
+					next;
+				}
+				break;
+			case 4:
+				if ((.@ins_baphomet_1f_1 > 0) && (.@ins_baphomet_1f_2 > 0) && (.@ins_baphomet_1f_3 > 0)) {
+					cutin "ins_cata_champ_n",2;
+					mes "[遠古英雄的靈魂]";
+					mes "你準備好了嗎? 我現在打開封印之門";
+					next;
+					set .@exitloop,1;
+				}
+				else {
+					cutin "ins_cata_champ_a",2;
+					mes "[遠古英雄的靈魂]";
+					mes "也許比較困難, 但是我希望你能勇敢面對古墓中的危險";
+					next;
+					mes "[遠古英雄的靈魂]";
+					mes "記住: 你需要從火把那裡收集 ^0000FF10個戰神的精魄^000000, 從巴風特門徒那裡收集 ^0000FF門徒的標示^000000";
+					next;
+				}
+				break;
+			}
+			if (.@exitloop) break;
+		}
+		if (getpartyleader(.@party_id,2) == getcharid(0)) {
+			mes "[遠古英雄的靈魂]";
+			mes "再次提醒你, 我需要一個小時後才能完成實體化, 因此你們要在這個時間裡完成需要做的準備";
+			set 'ins_baphomet,3;
+			donpcevent instance_npcname("ins_baphomet_1f_timer")+"::OnEnable";
+			donpcevent instance_npcname("ins_baphomet_lotto2")+"::OnEnable";
+			donpcevent instance_npcname("ins_baphomet_lotto3")+"::OnEnable";
+		}
+		else {
+			mes "[遠古英雄的靈魂]";
+			mes "再次提醒你, 我需要一個小時後才能完成實體化, 因此你們要在這個時間裡完成需要做的準備";
+			//set 'ins_baphomet,3;
+		}
+		close2;
+		cutin "",255;
+		end;
+	}
+	else if (('ins_baphomet == 3) && (getpartyleader(.@party_id,2) == getcharid(0))) {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "你收集好 ^0000FF10個戰神的精魄^000000 和 ^0000FF門徒的標示^000000 了嗎?";
+		next;
+		if ((countitem(6001) > 9) && (countitem(6002) > 0)) {
+			delitem 6001,countitem(6001); //Essence_Of_Fire
+			set 'ins_baphomet,4;
+			mes "[遠古英雄的靈魂]";
+			mes "非常好! 你已經完成了你的事情, 現在檢查你的隊員們是否完成了他們需要做的事情";
+		}
+		else {
+			mes "[遠古英雄的靈魂]";
+			mes "還沒準備好? 你需要準備 ^0000FF10個戰神的精魄^000000 和 ^0000FF門徒的標示^000000";
+		}
+		close2;
+		cutin "",255;
+		end;
+	}
+	else if ('ins_baphomet == 3) {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "你有 ^0000FF門徒的標示^000000 嗎?";
+		next;
+		if (countitem(6002) > 0) {
+			set 'ins_baphomet,4;
+			mes "[遠古英雄的靈魂]";
+			mes "非常好! 你已經完成了你的事情, 現在檢查你的隊員們是否完成了他們需要做的事情";
+		}
+		else {
+			mes "[遠古英雄的靈魂]";
+			mes "還沒準備好? 你需要準備 ^0000FF門徒的標示^000000";
+		}
+		close2;
+		cutin "",255;
+		end;
+	}
+	else if (('ins_baphomet == 4) && (getpartyleader(.@party_id,2) == getcharid(0))) {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "準備好了嗎? 我現在打開封印之門, 你要攜帶 ^0000FF門徒的標示^000000";
+		next;
+		set 'ins_baphomet,5;
+		specialeffect EF_TELEPORTATION;
+		enablenpc instance_npcname("ins_bapho_to_2f");
+		mes "[遠古英雄的靈魂]";
+		mes "現在你可以去主祭壇了, 主祭壇位於本層底部右邊的角落";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "你真正的戰鬥即將開始, 我會跟著你看能幫到你什麼";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "勇敢的戰士, 前進吧";
+		cutin "",255;
+		mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 現在你可以去位於東南方的主祭壇了",bc_map,"0xFFFF00";
+		close;
+	}
+	else if ('ins_baphomet == 4) {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "準備好了嗎? 我現在打開封印之門, 你要攜帶 ^0000FF門徒的標示^000000";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "當你們都準備好的時候, 請你們的代表告訴我, 我將打開封印之門";
+		cutin "",255;
+		close;
+	}
+	else if ('ins_baphomet == 5) {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "你在做什麼? 主祭壇的門已經打開了, 快去戰鬥啊! 入口位於本層右下方位";
+		cutin "",255;
+		close;
+	}
+	else {
+		cutin "ins_cata_champ_n",2;
+		mes "[遠古英雄的靈魂]";
+		mes "我沒什麼好說的了...";
+		cutin "",255;
+		close;
+	}
+
+OnInstanceInit:
+	disablenpc instance_npcname("遠古英雄的靈魂#1F");
+	end;
+}
+
+// To 2F Warp
+//============================================================
+1@cata,281,12,0	script	ins_bapho_to_2f	45,1,1,{
+OnTouch:
+	if (countitem(6002) > 0) {
+		delitem 6002,countitem(6002); //Token_Of_Apostle
+		set 'ins_baphomet,5;
+		warp instance_mapname("2@cata"),80,144;
+		end;
+	}
+	else {
+		mes "[遠古英雄的靈魂]";
+		mes "你的^0000FF門徒的標示^000000呢? 我告訴過你必須攜帶^0000FF門徒的標示^000000 才能進入祭壇";
+		close;
+	}
+
+OnInstanceInit:
+	disablenpc instance_npcname("ins_bapho_to_2f");
+	end;
+}
+
+// 發出聲響的墓穴
+//============================================================
+-	script	發出聲響的墓穴#SS1	-1,{
+	if ('ins_baphomet == 1) {
+		getitem 6003,1; //Soul_Pendant
+		set 'ins_baphomet,2;
+		mes "在即將倒塌的墓穴下有一個閃閃發光的物體";
+		next;
+		mes "[" + strcharinfo(0) + "]";
+		mes "我想這就是靈魂的吊墜...";
+		close;
+	}
+	else {
+		mes "我只能感覺到這個墓穴的陰暗";
+		close;
+	}
+OnDisable:
+	disablenpc strnpcinfo(0);
+	end;
+OnEnable:
+	enablenpc strnpcinfo(0);
+	end;
+OnInstanceInit:
+	disablenpc strnpcinfo(0);
+	end;
+}
+1@cata,86,216,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_1T	844
+1@cata,200,209,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_2T	844
+1@cata,230,195,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_3T	844
+1@cata,118,182,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_4T	844
+1@cata,193,182,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_5T	844
+1@cata,253,156,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_6T	844
+1@cata,88,154,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_7T	844
+1@cata,127,116,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_8T	844
+1@cata,90,98,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_9T	844
+1@cata,188,84,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_10T	844
+1@cata,244,42,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_11T	844
+1@cata,127,32,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_12T	844
+1@cata,267,30,0	duplicate(發出聲響的墓穴#SS1)	發出聲響的墓穴#1F_13T	844
+
+-	script	發出聲響的墓穴#SS2	-1,{
+	mes "我只能感覺到這個墓穴的陰暗";
+	close;
+OnDisable:
+	disablenpc strnpcinfo(0);
+	end;
+OnEnable:
+	enablenpc strnpcinfo(0);
+	end;
+OnInstanceInit:
+	disablenpc strnpcinfo(0);
+	end;
+}
+1@cata,86,216,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_1F	844
+1@cata,200,209,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_2F	844
+1@cata,230,195,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_3F	844
+1@cata,118,182,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_4F	844
+1@cata,193,182,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_5F	844
+1@cata,253,156,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_6F	844
+1@cata,88,154,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_7F	844
+1@cata,127,116,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_8F	844
+1@cata,90,98,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_9F	844
+1@cata,188,84,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_10F	844
+1@cata,244,42,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_11F	844
+1@cata,127,32,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_12F	844
+1@cata,267,30,0	duplicate(發出聲響的墓穴#SS2)	發出聲響的墓穴#1F_13F	844
+
+// 火炬
+//============================================================
+-	script	火炬#SS	-1,{
+	set .@party_id,getcharid(1);
+	if (getpartyleader(.@party_id,2) == getcharid(0)) {
+		if (('ins_baphomet == 3) && (countitem(6001) < 11)) {
+			mes "一支巨大的火把看起來似乎能將我面前的一切燃燒殆盡";
+			next;
+			mes "呈現在面前的巨大火焰讓我不由的後退幾步, 但是我鼓足勇氣將手臂伸向火把";
+			next;
+			specialeffect2 EF_HOLYHIT;
+			getitem 6001,1; //Essence_Of_Fire
+			mes "繼承人的象徵開始閃光, 然後從火把中掉出一塊小水晶, 落入我的手中";
+			disablenpc instance_npcname(strnpcinfo(0));
+			close;
+		}
+		else if (('ins_baphomet == 3) && (countitem(6001) > 10)) {
+			mes "你已經有10個戰神的精魄, 不需要再收集了";
+			close;
+		}
+		else {
+			mes "你不需要收集更多戰神的精魄了";
+			close;
+		}
+	}
+	else {
+		mes "一支巨大的火把看起來似乎能將我面前的一切燃燒殆盡..";
+		next;
+		mes "[神秘的聲音]";
+		mes "你不是信仰的繼承者, 不要用你的手玷污了戰神的精魄";
+		specialeffect2 EF_FIRESPLASHHIT;
+		percentheal -50,0;
+		close;
+	}
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+1@cata,267,210,0	duplicate(火炬#SS)	火炬#1	844
+1@cata,85,182,0	duplicate(火炬#SS)	火炬#2	844
+1@cata,267,154,0	duplicate(火炬#SS)	火炬#3	844
+1@cata,157,139,0	duplicate(火炬#SS)	火炬#4	844
+1@cata,193,138,0	duplicate(火炬#SS)	火炬#5	844
+1@cata,193,102,0	duplicate(火炬#SS)	火炬#6	844
+1@cata,157,102,0	duplicate(火炬#SS)	火炬#7	844
+1@cata,113,112,0	duplicate(火炬#SS)	火炬#8	844
+1@cata,253,56,0	duplicate(火炬#SS)	火炬#9	844
+1@cata,239,56,0	duplicate(火炬#SS)	火炬#10	844
+1@cata,71,42,0	duplicate(火炬#SS)	火炬#11	844
+1@cata,155,14,0	duplicate(火炬#SS)	火炬#12	844
+
+1@cata,1,1,0	script	ins_baphomet_1f_timer	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("ins_baphomet_1f_timer");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("ins_baphomet_1f_timer");
+	initnpctimer;
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("ins_baphomet_1f_timer");
+	stopnpctimer;
+	end;
+
+OnTimer1800000:
+	mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 我們沒有太多時間, 快點兒!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer2400000:
+	mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 我的身體正在消失, 快點!!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer3000000:
+	mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 所有這一切都結束了, 除了等待下一次機會外再也沒有別的辦法",bc_map,"0xFFFF00";
+	end;
+
+OnTimer3050000:
+	mapannounce instance_mapname("1@cata"), "遠古英雄的靈魂: 我們失敗了, 然而我們還有機會, 我希望你不斷提高自己的能力直到下一次再來",bc_map,"0xFFFF00";
+	end;
+
+OnTimer3100000:
+	mapannounce instance_mapname("1@cata"), "你未能成功打開主祭壇的封印之門",bc_map,"0xFFFF00";
+	end;
+
+OnTimer3500000:
+	instance_warpall "Save",0,0;
+	stopnpctimer;
+	end;
+}
+
+2@cata,80,144,0	script	ins_2f_enter	-1,3,3,{
+OnTouch:
+	donpcevent instance_npcname("ins_2f_enter_broad")+"::OnEnable";
+	disablenpc instance_npcname("ins_2f_enter");
+	end;
+}
+
+2@cata,1,1,0	script	ins_2f_enter_broad	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("ins_2f_enter_broad");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("ins_2f_enter_broad");
+	initnpctimer;
+	end;
+
+OnTimer10000:
+	mapannounce instance_mapname("2@cata"), "巴風特的吼叫: 人類... 又一次妨礙了我...",bc_map,"0xdb7093";
+	end;
+
+OnTimer13000:
+	mapannounce instance_mapname("2@cata"), "巴風特的門徒: 人類! 人類侵略了我們的聖地!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer16000:
+	mapannounce instance_mapname("2@cata"), "巴風特的門徒: 殺死人類! 不要讓他們阻止我們的主人重生!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer18000:
+	mapannounce instance_mapname("2@cata"), "巴風特的門徒: 趕快打破祭壇的封印! 主人的重生全靠我們了",bc_map,"0xFFFF00";
+	stopnpctimer;
+	disablenpc instance_npcname("ins_2f_enter_broad");
+	end;
+}
+
+2@cata,50,67,0	script	slave_left	-1,5,5,{
+OnTouch:
+	set .@map$, instance_mapname("2@cata");
+	mapannounce .@map$, "巴風特的門徒: 殺死人類! 不要讓他們阻止我們的主人重生!",bc_map,"0xFFFF00";
+	monster .@map$,55,67,"巴風特的門徒",1869,1;
+	monster .@map$,51,67,"巴風特的門徒",1291,1;
+	monster .@map$,58,67,"巴風特的門徒",1292,1;
+	monster .@map$,53,67,"巴風特的門徒",1291,1;
+	monster .@map$,54,67,"巴風特的門徒",1869,1;
+	monster .@map$,55,67,"巴風特的門徒",1291,1;
+	monster .@map$,56,67,"巴風特的門徒",1117,1;
+	monster .@map$,58,66,"巴風特的門徒",1869,1;
+	monster .@map$,56,66,"巴風特的門徒",1117,1;
+	monster .@map$,60,66,"巴風特的門徒",1132,1;
+	monster .@map$,59,66,"巴風特的門徒",1117,1;
+	monster .@map$,54,66,"巴風特的門徒",1132,1;
+	monster .@map$,55,66,"巴風特的門徒",1292,1;
+	monster .@map$,56,66,"巴風特的門徒",1132,1;
+	monster .@map$,50,65,"巴風特的門徒",1867,1;
+	monster .@map$,61,65,"巴風特的門徒",1292,1;
+	disablenpc instance_npcname("slave_left");
+	end;
+}
+
+2@cata,109,67,0	script	slave_right	-1,5,5,{
+OnTouch:
+	set .@map$, instance_mapname("2@cata");
+	mapannounce .@map$, "巴風特的門徒: 殺死人類! 不要讓他們阻止我們的主人重生!",bc_map,"0xFFFF00";
+	monster .@map$,105,67,"巴風特的門徒",1869,1;
+	monster .@map$,104,67,"巴風特的門徒",1291,1;
+	monster .@map$,107,67,"巴風特的門徒",1869,1;
+	monster .@map$,106,67,"巴風特的門徒",1291,1;
+	monster .@map$,102,67,"巴風特的門徒",1869,1;
+	monster .@map$,103,67,"巴風特的門徒",1291,1;
+	monster .@map$,103,67,"巴風特的門徒",1117,1;
+	monster .@map$,109,66,"巴風特的門徒",1117,1;
+	monster .@map$,108,66,"巴風特的門徒",1132,1;
+	monster .@map$,101,66,"巴風特的門徒",1117,1;
+	monster .@map$,106,66,"巴風特的門徒",1292,1;
+	monster .@map$,102,66,"巴風特的門徒",1132,1;
+	monster .@map$,104,66,"巴風特的門徒",1292,1;
+	monster .@map$,103,66,"巴風特的門徒",1132,1;
+	monster .@map$,109,65,"巴風特的門徒",1867,1;
+	monster .@map$,108,65,"巴風特的門徒",1292,1;
+	disablenpc instance_npcname("slave_right");
+	end;
+}
+
+2@cata,79,39,0	script	slave_down	-1,5,5,{
+OnTouch:
+	set .@map$, instance_mapname("2@cata");
+	mapannounce .@map$, "巴風特的門徒: 殺死人類! 不要讓他們阻止我們的主人重生!",bc_map,"0xFFFF00";
+	monster .@map$,78,41,"巴風特的門徒",1869,1;
+	monster .@map$,79,42,"巴風特的門徒",1291,1;
+	monster .@map$,78,46,"巴風特的門徒",1869,1;
+	monster .@map$,81,41,"巴風特的門徒",1291,1;
+	monster .@map$,81,42,"巴風特的門徒",1869,1;
+	monster .@map$,79,43,"巴風特的門徒",1291,1;
+	monster .@map$,77,40,"巴風特的門徒",1117,1;
+	monster .@map$,79,41,"巴風特的門徒",1132,1;
+	monster .@map$,79,42,"巴風特的門徒",1117,1;
+	monster .@map$,79,43,"巴風特的門徒",1132,1;
+	monster .@map$,79,48,"巴風特的門徒",1117,1;
+	monster .@map$,78,49,"巴風特的門徒",1132,1;
+	monster .@map$,78,41,"巴風特的門徒",1292,1;
+	monster .@map$,74,42,"巴風特的門徒",1292,1;
+	monster .@map$,72,48,"巴風特的門徒",1867,1;
+	monster .@map$,72,38,"巴風特的門徒",1292,1;
+	disablenpc instance_npcname("slave_down");
+	end;
+}
+
+// 封印法陣
+//============================================================
+-	script	封印法陣#SS	-1,{
+	set .@seal_check,checkquest(3041,PLAYTIME);
+	if (.@seal_check == 0 || .@seal_check == 1) {
+		specialeffect2 EF_SILENCEATTACK;
+		percentheal -50,0;
+		sc_start Eff_Stone,30000,0;
+		mes "你的 SP 還沒有恢復, 你在祭壇上失去了你的 SP, 但是看起來封印的力量已經回復了";
+		close;
+	}
+	if (.@seal_check == 2) erasequest 3041;
+	specialeffect EF_LEXDIVINA;
+	disablenpc instance_npcname(strnpcinfo(0));
+	set .@map$, instance_mapname("2@cata");
+	if (strnpcinfo(2) == "0") areamobuseskill .@map$,79,81,10,1929,"NPC_INVINCIBLEOFF",1,0,0,et_help,0;
+	else if (strnpcinfo(2) == "2") areamobuseskill .@map$,123,109,10,1929,"NPC_INVINCIBLEOFF",1,0,0,et_help,0;
+	else if (strnpcinfo(2) == "4") areamobuseskill .@map$,123,22,10,1929,"NPC_INVINCIBLEOFF",1,0,0,et_help,0;
+	else if (strnpcinfo(2) == "8") areamobuseskill .@map$,35,21,10,1929,"NPC_INVINCIBLEOFF",1,0,0,et_help,0;
+	else if (strnpcinfo(2) == "10") areamobuseskill .@map$,35,109,10,1929,"NPC_INVINCIBLEOFF",1,0,0,et_help,0;
+	percentheal -50,0;
+	sc_start Eff_Stone,20000,0;
+	setquest 3041;
+	mapannounce .@map$, "向祭壇注入魔法能量後封印被重新激活",bc_map,"0x87ceeb";
+	mes "注入魔法能量後, 我能感覺到祭壇的能量又恢復了";
+	next;
+	mes "但是3分鐘內你無法再次向祭壇注入能量, 因為你已經把你的 SP 用在祭壇上了";
+	close;
+
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+}
+2@cata,79,81,0	duplicate(封印法陣#SS)	封印法陣#0	844
+2@cata,123,109,0	duplicate(封印法陣#SS)	封印法陣#2	844
+2@cata,123,22,0	duplicate(封印法陣#SS)	封印法陣#4	844
+2@cata,35,21,0	duplicate(封印法陣#SS)	封印法陣#8	844
+2@cata,35,109,0	duplicate(封印法陣#SS)	封印法陣#10	844
+
+2@cata,79,65,0	script	The Main Altar#ss	844,{
+	set .@party_id,getcharid(1);
+	if (('ins_baphomet == 5) && (getpartyleader(.@party_id,2) == getcharid(0))) {
+		mes "一股強大到無法形容的邪惡紫光從封印陣地下散發出來";
+		next;
+		mes "複雜的符文快速閃動著努力控制著那可怕的力量, 看起來相當危險";
+		next;
+		mes "源源不斷迸發的邪惡力量洪流一般不斷從底部狂暴地衝擊著封印陣";
+		next;
+		specialeffect EF_METEORSTORM;
+		specialeffect EF_METEORSTORM;
+		mes "[" + strcharinfo(0) + "]";
+		mes "快看! 有東西...正在出來...";
+		set 'ins_baphomet,6;
+		donpcevent instance_npcname("ins_2f_hero_broad")+"::OnEnable";
+		disablenpc instance_npcname("The Main Altar#ss");
+		close;
+	}
+	else {
+		mes "一股強大到無法形容的邪惡紫光從封印陣地下散發出來";
+		next;
+		mes "複雜的符文快速閃動著努力控制著那可怕的力量, 看起來相當危險";
+		close;
+	}
+	end;
+}
+
+2@cata,80,63,4	script	遠古英雄的靈魂#2F	411,{
+	cutin "ins_cata_champ_s",2;
+	if (checkquest(3041)>=0) erasequest 3041;
+	mes "[遠古英雄的靈魂]";
+	mes "做得不錯, 我的孩子們, 你滿足了我和我的同伴們長久以來都無法達成的期望";
+	next;
+	mes "[遠古英雄的靈魂]";
+	mes "我非常感激你的幫助";
+	mes "我們的靈魂終於能夠歸於寧靜了...";
+	next;
+	mes "[遠古英雄的靈魂]";
+	mes "為保護這個世界的和平而進行的戰鬥將永遠不會終止, 但是因為有了像你這樣的英雄, 我的任務終於可以結束了";
+	next;
+	switch(select("讓我離開修道院:停止交談")) {
+	case 1:
+		mes "[遠古英雄的靈魂]";
+		mes "好好好.. 我會讓你和你的同伴們安全的離開這裡";
+		next;
+		mes "[遠古英雄的靈魂]";
+		mes "離開修道院的時候, 請代我向帕特裡克問候一下";
+		cutin "",255;
+		set 'ins_baphomet,0;
+		warp "Save",0,0;
+		close;
+	case 2:
+		mes "[遠古英雄的靈魂]";
+		mes "你在這裡還有什麼事情嗎? 如果你已經完成了, 我會讓你安全的離開這裡..";
+		cutin "",255;
+		close;
+	}
+
+OnInstanceInit:
+	disablenpc instance_npcname("遠古英雄的靈魂#2F");
+	end;
+}
+
+2@cata,1,2,0	script	ins_2f_hero_broad	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("ins_2f_hero_broad");
+	end;
+OnEnable:
+	enablenpc instance_npcname("ins_2f_hero_broad");
+	initnpctimer;
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("ins_2f_hero_broad");
+	end;
+
+OnTimer3000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 我的天呀! 主祭壇的控制力正在變弱!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer6000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 我的孩子們, 仔細聽我說..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer9000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 祭壇, 控制主祭壇的力量, 位於這個房間的東北、東南、西南和西北角落..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer12000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 在巴風特重生前找到這些祭壇, 並重新激活他們的封印..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer15000:
+	mapannounce instance_mapname("2@cata"), "魔王巴風特: 太遲了, 人類啊... 現在你們都將感受到死亡的絕望!",bc_map,"0xdb7093";
+	end;
+
+OnTimer17000:
+	mapannounce instance_mapname("2@cata"), "魔王巴風特: 在我的地盤上, 你們連我一根汗毛都傷不到! 安安靜靜的等著做我的祭禮吧!",bc_map,"0xdb7093";
+	donpcevent instance_npcname("control_baphomet")+"::OnEnable";
+	donpcevent instance_npcname("ins_2f_hero_broad2")+"::OnEnable";
+	stopnpctimer;
+	disablenpc instance_npcname("ins_2f_hero_broad");
+	end;
+}
+
+2@cata,3,3,0	script	control_baphomet	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("control_baphomet");
+	end;
+OnDisable:
+	disablenpc instance_npcname("control_baphomet");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("control_baphomet");
+	donpcevent instance_npcname("2f_callmon_pattern_c")+"::OnEnable";
+	monster instance_mapname("2@cata"),79,64,"魔王巴風特",1929,1,instance_npcname("control_baphomet")+"::OnMyMobDead";
+	end;
+
+OnMyMobDead:
+	set .@map$, instance_mapname("2@cata");
+	if (mobcount(.@map$,instance_npcname("control_baphomet")+"::OnMyMobDead") < 1) {
+		set 'ins_baphomet,7;
+		erasequest 3041;
+		mapannounce .@map$, "魔王巴風特 : 不!不不不!! 這怎麼可能??? 我怎麼又被這些微不足道的人類侮辱了呢??? 你們絕不可能.... 你們絕不可能再次封印我!!!",bc_map,"0xdb7093";
+		getmapxy(.@m$,'passx,'passy,BL_PC);
+		donpcevent instance_npcname("副本寶箱#2@cata")+"::OnEnable";
+		'ClearInatance = 1;	
+		enablenpc instance_npcname("遠古英雄的靈魂#2F");
+		disablenpc instance_npcname("slave_down");
+		disablenpc instance_npcname("slave_left");
+		disablenpc instance_npcname("slave_right");
+		donpcevent instance_npcname("ins_2f_hero_broad")+"::OnDisable";
+		donpcevent instance_npcname("ins_2f_hero_broad2")+"::OnDisable";
+		donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnDisable";
+		donpcevent instance_npcname("2f_callmon_pattern_c")+"::OnDisable";
+		donpcevent instance_npcname("2f_callmon_pattern")+"::OnDisable";
+		donpcevent instance_npcname("ins_2f_hero_pattern")+"::OnDisable";
+		donpcevent instance_npcname("ins_2f_enter_broad")+"::OnDisable";
+		donpcevent instance_npcname("control_baphomet")+"::OnDisable";
+		disablenpc instance_npcname("control_baphomet");
+	}
+	end;
+}
+
+2@cata,2,2,0	script	ins_2f_hero_broad2	-1,{
+OnInstanceInit:
+OnDisable:
+	disablenpc instance_npcname("ins_2f_hero_broad2");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("ins_2f_hero_broad2");
+	initnpctimer;
+	end;
+
+OnTimer8000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 不要氣餒, 你們仍然能夠打敗巴風特!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer11000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 去祭壇激活封印..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer13000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 一旦封印回復能量, 巴風特很容易受到攻擊傷害..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer16000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 還要記住, 必須讓巴風特處於封印陣當中, 否則封印陣就發揮不了作用..",bc_map,"0xFFFF00";
+	end;
+
+OnTimer19000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 切記!! 我們只有一個小時阻擊巴風特! 如果超過時間封印就無法困阻它了!",bc_map,"0xFFFF00";
+	end;
+
+OnTimer22000:
+	mapannounce instance_mapname("2@cata"), "魔王巴風特: 封印對我來說完全是廢物! 你們儘管多弄些封印來, 我會當著你們的面粉碎它們! 你們沒有一個人能活著出去!!!",bc_map,"0xdb7093";
+	end;
+
+OnTimer26000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 位於中央的封印魔法能量快要用盡! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+	enablenpc instance_npcname("封印法陣#0");
+	disablenpc instance_npcname("封印法陣#2");
+	disablenpc instance_npcname("封印法陣#4");
+	disablenpc instance_npcname("封印法陣#8");
+	disablenpc instance_npcname("封印法陣#10");
+	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnEnable";
+	stopnpctimer;
+	disablenpc instance_npcname("ins_2f_hero_broad2");
+	end;
+}
+
+2@cata,4,1,0	script	2f_callmon_pattern_c	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("2f_callmon_pattern_c");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("2f_callmon_pattern_c");
+	initnpctimer;
+	donpcevent instance_npcname("2f_callmon_pattern_c")+"::Ongo";
+	end;
+
+OnDisable:
+	stopnpctimer;
+	disablenpc instance_npcname("2f_callmon_pattern_c");
+	end;
+
+Ongo:
+	donpcevent instance_npcname("2f_callmon_pattern")+"::OnEnable";
+	end;
+
+OnTimer3600000:
+	donpcevent instance_npcname("2f_callmon_pattern_c")+"::OnDisable";
+	end;
+}
+
+2@cata,4,2,0	script	2f_callmon_pattern	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("2f_callmon_pattern");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("2f_callmon_pattern");
+	stopnpctimer;
+	initnpctimer;
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("2f_callmon_pattern");
+	stopnpctimer;
+	end;
+
+OnTimer300000:
+	enablenpc instance_npcname("slave_down");
+	enablenpc instance_npcname("slave_left");
+	enablenpc instance_npcname("slave_right");
+	donpcevent instance_npcname("2f_callmon_pattern_c")+"::Ongo";
+	end;
+}
+
+2@cata,3,1,0	script	ins_2f_hero_pattern_c	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("ins_2f_hero_pattern_c");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("ins_2f_hero_pattern_c");
+	initnpctimer;
+	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::Ongo";
+	end;
+
+Ongo:
+	donpcevent instance_npcname("ins_2f_hero_pattern")+"::OnEnable";
+	end;
+
+OnDisable:
+	stopnpctimer;
+	disablenpc instance_npcname("封印法陣#0");
+	disablenpc instance_npcname("封印法陣#2");
+	disablenpc instance_npcname("封印法陣#4");
+	disablenpc instance_npcname("封印法陣#8");
+	disablenpc instance_npcname("封印法陣#10");
+	donpcevent instance_npcname("ins_2f_hero_pattern")+"::OnDisable";
+	disablenpc instance_npcname("ins_2f_hero_pattern_c");
+	end;
+
+OnTimer3600000:
+	mapannounce instance_mapname("2@cata"), "魔王巴風特: 咳咳咳... 用封印就像阻擋我? 你們等死吧!!",bc_map,"0xdb7093";
+	end;
+
+OnTimer3605000:
+	mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 我們再也無法用封印的能量阻止巴風特, 現在一切就看天意了...",bc_map,"0xFFFF00";
+	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::OnDisable";
+	end;
+}
+
+2@cata,3,2,0	script	ins_2f_hero_pattern	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("ins_2f_hero_pattern");
+	end;
+
+OnEnable:
+	enablenpc instance_npcname("ins_2f_hero_pattern");
+	initnpctimer;
+	end;
+
+OnDisable:
+	disablenpc instance_npcname("ins_2f_hero_pattern");
+	stopnpctimer;
+	end;
+
+OnTimer70000:
+	switch(rand(1,5)) {
+	case 1:
+		mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 位於中央的封印魔法能量快要用盡! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+		enablenpc instance_npcname("封印法陣#0");
+		disablenpc instance_npcname("封印法陣#2");
+		disablenpc instance_npcname("封印法陣#4");
+		disablenpc instance_npcname("封印法陣#8");
+		disablenpc instance_npcname("封印法陣#10");
+		break;
+	case 2:
+		mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 2點鐘方向的封印能量微弱! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("封印法陣#0");
+		enablenpc instance_npcname("封印法陣#2");
+		disablenpc instance_npcname("封印法陣#4");
+		disablenpc instance_npcname("封印法陣#8");
+		disablenpc instance_npcname("封印法陣#10");
+		break;
+	case 3:
+		mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 4點鐘方向的封印能量微弱! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("封印法陣#0");
+		disablenpc instance_npcname("封印法陣#2");
+		enablenpc instance_npcname("封印法陣#4");
+		disablenpc instance_npcname("封印法陣#8");
+		disablenpc instance_npcname("封印法陣#10");
+		break;
+	case 4:
+		mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 8點鐘方向的封印能量微弱! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("封印法陣#0");
+		disablenpc instance_npcname("封印法陣#2");
+		disablenpc instance_npcname("封印法陣#4");
+		enablenpc instance_npcname("封印法陣#8");
+		disablenpc instance_npcname("封印法陣#10");
+		break;
+	case 5:
+		mapannounce instance_mapname("2@cata"), "遠古英雄的靈魂: 10點鐘方向的封印能量微弱! 快去注入魔法能量!!",bc_map,"0xFFFF00";
+		disablenpc instance_npcname("封印法陣#0");
+		disablenpc instance_npcname("封印法陣#2");
+		disablenpc instance_npcname("封印法陣#4");
+		disablenpc instance_npcname("封印法陣#8");
+		enablenpc instance_npcname("封印法陣#10");
+	}
+	stopnpctimer;
+	donpcevent instance_npcname("ins_2f_hero_pattern_c")+"::Ongo";
+	end;
+}
+
+
+1@cata,1,1,0	script	ins_1f_spawn_mobs	-1,{
+OnInstanceInit:
+	set .@map$, instance_mapname("1@cata");
+	monster .@map$,0,0,"腐屍首領",1298,10;
+	monster .@map$,0,0,"狂暴惡靈",1291,10;
+	//monster .@map$,0,0,"Ancient Mimic",1699,10;
+	monster .@map$,0,0,"火焰骷髏頭",1869,10;
+	monster .@map$,0,0,"邪骸戰士長",1290,10;
+	monster .@map$,0,0,"腐屍首領",1298,10;
+	monster .@map$,0,0,"邪骸戰士長",1290,10;
+	monster .@map$,0,0,"火焰骷髏頭",1869,10;
+	monster .@map$,0,0,"狂暴惡靈",1291,10;
+	monster .@map$,0,0,"狂暴惡靈",1291,10;
+	monster .@map$,0,0,"卡利斯格",1132,10;
+	monster .@map$,0,0,"卡利斯格",1132,10;
+	monster .@map$,0,0,"火焰骷髏頭",1869,10;
+	monster .@map$,0,0,"火焰骷髏頭",1869,10;
+	monster .@map$,0,0,"狂暴邪惡箱",1699,10;
+	monster .@map$,0,0,"腐屍首領",1298,10;
+	monster .@map$,0,0,"狂暴邪惡箱",1699,10;
+	monster .@map$,0,0,"腐屍首領",1298,10;
+	monster .@map$,0,0,"狂暴惡靈",1291,10;
+	monster .@map$,0,0,"邪骸戰士長",1290,10;
+	monster .@map$,0,0,"邪骸戰士長",1290,10;
+	monster .@map$,0,0,"風魔巫師",1263,10;
+	monster .@map$,0,0,"風魔巫師",1263,10;
+	monster .@map$,0,0,"風魔巫師",1263,10;
+	monster .@map$,0,0,"南瓜魂",1509,10;
+	monster .@map$,0,0,"南瓜魂",1509,10;
+	monster .@map$,0,0,"闇神官",1117,10;
+	monster .@map$,0,0,"闇神官",1117,10;
+	monster .@map$,0,0,"闇神官",1117,10;
+	monster .@map$,0,0,"惡耗女妖",1867,10;
+	monster .@map$,0,0,"迷幻之王",1302,1;
+	disablenpc instance_npcname("ins_1f_spawn_mobs");
+	end;
+}
+
+//寶箱
+2@cata,0,0,0	script	離開副本#2@cata	obj_a2,{
+	mes "^33CC33【離開副本】^000000";
+	mes "你要離開副本了嗎？";
+	next;
+	menu
+	"^008000◆先不要◆^000000",get42,
+	"^008000◆離開◆^000000",get422;
+get42:
+	end;
+get422:
+	getitem 6909,1;
+	getitem 930000,5;
+	getitem 940002,10;
+	Instance_PassAnnounce;
+	warp "SavePoint",0,0;
+	end;
+OnEnable:
+	enablenpc instance_npcname(strnpcinfo(0));
+	movenpc instance_npcname(strnpcinfo(0)),'passx,'passy;
+	end;
+OnDisable:
+	disablenpc instance_npcname(strnpcinfo(0));
+	end;
+OnInstanceInit:
+	disablenpc instance_npcname(strnpcinfo(0));
+	'map_reward$ = instance_mapname("1@ge_sn");
+	end;
+}

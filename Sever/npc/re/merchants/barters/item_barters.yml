@@ -1,0 +1,460 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Barter Database
+###########################################################################
+#
+# Barter Settings
+#
+###########################################################################
+#  - Name               NPC name.
+#    Map                Map name. (Default: not on a map)
+#    X                  Map x coordinate. (Default: 0)
+#    Y                  Map y coordinate. (Default: 0)
+#    Direction          Direction the NPC is looking. (Default: North)
+#    Sprite             Sprite name of the NPC. (Default: FakeNpc)
+#    Items:             List of sold items.
+#      - Index          Index of the item inside the shop. (0-...)
+#                       Maximum index depends on client.
+#        Item           Aegis name of the item.
+#        Stock          Amount of item in stock. 0 means unlimited. (Default: 0)
+#        Zeny           Cost of them item in Zeny. (Default: 0)
+#        RequiredItems: List of required items (Optional)
+#          - Index      Index of the required item. (0-4)
+#            Item       Aegis name of required item.
+#            Amount     Amount of required item. (Default: 1)
+#            Refine     Refine level of required item. (Default: 0)
+###########################################################################
+
+Header:
+  Type: BARTER_DB
+  Version: 1
+
+Body:
+   - Name: ºë·Òª««~
+     Items:
+       - Index: 0
+         Item: Phracon
+         Stock: 0
+         Zeny: 500
+       - Index: 1
+         Item: Emveretarcon
+         Stock: 0
+         Zeny: 1000
+       - Index: 2
+         Item: Elunium
+         Stock: 0
+         Zeny: 5000
+         RequiredItems:
+           - Index: 0
+             Item: Elunium_Stone
+             Amount: 5
+       - Index: 3
+         Item: Oridecon
+         Stock: 0
+         Zeny: 5000
+         RequiredItems:
+           - Index: 0
+             Item: Oridecon_Stone
+             Amount: 5
+       - Index: 4
+         Item: Enriched_Elunium
+         Stock: 0
+         Zeny: 30000
+         RequiredItems:
+           - Index: 0
+             Item: Elunium
+             Amount: 15
+       - Index: 5
+         Item: Enriched_Oridecon
+         Stock: 0
+         Zeny: 1000000
+         RequiredItems:
+           - Index: 0
+             Item: Enriched_Elunium
+             Amount: 15
+       - Index: 6
+         Item: HD_Elunium
+         Stock: 0
+         Zeny: 400000
+         RequiredItems:
+           - Index: 0
+             Item: Enriched_Elunium
+             Amount: 5
+       - Index: 7
+         Item: HD_Oridecon
+         Stock: 0
+         Zeny: 400000
+         RequiredItems:
+           - Index: 0
+             Item: Enriched_Oridecon
+             Amount: 5
+       - Index: 8
+         Item: Bradium
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Oridecon
+             Amount: 3
+       - Index: 9
+         Item: Carnium
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Elunium
+             Amount: 3
+       - Index: 10
+         Item: HD_Bradium
+         Stock: 0
+         Zeny: 300000
+         RequiredItems:
+           - Index: 0
+             Item: Bradium
+             Amount: 5
+       - Index: 11
+         Item: HD_Carnium
+         Stock: 0
+         Zeny: 300000
+         RequiredItems:
+           - Index: 0
+             Item: Carnium
+             Amount: 5
+       - Index: 12
+         Item: Ethernium
+         Stock: 0
+         Zeny: 50000
+         RequiredItems:
+           - Index: 0
+             Item: Elunium
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 1
+       - Index: 13
+         Item: Etherdeocon
+         Stock: 0
+         Zeny: 50000
+         RequiredItems:
+           - Index: 0
+             Item: Oridecon
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 1
+       - Index: 14
+         Item: Enriched_Ethernium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Enriched_Elunium
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 2
+       - Index: 15
+         Item: Enriched_Etherdeocon
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Enriched_Oridecon
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 2
+       - Index: 16
+         Item: HD_Ethernium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: HD_Elunium
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 17
+         Item: HD_Etherdeocon
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: HD_Oridecon
+             Amount: 3
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 18
+         Item: Etel_Carnium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Carnium
+             Amount: 2
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 19
+         Item: HD_Etel_Carnium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: HD_Carnium
+             Amount: 2
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 20
+         Item: Etel_Bradium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Bradium
+             Amount: 2
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 21
+         Item: HD_Etel_Bradium
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: HD_Bradium
+             Amount: 2
+           - Index: 1
+             Item: Etel_Dust
+             Amount: 3
+       - Index: 22
+         Item: Blacksmith_Blessing
+         Stock: 0
+         Zeny: 200000
+   - Name: Ä_¥Ûºë»s
+     Items:
+       - Index: 0
+         Item: Shadowdecon_Ore
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Zelunium_Ore
+             Amount: 5
+       - Index: 1
+         Item: Shadowdecon
+         Stock: 0
+         Zeny: 20000
+         RequiredItems:
+           - Index: 0
+             Item: Shadowdecon_Ore
+             Amount: 10
+       - Index: 2
+         Item: Zelunium
+         Stock: 0
+         Zeny: 20000
+         RequiredItems:
+           - Index: 0
+             Item: Zelunium_Ore
+             Amount: 10
+       - Index: 3
+         Item: Weapon_Stone_1
+         Stock: 0
+         Zeny: 20000
+         RequiredItems:
+           - Index: 0
+             Item: Shadowdecon
+             Amount: 1
+       - Index: 4
+         Item: Armor_Stone_1
+         Stock: 0
+         Zeny: 20000
+         RequiredItems:
+           - Index: 0
+             Item: Shadowdecon
+             Amount: 1
+       - Index: 5
+         Item: Acc_Stone_1
+         Stock: 0
+         Zeny: 20000
+         RequiredItems:
+           - Index: 0
+             Item: Shadowdecon
+             Amount: 1
+   - Name: Ä_¥Û¤É¯Å
+     Items:
+       - Index: 0
+         Item: Weapon_Stone_2
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Weapon_Stone_1
+             Amount: 3
+       - Index: 1
+         Item: Armor_Stone_2
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Armor_Stone_1
+             Amount: 3
+       - Index: 2
+         Item: Acc_Stone_2
+         Stock: 0
+         Zeny: 10000
+         RequiredItems:
+           - Index: 0
+             Item: Acc_Stone_1
+             Amount: 3
+       - Index: 3
+         Item: Weapon_Stone_3
+         Stock: 0
+         Zeny: 50000
+         RequiredItems:
+           - Index: 0
+             Item: Weapon_Stone_2
+             Amount: 3
+       - Index: 4
+         Item: Armor_Stone_3
+         Stock: 0
+         Zeny: 50000
+         RequiredItems:
+           - Index: 0
+             Item: Armor_Stone_2
+             Amount: 3
+       - Index: 5
+         Item: Acc_Stone_3
+         Stock: 0
+         Zeny: 50000
+         RequiredItems:
+           - Index: 0
+             Item: Acc_Stone_2
+             Amount: 3
+       - Index: 6
+         Item: Weapon_Stone_4
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Weapon_Stone_3
+             Amount: 3
+       - Index: 7
+         Item: Armor_Stone_4
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Armor_Stone_3
+             Amount: 3
+       - Index: 8
+         Item: Acc_Stone_4
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Acc_Stone_3
+             Amount: 3
+   - Name: µû¯Å§÷®Æ§I´«
+     Items:
+       - Index: 0
+         Item: Skyblue_Jewel
+         Stock: 0
+         Zeny: 6000
+       - Index: 1
+         Item: Golden_Jewel
+         Stock: 0
+         Zeny: 6000
+       - Index: 2
+         Item: Violet_Jewel
+         Stock: 0
+         Zeny: 6000
+       - Index: 3
+         Item: Amber
+         Stock: 0
+         Zeny: 45000
+       - Index: 4
+         Item: Etel_Stone
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Dust
+             Amount: 5
+       - Index: 5
+         Item: Blessed_Etel_Dust
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Dust
+             Amount: 5
+           - Index: 1
+             Item: Blacksmith_Blessing
+             Amount: 1
+       - Index: 6
+         Item: Etel_Skyblue_Jewel
+         Stock: 0
+         Zeny: 100000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Stone
+             Amount: 3
+           - Index: 1
+             Item: Skyblue_Jewel
+             Amount: 1
+       - Index: 7
+         Item: Etel_Topaz
+         Stock: 0
+         Zeny: 200000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Stone
+             Amount: 6
+           - Index: 1
+             Item: Golden_Jewel
+             Amount: 1
+
+       - Index: 8
+         Item: Etel_Violet_Jewel
+         Stock: 0
+         Zeny: 300000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Stone
+             Amount: 10
+           - Index: 1
+             Item: Violet_Jewel
+             Amount: 1
+
+       - Index: 9
+         Item: Etel_Amber
+         Stock: 0
+         Zeny: 500000
+         RequiredItems:
+           - Index: 0
+             Item: Etel_Stone
+             Amount: 15
+           - Index: 1
+             Item: Amber
+             Amount: 1
+

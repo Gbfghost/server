@@ -1,0 +1,97 @@
+
+
+
+//===== Description: ==============================
+//
+// 勇士之戒附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,107,5	script	[附魔]勇士之戒	4_service_30_f_01,{
+	disable_items;
+	cutin "ep15_2_fru_1",2;
+	.@mainItem = 2981;
+	.@needItem = 6684;
+
+	mes "[勇士之戒附魔]";
+	mes "你找我有什麼事呢？";	
+	next;
+	switch(select("附魔勇士之戒:離開")) {
+	case 1:
+		setarray .@EQI_TABLE[0],EQI_ACC_L, EQI_ACC_R;
+		setarray .@EQI_NAME$[0],"左邊", "右邊";
+		
+		mes "[勇士之戒附魔]";
+		mes "你有勇士之戒嗎？";
+		mes "若需要的話，我可以幫你附魔";
+		mes "不過要跟你收3個勇士之證。";
+		mes "確定要繼續嗎？";
+		next;
+		if(select("離開:確定")==2) {
+			.@eqiSlot = -1;
+			for(.@i=0; .@i<getarraysize(.@EQI_TABLE); .@i++) {
+				if(getequipid(.@EQI_TABLE[.@i]) == .@mainItem) {
+					.@eqiSlot = .@i;
+					break;
+				}
+			}
+			
+			if(.@eqiSlot == -1) {
+				mes "[勇士之戒附魔]";
+				mes "在你身上我沒有看到勇士之戒啊？";
+				mes "確認一下再來找我吧！";
+				close3;
+			}else if(countitem(.@needItem) < 3) {
+				mes "[勇士之戒附魔]";
+				mes "你身上沒有足夠的勇士之證。";
+				mes "這樣…我可沒辦法幫你。";
+				close3;
+			}
+			mes "[勇士之戒附魔]";
+			mes "你的勇士之戒戴在" + .@EQI_NAME$[.@eqiSlot] + "，";
+			mes "放心，這個附魔不會失敗。";
+			mes "不過要特別注意的是，";
+			mes "選擇的插槽會直接覆蓋哦！";
+			mes "那麼你想選擇哪一個插槽？";
+			next;
+			.@slot = select("第一洞:第二洞:第三洞:第四洞")-1;
+			
+			.@card1 = getequipcardid(.@eqiSlot, 0);
+			.@card2 = getequipcardid(.@eqiSlot, 1);
+			.@card3 = getequipcardid(.@eqiSlot, 2);
+			.@card4 = getequipcardid(.@eqiSlot, 3);
+			
+			//第一洞：STR、AGI、VIT、INT、DEX、LUK其中一個+1~+5。
+			//第二洞：ATK+1~5%、MATK+1~5%。
+			//第三洞：MaxHP+1~5%、SP+25×（1~4）或SP+150。
+			//第四洞：MDEF1~5、DEF+3×（1~5）
+			if(.@slot == 0) 
+				.@card1 = callfunc("F_Rand",4700,4701,4702,4703,4704,4710,4711,4712,4713,4714,4720,4721,4722,4723,4724,4730,4731,4732,4733,4734,4740,4741,4742,4743,4744,4750,4751,4752,4753,4754);
+			else if(.@slot == 1) 
+				.@card2 = callfunc("F_Rand",4819,4766,4767,4894,4895,4883,4896,4897,4898,4899);
+			else if(.@slot == 2) 
+				.@card3 = callfunc("F_Rand",4861,4862,4867,4868,4900,4870,4800,4871,4801,4802);
+			else if(.@slot == 3) 
+				.@card4 = callfunc("F_Rand",4890,4786,4891,4787,4892,4791,4792,4793,4794,4893);
+				
+			mes "[勇士之戒附魔]";
+			mes "附魔完成！";
+			mes "你的勇士之戒給你吧。";
+			specialeffect2 EF_REPAIRWEAPON;	
+			delitem .@needItem, 3;
+			delequip .@eqiSlot;
+			getitem2 .@mainItem,1,1,0,0,.@card1,.@card2,.@card3,.@card4;
+		}
+		close3;
+	case 2:
+		mes "[勇士之戒附魔]";
+		mes "好吧，考慮清楚後再來找我。";
+		close3;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]勇士之戒";
+	waitingroom "[附魔]勇士之戒",0;
+	end;
+}
