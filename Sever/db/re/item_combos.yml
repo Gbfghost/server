@@ -34491,3 +34491,15 @@ Body:
       bonus bMaxHPrate,5;
       bonus bMaxSPrate,5;
       bonus2 bExpAddClass,CLASS_ALL,10;
+  - Combos:
+      - Combo:
+          - Unknown_Item_300386    
+          - Strength10  
+    Script: |
+      bonus2 bIgnoreDefRaceRate,RC_ALL,100;
+  - Combos:
+      - Combo:
+          - Unknown_Item_300387     
+          - Inteligence10   
+    Script: |
+      bonus2 bIgnoreMdefRaceRate,RC_ALL,100;

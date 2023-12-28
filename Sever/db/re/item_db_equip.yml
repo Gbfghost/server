@@ -151719,6 +151719,31 @@ Body:
       if(.@r >= 13){
       bonus bFixedCastRate,-600;
       bonus bDelayrate,-6;}
+  - Id: 470128
+    AegisName: Pegasus_Shoes
+    Name: (JRO)天馬之靴
+    Type: Armor
+    Weight: 600
+    Defense: 25
+    Slots: 1
+    Locations:
+      Shoes: true
+    ArmorLevel: 1
+    EquipLevelMin: 100
+    Trade:
+      NoDrop: true
+    Script: |
+      .@r = getrefine();
+      bonus bSpeedRate,25;
+      bonus2 bAddEle,ELE_ALL,15;
+      bonus2 bMagicAddEle,ELE_ALL,15;
+      if (.@r >= 7){
+        bonus2 bAddEle,ELE_ALL,15;
+        bonus2 bMagicAddEle,ELE_ALL,15;
+      }
+      if (.@r >= 9){
+        autobonus "{ bonus bSpeedRate,50;}",100,30000,BF_WEAPON|BF_MAGIC,"{ specialeffect2 220; }";
+      }
   - Id: 470129
     AegisName: Corruption_Boots
     Name: 墮落的呻吟魔靴
