@@ -110,6 +110,8 @@ Oninit:
 	endsellitem();	
 	startsellitem(580030, 1000000, -1);
 	endsellitem();
+	startsellitem(590038, 1000000, -1);
+	endsellitem();
 	startsellitem(590039, 1000000, -1);
 	endsellitem();
 	startsellitem(600027, 1000000, -1);
