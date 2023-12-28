@@ -146068,7 +146068,7 @@ Body:
          autobonus "{ bonus2 bSkillAtk,\"MG_FIREBOLT\",100; bonus2 bSkillAtk,\"MG_COLDBOLT\",100; bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",100; bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",100; }",2000,10000;
       }
   - Id: 450135
-    AegisName: Celin_Cloth
+    AegisName: Bloody_Celine_Dress_TW
     Name: Celin Cloth
     Type: Armor
     Buy: 0

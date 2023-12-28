@@ -1176,6 +1176,9 @@ Body:
           - As_Wind_Ghost_Card
           - As_Ragged_Golem_Card
       - Combo:
+          - As_Wind_Ghost_Card
+          - As_Ragged_Golem_Card_
+      - Combo:
           - WhistleK
           - Pendant_Of_Harmony
       - Combo:
@@ -1520,7 +1523,13 @@ Body:
           - AwakenKtullanux_Card
       - Combo:
           - Water_Sprits_Armor_
+          - AwakenKtullanux_Card_
+      - Combo:
+          - Water_Sprits_Armor_
           - AwakenKtullanux_Card
+      - Combo:
+          - Water_Sprits_Armor
+          - AwakenKtullanux_Card_
     Script: |
       bonus3 bAutoSpellWhenHit,"WZ_WATERBALL",5,50;
   - Combos:
@@ -2682,6 +2691,9 @@ Body:
       - Combo:
           - As_Bdy_Knight_Card
           - As_Ragged_Golem_Card
+      - Combo:
+          - As_Bdy_Knight_Card
+          - As_Ragged_Golem_Card_
       - Combo:
           - Snake_Encyclopedia
           - Snake_Card
@@ -4061,6 +4073,9 @@ Body:
       - Combo:
           - C_Amdarais_Card
           - AmdaraisH_Card
+      - Combo:
+          - C_Amdarais_Card
+          - AmdaraisH_Card_
     Script: |
       bonus2 bAddClass,Class_All,10;
       bonus bMatkRate,10;
@@ -4316,11 +4331,14 @@ Body:
       - Combo:
           - Moonlight_Flower_Card
           - AngerMoonlight_Card
-    Script: |
-      autobonus "{ bonus bFlee2,10; }",70,5000,BF_SHORT;
-  - Combos:
       - Combo:
           - Moonlight_Flower_Card_
+          - AngerMoonlight_Card_
+      - Combo:
+          - Moonlight_Flower_Card_
+          - AngerMoonlight_Card
+      - Combo:
+          - Moonlight_Flower_Card
           - AngerMoonlight_Card_
     Script: |
       autobonus "{ bonus bFlee2,10; }",70,5000,BF_SHORT;
@@ -4687,6 +4705,15 @@ Body:
       - Combo:
           - Turtle_General_Card
           - OminousTurtleG_Card
+      - Combo:
+          - Turtle_General_Card_
+          - OminousTurtleG_Card_
+      - Combo:
+          - Turtle_General_Card_
+          - OminousTurtleG_Card
+      - Combo:
+          - Turtle_General_Card
+          - OminousTurtleG_Card_
     Script: |
       bonus2 bSubSize,Size_All,5;
       bonus bHit,25;
@@ -4708,6 +4735,9 @@ Body:
       if (BaseJob == Job_Crusader)
          bonus bDefEle,Ele_Holy;
   - Combos:
+      - Combo:
+          - Garm_Baby_Card
+          - Garm_Card_
       - Combo:
           - Garm_Baby_Card
           - Garm_Card
@@ -7343,20 +7373,11 @@ Body:
       - Combo:
           - KarduiEar
           - Lapine_Shield
-          - Fallen_Bishop_Card
-      - Combo:
-          - KarduiEar
-          - Lapine_Shield
-          - Runaway_Magic
-    Script: |
-      .@r = getequiprefinerycnt(EQI_HAND_L);
-      if (.@r > 7)
-         bonus2 bSkillCooldown,"WL_COMET",+20000+(.@r > 9 ? +20000 : 0);
-  - Combos:
-      - Combo:
-          - KarduiEar
-          - Lapine_Shield
           - Fallen_Bishop_Card_
+      - Combo:
+          - KarduiEar
+          - Lapine_Shield
+          - Fallen_Bishop_Card
       - Combo:
           - KarduiEar
           - Lapine_Shield
@@ -12728,6 +12749,9 @@ Body:
       - Combo:
           - Ill_Dracula_Card
           - Bomi_Card
+      - Combo:
+          - Ill_Dracula_Card
+          - Bomi_Card_
     Script: |
       if (getequiprefinerycnt(EQI_GARMENT) >= 9) {
          bonus bMaxHP,2000;
@@ -12738,6 +12762,9 @@ Body:
          bonus bMaxSP,50;
       }
   - Combos:
+      - Combo:
+          - Bomi_Card_
+          - Vampire's_Servant
       - Combo:
           - Bomi_Card
           - Vampire's_Servant
@@ -12864,6 +12891,12 @@ Body:
   - Combos:
       - Combo:
           - DespairGodMorocc_Card    # 27321
+          - MinionOfMorocc_Card    # 27326
+    Script: |
+      bonus bMaxHPrate,50;
+  - Combos:
+      - Combo:
+          - DespairGodMorocc_Card_    # 27321
           - MinionOfMorocc_Card    # 27326
     Script: |
       bonus bMaxHPrate,50;
@@ -14166,10 +14199,22 @@ Body:
       - Combo:
           - C_CorruptionRoot_Card
           - CorruptionRootH_Card
+      - Combo:
+          - C_CorruptionRoot_Card_
+          - CorruptionRootH_Card_
+      - Combo:
+          - C_CorruptionRoot_Card_
+          - CorruptionRootH_Card
+      - Combo:
+          - C_CorruptionRoot_Card
+          - CorruptionRootH_Card_
     Script: |
       bonus2 bMagicAtkEle,Ele_Neutral,30;
       bonus2 bMagicAtkEle,Ele_Fire,30;
   - Combos:
+      - Combo:
+          - C_Amdarais_Card
+          - Amdarais_Card_
       - Combo:
           - C_Amdarais_Card
           - Amdarais_Card
@@ -20171,6 +20216,9 @@ Body:
   - Combos:
       - Combo:
           - Vinus_Armor_TW_LT
+          - Lady_Tanee_Card_
+      - Combo:
+          - Vinus_Armor_TW_LT
           - Lady_Tanee_Card
     Script: |
       bonus bMaxHPrate,50;
@@ -20187,16 +20235,11 @@ Body:
       bonus2 bIgnoreDefClassRate,CLASS_NORMAL,20;
   - Combos:
       - Combo:
-          - Vulcan_Armor_TW_LT  # 450298 ªZº¸§¢§V´µ¾÷¥Ò-LT
-          - Gloom_Under_Night_Card # 4408 «Õ·t¹ÚÆL¥d¤ù
-    Script: |
-      bonus bBaseAtk,100;
-      bonus2 bAddSize,Size_All,30;
-      bonus2 bIgnoreDefClassRate,CLASS_NORMAL,20;
-  - Combos:
+          - Vulcan_Armor_TW_LT  # 450298 ÂªZÂºÂ¸Â§Â¢Â§VÂ´ÂµÂ¾Ã·Â¥Ò­LT
+          - Gloom_Under_Night_Card_ # 900067 Â«Õ·tÂ¹Ú†LÂ¥dÂ¤Ã¹-Â§
       - Combo:
           - Vulcan_Armor_TW_LT  # 450298 ªZº¸§¢§V´µ¾÷¥Ò-LT
-          - Gloom_Under_Night_Card_ # 900067 «Õ·t¹ÚÆL¥d¤ù-§ï
+          - Gloom_Under_Night_Card # 4408 «Õ·t¹ÚÆL¥d¤ù
     Script: |
       bonus bBaseAtk,100;
       bonus2 bAddSize,Size_All,30;
@@ -20334,6 +20377,9 @@ Body:
       - Combo:
           - Bacchus_Armor
           - Felock_Card
+      - Combo:
+          - Bacchus_Armor
+          - Felock_Card_
     Script: |
       bonus2 bSkillAtk,"RL_D_TAIL",50;
       bonus2 bSkillCooldown,"RL_D_TAIL",-2000;
@@ -20344,6 +20390,9 @@ Body:
     Script: |
       bonus2 bSkillAtk,"NJ_HYOUSENSOU",30;
   - Combos:
+      - Combo:
+          - Mercury_Suits
+          - Gioia_Card_
       - Combo:
           - Mercury_Suits
           - Gioia_Card
@@ -20386,6 +20435,9 @@ Body:
   - Combos:
       - Combo:
           - Diana_Suits
+          - Cutie_Card_
+      - Combo:
+          - Diana_Suits
           - Cutie_Card
     Script: |
       .@r = getequiprefinerycnt(EQI_GARMENT);
@@ -20393,7 +20445,6 @@ Body:
       bonus bAspdRate,10;
       bonus2 bSkillCooldown,"SU_STOOP",-3000;
       bonus2 bMagicAddRace,RC_All,40;
-      }
   - Combos:
       - Combo:
           - Vulcan_Armor_TW
@@ -20403,6 +20454,9 @@ Body:
       bonus2 bIgnoreDefClassRate,RC_Player_Human,20;
       bonus2 bIgnoreDefClassRate,RC_Player_Doram,20;
   - Combos:
+      - Combo:
+          - Vulcan_Armor_TW
+          - Gloom_Under_Night_Card_
       - Combo:
           - Vulcan_Armor_TW
           - Gloom_Under_Night_Card
@@ -20790,6 +20844,14 @@ Body:
   - Combos:
       - Combo:
           - Orcsuccessionhelm_TW
+          - Orc_Load_Card_
+    Script: |
+      bonus bMaxHPrate,50;
+      bonus2 bResEff,Eff_Freeze,10000;
+      bonus2 bResEff,Eff_Stone,10000;
+  - Combos:
+      - Combo:
+          - Orcsuccessionhelm_TW
           - Orc_Hero_Card
     Script: |
       bonus bMaxHPrate,20;
@@ -20832,6 +20894,28 @@ Body:
       - Combo:
           - Orcsuccessionhelm_TW
           - Orc_Warrior_Card
+          - Orc_Load_Card_
+          - Orc_Hero_Card_
+          - Orc_Lady_Card
+          - Orc_Archer_Card
+    Script: |
+      skill "CR_DEFENDER",4;
+      bonus bDefRatioAtkClass,Class_All;
+  - Combos:
+      - Combo:
+          - Orcsuccessionhelm_TW
+          - Orc_Warrior_Card
+          - Orc_Load_Card_
+          - Orc_Hero_Card
+          - Orc_Lady_Card
+          - Orc_Archer_Card
+    Script: |
+      skill "CR_DEFENDER",4;
+      bonus bDefRatioAtkClass,Class_All;
+  - Combos:
+      - Combo:
+          - Orcsuccessionhelm_TW
+          - Orc_Warrior_Card
           - Orc_Load_Card
           - Orc_Hero_Card_
           - Orc_Lady_Card
@@ -20843,6 +20927,10 @@ Body:
       - Combo:
           - Orc_Load_Mail    # 450142
           - Orc_Load_Card    # 4135
+  - Combos:
+      - Combo:
+          - Orc_Load_Mail    # 450142
+          - Orc_Load_Card_    # 4135
       - Combo:
           - Orc_Load_Mail_    # 450205
           - Sealed_Orc_Load_Card_J    # 300322
@@ -20983,6 +21071,9 @@ Body:
     Script: |
       bonus2 bSubRace,RC_All,5;
   - Combos:
+      - Combo:
+          - Vinus_Armor_TW
+          - Lady_Tanee_Card_
       - Combo:
           - Vinus_Armor_TW
           - Lady_Tanee_Card
@@ -24221,6 +24312,14 @@ Body:
       bonus bMaxHPrate,5*.@r;
   - Combos:
       - Combo:
+          - Tatenasi_Armor_     # 15137
+          - Rsx_0806_Card_     # 4342
+    Script: |
+      .@r = getequiprefinerycnt(EQI_ARMOR);
+      bonus bVit,5*.@r;
+      bonus bMaxHPrate,5*.@r;
+  - Combos:
+      - Combo:
           - Tatenasi_Helmet     # 18884
           - Tatenasi_Armor_     # 15137
     Script: |
@@ -24235,6 +24334,14 @@ Body:
       - Combo:
           - Tatenasi_Armor_TW     # 15215
           - Rsx_0806_Card     # 4342
+    Script: |
+      .@r = min(10,getequiprefinerycnt(EQI_ARMOR));
+      bonus bVit,5*.@r;
+      bonus bMaxHPrate,5*.@r;
+  - Combos:
+      - Combo:
+          - Tatenasi_Armor_TW     # 15215
+          - Rsx_0806_Card_     # 4342
     Script: |
       .@r = min(10,getequiprefinerycnt(EQI_ARMOR));
       bonus bVit,5*.@r;
@@ -24337,6 +24444,9 @@ Body:
       bonus bDelayrate,-70;
       bonus bSPDrainValue,5;
   - Combos:
+      - Combo:
+          - Triad_God_Mail_J_     # 15421
+          - Ktullanux_Card_     # 4419
       - Combo:
           - Triad_God_Mail_J_     # 15421
           - Ktullanux_Card     # 4419
@@ -25341,6 +25451,13 @@ Body:
       - Combo:
           - Royal_Guardian_Ring     # 28483
           - Lich_Lord_Card     # 27025
+    Script: |
+      bonus bAtkRate,5;
+      bonus bMatkRate,5;
+  - Combos:
+      - Combo:
+          - Royal_Guardian_Ring     # 28483
+          - Lich_Lord_Card_     # 27025
     Script: |
       bonus bAtkRate,5;
       bonus bMatkRate,5;
@@ -26585,6 +26702,9 @@ Body:
   - Combos:
       - Combo:
           - Goddess_of_Abundance    # 311073
+          - Fallen_Bishop_Card_    # 900055
+      - Combo:
+          - Goddess_of_Abundance    # 311073
           - Fallen_Bishop_Card    # 4441
     Script: |
       bonus2 bMagicAddRace,RC_DemiHuman,50;
@@ -26592,11 +26712,8 @@ Body:
   - Combos:
       - Combo:
           - Goddess_of_Abundance    # 311073
-          - Fallen_Bishop_Card_    # 4441
-    Script: |
-      bonus2 bMagicAddRace,RC_DemiHuman,50;
-      bonus2 bMagicAddRace,RC_Player_Human,50;
-  - Combos:
+          - Fallen_Bishop_Card_    # 900055
+          - Runaway_Magic    # 4876
       - Combo:
           - Goddess_of_Abundance    # 311073
           - Fallen_Bishop_Card    # 4441
@@ -26607,12 +26724,7 @@ Body:
   - Combos:
       - Combo:
           - Goddess_of_Abundance    # 311073
-          - Fallen_Bishop_Card_    # 4441
-          - Runaway_Magic    # 4876
-    Script: |
-      bonus2 bMagicAddRace,RC_DemiHuman,-50;
-      bonus2 bMagicAddRace,RC_Player_Human,-50;
-  - Combos:
+          - Ktullanux_Card_    # 4419
       - Combo:
           - Goddess_of_Abundance    # 311073
           - Ktullanux_Card    # 4419
@@ -26620,6 +26732,9 @@ Body:
       bonus bMaxHPrate,50;
       skill "SA_FROSTWEAPON",5;
   - Combos:
+      - Combo:
+          - Goddess_of_Abundance    # 311073
+          - Gloom_Under_Night_Card_    # 4408
       - Combo:
           - Goddess_of_Abundance    # 311073
           - Gloom_Under_Night_Card    # 4408
@@ -26725,6 +26840,9 @@ Body:
       }
   - Combos:
       - Combo:
+          - Fallen_Bishop_Card_    # 900055
+          - Moaning_of_EvilSpirits    # 470112
+      - Combo:
           - Fallen_Bishop_Card    # 4441
           - Moaning_of_EvilSpirits    # 470112
     Script: |
@@ -26733,22 +26851,11 @@ Body:
       bonus2 bMagicAddRace,RC_DemiHuman,50;
   - Combos:
       - Combo:
-          - Fallen_Bishop_Card_    # 4441
-          - Moaning_of_EvilSpirits    # 470112
-    Script: |
-      bonus bMatkRate,10;
-      bonus2 bMagicAddRace,RC_Angel,50;
-      bonus2 bMagicAddRace,RC_DemiHuman,50;
-  - Combos:
-      - Combo:
-          - Fallen_Bishop_Card    # 4441
+          - Fallen_Bishop_Card_    # 900055
           - Moaning_of_EvilSpirits    # 470112
           - Goddess_of_Abundance    # 311073
-    Script: |
-      bonus2 bMagicAddRace,RC_Player_Human,50;
-  - Combos:
       - Combo:
-          - Fallen_Bishop_Card_    # 4441
+          - Fallen_Bishop_Card    # 4441
           - Moaning_of_EvilSpirits    # 470112
           - Goddess_of_Abundance    # 311073
     Script: |
@@ -27182,6 +27289,13 @@ Body:
   - Combos:
       - Combo:
           - King_of_Origin    # 311072
+          - Orc_Load_Card_    # 4135
+    Script: |
+      bonus bMaxHPrate,50;
+      skill "CR_REFLECTSHIELD",10;
+  - Combos:
+      - Combo:
+          - King_of_Origin    # 311072
           - Osiris_Card    # 4144
     Script: |
       bonus bSPDrainValue,2;
@@ -27396,6 +27510,18 @@ Body:
          bonus2 bAddEle,Ele_Dark,5*.@r;
   - Combos:
       - Combo:
+          - Orc_Load_Mail_    # 450205
+          - Orc_Load_Card_    # 4135
+    Script: |
+      .@r = getequiprefinerycnt(EQI_ARMOR);
+      bonus bNoWalkDelay;
+      bonus2 bResEff,Eff_Freeze,10000;
+      if (BaseLevel >= 100)
+         bonus2 bAddEle,Ele_Dark,13*.@r;
+      else
+         bonus2 bAddEle,Ele_Dark,5*.@r;
+  - Combos:
+      - Combo:
           - Orc_Load_Mail    # 450142
           - Sealed_Orc_Load_Card_J    # 300322
     Script: |
@@ -27496,6 +27622,9 @@ Body:
   - Combos:
       - Combo:
           - Heros_TriumphantSong    # 311074
+          - Amdarais_Card_    # 4601
+      - Combo:
+          - Heros_TriumphantSong    # 311074
           - Amdarais_Card    # 4601
     Script: |
       bonus bAtkRate,15;
@@ -27536,6 +27665,14 @@ Body:
       - Combo:
           - Heros_TriumphantSong    # 311074
           - CorruptionRoot_Card    # 4603
+    Script: |
+      bonus2 bAddEff,Eff_Sleep,5000;
+      bonus2 bAddEff,Eff_Stone,5000;
+      bonus2 bAddEff,Eff_Curse,5000;
+  - Combos:
+      - Combo:
+          - Heros_TriumphantSong    # 311074
+          - CorruptionRoot_Card_    # 4603
     Script: |
       bonus2 bAddEff,Eff_Sleep,5000;
       bonus2 bAddEff,Eff_Stone,5000;
@@ -27590,12 +27727,25 @@ Body:
   - Combos:
       - Combo:
           - Heros_TriumphantSong    # 311074
+          - DespairGodMorocc_Card_    # 27321
+    Script: |
+      skill "LG_INSPIRATION",1;
+      bonus2 bSkillUseSPrate,"LG_INSPIRATION",-1;
+  - Combos:
+      - Combo:
+          - Heros_TriumphantSong    # 311074
+          - C_CorruptionRoot_Card_    # 27382
+      - Combo:
+          - Heros_TriumphantSong    # 311074
           - C_CorruptionRoot_Card    # 27382
     Script: |
       bonus2 bAddEff,Eff_Sleep,5000;
       bonus2 bAddEff,Eff_Stone,5000;
       bonus2 bAddEff,Eff_Curse,5000;
   - Combos:
+      - Combo:
+          - Heros_TriumphantSong    # 311074
+          - Nidhogg_Shadow_Card_    # 4456
       - Combo:
           - Heros_TriumphantSong    # 311074
           - Nidhogg_Shadow_Card    # 4456
@@ -27632,6 +27782,9 @@ Body:
     Script: |
       bonus bFixedCastrate,-80;
   - Combos:
+      - Combo:
+          - Heros_TriumphantSong    # 311074
+          - Felock_Card_    # 27182
       - Combo:
           - Heros_TriumphantSong    # 311074
           - Felock_Card    # 27182
@@ -28305,6 +28458,9 @@ Body:
   - Combos:
       - Combo:
           - Beast_Leather_Shoes   # 470122
+          - AngerMoonlight_Card_   # 900070
+      - Combo:
+          - Beast_Leather_Shoes   # 470122
           - AngerMoonlight_Card   # 27081
     Script: |
       .@r_shoes = getequiprefinerycnt(EQI_SHOES);
@@ -28866,6 +29022,17 @@ Body:
       /*unknown Rate*/
   - Combos:
       - Combo:
+          - Knight_Windstorm_Card_    # 900044
+          - aegis_311439    # 311439
+    Script: |
+      bonus bAtkRate,25;
+      bonus2 bAddEff,Eff_Freeze,2000;
+      /*unknown Rate*/
+  - Combos:
+      - Combo:
+          - Turtle_General_Card_    # 900083
+          - aegis_311439
+      - Combo:
           - Turtle_General_Card    # 4305
           - aegis_311439    # 311439
     Script: |
@@ -28928,6 +29095,13 @@ Body:
       bonus2 bResEff,Eff_Freeze,10000;
   - Combos:
       - Combo:
+          - Rsx_0806_Card_    # 4342
+          - aegis_311439    # 311439
+    Script: |
+      bonus bDef,500;
+      bonus2 bResEff,Eff_Freeze,10000;
+  - Combos:
+      - Combo:
           - Detale_Card    # 4386
           - aegis_311439    # 311439
     Script: |
@@ -28935,6 +29109,10 @@ Body:
       bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
       /*Unknown Rate*/
   - Combos:
+  - Combos:
+      - Combo:
+          - Garm_Card_    # 900046
+          - aegis_311439    # 311439
       - Combo:
           - Garm_Card    # 4324
           - aegis_311439    # 311439
@@ -29045,6 +29223,9 @@ Body:
       bonus3 bAddEffWhenHit,Eff_Fear,100,ATF_WEAPON|ATF_MAGIC;
       /*Unknown Rate*/
   - Combos:
+      - Combo:
+          - Lady_Tanee_Card_    # 900051
+          - aegis_311439    # 311439
       - Combo:
           - Lady_Tanee_Card    # 4376
           - aegis_311439    # 311439
@@ -29926,6 +30107,9 @@ Body:
       skill "AB_ORATIO",5;
   - Combos:
       - Combo:
+          - AngerMoonlight_Card_    # 900070
+          - Illusion_Box_Garden    # 311075
+      - Combo:
           - AngerMoonlight_Card    # 27081
           - Illusion_Box_Garden    # 311075
     Script: |
@@ -29958,6 +30142,9 @@ Body:
       bonus bAtkRate,10;
       skill "PR_ASPERSIO",5;
   - Combos:
+      - Combo:
+          - AwakenKtullanux_Card_    # 27113
+          - Illusion_Box_Garden    # 311075
       - Combo:
           - AwakenKtullanux_Card    # 27113
           - Illusion_Box_Garden    # 311075
@@ -30052,6 +30239,16 @@ Body:
       bonus bAtkRate,10;
       skill "SM_MAGNUM",10;
   - Combos:
+      - Combo:
+          - OminousTurtleG_Card_    # 27119
+          - Illusion_Box_Garden    # 311075
+    Script: |
+      bonus bAtkRate,10;
+      skill "SM_MAGNUM",10;
+  - Combos:
+      - Combo:
+          - Bomi_Card_   # 27105
+          - Illusion_Box_Garden    # 311075
       - Combo:
           - Bomi_Card    # 27105
           - Illusion_Box_Garden    # 311075
@@ -30370,6 +30567,9 @@ Body:
       bonus bIgnoreDefRace,RC_All;
       bonus bIgnoreMDefRace,RC_All;
   - Combos:
+      - Combo:
+          - Garm_Card_   # 900046
+          - lunar_eclipse_Armor_   # 15374
       - Combo:
           - Garm_Card   # 4324
           - lunar_eclipse_Armor_   # 15374
@@ -30707,6 +30907,9 @@ Body:
       bonus2 bSkillAtk,"WL_TETRAVORTEX",30;
       bonus2 bMagicAddRace,RC_All,4*(.@r/2);
   - Combos:
+      - Combo:
+          - Palace_Ring   # 490208
+          - As_Ragged_Golem_Card_   # 900074
       - Combo:
           - Palace_Ring   # 490208
           - As_Ragged_Golem_Card   # 31026
@@ -31674,6 +31877,9 @@ Body:
   - Combos:
       - Combo:
           - Elvira_Pendant    # 28436
+          - Gioia_Card_    # 900050
+      - Combo:
+          - Elvira_Pendant    # 28436
           - Gioia_Card    # 4576
     Script: |
       bonus2 bMagicAtkEle,Ele_Wind,15;
@@ -31719,6 +31925,32 @@ Body:
       - Combo:
           - Sealed_Ring_TW    # 32278
           - Knight_Windstorm_Card    # 4318
+    Script: |
+      .@view = getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW);
+      if (.@view == W_DAGGER) {
+         bonus bMaxHPrate,10;
+         bonus bDelayrate,-8;
+      }
+      if (.@view == W_1HSWORD || .@view == W_2HSWORD) {
+         skill "SO_DIAMONDDUST",5;
+         bonus2 bSkillCooldown,"SO_DIAMONDDUST",5000;
+      }
+      if (.@view == W_1HSPEAR || .@view == W_2HSPEAR) {
+         bonus2 bSubEle,Ele_Wind,20;
+         bonus2 bSubEle,Ele_Water,20;
+      }
+      if (.@view == W_STAFF || .@view == W_2HSTAFF || .@view == W_BOOK) {
+         bonus2 bSkillAtk,"MG_COLDBOLT",50;
+         bonus2 bSkillAtk,"WL_JACKFROST",40;
+         bonus2 bSkillCooldown,"SO_SUMMON_AQUA",-30000;
+         autobonus3 "{ bonus2 bMagicAtkEle,Ele_Water,30; }",1000,60000,"SO_SUMMON_AQUA";
+      }
+      if (.@view == W_MACE || .@view == W_1HAXE || .@view == W_2HAXE)
+         bonus2 bAddEff,Eff_Freeze,2000;
+  - Combos:
+      - Combo:
+          - Sealed_Ring_TW    # 32278
+          - Knight_Windstorm_Card_    # 900044
     Script: |
       .@view = getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW);
       if (.@view == W_DAGGER) {
@@ -33092,19 +33324,25 @@ Body:
   - Combos:
       - Combo:
           - 450263
+          - Garm_Card_
+      - Combo:
+          - 450263
           - Garm_Card
     Script: |
       .@r = getrefine();
       if(.@r>=7){bonus bMaxHPRate,70;bonus2 bAddSize,Size_All,25; bonus2 bMagicAddSize,Size_All,25;bonus2 bSubSize,Size_Medium,15;bonus2 bSubSize,Size_Large,15;bonus2 bResEff,Eff_Freeze,10000;}
   - Combos: #   å¸­ï¿½?ï¿½è¡£
       - Combo:
-          - Celin_Cloth # 450135
+          - Bloody_Celine_Dress_TW # 450135
+          - XM_Celine_Kimi_Card_ # 900065
+      - Combo:
+          - Bloody_Celine_Dress_TW # 450135
           - XM_Celine_Kimi_Card # 31023
     Script: |
-      autobonus "{ bonus bMatkRate,25;bonus bDelayrate,-50;bonus5 bAutoSpell,AB_VITUPERATUM,1,50,BF_MAGIC,1; }",3000,5000,BF_MAGIC,"{ active_transform 2996,5000; }";
+      autobonus "{ bonus bMatkRate,25;bonus bDelayrate,-50;bonus5 bAutoSpell,"AB_VITUPERATUM",1,50,BF_MAGIC,1; }",20,5000,BF_MAGIC,"{ active_transform 2996,5000; }";
   - Combos:
       - Combo:
-          - Celin_Cloth # 450135
+          - Bloody_Celine_Dress_TW # 450135
           - Evilspirit_Gloves # 2980
     Script: |
       bonus bMatk,50; 
@@ -33112,17 +33350,59 @@ Body:
       bonus5 bAutoSpell,"WL_TELEKINESIS_INTENSE",1,50,BF_MAGIC,0;
   - Combos:
       - Combo:
-          - Celin_Cloth # 450135
+          - Bloody_Celine_Dress_TW # 450135
           - Celines_Ribbon # 18849
     Script: |
-      bonus bMatk,50; 
-      bonus5 bAutoSpell,"WL_SOULEXPANSION",3,50,BF_WEAPON,1;
-      bonus5 bAutoSpell,"WL_TELEKINESIS_INTENSE",1,50,BF_MAGIC,0;
       bonus2 bSubRace,RC_Player_Human,7; 
       bonus2 bSubRace,RC_Player_Doram,7; 
       bonus2 bSubRace,RC_DemiHuman,7; 
       .@r = getequiprefinerycnt(EQI_HEAD_TOP);
       if(.@r>=12){bonus2 bMagicAddClass,Class_Boss,15;}
+  - Combos: #   å¸­ï¿½?ï¿½è¡£
+      - Combo:
+          - B_Celine_D_LT_TW # 450272
+          - XM_Celine_Kimi_Card_ # 900065
+      - Combo:
+          - B_Celine_D_LT_TW # 450272
+          - XM_Celine_Kimi_Card # 31023
+    Script: |
+      autobonus "{ bonus bMatkRate,25;bonus bDelayrate,-50;bonus5 bAutoSpell,"AB_VITUPERATUM",1,80,BF_MAGIC,1; }",20,10000,BF_MAGIC,"{ active_transform 2996,10000; }";
+  - Combos:
+      - Combo:
+          - B_Celine_D_LT_TW # 450272
+          - Evilspirit_Gloves # 2980
+    Script: |
+      bonus bMatk,100; 
+      bonus5 bAutoSpell,"WL_SOULEXPANSION",5,50,BF_WEAPON,1;
+      bonus5 bAutoSpell,"AG_SOUL_VC_STRIKE",3,50,BF_WEAPON,1;
+      bonus5 bAutoSpell,"WL_TELEKINESIS_INTENSE",3,10,BF_MAGIC,0;
+  - Combos:
+      - Combo:
+          - B_Celine_D_LT_TW # 450272
+          - Celines_Ribbon # 18849
+    Script: |
+      bonus2 bSubRace,RC_Player_Human,7; 
+      bonus2 bSubRace,RC_Player_Doram,7; 
+      bonus2 bSubRace,RC_DemiHuman,7; 
+      .@r = getequiprefinerycnt(EQI_HEAD_TOP);
+      bonus bSMatk,(.@r/2);
+      if(.@r>=12){bonus2 bMagicAddClass,Class_Boss,10;}
+  - Combos:
+      - Combo:
+          - B_Celine_D_LT_TW # 450272
+          - Celine_Brooch # 28513
+    Script: |
+      .@r = getequiprefinerycnt(EQI_ARMOR);
+      bonus bMatk,8*.@r;
+      if (.@r >= 9) {
+        bonus2 bMagicAtkEle,ELE_WATER,10;
+        bonus2 bMagicAtkEle,ELE_WIND,10;
+        bonus2 bMagicAtkEle,ELE_FIRE,10;
+        bonus2 bMagicAtkEle,ELE_EARTH,10;
+        bonus2 bMagicAtkEle,ELE_POISON,10;
+      }
+      if (.@r >= 11)
+        bonus2 bMagicAddEle,ELE_ALL,10;
   - Combos:
       - Combo:
           - WU_EL # 480088
@@ -33268,16 +33548,10 @@ Body:
       bonus2 bMagicAddEle,Ele_All,5;
   - Combos:
       - Combo:
-          - Fallen_Bishop_Card      # 4441      å¢®ï¿½?ï¿½å¤§ï¿??ï¿????ï¿½ï¿½??
-          - Corruption_Boots        # 470129    å¢®ï¿½?ï¿½ï¿½????ï¿½ï¿½??ï¿?????
-    Script: |
-      bonus bSMatk,10;
-      bonus2 bMagicAddEle,Ele_All,10;
-      bonus2 bSkillAtk,"CD_FRAMEN",15;
-      bonus2 bSkillCooldown,"WL_TELEKINESIS_INTENSE",-120000;
-  - Combos:
+          - Fallen_Bishop_Card_      # 900055      å¢®ï¿½?ï¿½å¤§ï¿¿?ï¿¿???ï¿½ï¿½??
+          - Corruption_Boots        # 470129    å¢®ï¿½?ï¿½ï¿½????ï¿½ï¿½??ï¿¿????
       - Combo:
-          - Fallen_Bishop_Card_      # 4441      å¢®ï¿½?ï¿½å¤§ï¿??ï¿????ï¿½ï¿½??
+          - Fallen_Bishop_Card      # 4441      å¢®ï¿½?ï¿½å¤§ï¿??ï¿????ï¿½ï¿½??
           - Corruption_Boots        # 470129    å¢®ï¿½?ï¿½ï¿½????ï¿½ï¿½??ï¿?????
     Script: |
       bonus bSMatk,10;
@@ -33338,6 +33612,19 @@ Body:
          bonus bBaseAtk,120;
   - Combos:
       - Combo:
+          - Rsx_0806_Card_           # 4342      RSX-0806??ï¿½ï¿½??
+          - Scrap_Remodel_Shoes_TW  # 470120    ï¿¿?æ¢°ï¿½??????????ï¿½ï¿½?????
+    Script: |
+      .@r = getequiprefinerycnt(EQI_ARMOR);
+      bonus bBaseAtk,100;
+      bonus2 bSubSize,Size_Medium,10;
+      bonus2 bSubSize,Size_Large,10;
+      bonus bLongAtkRate,4*(.@r/2);
+      bonus bShortAtkRate,4*(.@r/2);
+      if (BaseJob == Job_Merchant)
+         bonus bBaseAtk,120;
+  - Combos:
+      - Combo:
           - Fake_Alloy_Pot          # 460030    ä»¿ï¿½?????????????ï¿½ï¿½??
           - Scrap_Remodel_Shoes_TW  # 470120    ï¿??æ¢°ï¿½??????????ï¿½ï¿½?????
     Script: |
@@ -33379,6 +33666,9 @@ Body:
       - Combo:
           - Nidhogg_Shadow_Card     # 4456      å°¼å¾·?????ï¿½å¹»å½±ï¿½??
           - Lapine_Pray_Shoes       # 470086    ï¿??è­·ç²¾???ï¿??ç¦±ï¿½?????
+      - Combo:
+          - Nidhogg_Shadow_Card_     # 4456      å°¼å¾·?????ï¿½å¹»å½±ï¿½??
+          - Lapine_Pray_Shoes       # 470086    ï¿¿?è­·ç²¾???ï¿¿?ç¦±ï¿½?????
     Script: |
       bonus2 bMagicAddClass,Class_Boss,40;
       bonus2 bSubEle,Ele_All,20;
@@ -33852,6 +34142,13 @@ Body:
       bonus bMaxHPrate,50;
   - Combos:
       - Combo:
+          - Moroc_Slave_TW
+          - DespairGodMorocc_Card_
+    Script: |
+      bonus2 bAddRace,RC_ALL,40;
+      bonus bMaxHPrate,50;
+  - Combos:
+      - Combo:
           - Yggdrasil_Faith
           - Fenrir_Card
     Script: |
@@ -34115,12 +34412,18 @@ Body:
   - Combos:
       - Combo:
           - N_Spirit_Cape_TW
+          - Nahtzigger_Card_
+      - Combo:
+          - N_Spirit_Cape_TW
           - Nahtzigger_Card
     Script: |
       bonus bSMatk,10;
       bonus2 bMagicAddClass,Class_Boss,20;
       autobonus "{}",2,10000,BF_WEAPON;autobonus "{ bonus2 bMagicAddClass,Class_Boss,20;bonus2 bMagicAtkEle,Ele_Fire,30;bonus2 bMagicAtkEle,Ele_Water,30;bonus2 bMagicAtkEle,Ele_Ghost,30; }",20,10000,BF_MAGIC,"{ active_transform 1956,10000; }";
   - Combos:
+      - Combo:
+          - Day_of_the_Dead
+          - Nahtzigger_Card_
       - Combo:
           - Day_of_the_Dead
           - Nahtzigger_Card
