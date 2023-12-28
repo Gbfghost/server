@@ -57,7 +57,7 @@ uttycty,92,93,3	script	附魔統合test_1	23233,{
 	}
 	if (.@boxs==0){end;}
 	else{
-		.@ret = itemlist(.@boxs);
+		.@ret = selectitem(.@boxs);
 		if ((inarray(.@enchant1[0],.@ret) !=-1 )){
 				item_enchant(1);
 				end;

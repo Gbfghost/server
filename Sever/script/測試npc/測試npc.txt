@@ -9,7 +9,7 @@
 
 	
 
-uttycty,96,100,5	script	裝備回收	4_STEELBOX,{
+uttycty,96,95,5	script	裝備回收	4_STEELBOX,{
 
 		deletearray @sold_nameid[0],getarraysize(@sold_nameid);
 		callshop "card_shop1",2;
