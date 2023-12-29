@@ -1127,50 +1127,50 @@ Body:
            Amount: 14
         ResultItem: Ray_Knuckle_LT
         ChangeRefine: 1
- - Item: Barmund_Plain_Reform
-   BaseItems:
-     - BaseItem: Barmund_Plain_Armor
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Plain_Essence
-          Amount: 50
-        - Material: Zelunium
-          Amount: 300
-        - Material: Plain_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Plain_Rune_Armor
-     - BaseItem: Barmund_Plain_Boots
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Plain_Essence
-          Amount: 50
-        - Material: Zelunium
-          Amount: 300
-        - Material: Plain_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Plain_Rune_Boots
-     - BaseItem: Barmund_Plain_Hood
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Plain_Essence
-          Amount: 50
-        - Material: Zelunium
-          Amount: 300
-        - Material: Plain_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Plain_Rune_Hood
+  - Item: Barmund_Plain_Reform
+    BaseItems:
+      - BaseItem: Barmund_Plain_Armor
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Plain_Essence
+           Amount: 50
+         - Material: Zelunium
+           Amount: 300
+         - Material: Plain_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Plain_Rune_Armor
+      - BaseItem: Barmund_Plain_Boots
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Plain_Essence
+           Amount: 50
+         - Material: Zelunium
+           Amount: 300
+         - Material: Plain_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Plain_Rune_Boots
+      - BaseItem: Barmund_Plain_Hood
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Plain_Essence
+           Amount: 50
+         - Material: Zelunium
+           Amount: 300
+         - Material: Plain_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Plain_Rune_Hood
   - Item: Vivatus_Weapon_Hammer
     BaseItems:
       - BaseItem: Vivatus_F_M_Book
@@ -2227,54 +2227,54 @@ Body:
         ResultItem: OneSkyOneSun_LT
       - BaseItem: Up_SoulWeight
         ResultItem: SoulWeight_LT
-     - BaseItem: Up_Freedom_Stick
-       ResultItem: Freedom_Stick_LT
-     - BaseItem: Up_Blessed_Knife
-       ResultItem: Blessed_Knife_LT
- - Item: Barmund_Flame_Reform
-   BaseItems:
-     - BaseItem: Barmund_Flame_Armor
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Flame_Essence
-          Amount: 50
-        - Material: Flame_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Flame_Rune_Armor
-     - BaseItem: Barmund_Flame_Boots
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Flame_Essence
-          Amount: 50
-        - Material: Flame_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Flame_Rune_Boots
-     - BaseItem: Barmund_Flame_Hood
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Flame_Essence
-          Amount: 50
-        - Material: Flame_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Flame_Rune_Hood
+      - BaseItem: Up_Freedom_Stick
+        ResultItem: Freedom_Stick_LT
+      - BaseItem: Up_Blessed_Knife
+        ResultItem: Blessed_Knife_LT
+  - Item: Barmund_Flame_Reform
+    BaseItems:
+      - BaseItem: Barmund_Flame_Armor
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Flame_Essence
+           Amount: 50
+         - Material: Flame_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Flame_Rune_Armor
+      - BaseItem: Barmund_Flame_Boots
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Flame_Essence
+           Amount: 50
+         - Material: Flame_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Flame_Rune_Boots
+      - BaseItem: Barmund_Flame_Hood
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Flame_Essence
+           Amount: 50
+         - Material: Flame_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Flame_Rune_Hood
   - Item: Adulter_Weapon_Up_Box
     BaseItems:
       - BaseItem: Adulter_F_M_Book
@@ -2737,50 +2737,50 @@ Body:
            Amount: 300
         ResultItem: Thanos_Knuckle_AD
         ChangeRefine: -1
- - Item: Barmund_Death_Reform
-   BaseItems:
-     - BaseItem: Barmund_Death_Armor
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Death_Essence
-          Amount: 50
-        - Material: Death_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Death_Rune_Armor
-     - BaseItem: Barmund_Death_Boots
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Death_Essence
-          Amount: 50
-        - Material: Death_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Death_Rune_Boots
-     - BaseItem: Barmund_Death_Hood
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Zelunium
-          Amount: 300
-        - Material: Barmund_Death_Essence
-          Amount: 50
-        - Material: Death_Barmund_Rune2
-          Amount: 20
-        - Material: BarMealTicket
-          Amount: 500
-       ResultItem: Death_Rune_Hood
+  - Item: Barmund_Death_Reform
+    BaseItems:
+      - BaseItem: Barmund_Death_Armor
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Death_Essence
+           Amount: 50
+         - Material: Death_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Death_Rune_Armor
+      - BaseItem: Barmund_Death_Boots
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Death_Essence
+           Amount: 50
+         - Material: Death_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Death_Rune_Boots
+      - BaseItem: Barmund_Death_Hood
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Zelunium
+           Amount: 300
+         - Material: Barmund_Death_Essence
+           Amount: 50
+         - Material: Death_Barmund_Rune2
+           Amount: 20
+         - Material: BarMealTicket
+           Amount: 500
+        ResultItem: Death_Rune_Hood
   - Item: Poenitentia_Hammer
     BaseItems:
       - BaseItem: Poenitentia_Gladius
@@ -3189,50 +3189,50 @@ Body:
         ResultItem: Blue_Gemstone
         ChangeRefine: 1
         #RandomOptionGroup: BP # TODO: translate to our group names
- - Item: Barmund_Ice_Reform
-   BaseItems:
-     - BaseItem: Barmund_Ice_Armor
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Ice_Essence
-          Amount: 50
-        - Material: BarMealTicket
-          Amount: 500
-        - Material: Zelunium
-          Amount: 300
-        - Material: Ice_Barmund_Rune2
-          Amount: 20
-       ResultItem: Ice_Rune_Armor
-     - BaseItem: Barmund_Ice_Boots
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Ice_Essence
-          Amount: 50
-        - Material: BarMealTicket
-          Amount: 500
-        - Material: Zelunium
-          Amount: 300
-        - Material: Ice_Barmund_Rune2
-          Amount: 20
-       ResultItem: Ice_Rune_Boots
-     - BaseItem: Barmund_Ice_Hood
-       MinimumRefine: 7
-       Materials:
-        - Material: Armor_Stone_4
-          Amount: 100
-        - Material: Barmund_Ice_Essence
-          Amount: 50
-        - Material: BarMealTicket
-          Amount: 500
-        - Material: Zelunium
-          Amount: 300
-        - Material: Ice_Barmund_Rune2
-          Amount: 20
-       ResultItem: Ice_Rune_Hood
+  - Item: Barmund_Ice_Reform
+    BaseItems:
+      - BaseItem: Barmund_Ice_Armor
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Ice_Essence
+           Amount: 50
+         - Material: BarMealTicket
+           Amount: 500
+         - Material: Zelunium
+           Amount: 300
+         - Material: Ice_Barmund_Rune2
+           Amount: 20
+        ResultItem: Ice_Rune_Armor
+      - BaseItem: Barmund_Ice_Boots
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Ice_Essence
+           Amount: 50
+         - Material: BarMealTicket
+           Amount: 500
+         - Material: Zelunium
+           Amount: 300
+         - Material: Ice_Barmund_Rune2
+           Amount: 20
+        ResultItem: Ice_Rune_Boots
+      - BaseItem: Barmund_Ice_Hood
+        MinimumRefine: 7
+        Materials:
+         - Material: Armor_Stone_4
+           Amount: 100
+         - Material: Barmund_Ice_Essence
+           Amount: 50
+         - Material: BarMealTicket
+           Amount: 500
+         - Material: Zelunium
+           Amount: 300
+         - Material: Ice_Barmund_Rune2
+           Amount: 20
+        ResultItem: Ice_Rune_Hood
 # - Item: OS_Helm_Hammer
 #   BaseItems:
 #     - BaseItem: Sagittarius_DiademK_LT
