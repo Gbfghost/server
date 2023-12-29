@@ -46,7 +46,7 @@ uttycty,93,93,3	script	附魔統合TEST_1	23233,{
 	setarray .@enchant47[0],500054,500055,510075,510076,520021,530034,540056,550089,550090,560037,570032,580033,590047,590048,600030,610041,620019,630019,
 							640034,650028,700059,800015,810015,820011,830015,840010;
 	setarray .@enchant10002[0],450293,450294,450295,450296,450297,450298;
-	getinventorylist();
+	getinventorylist(getcharid(0), INV_IDX | INV_ID);
 	for(.@i = 0; .@i < getarraysize(@inventorylist_idx[.@i]); .@i++){
 		for ( .@j = 0; .@j < getarraysize(.@box);.@j++){
 			if (@inventorylist_id[.@i] == .@box[.@j]){	
