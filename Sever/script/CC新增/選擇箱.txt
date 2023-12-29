@@ -1,5 +1,5 @@
 function	script	霸肋門德改造選擇箱 {
-	mes "^FF0000[霸肋門德改造選擇箱]^000000"
+	mes "^FF0000[霸肋門德改造選擇箱]^000000";
 	mes "<ITEM>霸肋門德草原改造箱<INFO>101769</INFO></ITEM>";
 	mes "<ITEM>霸肋門德死亡改造箱<INFO>101770</INFO></ITEM>";
 	mes "<ITEM>霸肋門德火焰改造箱<INFO>101771</INFO></ITEM>";
@@ -22,5 +22,5 @@ function	script	霸肋門德改造選擇箱 {
 		getitem 101772,1;
 		break;
 	}
-	close;
+	end;
 }
