@@ -1,4 +1,4 @@
-uttycty,93,93,3	script	附魔統合TEST_1	23233,{
+function	script	新版UI	{
 	freeloop(1);
 	set .@k,0;
 	setarray .@box[0],450171,450178,480091,480090,470087,470088,490106,490108,490107,490109,450169,450170,450171,
@@ -58,6 +58,9 @@ uttycty,93,93,3	script	附魔統合TEST_1	23233,{
 	if (.@boxs==0){end;}
 	else{
 		.@ret = itemlist(.@boxs);
+		clear;
+		mes "即將開啟介面。";
+		close2;
 		if ((inarray(.@enchant1[0],.@ret) !=-1 )){
 				item_enchant(1);
 				end;

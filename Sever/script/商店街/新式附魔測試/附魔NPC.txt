@@ -1,0 +1,10 @@
+uttycty,93,93,3	script	附魔統合TEST_1	23233,{
+	mes "^FF0000我是附魔統合啾咪^000000";
+	switch(select("新版附魔UI")){
+	case 1:
+		mes
+		callfunc "新版UI";
+		end;
+	}
+	end;
+}
