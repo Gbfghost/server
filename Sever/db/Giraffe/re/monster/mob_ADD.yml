@@ -4935,8 +4935,8 @@ Body:
     JapaneseName: 聖殿的蘭特克力斯
     Level: 260
     Hp: 349050000
-    BaseExp: 997286
-    JobExp: 664857
+    BaseExp: 9972860
+    JobExp: 6648570
     Attack: 12000
     Attack2: 16000
     Defense: 636
@@ -4987,6 +4987,501 @@ Body:
       - Item: Temple_Barmund_Rune2
         Rate: 8000
       - Item: Barmund_Water2
+        Rate: 10
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 490297
+        Rate: 10
+  - Id: 21928
+    AegisName: ECO_COMODO
+    Name: ECO_COMODO_21928
+    JapaneseName: 猛毒的科摩多龍
+    Level: 253
+    Hp: 37802826
+    BaseExp: 781429
+    JobExp: 454286
+    Attack: 6000
+    Attack2: 8000
+    Defense: 739
+    MagicDefense: 285
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Brute                                                                                             
+    Element: Poison                                                                                         
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 180                                                                                          
+    AttackDelay: 500                                                                                        
+    AttackMotion: 576                                                                                       
+    DamageMotion: 504  
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21929
+    AegisName: ECO_POISON_TOAD
+    Name: ECO_POISON_TOAD_21929
+    JapaneseName: 猛毒的牛蛙
+    Level: 253
+    Hp: 42572740
+    BaseExp: 904344
+    JobExp: 589563
+    Attack: 6000
+    Attack2: 8000
+    Defense: 897
+    MagicDefense: 392
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 3            
+    SkillRange: 10            
+    ChaseRange: 12            
+    Size: Medium              
+    Race: Brute               
+    Element: Poison           
+    ElementLevel: 2           
+    WalkSpeed: 160            
+    AttackDelay: 1148         
+    AttackMotion: 1728        
+    DamageMotion: 864         
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21930
+    AegisName: ECO_SIDE_WINDER
+    Name: ECO_SIDE_WINDER_21930
+    JapaneseName: 猛毒的黑蛇
+    Level: 253
+    Hp: 35522723
+    BaseExp: 845923
+    JobExp: 583949
+    Attack: 6000
+    Attack2: 8000
+    Defense: 463
+    MagicDefense: 488
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Brute  
+    Element: Poison                                                                                         
+    ElementLevel: 1                                                                                         
+    WalkSpeed: 200                                                                                          
+    AttackDelay: 1576                                                                                       
+    AttackMotion: 576                                                                                       
+    DamageMotion: 576      
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21931
+    AegisName: ECO_CRAMP
+    Name: ECO_CRAMP_21931
+    JapaneseName: 猛毒的藍鼠
+    Level: 254
+    Hp: 38623840
+    BaseExp: 846050
+    JobExp: 570700
+    Attack: 6000
+    Attack2: 8000
+    Defense: 808
+    MagicDefense: 312
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Brute                                                                                             
+    Element: Poison                                                                                         
+    ElementLevel: 2                                                                                         
+    WalkSpeed: 100                                                                                          
+    AttackDelay: 1000                                                                                       
+    AttackMotion: 500                                                                                       
+    DamageMotion: 1000       
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21932
+    AegisName: ECO_KUKRE
+    Name: ECO_KUKRE_21932
+    JapaneseName: 猛毒的庫克雷
+    Level: 254
+    Hp: 42614131
+    BaseExp: 854799
+    JobExp: 569866
+    Attack: 6500
+    Attack2: 8500
+    Defense: 476
+    MagicDefense: 262
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Insect                                                                                            
+    Element: Water                                                                                          
+    ElementLevel: 1                                                                                         
+    WalkSpeed: 150                                                                                          
+    AttackDelay: 1776                                                                                       
+    AttackMotion: 576                                                                                       
+    DamageMotion: 288     
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21933
+    AegisName: ECO_NEPENTHES
+    Name: ECO_NEPENTHES_21933
+    JapaneseName: 猛毒的豬籠草
+    Level: 254
+    Hp: 36829620
+    BaseExp: 834983
+    JobExp: 589989
+    Attack: 7500
+    Attack2: 8800
+    Defense: 689
+    MagicDefense: 389
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 7                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Plant                                                                                             
+    Element: Poison                                                                                         
+    ElementLevel: 2                                                                                         
+    WalkSpeed: 1000                                                                                         
+    AttackDelay: 500                                                                                        
+    AttackMotion: 576                                                                                       
+    DamageMotion: 504    
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21934
+    AegisName: ECO_ANGRA_MANTIS
+    Name: ECO_ANGRA_MANTIS_21934
+    JapaneseName: 猛毒的瘋狂螳螂
+    Level: 255
+    Hp: 39754493
+    BaseExp: 1060714
+    JobExp: 707143
+    Attack: 7800
+    Attack2: 9000
+    Defense: 831
+    MagicDefense: 321
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Insect                                                                                            
+    Element: Earth                                                                                          
+    ElementLevel: 2                                                                                         
+    WalkSpeed: 150                                                                                          
+    AttackDelay: 576                                                                                        
+    AttackMotion: 480                                                                                       
+    DamageMotion: 480       
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Venom_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21935
+    AegisName: ECO_VENOM_KIMERA
+    Name: ECO_VENOM_KIMERA_21935
+    JapaneseName: 猛毒的劇毒凱美拉
+    Level: 260
+    Hp: 349050000
+    BaseExp: 9972860
+    JobExp: 6648570
+    Attack: 12000
+    Attack2: 16000
+    Defense: 636
+    MagicDefense: 341
+    Str: 340
+    Agi: 299
+    Vit: 230
+    Int: 309
+    Dex: 300
+    Luk: 290
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Brute                                                                                             
+    Element: Poison                                                                                         
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 150                                                                                          
+    AttackDelay: 772                                                                                        
+    AttackMotion: 672                                                                                       
+    DamageMotion: 360           
+    DamageTaken: 100
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Yggdrasilberry
+        Rate: 5500
+      - Item: Crystal_Jewel__
+        Rate: 5000
+      - Item: Old_Violet_Box
+        Rate: 5000
+    Drops:
+      - Item: Barmund_Venom_Essence
+        Rate: 10
+      - Item: Venom_Barmund_Rune2
+        Rate: 8000
+      - Item: Barmund_Water3
         Rate: 10
       - Item: 1000323
         Rate: 8
