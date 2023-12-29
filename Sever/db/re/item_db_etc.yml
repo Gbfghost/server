@@ -45252,7 +45252,7 @@ Body:
     Type: Card
     SubType: Enchant
     Script: |
-      .@r = getrefine()
+      .@r = getrefine();
       bonus bAtkRate,7*.@r;
   - Id: 300387
     AegisName: Unknown_Item_300387
@@ -45260,7 +45260,7 @@ Body:
     Type: Card
     SubType: Enchant
     Script: |
-      .@r = getrefine()
+      .@r = getrefine();
       bonus bMatkRate,7*.@r;
   - Id: 300392
     AegisName: aegis_300392

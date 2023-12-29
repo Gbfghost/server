@@ -186254,4 +186254,4 @@ Body:
       bonus2 bSPDrainRate,2*.@ra*10,2*.@ra;
       bonus bShortWeaponDamageReturn,2*.@ra;
       bonus bLongWeaponDamageReturn,2*.@ra;
-      }}
+      }
