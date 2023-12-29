@@ -10,6 +10,7 @@
 
 
 function	script	[附魔]超時空頭冠	{
+	clear;
 	disable_items;
 	cutin "ep16_skia_nerius01",2;
 	mes "[挑戰古城附魔]";
