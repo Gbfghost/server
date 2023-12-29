@@ -1,4 +1,4 @@
-uttycty,29,161,6	script	全自動裝備附魔人員	805,{
+function	script	[附魔]全自動裝備	{
 	mes "[全自動裝備附魔人員]";
 	mes "" + strcharinfo(0) + ",";
 	mes "附魔裝備要穿戴才能附魔唷~";

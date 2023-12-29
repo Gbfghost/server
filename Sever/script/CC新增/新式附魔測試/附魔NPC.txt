@@ -1,18 +1,50 @@
 uttycty,93,93,3	script	附魔統合TEST_1	23233,{
 	mes "^FF0000我是附魔統合啾咪^000000";
-	switch(select("新版附魔UI","防具附魔")){
+	switch(select("新版附魔UI","舊版裝備附魔")){
 	case 1:
 		callfunc "新版UI";
 		end;
 	case 2:
 		clear;
 		mes "請選擇你要的附魔項目。";
-		switch(select("超時空頭冠")){
+		switch(select("超時空頭冠","施密特國王徽章","全自動裝備","戰死頭盔","戰魂頭盔","死塔飾品","古代澳丁聖袍","時光靴系列","EDDA武器")){
 			case 1:
 				clear;
 				callfunc "[附魔]超時空頭冠";
 				end;
-			}
+			case 2:
+				clear;
+				callfunc "[附魔]施密特國王徽章";
+				end;
+			case 3:
+				clear;
+				callfunc "[附魔]全自動裝備";
+				end;
+			case 4:
+				clear;
+				callfunc "[附魔]戰死頭盔";
+				end;
+			case 5:
+				clear;
+				callfunc "[附魔]戰魂頭盔";
+				end;
+			case 6:
+				clear;
+				callfunc "[附魔]死塔飾品";
+				end;
+			case 7:
+				clear;
+				callfunc "[附魔]古代奧丁聖袍";
+				end;
+			case 8:
+				clear;
+				callfunc "[附魔]時光靴系列";
+				end;
+			case 9:
+				clear;
+				callfunc "[附魔]EDDA武器";
+				end;
+		}
 	}
 	end;
 }

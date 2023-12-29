@@ -8,7 +8,7 @@
 //*************************************************
 //===================請保留以上資訊================
 
-uttycty,29,123,5	script	[附魔]戰魂頭盔	4_4job_maggi,{
+function	script	[附魔]戰魂頭盔	{
 	disable_items;
 	cutin "bu_oliver81",2;
 	set .@part, EQI_HEAD_TOP;

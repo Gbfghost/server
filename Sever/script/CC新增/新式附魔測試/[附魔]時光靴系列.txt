@@ -9,7 +9,7 @@
 //===================請保留以上資訊================
 
 
-uttycty,42,149,4	script	[附魔]時光靴	4_ep16_nihil,{
+function	script	[附魔]時光靴系列	{
 	function MKR;
 	function MKRARRAY;
 	disable_items;

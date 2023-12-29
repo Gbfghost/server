@@ -3,7 +3,7 @@
 //*************************************************
 //===================請保留以上資訊================
 
-uttycty,29,153,5	script	[附魔]遠征之途	4_ep16_agnes,{	
+function	script	[附魔]EDDA武器	{	
 	disable_items;
 	cutin "3rd_wd_kimdancer01",2;
 	mes "[遠征之途附魔]";
