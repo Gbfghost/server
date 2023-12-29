@@ -26,7 +26,7 @@ function	script	霸肋門德改造選擇箱	{
 	end;
 }
 function	script	霸肋門德戒指改造選擇箱	{
-	mes "^FF0000[霸肋門德改造選擇箱]^000000";
+	mes "^FF0000[霸肋門德戒指改造選擇箱]^000000";
 	mes "<ITEM>靈魂盧恩戒指改造箱<INFO>101933</INFO></ITEM>";
 	mes "<ITEM>猛毒盧恩戒指改造箱<INFO>101934</INFO></ITEM>";
 	mes "<ITEM>聖殿盧恩戒指改造箱<INFO>101935</INFO></ITEM>";
@@ -49,7 +49,7 @@ function	script	霸肋門德戒指改造選擇箱	{
 	case 4:
 		delitem 61001,1;
 		getitem 101936,1;
-		getitem 
+		break;
 	case 6:
 		delitem 61001,1;
 		getitem 101937,1;
