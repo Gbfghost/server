@@ -45,3 +45,13 @@ bl_venom,0,0,0,0	monster	"--ja--"	21932,25,30000,0,0
 bl_venom,0,0,0,0	monster	"--ja--"	21933,25,30000,0,0
 bl_venom,0,0,0,0	monster	"--ja--"	21934,25,30000,0,0
 bl_venom,0,0,0,0	boss_monster	"--ja--"	21935,1,1,1,1
+
+//生物圈環境-猛毒
+bl_soul,0,0,0,0	monster	"--ja--"	21936,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21937,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21938,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21939,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21940,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21941,25,30000,0,0
+bl_soul,0,0,0,0	monster	"--ja--"	21942,25,30000,0,0
+bl_soul,0,0,0,0	boss_monster	"--ja--"	21943,1,1,1,1

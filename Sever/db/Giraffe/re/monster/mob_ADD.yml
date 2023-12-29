@@ -5499,3 +5499,498 @@ Body:
         Rate: 10
       - Item: 490297
         Rate: 10
+  - Id: 21936
+    AegisName: ECO_NIGHTMARE
+    Name: ECO_NIGHTMARE_21936
+    JapaneseName: 靈魂的夢魘
+    Level: 253
+    Hp: 42580971
+    BaseExp: 781429
+    JobExp: 454286
+    Attack: 6000
+    Attack2: 8000
+    Defense: 991
+    MagicDefense: 433
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Demon                                                                                             
+    Element: Ghost                                                                                          
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 150                                                                                          
+    AttackDelay: 1816                                                                                       
+    AttackMotion: 816                                                                                       
+    DamageMotion: 432     
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21937
+    AegisName: ECO_WHISPER
+    Name: ECO_WHISPER_21937
+    JapaneseName: 靈魂的白幽靈
+    Level: 253
+    Hp: 33220493
+    BaseExp: 904344
+    JobExp: 589563
+    Attack: 6000
+    Attack2: 8000
+    Defense: 501
+    MagicDefense: 281
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Undead                                                                                            
+    Element: Ghost                                                                                          
+    ElementLevel: 1                                                                                         
+    WalkSpeed: 150                                                                                          
+    AttackDelay: 1960                                                                                       
+    AttackMotion: 960                                                                                       
+    DamageMotion: 504           
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21938
+    AegisName: ECO_MARIONETTE
+    Name: ECO_MARIONETTE_21938
+    JapaneseName: 靈魂的傀儡娃娃
+    Level: 253
+    Hp: 32539822
+    BaseExp: 845923
+    JobExp: 583949
+    Attack: 6000
+    Attack2: 8000
+    Defense: 515
+    MagicDefense: 559
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Demon                                                                                             
+    Element: Ghost                                                                                          
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 300                                                                                          
+    AttackDelay: 1480                                                                                       
+    AttackMotion: 480                                                                                       
+    DamageMotion: 1056   
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21939
+    AegisName: ECO_NOXIOUS
+    Name: ECO_NOXIOUS_21939
+    JapaneseName: 靈魂的廢氣魔
+    Level: 254
+    Hp: 36842483
+    BaseExp: 846050
+    JobExp: 570700
+    Attack: 6000
+    Attack2: 8000
+    Defense: 801
+    MagicDefense: 462
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Formless                                                                                          
+    Element: Ghost                                                                                          
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 350                                                                                          
+    AttackDelay: 768                                                                                        
+    AttackMotion: 1440                                                                                      
+    DamageMotion: 672   
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21940
+    AegisName: ECO_THE_PAPER
+    Name: ECO_THE_PAPER_21940
+    JapaneseName: 靈魂的紙妖
+    Level: 254
+    Hp: 35379767
+    BaseExp: 854799
+    JobExp: 569866
+    Attack: 6500
+    Attack2: 8500
+    Defense: 825
+    MagicDefense: 318
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Formless                                                                                          
+    Element: Neutral                                                                                        
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 350                                                                                          
+    AttackDelay: 720                                                                                        
+    AttackMotion: 864                                                                                       
+    DamageMotion: 504      
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21941
+    AegisName: ECO_GAJOMART
+    Name: ECO_GAJOMART_21941
+    JapaneseName: 靈魂的狂暴鬼火
+    Level: 254
+    Hp: 33245387
+    BaseExp: 834983
+    JobExp: 589989
+    Attack: 7500
+    Attack2: 8800
+    Defense: 512
+    MagicDefense: 555
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Formless                                                                                          
+    Element: Fire                                                                                           
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 300                                                                                          
+    AttackDelay: 1000                                                                                       
+    AttackMotion: 1152                                                                                      
+    DamageMotion: 828   
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21942
+    AegisName: ECO_ODIUM
+    Name: ECO_ODIUM_21942
+    JapaneseName: 靈魂的憎恨
+    Level: 255
+    Hp: 39467913
+    BaseExp: 1060714
+    JobExp: 707143
+    Attack: 7800
+    Attack2: 9000
+    Defense: 844
+    MagicDefense: 326
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 2                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Undead                                                                                            
+    Element: Ghost                                                                                          
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 100                                                                                          
+    AttackDelay: 432                                                                                        
+    AttackMotion: 288                                                                                       
+    DamageMotion: 420         
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Soul_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21943
+    AegisName: ECO_GLOOMUNDERNIGHT
+    Name: ECO_GLOOMUNDERNIGHT_21943
+    JapaneseName: 靈魂的幽暗夢魘
+    Level: 260
+    Hp: 349050000
+    BaseExp: 997286
+    JobExp: 664857
+    Attack: 12000
+    Attack2: 16000
+    Defense: 636
+    MagicDefense: 341
+    Str: 340
+    Agi: 299
+    Vit: 230
+    Int: 309
+    Dex: 300
+    Luk: 290
+    AttackRange: 3                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Formless                                                                                          
+    Element: Ghost                                                                                          
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 200                                                                                          
+    AttackDelay: 1344                                                                                       
+    AttackMotion: 2880                                                                                      
+    DamageMotion: 576            
+    DamageTaken: 100
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Yggdrasilberry
+        Rate: 5500
+      - Item: Crystal_Jewel__
+        Rate: 5000
+      - Item: Old_Violet_Box
+        Rate: 5000
+    Drops:
+      - Item: Barmund_Soul_Essence
+        Rate: 10
+      - Item: Soul_Barmund_Rune2
+        Rate: 8000
+      - Item: Barmund_Water
+        Rate: 10
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 490297
+        Rate: 10
