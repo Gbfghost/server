@@ -50,7 +50,7 @@ function	script	霸肋門德戒指改造選擇箱	{
 		delitem 61001,1;
 		getitem 101936,1;
 		break;
-	case 6:
+	case 5:
 		delitem 61001,1;
 		getitem 101937,1;
 		break;
