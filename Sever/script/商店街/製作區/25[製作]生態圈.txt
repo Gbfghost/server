@@ -67,35 +67,35 @@ OnInit:
 	sellitemcurrency(1000640, 30);
 	endsellitem();
 
-	sellitem(480145, 1000000000, -1, 480144, 1, 0);
+	sellitem(480145, 100000000, -1, 480144, 1, 0);
 	sellitemcurrency(1000640, 20);
 	endsellitem();
 
-	sellitem(470108, 1000000000, -1, 470107, 1, 0);
+	sellitem(470108, 100000000, -1, 470107, 1, 0);
 	sellitemcurrency(1000640, 15);
 	endsellitem();
 
-	sellitem(450202, 1000000000, -1, 450199, 1, 0);
+	sellitem(450202, 100000000, -1, 450199, 1, 0);
 	sellitemcurrency(1000643, 30);
 	endsellitem();
 
-	sellitem(480147, 1000000000, -1, 480144, 1, 0,);
+	sellitem(480147, 100000000, -1, 480144, 1, 0);
 	sellitemcurrency(1000643, 20);
 	endsellitem();
 
-	sellitem(470110, 1000000000, -1, 470107, 1, 0);
+	sellitem(470110, 100000000, -1, 470107, 1, 0);
 	sellitemcurrency(1000643, 15);
 	endsellitem();
 
-	sellitem(450203, 1000000000, -1, 450199, 1, 0);
+	sellitem(450203, 100000000, -1, 450199, 1, 0);
 	sellitemcurrency(1000642, 30);
 	endsellitem();
 
-	sellitem(480148, 1000000000, -1, 480144, 1, 0);
+	sellitem(480148, 100000000, -1, 480144, 1, 0);
 	sellitemcurrency(1000642, 20);
 	endsellitem();
 
-	sellitem(470111, 1000000000, -1, 470107, 1, 0);
+	sellitem(470111, 100000000, -1, 470107, 1, 0);
 	sellitemcurrency(1000642, 15);
 	endsellitem();
 
