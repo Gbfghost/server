@@ -86,7 +86,10 @@ OnInit:
 	sellitemcurrency(6417,40);
     sellitemcurrency(6909,30);
     endsellitem();    
-    sellitem(60503, 0, -1);	 //霸肋門德草改造選擇箱
+    sellitem(61000, 0, -1);	 //霸肋門德改造選擇箱
+	sellitemcurrency(910132,10);
+    endsellitem();    
+    sellitem(61001, 0, -1);	 //霸肋門德戒指改造選擇箱
 	sellitemcurrency(910132,10);
     endsellitem();    
     
