@@ -25,3 +25,40 @@ function	script	霸肋門德改造選擇箱	{
 	close;
 	end;
 }
+function	script	霸肋門德戒指改造選擇箱	{
+	mes "^FF0000[霸肋門德改造選擇箱]^000000";
+	mes "<ITEM>靈魂盧恩戒指改造箱<INFO>101933</INFO></ITEM>";
+	mes "<ITEM>猛毒盧恩戒指改造箱<INFO>101934</INFO></ITEM>";
+	mes "<ITEM>聖殿盧恩戒指改造箱<INFO>101935</INFO></ITEM>";
+	mes "<ITEM>靈魂魔法戒指改造箱<INFO>101936</INFO></ITEM>";
+	mes "<ITEM>猛毒魔法戒指改造箱<INFO>101937</INFO></ITEM>";
+	mes "<ITEM>聖殿魔法戒指改造箱<INFO>101938</INFO></ITEM>";
+	switch(select("靈魂盧恩戒指改造箱","猛毒盧恩戒指改造箱","聖殿盧恩戒指改造箱","靈魂魔法戒指改造箱","猛毒魔法戒指改造箱","聖殿魔法戒指改造箱")){
+	case 1:
+		delitem 61001,1;
+		getitem 101933,1;
+		break;
+	case 2:
+		delitem 61001,1;
+		getitem 101934,1;
+		break;
+	case 3:
+		delitem 61001,1;
+		getitem 101935,1;
+		break;
+	case 4:
+		delitem 61001,1;
+		getitem 101936,1;
+		getitem 
+	case 6:
+		delitem 61001,1;
+		getitem 101937,1;
+		break;
+	case 6:
+		delitem 61001,1;
+		getitem 101938,1;
+		break;
+	}
+	close;
+	end;
+}

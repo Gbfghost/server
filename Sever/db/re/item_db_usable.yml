@@ -50037,9 +50037,17 @@ Body:
     Name: 霸肋門德改造選擇箱
     Type: Delayconsume
     Buy: 50
-    Weight: 70
+    Weight: 700
     Script: |
       callfunc "霸肋門德改造選擇箱";
+  - Id: 61001
+    AegisName: Barmund_Reform_BOX2
+    Name: 霸肋門德戒指改造選擇箱
+    Type: Delayconsume
+    Buy: 50
+    Weight: 700
+    Script: |
+      callfunc "霸肋門德戒指改造選擇箱";
   - Id: 101769
     AegisName: Barmund_Plain_Reform
     Name: 霸肋門德草原改造箱
