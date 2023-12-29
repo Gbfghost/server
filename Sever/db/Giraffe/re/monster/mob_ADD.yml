@@ -3005,6 +3005,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: 7097
         Rate: 70    
       - Item: 1000430
@@ -3065,6 +3067,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: 1036
         Rate: 100    
       - Item: 1000430
@@ -3125,6 +3129,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: 1062
         Rate: 100    
       - Item: 1000430
@@ -3185,6 +3191,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: 7096
         Rate: 100    
       - Item: 1000430
@@ -3245,6 +3253,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: Nose_Ring
         Rate: 2207   
       - Item: 1000430
@@ -3305,6 +3315,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: Dragon's_Skin
         Rate: 2000  
       - Item: 1000430
@@ -3365,6 +3377,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 1
       - Item: Light_Granule
         Rate: 250  
       - Item: 1000430
@@ -3438,6 +3452,8 @@ Body:
       - Item: Crystal_Jewel__
         Rate: 2000
     Drops:
+      - Item: Barmund_Flame_Reform
+        Rate: 10
       - Item: 1000641
         Rate: 8000
       - Item: 1000323
@@ -3500,6 +3516,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Ice_Heart
         Rate: 2500 
       - Item: 1000430
@@ -3560,6 +3578,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Ice_Piece
         Rate: 750
       - Item: 1000430
@@ -3620,6 +3640,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Ice_Heart
         Rate: 1500
       - Item: Ice_Piece
@@ -3682,6 +3704,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Cold_Heart
         Rate: 80
       - Item: Black_Cat
@@ -3744,6 +3768,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Crystalized_Teardrop
         Rate: 500
       - Item: Fluorescent_Liquid
@@ -3806,6 +3832,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Soft_Feather
         Rate: 350
       - Item: 1000430
@@ -3866,6 +3894,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 1
       - Item: Fluorescent_Liquid
         Rate: 2500
       - Item: Karvodailnirol
@@ -3941,6 +3971,8 @@ Body:
       - Item: Old_Violet_Box
         Rate: 5000
     Drops:
+      - Item: Barmund_Ice_Essence
+        Rate: 10
       - Item: 1000642
         Rate: 8000
       - Item: 1000323
@@ -4003,6 +4035,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Rotten_Bandage
         Rate: 2207
       - Item: Mementos
@@ -4065,6 +4099,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Pumpkin_Bucket
         Rate: 1600
       - Item: Ectoplasm
@@ -4127,6 +4163,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Clattering_Skull
         Rate: 1500
       - Item: 1000430
@@ -4187,6 +4225,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Transparent_Cloth
         Rate: 2910
       - Item: 1000430
@@ -4247,6 +4287,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Skull
         Rate: 2500
       - Item: 1000430
@@ -4307,6 +4349,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: Old_White_Cloth
         Rate: 1500
       - Item: 1000430
@@ -4367,6 +4411,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 1
       - Item: 1000430
         Rate: 1
       - Item: 1000430
@@ -4438,6 +4484,8 @@ Body:
       - Item: Old_Violet_Box
         Rate: 5000
     Drops:
+      - Item: Barmund_Death_Essence
+        Rate: 10
       - Item: 1000643
         Rate: 8000
       - Item: 1000323
