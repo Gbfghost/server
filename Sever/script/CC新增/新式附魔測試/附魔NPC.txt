@@ -1,4 +1,4 @@
-uttycty,93,93,3	script	附魔統合TEST_1	23233,{
+uttycty,93,93,3	script	附魔統合TEST_1	562,{
 	mes "^FF0000我是附魔統合啾咪^000000";
 	switch(select("新版附魔UI","舊版裝備附魔")){
 	case 1:
