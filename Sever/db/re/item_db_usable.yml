@@ -50032,3 +50032,29 @@ Body:
       sc_start SC_SIROMA_ICE_TEA,300000,20;
       sc_start SC_DROCERA_HERB_STEAMED,300000,20;
       sc_start SC_PUTTI_TAILS_NOODLES,300000,20;
+  - Id: 101769
+    AegisName: Barmund_Plain_Reform
+    Name: 霸肋門德草原改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101770
+    AegisName: Barmund_Death_Reform
+    Name: 霸肋門德死亡改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();  
+  - Id: 101771
+    AegisName: Barmund_Flame_Reform
+    Name: 霸肋門德火焰改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();  
+  - Id: 101772
+    AegisName: Barmund_Ice_Reform
+    Name: 霸肋門德寒冰改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+      
+      
