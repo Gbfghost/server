@@ -86,16 +86,7 @@ OnInit:
 	sellitemcurrency(6417,40);
     sellitemcurrency(6909,30);
     endsellitem();    
-    sellitem(101769, 0, -1);	 //霸肋門德草原改造箱
-	sellitemcurrency(910132,10);
-    endsellitem();    
-    sellitem(101770, 0, -1);	 //霸肋門德死亡改造箱
-	sellitemcurrency(910132,10);
-    endsellitem();    
-    sellitem(101771, 0, -1);	 //霸肋門德火焰改造箱
-	sellitemcurrency(910132,10);
-    endsellitem();    
-    sellitem(101772, 0, -1);	 //霸肋門德寒冰改造箱
+    sellitem(60503, 0, -1);	 //霸肋門德草改造選擇箱
 	sellitemcurrency(910132,10);
     endsellitem();    
     
