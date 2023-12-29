@@ -2488,6 +2488,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 7063
         Rate: 9000
       - Item: 1000322
@@ -2548,6 +2550,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 7939
         Rate: 10
       - Item: 7063
@@ -2610,6 +2614,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 992
         Rate: 50
       - Item: 943
@@ -2672,6 +2678,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 520
         Rate: 80
       - Item: 752
@@ -2734,6 +2742,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 1028
         Rate: 80    
       - Item: 1000430
@@ -2794,6 +2804,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 1032
         Rate: 80    
       - Item: 1000430
@@ -2854,6 +2866,8 @@ Body:
       ChangeTargetMelee: true
       ChangeTargetChase: true
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 1
       - Item: 7054
         Rate: 70    
       - Item: 1000430
@@ -2927,6 +2941,8 @@ Body:
       - Item: Scarlet_Jewel
         Rate: 3000
     Drops:
+      - Item: Barmund_Plain_Essence
+        Rate: 10
       - Item: 1000640
         Rate: 8000
       - Item: 1000323
