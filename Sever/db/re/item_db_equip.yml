@@ -156702,8 +156702,6 @@ Body:
       Right_Accessory: true
     ArmorLevel: 2
     EquipLevelMin: 240
-    Trade:
-      NoDrop: true
     Script: |
       bonus bPAtk,3;
       bonus bAtkRate,7;
@@ -156718,8 +156716,6 @@ Body:
       Right_Accessory: true
     ArmorLevel: 2
     EquipLevelMin: 240
-    Trade:
-      NoDrop: true
     Script: |
       bonus bMaxHPrate,7;
       bonus bRes,5;
@@ -156734,8 +156730,6 @@ Body:
       Right_Accessory: true
     ArmorLevel: 2
     EquipLevelMin: 240
-    Trade:
-      NoDrop: true
     Script: |
       bonus bAspdRate,7;
       bonus bCritical,3;
@@ -156750,8 +156744,6 @@ Body:
       Right_Accessory: true
     ArmorLevel: 2
     EquipLevelMin: 240
-    Trade:
-      NoDrop: true
     Script: |
       bonus bCritAtkRate,7;
       bonus bPAtk,2;
@@ -156782,8 +156774,6 @@ Body:
       Right_Accessory: true
     ArmorLevel: 2
     EquipLevelMin: 240
-    Trade:
-      NoDrop: true
     Script: |
       bonus bVariableCastrate,-7;
       bonus bHplus,2;
