@@ -2498,9 +2498,9 @@ Body:
         Rate: 200
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2558,9 +2558,9 @@ Body:
         Rate: 80
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2622,9 +2622,9 @@ Body:
         Rate: 50
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2686,9 +2686,9 @@ Body:
         Rate: 3
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2748,9 +2748,9 @@ Body:
         Rate: 80    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2810,9 +2810,9 @@ Body:
         Rate: 80    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2872,9 +2872,9 @@ Body:
         Rate: 70    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -2960,11 +2960,11 @@ Body:
       - Item: 25731
         Rate: 10
       - Item: 450201
-        Rate: 100
+        Rate: 1
       - Item: 480145
-        Rate: 100
+        Rate: 1
       - Item: 470108
-        Rate: 100
+        Rate: 1
   - Id: 21556
     AegisName: ECO_EXPLOSION
     Name: ECO_EXPLOSION_21556
@@ -3011,9 +3011,9 @@ Body:
         Rate: 70    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3073,9 +3073,9 @@ Body:
         Rate: 100    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3135,9 +3135,9 @@ Body:
         Rate: 100    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3197,9 +3197,9 @@ Body:
         Rate: 100    
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3259,9 +3259,9 @@ Body:
         Rate: 2207   
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3321,9 +3321,9 @@ Body:
         Rate: 2000  
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3383,9 +3383,9 @@ Body:
         Rate: 250  
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3522,9 +3522,9 @@ Body:
         Rate: 2500 
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3584,9 +3584,9 @@ Body:
         Rate: 750
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3648,9 +3648,9 @@ Body:
         Rate: 500
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3712,9 +3712,9 @@ Body:
         Rate: 10
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3776,9 +3776,9 @@ Body:
         Rate: 2500
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3838,9 +3838,9 @@ Body:
         Rate: 350
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -3902,9 +3902,9 @@ Body:
         Rate: 3
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4043,9 +4043,9 @@ Body:
         Rate: 900
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4107,9 +4107,9 @@ Body:
         Rate: 2862
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4169,9 +4169,9 @@ Body:
         Rate: 1500
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4231,9 +4231,9 @@ Body:
         Rate: 2910
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4293,9 +4293,9 @@ Body:
         Rate: 2500
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4355,9 +4355,9 @@ Body:
         Rate: 1500
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4415,9 +4415,9 @@ Body:
         Rate: 1
       - Item: 1000430
         Rate: 1
-      - Item: 1000430
+      - Item: 1000434
         Rate: 1
-      - Item: 1000430
+      - Item: 1000438
         Rate: 1
       - Item: 25728
         Rate: 50
@@ -4508,3 +4508,499 @@ Body:
         Rate: 1
       - Item: 470110
         Rate: 1
+#霸肋門德3.0
+  - Id: 21920
+    AegisName: ECO_RUDO
+    Name: ECO_RUDO_21920
+    JapaneseName: 聖殿的魯盜
+    Level: 253
+    Hp: 325341177
+    BaseExp: 711429
+    JobExp: 454286
+    Attack: 6000
+    Attack2: 8000
+    Defense: 480
+    MagicDefense: 512
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1       
+    SkillRange: 10       
+    ChaseRange: 12       
+    Size: Small          
+    Race: Angel          
+    Element: Holy        
+    ElementLevel: 3      
+    WalkSpeed: 120       
+    AttackDelay: 1576    
+    AttackMotion: 504    
+    DamageMotion: 360    
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21921
+    AegisName: ECO_ARCHANGELING
+    Name: ECO_ARCHANGELING_21921
+    JapaneseName: 聖殿的聖天使波利
+    Level: 253
+    Hp: 36048967
+    BaseExp: 904344
+    JobExp: 589563
+    Attack: 6000
+    Attack2: 8000
+    Defense: 703
+    MagicDefense: 398
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Angel                                                                                             
+    Element: Holy                                                                                           
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 180                                                                                          
+    AttackDelay: 1072                                                                                       
+    AttackMotion: 672                                                                                       
+    DamageMotion: 480           
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21922
+    AegisName: ECO_FAKE_ANGEL
+    Name: ECO_FAKE_ANGEL_21922
+    JapaneseName: 聖殿的偽天使
+    Level: 253
+    Hp: 33216055
+    BaseExp: 845923
+    JobExp: 583949
+    Attack: 6000
+    Attack2: 8000
+    Defense: 385
+    MagicDefense: 335
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Angel                                                                                             
+    Element: Holy                                                                                           
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 160                                                                                          
+    AttackDelay: 920                                                                                        
+    AttackMotion: 720                                                                                       
+    DamageMotion: 336
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21923
+    AegisName: ECO_PLASMA_P
+    Name: ECO_PLASMA_P_21923
+    JapaneseName: 聖殿的紫色等離子體
+    Level: 254
+    Hp: 35377971
+    BaseExp: 846050
+    JobExp: 570700
+    Attack: 6000
+    Attack2: 8000
+    Defense: 808
+    MagicDefense: 312
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Formless                                                                                          
+    Element: Dark                                                                                           
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 350                                                                                          
+    AttackDelay: 768                                                                                        
+    AttackMotion: 1440                                                                                      
+    DamageMotion: 672    
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21924
+    AegisName: ECO_SOLACE
+    Name: ECO_SOLACE_21924
+    JapaneseName: 聖殿的慰勞者
+    Level: 254
+    Hp: 35374557
+    BaseExp: 854799
+    JobExp: 569866
+    Attack: 6500
+    Attack2: 8500
+    Defense: 776
+    MagicDefense: 299
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 250
+    Luk: 126
+    AttackRange: 2                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Medium                                                                                            
+    Race: Angel                                                                                             
+    Element: Holy                                                                                           
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 180                                                                                          
+    AttackDelay: 576                                                                                        
+    AttackMotion: 420                                                                                       
+    DamageMotion: 360   
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21925
+    AegisName: ECO_ANOPHELES
+    Name: ECO_ANOPHELES_21925
+    JapaneseName: 聖殿的瘧蚊
+    Level: 254
+    Hp: 36842663
+    BaseExp: 834983
+    JobExp: 589989
+    Attack: 7500
+    Attack2: 8800
+    Defense: 802
+    MagicDefense: 463
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Small                                                                                             
+    Race: Insect                                                                                            
+    Element: Wind                                                                                           
+    ElementLevel: 3                                                                                         
+    WalkSpeed: 170                                                                                          
+    AttackDelay: 1084                                                                                       
+    AttackMotion: 2304                                                                                      
+    DamageMotion: 576    
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21926
+    AegisName: ECO_GRYPHON
+    Name: ECO_GRYPHON_21926
+    JapaneseName: 聖殿的獅鷲獸
+    Level: 255
+    Hp: 44443635
+    BaseExp: 1060714
+    JobExp: 707143
+    Attack: 7800
+    Attack2: 9000
+    Defense: 428
+    MagicDefense: 404
+    Str: 233
+    Agi: 154
+    Vit: 178
+    Int: 133
+    Dex: 280
+    Luk: 177
+    AttackRange: 1                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Brute                                                                                             
+    Element: Wind                                                                                           
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 100                                                                                          
+    AttackDelay: 704                                                                                        
+    AttackMotion: 504                                                                                       
+    DamageMotion: 432       
+    DamageTaken: 1000
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 1
+      - Item: 1000430
+        Rate: 1
+      - Item: 1000434
+        Rate: 1
+      - Item: 1000438
+        Rate: 1
+      - Item: 25728
+        Rate: 50
+      - Item: 25730
+        Rate: 50
+      - Item: 1000322
+        Rate: 5
+      - Item: 6224
+        Rate: 15
+      - Item: Temple_Barmund_Rune
+        Rate: 5
+      - Item: 490297
+        Rate: 1
+  - Id: 21927
+    AegisName: ECO_RANDGRIS
+    Name: ECO_RANDGRIS_21927
+    JapaneseName: 聖殿的蘭特克力斯
+    Level: 260
+    Hp: 349050000
+    BaseExp: 997286
+    JobExp: 664857
+    Attack: 12000
+    Attack2: 16000
+    Defense: 636
+    MagicDefense: 341
+    Str: 340
+    Agi: 299
+    Vit: 230
+    Int: 309
+    Dex: 300
+    Luk: 290
+    AttackRange: 3                                                                                          
+    SkillRange: 10                                                                                          
+    ChaseRange: 12                                                                                          
+    Size: Large                                                                                             
+    Race: Angel                                                                                             
+    Element: Holy                                                                                           
+    ElementLevel: 4                                                                                         
+    WalkSpeed: 100                                                                                          
+    AttackDelay: 576                                                                                        
+    AttackMotion: 576                                                                                       
+    DamageMotion: 480        
+    DamageTaken: 100
+    Class: Boss
+    Modes:
+      Detector: true
+      CanMove: true
+      Aggressive: true
+      CastSensorIdle: true
+      CanAttack: true
+      CastSensorChase: true
+      ChangeChase: true
+      ChangeTargetMelee: true
+      ChangeTargetChase: true
+      Detector: true
+      KnockBackImmune: true
+      StatusImmune: true
+      Mvp: true
+    MvpDrops:
+      - Item: Yggdrasilberry
+        Rate: 5500
+      - Item: Crystal_Jewel__
+        Rate: 5000
+      - Item: Old_Violet_Box
+        Rate: 5000
+    Drops:
+      - Item: Barmund_Temple_Essence
+        Rate: 10
+      - Item: Temple_Barmund_Rune2
+        Rate: 8000
+      - Item: Barmund_Water2
+        Rate: 10
+      - Item: 1000323
+        Rate: 8
+      - Item: 6635
+        Rate: 5        
+      - Item: 1000431
+        Rate: 10
+      - Item: 1000435
+        Rate: 10
+      - Item: 1000439
+        Rate: 10
+      - Item: 25729
+        Rate: 10
+      - Item: 25731
+        Rate: 10
+      - Item: 490297
+        Rate: 10
