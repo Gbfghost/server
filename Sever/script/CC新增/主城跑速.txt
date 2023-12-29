@@ -1,0 +1,5 @@
+uttycty	mapflag	loadevent
+-	script	#speed30	-1,{
+OnPCLoadMapEvent:
+		atcommand "@speed 15";
+}
