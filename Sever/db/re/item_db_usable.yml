@@ -50039,7 +50039,7 @@ Body:
     Buy: 50
     Weight: 70
     Script: |
-      callfunc "霸肋門德改造選擇箱";
+      callfunc "Barmund_Reform_BOX";
   - Id: 101769
     AegisName: Barmund_Plain_Reform
     Name: 霸肋門德草原改造箱
