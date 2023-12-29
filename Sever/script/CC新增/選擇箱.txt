@@ -1,4 +1,4 @@
-function	script	Barmund_Reform_BOX	{
+function	script	霸肋門德改造選擇箱	{
 	mes "^FF0000[霸肋門德改造選擇箱]^000000";
 	mes "<ITEM>霸肋門德草原改造箱<INFO>101769</INFO></ITEM>";
 	mes "<ITEM>霸肋門德死亡改造箱<INFO>101770</INFO></ITEM>";
@@ -6,19 +6,19 @@ function	script	Barmund_Reform_BOX	{
 	mes "<ITEM>霸肋門德寒冰改造箱<INFO>101772</INFO></ITEM>";
 	switch(select("霸肋門德草原改造箱","霸肋門德死亡改造箱","霸肋門德火焰改造箱","霸肋門德寒冰改造箱")){
 	case 1:
-		delitem 60503,1;
+		delitem 61000,1;
 		getitem 101769,1;
 		break;
 	case 2:
-		delitem 60503,1;
+		delitem 61000,1;
 		getitem 101770,1;
 		break;
 	case 3:
-		delitem 60503,1;
+		delitem 61000,1;
 		getitem 101771,1;
 		break;
 	case 4:
-		delitem 60503,1;
+		delitem 61000,1;
 		getitem 101772,1;
 		break;
 	}
