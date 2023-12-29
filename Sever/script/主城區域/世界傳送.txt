@@ -4077,7 +4077,10 @@ EP28:
 		"草原環境",EP28_0,	
 		"火焰環境",EP28_1,
 		"冰凍環境",EP28_2,
-		"不死環境",EP28_3;		
+		"不死環境",EP28_3,
+		"聖殿環境",EP28_4,
+		"猛毒環境",EP28_5,
+		"靈魂環境",EP28_6;			
 		
 EP28_0:	
 	set .@WarpMap$,"bl_grass";
@@ -4103,6 +4106,27 @@ EP28_2:
 EP28_3:	
 	set .@WarpMap$,"bl_death";
 	set .@tempMFMap$,"不死環境";
+	set .@WarpMapX,0;
+	set .@WarpMapY,0;
+	goto AddorWarp;
+	
+EP28_4:	
+	set .@WarpMap$,"bl_temple";
+	set .@tempMFMap$,"聖殿環境";
+	set .@WarpMapX,0;
+	set .@WarpMapY,0;
+	goto AddorWarp;
+	
+EP28_5:	
+	set .@WarpMap$,"bl_venom";
+	set .@tempMFMap$,"猛毒環境";
+	set .@WarpMapX,0;
+	set .@WarpMapY,0;
+	goto AddorWarp;
+	
+EP28_6:	
+	set .@WarpMap$,"bl_soul";
+	set .@tempMFMap$,"靈魂環境";
 	set .@WarpMapX,0;
 	set .@WarpMapY,0;
 	goto AddorWarp;

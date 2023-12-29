@@ -24,3 +24,14 @@ bl_soul	mapflag	noicewall
 bl_soul	mapflag	restricted	6
 bl_soul	mapflag	novending			//無法開露天商店
 bl_soul	mapflag	nochat				//無法開聊天室
+
+
+//生物圈環境-聖殿
+bl_temple,0,0,0,0	monster	"--ja--"	21923,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21921,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21922,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21923,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21924,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21925,25,30000,0,0
+bl_temple,0,0,0,0	monster	"--ja--"	21926,25,30000,0,0
+bl_temple,0,0,0,0	boss_monster	"--ja--"	21927,1,1,1,1
