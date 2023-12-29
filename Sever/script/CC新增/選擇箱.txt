@@ -22,5 +22,6 @@ function	script	霸肋門德改造選擇箱	{
 		getitem 101772,1;
 		break;
 	}
+	close;
 	end;
 }
