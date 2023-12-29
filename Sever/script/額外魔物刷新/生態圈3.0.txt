@@ -1,0 +1,26 @@
+//生物圈環境-聖殿
+bl_temple	mapflag	nosave	SavePoint
+bl_temple	mapflag	nomemo
+bl_temple	mapflag	nobranch
+bl_temple	mapflag	noicewall
+bl_temple	mapflag	restricted	6
+bl_temple	mapflag	novending			//無法開露天商店
+bl_temple	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-猛毒
+bl_venom	mapflag	nosave	SavePoint
+bl_venom	mapflag	nomemo
+bl_venom	mapflag	nobranch
+bl_venom	mapflag	noicewall
+bl_venom	mapflag	restricted	6
+bl_venom	mapflag	novending			//無法開露天商店
+bl_venom	mapflag	nochat				//無法開聊天室
+
+//生物圈環境-靈魂
+bl_soul	mapflag	nosave	SavePoint
+bl_soul	mapflag	nomemo
+bl_soul	mapflag	nobranch
+bl_soul	mapflag	noicewall
+bl_soul	mapflag	restricted	6
+bl_soul	mapflag	novending			//無法開露天商店
+bl_soul	mapflag	nochat				//無法開聊天室

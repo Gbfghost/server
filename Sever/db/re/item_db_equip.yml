@@ -158385,7 +158385,7 @@ Body:
       bonus bVariableCastrate,-5;
   - Id: 490305
     AegisName: Soul_M_Ring
-    Name: 靈魂盧恩魔戒
+    Name: 靈魂魔法戒指
     Type: Armor
     Weight: 200
     Defense: 10
@@ -158400,7 +158400,7 @@ Body:
       bonus bVariableCastrate,-5;
   - Id: 490306
     AegisName: Venom_M_Ring
-    Name: 猛毒盧恩魔戒
+    Name: 猛毒魔法戒指
     Type: Armor
     Weight: 200
     Defense: 10
@@ -158415,7 +158415,7 @@ Body:
       bonus bVariableCastrate,-5;
   - Id: 490307
     AegisName: Temple_M_Ring
-    Name: 聖殿盧恩魔戒
+    Name: 聖殿魔法戒指
     Type: Armor
     Weight: 200
     Defense: 10

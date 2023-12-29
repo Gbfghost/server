@@ -6964,3 +6964,99 @@ Body:
            Amount: 5
         ResultItem: Vulcan_Armor_TW_LT
         ChangeRefine: -5
+  - Item: Barmund_Soul_Reform
+    BaseItems:
+      - BaseItem: Barmund_Soul_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Soul_Barmund_Rune2
+            Amount: 20
+          - Material: Barmund_Soul_Essence
+            Amount: 50
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Soul_Rune_Ring
+  - Item: Barmund_Venom_Reform
+    BaseItems:
+      - BaseItem: Barmund_Venom_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Venom_Barmund_Rune2
+            Amount: 20
+          - Material: Barmund_Venom_Essence
+            Amount: 50
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Venom_Rune_Ring
+  - Item: Barmund_Temple_Reform
+    BaseItems:
+      - BaseItem: Barmund_Temple_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Temple_Barmund_Rune2
+            Amount: 20
+          - Material: Barmund_Temple_Essence
+            Amount: 50
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Temple_Rune_Ring
+  - Item: Barmund_S_Reform
+    BaseItems:
+      - BaseItem: Barmund_Soul_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Soul_Barmund_Rune2
+            Amount: 5
+          - Material: Barmund_Water
+            Amount: 10
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Soul_M_Ring
+  - Item: Barmund_V_Reform
+    BaseItems:
+      - BaseItem: Barmund_Venom_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Venom_Barmund_Rune2
+            Amount: 5
+          - Material: Barmund_Water3
+            Amount: 10
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Venom_M_Ring
+  - Item: Barmund_T_Reform
+    BaseItems:
+      - BaseItem: Barmund_Temple_Ring
+        CardsAllowed: false
+        Materials:
+          - Material: Acc_Stone_4
+            Amount: 100
+          - Material: Temple_Barmund_Rune2
+            Amount: 5
+          - Material: Barmund_Water2
+            Amount: 10
+          - Material: Zelunium
+            Amount: 300
+          - Material: BarMealTicket
+            Amount: 500
+        ResultItem: Temple_M_Ring

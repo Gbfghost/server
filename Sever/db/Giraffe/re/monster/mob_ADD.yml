@@ -2917,7 +2917,7 @@ Body:
     AttackDelay: 76
     AttackMotion: 432
     DamageMotion: 504
-    DamageTaken: 1000
+    DamageTaken: 100
     Class: Boss
     Modes:
       Detector: true
@@ -3428,7 +3428,7 @@ Body:
     AttackDelay: 200
     AttackMotion: 450
     DamageMotion: 180
-    DamageTaken: 1000
+    DamageTaken: 100
     Class: Boss
     Modes:
       Detector: true
@@ -3947,7 +3947,7 @@ Body:
     AttackDelay: 221
     AttackMotion: 420
     DamageMotion: 216
-    DamageTaken: 1000
+    DamageTaken: 100
     Class: Boss
     Modes:
       Detector: true
@@ -4460,7 +4460,7 @@ Body:
     AttackDelay: 550
     AttackMotion: 447
     DamageMotion: 180
-    DamageTaken: 1000
+    DamageTaken: 100
     Class: Boss
     Modes:
       Detector: true

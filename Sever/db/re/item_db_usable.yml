@@ -50056,5 +50056,41 @@ Body:
     Type: DelayConsume
     Script: |
       item_reform();
+  - Id: 101933
+    AegisName: Barmund_Soul_Reform
+    Name: 靈魂盧恩戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101934
+    AegisName: Barmund_Venom_Reform
+    Name: 猛毒盧恩戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101935
+    AegisName: Barmund_Temple_Reform
+    Name: 聖殿盧恩戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101936
+    AegisName: Barmund_S_Reform
+    Name: 靈魂魔法戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101937
+    AegisName: Barmund_V_Reform
+    Name: 猛毒魔法戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
+  - Id: 101938
+    AegisName: Barmund_T_Reform
+    Name: 聖殿魔法戒指改造箱
+    Type: DelayConsume
+    Script: |
+      item_reform();
       
       
