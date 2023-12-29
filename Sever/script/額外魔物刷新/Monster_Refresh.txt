@@ -25,31 +25,31 @@ gw_fild01,272,337,0	warp	huiwolfField7	1,1,oz_dun01,23,194
 gw_fild01,136,8,0	warp	huiwolfField8	1,1,gw_fild02,122,390
 gw_fild02,122,393,0	warp	huiwolfField9	1,1,gw_fild01,136,14
 
-oz_dun01,284,164,0	script	# Ç¯T  1 Ó¤J f	45,2,2,{
+oz_dun01,284,164,0	script	#¦Ç¯T§ø1¼Ó¤J¤f	45,2,2,{
 	warp "ra_fild10",177,170;
 	end;
 }
 
-oz_dun01,112,31,0	script	# Ç¯T  2 Ó¤J f	45,2,2,{
+oz_dun01,112,31,0	script	#¦Ç¯T§ø2¼Ó¤J¤f	45,2,2,{
 	warp "oz_dun02",147,257;
 	end;
 }
 
 
-oz_dun02,147,261,0	script	# Ç¯T  2 Ó¥X f	45,2,2,{
+oz_dun02,147,261,0	script	#¦Ç¯T§ø2¼Ó¥X¤f	45,2,2,{
 	warp "oz_dun01",112,35;
 	end;
 }
 
-gw_fild01,0,0	monster	"--ja--"	21302,50
-gw_fild01,0,0	monster	"--ja--"	21303,70
-gw_fild01,0,0	monster	"--ja--"	21304,35
+gw_fild01,0,0	monster	"--ja--"	21302,100
+gw_fild01,0,0	monster	"--ja--"	21303,140
+gw_fild01,0,0	monster	"--ja--"	21304,70
 
-gw_fild02,0,0	monster	"--ja--"	21303,15
-gw_fild02,0,0	monster	"--ja--"	21304,60
-gw_fild02,0,0	monster	"--ja--"	21305,25
-gw_fild02,0,0	monster	"--ja--"	21306,35
-gw_fild02,0,0	monster	"--ja--"	21307,35
+gw_fild02,0,0	monster	"--ja--"	21303,30
+gw_fild02,0,0	monster	"--ja--"	21304,120
+gw_fild02,0,0	monster	"--ja--"	21305,50
+gw_fild02,0,0	monster	"--ja--"	21306,70
+gw_fild02,0,0	monster	"--ja--"	21307,70
 oz_dun01,0,0	monster	"--ja--"	21296,70
 oz_dun01,0,0	monster	"--ja--"	21295,65
 oz_dun01,0,0	monster	"--ja--"	21297,10
@@ -58,7 +58,7 @@ oz_dun02,0,0	monster	"--ja--"	21297,25
 oz_dun02,0,0	monster	"--ja--"	21298,35
 oz_dun02,0,0	monster	"--ja--"	21299,25
 oz_dun02,0,0	monster	"--ja--"	21300,60
-oz_dun02,0,0	boss_monster	"--ja--"	21301,1,1,1,1
+oz_dun02,0,0	boss_monster	"--ja--"	21301,1,3600000,600000,1
 
 ra_fild10,0,0	monster	"--ja--"	1781,5
 ra_fild10,0,0	monster	"--ja--"	1836,5
@@ -72,7 +72,7 @@ ra_fild11,0,0	monster	"--ja--"	21323,70
 ra_fild11,0,0	monster	"--ja--"	21296,5
 
 //==================================================
-//  J p   S ~ i  ` W a 1  
+// §J¹p´µ¯Sº~©i ²`²W¦a 1¼Ó
 //==================================================
 gl_cas01_,0,0,0,0	monster	"--ja--"	20367,49,0,0,0
 gl_cas01_,0,0,0,0	monster	"--ja--"	20368,77,0,0,0
@@ -83,28 +83,28 @@ gl_cas01_,0,0,0,0	monster	"--ja--"	20379,42,0,0,0
 gl_cas01_,0,0,0,0	monster	"--ja--"	20380,41,0,0,0
 gl_cas01_,0,0,0,0	monster	"--ja--"	20420,33,0,0,0
 gl_cas01_,0,0,0,0	boss_monster	"--ja--"	20421,1,4800000,600000,1
-gl_cas01_,0,0,0,0	boss_monster	"--ja--"	20422,1,1,1,1
+gl_cas01_,0,0,0,0	boss_monster	"--ja--"	20422,1,3600000,600000,1
 
 
 //==================================================
-//  Û¼v   }
+// ¤Û¼v®ü¬}
 //==================================================
 iz_d04_i,0,0,0,0	monster	"--ja--"	20801,45,0,0,0
 iz_d04_i,0,0,0,0	monster	"--ja--"	20802,45,0,0,0
 iz_d04_i,0,0,0,0	monster	"--ja--"	20805,45,0,0,0
 iz_d04_i,0,0,0,0	monster	"--ja--"	20804,45,0,0,0
 iz_d04_i,0,0,0,0	monster	"--ja--"	20803,45,0,0,0
-iz_d04_i,0,0,0,0	boss_monster	"--ja--"	20811,1,1,1,1
+iz_d04_i,0,0,0,0	boss_monster	"--ja--"	20811,1,3600000,600000,1
 
 iz_d05_i,0,0,0,0	monster	"--ja--"	20808,45,0,0,0
 iz_d05_i,0,0,0,0	monster	"--ja--"	20807,45,0,0,0
 iz_d05_i,0,0,0,0	monster	"--ja--"	20809,45,0,0,0
 iz_d05_i,0,0,0,0	monster	"--ja--"	20806,45,0,0,0
 iz_d05_i,0,0,0,0	monster	"--ja--"	20810,45,0,0,0
-iz_d05_i,0,0,0,0	boss_monster	"--ja--"	20843,1,1,1,1
+iz_d05_i,0,0,0,0	boss_monster	"--ja--"	20843,1,3600000,600000,1
 
 //==================================================
-//  Û¼v Æ¬}
+// ¤Û¼vÃÆ¬}
 //==================================================
 ant_d02_i,0,0,0,0	monster	"--ja--"	21386,30,5000,0,0
 ant_d02_i,0,0,0,0	monster	"--ja--"	21388,20,5000,0,0
@@ -118,54 +118,54 @@ ant_d02_i,0,0,0,0	monster	"--ja--"	21394,15,5000,0,0
 ant_d02_i	boss_monster	"--ja--"	21395,1,4800000,600000,1
 
 //===========================================================
-//  Û¼v l å°­
+// ¤Û¼v§l¦å°­
 //===========================================================
-gef_d01_i,0,0	monster	 Å¯ 	1079,1,30000,0,0
-gef_d01_i,0,0	monster	 Õ¯ 	1082,10,30000,0,0
-gef_d01_i,0,0	monster	 r  Ä¨Û£	3755,10,30000,0,0
-gef_d01_i,0,0	monster	     H	3752,30,30000,0,0
-gef_d01_i,0,0	monster	 Û¼v      	3750,30,30000,0,0
-gef_d01_i,0,0	monster	     H	3751,5,30000,0,0
-gef_d01_i,0,0	monster	 Û¼v   L	3754,30,30000,0,0
-gef_d01_i,0,0	monster	     H	3753,30,30000,0,0
-gef_d01_i,0,0	monster	 É¨    i e	3756,5,30000,0,0
-gef_d01_i,0,0	boss_monster	   ãªº w j  	3757,1,10800000,600000,0
+gef_d01_i,0,0	monster	ÂÅ¯ó	1079,1,30000,0,0
+gef_d01_i,0,0	monster	¥Õ¯ó	1082,10,30000,0,0
+gef_d01_i,0,0	monster	¬r¦åÄ¨Û£	3755,10,30000,0,0
+gef_d01_i,0,0	monster	¬¡¦º¤H	3752,30,30000,0,0
+gef_d01_i,0,0	monster	¤Û¼v¬õ½¿½»	3750,30,30000,0,0
+gef_d01_i,0,0	monster	¬¡¦º¤H	3751,5,30000,0,0
+gef_d01_i,0,0	monster	¤Û¼v¹ÚÆL	3754,30,30000,0,0
+gef_d01_i,0,0	monster	¬¡¦º¤H	3753,30,30000,0,0
+gef_d01_i,0,0	monster	¼É¨«ªºªi»e	3756,5,30000,0,0
+gef_d01_i,0,0	boss_monster	¼««ãªº¼w¥j©Ô	3757,1,10800000,600000,0
 
 //===========================================================
-//  Û¼v  ]  
+// ¤Û¼v¤ë©]¿ß
 //===========================================================
-pay_d03_i,0,0	monster	 Å¯ 	1079,1,30000,0,0
-pay_d03_i,0,0	monster	 Õ¯ 	1082,5,30000,0,0
-pay_d03_i,0,0	monster	   	1080,1,30000,0,0
-pay_d03_i,0,0	monster	    	1081,1,30000,0,0
-pay_d03_i,0,0	monster	 Õ«  F	1185,1,30000,0,0
-pay_d03_i,0,0	monster	   ëªº L  	3760,25,30000,0,0
-pay_d03_i,0,0	monster	   ëªº   D	3761,25,30000,0,0
-pay_d03_i,0,0	monster	   ëªº   k	3762,25,30000,0,0
-pay_d03_i,0,0	monster	 t Þª  h L	3763,25,30000,0,0
-pay_d03_i,0,0	monster	   ãªº E    	3759,10,30000,0,0
-pay_d03_i,0,0	monster	 g     _ I a	3765,10,30000,0,0
-pay_d03_i,0,0	monster	 u z W ] É®v	3764,5,30000,0,0
-pay_d03_i,0,0	boss_monster	   ãªº  ]  	3758,1,10800000,600000,0
+pay_d03_i,0,0	monster	ÂÅ¯ó	1079,1,30000,0,0
+pay_d03_i,0,0	monster	¥Õ¯ó	1082,5,30000,0,0
+pay_d03_i,0,0	monster	ºñ¯ó	1080,1,30000,0,0
+pay_d03_i,0,0	monster	¶À¯ó	1081,1,30000,0,0
+pay_d03_i,0,0	monster	¥Õ«ÕÆF	1185,1,30000,0,0
+pay_d03_i,0,0	monster	¼««ëªºíL«Í	3760,25,30000,0,0
+pay_d03_i,0,0	monster	¼««ëªº§¯¹D	3761,25,30000,0,0
+pay_d03_i,0,0	monster	¼««ëªº°­¤k	3762,25,30000,0,0
+pay_d03_i,0,0	monster	§t­Þªº¤h§L	3763,25,30000,0,0
+pay_d03_i,0,0	monster	¼««ãªº¤E§Àª°	3759,10,30000,0,0
+pay_d03_i,0,0	monster	¨g¼öªº«_ÀI®a	3765,10,30000,0,0
+pay_d03_i,0,0	monster	¯u²z¶WÅ]¾É®v	3764,5,30000,0,0
+pay_d03_i,0,0	boss_monster	¼««ãªº¤ë©]¿ß	3758,1,10800000,600000,0
 
 -	script	illusion_mob#moonlight1	-1,{
 	OnInit:
-		monster "pay_d03_i",0,0,"   ãªº E    ",3759,25,strnpcinfo(0)+"::OnSummonMVP";
-		monster "pay_d03_i",0,0," g     _ I a",3765,25,strnpcinfo(0)+"::OnSummonWizard";
+		monster "pay_d03_i",0,0,"¼««ãªº¤E§Àª°",3759,25,strnpcinfo(0)+"::OnSummonMVP";
+		monster "pay_d03_i",0,0,"¨g¼öªº«_ÀI®a",3765,25,strnpcinfo(0)+"::OnSummonWizard";
 		end;
 		
 	OnSummonMVP:
-		monster "pay_d03_i",0,0,"   ãªº E    ",3759,1,strnpcinfo(0)+"::OnSummonMVP";
+		monster "pay_d03_i",0,0,"¼««ãªº¤E§Àª°",3759,1,strnpcinfo(0)+"::OnSummonMVP";
 		$illusion_mvp += 1;
 		if($illusion_mvp == 1000){ //= jRO Summons the MVP after 800 kills or so
-			mapannounce "pay_d03_i"," ` B   n  :  O Ö¦b Û­t Ú­ ?  Ý¨Ó¦o   Â·Ð¤F!",bc_map;
-			monster "pay_d03_i",0,0,"   ãªº  ]  ",3758,1;
+			mapannounce "pay_d03_i","²`³BªºÁn­µ: ¬O½Ö¦b´Û­t§Ú­Ì? ¬Ý¨Ó¦o¦³³Â·Ð¤F!",bc_map;
+			monster "pay_d03_i",0,0,"¼««ãªº¤ë©]¿ß",3758,1;
 			$illusion_mvp = 0;
 		}
 		end;
 		
 	OnSummonWizard:
-		monster "pay_d03_i",0,0," g     _ I a",3765,1,strnpcinfo(0)+"::OnSummonWizard";
+		monster "pay_d03_i",0,0,"¨g¼öªº«_ÀI®a",3765,1,strnpcinfo(0)+"::OnSummonWizard";
 		$illusion_3765 += 1;
 		if($illusion_3765 == 20){
 			monster "pay_d03_i",55,75,"--ja--",3764,1;
@@ -175,71 +175,71 @@ pay_d03_i,0,0	boss_monster	   ãªº  ]  	3758,1,10800000,600000,0
 }
 
 //===========================================================
-//  Û¼v Q t q
+// ¤Û¼v¯QÀt®q
 //===========================================================
-tur_d04_i,0,0	monster	   ÔªG   t	3800,70,30000,0,0
-tur_d04_i,0,0	monster	   Ô©    t	3802,30,30000,0,0
-tur_d04_i,0,0	monster	   ÔªG   t	3800,4,30000,0,0
-tur_d04_i,0,0	monster	   Ô¤  F t	3801,15,30000,0,0
-tur_d04_i,0,0	monster	   Ô­  F t	3799,41,30000,0,0
-tur_d04_i,0,0	monster	   Ô©    t	3802,40,30000,0,0
-tur_d04_i,0,0	monster	   Ô¤  K t	3803,33,30000,0,0
-tur_d04_i,99,93,20,20	boss_monster	   Ô¯Q t N x	3804,1,10800000,600000,0
+tur_d04_i,0,0	monster	¤£¸ÔªG¾ðÀt	3800,70,30000,0,0
+tur_d04_i,0,0	monster	¤£¸Ô©¥¥ÛÀt	3802,30,30000,0,0
+tur_d04_i,0,0	monster	¤£¸ÔªG¾ðÀt	3800,4,30000,0,0
+tur_d04_i,0,0	monster	¤£¸Ô¤ôÆFÀt	3801,15,30000,0,0
+tur_d04_i,0,0	monster	¤£¸Ô­·ÆFÀt	3799,41,30000,0,0
+tur_d04_i,0,0	monster	¤£¸Ô©¥¥ÛÀt	3802,40,30000,0,0
+tur_d04_i,0,0	monster	¤£¸Ô¤õµKÀt	3803,33,30000,0,0
+tur_d04_i,99,93,20,20	boss_monster	¤£¸Ô¯QÀt±N­x	3804,1,10800000,600000,0
 
 //===========================================================
-//  Û¼v B } ]
+// ¤Û¼v¦B¬}¸]
 //===========================================================
-ice_d03_i,0,0	monster	    \ X    	3792,30,30000,0,0
-ice_d03_i,0,0	monster	   ã³· ~	3793,30,30000,0,0
-ice_d03_i,0,0	monster	    B   H	3794,30,30000,0,0
-ice_d03_i,0,0	monster	 W Q B W	3795,30,30000,0,0
-ice_d03_i,0,0	boss_monster	Ä±     s	3796,1,10800000,600000,0
+ice_d03_i,0,0	monster	¼««ã»\«X´µ´£	3792,30,30000,0,0
+ice_d03_i,0,0	monster	¼««ã³·Ã~	3793,30,30000,0,0
+ice_d03_i,0,0	monster	¼««ã¦B¥¨¤H	3794,30,30000,0,0
+ice_d03_i,0,0	monster	¾W§Q¦B¬W	3795,30,30000,0,0
+ice_d03_i,0,0	boss_monster	Ä±¿ô¤ô´¹Às	3796,1,10800000,600000,0
 
 //===========================================================
-//  Û¼v   }  
+// ¤Û¼v®õ­}ºµ
 //===========================================================
-ein_d02_i,0,0	monster	          	20255,35,30000,0,0
-ein_d02_i,0,0	monster	         	20256,35,30000,0,0
-ein_d02_i,0,0	monster	 A ñª±°   	20257,35,30000,0,0
-ein_d02_i,0,0	monster	 b Õª     	20258,10,30000,0,0
-ein_d02_i,0,0	monster	   Åª     	20259,10,30000,0,0
-ein_d02_i,0,0	monster	 Ò¸L q u ]	20261,10,30000,0,0
-ein_d02_i,0,0	monster	 F  H  	20262,10,30000,0,0
-ein_d02_i,0,0	monster	       `  	20263,5,30000,0,0
-//ein_d02_i	monster	 Ò¸L q u ]	27288,1,30000,0,0
-ein_d02_i,0,0	boss_monster	          	20260,1,10800000,600000,0
+ein_d02_i,0,0	monster	¨ª¬õª±°¸ºµ	20255,35,30000,0,0
+ein_d02_i,0,0	monster	¼á¶Àª±°¸ºµ	20256,35,30000,0,0
+ein_d02_i,0,0	monster	»Aºñª±°¸ºµ	20257,35,30000,0,0
+ein_d02_i,0,0	monster	²b¥Õª±°¸ºµ	20258,10,30000,0,0
+ein_d02_i,0,0	monster	ºÑÂÅª±°¸ºµ	20259,10,30000,0,0
+ein_d02_i,0,0	monster	³Ò¸LÄq¤uÅ]	20261,10,30000,0,0
+ein_d02_i,0,0	monster	ÆF»î¸H¤ù	20262,10,30000,0,0
+ein_d02_i,0,0	monster	¨¸©À¶ÂÂ`¥Û	20263,5,30000,0,0
+//ein_d02_i	monster	³Ò¸LÄq¤uÅ]	27288,1,30000,0,0
+ein_d02_i,0,0	boss_monster	¥ú½÷ª±°¸ºµ	20260,1,10800000,600000,0
 
 //===========================================================
-//  Û¼v g Ã´ËªL
+// ¤Û¼v°gÂÃ´ËªL
 //===========================================================
-prt_maze02,0,0,0,0	monster	 V P k A  	20521,5,0,0,0
-prt_maze02,0,0,0,0	monster	 V P k A  	20522,5,0,0,0
-prt_maze02,0,0,0,0	monster	 V P p Ú­  S	20525,20,0,0,0
-prt_maze02,0,0,0,0	monster	 V P Â³D	20526,8,0,0,0
-prt_maze02,0,0,0,0	monster	 V P   a  	20527,8,0,0,0
-prt_maze02,0,0,0,0	monster	 V P    	20528,5,0,0,0
-prt_maze02,0,0,0,0	monster	 V P   F i Q	20529,1,0,0,0
-prt_maze02,0,0,0,0	monster	 V P g      	20530,5,0,0,0
-prt_maze02,0,0,0,0	monster	 V P i i Q	20531,10,0,0,0
-prt_maze02,0,0,0,0	monster	 V P Ç´  F	20532,20,0,0,0
-prt_maze02,93,168,0,0	boss_monster	 V P Ú­  S	20520,1,900000,600000,0
+prt_maze02,0,0,0,0	monster	²V¨P¨kªA¨Æ	20521,5,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¤kªA¹¢	20522,5,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¤p¤Ú­·¯S	20525,20,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¶Â³D	20526,8,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¨ª»aÃÇ	20527,8,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨PÁ®½¸	20528,5,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P«ÕÆFªi§Q	20529,1,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¨g¼ÉÁ®½¸	20530,5,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨Pªiªi§Q	20531,10,0,0,0
+prt_maze02,0,0,0,0	monster	²V¨P¦Ç´ËÆF	20532,20,0,0,0
+prt_maze02,93,168,0,0	boss_monster	²V¨P¤Ú­·¯S	20520,1,900000,600000,0
 
-prt_mz03_i,0,0	monster	 V P A Æ¦w w P	20521,15,30000,0,0
-prt_mz03_i,0,0	monster	 V P A Æ¨    	20522,15,30000,0,0
-prt_mz03_i,0,0	monster	 V P A Æ§Æ¥Ë¿ 	20523,15,30000,0,0
-prt_mz03_i,0,0	monster	 V P A Æ¦w I  	20524,15,30000,0,0
-prt_mz03_i,0,0	monster	 V P p Ú­  S	20525,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P Â³D	20526,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P   a  	20527,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P    	20528,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P g      	20530,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P i i Q	20531,30,30000,0,0
-prt_mz03_i,0,0	monster	 V P Ç´  F	20532,30,30000,0,0
-prt_mz03_i,0,0	boss_monster	 V P Ú­  S	20520,1,10800000,600000,0
-prt_mz03_i,0,0	boss_monster	 V P   F i Q	20529,1,3600000,600000,0
+prt_mz03_i,0,0	monster	²V¨PªA¨Æ¦w¼w¯P	20521,15,30000,0,0
+prt_mz03_i,0,0	monster	²V¨PªA¨Æ¨¯¦è¨È	20522,15,30000,0,0
+prt_mz03_i,0,0	monster	²V¨PªA¨Æ§Æ¥Ë¿Õ	20523,15,30000,0,0
+prt_mz03_i,0,0	monster	²V¨PªA¨Æ¦w¯I´µ	20524,15,30000,0,0
+prt_mz03_i,0,0	monster	²V¨P¤p¤Ú­·¯S	20525,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨P¶Â³D	20526,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨P¨ª»aÃÇ	20527,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨PÁ®½¸	20528,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨P¨g¼ÉÁ®½¸	20530,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨Pªiªi§Q	20531,30,30000,0,0
+prt_mz03_i,0,0	monster	²V¨P¦Ç´ËÆF	20532,30,30000,0,0
+prt_mz03_i,0,0	boss_monster	²V¨P¤Ú­·¯S	20520,1,10800000,600000,0
+prt_mz03_i,0,0	boss_monster	²V¨P«ÕÆFªi§Q	20529,1,3600000,600000,0
 
 //===========================================================
-//  Û¼v c w F
+// ¤Û¼v¿c¦w¹F
 //=========================================================== 
 com_d02_i,0,0	monster	"--ja--"	20270,70,5000,0,0
 com_d02_i,0,0	monster	"--ja--"	20271,70,5000,0,0
@@ -251,7 +251,7 @@ com_d02_i,0,0	boss_monster	"--ja--"	20273,1,4800000,600000,1
 com_d02_i,0,0	boss_monster	"--ja--"	20277,1,4800000,600000,1
 
 //===========================================================
-//  ` W   4  
+// ²`²W´ò¤ô4¼Ó
 //=========================================================== 
 abyss_04,0,0	monster	"--ja--"	20612,25,5000,0,0
 abyss_04,0,0	monster	"--ja--"	20613,15,5000,0,0

@@ -828,7 +828,7 @@ On_Touch:
 OnMyMobDead:
 	stopnpctimer;
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("°Æ¥»Ä_½c#1@lost")+"::OnEnable";
+	donpcevent instance_npcname("Â÷¶}°Æ¥»#1@lost")+"::OnEnable";
 	'ClearInatance = 1;
 	end;
 OnInstanceInit:
