@@ -1,0 +1,278 @@
+
+
+
+//===== Description: ==============================
+//
+// 戰死者附魔
+// 2023.01.02 添加指定附魔
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,127,5	script	[附魔]戰死頭盔	4_4job_leticia,{
+		disable_items;
+		cutin "bio_ygnizem01",2;
+		set .@item$, "|18971|18972|18973|18974|18975|18976|18977|18978|18979|18980|18981|18982|18983|18984|";
+
+		set .@c,10;
+		
+		setarray .@count[0],30,50,60,80,110,160,250,510,1010;
+		setarray .@rate[0],90,80,70,60,50,40,30,20,10;
+
+		setarray .@Slots[0],
+		4700,4701,4702,4703,4704,
+		4710,4711,4712,4713,4714,
+		4720,4721,4722,4723,4724,
+		4730,4731,4732,4733,4734,
+		4740,4741,4742,4743,4744,
+		4750,4751,4752,4753,4754;
+					  
+		setarray .@SlotsS[0],
+		4700,4701,4702,4703,4704,
+		4710,4711,4712,4713,4714,
+		4720,4721,4722,4723,4724,
+		4730,4731,4732,4733,4734,
+		4740,4741,4742,4743,4744,
+		4750,4751,4752,4753,4754,
+		29061,29071,29081,29091,29101,29111,29706;
+					  
+
+		setarray .@2906[0],29061,29062,29063,29064,29065,29066,29067,29068,29069;
+		setarray .@2907[0],29071,29072,29073,29074,29075,29076,29077,29078,29079;
+		setarray .@2908[0],29081,29082,29083,29084,29085,29086,29087,29088,29089;
+		setarray .@2909[0],29091,29092,29093,29094,29095,29096,29097,29098,29099;
+		setarray .@2910[0],29101,29102,29103,29104,29105,29106,29107,29108,29109;
+		setarray .@2911[0],29111,29112,29113,29114,29115,29116,29117,29118,29119;
+		setarray .@2970[0],29706,29707,29708,29709,29710,29711,29712,29713,29714;
+		setarray .@Max[0],29070,29080,29090,29100,29110,29120,29715;
+		
+		if (checkweight(1201,1) == 0 && MaxWeight - Weight < 10000) {		
+			mes "[戰死頭盔附魔]";
+			mes "請確認您的負重以及背包。";
+			close3;
+		}
+
+		.@npcName$ = "[戰死頭盔附魔]";
+		mes .@npcName$;
+		mes "只要..你給我10個^0000FF怨念碎片^000000的話..";
+		mes "我可以...幫你的...";
+		mes "神秘系列...頭盔..";
+		mes "附上..對你有幫助..";
+		mes "的能力...";
+		next;
+		mes .@npcName$;
+		mes "如果..你想要..";
+		mes "把有怨念..的頭盔..";
+		mes "消除效果..的話...";
+		mes "可以..帶著10個^0000FF邪念碎片^000000給我..";
+		next;
+		set .@part,6;		
+		set .@equip_refine, getequiprefinerycnt(.@part);
+		set .@equip_id, getequipid(.@part);
+		setarray .@equip_card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+		next;
+	switch(select("附魔:升階附魔:重置附魔:指定附魔:取消")){
+	case 1:
+		if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[戰死頭盔附魔]";
+		mes "請裝備您要附魔的裝備！";
+		close3;
+	}
+	if(.@equip_card[1]&&.@equip_card[3]&&.@equip_card[2]){
+		mes "[戰死頭盔附魔]";
+		mes "此裝備已經無法附魔了。";
+		close3;
+	}
+	if(!.@equip_card[1]&&.@equip_card[3]&&.@equip_card[2]){
+	set .@equip_card[1],.@SlotsS[rand(getarraysize(.@SlotsS))];
+	}
+	if(!.@equip_card[2]&&.@equip_card[3]){
+	set .@equip_card[2],.@Slots[rand(getarraysize(.@Slots))];
+	}
+	if (!.@equip_card[3]){
+	set .@equip_card[3],.@Slots[rand(getarraysize(.@Slots))];
+	}
+	mes "[戰死頭盔附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>咒怨碎片<INFO>23016</INFO></ITEM>: "+.@c+"個";
+	mes "附魔不會失敗，卡片不會消失。";
+	next;
+	select("確認附魔");
+	if(countitem(23016) < .@c ){ 
+	mes "[戰死頭盔附魔]";
+	mes "道具不足";
+	mes "請檢查<ITEM>咒怨碎片<INFO>23016</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[戰死頭盔附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	delitem 23016,.@c;
+	delequip .@part;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+	mes "成功了。";
+	close3;
+	case 2:
+	if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[戰死頭盔附魔]";
+		mes "請裝備您要升級的裝備！";
+		close3;
+	}
+	for(.@i=0;.@i<getarraysize(.@Max);.@i++){
+		if(.@equip_card[1] == .@Max[.@i]){
+		mes "[戰死頭盔附魔]";
+		mes "此裝備已經無法繼續升級";
+		close3;}
+		}
+	for(.@i=0;.@i<9;.@i++)
+	{
+		if(.@2906[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2907[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2908[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2909[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2910[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2911[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+		if(.@2970[.@i]==.@equip_card[1]){	set .@r,.@rate[.@i];	set .@c,.@count[.@i];	goto EnchantEquip;	}
+	}
+	mes "[戰死頭盔附魔]";
+	mes "此裝備能力無法升級";
+	close3;
+
+	EnchantEquip:
+	mes "[戰死頭盔附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>咒怨碎片<INFO>23016</INFO></ITEM>: "+.@c+"個";
+	mes "成功機率: "+.@r+"";
+	mes "^ff0000※附魔可能會失敗，失敗時將會下降一個階級，若降至一階則保持原狀，失敗時卡片不會消失。※^000000";
+	next;
+	select("確認附魔");
+	if(countitem(23016) < .@c ){ 
+	mes "[戰死頭盔附魔]";
+	mes "道具不足";
+	mes "請檢查 <ITEM>咒怨碎片<INFO>23016</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[戰死頭盔附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	set .@random,rand(100);
+	if (.@r >= .@random){
+	delitem 23016,.@c;
+	delequip .@part;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1]+1,.@equip_card[2],.@equip_card[3];
+	mes "成功了。";
+	close3;
+	}else{
+	delitem 23016,.@c;
+	delequip .@part;
+	specialeffect2 587;
+	for(.@i=0;.@i<getarraysize(.@SlotsS);.@i++){
+	if (.@equip_card[1]==.@SlotsS[.@i]){
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+	mes "失敗了...";
+	close3;}
+	}
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1]-1,.@equip_card[2],.@equip_card[3];
+	mes "失敗了...";
+	close3;
+	}
+	
+	case 3:
+	if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[戰死頭盔附魔]";
+		mes "請裝備您要重製的裝備！";
+		close3;
+	}
+	mes "[戰死頭盔附魔]";
+	mes "看來妳不滿意能力啊!";
+	mes "重置作業很簡單，";
+	mes "馬上幫妳進行";
+	next;
+	mes "[戰死頭盔附魔]";
+	mes "需要材料:";
+	mes "<ITEM>邪念碎片<INFO>22687</INFO></ITEM>: 10個";
+	mes "^ff0000重置時精煉、卡片、或是魔神精隨將不會消失。^000000";
+	next;
+	select("重置附魔");
+	if(countitem(22687) < 10){ 
+	mes "[戰死頭盔附魔]";
+	mes "請檢查 <ITEM>邪念碎片<INFO>22687</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[戰死頭盔附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	if(.@equip_card[3]){
+		mes "這對我來說是小兒科!";
+		mes "毫無意外的成功了。";
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],0,0,0;
+		delequip .@part;
+		delitem 22687,10;
+		close3;
+	}else{
+	mes "[戰死頭盔附魔]";
+	mes "此裝備無須重置!";
+	close3;
+		}
+	case 4:
+		if (!compare(.@item$,"|"+.@equip_id+"|")) {
+			mes "[戰死頭盔附魔]";
+			mes "這不是戰死者頭盔！";
+			close3;
+		}
+		.@item = 23016;
+		.@count = 200;
+		.@zeny = 5000000;
+		mes "[戰死頭盔附魔]";
+		mes "你想要指定附魔嗎?!";
+		mes "我需要以下材料才有辦法幫你第二洞進行指定";		
+		mes "我需要 "+getitemname(.@item)+" x "+.@count+".";
+		mes "還有 ^0000FF "+(.@zeny/10000)+" 萬^000000 手續費.";		
+		next;
+		if(select("進行指定","取消") == 2) {
+			close3;
+		}
+
+		if( .@equip_card[1] == 0 || .@equip_card[2] == 0 || .@equip_card[3] == 0) 
+		{
+			mes "[戰死者附魔]";
+			mes "請先把三洞都有附魔，再來自選。";
+			close3;
+		}
+		
+		if ( Zeny < .@zeny )
+		{
+			mes "ZENY不足唷！";
+			close3;
+		}
+
+		if(countitem(.@item) < .@count ) 
+		{
+			mes "你的材料不足。";
+			close3;
+		}
+
+		setarray .@ec1,29061,29071,29081,29091,29101,29111,29706;
+		for ( .@i = 0; .@i < getarraysize(.@ec1); .@i++ )
+			.@menu$ = .@menu$ + ""+getitemname(.@ec1[.@i])+":";
+			.@Choose = .@ec1[select(.@menu$)-1];
+
+		delitem .@item,.@count;
+		Zeny = Zeny - .@zeny;
+		delequip .@part;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@Choose,.@equip_card[2],.@equip_card[3];
+		close3;
+	case 5:
+	close3;
+		}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]戰死頭盔";
+	waitingroom "[附魔]戰死頭盔",0;
+	end;
+}
+
+
+

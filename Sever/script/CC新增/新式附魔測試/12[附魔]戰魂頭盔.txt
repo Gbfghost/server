@@ -1,0 +1,244 @@
+
+
+
+//===== Description: ==============================
+//
+// 戰魂頭盔附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,123,5	script	[附魔]戰魂頭盔	4_4job_maggi,{
+	disable_items;
+	cutin "bu_oliver81",2;
+	set .@part, EQI_HEAD_TOP;
+	set .@equip_refine, getequiprefinerycnt(.@part);
+	set .@equip_id, getequipid(.@part);
+	set .@item$, "|400024|400025|400026|400027|400028|400029|400030|400031|400032|400033|400034|400035|400036|400037|400038|400039|400040|400041|400042|";
+	setarray .@countitem[0],10,15,20,50,100;
+	setarray .@zeny[0],100000,150000,200000,500000,1000000;
+	setarray .@equip_card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+	setarray .@Slots4[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752;
+	setarray .@Slots3[0],4700,4701,4702,4703,4710,4711,4712,4713,4720,4721,4722,4723,4730,4731,4732,4733,4740,4741,4742,4743,4750,4751,4752,4753;
+	setarray .@Slots2[0],
+	4811,4810,4814,4815,4817,4818,4832,4833,4863,4864,4869,4872,
+	300022,300034,300046,300058,300070,300025,300037,300049,300061,
+	300073,300028,300040,300052,300064,300031,300043,300055,300067;
+	//.@Slots4,17,.@Slots3,23,.@Slots2,29
+	if (checkweight(1201,1) == 0 && MaxWeight - Weight < 10000) {
+		mes "[戰魂頭盔附魔]";
+		mes "請確認您的負重以及背包。";
+		close3;
+	}
+	mes "[戰魂頭盔附魔]";
+	mes "我可以對戰魂頭盔附魔";
+	mes "或重置附魔。";
+	next;
+	switch(select("附魔:重置附魔")){
+	case 1:
+		if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[戰魂頭盔附魔]";
+		mes "請裝備您的戰魂頭盔！";
+		close3;
+	}
+	if(.@equip_card[1]){
+		set .@ec,.@equip_card[1];
+		if( .@ec == 300022||.@ec == 300025||.@ec == 300028||.@ec == 300031||
+			.@ec == 300034||.@ec == 300037||.@ec == 300040||.@ec == 300043||
+			.@ec == 300046||.@ec == 300049||.@ec == 300052||.@ec == 300055||
+			.@ec == 300058||.@ec == 300061||.@ec == 300064||.@ec == 300067||
+			.@ec == 300070||.@ec == 300073){
+			set .@c,.@countitem[3];
+			set .@z,.@zeny[3];
+		
+		mes "[戰魂頭盔附魔]";
+		mes "目前是第2洞的Lv.1升Lv.2附魔，";
+		mes "這是有可能失敗的，";
+		mes "失敗時戰魂不變。";
+		next;
+		mes "此階段材料需要";
+		mes "<ITEM>革命勳章<INFO>1000228</INFO></ITEM>: "+.@c+"個";
+		mes "Zeny: "+.@z+"";
+		next;
+		select("升級");
+		if(Zeny < .@z || countitem(1000228) < .@c ){ 
+		mes "[戰魂頭盔附魔]";
+		mes "道具或金額不足";
+		mes "請檢查Zeny & <ITEM>革命勳章<INFO>1000228</INFO></ITEM> 數量。";
+		close3;
+			}
+		set .@i,rand(100);
+		mes "[戰魂頭盔附魔]";
+		mes "馬上幫妳吧!";
+		next;
+		progressbar "ffffff",2;
+		if (.@i <= 60){		
+		mes "[戰魂頭盔附魔]";		
+		mes "這對我來說是小兒科!";
+		mes "毫無意外的成功了。";
+		delitem 1000228,.@c;
+		delequip .@part;
+		set zeny,zeny - .@z;
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1]+1,.@equip_card[2],.@equip_card[3];
+		close3;
+			}else{	
+		mes "[戰魂頭盔附魔]";		
+		mes "這次很不幸...失敗了!";
+		delitem 1000228,.@c;
+		delequip .@part;
+		set zeny,zeny - .@z;
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+		close3;
+			}
+		}	
+		if( .@ec == 300023||.@ec == 300026||.@ec == 300029||.@ec == 300032||
+			.@ec == 300035||.@ec == 300038||.@ec == 300041||.@ec == 300044||
+			.@ec == 300047||.@ec == 300040||.@ec == 300053||.@ec == 300056||
+			.@ec == 300059||.@ec == 300062||.@ec == 300065||.@ec == 300068||
+			.@ec == 300071||.@ec == 300074){
+			set .@c,.@countitem[4];
+			set .@z,.@zeny[4];
+		
+		mes "[戰魂頭盔附魔]";
+		mes "目前是第2洞的Lv.2升Lv.3附魔，";
+		mes "這是有可能失敗的，";
+		mes "失敗時戰魂下降。";
+		next;
+		mes "此階段材料需要";
+		mes "<ITEM>革命勳章<INFO>1000228</INFO></ITEM>: "+.@c+"個";
+		mes "Zeny: "+.@z+"";
+		next;
+		select("升級");
+		if(Zeny < .@z || countitem(1000228) < .@c ){ 
+		mes "[戰魂頭盔附魔]";
+		mes "道具或金額不足";
+		mes "請檢查Zeny & <ITEM>革命勳章<INFO>1000228</INFO></ITEM> 數量。";
+		close3;
+			}
+		set .@i,rand(100);
+		mes "[戰魂頭盔附魔]";
+		mes "馬上幫妳吧!";
+		next;
+		progressbar "ffffff",2;
+		if (.@i <= 30){		
+		mes "[戰魂頭盔附魔]";		
+		mes "這對我來說是小兒科!";
+		mes "毫無意外的成功了。";
+		delitem 1000228,.@c;
+		delequip .@part;
+		set zeny,zeny - .@z;
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1]+1,.@equip_card[2],.@equip_card[3];
+		close3;
+			}else{	
+		mes "[戰魂頭盔附魔]";		
+		mes "這次很不幸...失敗了!";
+		delitem 1000228,.@c;
+		delequip .@part;
+		set zeny,zeny - .@z;
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1]-1,.@equip_card[2],.@equip_card[3];
+		close3;
+			}
+		}
+	mes "[戰魂頭盔附魔]";
+	mes "這件裝備已經沒辦法繼續升級了";
+	close3;
+		
+		
+	}
+		
+	if(!.@equip_card[1]&&.@equip_card[3]&&.@equip_card[2]){
+	set .@c,.@countitem[2];
+	set .@z,.@zeny[2];
+	set .@equip_card[1],.@Slots2[rand(29)];
+	}
+	if(!.@equip_card[2]&&.@equip_card[3]){
+	set .@c,.@countitem[1];
+	set .@z,.@zeny[1];
+	set .@equip_card[2],.@Slots3[rand(23)];
+	}
+	if (!.@equip_card[3]){
+	mes "[戰魂頭盔附魔]";
+	mes "目前是第四洞的首次附魔，";
+	mes "這作業閉著眼都能完成。";
+	next;
+	set .@c,.@countitem[0];
+	set .@z,.@zeny[0];
+	set .@equip_card[3],.@Slots4[rand(17)];
+	}
+	mes "[戰魂頭盔附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>革命勳章<INFO>1000228</INFO></ITEM>: "+.@c+"個";
+	mes "Zeny: "+.@z+"";
+	mes "附魔不會失敗，卡片不會消失。";
+	next;
+	select("確認附魔");
+	if(Zeny < .@z || countitem(1000228) < .@c ){ 
+	mes "[戰魂頭盔附魔]";
+	mes "道具或金額不足";
+	mes "請檢查Zeny & <ITEM>革命勳章<INFO>1000228</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[戰魂頭盔附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	progressbar "ffffff",2;
+	delitem 1000228,.@c;
+	delequip .@part;
+	set zeny,zeny - .@z;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+	mes "這對我來說是小兒科!";
+	mes "毫無意外的成功了。";
+	close3;
+	
+	case 2:
+	if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[戰魂頭盔附魔]";
+		mes "請裝備您的戰魂頭盔！";
+		close3;
+	}
+	mes "[戰魂頭盔附魔]";
+	mes "看來妳不滿意能力啊!";
+	mes "重置作業很簡單，";
+	mes "馬上幫妳進行";
+	next;
+	mes "[戰魂頭盔附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>革命勳章<INFO>1000228</INFO></ITEM>: 10個";
+	mes "手續費: 500000 Zeny ";
+	mes "^ff0000重置時精煉、卡片、或是魔神精隨將不會消失。^000000";
+	next;
+	select("重置附魔");
+	if(Zeny < 500000 || countitem(1000228) < 10){ 
+	mes "[戰魂頭盔附魔]";
+	mes "道具或金額不足";
+	mes "請檢查Zeny & <ITEM>革命勳章<INFO>1000228</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[戰魂頭盔附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	progressbar "ffffff",2;
+	if(.@equip_card[1]+.@equip_card[2]+.@equip_card[3]){
+		mes "這對我來說是小兒科!";
+		mes "毫無意外的成功了。";
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],0,0,0;
+		delequip .@part;
+		close3;
+	}else{
+	mes "[戰魂頭盔附魔]";
+	mes "此裝備無須重置!";
+	close3;
+		}
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]戰魂頭盔";
+	waitingroom "[附魔]戰魂頭盔",0;
+	end;
+}

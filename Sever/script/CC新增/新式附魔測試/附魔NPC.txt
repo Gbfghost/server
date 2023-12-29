@@ -1,9 +1,16 @@
 uttycty,93,93,3	script	附魔統合TEST_1	23233,{
 	mes "^FF0000我是附魔統合啾咪^000000";
-	switch(select("新版附魔UI")){
+	switch(select("新版附魔UI","武器附魔")){
 	case 1:
 		callfunc "新版UI";
 		end;
+	case 2:
+		mes "請選擇你要的附魔項目。";
+		switch(select("超時空頭冠")){
+			case 1:
+				callfunc "[附魔]超時空頭冠";
+				end;
+			}
 	}
 	end;
 }

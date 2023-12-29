@@ -1,0 +1,259 @@
+
+
+
+//===== Description: ==============================
+//
+// 凱薩附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,145,5	script	[附魔]凱薩裝備	1_f_signzisk,{
+	disable_items;
+	cutin "bio_katrinn01",2;
+	set .@item$, "|15361|15362|15363|15364|15365|15366|15430|15431|15432|15433|480070|";
+	setarray .@countitem[0],10,15,20;
+	setarray .@countitem2[0],5,10,20,30;
+	setarray .@zeny[0],100000,150000,200000;
+	setarray .@zeny2[0],500000,2000000,2000000,2000000;
+	setarray .@rate[0],60,50,40,30;
+	setarray .@Slots4[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752;
+	setarray .@Slots3[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752;
+	setarray .@Slots2[0],4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752,4808,4867,4939,29235,4813,4832;
+	setarray .@S0level[0],4808,4867,4939,29235,4813,4832;
+	setarray .@S1level[0],4820,4868,4940,29236,4812,4833;
+	setarray .@S2level[0],4994,29009,29006,4997,29000,29003;
+	setarray .@S3level[0],4995,29010,29007,4998,29001,29004;
+	setarray .@S4level[0],4996,29011,29008,4999,29002,29005;
+	if (checkweight(1201,1) == 0 && MaxWeight - Weight < 10000) {
+		mes "[凱薩裝備附魔]";
+		mes "請確認您的負重以及背包。";
+		close3;
+	}
+	switch(select("鎧甲強化:披肩強化")){
+		case 1:
+		set .@part,7;
+		mes "^0000ff可附魔項目:";
+		mes "^0000ff==============================";
+		mes "<ITEM>朱比特輕甲<INFO>15361</INFO></ITEM>";
+		mes "<ITEM>阿波羅盔甲<INFO>15362</INFO></ITEM>";
+		mes "<ITEM>馬爾斯戰甲<INFO>15363</INFO></ITEM>";
+		mes "<ITEM>刻瑞斯皮甲<INFO>15364</INFO></ITEM>";
+		mes "<ITEM>維納斯羽甲<INFO>15365</INFO></ITEM>";
+		mes "<ITEM>武爾坎努斯機甲<INFO>15366</INFO></ITEM>";
+		mes "<ITEM>狄安娜外套<INFO>15430</INFO></ITEM>";
+		mes "<ITEM>墨丘利夜行衣<INFO>15431</INFO></ITEM>";
+		mes "<ITEM>巴克斯裝甲<INFO>15432</INFO></ITEM>";
+		mes "<ITEM>涅普頓道服<INFO>15433</INFO></ITEM>";
+		mes "^0000ff==============================";
+		next;
+		break;
+		case 2:
+		set .@part,3;		
+		mes "^0000ff可附魔項目:";
+		mes "^0000ff==============================";
+		mes "<ITEM>奧林帕斯之翼<INFO>480070</INFO></ITEM>";
+		mes "^0000ff==============================";
+		next;
+		break;
+	}
+	set .@equip_refine, getequiprefinerycnt(.@part);
+	set .@equip_id, getequipid(.@part);
+	setarray .@equip_card[0], getequipcardid(.@part,0), getequipcardid(.@part,1), getequipcardid(.@part,2), getequipcardid(.@part,3);
+	next;
+	switch(select("附魔:升階附魔:重置附魔:取消")){
+	case 1:
+		if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[凱薩裝備附魔]";
+		mes "請裝備您要附魔的裝備！";
+		close3;
+	}
+	if(.@equip_card[1]&&.@equip_card[3]&&.@equip_card[2]){
+		mes "[凱薩裝備附魔]";
+		mes "此裝備已經無法附魔了。";
+		close3;
+	}
+	if(!.@equip_card[1]&&.@equip_card[3]&&.@equip_card[2]){
+	set .@c,.@countitem[2];
+	set .@z,.@zeny[2];
+	set .@equip_card[1],.@Slots2[rand(23)];
+	}
+	if(!.@equip_card[2]&&.@equip_card[3]){
+	set .@c,.@countitem[1];
+	set .@z,.@zeny[1];
+	set .@equip_card[2],.@Slots3[rand(17)];
+	}
+	if (!.@equip_card[3]){
+	mes "[凱薩裝備附魔]";
+	mes "目前是第四洞的首次附魔，";
+	next;
+	set .@c,.@countitem[0];
+	set .@z,.@zeny[0];
+	set .@equip_card[3],.@Slots4[rand(17)];
+	}
+	mes "[凱薩裝備附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>凱薩祝福<INFO>25648</INFO></ITEM>: "+.@c+"個";
+	mes "Zeny: "+.@z+"";
+	mes "附魔不會失敗，卡片不會消失。";
+	next;
+	select("確認附魔");
+	if(Zeny < .@z || countitem(25648) < .@c ){ 
+	mes "[凱薩裝備附魔]";
+	mes "道具或金額不足";
+	mes "請檢查Zeny & <ITEM>凱薩祝福<INFO>25648</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[凱薩裝備附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	delitem 25648,.@c;
+	delequip .@part;
+	set zeny,zeny - .@z;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+	mes "毫無意外的成功了。";
+	close3;
+	case 2:
+	if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[凱薩裝備附魔]";
+		mes "請裝備您要升級的裝備！";
+		close3;
+	}
+	for(.@i=0;.@i<6;.@i++);
+		if(.@equip_card[1] == .@S4level[.@i]){
+		mes "[凱薩裝備附魔]";
+		mes "此裝備已經無法繼續升級";
+		close3;
+		}
+		for(.@i=0;.@i<6;.@i++){
+		if(.@equip_card[1] == .@S3level[.@i]){
+			set .@equip_card[1],.@S4level[.@i];
+			set .@fail,.@S2level[.@i];
+			set .@c,.@countitem2[3];
+			set .@z,.@zeny2[3];
+			set .@r,.@rate[3];
+			goto EnchantEquip;
+			}
+		}
+		for(.@i=0;.@i<6;.@i++){
+		if(.@equip_card[1] == .@S2level[.@i]){
+			set .@equip_card[1],.@S3level[.@i];
+			set .@fail,.@S1level[.@i];
+			set .@c,.@countitem2[2];
+			set .@z,.@zeny2[2];
+			set .@r,.@rate[2];
+			goto EnchantEquip;
+			}
+		}
+		for(.@i=0;.@i<6;.@i++){
+		if(.@equip_card[1] == .@S1level[.@i]){
+			set .@equip_card[1],.@S2level[.@i];
+			set .@fail,.@S0level[.@i];
+			set .@c,.@countitem2[1];
+			set .@z,.@zeny2[1];
+			set .@r,.@rate[1];
+			goto EnchantEquip;
+			}
+		}
+		for(.@i=0;.@i<6;.@i++){
+		if(.@equip_card[1] == .@S0level[.@i]){
+			set .@equip_card[1],.@S1level[.@i];
+			set .@fail,.@S0level[.@i];
+			set .@c,.@countitem2[0];
+			set .@z,.@zeny2[0];
+			set .@r,.@rate[0];
+			goto EnchantEquip;
+			}
+		}
+		mes "[凱薩裝備附魔]";
+		mes "此裝備能力無法升級";
+		close3;
+
+	EnchantEquip:
+	mes "[凱薩裝備附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>凱薩祝福<INFO>25648</INFO></ITEM>: "+.@c+"個";
+	mes "Zeny: "+.@z+"";
+	mes "成功機率: "+.@r+"";
+	mes "^ff0000※附魔可能會失敗，失敗時將會下降一個階級，若降至一階則保持原狀，失敗時卡片不會消失。※^000000";
+	next;
+	select("確認附魔");
+	if(Zeny < .@z || countitem(25648) < .@c ){ 
+	mes "[凱薩裝備附魔]";
+	mes "道具或金額不足";
+	mes "請檢查Zeny & <ITEM>凱薩祝福<INFO>25648</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[凱薩裝備附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	set .@random,rand(100);
+	if (.@r >= .@random){
+	delitem 25648,.@c;
+	delequip .@part;
+	set zeny,zeny - .@z;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],.@equip_card[3];
+	mes "毫無意外的成功了。";
+	close3;
+	}else{
+	delitem 25648,.@c;
+	delequip .@part;
+	set zeny,zeny - .@z;
+	specialeffect2 587;
+	getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],.@fail,.@equip_card[2],.@equip_card[3];
+	mes "很遺憾失敗了...";
+	close3;
+	}
+	case 3:
+	if (!compare(.@item$,"|"+.@equip_id+"|")) {
+		mes "[凱薩裝備附魔]";
+		mes "請裝備您要重製的裝備！";
+		close3;
+	}
+	mes "[凱薩裝備附魔]";
+	mes "看來妳不滿意能力啊!";
+	mes "重置作業很簡單，";
+	mes "馬上幫妳進行";
+	next;
+	mes "[凱薩裝備附魔]";
+	mes "此階段材料需要";
+	mes "<ITEM>凱薩祝福<INFO>25648</INFO></ITEM>: 10個";
+	mes "手續費: 500000 Zeny ";
+	mes "^ff0000重置時精煉、卡片、或是魔神精隨將不會消失。^000000";
+	next;
+	select("重置附魔");
+	if(Zeny < 500000 || countitem(25648) < 10){ 
+	mes "[凱薩裝備附魔]";
+	mes "道具或金額不足";
+	mes "請檢查Zeny & <ITEM>凱薩祝福<INFO>25648</INFO></ITEM> 數量。";
+	close3;
+	}
+	mes "[凱薩裝備附魔]";
+	mes "馬上幫妳吧!";
+	next;
+	if(.@equip_card[1]&&.@equip_card[2]&&.@equip_card[3]){
+		mes "這對我來說是小兒科!";
+		mes "毫無意外的成功了。";
+		specialeffect2 587;
+		getitem2 .@equip_id,1,1,.@equip_refine,0,.@equip_card[0],0,0,0;
+		delequip .@part;
+		close3;
+	}else{
+	mes "[凱薩裝備附魔]";
+	mes "此裝備無須重置!";
+	mes "^ff0000※需三個洞都完成附魔方可重製※^000000";
+	close3;
+		}
+	case 4:
+	close3;
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]凱薩裝備";
+	waitingroom "[附魔]凱薩裝備",0;
+	end;
+}
+
+

@@ -1,0 +1,352 @@
+//EDDA遠征之途-附魔NPC
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,29,153,5	script	[附魔]遠征之途	4_ep16_agnes,{	
+	disable_items;
+	cutin "3rd_wd_kimdancer01",2;
+	mes "[遠征之途附魔]";
+	mes "我一直在研究如何附魔無限裝備來最大化它的能力。";
+	next;
+	mes "[遠征之途附魔]";
+	mes "附魔是一種令人敬畏的技能，為裝甲的隱藏插槽注入神秘的力量。";
+	next;
+	mes "[遠征之途附魔]";
+	mes "我能夠幫你把穿在身上的無限裝備附上能力。";
+	next;
+	switch(select("附魔&重置","查看裝備"))
+	{
+		case 1:
+			callfunc("Mysterious");
+			end;
+		case 2:
+			callfunc("eda_116");
+			end;
+	}
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]遠征之途";
+	waitingroom "[附魔]遠征之途",0;
+	end;
+}
+
+function	script	eda_116	{
+	disable_items;
+	
+	setarray .itemid,
+	21051,21052,32023,1333,16092,28138,
+	28765,28766,28042,28044,26158,2055,
+	2056,26161,2057,16095,18185,18186,
+	18187,32024,32025,32350,32351,16093,
+	16094,28767,28768,18184,28633,26159,
+	26160,1865,1866,16096,18188,26212,
+	26213,32107,32108;
+	
+	freeloop(1);
+	for (.@i = 0; .@i < getarraysize(.itemid); .@i++) 
+	{
+		if (.itemid[.@i]) 
+		{
+			mes ""+(.@i+1)+".<ITEM>"+getitemname(.itemid[.@i])+"<INFO>"+getiteminfo(.itemid[.@i],17)+"</INFO></ITEM>";
+		}
+	}
+	freeloop(0);
+	close3;
+}
+
+function	script	Mysterious	{
+	disable_items;
+	set .@typeChoice, select("附魔武器","重置附魔");
+	switch(.@typeChoice) {
+	case 1:
+		setarray .@items[0],21051,21052,32023,1333,16092,28138,28765,28766,28042,28044,26158,2055,2056,26161,2057,16095,18185,18186,18187,32024,32025,32350,32351,16093,16094,28767,28768,18184,28633,26159,26160,1865,1866,16096,18188,26212,26213,32107,32108;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_HAND_L) == .@items[.@i] || getequipid(EQI_HAND_R) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";
+			}
+		}
+	callsub S_EnchantArmor, .@realItems[select(.@menu$)-1], .@typeChoice;
+		break;
+	case 2:
+		callfunc "reEDDA_Ec";
+		break;
+	if(getarraysize(.@realItems) == 0)
+	{
+		next;	
+		mes "[遠征之途附魔]";
+		mes "你必須穿上它，才能讓我附魔or附魔初始化。";
+		close3;
+	}
+	end;
+
+S_EnchantArmor:
+	.@itemid = getarg(0);
+	.@typeChoice = getarg(1);
+	next;
+	mes "[遠征之途附魔]";
+	mes "首先，你必須知道附魔後";
+	mes "^ff5555裝備及卡片不會消失^000000";
+	mes "你仍然想繼續附魔嗎？";
+	next;
+	if(select("開始吧","痾…讓我考慮一下") == 2) {
+		mes "[遠征之途附魔]";
+		mes "好吧，這我也不能怪你，省錢第一！你說是吧？";
+		mes "祝你有美好的一天！";
+		close3;
+	}
+	if(countitem(.@itemId) > 1)
+	{
+		mes "[遠征之途附魔]";
+		mes "抱歉，同樣的裝備只能持有一件。";
+		mes "否則，附魔時可能會混淆…";
+		close3;
+	}
+	mes "[遠征之途附魔]";
+	mes "相當有勇氣的冒險家～";
+	mes "你可以選擇你想要使用的素材數量～";
+	next;
+	set .@enchantChoice, select("50個","500個","5000個");	
+	
+	set .@slot, -1;
+	if(getequipid(EQI_HAND_L) == .@itemid)
+	{
+		set .@Equipslot,EQI_HAND_L;
+		set .@cSlot, getequipcardid(EQI_HAND_L, 3);
+		if(.@cSlot != 0)
+		{
+			set .@slot3Id, .@cSlot;
+			set .@cSlot, getequipcardid(EQI_HAND_L, 2);
+			if(.@cSlot == 0)
+			{
+				set .@slot, 2;
+			}
+		}
+		else
+		{
+			set .@slot, 3;
+		}
+	}
+	else if(getequipid(EQI_HAND_R) == .@itemid)
+	{
+		set .@Equipslot,EQI_HAND_R;
+		set .@cSlot, getequipcardid(EQI_HAND_R, 3);
+		if(.@cSlot != 0)
+		{
+			set .@slot3Id, .@cSlot;
+			set .@cSlot, getequipcardid(EQI_HAND_R, 2);
+			if(.@cSlot == 0)
+			{
+				set .@slot, 2;
+			}
+		}
+		else
+		{
+			set .@slot, 3;
+		}
+	}
+	if(.@slot == -1)
+	{
+		mes "[遠征之途附魔]";
+		mes "你的裝備已經被附魔了兩次…我無法再幫它附魔。";
+		close3;
+	}
+	
+	//設定物品
+	set .@reqId1, 25787;
+	set .@reqId2, 25786;
+	
+	switch(.@enchantChoice)//數量選擇
+	{
+		case 1:
+			set .@useamount , 50;
+			break;
+		case 2:
+			set .@useamount , 500;
+			break;
+		case 3:
+			set .@useamount , 5000;
+			break;
+	}
+
+OnCheck:
+	if(.@useamount == 5000 ) {
+		set .@Equipover,1;
+		set .@success_rate,100;
+	}else if(.@useamount == 500 ) {
+		set .@success_rate,80;//成功機率
+		set .@remove_rate,0;//裝備消失機率
+	}else{//50個物品的設定
+		set .@success_rate,100;//成功機率
+		set .@remove_rate,0;//裝備消失機率
+	}
+	setarray .@randstone[0],4832,4833,4834,4808,4820,4821,4818,4817,4816,4815,4814,4813,4863,4864,4865;
+	setarray .@randnewstone[0],29594,29595,29596,29598,29599,29600,29601,29602,29603,29604,29605,29606,29607;
+	setarray .@randnewstone$[0],"賽依連的記憶","哈沃得的記憶","艾勒梅斯的記憶","凱特莉娜的記憶","瑪嘉雷特的記憶","迪文的記憶","蘭達羅倫斯的記憶","普拉梅姆的記憶","科迪的記憶","西里亞阿迪的記憶","陳理歐的記憶","特蘭提尼的記憶","雅歐帕奇爾記憶";
+
+	goto OnEnchantMain;
+
+OnEnchantMain:
+set .@slotcheck,3;
+if (.@slot == 3){set .@slotcheck,4;}
+
+	if (.@Equipover == 1){
+		set .@reqId, 25786;
+			if (.@slot == 3){
+				mes "[遠征之途附魔]";
+				mes "要使用5000個素材必須要第4洞先附魔過！";
+				close3;
+			}
+			if(countitem(25786)<  5000 ) {
+				mes "[遠征之途附魔]";
+				mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+				close3;
+			}
+			.@menu$ = implode(.@randnewstone$, ":");
+			.@i = select( .@menu$ ) - 1;
+			mes "[遠征之途附魔]";
+			mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+			mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@useamount+"^000000 ";
+			mes "成功機率：^888888"+.@success_rate+"%^000000";
+			mes "選擇的洞數位置：^FF0000第"+.@slotcheck+"洞^000000";
+			mes "選擇的附魔屬性：^FF8800"+.@randnewstone$[.@i]+"^000000";
+			next;
+				if(select("確定:取消")==2) close3;
+			//close3;
+			//message strcharinfo(0),"(裝備附魔中)～移動視為取消！";
+			specialeffect2 EF_MAPPILLAR;
+			//progressbar "ffff00",5;
+			delitem .@reqId,.@useamount;
+			
+				specialeffect2 EF_PHARMACY_OK;
+				set .@card_id1,getequipcardid(.@Equipslot,0);
+				set .@card_id2,getequipcardid(.@Equipslot,1);
+				set .@card_id3,.@randnewstone[.@i];
+				set .@card_id4,getequipcardid(.@Equipslot,3);
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				dispbottom "附魔成功！";
+		}
+	else{
+		if (.@slot == 2 && .@useamount == 500){set .@success_rate,100;}
+			mes "[遠征之途附魔]";
+			mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+			mes "需求物品：^888888"+getitemname(.@reqId1)+" x "+.@useamount+"、"+getitemname(.@reqId2)+" x "+.@useamount+"^000000 ";
+			mes "成功機率：^888888"+.@success_rate+"%^000000";
+			mes "選擇的洞數位置：^FF0000第"+.@slotcheck+"洞^000000";
+			next;
+			if(select("確定:取消")==2) close3;
+			if((countitem(.@reqId1) < .@useamount) || (countitem(.@reqId2) < .@useamount) ) {
+				mes "[遠征之途附魔]";
+				mes "^ff0000"+getitemname(.@reqId1)+"或"+getitemname(.@reqId2)+"不足…^000000";
+				close3;
+			}else{
+				//close3;
+				//message strcharinfo(0),"(裝備附魔中)～移動視為取消！";
+				specialeffect2 EF_MAPPILLAR;
+				//progressbar "ffff00",5;
+				delitem .@reqId1,.@useamount;
+				delitem .@reqId2,.@useamount;
+				
+				if(rand(100) > .@success_rate) {
+					if(.@useamount == 50 ) {
+						set .@rand, rand(100);
+						if(.@rand >= .@remove_rate ) {
+							delequip .@Equipslot;
+							specialeffect2 EF_PHARMACY_FAIL;
+							dispbottom "附魔失敗…裝備銷毀！";
+						}
+						else{
+							specialeffect2 EF_REPAIRWEAPON;
+							dispbottom "附魔失敗…什麼事也沒有發生。";
+						}
+					}else{
+						specialeffect2 EF_REPAIRWEAPON;
+						dispbottom "附魔失敗…什麼事也沒有發生。";
+					}
+				}else{
+					set .@stone,.@randstone[rand(getarraysize(.@randstone))];
+					set .@newstone,.@randnewstone[rand(getarraysize(.@randnewstone))];
+
+					specialeffect2 EF_PHARMACY_OK;
+					set .@card_id1,getequipcardid(.@Equipslot,0);
+					set .@card_id2,getequipcardid(.@Equipslot,1);
+					if(.@slot == 3){
+					set .@card_id3,getequipcardid(.@Equipslot,2);
+					set .@card_id4,.@stone;
+					}
+					else{
+					set .@card_id3,.@newstone;
+					set .@card_id4,getequipcardid(.@Equipslot,3);
+					}
+					set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+					delequip .@Equipslot;
+					getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+					dispbottom "附魔成功！";
+					close3;
+				}
+			}
+		}
+	end;
+	}
+}
+
+function	script	reEDDA_Ec	{
+		setarray .@items[0],21051,21052,32023,1333,16092,28138,28765,28766,28042,28044,26158,2055,2056,26161,2057,16095,18185,18186,18187,32024,32025,32350,32351,16093,16094,28767,28768,18184,28633,26159,26160,1865,1866,16096,18188,26212,26213,32107,32108;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items);.@i++){
+			if(getequipid(EQI_HAND_R) == .@items[.@i]){
+			goto reEDDA;
+			end;
+			}
+		}
+	mes "[遠征之途附魔]";
+			mes "你必須穿上它，才能讓我重置附魔。";
+			close3;
+
+			
+	reEDDA:
+	set .@equip_id,getequipid(EQI_HAND_R);
+	set .@refine,getequiprefinerycnt(EQI_HAND_R);
+	setarray .@equip_card[0], getequipcardid(EQI_HAND_R,0), getequipcardid(EQI_HAND_R,1), getequipcardid(EQI_HAND_R,2), getequipcardid(EQI_HAND_R,3);
+	mes "[遠征之途附魔]";
+	mes "重置附魔需要3個獼猴桃果實";
+	mes "確定要重製附魔嗎?";
+	next;
+	if(select("確定:取消")==2){close3;}
+	if(countitem(6417)<3){mes "[遠征之途附魔]";mes "獼猴桃果實數量不足";close3;}
+	if(.@equip_id == 28766 && .@equip_card[3]>0){
+		delitem 6417,3;
+	delequip	EQI_HAND_R;
+	getitem2 .@equip_id,1,1,.@refine,0,.@equip_card[0],.@equip_card[1],.@equip_card[2],0;
+	close3;
+	}else if(.@equip_card[3]>0){
+	delitem 6417,3;
+	delequip	EQI_HAND_R;
+	getitem2 .@equip_id,1,1,.@refine,0,.@equip_card[0],.@equip_card[1],0,0;
+	close3;
+	}else{
+	mes "[遠征之途附魔]";
+	mes "此裝備不需重置。";
+	close3;}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

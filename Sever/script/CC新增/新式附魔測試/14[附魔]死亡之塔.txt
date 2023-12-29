@@ -1,0 +1,440 @@
+// 死亡之塔附魔
+//
+//*************************************************
+//===================請保留以上資訊================
+
+uttycty,42,145,4	script	[附魔]死亡之塔	4_tower_10,{
+	disable_items;
+	cutin "ep14_nyd01",2;
+	mes "[死亡之塔附魔]";
+	mes "雖然達納托斯的記憶已被消滅。";
+	next;
+	mes "[死亡之塔附魔]";
+	mes "但我發現在他手下之中含有著達納托斯的記憶部分的的強力力量。";
+	next;
+	mes "[死亡之塔附魔]";
+	mes "而這些力量在他們死亡後他們都會凝結成碎片。";
+	mes "我稍微研究了一番，這些碎片可以添加在某些裝備上，使這些裝備變得更完善。";
+	mes "那麼...你也想來試試看嗎？";
+	next;
+	set .@typeChoice, select("附魔罪惡的飾品", "附魔善意的飾品", "重置附魔", "我想想看...");
+	//檢查左右手武器
+	switch(.@typeChoice) {
+	case 1:
+		set .@reqIdch , 1;
+		setarray .@items[0],490044,490045,490046,490047,490048,490049,490050,490051,490052,490053,490054,490055;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_ACC_L) == .@items[.@i] || getequipid(EQI_ACC_R) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";		
+			}
+		}
+		break;
+	case 2:
+		set .@reqIdch , 2;
+		setarray .@items[0],490056,490057,490058,490059,490060,490061,490062,490063,490064,490065,490066,490067;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_ACC_L) == .@items[.@i] || getequipid(EQI_ACC_R) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";
+				
+			}
+		}
+		break;
+	case 3:
+		set .DeletreqId, 6417;
+		set .reqCountDeletion, 3;
+		set .breakRateDeletion, 70;
+		goto S_Disenchant;
+		close3;
+		
+	case 4:
+		
+		mes "[死亡之塔附魔]";
+		mes "等你想好再跟我說吧！。";
+		close3;
+	}
+	if(getarraysize(.@realItems) == 0)
+	{
+		next;	
+		mes "[死亡之塔附魔]";
+		mes "你必須穿上它，才能讓我附魔or附魔初始化。";
+		close3;
+	}
+	callsub S_EnchantArmor, .@realItems[select(.@menu$)-1], .@typeChoice , .@reqIdch;
+	end;
+//=========物品設定結束===========
+//========移除附魔
+S_Disenchant:
+	next;
+	
+	mes "[死亡之塔附魔]";
+	mes "你想移除所有的附魔？";
+	mes "共需要 " + .reqCountDeletion + " 個 " + getitemname(.DeletreqId) + "。";
+	mes "或是使用1,000,000萬的zeny，但是有 " + .breakRateDeletion + "% 的機率會損毀物品。";
+	mes "^ff5555並且裝備及卡片會一起消失不見^000000";
+	mes "確定要繼續嗎？";
+	next;
+	if(select("是的","離開") == 1)
+	{	
+		mes "[死亡之塔附魔]";
+		mes "請選擇您的裝備。";
+		setarray .@items[0],490044,490045,490046,490047,490048,490049,490050,490051,490052,490053,490054,490055,490056,490057,490058,490059,490060,490061,490062,490063,490064,490065,490066,490067;
+		.@menu$ = "";
+		for(.@i = 0; .@i<getarraysize(.@items); ++.@i)
+		{
+			if(getequipid(EQI_ACC_L) == .@items[.@i] || getequipid(EQI_ACC_R) == .@items[.@i])
+			{
+				set .@realItems[getarraysize(.@realItems)], .@items[.@i];
+				.@menu$ += getitemname(.@items[.@i])+":";
+			}
+		}
+		if(getarraysize(.@realItems) == 0)
+		{	
+			mes "[死亡之塔附魔]";
+			mes "你必須穿上它才能讓我移除附魔。";
+			close3;
+		}
+		next;
+		set .@selectedItem, .@realItems[select(.@menu$) - 1];
+		
+		mes "[死亡之塔附魔]";
+		mes "請選擇你要支付的選項。";
+		next;
+		set .@deletetypeChoice, select("支付" + .reqCountDeletion + " 個 " + getitemname(.DeletreqId) + "。", "1,000,000萬的zeny");
+		switch(.@deletetypeChoice) {
+			case 1:
+				if (countitem(.DeletreqId) < .reqCountDeletion) {
+					
+					mes "[死亡之塔附魔]";
+					mes "對不起，你沒有足夠的材料。";
+					close3;
+				}
+				set .@zenydeletye,0;
+				break;
+			case 2:
+				if (Zeny < 1000000) {
+					
+					mes "[死亡之塔附魔]";
+					mes "對不起，你沒有足夠的金錢。";
+					close3;
+				}
+				set .@zenydeletye,1;
+				break;
+		}
+		
+		mes "[死亡之塔附魔]";
+		mes "好的，那要開始移除 " + getitemname(.@selectedItem) + " 的附魔囉，不後悔嗎？";
+		next;
+		if(select("開始吧","等一下") == 1)
+		{		
+			set .@eqislot, -1;
+			if(getequipid(EQI_ACC_L) == .@selectedItem)
+			{
+				set .@eqislot, EQI_ACC_L;
+				set .@card_id1,getequipcardid(.@eqislot,0);
+				set .@ref_lv,getequiprefinerycnt(.@eqislot);
+			}
+			else if(getequipid(EQI_ACC_R) == .@selectedItem)
+			{
+				set .@eqislot, EQI_ACC_R;
+				set .@card_id1,getequipcardid(.@eqislot,0);
+				set .@ref_lv,getequiprefinerycnt(.@eqislot);
+			}
+			if(.@eqislot == -1)
+				{	
+					mes "[死亡之塔附魔]";
+					mes "你必須穿著它才能讓我移除…";
+					close3;
+				}
+			
+			if(.@zenydeletye == 1){//判斷是不是用zeny支付
+				if(rand(100) > .breakRateDeletion)
+				{
+					specialeffect 155;
+					
+					mes "[死亡之塔附魔]";
+					mes "太糟糕了，對不起…";
+					mes "請求的裝備沒有移除附魔成功。";
+					//break item
+					delequip .@eqislot;
+					set zeny,zeny-1000000;
+					close3;
+				}
+				else
+				{	
+					mes "[死亡之塔附魔]";
+					mes "成功了！你的裝備在這！";
+					delequip .@eqislot;
+					set zeny,zeny-1000000;
+					
+					getitem2 .@selectedItem, 1, 1, .@ref_lv, 0, .@card_id1, 0, 0, 0;
+				}
+			}
+			else{
+				
+				mes "[死亡之塔附魔]";
+				mes "成功了！你的裝備在這！";
+				delitem .DeletreqId, .reqCountDeletion;
+				delequip .@eqislot;
+				getitem2 .@selectedItem, 1, 1, .@ref_lv, 0, .@card_id1, 0, 0, 0;
+			}
+		}
+		else{
+			
+			mes "[死亡之塔附魔]";
+			mes "您的裝備並沒有被附魔過。";
+			close3;
+		}
+
+	}
+	close3;
+//========附魔
+S_EnchantArmor:
+	.@itemid = getarg(0);
+	.@typeChoice = getarg(1);
+	.@reqIdch = getarg(2);
+	next;
+	if(countitem(.@itemId) > 1)
+	{
+		
+		mes "[死亡之塔附魔]";
+		mes "抱歉，同樣的裝備只能持有一件。";
+		mes "否則，附魔時可能會混淆…";
+		close3;
+	}
+	
+	mes "[死亡之塔附魔]";
+	mes "您可以選擇要使用的結晶數量";
+	mes "假如您使用『50』個結晶的話，則能夠選擇要在第三或第四個插槽上附魔(只有選擇的插槽會附上附魔效果)";
+	mes "^ff5555如選擇的插槽上已有附魔則會直接覆蓋掉。^000000";
+	mes "使用『10』個結晶的話則會隨機在第三【和】第四個插槽上附上附魔效果";
+	mes "那麼您要使用幾個呢？";
+	next;
+	if(select("50個", "10個") == 1) {
+		set .@Equipover,1;
+		
+		mes "[死亡之塔附魔]";
+		mes "請問您要在第三或第四個插槽上附魔呢？";
+		next;
+		if(select("第三個插槽", "第四個插槽") == 1){
+			set .@slot50 ,3;
+		}
+		else{
+			set .@slot50 ,4;
+		}
+		set .@specialuseamount,50;
+	}
+	else{
+		set .@specialuseamount,10;
+	}
+	
+	//find good slot
+	set .@slot, -1;
+	if(getequipid(EQI_ACC_L) == .@itemid)
+	{
+		set .@Equipslot,EQI_ACC_L;
+		set .@cSlot3, getequipcardid(EQI_ACC_L, 3);
+		set .@cSlot2, getequipcardid(EQI_ACC_L, 2);
+		set .@cSlot1, getequipcardid(EQI_ACC_L, 1);
+		
+		if (.@specialuseamount == 10){
+			if (.@cSlot3 != 0 && .@cSlot2 != 0){
+				
+				mes "[死亡之塔附魔]";
+				mes "不好意思，您的第三及第四洞皆已經有附魔了。";
+				close3;
+			}
+		}
+		if (.@cSlot3 != 0 && .@cSlot2 == 0){//第4洞有東西時(附魔第三洞)
+			set .@slot3Id, .@cSlot3;//保留原本第四洞的附魔
+			set .@slot, 3;
+		}
+		else if ( .@cSlot2 != 0 && .@cSlot3 == 0 )
+		{
+			set .@slot2Id, .@cSlot2;//保留原本第三洞的附魔
+			set .@slot, 2;
+		}
+		else
+		{
+			set .@slot, 4;
+		}
+	}
+	else{
+		set .@Equipslot,EQI_ACC_R;
+		set .@cSlot3, getequipcardid(EQI_ACC_R, 3);
+		set .@cSlot2, getequipcardid(EQI_ACC_R, 2);
+		set .@cSlot1, getequipcardid(EQI_ACC_R, 1);
+		
+		if (.@specialuseamount == 10){
+			if (.@cSlot3 != 0 && .@cSlot2 != 0){
+				
+				mes "[死亡之塔附魔]";
+				mes "不好意思，您的第三及第四洞皆已經有附魔了。";
+				close3;
+			}
+		}
+		
+		if (.@cSlot3 != 0 && .@cSlot2 == 0){//第4洞有東西時(附魔第三洞)
+			set .@slot3Id, .@cSlot3;//保留原本第四洞的附魔
+			set .@slot, 3;
+		}
+		else if ( .@cSlot2 != 0 && .@cSlot3 == 0 )
+		{
+			set .@slot2Id, .@cSlot2;//保留原本第三洞的附魔
+			set .@slot, 2;
+		}
+		else
+		{
+			set .@slot, 4;
+		}
+	}
+	
+	if(.@slot == -1)
+	{	
+		mes "[死亡之塔附魔]";
+		mes "你的裝備已經超過附魔的次數了…我無法再幫它附魔。";
+		close3;
+	}
+//====檢查洞的位置結束======
+	
+OnCheck:
+	//設定需求物品
+	set .@reqId1, 1000257;//罪惡的結晶
+	set .@reqId2, 1000263;//善意的結晶
+	//設定附魔物品
+	setarray .@randstone3a[0],310197,310198,310199,310200,310201,310202,310203,310204,310205,310206,310207,310208,310209,310210,310211,310212,310213,310214,310215,310216;
+	setarray .@randstone4a[0],310237,310238,310239,310240,310241,310242,310243,310244,310245,310246;
+
+	setarray .@randstone3b[0],310217,310218,310219,310220,310221,310222,310223,310224,310225,310226,310227,310228,310229,310230,310231,310232,310233,310234,310235,310236;
+	setarray .@randstone4b[0],310247,310248,310249,310250,310251,310252,310253,310254,310255,310256;
+
+	set .@success_rate,100;//機率
+	set .@useamount,10;//使用10個
+
+
+	
+	
+	//=====================================
+	
+	goto OnEnchantMain;
+
+OnEnchantMain:
+	set .@reqId,.@reqId1;
+	if (.@reqIdch == 2){set .@reqId,.@reqId2;}
+	if (.@Equipover == 1){
+			
+			mes "[死亡之塔附魔]";
+			mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+			mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@specialuseamount+"^000000 ";
+			mes "成功機率：^888888"+.@success_rate+"%^000000";
+			mes "選擇的洞數位置：^FF0000"+.@slot50+"^000000";
+			next;
+				if(select("確定:取消")==2) close3;
+				if((countitem(.@reqId) < .@specialuseamount) ) {
+				
+				mes "[死亡之塔附魔]";
+				mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+				close3;
+			}
+
+			delitem .@reqId,.@specialuseamount;//移除物品
+			
+			switch(.@slot50)
+			{
+				case 3://第三洞
+				specialeffect2 EF_PHARMACY_OK;
+				
+				set .@newstone,.@randstone3a[rand(getarraysize(.@randstone3a))];
+				if (.@reqIdch == 2){
+					set .@newstone,.@randstone3b[rand(getarraysize(.@randstone3b))];
+				}
+				
+				set .@card_id1,getequipcardid(.@Equipslot,0);
+				set .@card_id2,getequipcardid(.@Equipslot,1);
+				set .@card_id3,.@newstone;
+				set .@card_id4,getequipcardid(.@Equipslot,3);
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				dispbottom "附魔成功！";
+				break;
+				case 4://第四洞
+				specialeffect2 EF_PHARMACY_OK;
+				
+				set .@newstone,.@randstone4a[rand(getarraysize(.@randstone4a))];
+				if (.@reqIdch == 2){
+					set .@newstone,.@randstone4b[rand(getarraysize(.@randstone4b))];
+				}
+				
+				set .@card_id1,getequipcardid(.@Equipslot,0);
+				set .@card_id2,getequipcardid(.@Equipslot,1);
+				set .@card_id3,getequipcardid(.@Equipslot,2);
+				set .@card_id4,.@newstone;
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				dispbottom "附魔成功！";
+				break;
+			}
+		}
+	else{
+		
+		mes "[死亡之塔附魔]";
+		mes "目前選擇：^888888"+getitemname(.@itemid)+"^000000";
+		mes "需求物品：^888888"+getitemname(.@reqId)+" x "+.@useamount+"";
+		mes "成功機率：^888888"+.@success_rate+"%^000000";
+		mes "選擇的洞數位置：^FF0000第3及第4洞^000000";
+		next;
+		if(select("確定:取消")==2) close3;
+		if((countitem(.@reqId) < .@useamount) ) {
+			
+			mes "[死亡之塔附魔]";
+			mes "^ff0000"+getitemname(.@reqId)+"不足…^000000";
+			close3;
+		}else{
+
+				delitem .@reqId,.@useamount;//移除物品
+				specialeffect2 EF_PHARMACY_OK;
+				set .@newstone,.@randstone3a[rand(getarraysize(.@randstone3a))];
+				set .@newstone2,.@randstone4a[rand(getarraysize(.@randstone4a))];
+				if (.@reqIdch == 2){
+					set .@newstone,.@randstone3b[rand(getarraysize(.@randstone3b))];
+					set .@newstone2,.@randstone4b[rand(getarraysize(.@randstone4b))];
+				}
+				
+				set .@card_id1,getequipcardid(.@Equipslot,0);//保留第一洞的卡片
+				set .@card_id2,getequipcardid(.@Equipslot,1);
+				if (.@slot == 2){
+					set .@card_id3,.@slot2Id;
+				}
+				else{
+					set .@card_id3,.@newstone;
+				}
+				
+				if (.@slot == 3){
+					set .@card_id4,.@slot3Id;
+				}
+				else{
+					set .@card_id4,.@newstone2;
+				}
+				
+
+				set .@ref_lv,getequiprefinerycnt(.@Equipslot);
+				delequip .@Equipslot;
+				getitem2 .@itemid,1,1,.@ref_lv,0,.@card_id1,.@card_id2,.@card_id3,.@card_id4;
+				dispbottom "附魔成功！";
+		}
+	}
+end;
+OnInit:
+	setnpcicon getnpcid(0),1015,"[附魔]死亡之塔";
+	waitingroom "[附魔]死亡之塔",0;
+	end;
+}
