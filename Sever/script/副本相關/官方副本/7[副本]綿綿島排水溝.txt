@@ -647,7 +647,7 @@ OnMyMobDead:
 		set .@map$, strnpcinfo(4);
 		'ClearInatance = 1;
 		getmapxy(.@m$,'passx,'passy,BL_PC);
-		donpcevent instance_npcname("°Æ¥»Ä_½c#1@pump")+"::OnEnable";
+		donpcevent instance_npcname("Â÷¶}°Æ¥»#1@pump")+"::OnEnable";
 		if (.@i$ == "n") {
 			for(set .@i,0; .@i<10; set .@i,.@i+1) {
 				set .@j, rand(1,6401);

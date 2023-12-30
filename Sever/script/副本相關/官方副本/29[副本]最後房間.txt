@@ -567,7 +567,7 @@ OnMyMobDead2:
 	next;
 	disablenpc instance_npcname("¨©²ú¸¦#room4");
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("°Æ¥»Ä_½c#1@uns")+"::OnEnable";
+	donpcevent instance_npcname("Â÷¶}°Æ¥»#1@uns")+"::OnEnable";
 	'ClearInatance = 1;
 	end;
 

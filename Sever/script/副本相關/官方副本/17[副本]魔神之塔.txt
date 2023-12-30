@@ -437,8 +437,8 @@ OnTalk1:
 	mes " ";
 	mes "結束對話後 開始治療";
 	close2;
-	showscript "治療中.... 請勿移動 或 點擊地板";
-	progressbar "0xFFFF00",2;
+	//showscript "治療中.... 請勿移動 或 點擊地板";
+	//progressbar "0xFFFF00",2;
 	delitem 7641, 1;
 	specialeffect 72;
 	specialeffect 6;
@@ -784,7 +784,7 @@ OnKilled:
 			mes "似乎有些聲音傳了出來...";
 			mes "結束對話後 開始喚醒 露西爾";
 			close2;
-			progressbar "0xFFFF00",15;
+			//progressbar "0xFFFF00",15;
 			specialeffect 202, AREA, instance_npcname("露西爾#tnm02"); //60458
 			mes "　^ff0000系統重新起動。^000000";
 			mes "　和復生的露西爾對話";
@@ -2330,7 +2330,7 @@ OnInstanceInit:
 	specialeffect 10;
 	makeitem .@gain[rand(6)],1,instance_mapname(.@m$),.@passx+rand(3)-1,.@passy+rand(3)-1;
 	makeitem .@gain[rand(6)],1,instance_mapname(.@m$),.@passx+rand(3)-1,.@passy+rand(3)-1;
-	donpcevent instance_npcname("副本寶箱#1@tnm3")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#1@tnm3")+"::OnEnable";
 	'ClearInatance = 1;
 	disablenpc instance_npcname("魔神之塔通關");
 	end;

@@ -1324,7 +1324,7 @@ OnInstanceInit:
 	mes "通過緊急出口逃出工廠？";
 	next;
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#1@xm_d")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#1@xm_d")+"::OnEnable";
 	'ClearInatance = 1;	
 	disablenpc instance_npcname("#exwp1");	
 	end;

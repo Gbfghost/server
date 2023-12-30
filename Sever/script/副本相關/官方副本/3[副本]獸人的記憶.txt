@@ -823,7 +823,7 @@ OnMyMobDead:
 		mapannounce .@map$, "獸人薩滿：被這些蠢蛋打敗...不能就這樣發生...！",bc_map,"0xffff00";
 	}
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#2@orcs")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#2@orcs")+"::OnEnable";
 	'ClearInatance = 1;
 	donpcevent instance_npcname("#2Resurrect Monsters1")+"::OnDisable";
 	donpcevent instance_npcname("#2Resurrect Monsters3")+"::OnDisable";

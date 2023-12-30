@@ -1546,7 +1546,7 @@ if('mode==0){
 	end;
 	}else{
 	Instance_PassAnnounce;
-	getitem 940045,1;
+	getitem 940045,10;
 	getitem 930000,5;
 	getitem 6909,15;
 	getitem 1000405,350;

@@ -2371,7 +2371,7 @@ OnMyMobDead:
 	set .@map$, instance_mapname("1@air2");
 	if (mobcount(.@map$,instance_npcname("#airshipputmob5")+"::OnMyMobDead") < 1) {
 		getmapxy(.@m$,'passx,'passy,BL_PC);
-		donpcevent instance_npcname("°Æ¥»Ä_½c#1@air2")+"::OnEnable";
+		donpcevent instance_npcname("Â÷¶}°Æ¥»#1@air2")+"::OnEnable";
 		'ClearInatance = 1;
 		donpcevent instance_npcname("#airshipputmob5")+"::OnComplete";
 	}

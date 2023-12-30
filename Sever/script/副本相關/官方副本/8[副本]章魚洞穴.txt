@@ -542,7 +542,7 @@ OnMyMobDead:
 		donpcevent instance_npcname("oct_boss_con")+"::OnDisable";
 		stopnpctimer;
 		getmapxy(.@m$,'passx,'passy,BL_PC);
-		donpcevent instance_npcname("°Æ¥»Ä_½c#1@cash")+"::OnEnable";
+		donpcevent instance_npcname("Â÷¶}°Æ¥»#1@cash")+"::OnEnable";
 		'ClearInatance = 1;
 		end;
 	}

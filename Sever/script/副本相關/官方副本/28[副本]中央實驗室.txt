@@ -1910,7 +1910,7 @@ OnThird:
 OnThirdDead:
 	donpcevent instance_npcname("#firststart")+"::OnEnd";
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("°Æ¥»Ä_½c#1@lab")+"::OnEnable";
+	donpcevent instance_npcname("Â÷¶}°Æ¥»#1@lab")+"::OnEnable";
 	'ClearInatance = 1;	
 	end;
 OnInstanceInit:

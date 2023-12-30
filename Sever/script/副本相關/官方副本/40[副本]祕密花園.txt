@@ -451,7 +451,7 @@ OnInstanceInit:
 		mes "他們在短時間內很快就會恢復了，直到母體的到來，希望你能一直與我們並肩作戰，我有種不好的預感";
 		next;
 		getmapxy(.@m$,'passx,'passy,BL_PC);
-		donpcevent instance_npcname("副本寶箱#1@herbs")+"::OnEnable";
+		donpcevent instance_npcname("離開副本#1@herbs")+"::OnEnable";
 		'ClearInatance = 1;
 		end;
 	}

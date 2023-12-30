@@ -720,7 +720,7 @@ OnMyPingDead:
 	mes "[利亞得]";
 	mes "謝謝你，你們是這世界和我們守護精靈族的恩人.";
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#2@nyd")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#2@nyd")+"::OnEnable";
 	'ClearInatance = 1;
 	disablenpc instance_npcname("利亞得#2F");
 	end;

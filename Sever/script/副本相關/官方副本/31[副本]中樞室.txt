@@ -666,7 +666,7 @@ OnMobDead:
 	mapannounce 'map_slw$, "魔力場已消除，出現了出入口。", bc_map,0xFF99;
 	disablenpc instance_npcname("魔力能量#seiren");
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#1@slw")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#1@slw")+"::OnEnable";
 	'ClearInatance = 1;
 	end;
 }

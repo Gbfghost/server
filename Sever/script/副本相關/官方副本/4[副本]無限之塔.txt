@@ -1891,7 +1891,7 @@ OnTimer10500:
 OnMyMobDead:
 	donpcevent instance_npcname("失落之魂#102")+"::OnEnable";
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#6@tower")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#6@tower")+"::OnEnable";
 	'ClearInatance = 1;
 	end;
 }

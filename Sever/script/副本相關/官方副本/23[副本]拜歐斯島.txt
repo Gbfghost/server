@@ -1263,7 +1263,7 @@ OnMyMobDead:
 	.@f_mob_num = mobcount(instance_mapname("1@dth3"),instance_npcname("#ep14bs_stcmobf")+"::OnMyMobDead");
 	'ClearInatance = 1;	
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("°Æ¥»Ä_½c#1@dth3")+"::OnEnable";
+	donpcevent instance_npcname("Â÷¶}°Æ¥»#1@dth3")+"::OnEnable";
 	donpcevent instance_npcname("#ep14bs_stchatr")+"::OnDisable2";
 	initnpctimer;
 	end;

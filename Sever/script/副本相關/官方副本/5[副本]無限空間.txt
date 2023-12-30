@@ -660,7 +660,7 @@ OnGuardianDied:
 		{
 			instance_announce instance_id(),"魯莽的冒險家：看來已經無路可走了，到外面去好了比較安全。",bc_map,0x00FF99;
 			getmapxy(.@m$,'passx,'passy,BL_PC);
-			donpcevent instance_npcname("副本寶箱#1@infi")+"::OnEnable";
+			donpcevent instance_npcname("離開副本#1@infi")+"::OnEnable";
 			'ClearInatance = 1;
 			end;
 		}else

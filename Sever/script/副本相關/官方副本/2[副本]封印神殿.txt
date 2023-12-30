@@ -923,7 +923,7 @@ OnMyMobDead:
 		erasequest 3041;
 		mapannounce .@map$, "魔王巴風特 : 不!不不不!! 這怎麼可能??? 我怎麼又被這些微不足道的人類侮辱了呢??? 你們絕不可能.... 你們絕不可能再次封印我!!!",bc_map,"0xdb7093";
 		getmapxy(.@m$,'passx,'passy,BL_PC);
-		donpcevent instance_npcname("副本寶箱#2@cata")+"::OnEnable";
+		donpcevent instance_npcname("離開副本#2@cata")+"::OnEnable";
 		'ClearInatance = 1;	
 		enablenpc instance_npcname("遠古英雄的靈魂#2F");
 		disablenpc instance_npcname("slave_down");
