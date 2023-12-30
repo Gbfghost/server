@@ -3419,6 +3419,52 @@ Body:
         ChangeRefine: -5
   - Item: C_Armor_Reform_1
     BaseItems:
+      - BaseItem: Devil_Flame_Manteau_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Zelunium
+           Amount: 1000
+         - Material: Scale_Of_Red_Dragon
+           Amount: 300
+         - Material: Sin_Fragment
+           Amount: 300
+         - Material: Ymir_Heart_TW
+           Amount: 3
+        ResultItem: Devil_Flame_Manteau_LT
+        ChangeRefine: -5
+      - BaseItem: Temporal_Armor_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Timeoverload_Power_TW
+           Amount: 10
+         - Material: M_Dimension_Essence
+           Amount: 40
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Armor_TW_LT
+        ChangeRefine: -5
+      - BaseItem: Temporal_Cape_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Temporal_Crystal
+           Amount: 999
+         - Material: Jewel_Of_Time_Ore
+           Amount: 200
+         - Material: Timeoverload_Power_TW
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Cape_TW_LT
+        ChangeRefine: -5
       - BaseItem: Temporal_Boots_TW
         MinimumRefine: 9
         CardsAllowed: true
