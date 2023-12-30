@@ -1,4 +1,4 @@
-uttycty,104,167,4	script	修裝系統	4_f_08,{
+uttycty,59,173,5	script	修裝系統	4_f_08,{
 	disable_items;	
 	//修理需要的物品
 	//最多支援至 127 項物品

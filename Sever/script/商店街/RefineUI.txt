@@ -1,4 +1,4 @@
-uttycty,95,172,5	script	官方精煉	1_m_smith,{
+uttycty,74,181,5	script	官方精煉	1_m_smith,{
 	disable_items;
 	refineui();
 	end;

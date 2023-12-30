@@ -18,7 +18,7 @@
 - Ver 1.0 完成架構
 >>>各位大哥大姐轉載請保留以上，萬分感激<<<
 ================================================*/
-uttycty,115,172,4	script	精煉券強化#rosfrc	85,{
+uttycty,59,181,5	script	精煉券強化#rosfrc	85,{
 	function	ckitem	{
 		return countitem(getarg(0))>=1?"^0066CC- "+getitemname(getarg(0))+"^000000":"^888888- "+getitemname(getarg(0))+"^000000";
 	}

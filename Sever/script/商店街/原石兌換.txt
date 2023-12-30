@@ -1,4 +1,4 @@
-uttycty,110,172,4	script	精煉物品兌換	4_f_agentkafra,{
+uttycty,64,181,5	script	精煉物品兌換	4_f_agentkafra,{
 
 
 	mes "^000079[精煉升階材料商]^000000";
