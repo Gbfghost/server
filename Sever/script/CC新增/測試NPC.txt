@@ -1,0 +1,11 @@
+-	script	#技能最終增傷	-1,{
+OnPCUseSkillEvent:
+	if (@useskill_id == 5217) {
+		if(getequipid(9) == 1201) {
+			if(getequiprefinerycnt(4) == 20){
+				bonus3 bFinalAddRace,RC_ALL,100,BF_SKILL;
+			}
+		}
+	}
+		
+}
