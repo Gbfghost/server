@@ -9,7 +9,7 @@
 //= Includes support for multiple shops & cashpoints.
 //= Item Preview script by ToastOfDoom.
 //============================================================
-uttycty,80,171,5	script	影子裝備製作	10346,{
+uttycty,29,145,5	script	影子裝備製作	10346,{
 	disable_items;
 function str2 {
 	setarray .@a,0,40,34;

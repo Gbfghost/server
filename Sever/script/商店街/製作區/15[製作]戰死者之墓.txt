@@ -1,4 +1,4 @@
-uttycty,59,183,5	trader	[製作]戰死者之墓	4_M_DEATH,{
+uttycty,29,132,5	trader	[製作]戰死者之墓	4_M_DEATH,{
 	disable_items;
 	end;
 OnInit:

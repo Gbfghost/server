@@ -1,4 +1,4 @@
-uttycty,59,157,5	trader	[»s§@]¥ÍºA°é	10292,{
+uttycty,29,103,5	trader	[»s§@]¥ÍºA°é	10292,{
 	disable_items;
 	end;
 OnInit:
@@ -8,159 +8,127 @@ OnInit:
 	tradertype(NST_EXPANDED_BARTER);
 
 
-	sellitem(490161, 100000000, -1);	
+	sellitem(490161, 1000000, -1,480144,1,0);	
+	sellitemcurrency(1000638, 10);
+	sellitemcurrency(1000639, 10);
+	sellitemcurrency(1000640, 10);
+	sellitemcurrency(1000641, 10);
+	endsellitem();
+
+	sellitem(490162, 1000000, -1,450199,1,0);	
+	sellitemcurrency(1000638, 10);
+	sellitemcurrency(1000639, 10);
+	sellitemcurrency(1000640, 10);
+	sellitemcurrency(1000641, 10);
+	endsellitem();
+
+	sellitem(450191, 1000000, -1,470107,1,0);	
+	sellitemcurrency(1000638, 10);
+	sellitemcurrency(1000639, 10);
+	sellitemcurrency(1000640, 10);
+	sellitemcurrency(1000641, 10);
+	endsellitem();
+
+	sellitem(460021, 10000000, -1);
+	sellitemcurrency(1000638, 100);
+	sellitemcurrency(1000639, 100);
+	sellitemcurrency(1000640, 100);
+	sellitemcurrency(1000641, 100);
+	endsellitem();
+
+	sellitem(490160, 20000000, -1);	
+	sellitemcurrency(1000638, 100);
+	sellitemcurrency(1000639, 100);
+	sellitemcurrency(1000640, 100);
+	sellitemcurrency(1000641, 100);
+	endsellitem();
+
+	sellitem(450192, 10000000, -1);
+	sellitemcurrency(1000638, 100);
+	sellitemcurrency(1000639, 100);
+	sellitemcurrency(1000640, 100);
+	sellitemcurrency(1000641, 100);
+	endsellitem();
+
+	sellitem(460022, 3000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);	
+	sellitemcurrency(1000638, 30);
+	endsellitem();
+
+	sellitem(450200, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000641, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(480146, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000641, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(470109, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000641, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(450201, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
 	sellitemcurrency(1000640, 50);
-	sellitemcurrency(7100, 200);
-	sellitemcurrency(2745, 1);
+	sellitemcurrency(1000103, 50);
 	endsellitem();
 
-	sellitem(490162, 100000000, -1);	
+	sellitem(480145, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000640, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(470108, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000640, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(450202, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000643, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(480147, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000643, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(470110, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000643, 50);
+	sellitemcurrency(1000103, 50);
+	endsellitem();
+
+	sellitem(450203, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
 	sellitemcurrency(1000642, 50);
-	sellitemcurrency(7326, 200);
-	sellitemcurrency(2787, 1);
-	
+	sellitemcurrency(1000103, 50);
 	endsellitem();
 
-	sellitem(450191, 100000000, -1);	
-	sellitemcurrency(1000643, 50);
-	sellitemcurrency(7054, 200);
-	sellitemcurrency(2365, 1);
+	sellitem(480148, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000642, 50);
+	sellitemcurrency(1000103, 50);
 	endsellitem();
 
-	sellitem(460021, 100000000, -1);
-	sellitemcurrency(1000643, 50);
-	sellitemcurrency(7054, 200);
-	sellitemcurrency(2123, 1);
+	sellitem(470111, 20000000, -1, 450199, 1, 0, 480144, 1, 0, 470107, 1, 0);
+	sellitemcurrency(1000642, 50);
+	sellitemcurrency(1000103, 50);
 	endsellitem();
 
-	sellitem(490160, 100000000, -1);	
-	sellitemcurrency(1000643, 50);
-	sellitemcurrency(7054, 200);
-	sellitemcurrency(2705, 1);
-	endsellitem();
-
-	sellitem(450192, 100000000, -1);
-	sellitemcurrency(1000641, 50);
-	sellitemcurrency(936, 200);
-	sellitemcurrency(2389, 1);
-	endsellitem();
-
-	sellitem(460022, 100000000, -1);	
-	sellitemcurrency(1000641, 50);
-	sellitemcurrency(936, 200);
-	sellitemcurrency(2134, 1);
-	endsellitem();
-
-	sellitem(450200, 100000000, -1, 450199, 1, 0);
-	sellitemcurrency(1000641, 30);
-	endsellitem();
-
-	sellitem(480146, 100000000, -1, 480144, 1, 0);
-	sellitemcurrency(1000641, 20);
-	endsellitem();
-
-	sellitem(470109, 100000000, -1, 470107, 1, 0);
-	sellitemcurrency(1000641, 15);
-	endsellitem();
-
-	sellitem(450201, 100000000, -1, 450199, 1, 0);
-	sellitemcurrency(1000640, 30);
-	endsellitem();
-
-	sellitem(480145, 100000000, -1, 480144, 1, 0);
-	sellitemcurrency(1000640, 20);
-	endsellitem();
-
-	sellitem(470108, 100000000, -1, 470107, 1, 0);
-	sellitemcurrency(1000640, 15);
-	endsellitem();
-
-	sellitem(450202, 100000000, -1, 450199, 1, 0);
-	sellitemcurrency(1000643, 30);
-	endsellitem();
-
-	sellitem(480147, 100000000, -1, 480144, 1, 0);
-	sellitemcurrency(1000643, 20);
-	endsellitem();
-
-	sellitem(470110, 100000000, -1, 470107, 1, 0);
-	sellitemcurrency(1000643, 15);
-	endsellitem();
-
-	sellitem(450203, 100000000, -1, 450199, 1, 0);
-	sellitemcurrency(1000642, 30);
-	endsellitem();
-
-	sellitem(480148, 100000000, -1, 480144, 1, 0);
-	sellitemcurrency(1000642, 20);
-	endsellitem();
-
-	sellitem(470111, 100000000, -1, 470107, 1, 0);
-	sellitemcurrency(1000642, 15);
-	endsellitem();
-
-	sellitem(1000640, 1000000, -1);
+	sellitem(1000640, 100000, -1);
 	sellitemcurrency(1000636, 10);
 	endsellitem();
 	
-	sellitem(1000641, 1000000, -1);
+	sellitem(1000641, 100000, -1);
 	sellitemcurrency(1000637, 10);
 	endsellitem();
 	
-	sellitem(1000642, 1000000, -1);
+	sellitem(1000642, 100000, -1);
 	sellitemcurrency(1000638, 10);
 	endsellitem();
 	
-	sellitem(1000643, 1000000, -1);
+	sellitem(1000643, 100000, -1);
 	sellitemcurrency(1000639, 10);
 	endsellitem();
-//----------------------------------------------------------------------
-//		ÅQ¦Øªù¼w3.0				
-//-------------------------------------
-	sellitem(1001178, 1000000, -1);	//¸t·µ¿c®¦
-	sellitemcurrency(1001177, 10);
-	endsellitem();
-	sellitem(1001180, 1000000, -1);	//²r¬r¿c®¦
-	sellitemcurrency(1001179, 10);
-	endsellitem();
-	sellitem(1001182, 1000000, -1);	//ÆF»î¿c®¦
-	sellitemcurrency(1001181, 10);
-	endsellitem();
-	sellitem(1001188, 1000000, -1);	//¸t·µªºÅ]¤O
-	sellitemcurrency(1001138, 5);
-	sellitemcurrency(1001139, 5);
-	sellitemcurrency(1001140, 5);
-	sellitemcurrency(1001141, 5);
-	sellitemcurrency(1001183, 5);
-	endsellitem();
-	sellitem(1001189, 1000000, -1);	//²r¬rªºÅ]¤O
-	sellitemcurrency(1001138, 5);
-	sellitemcurrency(1001139, 5);
-	sellitemcurrency(1001140, 5);
-	sellitemcurrency(1001141, 5);
-	sellitemcurrency(1001183, 5);
-	endsellitem();
-	sellitem(1001186, 1000000, -1);	//ÆF»îªºÅ]¤O
-	sellitemcurrency(1001138, 5);
-	sellitemcurrency(1001139, 5);
-	sellitemcurrency(1001140, 5);
-	sellitemcurrency(1001141, 5);
-	sellitemcurrency(1001183, 5);
-	endsellitem();
-	sellitem(490299, 100000000, -1);	//ÅQ¦Øªù¼wÆF»î¿c®¦§Ù«ü
-	sellitemcurrency(490297, 1);
-	sellitemcurrency(1001182, 20);
-	endsellitem();
-	sellitem(1001186, 100000000, -1);	//ÅQ¦Øªù¼w²r¬r¿c®¦§Ù«ü
-	sellitemcurrency(490297, 1);
-	sellitemcurrency(1001180, 20);
-	endsellitem();
-	sellitem(1001186, 100000000, -1);	//ÅQ¦Øªù¼w¸t·µ¿c®¦§Ù«ü
-	sellitemcurrency(490297, 1);
-	sellitemcurrency(1001178, 20);
-	endsellitem();
-	
-	
 
 end;
 OnBuyItem:

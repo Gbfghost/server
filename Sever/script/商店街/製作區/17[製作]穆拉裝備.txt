@@ -1,4 +1,4 @@
-uttycty,80,175,5	trader	[製作]穆拉裝備	554,{
+uttycty,29,119,5	trader	[製作]穆拉裝備	554,{
 	disable_items;
 	end;
 OnInit:

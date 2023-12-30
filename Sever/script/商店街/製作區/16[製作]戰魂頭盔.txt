@@ -1,4 +1,4 @@
-uttycty,59,179,5	trader	[製作]戰魂頭盔	20543,{
+uttycty,29,123,5	trader	[製作]戰魂頭盔	20543,{
 	disable_items;
 	end;
 OnInit:

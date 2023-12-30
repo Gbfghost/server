@@ -1,4 +1,4 @@
-uttycty,75,167,5	trader	[製作]幻影裝備	3765,{
+uttycty,29,127,5	trader	[製作]幻影裝備	3765,{
 	disable_items;
 	end;
 OnInit:

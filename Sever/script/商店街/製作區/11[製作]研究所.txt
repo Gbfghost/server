@@ -1,4 +1,4 @@
-uttycty,64,179,5	trader	[製作]研究所	600,{
+uttycty,29,115,5	trader	[製作]研究所	600,{
 	disable_items;
 	
 	end;

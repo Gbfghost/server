@@ -1,4 +1,4 @@
-uttycty,75,183,6	trader	[製作]星座之塔	20994,{
+uttycty,40,98,6	trader	[製作]星座之塔	20994,{
 	disable_items;
 	end;
 OnInit:

@@ -1,4 +1,4 @@
-uttycty,64,183,5	trader	[製作]挑戰古城	10300,{
+uttycty,42,141,5	trader	[製作]挑戰古城	10300,{
 	disable_items;
 	end;
 OnInit:

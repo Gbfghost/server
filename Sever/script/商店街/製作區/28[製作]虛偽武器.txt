@@ -1,4 +1,4 @@
-uttycty,81,157,5	trader	[製作]虛偽武器	21361,{
+uttycty,42,107,5	trader	[製作]虛偽武器	21361,{
 	disable_items;
 	end;
 OnInit:

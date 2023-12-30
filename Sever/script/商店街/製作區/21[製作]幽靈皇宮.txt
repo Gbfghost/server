@@ -1,4 +1,4 @@
-uttycty,59,171,5	trader	[製作]幽靈皇宮	4_m_shadowchaser,{
+uttycty,42,123,5	trader	[製作]幽靈皇宮	4_m_shadowchaser,{
 	disable_items;
 	end;
 OnInit:

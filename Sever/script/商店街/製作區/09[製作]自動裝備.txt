@@ -1,4 +1,4 @@
-uttycty,70,171,5	trader	[製作]自動裝備	4_EP17_ELYUMINA,{
+uttycty,29,161,5	trader	[製作]自動裝備	4_EP17_ELYUMINA,{
 	disable_items;
 	end;
 OnInit:

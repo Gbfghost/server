@@ -1,4 +1,4 @@
-uttycty,59,167,5	trader	[製作]灰狼裝備	4_ep18_gw_woman02,{
+uttycty,42,137,5	trader	[製作]灰狼裝備	4_ep18_gw_woman02,{
 	disable_items;
 	end;
 OnInit:

@@ -1,4 +1,4 @@
-uttycty,70,157,5	trader	[製作]鐘塔裝備	971,{
+uttycty,42,132,5	trader	[製作]鐘塔裝備	971,{
 	disable_items;
 	end;
 OnInit:

@@ -1,4 +1,4 @@
-uttycty,64,167,5	trader	[製作]老舊古城	542,{
+uttycty,42,149,5	trader	[製作]老舊古城	542,{
 	disable_items;
 	end;
 OnInit:

@@ -1,9 +1,9 @@
-uttycty,70,175,5	trader	[è£½ä½œ]æ­»äº¡ä¹‹å¡”	4_EP17_AS,{
+uttycty,42,145,5	trader	[»s§@]¦º¤`¤§¶ğ	4_EP17_AS,{
 	disable_items;
 	end;
 OnInit:
-	setnpcicon getnpcid(0),1012,"[è£½ä½œ]æ­»äº¡ä¹‹å¡”";
-	waitingroom "[è£½ä½œ]æ­»äº¡ä¹‹å¡”",0;
+	setnpcicon getnpcid(0),1012,"[»s§@]¦º¤`¤§¶ğ";
+	waitingroom "[»s§@]¦º¤`¤§¶ğ",0;
 	tradertype(NST_EXPANDED_BARTER);
 	
 	//
@@ -111,7 +111,7 @@ OnBuyItem:
 end;
 }
 
-//åŠå¢œç²¾å·¥ç”¨åŸçŸ³
+//¦Q¼Yºë¤u¥Î­ì¥Û
 Function	script	100579_main	{
 	function	RandomOPT	{
 		.@idx = rand(getarg(1,getarraysize(getarg(0))));
@@ -121,19 +121,19 @@ Function	script	100579_main	{
 	}
 	disable_items;
 	getinventorylist;
-	// å¯è¢«åµæ¸¬åˆ°çš„ç‰©å“
+	// ¥i³Q°»´ú¨ìªºª««~
 	setarray .@list,490099;
 	
-	//äº‚æ•¸
+	//¶Ã¼Æ
 	.@r = rand(100);
 	
-	//è®Šæˆç´…è‰²é™½å‰›åŠå¢œ,è—è‰²å¿ƒéˆåŠå¢œçš„æ©Ÿç‡
+	//ÅÜ¦¨¬õ¦â¶§­è¦Q¼Y,ÂÅ¦â¤ßÆF¦Q¼Yªº¾÷²v
 	.@susses = 20;	
 	
-	//è®Šæˆçš„é“å…·
+	//ÅÜ¦¨ªº¹D¨ã
 	.@sussesitem = callfunc("F_Rand",490100,490101);	
 	
-	messagecolor "é™„é­”å¿…å®šæˆåŠŸã€‚è½‰æ›è£å‚™æˆåŠŸæ©Ÿç‡ "+.@susses+" %ã€‚","FFAAD5",bc_self;
+	messagecolor "ªşÅ]¥²©w¦¨¥\¡CÂà´«¸Ë³Æ¦¨¥\¾÷²v "+.@susses+" %¡C","FFAAD5",bc_self;
 	
 	for ( .@i = 0; .@i < @inventorylist_count; .@i++ )
 		if ( inarray(.@list,@inventorylist_id[.@i]) >= 0 && @inventorylist_refine[.@i] >= 0 )
@@ -144,14 +144,14 @@ Function	script	100579_main	{
 	setarray .@ItemInFo,getinventoryinfo(.@idx,0),getinventoryinfo(.@idx,3),getinventoryinfo(.@idx,6),getinventoryinfo(.@idx,7),getinventoryinfo(.@idx,8),getinventoryinfo(.@idx,9);
 	delinventory .@idx,1;
 
-	// ç¬¬ä¸€æ¬„
+	// ²Ä¤@Äæ
 	setarray .@type,
 	
 		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
 		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
 		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
 		
-		//æŠ—æ€§
+		//§Ü©Ê
 		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
 		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
 		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
@@ -164,14 +164,14 @@ Function	script	100579_main	{
 		RDMOPT_VAR_ATKPERCENT,rand(1,3),
 		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
 		
-	// ç¬¬äºŒæ¬„
+	// ²Ä¤GÄæ
 	setarray .@type2,
 	
 		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
 		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
 		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
 		
-		//æŠ—æ€§
+		//§Ü©Ê
 		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
 		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
 		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
@@ -201,12 +201,12 @@ Function	script	100579_main	{
 	{	
 		specialeffect2 622;
 		getitem .@sussesitem,1;
-		announce "æ­å–œ [ "+strcharinfo(0)+" ] æˆåŠŸè½‰æ› ("+getitemname(.@sussesitem)+") ã€‚",bc_all,"0xFF82FF";
+		announce "®¥³ß [ "+strcharinfo(0)+" ] ¦¨¥\Âà´« ("+getitemname(.@sussesitem)+") ¡C",bc_all,"0xFF82FF";
 	}
 	end;
 }
 
-//ç¥å¥‡é»‘çŸ³
+//¯«©_¶Â¥Û
 Function	script	100580_main	{
 	function	RandomOPT	{
 		.@idx = rand(getarg(1,getarraysize(getarg(0))));
@@ -217,7 +217,7 @@ Function	script	100580_main	{
 	disable_items;
 	getinventorylist;
 	
-	// å¯è¢«åµæ¸¬åˆ°çš„ç‰©å“
+	// ¥i³Q°»´ú¨ìªºª««~
 	setarray .@list,490100,490101;
 		
 	for ( .@i = 0; .@i < @inventorylist_count; .@i++ )
@@ -230,12 +230,12 @@ Function	script	100580_main	{
 	delinventory .@idx,1;
 
 
-	// ç¬¬ä¸€æ¬„
+	// ²Ä¤@Äæ
 	setarray .@type,
 		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
 		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
 		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
-		//æŠ—æ€§
+		//§Ü©Ê
 		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
 		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
 		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
@@ -248,14 +248,14 @@ Function	script	100580_main	{
 		RDMOPT_VAR_ATKPERCENT,rand(1,3),
 		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
 		
-	// ç¬¬äºŒæ¬„
+	// ²Ä¤GÄæ
 	setarray .@type2,
 
 		RDMOPT_VAR_PLUSASPDPERCENT,rand(3,5),
 		RDMOPT_DEC_SPELL_CAST_TIME,rand(5,8),
 		RDMOPT_DAMAGE_CRI_TARGET,rand(5,8),
 		
-		//æŠ—æ€§
+		//§Ü©Ê
 		RDMOPT_ATTR_TOLERACE_FIRE,rand(3,5),
 		RDMOPT_ATTR_TOLERACE_WATER,rand(3,5),	
 		RDMOPT_ATTR_TOLERACE_WIND,rand(3,5),	
@@ -269,7 +269,7 @@ Function	script	100580_main	{
 		RDMOPT_VAR_MAGICATKPERCENT,rand(1,3);
 
 
-	//åˆªé™¤è…³æœ¬é“å…·
+	//§R°£¸}¥»¹D¨ã
 	delitem 100580,1;			
 	specialeffect2 131;
 	setarray .@OptID, .@type[.@q=RandomOPT(.@type)], .@type2[.@w=RandomOPT(.@type2)];

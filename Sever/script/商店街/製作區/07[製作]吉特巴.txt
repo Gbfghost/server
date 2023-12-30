@@ -1,4 +1,4 @@
-uttycty,70,179,5	trader	[製作]吉特巴	629,{
+uttycty,29,153,5	trader	[製作]吉特巴	629,{
 	disable_items;
 	end;
 OnInit:

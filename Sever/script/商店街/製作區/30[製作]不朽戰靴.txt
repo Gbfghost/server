@@ -1,4 +1,4 @@
-uttycty,85,171,5	trader	[製作]不朽戰靴	4_TOWER_16,{
+uttycty,42,119,5	trader	[製作]不朽戰靴	4_TOWER_16,{
 	disable_items;
 	end;
 OnInit:

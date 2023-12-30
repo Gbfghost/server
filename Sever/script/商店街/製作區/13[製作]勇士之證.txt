@@ -1,4 +1,4 @@
-uttycty,64,171,5	trader	[製作]勇士之證	10058,{
+uttycty,29,107,5	trader	[製作]勇士之證	10058,{
 	disable_items;
 	end;
 OnInit:

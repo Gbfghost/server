@@ -1,4 +1,4 @@
-uttycty,64,157,5	trader	[製作]雪花裝備	4_ep18_shulang,{
+uttycty,46,98,5	trader	[製作]雪花裝備	4_ep18_shulang,{
 	disable_items;
 	end;
 Oninit:
@@ -109,8 +109,6 @@ Oninit:
 	startsellitem(570029, 1000000, -1);
 	endsellitem();	
 	startsellitem(580030, 1000000, -1);
-	endsellitem();
-	startsellitem(590038, 1000000, -1);
 	endsellitem();
 	startsellitem(590039, 1000000, -1);
 	endsellitem();

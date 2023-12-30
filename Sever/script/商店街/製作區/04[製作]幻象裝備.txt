@@ -1,50 +1,50 @@
-uttycty,75,171,5	trader	[è£½ä½œ]å¹»è±¡è£å‚™	10201,{
+uttycty,29,141,5	trader	[»s§@]¤Û¶H¸Ë³Æ	10201,{
 	disable_items;
 	end;
 OnInit:
-	setnpcicon getnpcid(0),1012,"[è£½ä½œ]å¹»è±¡è£å‚™";
-	waitingroom "[è£½ä½œ]å¹»è±¡è£å‚™",0;
+	setnpcicon getnpcid(0),1012,"[»s§@]¤Û¶H¸Ë³Æ";
+	waitingroom "[»s§@]¤Û¶H¸Ë³Æ",0;
 	
 	tradertype(NST_EXPANDED_BARTER);
 
-	.@cash1 = 940032; //é‚ªå¿ƒåŸºåœ°
-	.@cash2 = 940033; //æŸ¯çˆ¾è¨˜æ†¶
-	.@cash3 = 940034; // äºŒæ¬¡æœæŸ¥
-	.@cash4 = 940031; // ä¸­æ¨å®¤
-	.@p = 0; // åƒ¹æ ¼
+	.@cash1 = 940032; //¨¸¤ß°ò¦a
+	.@cash2 = 940033; //¬_º¸°O¾Ğ
+	.@cash3 = 940034; // ¤G¦¸·j¬d
+	.@cash4 = 940031; // ¤¤¼Ï«Ç
+	.@p = 0; // »ù®æ
 
-//ææ–™
-	sellitem(25669,.@p,-1);	//ç¥ç§˜é›¶ä»¶
+//§÷®Æ
+	sellitem(25669,.@p,-1);	//¯«¯µ¹s¥ó
 	sellitemcurrency(.@cash1,1);
     endsellitem(); 
-	sellitem(25669,.@p,-1);	//ç¥ç§˜é›¶ä»¶
+	sellitem(25669,.@p,-1);	//¯«¯µ¹s¥ó
 	sellitemcurrency(.@cash2,1);
     endsellitem();
-	sellitem(25669,.@p,-1);	//ç¥ç§˜é›¶ä»¶
+	sellitem(25669,.@p,-1);	//¯«¯µ¹s¥ó
 	sellitemcurrency(.@cash3,1);
     endsellitem(); 
 
-	sellitem(25723,.@p,-1);	//æ ¸å¿ƒå…ƒä»¶
+	sellitem(25723,.@p,-1);	//®Ö¤ß¤¸¥ó
 	sellitemcurrency(.@cash1,5);
     endsellitem(); 
-	sellitem(25723,.@p,-1);	//æ ¸å¿ƒå…ƒä»¶
+	sellitem(25723,.@p,-1);	//®Ö¤ß¤¸¥ó
 	sellitemcurrency(.@cash2,5);
     endsellitem(); 
-	sellitem(25723,.@p,-1);	//æ ¸å¿ƒå…ƒä»¶
+	sellitem(25723,.@p,-1);	//®Ö¤ß¤¸¥ó
 	sellitemcurrency(.@cash3,5);
     endsellitem(); 
 
-//å¡ç‰‡
-	sellitem(27151,.@p,-1);	//é‚ªå¿ƒeveå¡
+//¥d¤ù
+	sellitem(27151,.@p,-1);	//¨¸¤ßeve¥d
 	sellitemcurrency(.@cash1,200);
 	endsellitem();
-	sellitem(27320,.@p,-1);	//E-EA1Lå¡ç‰‡
+	sellitem(27320,.@p,-1);	//E-EA1L¥d¤ù
 	sellitemcurrency(.@cash2,200);
 	endsellitem();
-	sellitem(27318,.@p,-1);	//ç±³å¤çˆ¾å¡ç‰‡
+	sellitem(27318,.@p,-1);	//¦Ì¥jº¸¥d¤ù
 	sellitemcurrency(.@cash3,200);
 	endsellitem();
-	sellitem(27152,.@p,-1);	//å°å¯æ„›å¡ç‰‡
+	sellitem(27152,.@p,-1);	//¤p¥i·R¥d¤ù
 	sellitemcurrency(.@cash4,200);
 	endsellitem();
 	

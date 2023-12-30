@@ -1,4 +1,4 @@
-uttycty,59,153,5	trader	[製作]悔恨之墓	20892,{
+uttycty,42,103,5	trader	[製作]悔恨之墓	20892,{
 	disable_items;
 	end;
 OnInit:

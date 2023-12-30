@@ -1,9 +1,9 @@
-uttycty,75,175,5	trader	[製作]巴尼亞	4_f_einwoman,{
+uttycty,29,145,5	trader	[製�??]巴尼�?	4_f_einwoman,{
 	disable_items;
 	end;
 OnInit:
-	setnpcicon getnpcid(0),1012,"[製作]巴尼亞";
-	waitingroom "[製作]巴尼亞",0;
+	setnpcicon getnpcid(0),1012,"[製�??]巴尼�?";
+	waitingroom "[製�??]巴尼�?",0;
 	
 	tradertype(NST_EXPANDED_BARTER);
 	

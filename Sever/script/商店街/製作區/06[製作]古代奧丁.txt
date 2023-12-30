@@ -1,4 +1,4 @@
-uttycty,70,183,5	trader	[製作]古代奧丁	478,{
+uttycty,42,153,5	trader	[製作]古代奧丁	478,{
 	disable_items;
 	end;
 OnInit:

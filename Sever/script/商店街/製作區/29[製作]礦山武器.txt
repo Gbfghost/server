@@ -1,4 +1,4 @@
-uttycty,80,167,5	trader	[製作]礦山武器	4_TOWER_16,{
+uttycty,42,127,5	trader	[製作]礦山武器	4_TOWER_16,{
 	disable_items;
 	end;
 OnInit:

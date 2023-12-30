@@ -1,4 +1,4 @@
-uttycty,85,167,3	script	[製作]吉芬魔法大賽#1	893,{
+uttycty,29,111,3	script	[製作]吉芬魔法大賽#1	893,{
 
 OnInit:
 	setnpcicon getnpcid(0),1026,"[製作]吉芬魔法大賽";

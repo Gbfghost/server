@@ -1,4 +1,4 @@
-uttycty,70,167,5	script	[製作]恩典裝備	4_M_ORIENT02,{
+uttycty,29,137,5	script	[製作]恩典裝備	4_M_ORIENT02,{
 	disable_items;
 	end;
 OnInit:

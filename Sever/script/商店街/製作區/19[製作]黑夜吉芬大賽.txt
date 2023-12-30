@@ -1,4 +1,4 @@
-uttycty,75,157,5	trader	[製作]暗夜吉芬鬥技場	4_M_KHKYEL,{
+uttycty,31,98,5	trader	[製作]暗夜吉芬鬥技場	4_M_KHKYEL,{
 	disable_items;
 	end;
 OnInit:
