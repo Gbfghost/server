@@ -3419,6 +3419,66 @@ Body:
         ChangeRefine: -5
   - Item: C_Armor_Reform_1
     BaseItems:
+      - BaseItem: Devil_Flame_Manteau_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Zelunium
+           Amount: 1000
+         - Material: Scale_Of_Red_Dragon
+           Amount: 300
+         - Material: Sin_Fragment
+           Amount: 300
+         - Material: Ymir_Heart_TW
+           Amount: 3
+        ResultItem: Devil_Flame_Manteau_LT
+        ChangeRefine: -5
+      - BaseItem: Temporal_Armor_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Timeoverload_Power_TW
+           Amount: 10
+         - Material: M_Dimension_Essence
+           Amount: 40
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Armor_TW_LT
+        ChangeRefine: -5
+      - BaseItem: Temporal_Cape_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Temporal_Crystal
+           Amount: 999
+         - Material: Jewel_Of_Time_Ore
+           Amount: 200
+         - Material: Timeoverload_Power_TW
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Cape_TW_LT
+        ChangeRefine: -5
+      - BaseItem: Temporal_Boots_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Spell_Of_Time
+           Amount: 150
+         - Material: Timeoverload_Power_TW
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Boots_TW_LT
+        ChangeRefine: -5
       - BaseItem: Thanos_Helm_1
         MinimumRefine: 9
         CardsAllowed: true
@@ -5962,6 +6022,32 @@ Body:
         ResultItem: Fatalist_LT
   - Item: C_Armor_Reform_3
     BaseItems:
+      - BaseItem: Magic_Circle_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_3
+           Amount: 100
+         - Material: EP17_1_EVT39
+           Amount: 150
+         - Material: Miguel_Card
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Magic_Circle_TW_LT
+      - BaseItem: Magic_Star_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_3
+           Amount: 100
+         - Material: EP17_1_EVT39
+           Amount: 150
+         - Material: EP17_1_EVT02
+           Amount: 999
+         - Material: Miguel_Card
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Magic_Star_TW_LT
       - BaseItem: SurviveOrb_K
         CardsAllowed: false
         Materials:
