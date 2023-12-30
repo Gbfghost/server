@@ -1,4 +1,4 @@
-uttycty,59,169,5	script	附魔統合TEST_1	562,{
+uttycty,59,169,5	script	附魔娃娃機	562,{
 	mes "^FF0000我是附魔統合啾咪^000000";
 	switch(select("新版附魔UI","舊版裝備附魔")){
 	case 1:
@@ -218,4 +218,11 @@ uttycty,59,169,5	script	附魔統合TEST_1	562,{
 		}
 	}
 	end;
+
+Oninit:
+	setnpcicon getnpcid(0),1015,"附魔系統";
+	waitingroom "★ 附魔系統 ★ ",0;
+	end;
+}
+
 }
