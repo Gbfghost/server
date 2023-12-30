@@ -26,7 +26,7 @@ OnTimer2000:
 initnpctimer;
 }
 
-uttycty,85,178,5	script	卡普拉職員::utty_02	112,{
+uttycty,91,177,5	script	卡普拉職員::utty_02	112,{
 	cutin "bio_sorin01",2;
 	mes "[卡普拉職員]";
 	mes "歡迎來到";
