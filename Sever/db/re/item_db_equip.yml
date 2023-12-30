@@ -2389,7 +2389,7 @@ Body:
     EquipLevelMin: 1
     Refineable: true
     Script: |
-      bonus3 bFinalAddRace,RC_ALL,100,BF_SKILL;
+      bonus3 bFinalAddRace,RC_ALL,100,BF_NORMAL;
   - Id: 1202
     AegisName: Knife_
     Name: 短劍
