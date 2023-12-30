@@ -3419,6 +3419,20 @@ Body:
         ChangeRefine: -5
   - Item: C_Armor_Reform_1
     BaseItems:
+      - BaseItem: Temporal_Boots_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Spell_Of_Time
+           Amount: 150
+         - Material: Timeoverload_Power_TW
+           Amount: 3
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Temporal_Boots_TW_LT
+        ChangeRefine: -5
       - BaseItem: Thanos_Helm_1
         MinimumRefine: 9
         CardsAllowed: true
