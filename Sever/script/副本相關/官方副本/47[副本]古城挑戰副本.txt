@@ -284,15 +284,7 @@ OnTimer3000:
 		mes "我們剩沒有多少時間了";
 		mes "別忘記我們來的目的.";
 		next;
-		if(select("等等！", "變形") == 1) {
-			mes "[奧斯卡]";
-			mes "好了再跟我說一下。";
-			cutin "gl_heinrich1",255;
-			close;
-		}
-		cutin "gl_heinrich1",255;
-		close2;
-		
+		if(select("變形", "好了！") == 1) {
 		npctalk "(變形中)";
 		donpcevent instance_npcname("#bossdoor")+"::OnEnable";
 		progressbar_npc "ffff00",2;
@@ -301,6 +293,14 @@ OnTimer3000:
 		setnpcdisplay strnpcinfo(3), "奧斯卡", 1713;
 		npctalk "這就是我的真面目";
 		initnpctimer;
+			close;
+		}
+		cutin "gl_heinrich1",255;
+		close2;
+		
+			mes "[奧斯卡]";
+			mes "好了再跟我說一下。";
+			cutin "gl_heinrich1",255;
 
 
 		end;
@@ -475,7 +475,7 @@ OnTimer3000:
 	mapwarp instance_mapname("1@gl_he"),instance_mapname("1@gl_he"),157,227;
 	stopnpctimer;
 	set .@map$,instance_mapname("1@gl_he");
-	mapannounce .@map$, "奧斯卡：闇答萊屍的幻影的魔力會使我們在這空間中述失自我，請務必要小心對付！",bc_map,"0xFFFF00";
+	mapannounce .@map$, "奧斯卡：顏良的幻影的魔力會使我們在這空間中述失自我，請務必要小心對付！",bc_map,"0xFFFF00";
 	unittalk 'BossID, "你是我的新主人嗎？";
 	end;
 }
@@ -521,7 +521,7 @@ OnStart:
 OnKillMob:
 	if ('fail == 0){
 	set .@map$,instance_mapname("1@gl_he");
-	mapannounce .@map$, "奧斯卡：闇答萊屍的幻影已經淨化完成",bc_map,"0xFFFF00";
+	mapannounce .@map$, "奧斯卡：顏良的幻影已經淨化完成",bc_map,"0xFFFF00";
 	donpcevent instance_npcname("#CGH_BOSS")+"::Onstoptime";
 	donpcevent instance_npcname("#bossarea")+"::Onstoptime";
 	hideoffnpc instance_npcname("寶箱#chatnmtop");
@@ -946,7 +946,7 @@ OnStart:
 OnKillMob:
 	if ('fail == 0){
 	set .@map$,instance_mapname("1@gl_he");
-	mapannounce .@map$, "奧斯卡：闇答萊屍的幻影已經淨化完成",bc_map,"0xFFFF00";
+	mapannounce .@map$, "奧斯卡：顏良的幻影已經淨化完成",bc_map,"0xFFFF00";
 	donpcevent instance_npcname("#CGH_BOSS_2")+"::Onstoptime";
 	donpcevent instance_npcname("#bossarea_2")+"::Onstoptime";
 	hideoffnpc instance_npcname("寶箱#chatnmtop_2");

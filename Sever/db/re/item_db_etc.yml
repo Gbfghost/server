@@ -65102,6 +65102,13 @@ Body:
     Weight: 10
     Flags:
       BuyingStore: true
+  - Id: 1001255
+    AegisName: Red_Magic_Key_TW
+    Name: 深紅魔術之鑰
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
   - Id: 1001256
     AegisName: Ymir_Heart_P_TW
     Name: 伊美樂心臟能量碎片
@@ -65119,6 +65126,13 @@ Body:
   - Id: 1001557
     AegisName: Seppay_07
     Name: 超新星的祝福
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
+  - Id: 1001558
+    AegisName: Seppay_08
+    Name: 魔神殿之息
     Type: Etc
     Weight: 10
     Trade:

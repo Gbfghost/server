@@ -46,7 +46,7 @@ gld2_ald,0,0	monster	Killer Mantis	1294,60,5000
 gld2_ald,0,0	monster	Angra Mantis	2133,70,5000
 gld2_ald,0,0	monster	Maya Purple	1289,3,1200000
 gld2_ald,0,0,0,0	boss_monster	Gioia	2251,1,28800000,600000,1
-gld2_ald,0,0	monster	Elvira	2252,1,1800000,600000
+gld2_ald,0,0	monster	Elvira	2252,20,1,1
 
 //==================================================
 // Valkyrie - gld_dun03, gld_dun03_02, gld2_prt
