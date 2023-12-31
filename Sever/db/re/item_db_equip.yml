@@ -157378,7 +157378,7 @@ Body:
       bonus bAtkRate,10;
       bonus bVariableCastrate,-10;
   - Id: 490189
-    AegisName: Cassock_Str_hey
+    AegisName: Wine_Jewel_Brooch_TW
     Name: 深紅寶石胸針
     Type: Armor
     Weight: 100
@@ -186181,7 +186181,7 @@ Body:
     EquipLevelMin: 190
     Refineable: true
     Gradable: true
-    Script: |+
+    Script: |
       .@r = getrefine();
       .@g = getenchantgrade();
       bonus bBaseAtk,150+15*(.@r/2);
@@ -186376,7 +186376,7 @@ Body:
     Refineable: true
     Gradable: true
     View: 2444
-    Script: |+
+    Script: |
       .@r = getrefine();
       .@g = getenchantgrade();
       bonus bBaseAtk,20*(.@r/2);
@@ -186428,8 +186428,6 @@ Body:
     Jobs:
       Ninja: true
       KagerouOboro: true
-      Shiranui: true
-      Shinkiro: true
     Locations:
       Head_Top: true
     ArmorLevel: 2
@@ -186462,7 +186460,7 @@ Body:
       }
       if (.@r >= 12) {
           bonus2 bSkillCooldown,"KO_HUUMARANKA",-1000;
-          autobonus3 "{ bonus bMatk,1500; }",1000,40000,"KO_IZAYOI";
+          autobonus3 "{ bonus bMatk,150; }",1000,40000,"KO_IZAYOI";
       }
       if (.@g >= ENCHANTGRADE_D) {
         bonus bLongAtkRate,2*(.@r/3);
@@ -186487,51 +186485,661 @@ Body:
   - Id: 400547
     AegisName: Seppay_02
     Name: 萬物與靈魂的真諦-LT
+    Type: Armor
+    Weight: 100
+    Defense: 20
+    Slots: 1
+    Jobs:
+      Taekwon: true
+      StarGladiator: true
+      SoulLinker: true
+      Soul_Ascetic: true
+      Sky_Emperor: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 130
+    Refineable: true
+    Gradable: true
+    View: 2442
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bBaseAtk,20*(.@r/2);
+      bonus bMatk,20*(.@r/2);
+      bonus2 bSkillAtk,"SJ_FULLMOONKICK",20*(.@r/3);
+      bonus2 bSkillAtk,"SJ_FALLINGSTAR",20*(.@r/3);
+      bonus2 bSkillAtk,"SP_CURSEEXPLOSION",20*(.@r/3);
+      bonus2 bSkillAtk,"SP_SPA",20*(.@r/3);
+      if (.@r >= 7) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+        bonus bAspdRate,10;
+      }
+      if (.@r >= 9) {
+        bonus2 bAddSize,Size_All,10;
+        bonus2 bMagicAddSize,Size_All,10;
+      }
+      if (.@r >= 11) {
+        bonus bShortAtkRate,15;
+        bonus2 bMagicAtkEle,ELE_ALL,15;
+      }
+      if (.@r >= 12) {
+          bonus2 bSkillCooldown,"SJ_BOOKOFDIMENSION",-5000;
+          bonus2 bSkillCooldown,"SP_CURSEEXPLOSION",-1000;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus2 bSkillCooldown,"SJ_BOOKOFDIMENSION",-5000;
+        bonus2 bSkillCooldown,"SP_SOULREAPER",-30000;
+        bonus bFixedCast,-100*(.@r/3);
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus2 bSkillAtk,"SJ_FULLMOONKICK",10*(.@r/3);
+          bonus2 bSkillAtk,"SJ_FALLINGSTAR",10*(.@r/3);
+          bonus2 bSkillAtk,"SP_CURSEEXPLOSION",10*(.@r/3);
+          bonus2 bSkillAtk,"SP_SPA",10*(.@r/3);
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,7;
+            bonus bSMatk,7;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bAddRace,RC_ALL,10;
+              bonus2 bMagicAddRace,RC_ALL,10;
+              bonus2 bSkillCooldown,"SJ_BOOKOFDIMENSION",-5000;
+              bonus2 bSkillCooldown,"SP_SOULEXPLOSION",-30000;
+            }
+          }
+        }
+      }
   - Id: 480338
     AegisName: Astraea_Cape_LT
     Name: 阿斯特莉亞斗篷-LT
+    Type: Armor
+    Weight: 400
+    Defense: 15
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 100
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bAllStats,2;
+      bonus bBaseAtk,10*(.@r/2);
+      bonus bMatk,10*(.@r/2);
+      bonus2 bSubEle,ELE_NEUTRAL,3*(.@r/3);
+      if (.@r >= 9) {
+        bonus2 bAddSize,Size_All,10;
+        bonus2 bMagicAddSize,Size_All,10;
+      }
+      if (.@r >= 11) {
+        bonus bLongAtkRate,10;
+        bonus bShortAtkRate,10;
+        bonus2 bMagicAtkEle,ELE_ALL,10;
+      }
+      if (.@r >= 13) 
+        bonus bDelayrate,-10;
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bRes,30;
+        bonus bMRes,30;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bPAtk,5;
+          bonus bSMatk,5;
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bMaxHP,10000;
+            if (.@g >= ENCHANTGRADE_D) {
+              bonus2 bSubRace,RC_ALL,5;
+            }
+          }
+        }
+      }
   - Id: 460053
     AegisName: Feather_Shield_LT_TW
     Name: 聖之羽翼神盾-LT
+    Type: Armor
+    Weight: 400
+    Defense: 150
+    Slots: 1
+    Locations:
+      Left_Hand: true
+    ArmorLevel: 2
+    EquipLevelMin: 100
+    Refineable: true
+    Gradable: true
+    View: 4
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bDelayrate,-3;
+      bonus bAspdRate,3;
+      bonus bBaseAtk,10*(.@r/2);
+      bonus bMatk,10*(.@r/2);
+      if (.@r >= 7) {
+        bonus bBaseAtk,10*(.@r/2);
+        bonus bMatk,10*(.@r/2);
+      }
+      if (.@r >= 9) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+      }
+      if (.@r >= 12) {
+        bonus bDelayrate,-4;
+        bonus bAspd,2;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bPow,2;
+        bonus bSpl,2;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bPAtk,5;
+          bonus bSMatk,5;
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus2 bAddSize,Size_All,4*(.@r/3);
+            bonus2 bMagicAddSize,Size_All,4*(.@r/3);
+            if (.@g >= ENCHANTGRADE_A) {
+              if (.@r >= 13) {
+                bonus2 bResEff,Eff_Freeze,10000;
+                bonus2 bResEff,Eff_Stone,10000;
+                bonus2 bResEff,Eff_Stun,10000;
+                bonus2 bResEff,Eff_Sleep,10000;
+              }
+            }
+          }
+        }
+      }
   - Id: 470205
     AegisName: Astraea_Shoes_LT
     Name: 阿斯特莉亞戰靴-LT
+    Type: Armor
+    Weight: 250
+    Defense: 25
+    Slots: 1
+    Locations:
+      Shoes: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@g = getenchantgrade();
+      .@r = getrefine();
+      bonus bAllStats,3;
+      bonus bMdef,10;
+      if (.@r>=10) {  
+        if (readparam(bStr)>=100) {
+          bonus bMaxHPrate,10;
+          bonus bMaxSPrate,10;
+        }
+        if (readparam(bAgi)>=100) 
+          bonus bAspdRate,15;
+        if (readparam(bVit)>=100) 
+          bonus2 bSubSize,Size_Medium,15;
+        if (readparam(bInt)>=100) 
+          bonus bFixedCast,-500;
+        if (readparam(bDex)>=100) 
+          bonus bDelayrate,-7;
+        if (readparam(bLuk)>=100) {
+          bonus bCritical,10;
+          bonus bFlee2,5;
+        }
+      }
+      if (.@r>=13) {
+        if (readparam(bPow)>=60) 
+          bonus bShortAtkRate,15;
+        if (readparam(bsta)>=60) {
+            bonus bDelayrate,-8;
+            bonus bRes,30;
+            }
+        if (readparam(bwis)>=60) {
+            bonus bDelayrate,-8;
+            bonus bMRes,30;
+            }
+        if (readparam(bspl)>=60) 
+            bonus2 bMagicAddEle,ELE_ALL,15;
+        if (readparam(bcon)>=60) 
+            bonus bLongAtkRate,15;
+        if (readparam(bcrt)>=60) {
+            bonus bHPlus,10;
+            bonus bCRate,10;
+            }
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bRes,30;
+        bonus bMRes,30;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bPAtk,5;
+          bonus bSMatk,5;
+            if (.@g >= ENCHANTGRADE_B) {
+              bonus2 bAddSize,Size_All,15;
+              bonus2 bMagicAddSize,Size_All,15;
+              if (.@g >= ENCHANTGRADE_A) {
+                if( .@r >= 13)
+                  bonus bFixedCast,-500;
+               }
+            }
+         }
+      }
   - Id: 470199
     AegisName: Wine_Shoes_LT
     Name: 深紅魔術之靴-LT
+    Type: Armor
+    Weight: 300
+    Defense: 10
+    Slots: 1
+    Locations:
+      Shoes: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMdef,15;
+      bonus bAtkRate,5+(.@r/2);
+      bonus bMatkRate,5+(.@r/2);
+      bonus2 bSubEle,ELE_NEUTRAL,5;
+      bonus bPAtk,(.@r/3);
+      bonus bSMatk,(.@r/3);
+      if (.@r >= 11) {
+        bonus2 bSubEle,ELE_ALL,10;
+        bonus2 bSubEle,ELE_NEUTRAL,-10;
+      }
+      if (.@r >= 13) {
+        bonus bFixedCast,-600;
+        bonus bDelayrate,-6;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bRes,30;
+        bonus bMRes,30;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bLongAtkDef,5;
+          bonus2 bSubEle,ELE_NEUTRAL,5;
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bDelayrate,-4;
+            bonus bFixedCast,-200;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bSubEle,ELE_ALL,5;
+              if (.@r >= 13)
+              bonus bFixedCast,-200;
+            }
+          }
+        }
+      }
   - Id: 400433
     AegisName: Gothic_HW_TW_LT
     Name: 墮落羽翼髮夾-LT
+    Type: Armor
+    Weight: 300
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 1
+    Refineable: true
+    Gradable: true
+    View: 2372
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMaxHPrate,10;
+      bonus bDelayrate,-8;
+      bonus bDelayrate,-2*(.@r/2);
+      bonus bMaxHP,3000*(.@r/3);
+      if (.@r >= 7)
+        bonus bAspdRate,10;
+      if (.@r >= 9) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+      }
+      if (.@r >= 11) {
+        bonus2 bAddRace,RC_ALL,15;
+        bonus2 bMagicAddRace,RC_ALL,15;
+      }
+      if (.@r >= 13)
+        bonus2 bSubSize,Size_All,10;
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bPAtk,5;
+        bonus bSMatk,5;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bMaxHP,15000;
+          bonus bDelayrate,-5;
+          if (.@g >= ENCHANTGRADE_B) {
+            autobonus "{ bonus2 bMagicAtkEle,ELE_ALL,20; bonus bShortAtkRate,20; bonus bLongAtkRate,20; }",20,10000,BF_WEAPON|BF_MAGIC;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bSubEle,ELE_ALL,10;
+            }
+          }
+        }
+      }
   - Id: 400400
     AegisName: Red_Baby_Dragon_LT
     Name: 寶貝紅龍帽-LT
+    Type: Armor
+    Weight: 700
+    Slots: 1
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Refineable: true
+    Gradable: true
+    View: 2339
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMaxHP,3000;
+      bonus bMaxSP,200;
+      if (BaseLevel >= 200) {
+        bonus bPow,3;
+        bonus bPAtk,2;
+      }
+      bonus2 bSkillAtk,"RK_DRAGONBREATH",10*(.@r/2);
+      bonus2 bSkillAtk,"RK_DRAGONBREATH_WATER",10*(.@r/2);
+      bonus bLongAtkRate,5*(.@r/3);
+      if (.@r >= 7)
+        bonus bAspd,1;
+      if (.@r >= 9)
+        bonus bMaxHPrate,15;
+      if (.@r >= 11)
+        bonus bDelayrate,-10;
+      if (.@r >= 13) 
+        autobonus "{ bonus bLongAtkRate,25; }",20,10000,BF_WEAPON,"{ active_transform 1714,10000; }";
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bPAtk,5;
+        if (.@g >= ENCHANTGRADE_C) {
+          if (.@r >= 11)
+            bonus bDelayrate,-8;
+            if (.@g >= ENCHANTGRADE_B) {
+              if (.@r >= 13)
+                bonus bFixedCast,-500;
+                if (.@g >= ENCHANTGRADE_A) {
+                  bonus2 bSkillAtk,"RK_DRAGONBREATH",30;
+                  bonus2 bSkillAtk,"RK_DRAGONBREATH_WATER",30;
+                }
+            }
+        }
+      }
   - Id: 450263
     AegisName: Lunar_E_Armor_LT
     Name: 月全蝕魔力外袍-LT
+    Type: Armor
+    Weight: 600
+    Defense: 120
+    Slots: 1
+    Locations:
+      Armor: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMdef,10;
+      bonus2 bSubSize,Size_Medium,13;
+      bonus2 bSubSize,Size_Large,13;
+      bonus bDelayrate,.@r;
+      bonus bBaseAtk,15;
+      bonus bMatk,15;
+      bonus bMaxHPrate,5*(.@r/3);
+      bonus bAtkRate,5*(.@r/3);
+      bonus bMatkRate,5*(.@r/3);
+      if (.@r >= 9) {
+        bonus2 bAddEle,ELE_ALL,15;
+        bonus2 bMagicAddEle,ELE_ALL,15;
+        bonus bRes,20;
+        bonus bMRes,20;
+      }
+      if (.@r >= 13)
+        bonus2 bAddEffWhenHit,Eff_Freeze,2000;
+      if (.@g >= ENCHANTGRADE_D) {
+        if (.@r >= 13){
+          bonus bLongAtkDef,(readparam(bSta)/10);
+          bonus bNearAtkDef,(readparam(bWis)/10);
+        }
+          if (.@g >= ENCHANTGRADE_C) {
+            if (.@r >= 13) {
+              bonus bMaxHP,10000;
+              bonus2 bAddEff,Eff_Freeze,800;
+            }
+              if (.@g >= ENCHANTGRADE_B) {
+                bonus2 bAddEffWhenHit,Eff_Freeze,1500;
+                if (.@g >= ENCHANTGRADE_A) { 
+                  bonus2 bAddRace,RC_ALL,15;
+                  bonus2 bMagicAddRace,RC_ALL,15;
+                }
+              }
+          }
+      }
+          
   - Id: 470182
     AegisName: Agenda_Boots_LT_TW
     Name: 審判決議長靴-LT
+    Type: Armor
+    Weight: 300
+    Defense: 20
+    Slots: 1
+    Locations:
+      Shoes: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMdef,15;
+      bonus bUseSPrate,10;
+      bonus bBaseAtk,10*(.@r/2);
+      bonus bMatk,10*(.@r/2);
+      bonus2 bMagicAtkEle,ELE_NEUTRAL,10*(.@r/3);
+      bonus2 bMagicAtkEle,ELE_HOLY,10*(.@r/3);
+      bonus2 bSkillAtk,"SR_RIDEINLIGHTNING",20*(.@r/3);
+      if (.@r >= 7)
+        bonus bVariableCastrate,-10;
+      if (.@r >= 9) {
+        bonus bAtkRate,7;
+        bonus bMatkRate,7;
+      }
+      if (.@r >= 11) {
+        bonus2 bAddRace,RC_ALL,10;
+        bonus2 bMagicAddRace,RC_ALL,10;
+      }
+      if (.@r >= 12) {
+        bonus2 bSkillCooldown,"SR_RIDEINLIGHTNING",-500;
+        bonus2 bSkillCooldown,"AB_ADORAMUS",-1000;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bPAtk,2;
+        bonus bSMatk,2;
+        if (.@g >= ENCHANTGRADE_C) {
+          autobonus "{ bonus bAtkRate,25; bonus bMatkRate,25; }",30,10000,BF_WEAPON|BF_MAGIC;
+          if (.@g >= ENCHANTGRADE_B) {
+            if (.@r >= 12)
+            bonus bFixedCast,-500;
+          }
+        }
+      }
   - Id: 460066
     AegisName: Fake_Alloy_Pot_LT
     Name: 仿生鋁合金花盆-LT
+    Type: Armor
+    Weight: 1000
+    Defense: 100
+    Slots: 1
+    Locations:
+      Left_Hand: true
+    ArmorLevel: 2
+    EquipLevelMin: 100
+    Refineable: true
+    Gradable: true
+    View: 4
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMdef,20;
+      bonus bAllStats,(.@r/2);
+      bonus bMaxHPrate,2*(.@r/2);
+      bonus2 bSubEle,ELE_NEUTRAL,5*(.@r/3);
+      if (.@r >= 9) {
+        bonus bAllStats,3;
+        bonus bMaxHPrate,5;
+      }
+      if (.@r >= 11) {
+        bonus bAspdRate,10;
+        bonus bDelayrate,-10;
+      }
+      if (.@r >= 12) {
+        bonus bAllStats,5;
+        bonus bMaxHPrate,6;
+      }
+      if (eaclass()&EAJL_THIRD && BaseJob == Job_Alchemist) {
+        bonus2 bSkillAtk,"CR_ACIDDEMONSTRATION",3*(getskilllv("GN_REMODELING_CART")+getskilllv("GN_CARTBOOST"));
+        bonus2 bSkillAtk,"GN_HELLS_PLANT",3*(getskilllv("GN_REMODELING_CART")+getskilllv("GN_CARTBOOST"));
+        bonus2 bSkillAtk,"GN_CARTCANNON",3*getskilllv("GN_CART_TORNADO");
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bDelayrate,-5;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bPAtk,4;
+          bonus bSMatk,4;
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus2 bSubEle,ELE_ALL,5;
+            if (eaclass()&EAJL_THIRD && BaseJob == Job_Alchemist) {
+              bonus2 bAddSize,Size_All,20;
+            }
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus bCritical,10;
+              bonus bCritAtkRate,30;
+              bonus bNoWalkDelay;
+              if (eaclass()&EAJL_THIRD && BaseJob == Job_Alchemist) {
+                bonus bPAtk,6;
+                bonus bShortAtkRate,20;
+                bonus bLongAtkRate,20;
+                if (.@r >= 12) {
+                  bonus3 bAutoSpellWhenHit,"CR_ACIDDEMONSTRATION",max(getskilllv("CR_ACIDDEMONSTRATION"),1),500;
+                  bonus3 bAutoSpellWhenHit,"GN_SPORE_EXPLOSION",max(getskilllv("GN_SPORE_EXPLOSION"),1),500;
+                  bonus3 bAutoSpellWhenHit,"GN_CARTCANNON",max(getskilllv("GN_CARTCANNON"),1),500;
+                  bonus5 bAutoSpellOnSkill,"GN_CART_TORNADO","BO_EXPLOSIVE_POWDER",max(getskilllv("GN_CARTCANNON"),1),700,1;
+                }
+              }
+            }
+          }
+        }
+      }
   - Id: 490467
     AegisName: Garnet_Pendant_LT
     Name: 深紅寶石結晶之墜-LT
+    Type: Armor
+    Weight: 100
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Script: |
+      bonus bMdef,15;
+      bonus bDelayrate,-5;
+      bonus bAtkRate,12;
+      bonus bMatkRate,12;
+      bonus2 bSubEle,ELE_ALL,5;
+      bonus bLongAtkDef,5;
+      if(eaclass()&EAJL_THIRD && BaseJob != Job_Wizard){
+        skill "WL_RECOGNIZEDSPELL",1;
+        bonus2 bSkillCooldown,"WL_RECOGNIZEDSPELL",60000;
+      }
   - Id: 490468
     AegisName: Wine_Jewel_Brooch_LT
     Name: 深紅寶石胸針-LT
+    Type: Armor
+    Weight: 100
+    Defense: 10
+    Slots: 1
+    Locations:
+      Left_Accessory: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Script: |
+      bonus bMdef,15;
+      bonus bDelayrate,-5;
+      bonus bAtkRate,12;
+      bonus bMatkRate,12;
+      bonus2 bSubEle,ELE_ALL,5;
+      bonus bLongAtkDef,5;
+      skill "MO_ABSORBSPIRITS",1;
   - Id: 490088
     AegisName: maypay_06
     Name: 絕望的連通之環
+    Type: Armor
+    Weight: 100
+    Defense: 10
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 100
+    Script: |
+      bonus2 bAddClass,CLASS_ALL,5;
+      bonus bMatkRate,5;
   - Id: 490452
     AegisName: Seppay_01
     Name: 絕望的連通之環-LT
+    Type: Armor
+    Weight: 300
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 2
+    EquipLevelMin: 200
+    Script: |
+      bonus bAllStats,4;
+      bonus bVariableCastrate,-5;
+      bonus2 bAddClass,CLASS_ALL,8;
+      bonus2 bMagicAddClass,CLASS_ALL,8;
   - Id: 490086
     AegisName: Eclipsedefmind_TW
     Name: 月蝕守護之心
+    Type: Armor
+    Weight: 200
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 100
+    Script: |
+      bonus bMdef,10;
+      bonus bMaxHPrate,8;
+      bonus2 bMagicAtkEle,ELE_FIRE,10;
+      bonus2 bSubSkill,"SJ_NEWMOONKICK",20;
+      bonus2 bSubSkill,"SJ_FULLMOONKICK",20;
+      skill "MG_SIGHT",1;
   - Id: 490440
     AegisName: Eclipsedefmind_LT
     Name: 月蝕守護之心-LT
+    Type: Armor
+    Weight: 100
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 2
+    EquipLevelMin: 190
+    Script: |
+      skill "MG_SIGHT",1;
+      bonus bMaxHPrate,15;
+      bonus bShortAtkRate,10;
+      bonus bLongAtkRate,10;
+      bonus2 bMagicAtkEle,ELE_ALL,10;
   - Id: 490404
     AegisName: Temporal_Ring_TW_LT
     Name: 時光超越者之戒-LT
+    Type: Armor
+    Weight: 300
+    Slots: 1
+    Locations:
+      Both_Accessory: true
+    ArmorLevel: 2
+    EquipLevelMin: 200
+    Script: |
+      bonus bAtkRate,7;
+      bonus bMatkRate,7;

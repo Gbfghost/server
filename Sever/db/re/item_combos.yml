@@ -33068,7 +33068,7 @@ Body:
           - Bloody_Celine_Dress_TW
           - XM_Celine_Kimi_Card
     Script: |
-      autobonus "{ bonus bMatkRate,25;bonus bDelayrate,-50;bonus5 bAutoSpell,AB_VITUPERATUM,1,50,BF_MAGIC,1; }",3000,5000,BF_MAGIC,"{ active_transform 2996,5000; }";
+      autobonus "{ bonus bMatkRate,25;bonus bDelayrate,-50;bonus5 bAutoSpell,AB_VITUPERATUM,1,50,BF_MAGIC,1; }",300,5000,BF_MAGIC,"{ active_transform 2996,5000; }";
   - Combos:
       - Combo:
           - Bloody_Celine_Dress_TW
@@ -33436,14 +33436,14 @@ Body:
       - Combo:
           - Leo_Shoes_J
           - Garnet_Pendant_TW
-          - Cassock_Str_hey
+          - Wine_Jewel_Brooch_TW
     Script: |
       .@r = getequiprefinerycnt(EQI_SHOES);
       bonus2 bSubEle,Ele_Neutral,(.@r/3)*3;
   - Combos:
       - Combo:
           - Garnet_Pendant_TW
-          - Cassock_Str_hey
+          - Wine_Jewel_Brooch_TW
     Script: |
       bonus2 bSubEle,Ele_All,5;
       if(BaseJob == Job_Super_Novice){
@@ -34181,3 +34181,263 @@ Body:
           }
         }
       }
+  - Combos:
+      - Combo:
+          - Temporal_Boots_LT_TW
+          - Temporal_Ring_TW_LT
+    Script: |
+      .@r = getequiprefinerycnt(6);
+      bonus bPAtk,.@r;
+      bonus bSMatk,.@r;
+      bonus bMaxHPrate,2*.@r;
+      bonus bMaxSPrate,2*.@r;
+      if (getenchantgrade(2) >= ENCHANTGRADE_A){
+      	bonus2 bAddEle,ELE_ALL,25;
+      	bonus2 bMagicAddEle,ELE_ALL,25;
+      }
+  - Combos:
+      - Combo:
+          - Bear's_Power
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bBaseAtk,100;
+  - Combos:
+      - Combo:
+          - Speed_Of_Light
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bDelayrate,-12;
+  - Combos:
+      - Combo:
+          - Muscle_Fool
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bMaxHPrate,20;
+  - Combos:
+      - Combo:
+          - Runaway_Magic
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bMatk,100;
+  - Combos:
+      - Combo:
+          - Hawkeye
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bLongAtkRate,20;
+  - Combos:
+      - Combo:
+          - Lucky_Day
+          - Temporal_Ring_TW_LT
+    Script: |
+      bonus bCritAtkRate,20;
+  - Combos:
+      - Combo:
+          - Eclipsedefmind_LT
+          - Lunar_E_Armor_LT
+    Script: |
+      bonus bSta,8;
+      bonus bWis,8;
+      bonus bFixedCast,-300;
+      bonus bNearAtkDef,8;
+      bonus bLongAtkDef,8;
+      if (getenchantgrade(7) >= ENCHANTGRADE_A){
+      bonus2 bAddRace,RC_ALL,15;
+      bonus2 bMagicAddRace,RC_ALL,15;
+      bonus2 bAddEffWhenHit,Eff_Freeze,1000;
+      }
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Demon_God's_Apostle_Shnaim_Card
+    Script: |
+      bonus bMaxHPrate,15;
+      bonus bBaseAtk,50;
+      bonus bMatk,50;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Demon_God's_Apostle_Ahat_Card
+    Script: |
+      bonus bMaxHPrate,15;
+      bonus bBaseAtk,50;
+      bonus bMatk,50;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Force3
+    Script: |
+      bonus bPow,5;
+      bonus bShortAtkRate,8;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Intellect3
+    Script: |
+      bonus bSpl,5;
+      bonus2 bMagicAtkEle,ELE_ALL,10;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Artful3
+    Script: |
+      bonus bCon,5;
+      bonus bLongAtkRate,8;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Swiftness3
+    Script: |
+      bonus bAspd,1;
+      bonus bDelayrate,-5;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Fortune3
+    Script: |
+      bonus bCRate,5;
+      bonus bCritAtkRate,10;
+  - Combos:
+      - Combo:
+          - Seppay_01
+          - Tough3
+    Script: |
+      bonus bRes,20;
+      bonus bMRes,20;
+      bonus bMaxHPrate,5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Demon_God's_Apostle_Shnaim_Card
+    Script: |
+      bonus bMaxHPrate,15;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Demon_God's_Apostle_Ahat_Card
+    Script: |
+      bonus bMaxHPrate,15;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Force3
+    Script: |
+      bonus bStr,4;
+      bonus2 bAddClass,CLASS_ALL,5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Intellect3
+    Script: |
+      bonus bInt,4;
+      bonus bMatkRate,5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Artful3
+    Script: |
+      bonus bDex,4;
+      bonus bVariableCastrate,-5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Swiftness3
+    Script: |
+      bonus bAgi,4;
+      bonus bAspdRate,5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Fortune3
+    Script: |
+      bonus bLuk,4;
+      bonus bCritAtkRate,5;
+  - Combos:
+      - Combo:
+          - maypay_06
+          - Tough3
+    Script: |
+      bonus bVit,4;
+      bonus bMaxHPrate,5;
+  - Combos:
+      - Combo:
+          - Wine_Jewel_Brooch_LT
+          - Garnet_Pendant_LT
+          - Wine_Shoes_LT
+    Script: |
+      .@r = getequiprefinerycnt(EQI_SHOES);
+      bonus2 bSubEle,ELE_ALL,5;
+      bonus bLongAtkDef,-2*((readparam(bPow)+readparam(bSPL))/10);
+      bonus2 bSubEle,ELE_ALL,3*(.@r/3);
+      bonus2 bSubEle,ELE_WATER,3*(.@r/4);
+      bonus2 bSubEle,ELE_WIND,3*(.@r/4);
+      bonus2 bSubEle,ELE_EARTH,3*(.@r/4);
+      bonus2 bSubEle,ELE_FIRE,3*(.@r/4);
+      if (getenchantgrade(2) >= ENCHANTGRADE_A){
+        bonus bLongAtkDef,5;
+      }
+  - Combos:
+      - Combo:
+          - Wine_Jewel_Brooch_LT
+          - Garnet_Pendant_LT
+    Script: |
+      bonus bLongAtkDef,5;
+      bonus2 bSubRace,RC_PLAYER_HUMAN,5;
+      bonus2 bSubRace,RC_DEMIHUMAN,5;
+  - Combos:
+      - Combo:
+          - Lunar_E_Armor_LT
+          - Eclipsedefmind_TW
+    Script: |
+      bonus bSta,8;
+      bonus bWis,8;
+      bonus bFixedCast,-300;
+  - Combos:
+      - Combo:
+          - Lunar_E_Armor_LT
+          - Marc_Card
+    Script: |
+      .@r = getequiprefinerycnt(2);
+      if (.@r >= 7) {
+        bonus bMaxHPrate,25;
+        bonus2 bAddSize,Size_All,15;
+        bonus2 bMagicAddSize,Size_All,15;
+        bonus2 bSubSize,Size_Large,10;
+        bonus2 bSubSize,Size_Medium,10;
+      }
+  - Combos:
+      - Combo:
+          - Lunar_E_Armor_LT
+          - Garm_Card
+      - Combo:
+          - Lunar_E_Armor_LT
+          - Garm_Card_
+    Script: |
+      .@r = getequiprefinerycnt(2);
+      if (.@r >= 7) {
+        bonus2 bAddSize,Size_All,25;
+        bonus2 bMagicAddSize,Size_All,25;
+        bonus2 bResEff,Eff_Freeze,10000;
+        bonus2 bSubSize,Size_Large,15;
+        bonus2 bSubSize,Size_Medium,15;
+       }
+  - Combos:
+      - Combo:
+          - Wine_Shoes_LT
+          - Garnet_Pendant_TW
+          - Wine_Jewel_Brooch_TW
+    Script: |
+      .@r = getequiprefinerycnt(EQI_SHOES);
+      bonus2 bSubEle,ELE_ALL,3*(.@r/3);
+      bonus2 bSubEle,ELE_WATER,3*(.@r/4);
+      bonus2 bSubEle,ELE_WIND,3*(.@r/4);
+      bonus2 bSubEle,ELE_EARTH,3*(.@r/4);
+      bonus2 bSubEle,ELE_FIRE,3*(.@r/4);
+  - Combos:
+      - Combo:
+          - Astraea_Cape_LT
+          - Astraea_Shoes_LT
+    Script: |
+      bonus2 bSubRace,RC_ALL,10;
+      bonus bMaxHPrate,10;
+      bonus bMaxSPrate,10;

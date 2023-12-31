@@ -3419,6 +3419,192 @@ Body:
         ChangeRefine: -5
   - Item: C_Armor_Reform_1
     BaseItems:
+      - BaseItem: maypay_05
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 100
+         - Material: Seppay_07
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_06
+        ChangeRefine: -5
+      - BaseItem: maypay_04
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 100
+         - Material: Seppay_07
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_05
+        ChangeRefine: -5
+      - BaseItem: maypay_03
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 100
+         - Material: Seppay_07
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_04
+        ChangeRefine: -5
+      - BaseItem: maypay_02
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 100
+         - Material: Seppay_07
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_03
+        ChangeRefine: -5
+      - BaseItem: maypay_01
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 100
+         - Material: Seppay_07
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_02
+        ChangeRefine: -5
+      - BaseItem: Astrea_Cape
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Valhalla_Flower
+           Amount: 50
+         - Material: Phlogopite
+           Amount: 100
+         - Material: Ymir_Heart_P_TW
+           Amount: 2
+        ResultItem: Astraea_Cape_LT
+        ChangeRefine: -5
+      - BaseItem: Feather_Shield
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Gold
+           Amount: 66
+         - Material: Soft_Feather
+           Amount: 200
+         - Material: Ymir_Heart_P_TW
+           Amount: 3
+        ResultItem: Feather_Shield_LT_TW
+        ChangeRefine: -5
+      - BaseItem: Astraea_Shoes
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Valhalla_Flower
+           Amount: 30
+         - Material: Muscovite
+           Amount: 100
+         - Material: Ymir_Heart_P_TW
+           Amount: 2
+        ResultItem: Astraea_Shoes_LT
+        ChangeRefine: -5
+      - BaseItem: Wine_Shoes
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Dark_Red_Jewel
+           Amount: 100
+         - Material: Cardinal_Jewel
+           Amount: 100
+         - Material: Red_Magic_Key_TW
+           Amount: 1
+        ResultItem: Wine_Shoes_LT
+        ChangeRefine: -5
+      - BaseItem: Bloody_Celine_Dress_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Bloody_Coin
+           Amount: 10000
+         - Material: XM_Celine_Kimi_Card
+           Amount: 1
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: B_Celine_D_LT_TW
+        ChangeRefine: -5
+      - BaseItem: Gothic_Heart_Wing_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Soft_Feather
+           Amount: 100
+         - Material: Rune_Of_Darkness
+           Amount: 100
+         - Material: Ymir_Heart_P_TW
+           Amount: 2
+        ResultItem: Gothic_HW_TW_LT
+        ChangeRefine: -5
+      - BaseItem: Red_Baby_Dragon_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Dragenergy_Red
+           Amount: 100
+         - Material: Drabone_S
+           Amount: 100
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Red_Baby_Dragon_LT
+        ChangeRefine: -5
+      - BaseItem: lunar_eclipse_Armor_
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Fang_Of_Garm
+           Amount: 100
+         - Material: Garm_Baby_Card
+           Amount: 10
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Lunar_E_Armor_LT
+        ChangeRefine: -5
+      - BaseItem: Agenda_Shoes_TW
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_1
+           Amount: 150
+         - Material: Brigan
+           Amount: 150
+         - Material: Angel_Dream
+           Amount: 150
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Agenda_Boots_LT_TW
+        ChangeRefine: -5
       - BaseItem: Devil_Flame_Manteau_TW
         MinimumRefine: 9
         CardsAllowed: true
@@ -6022,6 +6208,79 @@ Body:
         ResultItem: Fatalist_LT
   - Item: C_Armor_Reform_3
     BaseItems:
+      - BaseItem: Fake_Alloy_Pot
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: C_Flowerpot_Mask
+           Amount: 1
+         - Material: Pot_Stone
+           Amount: 200
+         - Material: Armor_Stone_3
+           Amount: 100
+         - Material: Ymir_Heart_TW
+           Amount: 1
+        ResultItem: Fake_Alloy_Pot_LT
+        ChangeRefine: -1
+      - BaseItem: Garnet_Pendant_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Acc_Stone_3
+           Amount: 100
+         - Material: Dark_Red_Jewel
+           Amount: 50
+         - Material: Cardinal_Jewel_
+           Amount: 50
+         - Material: Crimson_M_Petal
+           Amount: 1
+        ResultItem: Garnet_Pendant_LT
+      - BaseItem: Wine_Jewel_Brooch_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Acc_Stone_3
+           Amount: 100
+         - Material: Dark_Red_Jewel
+           Amount: 50
+         - Material: Cardinal_Jewel_
+           Amount: 50
+         - Material: Crimson_M_Petal
+           Amount: 1
+        ResultItem: Wine_Jewel_Brooch_LT
+      - BaseItem: maypay_06
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Acc_Stone_3
+           Amount: 100
+         - Material: Seppay_08
+           Amount: 1
+         - Material: M_Dimension_Essence
+           Amount: 5
+        ResultItem: Seppay_01
+      - BaseItem: Eclipsedefmind_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_3
+           Amount: 200
+         - Material: Feather
+           Amount: 777
+         - Material: Rainbow_Carrot
+           Amount: 50
+         - Material: Ymir_Heart_P_TW
+           Amount: 1
+        ResultItem: Eclipsedefmind_LT
+      - BaseItem: Temporal_Ring_TW
+        CardsAllowed: true
+        Materials:
+         - Material: Acc_Stone_3
+           Amount: 100
+         - Material: Time_Temp_Core_TW
+           Amount: 1
+         - Material: Spell_Of_Time
+           Amount: 200
+         - Material: M_Dimension_Essence
+           Amount: 1
+        ResultItem: Temporal_Ring_TW_LT
       - BaseItem: Magic_Circle_TW
         CardsAllowed: true
         Materials:
