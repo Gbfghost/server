@@ -186462,7 +186462,7 @@ Body:
       }
       if (.@r >= 12) {
           bonus2 bSkillCooldown,"KO_HUUMARANKA",-1000;
-          autobonus3 "{ bonus bMatk,150; }",1000,40000,"KO_IZAYOI";
+          autobonus3 "{ bonus bMatk,1500; }",1000,40000,"KO_IZAYOI";
       }
       if (.@g >= ENCHANTGRADE_D) {
         bonus bLongAtkRate,2*(.@r/3);
