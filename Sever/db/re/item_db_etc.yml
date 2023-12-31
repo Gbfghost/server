@@ -65102,6 +65102,27 @@ Body:
     Weight: 10
     Flags:
       BuyingStore: true
+  - Id: 1001256
+    AegisName: Ymir_Heart_P_TW
+    Name: 伊美樂心臟能量碎片
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
+  - Id: 1001256
+    AegisName: Ymir_Heart_P_TW
+    Name: 伊美樂心臟能量碎片
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
+  - Id: 1001557
+    AegisName: 2023Seppay_07
+    Name: 時光超越結晶
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
   - Id: 1220001
     AegisName: Kunai
     Name: 飛刀
