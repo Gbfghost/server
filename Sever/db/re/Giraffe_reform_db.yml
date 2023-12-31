@@ -6022,42 +6022,6 @@ Body:
         ResultItem: Fatalist_LT
   - Item: C_Armor_Reform_3
     BaseItems:
-      - BaseItem: maypay_06
-        MinimumRefine: 9
-        CardsAllowed: true
-        Materials:
-         - Material: Acc_Stone_3
-           Amount: 100
-         - Material: Seppay_08
-           Amount: 1
-         - Material: M_Dimension_Essence
-           Amount: 5
-        ResultItem: Astraea_Cape_LT
-        ChangeRefine: -5
-      - BaseItem: Eclipsedefmind_TW
-        CardsAllowed: true
-        Materials:
-         - Material: Armor_Stone_3
-           Amount: 200
-         - Material: Feather
-           Amount: 777
-         - Material: Rainbow_Carrot
-           Amount: 50
-         - Material: Ymir_Heart_P_TW
-           Amount: 1
-        ResultItem: Eclipsedefmind_LT
-      - BaseItem: Temporal_Ring_TW
-        CardsAllowed: true
-        Materials:
-         - Material: Acc_Stone_3
-           Amount: 100
-         - Material: Time_Temp_Core_TW
-           Amount: 1
-         - Material: Spell_Of_Time
-           Amount: 200
-         - Material: M_Dimension_Essence
-           Amount: 1
-        ResultItem: Temporal_Ring_TW_LT
       - BaseItem: Magic_Circle_TW
         CardsAllowed: true
         Materials:
