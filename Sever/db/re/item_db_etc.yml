@@ -65109,16 +65109,16 @@ Body:
     Weight: 10
     Trade:
       NoDrop: true
-  - Id: 1001256
-    AegisName: Ymir_Heart_P_TW
-    Name: 伊美樂心臟能量碎片
+  - Id: 1001437
+    AegisName: Time_Temp_Core_TW
+    Name: 時光超越結晶
     Type: Etc
     Weight: 10
     Trade:
       NoDrop: true
   - Id: 1001557
     AegisName: 2023Seppay_07
-    Name: 時光超越結晶
+    Name: 超新星的祝福
     Type: Etc
     Weight: 10
     Trade:
