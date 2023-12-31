@@ -3477,7 +3477,7 @@ Body:
            Amount: 3
          - Material: Ymir_Heart_TW
            Amount: 1
-        ResultItem: Temporal_Boots_TW_LT
+        ResultItem: Temporal_Boots_LT_TW
         ChangeRefine: -5
       - BaseItem: Thanos_Helm_1
         MinimumRefine: 9

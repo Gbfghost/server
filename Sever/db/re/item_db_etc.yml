@@ -65137,6 +65137,13 @@ Body:
     Weight: 10
     Trade:
       NoDrop: true
+  - Id: 1001573
+    AegisName: Crimson_M_Petal
+    Name: 深紅魔術花瓣
+    Type: Etc
+    Weight: 10
+    Trade:
+      NoDrop: true
   - Id: 1220001
     AegisName: Kunai
     Name: 飛刀

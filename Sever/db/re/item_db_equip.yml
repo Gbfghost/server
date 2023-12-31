@@ -151604,7 +151604,7 @@ Body:
          bonus2 bMagicAtkEle,Ele_All,7;
       }
   - Id: 470127
-    AegisName: Shoes_Of_Judex
+    AegisName: Wine_Shoes
     Name: 深紅魔術之靴
     Type: Armor
     Weight: 300
@@ -184686,7 +184686,7 @@ Body:
           }
       }
   - Id: 470183
-    AegisName: Temporal_Boots_TW_LT
+    AegisName: Temporal_Boots_LT_TW
     Name: 時光超越者之靴-LT
     Type: Armor
     Buy: 20
@@ -186223,3 +186223,315 @@ Body:
         }
       }  
         
+  - Id: 400551
+    AegisName: Seppay_06
+    Name: 潛能激發冒險帽-LT
+    Type: Armor
+    Weight: 100
+    Defense: 20
+    Slots: 1
+    Jobs:
+      Novice: true
+      SuperNovice: true
+      Hyper_Novice: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 130
+    Refineable: true
+    Gradable: true
+    View: 2446
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bBaseAtk,20*(.@r/2);
+      bonus bMatk,20*(.@r/2);
+      bonus bMaxHP,2000*(.@r/2);
+      bonus2 bAddClass,CLASS_NORMAL,7*(.@r/3);
+      bonus2 bMagicAddClass,CLASS_NORMAL,7*(.@r/3);
+      bonus2 bIgnoreDefClassRate,CLASS_NORMAL,5*(.@r/3);
+      bonus2 bIgnoreMdefClassRate,CLASS_NORMAL,5*(.@r/3);
+      if (.@r >= 7) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+        bonus bAspdRate,10;
+      }
+      if (.@r >= 9) {
+        bonus2 bAddSize,Size_All,10;
+        bonus2 bMagicAddSize,Size_All,10;
+      }
+      if (.@r >= 11) {
+        bonus bShortAtkRate,15;
+        bonus bLongAtkRate,15;
+        bonus2 bMagicAtkEle,ELE_ALL,15;
+        bonus2 bSkillCooldown,"WZ_VERMILION",-4000;
+        bonus2 bSkillCooldown,"WZ_STORMGUST",-5000;
+        bonus5 bAutoSpell,"RK_STORMBLAST",1,20,BF_SHORT,1;
+      }
+      if (.@r >= 12) {
+            skill "WL_RECOGNIZEDSPELL",3;
+            skill "BS_MAXIMIZE",5;
+            bonus bDelayrate,-20;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus2 bAddClass,CLASS_NORMAL,4*(.@r/3);
+        bonus2 bMagicAddClass,CLASS_NORMAL,4*(.@r/3);
+        if (.@g >= ENCHANTGRADE_C) {
+          skill "RK_IGNITIONBREAK",5;
+          skill "WL_CRIMSONROCK",5;
+          bonus2 bSkillAtk,"RK_IGNITIONBREAK",15*(.@r/2);
+          bonus2 bSkillAtk,"WL_CRIMSONROCK",15*(.@r/2);
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,7;
+            bonus bSMatk,7;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bAddRace,RC_ALL,10;
+              bonus2 bMagicAddRace,RC_ALL,10;
+              bonus2 bSkillCooldown,"RK_IGNITIONBREAK",-1000;
+              bonus2 bSkillCooldown,"WL_CRIMSONROCK",-3000;
+            }
+          }
+        }
+      }
+  - Id: 400550
+    AegisName: Seppay_05
+    Name: 喵族的薪火相傳-LT
+    Type: Armor
+    Weight: 100
+    Defense: 20
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 130
+    Refineable: true
+    Gradable: true
+    View: 2445
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bBaseAtk,20*(.@r/2);
+      bonus bMatk,20*(.@r/2);
+      bonus2 bSkillAtk,"SU_PICKYPECK",20*(.@r/3);
+      bonus2 bSkillAtk,"SU_LUNATICCARROTBEAT",20*(.@r/3);
+      bonus2 bSkillAtk,"SU_SV_STEMSPEAR",20*(.@r/3);
+      bonus2 bSkillAtk,"SU_CN_METEOR",20*(.@r/3);
+      if (.@r >= 7) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+        bonus bAspdRate,10;
+      }
+      if (.@r >= 9) {
+        bonus2 bAddSize,Size_All,10;
+        bonus2 bMagicAddSize,Size_All,10;
+      }
+      if (.@r >= 11) {
+        bonus bLongAtkRate,15;
+        bonus2 bMagicAtkEle,ELE_ALL,15;
+      }
+      if (.@r >= 12) {
+          bonus2 bSkillCooldown,"SU_LUNATICCARROTBEAT",-500;
+          bonus2 bSkillCooldown,"SU_NYANGGRASS",-30000;
+          if (getskilllv("SU_SPIRITOFSEA") == 1)
+            skill "CR_REFLECTSHIELD",5;
+            bonus5 bAutoSpell,"SU_LUNATICCARROTBEAT",5,10,BF_SHORT|BF_LONG,1;
+            bonus5 bAutoSpell,"SU_CN_METEOR",5,10,BF_SHORT|BF_LONG,1;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bDelayrate,-10;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus2 bSkillAtk,"SU_PICKYPECK",10*(.@r/3);
+          bonus2 bSkillAtk,"SU_LUNATICCARROTBEAT",10*(.@r/3);
+          bonus2 bSkillAtk,"SU_SV_STEMSPEAR",10*(.@r/3);
+          bonus2 bSkillAtk,"SU_CN_METEOR",10*(.@r/3);
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,7;
+            bonus bSMatk,7;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bAddRace,RC_ALL,10;
+              bonus2 bMagicAddRace,RC_ALL,10;
+              bonus2 bSkillCooldown,"SU_STOOP",-5000;
+            }
+          }
+        }
+      }
+  - Id: 400549
+    AegisName: Seppay_04
+    Name: 精銳部隊帽-LT
+    Type: Armor
+    Weight: 100
+    Defense: 20
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+      Night_Watch: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 130
+    Refineable: true
+    Gradable: true
+    View: 2444
+    Script: |+
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bBaseAtk,20*(.@r/2);
+      bonus2 bSkillAtk,"RL_FIRE_RAIN",20*(.@r/3);
+      bonus2 bSkillAtk,"RL_R_TRIP",20*(.@r/3);
+      bonus2 bSkillAtk,"RL_FIREDANCE",20*(.@r/3);
+      bonus2 bSkillAtk,"RL_D_TAIL",20*(.@r/3);
+      if (.@r >= 7) {
+        bonus bAtkRate,10;
+        bonus bAspdRate,10;
+      }
+      if (.@r >= 9) 
+        bonus2 bAddSize,Size_All,10;
+      if (.@r >= 11) 
+        bonus bLongAtkRate,20;
+      if (.@r >= 12) {
+        bonus2 bSkillCooldown,"RL_FIRE_RAIN",-2000;
+        bonus2 bSkillCooldown,"RL_D_TAIL",-2000;
+        bonus2 bSkillCooldown,"RL_R_TRIP",-500;
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bLongAtkRate,2*(.@r/3);
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus2 bSkillAtk,"RL_FIRE_RAIN",10*(.@r/3);
+          bonus2 bSkillAtk,"RL_R_TRIP",10*(.@r/3);
+          bonus2 bSkillAtk,"RL_FIREDANCE",10*(.@r/3);
+          bonus2 bSkillAtk,"RL_D_TAIL",10*(.@r/3);
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,7;
+            bonus bSMatk,7;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bAddRace,RC_ALL,10;
+              bonus2 bMagicAddRace,RC_ALL,10;
+              bonus2 bSkillCooldown,"RL_AM_BLAST",-2000;
+              bonus2 bSkillCooldown,"RL_BANISHING_BUSTER",-1500;
+            }
+          }
+        }
+      }
+
+            
+  - Id: 400548
+    AegisName: Seppay_03
+    Name: 元靈繼承者-LT
+    Type: Armor
+    Weight: 100
+    Defense: 20
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+      Shiranui: true
+      Shinkiro: true
+    Locations:
+      Head_Top: true
+    ArmorLevel: 2
+    EquipLevelMin: 130
+    Refineable: true
+    Gradable: true
+    View: 2443
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bBaseAtk,20*(.@r/2);
+      bonus bMatk,20*(.@r/2);
+      bonus2 bSkillAtk,"KO_HUUMARANKA",20*(.@r/3);
+      bonus2 bSkillAtk,"KO_JYUMONJIKIRI",20*(.@r/3);
+      bonus2 bSkillAtk,"NJ_BAKUENRYU",20*(.@r/3);
+      bonus2 bSkillAtk,"NJ_HYOUSYOURAKU",20*(.@r/3);
+      bonus2 bSkillAtk,"NJ_KAMAITACHI",20*(.@r/3);
+      if (.@r >= 7) {
+        bonus bAtkRate,10;
+        bonus bMatkRate,10;
+        bonus bAspdRate,10;
+      }
+      if (.@r >= 9) {
+        bonus2 bAddSize,Size_All,10;
+        bonus2 bMagicAddSize,Size_All,10;
+      }
+      if (.@r >= 11) {
+        bonus bLongAtkRate,15;
+        bonus2 bMagicAtkEle,ELE_ALL,15;
+      }
+      if (.@r >= 12) {
+          bonus2 bSkillCooldown,"KO_HUUMARANKA",-1000;
+          autobonus3 "{ bonus bMatk,150; }",1000,40000,"KO_IZAYOI";
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bLongAtkRate,2*(.@r/3);
+        bonus2 bMagicAtkEle,ELE_ALL,2*(.@r/3);
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus2 bSkillAtk,"KO_HUUMARANKA",10*(.@r/3);
+          bonus2 bSkillAtk,"KO_JYUMONJIKIRI",10*(.@r/3);
+          bonus2 bSkillAtk,"NJ_BAKUENRYU",10*(.@r/3);
+          bonus2 bSkillAtk,"NJ_HYOUSYOURAKU",10*(.@r/3);
+          bonus2 bSkillAtk,"NJ_KAMAITACHI",10*(.@r/3);
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,7;
+            bonus bSMatk,7;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus2 bAddRace,RC_ALL,10;
+              bonus2 bMagicAddRace,RC_ALL,10;
+              bonus2 bSkillCooldown,"KO_KYOUGAKU",-7000;
+            }
+          }
+        }
+      }
+  - Id: 400547
+    AegisName: Seppay_02
+    Name: 萬物與靈魂的真諦-LT
+  - Id: 480338
+    AegisName: Astraea_Cape_LT
+    Name: 阿斯特莉亞斗篷-LT
+  - Id: 460053
+    AegisName: Feather_Shield_LT_TW
+    Name: 聖之羽翼神盾-LT
+  - Id: 470205
+    AegisName: Astraea_Shoes_LT
+    Name: 阿斯特莉亞戰靴-LT
+  - Id: 470199
+    AegisName: Wine_Shoes_LT
+    Name: 深紅魔術之靴-LT
+  - Id: 400433
+    AegisName: Gothic_HW_TW_LT
+    Name: 墮落羽翼髮夾-LT
+  - Id: 400400
+    AegisName: Red_Baby_Dragon_LT
+    Name: 寶貝紅龍帽-LT
+  - Id: 450263
+    AegisName: Lunar_E_Armor_LT
+    Name: 月全蝕魔力外袍-LT
+  - Id: 470182
+    AegisName: Agenda_Boots_LT_TW
+    Name: 審判決議長靴-LT
+  - Id: 460066
+    AegisName: Fake_Alloy_Pot_LT
+    Name: 仿生鋁合金花盆-LT
+  - Id: 490467
+    AegisName: Garnet_Pendant_LT
+    Name: 深紅寶石結晶之墜-LT
+  - Id: 490468
+    AegisName: Wine_Jewel_Brooch_LT
+    Name: 深紅寶石胸針-LT
+  - Id: 490088
+    AegisName: maypay_06
+    Name: 絕望的連通之環
+  - Id: 490452
+    AegisName: Seppay_01
+    Name: 絕望的連通之環-LT
+  - Id: 490086
+    AegisName: Eclipsedefmind_TW
+    Name: 月蝕守護之心
+  - Id: 490440
+    AegisName: Eclipsedefmind_LT
+    Name: 月蝕守護之心-LT
+  - Id: 490404
+    AegisName: Temporal_Ring_TW_LT
+    Name: 時光超越者之戒-LT

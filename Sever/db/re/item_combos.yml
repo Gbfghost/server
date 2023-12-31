@@ -32943,7 +32943,7 @@ Body:
   - Combos:
       - Combo:
           - Temporal_Cape_TW_LT
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
     Script: |
       bonus bMdef,5;
       bonus bFixedCast,-200;
@@ -32981,7 +32981,7 @@ Body:
       }
   - Combos:
       - Combo:
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
           - Temporal_Armor_TW
     Script: |
       .@r = getequiprefinerycnt(EQI_ARMOR) + getequiprefinerycnt(EQI_SHOES);
@@ -33002,7 +33002,7 @@ Body:
       bonus bAspdRate,10;
   - Combos:
       - Combo:
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
           - Temporal_Sprout_TW
     Script: |
       bonus2 bAddRace,RC_All,10;
@@ -33028,7 +33028,7 @@ Body:
       }
   - Combos:
       - Combo:
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
           - Temporal_Cape_TW_LT
           - Temporal_Armor_TW
           - Temporal_Sprout_TW
@@ -33186,7 +33186,7 @@ Body:
       if(.@r >= 13){bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",5,70,BF_WEAPON,1;}
   - Combos:
       - Combo:
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
           - Temporal_Cape_TW_LT
     Script: |
       .@r = getequiprefinerycnt(EQI_GARMENT)+getequiprefinerycnt(EQI_SHOES);
@@ -34169,7 +34169,7 @@ Body:
       - Combo:
           - Temporal_Cape_TW_LT
           - Temporal_Armor_TW_LT
-          - Temporal_Boots_TW_LT
+          - Temporal_Boots_LT_TW
     Script: |
       .@r = getequiprefinerycnt(EQI_ARMOR) + getequiprefinerycnt(EQI_GARMENT) + getequiprefinerycnt(EQI_SHOES);
       if (.@r >= 37) {
