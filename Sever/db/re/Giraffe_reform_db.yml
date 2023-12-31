@@ -6247,7 +6247,6 @@ Body:
            Amount: 1
         ResultItem: Wine_Jewel_Brooch_LT
       - BaseItem: maypay_06
-        MinimumRefine: 9
         CardsAllowed: true
         Materials:
          - Material: Acc_Stone_3
@@ -6260,14 +6259,14 @@ Body:
       - BaseItem: Eclipsedefmind_TW
         CardsAllowed: true
         Materials:
-         - Material: Armor_Stone_3
-           Amount: 200
-         - Material: Feather
-           Amount: 777
-         - Material: Rainbow_Carrot
-           Amount: 50
+         - Material: Acc_Stone_3
+           Amount: 100
+         - Material: Mystic_Horn
+           Amount: 300
+         - Material: M_Dimension_Essence
+           Amount: 10
          - Material: Ymir_Heart_P_TW
-           Amount: 1
+           Amount: 2
         ResultItem: Eclipsedefmind_LT
       - BaseItem: Temporal_Ring_TW
         CardsAllowed: true
