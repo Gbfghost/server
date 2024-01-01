@@ -110,7 +110,25 @@ OnTouch:
 			if(.@x == 53 && .@y == 196)	npcwalkto 53,207;
 			if(.@x == 53 && .@y == 207) 'Start = 1;
 		}
-		
+	'mode = #mode;
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
+	{
+	
+		if ( !is_party_leader() ) end;
+		mes "請選擇難度";
+		.@i = select("水上花園(普通)","水上花園(困難)");
+		if(select("確定","取消") == 2) {end;}
+		if ( .@i == 1 )
+		{
+		'mode = 0;
+		'mode0name$ = "普通難度";
+		 messagecolor "您選擇的是 "+'mode0name$+" !","F9F900",bc_self;
+		}else 
+		{
+			'mode = 1;
+			'mode1name$ = "困難難度";
+			messagecolor "您選擇的是 "+'mode1name$+" !","F9F900",bc_self;
+		}
 		npctalk "["+.@leader_name$+"]你好，您就是Sigma提到的人吧",instance_npcname(strnpcinfo(0));
 		sleep 3000;
 		npctalk strnpcinfo(1)+": 今天並不是參觀的好日子，希望您能諒解.",instance_npcname(strnpcinfo(0));
@@ -129,6 +147,7 @@ OnTouch:
 		specialeffect 585;
 		hideonnpc instance_npcname(strnpcinfo(0));
 		donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+	}
 	}
 	end;
 	
@@ -358,7 +377,7 @@ OnTimer6000:
 		initnpctimer;
 		'Guardian = 1;
 		mapannounce 'map$,"SYSTEM : "+rid2name('REDPERRER)+"正在消耗守護者零件作為自身能量的材料",bc_all;
-		mapannounce 'map$,"SYSTEM : 守護者零件因受到影響所以能對其造成的傷害十分有限",bc_all;
+		mapannounce 'map$,"SYSTEM : 守護者零件因受到影響所以能對其造成的傷害十分有限",bc_all;
 		getunitdata 'REDPERRER, 'mob_data;
 		setunitdata 'REDPERRER, UMOB_ATKMIN, 'mob_data[UMOB_ATKMIN]*3;
 		setunitdata 'REDPERRER, UMOB_ATKMAX, 'mob_data[UMOB_ATKMAX]*3;
@@ -384,7 +403,7 @@ OnTimer6000:
 	else if(unitexists('REDPERRER))
 	{
 		mapannounce 'map$,"SYSTEM : "+rid2name('REDPERRER)+"正在消耗守護者零件作為自身能量的材料",bc_all;
-		mapannounce 'map$,"SYSTEM : 守護者零件因受到影響所以能對其造成的傷害十分有限",bc_all;
+		mapannounce 'map$,"SYSTEM : 守護者零件因受到影響所以能對其造成的傷害十分有限",bc_all;
 	}
 	end;
 
