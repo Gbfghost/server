@@ -96,7 +96,27 @@ OnTouch:
  - 區域1
 ******************************/
 1@herbs,75,196,3	script	花園維護助理#herbs	20622,30,30,{
-	end;
+if ('Start != 2 ){end;}
+	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true) {
+		if ( !is_party_leader() ) end;
+			mes "請選擇難度";
+			.@i = select("祕密花園(普通)","祕密花園(困難)");
+			if(select("確定","取消") == 2) {end;}
+				if ( .@i == 1 ) {
+					'mode = 0;
+					'mode0name$ = "普通難度";
+					messagecolor "您選擇的是 "+'mode0name$+" !","F9F900",bc_self;
+				}else {
+					'mode = 1;
+					'mode1name$ = "困難難度";
+					messagecolor "您選擇的是 "+'mode1name$+" !","F9F900",bc_self;
+				}
+	specialeffect 622;
+	specialeffect 585;
+	hideonnpc instance_npcname(strnpcinfo(0));
+	donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
+	}
+end;
 OnTouch:
 	.@leader_name$ = strcharinfo(0,getpartyleader(getcharid(1),2));
 	if( 'talk_herbs == 0 && is_party_leader() == true)
@@ -125,26 +145,7 @@ OnTouch:
 		sleep 3000;
 		mapannounce 'map$,"服侍 : 正好您的到來可以來測試我們的警戒系統的安全到哪個程度",bc_map;
 		sleep 3000;
-		addrid(2);
-		if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true) {
-			if ( !is_party_leader() ) end;
-				mes "請選擇難度";
-				.@i = select("祕密花園(普通)","祕密花園(困難)");
-				if(select("確定","取消") == 2) {end;}
-					if ( .@i == 1 ) {
-						'mode = 0;
-						'mode0name$ = "普通難度";
-						messagecolor "您選擇的是 "+'mode0name$+" !","F9F900",bc_self;
-					}else {
-						'mode = 1;
-						'mode1name$ = "困難難度";
-						messagecolor "您選擇的是 "+'mode1name$+" !","F9F900",bc_self;
-					}
-		specialeffect 622;
-		specialeffect 585;
-		hideonnpc instance_npcname(strnpcinfo(0));
-		donpcevent instance_npcname(strnpcinfo(0))+"::OnEvent";
-		}
+		'Start = 2;
 	}
 	end;
 	
