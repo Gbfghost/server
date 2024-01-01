@@ -1,6 +1,14 @@
 -	script	RandomItem	-1,{
 OnNPCKillEvent:
     .@m = killedrid;
-    addmonsterdrop .@m,950017,10;
+    addmonsterdrop .@m,950017,100;
+    // 火2怪
+    addmonsterdrop 2732,950017,10;
+    addmonsterdrop 1382,950017,10;
+    addmonsterdrop 1387,950017,10;
+    addmonsterdrop 1367,950017,10;
+    addmonsterdrop 1384,950017,10;
+    addmonsterdrop 1385,950017,10;
+    addmonsterdrop 1379,950017,10;
    	end;
 }
