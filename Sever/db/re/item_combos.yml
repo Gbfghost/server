@@ -33797,14 +33797,14 @@ Body:
   - Combos:
       - Combo:
           - Moroc_Slave_TW
-          - Shnaim_Card
+          - Demon_God's_Apostle_Shnaim_Card
     Script: |
       bonus2 bAddRace,RC_ALL,15;
       bonus2 bMagicAddRace,RC_ALL,15;
   - Combos:
       - Combo:
           - Moroc_Slave_TW
-          - Ahat_Card
+          - Demon_God's_Apostle_Ahat_Card
     Script: |
       bonus2 bAddSize,Size_All,15;
       bonus2 bMagicAddSize,Size_All,15;
