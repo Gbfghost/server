@@ -110,13 +110,10 @@ OnTouch:
 			if(.@x == 53 && .@y == 196)	npcwalkto 53,207;
 			if(.@x == 53 && .@y == 207) 'Start = 1;
 		}
-	'mode = #mode;
-	if(getd("'talk_"+atoi(strnpcinfo(2))) == 0 && is_party_leader() == true)
-	{
-	
+		'mode = #mode;
 		if ( !is_party_leader() ) end;
 		mes "請選擇難度";
-		.@i = select("水上花園(普通)","水上花園(困難)");
+		.@i = select("祕密花園(普通)","祕密花園(困難)");
 		if(select("確定","取消") == 2) {end;}
 		if ( .@i == 1 )
 		{
