@@ -240,7 +240,6 @@ Body:
       can_party: true
       command_enable: true
       all_equipment: true
-      skill_unconditional: true
       use_check: true
       use_changemaptype: true
       all_commands: true
