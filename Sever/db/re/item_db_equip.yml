@@ -161939,7 +161939,7 @@ Body:
       }
   - Id: 510072
     AegisName: Blessed_Knife_LT
-    Name: 祝福之刀-LT
+    Name: 超幸運祝福短劍-LT
     Type: Weapon
     SubType: Dagger
     Weight: 1200
@@ -164823,6 +164823,7 @@ Body:
          bonus bSpl,2;
       }
       if (.@r>=7) {
+         bonus2 bMagicAtkEle,ELE_NEUTRAL,15;
          bonus2 bMagicAtkEle,Ele_Holy,15;
          bonus bAspdRate,10;
          if (.@r>=9) {
@@ -164836,6 +164837,7 @@ Body:
       if (.@g >= ENCHANTGRADE_D) {
          bonus bMatkRate,3;
          if (.@g >= ENCHANTGRADE_C) {
+            bonus2 bMagicAtkEle,ELE_NEUTRAL,15;
             bonus2 bMagicAtkEle,Ele_Holy,15;
             bonus bSmatk,1;
             if (.@g >= ENCHANTGRADE_B) {
@@ -167216,6 +167218,7 @@ Body:
          bonus bSpl,2;
       }
       if (.@r>=7) {
+         bonus2 bMagicAtkEle,ELE_NEUTRAL,15;
          bonus2 bMagicAtkEle,Ele_Poison,15;
          bonus2 bMagicAtkEle,Ele_Earth,15;
          if (.@r>=9) {
@@ -167232,6 +167235,7 @@ Body:
       if (.@g >= ENCHANTGRADE_D) {
          bonus bMatkRate,3;
          if (.@g >= ENCHANTGRADE_C) {
+            bonus2 bMagicAtkEle,ELE_NEUTRAL,15;
             bonus2 bMagicAtkEle,Ele_Poison,15;
             bonus2 bMagicAtkEle,Ele_Earth,15;
             bonus bSmatk,1;
@@ -168196,7 +168200,7 @@ Body:
             bonus2 bSkillAtk,"SP_SPA",15;
             if (.@r>=11) {
                bonus2 bMagicAddSize,Size_All,15;
-               bonus2 bSPRegenRate,230,5000;
+               autobonus "{ bonus2 bSPRegenRate,230,1000; }", 100, 10000, BF_MAGIC;
             }
          }
       }
@@ -168444,7 +168448,7 @@ Body:
       }
   - Id: 550082
     AegisName: Freedom_Stick_LT
-    Name: 自由之杖-LT
+    Name: 嚮往自由手杖-LT
     Type: Weapon
     SubType: Staff
     Weight: 1000
@@ -171120,7 +171124,6 @@ Body:
          if (.@r>=9) {
             bonus2 bSkillFixedCast,"WM_REVERBERATION",-500;
             bonus2 bSkillCooldown,"WM_METALICSOUND",-2000;
-            bonus2 bSkillCooldown,"WM_REVERBERATION",-2000;
             if (.@r>=11) {
                bonus2 bMagicAddEle,Ele_All,15;
                bonus2 bSkillAtk,"WM_METALICSOUND",20;
@@ -172190,7 +172193,6 @@ Body:
          if (.@r>=9) {
             bonus2 bSkillFixedCast,"WM_REVERBERATION",-500;
             bonus2 bSkillCooldown,"WM_METALICSOUND",-2000;
-            bonus2 bSkillCooldown,"WM_REVERBERATION",-2000;
             if (.@r>=11) {
                bonus2 bMagicAddEle,Ele_All,15;
                bonus2 bSkillAtk,"WM_METALICSOUND",20;
@@ -174584,6 +174586,7 @@ Body:
          if (.@r>=9) {
             bonus2 bSkillAtk,"RK_STORMBLAST",20;
             bonus2 bSkillAtk,"RK_SONICWAVE",20;
+            bonus5 bAutoSpell,"RK_SONICWAVE",max(2,getskilllv("RK_SONICWAVE")),100,BF_SHORT|BF_WEAPON,1;
             if (.@r>=11) {
                bonus bLongAtkRate,15;
                bonus bShortAtkRate,15;
@@ -179202,6 +179205,10 @@ Body:
             bonus2 bSkillCooldown,"KO_HUUMARANKA",-2000;
             bonus2 bSkillAtk,"KO_HUUMARANKA",15;
             if (.@r>=11) {
+               bonus2 bAddEle,ELE_FIRE,25;
+               bonus2 bAddEle,ELE_DARK,25;
+               bonus2 bAddEle,ELE_HOLY,25;
+               bonus2 bAddEle,ELE_UNDEAD,25;
                bonus2 bAddRace,RC_Undead,25+25;
                bonus2 bAddRace,RC_Angel,25;
                bonus2 bAddRace,RC_Demon,25;
@@ -182934,6 +182941,8 @@ Body:
             if (.@r>=11) {
                bonus2 bAddSize,Size_All,15;
                bonus2 bAddClass,Class_Boss,15;
+               bonus2 bAddRace,RC_DEMON,15;
+               bonus2 bAddRace,RC_UNDEAD,15;
             }
          }
       }
