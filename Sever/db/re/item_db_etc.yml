@@ -69286,3 +69286,10 @@ Body:
     Buy: 0
     Trade:
       NoDrop: true
+  - Id: 950017
+    AegisName: Egg_Change_Ticket
+    Name: Âà³J§I´«¨é
+    Type: Etc
+    Buy: 0
+    Trade:
+      NoDrop: true
