@@ -65545,7 +65545,7 @@ Body:
       DropEffect: CLIENT
     Script: |
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpell,"ST_FULLSTRIP",1,8000,BF_SHORT,1;
+      bonus5 bAutoSpell,"ST_FULLSTRIP",1,800,BF_SHORT,1;
   - Id: 900018
     AegisName: B_Harword_Card_
     Name: 闇●神工匠 哈沃得卡片-改
@@ -65708,7 +65708,7 @@ Body:
     Script: |
       bonus bHit,-10;
       bonus bSplashRange,1;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,5000,BF_SHORT,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,500,BF_SHORT,1;
   - Id: 900029
     AegisName: Doppelganger_Card_
     Name: 死靈卡片-改
@@ -65735,8 +65735,8 @@ Body:
       BuyingStore: true
       DropEffect: CLIENT
     Script: |
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,5000;
-      bonus3 bAutoSpellWhenHit,"WL_COMET",5,5000;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WL_COMET",5,500;
   - Id: 900031
     AegisName: Osiris_Card_
     Name: 俄塞里斯卡片-改
@@ -66804,7 +66804,7 @@ Body:
     Script: |
       bonus bMdef,30;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,10000,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,1000,BF_MAGIC,0;
   - Id: 900100
     AegisName: Giant_Octopus_Card_
     Name: 章魚大王卡片-改
@@ -66845,7 +66845,7 @@ Body:
       DropEffect: CLIENT
     Script: |
       bonus bBaseAtk,50;
-      autobonus "{ bonus bAspdRate,100; }",5,10000,0,"{ specialeffect2 EF_POTION_BERSERK; }";
+      autobonus "{ bonus bAspdRate,100; }",200,10000,0,"{ specialeffect2 EF_POTION_BERSERK; }";
   - Id: 900103
     AegisName: Gopinich_Card_
     Name: 青冠龍卡片-改

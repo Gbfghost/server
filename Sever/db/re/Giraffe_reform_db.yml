@@ -3436,11 +3436,13 @@ Body:
         CardsAllowed: true
         Materials:
          - Material: Armor_Stone_1
-           Amount: 100
-         - Material: Seppay_07
+           Amount: 150
+         - Material: Zelunium
+           Amount: 999
+         - Material: Pitaya_Boss_Card
+           Amount: 3
+         - Material: Ymir_Heart_TW
            Amount: 1
-         - Material: M_Dimension_Essence
-           Amount: 5
         ResultItem: Seppay_05
         ChangeRefine: -5
       - BaseItem: maypay_03
@@ -3448,11 +3450,13 @@ Body:
         CardsAllowed: true
         Materials:
          - Material: Armor_Stone_1
-           Amount: 100
-         - Material: Seppay_07
+           Amount: 150
+         - Material: Bio_Test_Fragment
+           Amount: 999
+         - Material: Sweety_Card
+           Amount: 3
+         - Material: Ymir_Heart_TW
            Amount: 1
-         - Material: M_Dimension_Essence
-           Amount: 5
         ResultItem: Seppay_04
         ChangeRefine: -5
       - BaseItem: maypay_02
@@ -3460,11 +3464,13 @@ Body:
         CardsAllowed: true
         Materials:
          - Material: Armor_Stone_1
-           Amount: 100
-         - Material: Seppay_07
+           Amount: 150
+         - Material: Bio_Reseearch_Docu
+           Amount: 999
+         - Material: EL_A17T_Card
+           Amount: 3
+         - Material: Ymir_Heart_TW
            Amount: 1
-         - Material: M_Dimension_Essence
-           Amount: 5
         ResultItem: Seppay_03
         ChangeRefine: -5
       - BaseItem: maypay_01
@@ -6212,12 +6218,12 @@ Body:
         MinimumRefine: 9
         CardsAllowed: true
         Materials:
-         - Material: C_Flowerpot_Mask
-           Amount: 1
-         - Material: Pot_Stone
-           Amount: 200
          - Material: Armor_Stone_3
-           Amount: 100
+           Amount: 150
+         - Material: Fancy_Fairy_Wing
+           Amount: 999
+         - Material: Red_Pepper_H_Card
+           Amount: 3
          - Material: Ymir_Heart_TW
            Amount: 1
         ResultItem: Fake_Alloy_Pot_LT
