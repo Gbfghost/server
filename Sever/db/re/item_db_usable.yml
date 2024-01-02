@@ -10505,7 +10505,7 @@ Body:
     Type: Usable
     Weight: 200
     Script: |
-      sc_start SC_SPEEDUP1,300000,50;
+      sc_start SC_SPEEDUP1,300000,100;
   - Id: 12711
     AegisName: Pretzel
     Name: Pretzel
