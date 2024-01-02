@@ -1,9 +1,9 @@
-uttycty,100,167,4	script	¡¹ ônµU®çÁÊ¶R/§I´« ¡¹	112,{
+uttycty,100,167,4	script	â˜… ç¼çŒ´æ¡ƒè³¼è²·/å…Œæ› â˜…	112,{
 	disable_items;
 	end;
 OnInit:
-	setnpcicon getnpcid(0),1026,"ônµU®ç§I´«ÁÊ¶R°Ó";
-	waitingroom "¡¹ ônµU®çÁÊ¶R/§I´« ¡¹",0;
+	setnpcicon getnpcid(0),1026,"ç¼çŒ´æ¡ƒå…Œæ›è³¼è²·å•†";
+	waitingroom "â˜… ç¼çŒ´æ¡ƒè³¼è²·/å…Œæ› â˜…",0;
 
 	tradertype(NST_EXPANDED_BARTER);
 	
@@ -14,7 +14,7 @@ OnInit:
     sellitem(100465, 0, -1);	
 	sellitemcurrency(6417,3);
     endsellitem();
-    // (ªA¹¢)±j¤Æ¥Û½c¤l(©ÜªÓ)
+    // (æœé£¾)å¼·åŒ–çŸ³ç®±å­(æŠ«è‚©)
     sellitem(100465, 0, -1);	
 	sellitemcurrency(6417,3);
     endsellitem();
@@ -28,7 +28,7 @@ OnInit:
 	sellitemcurrency(6417,1);
     endsellitem();
     // end
-    // å¼(ªA¹¢)±j¤Æ¥Û½c¤lII(ÀY¤U)
+    // æ’˜(æœé£¾)å¼·åŒ–çŸ³ç®±å­II(é ­ä¸‹)
     sellitem(100501, 0, -1);	
 	sellitemcurrency(6417,1);
     endsellitem();
@@ -41,67 +41,71 @@ OnInit:
     sellitem(100495, 0, -1);	
 	sellitemcurrency(6417,3);
     endsellitem();
-    // ¼v¤l§Ş¯à®M¸Ë½c
+    // å½±å­æŠ€èƒ½å¥—è£ç®±
     sellitem(100198, 0, -1);	
 	sellitemcurrency(6417,2);
     endsellitem();
+	// å½±å­æŠ€èƒ½å¥—è£ç®±(æ“´å……)
+    sellitem(100512, 0, -1);	
+	sellitemcurrency(6417,2);
+    endsellitem();
     //
-    // ¼v¤l®M¸Ë½c
+    // å½±å­å¥—è£ç®±
     sellitem(22827, 0, -1);	
 	sellitemcurrency(6417,1);
     endsellitem();
     //
-    // ¥j¥NªZ¾¹½c
+    // å¤ä»£æ­¦å™¨ç®±
     sellitem(23806, 0, -1);	
 	sellitemcurrency(6417,2);
     endsellitem();
     //
-    // ¼v¤l®É¶¡®M¸Ë½c
+    // å½±å­æ™‚é–“å¥—è£ç®±
 	sellitem(100054, 0, -1);	
 	sellitemcurrency(6417,10);
     endsellitem();
-    // ªi4¥§¨È¤J³õ±²
+    // æ³¢4å°¼äºå…¥å ´æ²
     sellitem(7227, 250000, -1);	
 	sellitemcurrency(6417,2);
     endsellitem();
-    sellitem(950016, 0, -1);	    // lv7¼v¤lºl
+    sellitem(950016, 0, -1);	    // lv7å½±å­æ§Œ
 	sellitemcurrency(6909,15); 
     endsellitem();
-    sellitem(6872, 0, -1);	    // 15ªZ±²
+    sellitem(6872, 0, -1);	    // 15æ­¦æ²
 	sellitemcurrency(6909,150); 
     endsellitem();
-    sellitem(6878, 0, -1);	    // 15¨¾±²
+    sellitem(6878, 0, -1);	    // 15é˜²æ²
 	sellitemcurrency(6909,150); 
     endsellitem();
-    sellitem(6873, 0, -1);	    // 16ªZ±²
+    sellitem(6873, 0, -1);	    // 16æ­¦æ²
 	sellitemcurrency(6909,300); 
     endsellitem();
-    sellitem(6879, 0, -1);	    // 16¨¾±²
+    sellitem(6879, 0, -1);	    // 16é˜²æ²
 	sellitemcurrency(6909,300); 
     endsellitem();
-    sellitem(6874, 0, -1);	    // 17ªZ±²
+    sellitem(6874, 0, -1);	    // 17æ­¦æ²
 	sellitemcurrency(6909,450); 
     endsellitem();
-    sellitem(6880, 0, -1);	    // 17¨¾±²
+    sellitem(6880, 0, -1);	    // 17é˜²æ²
 	sellitemcurrency(6909,450); 
     endsellitem();
-    sellitem(6875, 0, -1);	    // 18ªZ±²
+    sellitem(6875, 0, -1);	    // 18æ­¦æ²
 	sellitemcurrency(6909,600); 
     endsellitem();
-    sellitem(6881, 0, -1);	    // 18¨¾±²
+    sellitem(6881, 0, -1);	    // 18é˜²æ²
 	sellitemcurrency(6909,600); 
     endsellitem(); 
-    sellitem(6864, 0, -1);	    // ªZ±²+19
+    sellitem(6864, 0, -1);	    // æ­¦æ²+19
 	sellitemcurrency(6909,850);
     endsellitem();
-    sellitem(6865, 0, -1);	    // ¨¾±²+19
+    sellitem(6865, 0, -1);	    // é˜²æ²+19
 	sellitemcurrency(6909,850);
     endsellitem();
-    sellitem(950012, 0, -1);	    // ªZ±²+20
+    sellitem(950012, 0, -1);	    // æ­¦æ²+20
 	sellitemcurrency(6909,999);
 	sellitemcurrency(950014,75);
     endsellitem();
-    sellitem(950013, 0, -1);	    // ¨¾±²+20
+    sellitem(950013, 0, -1);	    // é˜²æ²+20
 	sellitemcurrency(6909,999);
 	sellitemcurrency(950015,75);
     endsellitem();
@@ -110,14 +114,14 @@ OnInit:
 
 
 
-    sellitem(920003, 0, -1);	//B¤j¥ª
+    sellitem(920003, 0, -1);	//Bå¤§å·¦
 	sellitemcurrency(6909,300);
     endsellitem();
-    sellitem(920004, 0, -1);	//B¤j¥k
+    sellitem(920004, 0, -1);	//Bå¤§å³
 	sellitemcurrency(6909,300);
     endsellitem();
 
-    // °Æ¥»§N«o®ø°£±²
+    // å‰¯æœ¬å†·å»æ¶ˆé™¤æ²
     sellitem(99999, 2000000000, -1);	
 	sellitemcurrency(6417,100);
     endsellitem();
