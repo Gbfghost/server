@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 47;
 
 //
-	waitingroom "[副本]古城挑戰副本",0;
+
 	setnpcicon getnpcid(0),22,"[副本]古城挑戰副本";
 	end;
 }

@@ -18,6 +18,10 @@ OnInit:
 	sellitem(1000620,.@p*3,-1);      //能量石
 	sellitemcurrency(4602,1);
     endsellitem();
+
+	sellitem(4610,0,-1);      //莎拉卡片
+	sellitemcurrency(940025,200);
+    endsellitem();
 	
 	
 OnBuyItem:

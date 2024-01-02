@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 35;
 
 //
-	waitingroom "[副本]施密特國王副本",0;
+
 	setnpcicon getnpcid(0),22,"[副本]施密特國王副本";
 	end;
 }

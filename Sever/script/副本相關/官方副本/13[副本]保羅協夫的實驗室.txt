@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 13;
 
 //
-	waitingroom "[副本]保羅協夫研究室",0;
+
 	setnpcicon getnpcid(0),22,"[副本]保羅協夫研究室";
 	end;
 }
@@ -984,7 +984,7 @@ OnTimer3000:
 	end;
 
 OnTimer4000:
-	specialeffect EF_SPHERE,AREA,instance_npcname("闇●十字刺客 艾勒梅斯#boss04");
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●十字刺客 艾勒梅斯#boss04");
 	end;
 
 OnTimer5000:
@@ -1007,7 +1007,7 @@ OnTimer8000:
 
 OnTimer9000:
 	mapannounce instance_mapname("1@lhz"),"耳語: 如果你不希望成為我們的一部分....",bc_map,"0x7DCBF0";
-	specialeffect EF_SPHERE,AREA,instance_npcname("闇●聖殿十字軍 蘭達#boss09");
+	specialeffect EF_SPHERE,AREA,instance_npcname("闇●聖殿十字軍 蘭達#boss09");
 	end;
 
 OnTimer10000:
@@ -1064,7 +1064,7 @@ OnEnable:
 		donpcevent instance_npcname("闇●神行太保 科迪#boss03")+"::OnEnable";
 		end;
 	case 4:
-		donpcevent instance_npcname("闇●十字刺客 艾勒梅斯#boss04")+"::OnEnable";
+		donpcevent instance_npcname("闇●十字刺客 艾勒梅斯#boss04")+"::OnEnable";
 		end;
 	case 5:
 		donpcevent instance_npcname("闇●冷豔舞姬 特蘭提尼#boss05")+"::OnEnable";
@@ -1079,7 +1079,7 @@ OnEnable:
 		donpcevent instance_npcname("闇●創造者 普拉梅姆#boss08")+"::OnEnable";
 		end;
 	case 9:
-		donpcevent instance_npcname("闇●聖殿十字軍 蘭達#boss09")+"::OnEnable";
+		donpcevent instance_npcname("闇●聖殿十字軍 蘭達#boss09")+"::OnEnable";
 		end;
 	case 10:
 		donpcevent instance_npcname("闇●智者 西里亞#boss10")+"::OnEnable";
@@ -1122,8 +1122,8 @@ OnEnable:
 		monster .@map$,125,150,"暗●神射手 迪文",1650,1,.@label$;
 	else if (strnpcinfo(0) == "闇●神行太保 科迪#boss03")
 		monster .@map$,121,146,"闇●神行太保 格蒂",2239,1,.@label$;
-	else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
-		monster .@map$,117,142,"闇●十字刺客 艾勒梅斯",1647,1,.@label$;
+	else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
+		monster .@map$,117,142,"闇●十字刺客 艾勒梅斯",1647,1,.@label$;
 	else if (strnpcinfo(0) == "闇●冷豔舞姬 特蘭提尼#boss05")
 		monster .@map$,117,125,"闇●冷豔舞姬 特蘭提妮",2241,1,.@label$;
 	else if (strnpcinfo(0) == "闇●武術宗師 陳理歐#boss06")
@@ -1132,8 +1132,8 @@ OnEnable:
 		monster .@map$,125,117,"闇●搞笑藝人 阿弗克希奧",2240,1,.@label$;
 	else if (strnpcinfo(0) == "闇●創造者 普拉梅姆#boss08")
 		monster .@map$,129,113,"闇●創造者 弗拉梅爾",2236,1,.@label$;
-	else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
-		monster .@map$,146,113,"闇●聖殿十字軍 蘭德爾",2235,1,.@label$;
+	else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
+		monster .@map$,146,113,"闇●聖殿十字軍 蘭德爾",2235,1,.@label$;
 	else if (strnpcinfo(0) == "闇●智者 西里亞#boss10")
 		monster .@map$,150,117,"闇●智者 希莉亞",2237,1,.@label$;
 	else if (strnpcinfo(0) == "闇●超魔導師 凱特莉娜#boss11")
@@ -1159,7 +1159,7 @@ OnMyMobDead:
 			mapannounce .@map$,"任何..之一, 請大家幫忙..請.....",bc_map,"0xFD3B02";
 		else if (strnpcinfo(0) == "闇●神行太保 科迪#boss03")
 			mapannounce .@map$,"我的行為..太貿然..",bc_map,"0xFD3B02";
-		else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
+		else if (strnpcinfo(0) == "闇●十字刺客 艾勒梅斯#boss04")
 			mapannounce .@map$,"啊.....我絕對打敗....",bc_map,"0xFD3B02";
 		else if (strnpcinfo(0) == "闇●冷豔舞姬 特蘭提尼#boss05")
 			mapannounce .@map$,"啊..曾經可以......舞蹈和唱歌.... ...開心....",bc_map,"0xFD3B02";
@@ -1169,7 +1169,7 @@ OnMyMobDead:
 			mapannounce .@map$,"...新的歌......是....對.....她....",bc_map,"0xFD3B02";
 		else if (strnpcinfo(0) == "闇●創造者 普拉梅姆#boss08")
 			mapannounce .@map$,"哈...我想向大家展示....新的藥水....",bc_map,"0xFD3B02";
-		else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
+		else if (strnpcinfo(0) == "闇●聖殿十字軍 蘭達#boss09")
 			mapannounce .@map$,"每個人都被打敗了.....?",bc_map,"0xFD3B02";
 		else if (strnpcinfo(0) == "闇●智者 西里亞#boss10")
 			mapannounce .@map$,"這個實驗是.",bc_map,"0xFD3B02";
@@ -1188,12 +1188,12 @@ OnMyMobDead:
 1@lhz,127,156,5	duplicate(bio4FBoss)	闇●騎士領主 賽依連#boss01	1646
 1@lhz,123,152,5	duplicate(bio4FBoss)	闇●神射手 迪文#boss02	1650
 1@lhz,119,148,5	duplicate(bio4FBoss)	闇●神行太保 科迪#boss03	2239
-1@lhz,115,144,5	duplicate(bio4FBoss)	闇●十字刺客 艾勒梅斯#boss04	1647
+1@lhz,115,144,5	duplicate(bio4FBoss)	闇●十字刺客 艾勒梅斯#boss04	1647
 1@lhz,115,123,7	duplicate(bio4FBoss)	闇●冷豔舞姬 特蘭提尼#boss05	2241
 1@lhz,119,119,7	duplicate(bio4FBoss)	闇●武術宗師 陳理歐#boss06	2238
 1@lhz,123,115,7	duplicate(bio4FBoss)	闇●搞笑藝人 雅歐帕奇爾#boss07	2240
 1@lhz,127,111,7	duplicate(bio4FBoss)	闇●創造者 普拉梅姆#boss08	2236
-1@lhz,148,111,1	duplicate(bio4FBoss)	闇●聖殿十字軍 蘭達#boss09	2235
+1@lhz,148,111,1	duplicate(bio4FBoss)	闇●聖殿十字軍 蘭達#boss09	2235
 1@lhz,152,115,1	duplicate(bio4FBoss)	闇●智者 西里亞#boss10	2237
 1@lhz,156,119,1	duplicate(bio4FBoss)	闇●超魔導師 凱特莉娜#boss11	1651
 1@lhz,160,123,1	duplicate(bio4FBoss)	闇●神官 瑪嘉雷特#boss12	1649

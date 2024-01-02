@@ -78,7 +78,7 @@ OnInit:
 	.ins_collnum = 3;
 
 //
-	waitingroom "[副本]獸人的記憶",0;
+
 	setnpcicon getnpcid(0),22,"[副本]獸人的記憶";
 	end;
 }

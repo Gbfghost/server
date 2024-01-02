@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 38;
 
 //
-	waitingroom "[副本]水上花園",0;
+
 	setnpcicon getnpcid(0),22,"[副本]水上花園";
 	end;
 }
@@ -557,7 +557,7 @@ OnMyMobDead:
 	disablenpc instance_npcname("#GardenHeal_1");
 	disablenpc instance_npcname("#GardenHeal_2");
 	getmapxy(.@m$,'passx,'passy,BL_PC);
-	donpcevent instance_npcname("副本寶箱#1@ghg")+"::OnEnable";
+	donpcevent instance_npcname("離開副本#1@ghg")+"::OnEnable";
 	'ClearInatance = 1;	
 	end;
 OnPAPILIADead:

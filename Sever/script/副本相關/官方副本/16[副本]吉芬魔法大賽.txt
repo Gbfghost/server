@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 16;
 
 //
-	waitingroom "[副本]吉芬魔法大賽",0;
+
 	setnpcicon getnpcid(0),22,"[副本]吉芬魔法大賽";
 	end;
 }

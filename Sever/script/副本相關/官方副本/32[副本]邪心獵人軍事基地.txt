@@ -69,7 +69,7 @@ OnInit:
 	.ins_collnum = 32;
 
 //
-	waitingroom "[副本]邪心獵人軍事基地",0;
+
 	setnpcicon getnpcid(0),22,"[副本]邪心獵人軍事基地";
 	end;
 }

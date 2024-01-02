@@ -70,7 +70,7 @@ OnInit:
 	.ins_collnum = 1;
 
 //
-	waitingroom "[副本]儀式之屋",0;
+
 	setnpcicon getnpcid(0),22,"[副本]儀式之屋";
 	end;
 }

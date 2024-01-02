@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 26;
 
 //
-	waitingroom "[副本]查理斯頓工廠",0;
+
 	setnpcicon getnpcid(0),22,"[副本]查理斯頓工廠";
 	end;
 }

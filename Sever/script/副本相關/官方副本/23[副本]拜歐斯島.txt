@@ -90,7 +90,7 @@ OnInit:
 	.ins_collnum = 23;
 
 //
-	waitingroom "[副本]拜歐斯之島",0;
+
 	setnpcicon getnpcid(0),22,"[副本]拜歐斯之島";
 	end;
 }

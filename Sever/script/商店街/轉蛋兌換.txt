@@ -7,10 +7,19 @@ OnInit:
 
 	tradertype(NST_EXPANDED_BARTER);
 	
-    sellitem(920010,0,-1); //星願轉蛋
-	sellitemcurrency(920001,5);
-	sellitemcurrency(920002,5);
+    sellitem(920001,0,-1); //帝國轉蛋
+	sellitemcurrency(950017,1);
     endsellitem();
+    sellitem(920002,0,-1); //王牌轉蛋
+	sellitemcurrency(950017,1);
+    endsellitem();
+	sellitem(920005,0,-1); //天使轉蛋
+	sellitemcurrency(950017,1);
+    endsellitem();
+	sellitem(920010,0,-1); //星願轉蛋
+	sellitemcurrency(950017,1);
+    endsellitem();
+	
 
 
 OnBuyItem:

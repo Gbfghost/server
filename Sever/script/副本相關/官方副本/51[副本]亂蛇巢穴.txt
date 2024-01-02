@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 51;
 
 //
-	waitingroom "[°Æ¥»]¶Ã³D±_¥Þ",0;
+
 	setnpcicon getnpcid(0),22,"[°Æ¥»]¶Ã³D±_¥Þ";
 	end;
 }

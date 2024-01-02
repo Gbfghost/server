@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 37;
 
 //
-	waitingroom "[副本]被遺忘的農場",0;
+
 	setnpcicon getnpcid(0),22,"[副本]被遺忘的農場";
 	end;
 }

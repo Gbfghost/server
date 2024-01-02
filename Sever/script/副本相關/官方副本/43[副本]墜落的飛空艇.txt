@@ -79,7 +79,7 @@ OnInit:
 	.ins_collnum = 43;
 
 //
-	waitingroom "[副本]墜落的飛空艇",0;
+
 	setnpcicon getnpcid(0),22,"[副本]墜落的飛空艇";
 	end;
 }

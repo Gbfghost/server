@@ -79,7 +79,7 @@ OnInit:
 	.ins_collnum = 2;
 
 //
-	waitingroom "[副本]封印的神殿",0;
+
 	setnpcicon getnpcid(0),22,"[副本]封印的神殿";
 	end;
 }

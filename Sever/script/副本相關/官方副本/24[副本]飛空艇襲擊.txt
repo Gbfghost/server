@@ -78,7 +78,7 @@ OnInit:
 	.ins_collnum = 24;
 
 //
-	waitingroom "[副本]飛空艇襲擊事件",0;
+
 	setnpcicon getnpcid(0),22,"[副本]飛空艇襲擊事件";
 	end;
 }

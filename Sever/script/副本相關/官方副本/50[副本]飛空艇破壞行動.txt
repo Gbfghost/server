@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 50;
 
 //
-	waitingroom "[副本]飛空艇破壞行動",0;
+
 	setnpcicon getnpcid(0),22,"[副本]飛空艇破壞行動";
 	end;
 }

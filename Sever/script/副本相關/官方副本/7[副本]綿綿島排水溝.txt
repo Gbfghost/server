@@ -78,7 +78,7 @@ OnInit:
 	.ins_collnum = 7;
 
 //
-	waitingroom "[副本]綿綿島排水溝",0;
+
 	setnpcicon getnpcid(0),22,"[副本]綿綿島排水溝";
 	end;
 }

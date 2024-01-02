@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 21;
 
 //
-	waitingroom "[副本]恐怖玩具工廠",0;
+
 	setnpcicon getnpcid(0),22,"[副本]恐怖玩具工廠";
 	end;
 }

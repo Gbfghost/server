@@ -89,7 +89,7 @@ OnInit:
 	.ins_collnum = 17;
 
 //
-	waitingroom "[副本]魔神之塔",0;
+
 	setnpcicon getnpcid(0),22,"[副本]魔神之塔";
 	end;
 }

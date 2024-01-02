@@ -79,7 +79,7 @@ OnInit:
 	.ins_collnum = 6;
 	
 //
-	waitingroom "[副本]尼德霍格的巢穴",0;
+
 	setnpcicon getnpcid(0),22,"[副本]尼德霍格的巢穴";
 	end;
 }

@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 34;
 
 //
-	waitingroom "[副本]第二次搜查歐斯",0;
+
 	setnpcicon getnpcid(0),22,"[副本]第二次搜查歐斯";
 	end;
 }

@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 28;
 
 //
-	waitingroom "[副本]中央實驗室",0;
+
 	setnpcicon getnpcid(0),22,"[副本]中央實驗室";
 	end;
 }

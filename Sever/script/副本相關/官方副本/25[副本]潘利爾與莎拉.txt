@@ -68,7 +68,7 @@ OnInit:
 	.ins_collnum = 25;
 
 //
-	waitingroom "[副本]潘利爾與莎拉",0;
+
 	setnpcicon getnpcid(0),22,"[副本]潘利爾與莎拉";
 	end;
 }

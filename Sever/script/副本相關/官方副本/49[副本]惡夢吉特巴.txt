@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 49;
 
 //
-	waitingroom "[副本]惡夢吉特巴",0;
+
 	setnpcicon getnpcid(0),22,"[副本]惡夢吉特巴";
 	end;
 }
@@ -2331,7 +2331,7 @@ OnInstanceInit:
 			specialeffect 313, AREA, instance_npcname("羅艾爾#11"); //61547
 			cutin "lunain04.bmp", 255;
 			mes "□看見羅艾爾正在治療的樣子，";
-			mes "　夏洛茜感覺十分悲傷。□";
+			mes "　夏洛茜感覺十分悲傷。□";
 			next;
 			cutin "shaloshi01.bmp", 2;
 			mes "[夏洛茜]";
@@ -3587,7 +3587,7 @@ OnShake:
 		mes "　本應是夢羅克的第三使徒。□";
 		next;
 		mes "□雖然紐奧茲提議讓夏洛茜加入白羽團，";
-		mes "　但團員們的擔憂十分明顯...□";
+		mes "　但團員們的擔憂十分明顯...□";
 		next;
 		hideonnpc instance_npcname("貝爾#25");
 		hideonnpc instance_npcname("夏洛茜#23");

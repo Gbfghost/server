@@ -144,7 +144,7 @@ OnInit:
 	.ins_collnum = 41;
 
 //
-	waitingroom "[副本]死亡之塔",0;
+
 	setnpcicon getnpcid(0),22,"[副本]死亡之塔";
 	end;
 }

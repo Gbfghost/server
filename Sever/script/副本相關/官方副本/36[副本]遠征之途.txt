@@ -81,7 +81,7 @@ OnInit:
 	.ins_collnum = 36;
 
 //
-	waitingroom "[副本]遠征之途",0;
+
 	setnpcicon getnpcid(0),22,"[副本]遠征之途";
 	end;
 }

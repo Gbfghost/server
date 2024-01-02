@@ -67,7 +67,7 @@ OnInit:
 	.ins_collnum = 18;
 
 //
-	waitingroom "[副本]莎拉的記憶",0;
+
 	setnpcicon getnpcid(0),22,"[副本]莎拉的記憶";
 	end;
 }

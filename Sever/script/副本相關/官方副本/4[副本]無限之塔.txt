@@ -123,7 +123,7 @@ OnInit:
 	.ins_collnum = 4;
 
 //
-	waitingroom "[副本]魔物終結塔(舊版100F)",0;
+
 	setnpcicon getnpcid(0),22,"[副本]無限之塔";
 	end;
 }
