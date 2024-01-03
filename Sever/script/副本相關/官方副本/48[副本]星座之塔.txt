@@ -423,6 +423,7 @@ OnTimer1000:
 						if(!'start_game)'start_game = 1;
 					}
 					else {
+					addrid(1);
 					warp 'map_1$,'point_start_x[.@floorwarp],'point_start_y[.@floorwarp];
 					}
 					callfunc "1樓層魔物調用",.@floorwarp,'mob_count,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
@@ -883,7 +884,7 @@ OnTimer1000:
 			sleep 1000;
 			break;
 		case 2:
-			//十字地震術
+			//十字地震術
 			sleep 1000;
 			monster .@map$,.@x+3,.@y+3,"--ja--",3095,1,.@label$;
 			.@id[0] = $@mobid[0];
