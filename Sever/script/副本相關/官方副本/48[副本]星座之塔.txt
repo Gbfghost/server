@@ -380,6 +380,7 @@ OnTimer1000:
 
 
 1@ch_t,0,0,0	script	0F跳躍裝置	-1,{
+	addrid(1);
 	.@floorcount=atoi(replacestr(strnpcinfo(0),"F跳躍裝置",""));
 	if(.@floorcount== 75)
 	{
@@ -423,7 +424,6 @@ OnTimer1000:
 						if(!'start_game)'start_game = 1;
 					}
 					else {
-					addrid(1);
 					warp 'map_1$,'point_start_x[.@floorwarp],'point_start_y[.@floorwarp];
 					}
 					callfunc "1樓層魔物調用",.@floorwarp,'mob_count,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
