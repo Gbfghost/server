@@ -3504,11 +3504,11 @@ Body:
         CardsAllowed: true
         Materials:
          - Material: item_940047
-           Amount: 300
+           Amount: 200
          - Material: item_940042
-           Amount: 300
+           Amount: 200
          - Material: item_940044
-           Amount: 300
+           Amount: 200
          - Material: Angeling_Card
            Amount: 100
          - Material: Ymir_Heart_TW
