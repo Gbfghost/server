@@ -16,7 +16,6 @@
 1@ch_t	mapflag	partylock
 1@ch_t	mapflag	novending
 1@ch_t	mapflag	nochat
-1@ch_t	mapflag	noloot
 
 2@ch_t	mapflag	noteleport
 2@ch_t	mapflag	nosave	SavePoint
