@@ -1291,7 +1291,7 @@ OnTalk5:
 
 2@gl_kh,151,71,7	script	顏良收割機關羽#n_ghinstance4	654,{
 	mes "[顏良收割機關羽]";
-	mes "我到底…重複做了這件事多少次啊…好像在夢中見過這個地方數十次了…這個感覺…";
+	mes "我到底…重複做了這件事多少次啊…好像在夢中見過這個地方數十次了…這個感覺…";
 	cutin "gl_barmund1",2;
 	close2;
 	cutin "gl_barmund1",255;
@@ -1632,6 +1632,11 @@ OnDisable:
 OnEnable:
 	enablenpc instance_npcname("#n_ghmemorialmob07");
 	areamonster instance_mapname("2@gl_kh"),124,20,31,162,"假顏良",3148,1,instance_npcname("#n_ghmemorialmob07")+"::OnMyMobDead";
+	'BossID = $@mobid[0];
+	getunitdata 'BossID,'amdaraisdata;
+	.@x = 'amdaraisdata[6];
+	.@y = 'amdaraisdata[7];
+	viewpointmap instance_mapname("2@gl_kh"),0,.@x,.@y,1,0xFF0000;
 	end;
 OnMyMobDead:
 	set .@map$, instance_mapname("2@gl_kh");
@@ -1761,6 +1766,11 @@ OnDisable:
 OnEnable:
 	enablenpc instance_npcname("#n_ghmemorialmob09");
 	areamonster instance_mapname("2@gl_kh"),175,163,265,18,"假顏良",3149,1,instance_npcname("#n_ghmemorialmob09")+"::OnMyMobDead";
+	'BossID = $@mobid[0];
+	getunitdata 'BossID,'amdaraisdata;
+	.@x = 'amdaraisdata[6];
+	.@y = 'amdaraisdata[7];
+	viewpointmap instance_mapname("2@gl_kh"),0,.@x,.@y,1,0xFF0000;
 	end;
 OnMyMobDead:
 	set .@map$, instance_mapname("2@gl_kh");
