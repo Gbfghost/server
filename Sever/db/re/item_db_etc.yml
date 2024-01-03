@@ -65895,7 +65895,7 @@ Body:
       BuyingStore: true
       DropEffect: CLIENT
     Script: |
-      bonus bBaseAtk,(JobLeve*5);
+      bonus bBaseAtk,(JobLevel*5);
       bonus bCritical,(JobLevel*5);
       bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,500;
       bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",10,500;

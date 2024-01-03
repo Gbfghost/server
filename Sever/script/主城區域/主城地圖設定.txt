@@ -36,7 +36,7 @@ amatsu	mapflag	privateairship_destination
 OnPCLoginEvent:
 .@map$ = strcharinfo(3);
 //上線自動撿取卡片
-atcommand "@autoloottype +"+6;
+//atcommand "@autoloottype +"+6;
 end;
 OnPCEnterMapExpress:
 
@@ -68,13 +68,13 @@ OnPCEnterMapExpress:
 	}
 	
 	//如果不是預設加速地圖 - 強制刪除狀態
-	if (@tomap_name$ != "uttycty" || @tomap_name$ != "amatsu")
-	{
-		sc_end SC_CITY_SPEED;
-		sc_end SC_BLESSING;
-		sc_end SC_INCREASEAGI;
-		end;
-	}
+//	if (@tomap_name$ != "uttycty" || @tomap_name$ != "amatsu")
+//	{
+//		sc_end SC_CITY_SPEED;
+//		sc_end SC_BLESSING;
+//		sc_end SC_INCREASEAGI;
+//		end;
+//	}
 	
 end;
 }
