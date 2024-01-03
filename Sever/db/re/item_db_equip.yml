@@ -187004,9 +187004,10 @@ Body:
         bonus bMaxHPrate,6;
       }
       if (eaclass()&EAJL_THIRD && BaseJob == Job_Alchemist) {
-        bonus2 bSkillAtk,"CR_ACIDDEMONSTRATION",3*(getskilllv("GN_REMODELING_CART")+getskilllv("GN_CARTBOOST"));
-        bonus2 bSkillAtk,"GN_HELLS_PLANT",3*(getskilllv("GN_REMODELING_CART")+getskilllv("GN_CARTBOOST"));
-        bonus2 bSkillAtk,"GN_CARTCANNON",3*getskilllv("GN_CART_TORNADO");
+        bonus2 bSkillAtk,"CR_ACIDDEMONSTRATION",50;
+        bonus2 bSkillAtk,"GN_HELLS_PLANT",50;
+        bonus2 bSkillAtk,"GN_CARTCANNON",50;
+        bonus2 bSkillAtk,"GN_CART_TORNADO",50;
       }
       if (.@g >= ENCHANTGRADE_D) {
         bonus bDelayrate,-5;
