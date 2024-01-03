@@ -402,7 +402,6 @@ OnTimer1000:
 				mes "[樓層跳躍裝置]";
 				switch(select("下一層","使用^ff0000隕石的粉末*"+.@floorcount+"個^000000進行跳躍",(.@floorcount==25)?"挑戰^ff0000夜勝魔^000000":"",(.@floorcount==50)?"挑戰^ff0000參宿四^000000":"")){
 				case 1:
-					addrid(1);
 					setd "'use_warpselect"+replacestr(strnpcinfo(0),"跳躍裝置",""),1;
 					setd "'warpselect"+replacestr(strnpcinfo(0),"跳躍裝置",""),1;
 					if(.@floorcount==25){
