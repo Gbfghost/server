@@ -423,7 +423,7 @@ OnTimer1000:
 						if(!'start_game)'start_game = 1;
 					}
 					else {
-					warp 'map_1$,'point_start_x[.@floorwarp],'point_start_y[.@floorwarp];
+					warpparty 'map_1$,'point_start_x[.@floorwarp],'point_start_y[.@floorwarp],getcharid(1),'map_1$;
 					}
 					callfunc "1¼Ó¼hÅ]ª«½Õ¥Î",.@floorwarp,'mob_count,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
 					
