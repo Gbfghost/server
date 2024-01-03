@@ -461,7 +461,7 @@ OnTimer1000:
 					}
 					else {
 						.@floorwarp = 5-.@floorwarp%5 + .@floorwarp;	
-						warp 'map_1$,'point_start_x[.@floorwarp-1],'point_start_y[.@floorwarp-1];
+						warpparty 'map_1$,'point_start_x[.@floorwarp-1],'point_start_y[.@floorwarp-1],getcharid(1),'map_1$;
 					}
 						callfunc "1樓層魔物調用",.@floorwarp-1,'mob_count,instance_npcname(strnpcinfo(0))+"::OnMyMobDead";
 						callfunc "1樓層MVP魔物調用",.@floorwarp-1,'mob_mvp_count,instance_npcname(strnpcinfo(0))+"::OnMyMVPMobDead";
