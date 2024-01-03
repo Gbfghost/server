@@ -69099,7 +69099,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940039
-    AegisName: item_940040
+    AegisName: item_940039
     Name: 嘿斯威蒂的證明
     Type: Etc
     Buy: 0
@@ -69109,7 +69109,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940040
-    AegisName: item_940041
+    AegisName: item_940040
     Name: 祕密花園的證明
     Type: Etc
     Buy: 0
@@ -69119,7 +69119,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940041
-    AegisName: item_940042
+    AegisName: item_940041
     Name: 死亡之塔的證明
     Type: Etc
     Buy: 0
@@ -69129,7 +69129,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940042
-    AegisName: item_940043
+    AegisName: item_940042
     Name: 夜間吉芬魔法大賽的證明
     Type: Etc
     Buy: 0
@@ -69139,7 +69139,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940043
-    AegisName: item_940044
+    AegisName: item_940043
     Name: 墜落飛空艇的證明
     Type: Etc
     Buy: 0
@@ -69149,7 +69149,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940044
-    AegisName: item_940045
+    AegisName: item_940044
     Name: 懺悔之墓的證明
     Type: Etc
     Buy: 0
@@ -69159,7 +69159,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940045
-    AegisName: item_940046
+    AegisName: item_940045
     Name: 欺詐別墅的證明
     Type: Etc
     Buy: 0
@@ -69169,7 +69169,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940046
-    AegisName: item_940047
+    AegisName: item_940046
     Name: 聖域淨化的證明
     Type: Etc
     Buy: 0
@@ -69179,7 +69179,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940047
-    AegisName: item_940048
+    AegisName: item_940047
     Name: 挑戰古城的證明
     Type: Etc
     Buy: 0
@@ -69189,7 +69189,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940048
-    AegisName: item_940049
+    AegisName: item_940048
     Name: 星座之塔的證明
     Type: Etc
     Buy: 0
@@ -69199,7 +69199,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940049
-    AegisName: item_940050
+    AegisName: item_940049
     Name: 噩夢吉特巴的證明
     Type: Etc
     Buy: 0
@@ -69209,7 +69209,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940050
-    AegisName: item_940051
+    AegisName: item_940050
     Name: 飛空艇破壞行動的證明
     Type: Etc
     Buy: 0
@@ -69219,7 +69219,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940051
-    AegisName: item_940052
+    AegisName: item_940051
     Name: 亂蛇巢穴的證明
     Type: Etc
     Buy: 0
@@ -69229,7 +69229,7 @@ Body:
       NoMail: true
       NoGuildStorage: true
   - Id: 940052
-    AegisName: item_940053
+    AegisName: item_940052
     Name: 朱希婭模擬作戰的證明
     Type: Etc
     Buy: 0

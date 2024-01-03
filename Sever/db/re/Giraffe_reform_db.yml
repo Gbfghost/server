@@ -3503,14 +3503,16 @@ Body:
         MinimumRefine: 9
         CardsAllowed: true
         Materials:
-         - Material: Armor_Stone_1
-           Amount: 150
-         - Material: Gold
-           Amount: 66
-         - Material: Soft_Feather
-           Amount: 200
-         - Material: Ymir_Heart_P_TW
-           Amount: 3
+         - Material: item_940047
+           Amount: 300
+         - Material: item_940042
+           Amount: 300
+         - Material: item_940044
+           Amount: 300
+         - Material: Angeling_Card
+           Amount: 100
+         - Material: Ymir_Heart_TW
+           Amount: 1
         ResultItem: Feather_Shield_LT_TW
         ChangeRefine: -5
       - BaseItem: Astraea_Shoes
@@ -6221,7 +6223,7 @@ Body:
          - Material: Armor_Stone_3
            Amount: 150
          - Material: Fancy_Fairy_Wing
-           Amount: 999
+           Amount: 300
          - Material: Red_Pepper_H_Card
            Amount: 3
          - Material: Ymir_Heart_TW
