@@ -187153,3 +187153,11 @@ Body:
     Script: |
       bonus bAtkRate,7;
       bonus bMatkRate,7;
+  - Id: 480377
+    AegisName: C_Cat_Doll_WH
+    Name: (服飾)白色布偶貓玩偶
+    Type: Armor
+    Locations:
+      Costume_Garment: true
+    ArmorLevel: 1
+    View: 196
