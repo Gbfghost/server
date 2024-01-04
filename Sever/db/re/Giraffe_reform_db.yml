@@ -6291,7 +6291,7 @@ Body:
       - BaseItem: Magic_Circle_TW
         CardsAllowed: true
         Materials:
-         - Material: Acc_Stone_3
+         - Material: Armor_Stone_3
            Amount: 100
          - Material: EP17_1_EVT39
            Amount: 150
