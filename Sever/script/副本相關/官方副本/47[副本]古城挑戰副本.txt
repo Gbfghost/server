@@ -1899,6 +1899,9 @@ end;
 		mes "恭喜你完成副本";
 		mes "這是我提供的獎勵你就收下吧！";
 		next;
+		mes "在這裡崩塌之前";
+		mes "我會用盡我的力氣替你傳送出去。";
+		mes "再會了。勇者。";
 		addrid(2,1,'party_id);
 		//---設定難度(目前為一階段打1次才會升一階)
 		set #CGHTYPENUM,#CGHTYPENUM+1;
@@ -1912,11 +1915,6 @@ end;
 			set #CGHTYPE,10;
 			set #CGHTYPENUM,0;
 		}
-		next;
-		mes "在這裡崩塌之前";
-		mes "我會用盡我的力氣替你傳送出去。";
-		mes "再會了。勇者。";
-		next;
 		'ClearInatance = 1;
 		getmapxy(.@m$,'passx,'passy,BL_PC);
 		donpcevent instance_npcname("副本寶箱2#1@gl_he")+"::OnEnable";
