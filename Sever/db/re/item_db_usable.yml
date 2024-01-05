@@ -37572,7 +37572,7 @@ Body:
       Duration: 5000
       Status: Reuse_Limit_F
     Script: |
-      callfunc("F_Pieces_Of_Sentiment");
+      callfunc "F_Pieces_Of_Sentiment";
   - Id: 22691
     AegisName: Piece_Of_Record1
     Name: ­µ½L¸H¤ù

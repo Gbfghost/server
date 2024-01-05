@@ -103,11 +103,11 @@ OnInit:
     endsellitem();
     sellitem(950012, 0, -1);	    // 武捲+20
 	sellitemcurrency(6909,999);
-	sellitemcurrency(950014,75);
+	sellitemcurrency(950014,150);
     endsellitem();
     sellitem(950013, 0, -1);	    // 防捲+20
 	sellitemcurrency(6909,999);
-	sellitemcurrency(950015,75);
+	sellitemcurrency(950015,150);
     endsellitem();
 
 

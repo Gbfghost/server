@@ -82372,7 +82372,7 @@ Body:
     Script: |
       .@r = getrefine();
       bonus2 bMagicAtkEle,Ele_All,.@r;
-      autobonus "{ .@r = getrefine(); bonus3 bAutoSpell,\"MG_COLDBOLT\",2,50; bonus3 bAutoSpell,\"MG_FIREBOLT\",2,50; bonus3 bAutoSpell,\"MG_LIGHTNINGBOLT\",2,50; bonus3 bAutoSpell,\"WZ_EARTHSPIKE\",2,50; if (.@r>=7) { bonus3 bAutoSpell,\"WZ_FROSTNOVA\",5,40; if (.@r>=8) { bonus3 bAutoSpell,\"MG_THUNDERSTORM\",5,30; if (BaseLevel>100) { if (.@r>=9) { bonus3 bAutoSpell,\"WL_HELLINFERNO\",5,20; if (.@r>=10) { bonus3 bAutoSpell,\"WL_CHAINLIGHTNING\",3,10; } } } } } }",1,5000,BF_WEAPON,"{ active_transform 1056,5000; /*SMOKIE*/ }";
+      autobonus "{ .@r = getrefine(); bonus3 bAutoSpell,\"MG_COLDBOLT\",2,50; bonus3 bAutoSpell,\"MG_FIREBOLT\",2,50; bonus3 bAutoSpell,\"MG_LIGHTNINGBOLT\",2,50; bonus3 bAutoSpell,\"WZ_EARTHSPIKE\",2,50; if (.@r>=7) { bonus3 bAutoSpell,\"WZ_FROSTNOVA\",5,40; if (.@r>=8) { bonus3 bAutoSpell,\"MG_THUNDERSTORM\",5,30; if (BaseLevel>100) { if (.@r>=9) { bonus3 bAutoSpell,\"WL_HELLINFERNO\",5,20; if (.@r>=10) { bonus3 bAutoSpell,\"WL_CHAINLIGHTNING\",3,10; } } } } } }",15,5000,BF_WEAPON,"{ active_transform 1056,5000; /*SMOKIE*/ }";
   - Id: 19266
     AegisName: Survive_Circlet_K
     Name: 生存者頭箍
@@ -137281,7 +137281,7 @@ Body:
       bonus2 bMagicAtkEle,Ele_All,.@r;
       bonus bMatkRate,2*(.@r/3);
       bonus bAspd,(.@r/5);
-      autobonus "{ .@r = getrefine(); bonus bMatk,100; bonus bHit,50; bonus3 bAutoSpell,\"SO_CLOUD_KILL\",max(3,getskilllv(\"SO_CLOUD_KILL\")),50; if (.@r>=7) { bonus bMatk,50; bonus bHit,25; if (.@r>=9) { bonus3 bAutoSpell,\"WL_HELLINFERNO\",5,50; if (.@r>=10) { bonus3 bAutoSpell,\"WL_CHAINLIGHTNING\",3,20; } } }",1,10000,BF_WEAPON;
+      autobonus "{ .@r = getrefine(); bonus bMatk,100; bonus bHit,50; bonus3 bAutoSpell,\"SO_CLOUD_KILL\",max(3,getskilllv(\"SO_CLOUD_KILL\")),50; if (.@r>=7) { bonus bMatk,50; bonus bHit,25; if (.@r>=9) { bonus3 bAutoSpell,\"WL_HELLINFERNO\",5,50; if (.@r>=10) { bonus3 bAutoSpell,\"WL_CHAINLIGHTNING\",3,20; } } }",15,10000,BF_WEAPON;
       if (.@g >= ENCHANTGRADE_D && .@r>=11) {
          bonus5 bAutoSpell,"RK_IGNITIONBREAK",9,30,BF_MAGIC,1;
       }
@@ -139258,7 +139258,7 @@ Body:
       bonus bCon,2;
       bonus bAspdRate,10;
       bonus2 bAddRace,RC_Brute,10;
-      autobonus "{ .@r = getrefine(); bonus bBaseAtk,35*.@r; if (.@r>=10) { bonus bPAtk,20; } }",1,7000,BF_WEAPON;
+      autobonus "{ .@r = getrefine(); bonus bBaseAtk,35*.@r; if (.@r>=10) { bonus bPAtk,20; } }",15,7000,BF_WEAPON;
       if (.@r>=7) {
          bonus bShortAtkRate,15;
          if (.@r>=9) {
@@ -139306,7 +139306,7 @@ Body:
       bonus bCon,2;
       bonus bVariableCastrate,-10;
       bonus2 bMagicAddRace,RC_Undead,10;
-      autobonus "{ .@r = getrefine(); bonus bMatk,35*.@r; if (.@r>=10) { bonus bSmatk,20; } }",1,7000,BF_MAGIC;
+      autobonus "{ .@r = getrefine(); bonus bMatk,35*.@r; if (.@r>=10) { bonus bSmatk,20; } }",15,7000,BF_MAGIC;
       if (.@r>=7) {
          bonus2 bMagicAtkEle,Ele_All,15;
          if (.@r>=9) {
@@ -151614,6 +151614,7 @@ Body:
       Shoes: true
     ArmorLevel: 1
     EquipLevelMin: 100
+    Refineable: true
     Trade:
       NoDrop: true
     Script: |
