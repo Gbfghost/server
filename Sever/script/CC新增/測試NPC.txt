@@ -1,4 +1,4 @@
-prontera,155,175,3	script	Test	666,{
+uttycty,97,100,3	script	Test	666,{
 	mes "^6A6AFF[角色素質查詢]^000000";
 	mes "───────基本素質──────";
 	mes "- MaxHP: +"+(readparam(bmaxhprate)-100)+"%";
