@@ -1,0 +1,13 @@
+prontera,155,175,3	script	Test	666,{
+	mes "^6A6AFF[角色素質查詢]^000000";
+	mes "───────基本素質──────";
+	mes "- MaxHP: +"+(readparam(bmaxhprate)-100)+"%";
+	mes "- Str: +"+(readparam(bAllStr)-readparam(bStr))+" | Agi: +"+(readparam(bAllAgi)-readparam(bAgi))+" | Vit: +"+(readparam(bAllVit)-readparam(bVit))+"";
+	mes "- Int: +"+(readparam(bAllInt)-readparam(bInt))+" | Dex: +"+(readparam(bAllDex)-readparam(bDex))+" | Luk: +"+(readparam(bAllLuk)-readparam(bLuk))+"";
+	mes "- Pow: +"+(readparam(bAllPow)-readparam(bPow))+" | Sta: +"+(readparam(bAllSta)-readparam(bSta))+" | Wis: +"+(readparam(bAllWis)-readparam(bWis))+"";
+	mes "- Spl: +"+(readparam(bAllSpl)-readparam(bSpl))+" | Con: +"+(readparam(bAllCon)-readparam(bCon))+" | Crt: +"+(readparam(bAllCrt)-readparam(bCrt))+"";
+	
+
+	mes ""+readparam(bDelayrate)+"";
+	end;
+}
