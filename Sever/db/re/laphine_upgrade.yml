@@ -3518,6 +3518,7 @@ Body:
       - Item: Puente_Robe_IL
       - Item: Apple_Of_Archer_IL
   - Item: Great_Hero_Bravery
+    RandomOptionGroup: GREAT_HERO_BRAVERY
     TargetItems:
       - Item: Up_Oriental_Sword
       - Item: Up_Dragonic_Slayer
@@ -3555,6 +3556,7 @@ Body:
       - Item: Up_OneSkyOneSun
       - Item: Up_SoulWeight
   - Item: Great_Hero_Wisdom
+    RandomOptionGroup: GREAT_HERO_WISDOM
     TargetItems:
       - Item: Up_Oriental_Sword
       - Item: Up_Dragonic_Slayer
@@ -4306,7 +4308,8 @@ Body:
       - Item: EC_B_Staff
       - Item: SP_B_Saber
       - Item: SI_B_Saber
-  - Item: Costama_Egg69
+  - Item: Hero_LT_Refine_Melee
+    RandomOptionGroup: HERO_LT_REFINE_MELEE
     TargetItems:
       - Item: Saint_Hall_LT
       - Item: Undine_Spear_K_LT
@@ -4344,6 +4347,7 @@ Body:
       - Item: OneSkyOneSun_LT
       - Item: SoulWeight_LT
   - Item: Hero_LT_Refine_Magic
+    RandomOptionGroup: HERO_LT_REFINE_MAGIC
     TargetItems:
       - Item: Saint_Hall_LT
       - Item: Undine_Spear_K_LT
