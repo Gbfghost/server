@@ -37562,7 +37562,7 @@ Body:
       percentheal 5,5;
   - Id: 22687
     AegisName: Pieces_Of_Sentiment
-    Name:  ¨¸©À¸H¤ù
+    Name: ¨¸©À¸H¤ù
     Type: Delayconsume
     Weight: 1
     EquipLevelMin: 100
