@@ -33,8 +33,11 @@ Header:
 
 Body:
   - ID: 0
-    Name: "個人倉庫"
+    Name: "共通倉庫1"
     Table: storage
+  - ID: 1
+    Name: "共通倉庫2"
+    Table: storage2
 
 Footer:
   Imports:

@@ -263,12 +263,23 @@ function	script	F_KafStor	{
 			mes "您的倉庫.";
 			mes "感謝您使用";
 			mes "卡普拉服務.";
+			next;
+			switch(select("倉庫1服務","倉庫2服務")){
+				case 1:
+					callfunc("F_CheckKafCode");	//check your storage password, if set
+					close2;
+					openstorage;
+					cutin "", 255;
+					break;
+				case 2:
+					callfunc("F_CheckKafCode");	//check your storage password, if set
+					close2;
+					openstorage2 1,STOR_MODE_GET|STOR_MODE_PUT;
+					cutin "", 255;
+					break;
+			}
 		}
 	}
-	callfunc("F_CheckKafCode");	//check your storage password, if set
-	close2;
-	openstorage;
-	cutin "", 255;
 	end;
 }
 prontera,50,50,3	script	時間	-1,{

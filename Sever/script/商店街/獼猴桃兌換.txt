@@ -127,9 +127,9 @@ OnInit:
     endsellitem();
 
     // 副本冷卻消除捲
-    sellitem(99999, 2000000000, -1);	
-	sellitemcurrency(6417,100);
-    endsellitem();
+    sellitem(99999, 500000, -1);	
+	//sellitemcurrency(6417,100);
+    //endsellitem();
 
 OnBuyItem:
 end;

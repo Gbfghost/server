@@ -587,7 +587,7 @@ OnTimer5000:
 		}
 		sleep 10;
 			break;
-	case 2: //十字地震術
+	case 2: //十字地震術
 		unittalk 'BossID, "!！";
 		sleep 10;
 		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
@@ -1044,8 +1044,8 @@ OnTimer600:
 		}
 		sleep 10;
 			break;
-	case 2: //十字地震術
-		unittalk 'BossID, "十字地震！！";
+	case 2: //十字地震術
+		unittalk 'BossID, "十字地震！！";
 		sleep 10;
 		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
 		.@id[0] = $@mobid[0];
@@ -1943,6 +1943,7 @@ get422:
 	getitem 25864,5;
 	getitem 6909,15;
 	getitem	   930000,5;
+	getitem 940047,10;
 	warp "SavePoint",0,0;
 	end;
 OnEnable:

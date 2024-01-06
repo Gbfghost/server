@@ -78,7 +78,7 @@ OnBuyItem:
 	else {
 		set .@i,0;
 		while (.@i < getarraysize(@bought_nameid)) {
-			getitembound @bought_nameid[.@i], @bought_quantity[.@i],Bound_Char;
+			getitem @bought_nameid[.@i], @bought_quantity[.@i]; // ,Bound_Char; 如要綁定 getitem改成getitembound
 			dispbottom "成功購買 [ "+@bought_quantity[.@i]+" ] 個 [ "+getitemname(@bought_nameid[.@i])+" ]。";
 			set .@i, .@i+1; 
 		}
