@@ -2896,10 +2896,13 @@ Body:
   - Combos:
       - Combo:
           - Polluted_Dark_L_Card_
+          - Dark_Lord_Card
+      - Combo:
+          - Polluted_Dark_L_Card_
           - Dark_Lord_Card_
     Script: |
-      bonus2 bMagicAtkEle,Ele_Fire,15;
-      bonus2 bSkillAtk,"WZ_METEOR",15;
+      bonus2 bMagicAtkEle,Ele_Fire,40;
+      bonus2 bSkillAtk,"WZ_METEOR",2000;
   - Combos:
       - Combo:
           - Black_Cat
