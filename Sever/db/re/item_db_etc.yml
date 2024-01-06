@@ -66613,7 +66613,7 @@ Body:
       bonus2 bAddClass,Class_All,20;
       bonus bMatkRate,20;
   - Id: 900087
-    AegisName: Bacsojin_Card+
+    AegisName: Bacsojin_Card_
     Name: 白素貞卡片-改
     Type: Card
     Buy: 20
