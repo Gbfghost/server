@@ -9,6 +9,11 @@ OnInit:
 	
     sellitem(6417,500000,-1);
 	sellitem(100340,0,-1);  //
+
+    sellitem(6909, 0, -1);	    // 喵楊桃
+	sellitemcurrency(910132,1); 
+    endsellitem();
+    
     sellitemcurrency(6417,2);
     endsellitem();
     sellitem(100465, 0, -1);	
