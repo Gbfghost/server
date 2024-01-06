@@ -38,6 +38,9 @@ Body:
   - ID: 1
     Name: "共通倉庫2"
     Table: storage2
+  - ID: 2
+    Name: "共通倉庫3"
+    Table: storage3
 
 Footer:
   Imports:
