@@ -34415,6 +34415,7 @@ Body:
     Script: |
       .@r = getequiprefinerycnt(2);
       if (.@r >= 7) {
+        bonus bMaxHPrate,40;
         bonus2 bAddSize,Size_All,25;
         bonus2 bMagicAddSize,Size_All,25;
         bonus2 bResEff,Eff_Freeze,10000;
