@@ -98412,7 +98412,7 @@ Body:
     View: 82
   - Id: 20986
     AegisName: Scientist_Mantle
-    Name: Scientists Mantle
+    Name: (JRO)科學家的斗篷
     Type: Armor
     Weight: 300
     Defense: 25
@@ -136644,7 +136644,7 @@ Body:
       }
   - Id: 400113
     AegisName: Victory_Ear_JP
-    Name: Victory Wing Ear
+    Name: (JRO)戰女神的羽耳
     Type: Armor
     Weight: 300
     Defense: 2
@@ -141204,7 +141204,7 @@ Body:
       }
   - Id: 410024
     AegisName: Ribbon_Of_Life_J_
-    Name: Twin Ribbon of Gemini
+    Name: (JRO)雙子的雙蝴蝶結
     Type: Armor
     View: 575
     Weight: 300
@@ -141613,7 +141613,7 @@ Body:
       bonus2 bSubRace,RC_Player_Doram,5;
   - Id: 410085
     AegisName: Melon_Headphone_J
-    Name: Premium Melon Headphones
+    Name: (JRO)優質哈密瓜耳機
     Type: Armor
     View: 2129
     Buy: 2000000
@@ -142857,7 +142857,7 @@ Body:
     View: 1261
   - Id: 420110
     AegisName: ScarfOfHero_J
-    Name: Old Camouflage Scarf
+    Name: (JRO)古老的迷彩領巾
     Type: Armor
     Weight: 100
     Locations:
@@ -143191,7 +143191,7 @@ Body:
     View: 2261
   - Id: 420160
     AegisName: aegis_420160
-    Name: Tyrant of Earth
+    Name: (JRO)大地上的暴君
     Type: Armor
     View: 1982
     Weight: 100
@@ -143252,7 +143252,7 @@ Body:
     View: 2279
   - Id: 420174
     AegisName: aegis_420174
-    Name: Raging Tempest
+    Name: (JRO)狂暴暴風
     Type: Armor
     Weight: 100
     Slots: 1
@@ -143295,7 +143295,7 @@ Body:
       bonus bDelayrate,-10;
   - Id: 420182
     AegisName: aegis_420182
-    Name: Book of Sorcery
+    Name: (JRO)妖術之書
     Type: Armor
     Weight: 100
     Jobs:
@@ -147264,7 +147264,7 @@ Body:
       }
   - Id: 450176
     AegisName: Supplement_Part_Wing
-    Name: Powered Wing
+    Name: (JRO)力量推進翼
     Type: Armor
     Buy: 20
     Weight: 100
@@ -147369,7 +147369,7 @@ Body:
       }
   - Id: 450180
     AegisName: aegis_450180
-    Name: Pushy Frogy Kappa
+    Name: (JRO)鬼靈精呱呱青蛙雨衣
     Type: Armor
     Weight: 100
     Defense: 120
@@ -147976,7 +147976,7 @@ Body:
       }
   - Id: 450214
     AegisName: Dark_Triad
-    Name: Dark Triad
+    Name: (JRO)黑暗三相
     Type: Armor
     Weight: 1000
     Defense: 100
@@ -148003,7 +148003,7 @@ Body:
       sc_end SC_UNLIMIT;
   - Id: 450215
     AegisName: aegis_450215
-    Name: Blessing of Aramazd
+    Name: (JRO)阿拉馬茲德的祝福
     Type: Armor
     Weight: 1000
     Defense: 150
@@ -148117,7 +148117,7 @@ Body:
       }
   - Id: 450222
     AegisName: aegis_450222
-    Name: Requiescat in Pace
+    Name: (JRO)願死者安息
     Type: Armor
     Weight: 1000
     Defense: 150
@@ -148329,7 +148329,7 @@ Body:
       }
   - Id: 450242
     AegisName: aegis_450242
-    Name: Elemental Possession
+    Name: (JRO)元素支配者
     Type: Armor
     Weight: 1000
     Defense: 100
@@ -148479,7 +148479,7 @@ Body:
       }
   - Id: 450247
     AegisName: aegis_450247
-    Name: The Brillance
+    Name: (JRO)光輝
     Type: Armor
     Weight: 1000
     Defense: 100
@@ -148526,7 +148526,7 @@ Body:
     Refineable: true
   - Id: 450251
     AegisName: aegis_450251
-    Name: Assault Suits
+    Name: (JRO)突擊者外套
     Type: Armor
     Weight: 1000
     Defense: 100
@@ -148553,7 +148553,7 @@ Body:
          bonus bDex,15;
   - Id: 450252
     AegisName: aegis_450252
-    Name: Death Bringer
+    Name: (JRO)死亡使者
     Type: Armor
     Weight: 1000
     Defense: 100
@@ -149315,7 +149315,7 @@ Body:
       bonus2 bSubRace,RC_Player_Doram,6-6;
   - Id: 460046
     AegisName: aegis_460046
-    Name: Black Mythril Guard
+    Name: (JRO)黑色秘銀盾牌
     Type: Armor
     Weight: 300
     Defense: 60
@@ -150797,7 +150797,7 @@ Body:
       }
   - Id: 470081
     AegisName: aegis_470081
-    Name: Mindform Shoes of Arrogance
+    Name: (JRO)傲慢的思念體靴子
     Type: Armor
     Weight: 200
     Defense: 12
@@ -150849,7 +150849,7 @@ Body:
       }
   - Id: 470083
     AegisName: aegis_470083
-    Name: Mindform Shoes of Regeneration
+    Name: (JRO)再生的思念體靴子
     Type: Armor
     Weight: 200
     Defense: 12
@@ -150909,7 +150909,7 @@ Body:
       }
   - Id: 470085
     AegisName: aegis_470085
-    Name: Rune Greaves
+    Name: (JRO)盧恩重靴
     Type: Armor
     Weight: 400
     Defense: 12
@@ -151020,7 +151020,7 @@ Body:
       }
   - Id: 470090
     AegisName: aegis_470090
-    Name: Mindform Shoes of Rampage
+    Name: (JRO)暴走的思念體靴子
     Type: Armor
     Defense: 12
     Weight: 200
@@ -151073,7 +151073,7 @@ Body:
       }
   - Id: 470092
     AegisName: aegis_470092
-    Name: Mindform Shoes of Despair
+    Name: (JRO)失望的思念體靴子
     Type: Armor
     Defense: 12
     Weight: 200
@@ -153015,7 +153015,7 @@ Body:
       }
   - Id: 480085
     AegisName: Devil_Manteau_JP
-    Name: Devils Garment
+    Name: (JRO)天魔外道的外套
     Type: Armor
     Weight: 300
     Defense: 25
@@ -153132,7 +153132,7 @@ Body:
     View: 97
   - Id: 480094
     AegisName: ErymanthianSkin
-    Name: Erymanthian Skin
+    Name: (JRO)厄律曼托斯山的野豬皮
     Type: Armor
     Weight: 100
     Defense: 12
@@ -154539,7 +154539,7 @@ Body:
     View: 147
   - Id: 480228
     AegisName: aegis_480228
-    Name: Dia de Muertos
+    Name: (JRO)祝福死者之日
     Type: Armor
     Weight: 300
     Defense: 12
@@ -155413,7 +155413,7 @@ Body:
       autobonus3 "{ bonus2 bMagicAtkEle,Ele_Fire,30; bonus2 bMagicAtkEle,Ele_Water,30; bonus2 bMagicAtkEle,Ele_Wind,30; bonus2 bMagicAtkEle,Ele_Holy,30; }",1000,10000,"HW_MAGICPOWER","{}";
   - Id: 490037
     AegisName: Dark_Ring
-    Name: Dark Ring
+    Name: (JRO)黑暗戒指
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156144,7 +156144,7 @@ Body:
       bonus bMdef,5;
   - Id: 490098
     AegisName: aegis_490098
-    Name: Ring of Pazuzu
+    Name: (JRO)帕祖祖的戒指
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156212,7 +156212,7 @@ Body:
       bonus bAtkRate,5;
   - Id: 490102
     AegisName: aegis_490102
-    Name: Skull Ring
+    Name: (JRO)骷髏戒指
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156263,7 +156263,7 @@ Body:
       bonus2 bSkillUseSP,"WL_RECOGNIZEDSPELL",(eaclass()&EAJL_THIRD && BaseJob == Job_Wizard?0:100);
   - Id: 490104
     AegisName: Ring_Of_Phoenix
-    Name: Ring of Phoenix
+    Name: (JRO)不死鳥的戒指
     Type: Armor
     Weight: 400
     Slots: 1
@@ -156345,7 +156345,7 @@ Body:
       bonus bMaxSPrate,5;
   - Id: 490110
     AegisName: aegis_490110
-    Name: Anulus Ira
+    Name: (JRO)憤怒的指環
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156373,7 +156373,7 @@ Body:
       }
   - Id: 490113
     AegisName: Jasper_Ring
-    Name: Jasper Ring
+    Name: (JRO)碧玉戒指
     Type: Armor
     Weight: 400
     Slots: 1
@@ -156399,7 +156399,7 @@ Body:
          bonus2 bAddClass,Class_All,10;
   - Id: 490118
     AegisName: aegis_490118
-    Name: Adoration Ring
+    Name: (JRO)崇拜的指輪
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156576,7 +156576,7 @@ Body:
       bonus bAspdRate,5;
   - Id: 490130
     AegisName: aegis_490130
-    Name: Bracelet of Chenxu
+    Name: (JRO)辰戌的腕輪
     Type: Armor
     Weight: 400
     Slots: 1
@@ -156693,7 +156693,7 @@ Body:
       bonus bHplus,2;
   - Id: 490139
     AegisName: aegis_490139
-    Name: Awakening Abyss King's Ring
+    Name: (JRO)覺醒深淵之王的指輪
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156706,7 +156706,7 @@ Body:
       bonus bMaxSP,BaseLevel*5;
   - Id: 490141
     AegisName: aegis_490141
-    Name: Metal Pick
+    Name: (JRO)金屬吉他撥片
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156760,7 +156760,7 @@ Body:
       bonus2 bAddRace,RC_All,10;
   - Id: 490145
     AegisName: aegis_490145
-    Name: Ring of Ceryneian
+    Name: (JRO)克列尼亞之環
     Type: Armor
     Weight: 100
     Slots: 1
@@ -156787,7 +156787,7 @@ Body:
       sc_end SC_UNLIMIT;
   - Id: 490146
     AegisName: aegis_490146
-    Name: Paracelsus Glove
+    Name: (JRO)帕拉塞爾蘇斯手套
     Type: Armor
     Weight: 100
     Slots: 1
@@ -157254,7 +157254,7 @@ Body:
       bonus2 bSubRace,RC_Undead,4;
   - Id: 490183
     AegisName: Military_Glove
-    Name: Military Glove
+    Name: (JRO)軍用手套
     Type: Armor
     Buy: 20
     Weight: 100
@@ -157441,7 +157441,7 @@ Body:
       bonus bMaxHPrate,10;
   - Id: 490193
     AegisName: aegis_490193
-    Name: Traveler Ring
+    Name: (JRO)吟遊旅人的戒指
     Type: Armor
     Weight: 300
     Slots: 1
@@ -157489,7 +157489,7 @@ Body:
       bonus2 bMagicAddRace,RC_All,5;
   - Id: 490206
     AegisName: Noblesse_oblige
-    Name: Noblesse Oblige
+    Name: (JRO)貴族的義務
     Type: Armor
     Weight: 100
     Slots: 1
@@ -157503,7 +157503,7 @@ Body:
       bonus bMatkRate,10;
   - Id: 490207
     AegisName: Memento_Mori
-    Name: Memento Mori
+    Name: (JRO)勿忘你終有一死
     Type: Armor
     Weight: 100
     Slots: 1
@@ -157936,7 +157936,7 @@ Body:
       bonus bMatkRate,6;
   - Id: 490272
     AegisName: aegis_490272
-    Name: Harvest Festival
+    Name: (JRO)豐收慶饗
     Type: Armor
     Weight: 100
     Slots: 1
@@ -158168,7 +158168,7 @@ Body:
     ArmorLevel: 2
   - Id: 490290
     AegisName: aegis_490290
-    Name: Ameretat
+    Name: (JRO)阿穆雷塔特
     Type: Armor
     Weight: 100
     Slots: 1
@@ -161290,7 +161290,7 @@ Body:
       }
   - Id: 510043
     AegisName: Kings_Bless_A
-    Name: Awakened King Sword of Praising Glory
+    Name: (JRO)覺醒受光榮讚與的王劍
     Type: Weapon
     SubType: Dagger
     Buy: 20
@@ -161328,7 +161328,7 @@ Body:
          bonus bNoSizeFix;
   - Id: 510044
     AegisName: Kings_Eager_A
-    Name: Awakened Karma Sword of Wearing Destruction
+    Name: (JRO)覺醒受破滅纏繞的業劍
     Type: Weapon
     SubType: Dagger
     Buy: 20
@@ -175614,7 +175614,7 @@ Body:
       }
   - Id: 610029
     AegisName: Kings_Double_Edge_A
-    Name: Awakened Old King's Double Edge
+    Name: (JRO)覺醒古王的雙刃
     Type: Weapon
     SubType: Katar
     Buy: 20
@@ -181221,7 +181221,7 @@ Body:
       }
   - Id: 700069
     AegisName: aegis_700069
-    Name: Triangle Disaster
+    Name: (JRO)三大災厄
     Type: Weapon
     SubType: Bow
     Weight: 900

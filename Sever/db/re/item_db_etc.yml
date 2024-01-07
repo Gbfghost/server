@@ -38899,7 +38899,7 @@ Body:
       bonus2 bAddRace,RC_All,10*getrefine();
   - Id: 29371
     AegisName: Release_Of_Magic
-    Name: (JRO)真理解放
+    Name: (JRO)真理的解放
     Type: Card
     SubType: Enchant
     Script: |
@@ -44370,7 +44370,7 @@ Body:
       bonus bLongAtkRate,4*(.@r/3);
   - Id: 300314
     AegisName: 19th_Pack_enc01
-    Name: Remnants of reason and memory    # !todo check english name
+    Name: (JRO)理性與記憶的殘渣
     Type: Card
     SubType: Enchant
     Script: |
@@ -45709,7 +45709,7 @@ Body:
       bonus2 bSkillAtk,"AB_JUDEX",15;
   - Id: 310012
     AegisName: DesireOfDeath
-    Name: Doom Desire
+    Name: (JRO)死的欲動
     Type: Card
     SubType: Enchant
     Script: |
@@ -47806,7 +47806,7 @@ Body:
       bonus2 bSkillAtk,"DC_THROWARROW",15;
   - Id: 310321
     AegisName: Enchant_Groza
-    Name: Abyssal King
+    Name: (JRO)深淵之王
     Type: Card
     SubType: Enchant
     Script: |
@@ -51815,7 +51815,7 @@ Body:
       }
   - Id: 310760
     AegisName: DivineGrace_of_Kings
-    Name: Heaven's Majesty
+    Name: (JRO)王的神威
     Type: Card
     SubType: Enchant
     Script: |
@@ -53768,7 +53768,7 @@ Body:
       bonus bVariableCastrate,-10;
   - Id: 311072
     AegisName: King_of_Origin
-    Name: King of Origin    # !todo check english name
+    Name: (JRO)起源之王
     Type: Card
     SubType: Enchant
     Script: |
@@ -53776,7 +53776,7 @@ Body:
       bonus bMaxSP,250;
   - Id: 311073
     AegisName: Goddess_of_Abundance
-    Name: Goddess of Abundance    # !todo check english name
+    Name: (JRO)豊穰的女神
     Type: Card
     SubType: Enchant
     Script: |
@@ -53784,14 +53784,14 @@ Body:
       bonus bAddItemHealRate,15;
   - Id: 311074
     AegisName: Heros_TriumphantSong
-    Name: Hero's Triumph    # !todo check english name
+    Name: (JRO)英雄的凱歌
     Type: Card
     SubType: Enchant
     Script: |
       bonus bAspd,1;
   - Id: 311075
     AegisName: Illusion_Box_Garden
-    Name: Demonlord Calamity
+    Name: (JRO)厄災的魔將
     Type: Card
     SubType: Enchant
     Script: |
@@ -57047,7 +57047,7 @@ Body:
       }
   - Id: 311284
     AegisName: Kings_Magic
-    Name: Extreme Magic
+    Name: (JRO)極限的魔力
     Type: Card
     SubType: Enchant
     Script: |
