@@ -170,17 +170,20 @@ BackMenu:
 			case 13:	// +19券
 				setarray .@array,(.@weapon)?6864:6865,100,0,0,19;
 				break;
-			case 14:	// 受祝福的武器礦石/受祝福的防具礦石
+			case 14:	// +19券
+				setarray .@array,(.@weapon)?950012:950013,100,0,0,20;
+				break;
+			case 15:	// 受祝福的武器礦石/受祝福的防具礦石
 				setarray .@array,(.@weapon)?6438:6439,refine_percent(.@part),0,0,0;
 				break;
-			case 15:	// 高密度鈽鐳礦石/高密度鈣礦石
+			case 16:	// 高密度鈽鐳礦石/高密度鈣礦石
 				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,1,0;
 				break;
-			case 16:	// 鐵匠的神乎其技 +12 ~ +13
+			case 17:	// 鐵匠的神乎其技 +12 ~ +13
 				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,0,0;
 				setarray .@stone,7650,1;
 				break;
-			case 17:	// 鐵匠的神乎其技 +13 ~ +14
+			case 18:	// 鐵匠的神乎其技 +13 ~ +14
 				setarray .@array,(.@weapon)?6226:6225,refine_percent(.@part),0,0,0;
 				setarray .@stone,7650,2;
 				break;
