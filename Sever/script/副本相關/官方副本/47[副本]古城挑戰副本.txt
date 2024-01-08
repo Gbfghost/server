@@ -587,7 +587,7 @@ OnTimer5000:
 		}
 		sleep 10;
 			break;
-	case 2: //十字地震術
+	case 2: //十字地震術
 		unittalk 'BossID, "!！";
 		sleep 10;
 		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
@@ -1044,8 +1044,8 @@ OnTimer600:
 		}
 		sleep 10;
 			break;
-	case 2: //十字地震術
-		unittalk 'BossID, "十字地震！！";
+	case 2: //十字地震術
+		unittalk 'BossID, "十字地震！！";
 		sleep 10;
 		monster .@map$,.@x+9,.@y+3,"--ja--",3095,1,.@label$;
 		.@id[0] = $@mobid[0];
@@ -1860,6 +1860,9 @@ OnTimer8000:
 		mes "恭喜你完成副本";
 		mes "這是我提供的獎勵你就收下吧！";
 		next;
+		mes "在這裡崩塌之前";
+		mes "我會用盡我的力氣替你傳送出去。";
+		mes "再會了。勇者。";
 		addrid(2,1,'party_id);
 		//---設定難度(目前為一階段打1次才會升一階)
 		set #CGHTYPENUM,#CGHTYPENUM+1;
@@ -1873,11 +1876,6 @@ OnTimer8000:
 			set #CGHTYPE,10;
 			set #CGHTYPENUM,0;
 		}
-		next;
-		mes "在這裡崩塌之前";
-		mes "我會用盡我的力氣替你傳送出去。";
-		mes "再會了。勇者。";
-		next;
 		'ClearInatance = 1;
 		getmapxy(.@m$,'passx,'passy,BL_PC);
 		donpcevent instance_npcname("副本寶箱#1@gl_he")+"::OnEnable";

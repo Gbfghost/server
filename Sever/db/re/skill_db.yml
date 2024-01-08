@@ -10619,7 +10619,7 @@ Body:
     Hit: Multi_Hit
     HitCount: 1
     Element: Weapon
-    SplashArea: 2
+    SplashArea: 5
     ActiveInstance: 14
     CastCancel: true
     CastTime: 500
@@ -31189,15 +31189,15 @@ Body:
         Time: 210000
     Cooldown:
       - Level: 1
-        Time: 90000
+        Time: 45000 # 90000
       - Level: 2
-        Time: 120000
+        Time: 60000 # 120000
       - Level: 3
-        Time: 150000
+        Time: 75000 # 150000
       - Level: 4
-        Time: 180000
+        Time: 90000 # 180000
       - Level: 5
-        Time: 210000
+        Time: 105000 # 210000
     FixedCastTime: 1000
     Requires:
       SpCost:
