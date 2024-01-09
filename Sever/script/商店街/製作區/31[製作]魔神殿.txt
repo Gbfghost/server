@@ -1,0 +1,44 @@
+uttycty,42,157,5	trader	[製作]魔神殿	3765,{
+	disable_items;
+	end;
+OnInit:
+	setnpcicon getnpcid(0),1012,"[製作]魔神殿";
+	waitingroom "[製作]魔神殿",0;
+	
+	tradertype(NST_EXPANDED_BARTER);
+	
+	sellitem(27321, 0, -1); // 絕望夢羅克
+	sellitemcurrency(940020,200);
+	endsellitem();
+	sellitem(27322, 0, -1); // 魔神門徒阿哈特
+	sellitemcurrency(940020,200);
+	endsellitem();
+	sellitem(27323, 0, -1); // 魔神門徒許乃任卡片
+	sellitemcurrency(940020,200);
+	endsellitem();
+
+
+	
+	//sellitem(27324, 0, -1); // 巴利納拉雷亞卡片
+	//sellitemcurrency(940020,200);
+	//endsellitem();
+	//sellitem(27325, 0, -1); // 穆希貝斯寇卡片
+	//sellitemcurrency(940020,200);
+	//endsellitem();
+
+	sellitem(27326, 0, -1); // 夢羅克行妖術者卡片
+	sellitemcurrency(940022,200);
+	endsellitem();
+
+	sellitem(27327, 0, -1); // 死神安庫卡片
+	sellitemcurrency(940023,200);
+	endsellitem();
+	//sellitem(27328, 0, -1); // 墮落生命卡片
+	//sellitemcurrency(940020,200);
+	//endsellitem();
+	
+
+OnBuyItem:
+end;
+}
+
