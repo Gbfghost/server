@@ -118,7 +118,9 @@ OnInit:
 
 
 
-
+    sellitem(900000, 0, -1);	//B大
+	sellitemcurrency(6909,300);
+    endsellitem();
     sellitem(920003, 0, -1);	//B大左
 	sellitemcurrency(6909,300);
     endsellitem();
