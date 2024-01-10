@@ -40,4 +40,5 @@ te_aldecas5	mapflag	gvg_te_castle
 
 
 //¤õ2 GVG
-mag_dun02	mapflag	gvg_dungeon
+//mag_dun02	mapflag	gvg_dungeon
+
