@@ -66806,9 +66806,6 @@ Body:
     Slots: 1
     Jobs:
       Summoner: true
-    Classes:
-      All_Third: true
-      Fourth: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -66832,9 +66829,6 @@ Body:
     Slots: 1
     Jobs:
       Ninja: true
-    Classes:
-      All_Third: true
-      Fourth: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -66857,9 +66851,6 @@ Body:
     Jobs:
       Gunslinger: true
       Rebellion: true
-    Classes:
-      All_Third: true
-      Fourth: true
     Locations:
       Armor: true
     ArmorLevel: 1
@@ -66882,9 +66873,6 @@ Body:
     Slots: 1
     Jobs:
       StarGladiator: true
-    Classes:
-      All_Third: true
-      Fourth: true
     Locations:
       Armor: true
     ArmorLevel: 1
