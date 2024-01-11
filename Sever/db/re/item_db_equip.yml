@@ -149190,7 +149190,7 @@ Body:
       bonus2 bSubEle,Ele_Neutral,(readparam(bVit) >= 108?20:0);
       bonus2 bSubEle,Ele_Earth,(readparam(bInt) >= 108?20:0);
       bonus2 bSubEle,Ele_Fire,(readparam(bDex) >= 108?20:0);
-      bonus bFlee2,(readparam(bDex) >= 108?20:0);
+      bonus bFlee2,(readparam(bLuk) >= 108?20:0);
       }
       if(.@r >= 12){
       bonus bMaxHPrate,10;bonus bMaxSPrate,10;bonus2 bSubEle,Ele_All,5;}
