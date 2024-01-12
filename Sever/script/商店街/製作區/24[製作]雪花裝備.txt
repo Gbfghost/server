@@ -32,8 +32,8 @@ Oninit:
 	sellitemcurrency(1000608,30);
 	sellitemcurrency(1000405,150);
 	endsellitem();
-	startsellitem(1001031, 2500000, -1);
-	sellitemcurrency(1001030,15);
+	startsellitem(1001032, 2500000, -1);
+	sellitemcurrency(1001030,5);
 	sellitemcurrency(1000608,5);
 	sellitemcurrency(1000405,25);
 	endsellitem();
