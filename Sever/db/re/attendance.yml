@@ -35,7 +35,7 @@ Header:
 
 Body:
   - Start: 20231225
-    End: 20240113
+    End: 20240125
     Rewards:
       - Day: 1
         ItemId: 6909

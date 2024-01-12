@@ -91,16 +91,15 @@ function	script	membervip3	{
 					mes "將會賣出以下物品^FF0000最大數量^000000";
 					mes "並且高價賣出^FF0000無效^000000";
 					for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) 
-					mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
-					if(select("確定:取消")==2)close;
-					for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
-					set .@sellnum,countitem(@sold_nameid[.@a]);
+						mes "^5599FF"+getitemname(@sold_nameid[.@a])+"^000000";
+						if(select("確定:取消")==2)close;
+							for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
+								set .@sellnum,countitem(@sold_nameid[.@a]);
 					
 					set .@sprice,.@sellnum*getiteminfo(@sold_nameid[.@a],1);
 					if((Zeny+.@sprice) >= 2108298148){next;goto maxZeny;}else{delitem @sold_nameid[.@a],.@sellnum;set Zeny,Zeny+.@sprice;}
-					
-					mes "賣出^FF0000"+getitemname(@sold_nameid[.@a])+"^000000 [^0000FF"+.@sellnum+"^000000] 個 ^5599FF"+.@sprice+"^000000z";
-					set .@asprice,.@asprice+.@sprice;
+						mes "賣出^FF0000"+getitemname(@sold_nameid[.@a])+"^000000 [^0000FF"+.@sellnum+"^000000] 個 ^5599FF"+.@sprice+"^000000z";
+						set .@asprice,.@asprice+.@sprice;
 					}
 					mes "共^5599FF"+.@asprice+"Zeny";
 					end;
@@ -109,7 +108,6 @@ function	script	membervip3	{
 					npcshopattach "ashop1";
 					end;
 				}
-				end;
       OnSellItem:
 	    mes "紀錄拍賣物品";
 	    for ( set .@a,0; .@a < getarraysize( @sold_nameid ); set .@a, .@a + 1 ) {
