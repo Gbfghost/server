@@ -17140,7 +17140,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ACC_L);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus2 bIgnoreDefRaceRate,RC_All,100;
+         bonus bIgnoreDefRace,RC_All;
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
@@ -17152,16 +17152,9 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-        bonus2 bIgnoreDefRaceRate,RC_Formless,100;
-        bonus2 bIgnoreDefRaceRate,RC_Undead,100;
-        bonus2 bIgnoreDefRaceRate,RC_Brute,100;
-        bonus2 bIgnoreDefRaceRate,RC_Plant,100;
-        bonus2 bIgnoreDefRaceRate,RC_Insect,100;
-        bonus2 bIgnoreDefRaceRate,RC_Fish,100;
-        bonus2 bIgnoreDefRaceRate,RC_Demon,100;
-        bonus2 bIgnoreDefRaceRate,RC_DemiHuman,100;
-        bonus2 bIgnoreDefRaceRate,RC_Angel,100;
-        bonus2 bIgnoreDefRaceRate,RC_Dragon,100;
+         bonus bIgnoreDefRace,RC_All;
+         bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
+         bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
   - Combos:
       - Combo:
