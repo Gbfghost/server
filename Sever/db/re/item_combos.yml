@@ -16828,18 +16828,18 @@ Body:
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
-  - Combos:
-      - Combo:
-          - S_FullPene_Armor
-          - S_FullPene_Shoes
-    Script: |
-      .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
-      bonus bAtkRate,2;
-      if (.@sum >= 18) {
-         bonus bIgnoreDefRace,RC_All;
-         bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
-         bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
-      }
+#  - Combos:
+#      - Combo:
+#          - S_FullPene_Armor
+#          - S_FullPene_Shoes
+#    Script: |
+#      .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
+#      bonus bAtkRate,2;
+#      if (.@sum >= 18) {
+#         bonus bIgnoreDefRace,RC_All;
+#         bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
+#         bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
+#      }
   - Combos:
       - Combo:
           - Sombre_Manteau
