@@ -1910,7 +1910,7 @@ get422:
 	getitem 930000,5;
 	getitem    6607,5;	
 	getitem    6608,5;
-	getitem    6909,2;
+	getitem    6909,10;
 	warp "SavePoint",0,0;
 	end;
 OnEnable:

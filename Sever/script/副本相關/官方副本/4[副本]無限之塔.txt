@@ -1373,7 +1373,7 @@ OnEnable:
 
 OnTouch_:
 	getitem 6000,1; //Dark_Ashes
-	getitem 6909,1;
+	//getitem 6909,30;
 	warp instance_mapname("5@tower"),101,72;
 	end;
 
@@ -1907,7 +1907,7 @@ OnMyMobDead:
 get42:
 	end;
 get422:
-	getitem 6909,10;
+	getitem 6909,30;
 	getitem 930000,5;
 	getitem 940004,10;
 	Instance_PassAnnounce;

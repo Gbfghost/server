@@ -34801,3 +34801,13 @@ Body:
       bonus2 bSubRace,RC_ALL,10;
       bonus bMaxHPrate,10;
       bonus bMaxSPrate,10;
+  - Combos:
+      - Combo:
+          - Wing_Of_Bless
+          - Feather_Beret_WH
+    Script: |
+      bonus bFixedCast,-300;
+      bonus2 bSubEle,ELE_WIND,5;
+      bonus2 bSubEle,ELE_FIRE,5;
+      bonus2 bSubEle,ELE_EARTH,5;
+      bonus2 bSubEle,ELE_WATER,5;

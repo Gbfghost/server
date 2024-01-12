@@ -883,7 +883,7 @@ OnTimer1000:
 			sleep 1000;
 			break;
 		case 2:
-			//十字地震術
+			//十字地震術
 			sleep 1000;
 			monster .@map$,.@x+3,.@y+3,"--ja--",3095,1,.@label$;
 			.@id[0] = $@mobid[0];
@@ -2071,7 +2071,7 @@ get42:
 get422:
 	Instance_PassAnnounce;	
 	getitem 940048,10;
-	getitem 6909,20;
+	getitem 6909,70;
 	getitem 930000,5;
 	warp "SavePoint",0,0;
 	end;

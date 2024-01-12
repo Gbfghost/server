@@ -1231,7 +1231,7 @@ get42:
 	end;
 get422:
 	getitem 930000,5;
-	getitem 6909,5;
+	getitem 6909,10;
 	getitem 940036,10;
 	getitem 25786,50; // ¨÷©v
 	getitem 25787,30;  // ¹s¥ó

@@ -1111,7 +1111,7 @@ Body:
     AegisName: Gold
     Name: ¶Àª÷
     Type: Etc
-    Buy: 600000
+    Buy: 1000000
     Weight: 1
     Flags:
       BuyingStore: true
