@@ -184672,7 +184672,7 @@ Body:
     Slots: 1
     Locations:
       Garment: true
-    ArmorLevel: 2
+    ArmorLevel: 1
     EquipLevelMin: 150
     Refineable: true
     Gradable: true
