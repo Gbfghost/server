@@ -3529,20 +3529,6 @@ Body:
            Amount: 2
         ResultItem: Astraea_Shoes_LT
         ChangeRefine: -5
-      - BaseItem: Wine_Shoes
-        MinimumRefine: 9
-        CardsAllowed: true
-        Materials:
-         - Material: Armor_Stone_1
-           Amount: 150
-         - Material: Dark_Red_Jewel
-           Amount: 100
-         - Material: Cardinal_Jewel
-           Amount: 100
-         - Material: Red_Magic_Key_TW
-           Amount: 1
-        ResultItem: Wine_Shoes_LT
-        ChangeRefine: -5
       - BaseItem: Bloody_Celine_Dress_TW
         MinimumRefine: 9
         CardsAllowed: true
@@ -6216,6 +6202,20 @@ Body:
         ResultItem: Fatalist_LT
   - Item: C_Armor_Reform_3
     BaseItems:
+      - BaseItem: Wine_Shoes
+        MinimumRefine: 9
+        CardsAllowed: true
+        Materials:
+         - Material: Armor_Stone_3
+           Amount: 150
+         - Material: Dark_Red_Jewel
+           Amount: 100
+         - Material: Cardinal_Jewel
+           Amount: 100
+         - Material: Red_Magic_Key_TW
+           Amount: 1
+        ResultItem: Wine_Shoes_LT
+        ChangeRefine: -1
       - BaseItem: Fake_Alloy_Pot
         MinimumRefine: 9
         CardsAllowed: true

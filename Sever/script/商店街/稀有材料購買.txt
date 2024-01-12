@@ -18,6 +18,23 @@ OnInit:
 	sellitem(1000620,.@p*3,-1);      //能量石
 	sellitemcurrency(4602,1);
     endsellitem();
+	sellitem(1001255,.@p*3,-1);      //深紅魔術之鑰
+	sellitemcurrency(940048,200);
+	sellitemcurrency(940052,200);
+	sellitemcurrency(4625,3);
+    endsellitem();
+	sellitem(1001557,.@p*3,-1);      //超新星的祝福
+	sellitemcurrency(910132,999);
+	sellitemcurrency(1001174,999);
+    endsellitem();
+	sellitem(1001558,.@p*3,-1);      //魔神殿之息
+	sellitemcurrency(910132,999);
+	sellitemcurrency(1001174,999);
+    endsellitem();
+	sellitem(1001573,.@p*3,-1);      //深紅魔術花瓣
+	sellitemcurrency(910132,999);
+	sellitemcurrency(1001174,999);
+    endsellitem();
 
 	sellitem(4610,0,-1);      //莎拉卡片
 	sellitemcurrency(940025,200);
