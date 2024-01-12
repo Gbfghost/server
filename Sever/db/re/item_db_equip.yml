@@ -151677,7 +151677,7 @@ Body:
       bonus2 bSubEle,Ele_Fire,10;
       }
       if(.@r >= 13){
-      bonus bFixedCastRate,-600;
+      bonus bFixedCast,-600;
       bonus bDelayrate,-6;}
   - Id: 470128
     AegisName: Pegasus_Shoes
