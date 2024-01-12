@@ -16836,7 +16836,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus bIgnoreDefRace,RC_Demon;
+         bonus bIgnoreDefRace,RC_All;
       }
   - Combos:
       - Combo:
