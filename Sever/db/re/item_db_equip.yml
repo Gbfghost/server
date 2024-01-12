@@ -142232,6 +142232,14 @@ Body:
       Costume_Head_Mid: true
     ArmorLevel: 1
     View: 2324
+  - Id: 410277
+    AegisName: C_Ragdoll
+    Name: (服飾)超大布偶貓
+    Type: Armor
+    Locations:
+      Costume_Head_Mid: true
+    ArmorLevel: 1
+    View: 2436
   - Id: 420000
     AegisName: aegis_420000
     Name: 依莎的小胡蘿蔔
