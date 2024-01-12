@@ -155114,6 +155114,85 @@ Body:
       Costume_Garment: true
     ArmorLevel: 1
     View: 199
+  - Id: 480410
+    AegisName: S_G_Manteau_LT_TW
+    Name: 豔陽沙礫斗篷-LT
+    Type: Armor
+    Weight: 100
+    Defense: 30
+    Slots: 1
+    Locations:
+      Garment: true
+    ArmorLevel: 2
+    EquipLevelMin: 100
+    Refineable: true
+    Gradable: true
+    Script: |
+      .@r = getrefine();
+      .@g = getenchantgrade();
+      bonus bMdef,10;
+      bonus bPerfectHitRate,5;
+      bonus bCritical,2*(.@r/2);
+      bonus bAspdRate,3*(.@r/2);
+      bonus bShortAtkRate,2*(.@r/3);
+      bonus bLongAtkRate,2*(.@r/3);
+      bonus2 bMagicAtkEle,ELE_ALL,2*(.@r/3);
+      if (eaclass()&EAJL_THIRD && BaseJob == Job_Crusader) {
+        bonus bPerfectHitRate,30+5*(.@r/4);
+        bonus bPAtk,(.@r/3);
+        bonus bSMatk,(.@r/3);
+        bonus2 bSkillCooldown,"LG_RAYOFGENESIS",-((.@r/3)*500);
+        bonus2 bSkillCooldown,"LG_SHIELDPRESS",-((.@r/3)*250);
+        bonus2 bSkillAtk,"LG_RAYOFGENESIS",15*(.@r/4);
+        bonus2 bSkillAtk,"LG_SHIELDPRESS",20*(.@r/4);
+        if (.@r >= 12) {
+          bonus bAllStats,15;
+          bonus bShortAtkRate,20;
+          bonus2 bMagicAtkEle,ELE_HOLY,20;
+        }
+      }  
+      if (eaclass()&EAJL_THIRD && BaseJob == Job_Alchemist) {
+        bonus bPerfectHitRate,30+5*(.@r/4);
+        bonus bPAtk,2*(.@r/3);
+        bonus2 bSkillCooldown,"GN_CART_TORNADO",-((.@r/3)*500);
+        bonus2 bSkillCooldown,"GN_SPORE_EXPLOSION",-((.@r/3)*600);
+        bonus2 bSkillAtk,"GN_SPORE_EXPLOSION",15*(.@r/4);
+        bonus2 bSkillAtk,"GN_CART_TORNADO",20*(.@r/4);
+        if (.@r >= 12) {
+          bonus bAllStats,15;
+          bonus bLongAtkRate,20;
+          bonus bShortAtkRate,30;
+        }
+      }
+      if (.@g >= ENCHANTGRADE_D) {
+        bonus bDelayrate,-5;
+        bonus bPAtk,1;
+        bonus bSMatk,1;
+        if (.@g >= ENCHANTGRADE_C) {
+          bonus bPAtk,1;
+          bonus bSMatk,1;
+          bonus2 bSkillAtk,"LG_RAYOFGENESIS",10;
+          bonus2 bSkillAtk,"GN_SPORE_EXPLOSION",20;
+          bonus2 bSkillAtk,"LG_SHIELDPRESS",20;
+          bonus2 bSkillAtk,"GN_CART_TORNADO",30;
+          if (.@g >= ENCHANTGRADE_B) {
+            bonus bPAtk,2;
+            bonus bSMatk,2;
+            bonus2 bSkillAtk,"LG_RAYOFGENESIS",20;
+            bonus2 bSkillAtk,"LG_SHIELDPRESS",20;
+            bonus2 bSkillAtk,"GN_HELLS_PLANT",30;
+            bonus2 bSkillAtk,"GN_CART_TORNADO",30;
+            if (.@g >= ENCHANTGRADE_A) {
+              bonus bPAtk,3;
+              bonus bSMatk,3;
+              bonus2 bSkillAtk,"LG_RAYOFGENESIS",30;
+              bonus2 bSkillAtk,"LG_SHIELDPRESS",30;
+              bonus2 bSkillAtk,"GN_SPORE_EXPLOSION",30;
+              bonus2 bSkillAtk,"GN_CART_TORNADO",40;
+            }
+          }
+        }
+      }
   - Id: 490004
     AegisName: Atker_Ring
     Name: Attacker Booster Ring
