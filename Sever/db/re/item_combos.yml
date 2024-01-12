@@ -16837,6 +16837,8 @@ Body:
       bonus bAtkRate,2;
       if (.@sum >= 18) {
          bonus bIgnoreDefRace,RC_All;
+         bonus2 bIgnoreDefRaceRate,RC_Player_Human,-1000;
+         bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-1000;
       }
   - Combos:
       - Combo:
