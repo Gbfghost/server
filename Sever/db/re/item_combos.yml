@@ -12300,26 +12300,10 @@ Body:
       else if (BaseLevel >= 125) {
          .@val += 3;
       }
-      bonus2 bIgnoreDefRaceRate,RC_Formless,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,.@val;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,.@val;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,.@val;
+      bonus2 bIgnoreDefRaceRate,RC_All,.@val;
+      bonus2 bIgnoreMdefRaceRate,RC_All,.@val;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-.@val;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-.@val;
   - Combos:
       - Combo:
           - S_Physical_Shoes
@@ -12375,26 +12359,10 @@ Body:
     Script: |
       bonus bAspd,2;
       bonus bVariableCastrate,-10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
   - Combos:
       - Combo:
           - S_PerfectSize_Weapon
@@ -12561,16 +12529,8 @@ Body:
           - S_Mechanic_weapon
     Script: |
       .@r = getequiprefinerycnt(EQI_SHADOW_SHIELD) + getequiprefinerycnt(EQI_SHADOW_WEAPON);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@r;
   - Combos:
       - Combo:
           - S_Ignition_Weapon
@@ -12637,16 +12597,8 @@ Body:
           - S_Ranger_Shield
     Script: |
       .@r = getequiprefinerycnt(EQI_SHADOW_WEAPON) + getequiprefinerycnt(EQI_SHADOW_SHIELD);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@r;
   - Combos:
       - Combo:
           - S_Arrow_Shield
@@ -12661,16 +12613,8 @@ Body:
           - S_Ranger_Weapon
     Script: |
       .@r = getequiprefinerycnt(EQI_SHADOW_ARMOR) + getequiprefinerycnt(EQI_SHADOW_WEAPON);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@r;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@r;
   - Combos:
       - Combo:
           - S_Shooting_Weapon
@@ -15955,16 +15899,9 @@ Body:
           - S_Ranger_Weapon
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_SHIELD)+getequiprefinerycnt(EQI_SHADOW_WEAPON);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Rampage_Shield
@@ -16003,16 +15940,9 @@ Body:
           - S_Mechanic_Shield
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHIELD);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Skynetblow_Weapon
@@ -16051,16 +15981,8 @@ Body:
           - S_Sura_Shield
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHIELD);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@r;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@r;
       bonus2 bSkillAtk,"SR_TIGERCANNON",.@sum;
   - Combos:
       - Combo:
@@ -16077,26 +15999,12 @@ Body:
           - S_Archbishop_Weapon
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_SHIELD)+getequiprefinerycnt(EQI_SHADOW_WEAPON);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Duplelight_Shield
@@ -16132,16 +16040,9 @@ Body:
           - S_Royalguard_Shield
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHIELD);
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Adoramus_Weapon
@@ -16177,16 +16078,9 @@ Body:
           - S_SuperNovice_Weapon
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_SHIELD)+getequiprefinerycnt(EQI_SHADOW_WEAPON);
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Judex_Shield
@@ -16236,26 +16130,12 @@ Body:
           - S_Wanderer_Shield
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHIELD);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Reverberation_Weapon
@@ -16447,26 +16327,12 @@ Body:
     Script: |
       bonus2 bSkillCooldown,"RK_IGNITIONBREAK",-500;
       bonus3 bAutoSpell,"RK_IGNITIONBREAK",max(3,getskilllv("RK_IGNITIONBREAK")),1;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
   - Combos:
@@ -16480,26 +16346,12 @@ Body:
     Script: |
       bonus2 bSkillCooldown,"LG_CANNONSPEAR",-500;
       bonus2 bMagicAtkEle,Ele_Holy,10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bAspd,2;
       bonus2 bSkillAtk,"LG_RAYOFGENESIS",15;
@@ -16513,26 +16365,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus2 bAddSize,Size_All,5;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
@@ -16547,26 +16385,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -16582,26 +16406,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bCritical,10;
@@ -16618,26 +16428,12 @@ Body:
     Script: |
       bonus3 bAutoSpell,"SO_PSYCHIC_WAVE",3,1;
       bonus2 bMagicAtkEle,Ele_Neutral,10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bDelayrate,-15;
       bonus bAspd,2;
       bonus2 bSkillAtk,"SC_FATALMENACE",15;
@@ -16652,26 +16448,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bMagicAtkEle,Ele_All,10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
       bonus2 bSkillAtk,"WL_CHAINLIGHTNING",15;
@@ -16685,26 +16467,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus2 bSkillCooldown,"SO_DIAMONDDUST",-4000;
       bonus2 bMagicAtkEle,Ele_All,10;
       bonus2 bMagicAddSize,Size_All,10;
@@ -16724,26 +16492,12 @@ Body:
       bonus2 bMagicAddSize,Size_All,10;
       bonus2 bAddSize,Size_All,10;
       bonus2 bMagicAtkEle,Ele_Holy,10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus2 bSkillCooldown,"AB_ADORAMUS",-1000;
   - Combos:
       - Combo:
@@ -16755,26 +16509,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bSkillCooldown,"SR_RAMPAGEBLASTER",-7500;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"SR_RAMPAGEBLASTER",15;
@@ -16788,26 +16528,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -16823,26 +16549,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bMagicAtkEle,Ele_All,10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMDefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bVariableCastrate,-10;
       bonus2 bSkillAtk,"WM_SEVERE_RAINSTORM",15;
@@ -16871,16 +16583,9 @@ Body:
           - S_Star_Emperor_Shoes
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHOES);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Tail_Dragon_Weapon
@@ -16907,16 +16612,9 @@ Body:
           - S_Star_Emperor_Armor
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ARMOR);
-      bonus2 bIgnoreDefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Flare_Dance_Earing
@@ -17006,16 +16704,9 @@ Body:
           - S_Soul_Reaper_Shoes
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_WEAPON)+getequiprefinerycnt(EQI_SHADOW_SHOES);
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Kamaenraku_Weapon
@@ -17038,16 +16729,9 @@ Body:
           - S_Soul_Reaper_Armor
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ARMOR);
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,40+.@sum;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_All,40+.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-40-.@sum;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-40-.@sum;
   - Combos:
       - Combo:
           - S_Huusouka_Earing
@@ -17140,7 +16824,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ACC_L);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus2 bIgnoreDefRaceRate,RC_All,100;
+         bonus bIgnoreDefRace,RC_All;
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
@@ -17152,7 +16836,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus2 bIgnoreDefRaceRate,RC_All,100;
+         bonus bIgnoreDefRace,RC_All;
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
@@ -19240,26 +18924,12 @@ Body:
     Script: |
       bonus bAspd,2;
       bonus bVariableCastrate,-10;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
   - Combos:
       - Combo:
           - S_2Para_Shield
@@ -19271,16 +18941,9 @@ Body:
     Script: |
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"RK_DRAGONBREATH",15;
       bonus2 bSkillAtk,"RK_DRAGONBREATH_WATER",15;
@@ -19300,26 +18963,12 @@ Body:
       bonus bAspd,2;
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus2 bSkillCooldown,"LG_CANNONSPEAR",-500;
       bonus2 bMagicAtkEle,Ele_All,15;
       bonus2 bMagicAtkEle,Ele_Holy,10;
@@ -19338,16 +18987,9 @@ Body:
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
       bonus2 bAddSize,Size_All,5;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"NC_ARMSCANNON",15;
       bonus2 bSkillAtk,"NC_AXETORNADO",15;
@@ -19365,16 +19007,9 @@ Body:
     Script: |
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bSkillCooldown,"GN_CART_TORNADO",-1000;
@@ -19392,16 +19027,9 @@ Body:
       bonus bCritical,10;
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"GC_COUNTERSLASH",15;
       bonus2 bSkillAtk,"GC_CROSSIMPACT",15;
@@ -19418,26 +19046,12 @@ Body:
       bonus bAspd,2;
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bMagicAtkEle,Ele_All,15;
       bonus2 bSkillAtk,"SC_FATALMENACE",15;
@@ -19490,26 +19104,12 @@ Body:
           - S_2Para_Pendant
           - S_2Para_AB_Weapon
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bSkillCooldown,"AB_ADORAMUS",-1000;
       bonus2 bMagicAtkEle,Ele_All,15;
@@ -19528,16 +19128,9 @@ Body:
     Script: |
       bonus bShortAtkRate,15;
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bDelayrate,-15;
       bonus2 bSkillCooldown,"SR_RAMPAGEBLASTER",-7500;
       bonus2 bSkillAtk,"SR_FALLENEMPIRE",15;
@@ -19554,16 +19147,9 @@ Body:
           - S_2Para_RA_Weapon
     Script: |
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"RA_AIMEDBOLT",15;
@@ -19579,26 +19165,12 @@ Body:
           - S_2Para_WM_Weapon
     Script: |
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bMagicAtkEle,Ele_All,15;
@@ -19615,26 +19187,12 @@ Body:
           - S_2Para_KO_Weapon
     Script: |
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bMagicAtkEle,Ele_All,15;
@@ -19653,16 +19211,9 @@ Body:
           - S_2Para_RL_Weapon
     Script: |
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bSkillCooldown,"RL_HEAT_BARREL",-5000;
@@ -19679,16 +19230,9 @@ Body:
           - S_2Para_SJ_Weapon
     Script: |
       bonus bShortAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bSkillAtk,"SJ_FULLMOONKICK",15;
@@ -19724,27 +19268,12 @@ Body:
           - S_2Para_SU_Weapon
     Script: |
       bonus bLongAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
-
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bMagicAtkEle,Ele_All,15;
@@ -19762,27 +19291,12 @@ Body:
           - S_2Para_NV_Weapon
     Script: |
       bonus bShortAtkRate,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,50;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,50;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,50;
-
+      bonus2 bIgnoreDefRaceRate,RC_All,50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_All,50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-50;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-50;
       bonus bVariableCastrate,-10;
       bonus bDelayrate,-15;
       bonus2 bMagicAtkEle,Ele_All,15;
@@ -22290,26 +21804,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bMagicAtkEle,Ele_All,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -22327,26 +21827,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bShortAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -22366,26 +21852,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bMagicAtkEle,Ele_All,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -22404,26 +21876,12 @@ Body:
           - S_Booster_Earing
           - S_Booster_Pandent
     Script: |
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMDefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bLongAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -22442,26 +21900,12 @@ Body:
     Script: |
       bonus2 bSkillCooldown,"SP_SOULCURSE",-1500;
       bonus2 bMagicAtkEle,Ele_All,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bVariableCastrate,-10;
       bonus2 bSkillCooldown,"SP_SOULREAPER",-5000;
       bonus2 bSkillAtk,"SP_CURSEEXPLOSION",15;
@@ -22477,26 +21921,12 @@ Body:
           - S_Booster_Pandent
     Script: |
       bonus2 bMagicAtkEle,Ele_All,15;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-70;
       bonus bShortAtkRate,15;
       bonus bDelayrate,-15;
       bonus bVariableCastrate,-10;
@@ -28686,26 +28116,10 @@ Body:
       bonus2 bSkillAtk,"MG_LIGHTNINGBOLT",20;
       bonus2 bSkillAtk,"MG_FIREBOLT",20;
       bonus2 bSkillAtk,"MG_COLDBOLT",20;
-      bonus2 bIgnoreDefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,70;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,70;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,70;
+      bonus2 bIgnoreDefRaceRate,RC_All,70;
+      bonus2 bIgnoreMdefRaceRate,RC_All,70;
+      bonus2 bIgnoreDefRaceRate,RC_Player_Human,70;
+      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,70;
   - Combos:
       - Combo:
           - S_SNV_Weapon
@@ -32203,47 +31617,15 @@ Body:
       .@r = getequiprefinerycnt(EQI_GARMENT);
       bonus bMdef,5;
       if (.@r >= 9) {
-      bonus2 bIgnoreDefRaceRate,RC_Formless,5;
-      bonus2 bIgnoreDefRaceRate,RC_Undead,5;
-      bonus2 bIgnoreDefRaceRate,RC_Brute,5;
-      bonus2 bIgnoreDefRaceRate,RC_Plant,5;
-      bonus2 bIgnoreDefRaceRate,RC_Insect,5;
-      bonus2 bIgnoreDefRaceRate,RC_Fish,5;
-      bonus2 bIgnoreDefRaceRate,RC_Demon,5;
-      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,5;
-      bonus2 bIgnoreDefRaceRate,RC_Angel,5;
-      bonus2 bIgnoreDefRaceRate,RC_Dragon,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Formless,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Undead,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Brute,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Plant,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Insect,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Fish,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Demon,5;
-      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Angel,5;
-      bonus2 bIgnoreMdefRaceRate,RC_Dragon,5;
+         bonus2 bIgnoreDefRaceRate,RC_All,5;
+         bonus2 bIgnoreMdefRaceRate,RC_All,5;
+         bonus2 bIgnoreDefRaceRate,RC_Player_Human,-5;
+         bonus2 bIgnoreMdefRaceRate,RCRC_Player_Doram_All,-5;
          if (.@r >= 12) {
-            bonus2 bIgnoreDefRaceRate,RC_Formless,10;
-            bonus2 bIgnoreDefRaceRate,RC_Undead,10;
-            bonus2 bIgnoreDefRaceRate,RC_Brute,10;
-            bonus2 bIgnoreDefRaceRate,RC_Plant,10;
-            bonus2 bIgnoreDefRaceRate,RC_Insect,10;
-            bonus2 bIgnoreDefRaceRate,RC_Fish,10;
-            bonus2 bIgnoreDefRaceRate,RC_Demon,10;
-            bonus2 bIgnoreDefRaceRate,RC_DemiHuman,10;
-            bonus2 bIgnoreDefRaceRate,RC_Angel,10;
-            bonus2 bIgnoreDefRaceRate,RC_Dragon,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Formless,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Undead,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Brute,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Plant,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Insect,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Fish,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Demon,10;
-            bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Angel,10;
-            bonus2 bIgnoreMdefRaceRate,RC_Dragon,10;
+            bonus2 bIgnoreDefRaceRate,RC_All,10;
+            bonus2 bIgnoreMdefRaceRate,RC_All,10;
+            bonus2 bIgnoreDefRaceRate,RC_Player_Human,-10;
+            bonus2 bIgnoreMdefRaceRate,RCRC_Player_Doram_All,-10;
          }
       }
   - Combos:
