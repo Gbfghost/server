@@ -1,4 +1,4 @@
-uttycty,42,157,5	trader	[製作]魔神殿	3765,{
+uttycty,42,157,5	trader	[製作]魔神殿	3097,{
 	disable_items;
 	end;
 OnInit:
