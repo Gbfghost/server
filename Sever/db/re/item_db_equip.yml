@@ -135139,7 +135139,7 @@ Body:
       bonus bAllStats,1;
       bonus bMdef,10;
       bonus bMaxHPrate,3*(.@r/4);
-      bonus2 bSubRace,RC_All,4*(.@r/4);
+      bonus2 bSubRace,RC_All,20*(.@r/4);
   - Id: 400011
     AegisName: Officer_Cap
     Name: 將領軍帽
