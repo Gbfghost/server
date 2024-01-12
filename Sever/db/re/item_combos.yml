@@ -16822,7 +16822,7 @@ Body:
           - S_FullPene_Pendant
     Script: |
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ACC_L);
-#      bonus bAtkRate,2;
+      bonus bAtkRate,2;
 #      if (.@sum >= 18) {
 #         bonus bIgnoreDefRace,RC_All;
 #         bonus2 bIgnoreDefRaceRate,RC_PLAYER_HUMAN,-100;
