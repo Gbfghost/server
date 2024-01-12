@@ -34,6 +34,7 @@ nif_fild01,0,0	monster	Quve	1508,33,5000
 nif_fild01,0,0	monster	Dullahan	1504,22,5000
 nif_fild01,0,0	monster	Gibbet	1503,11,5000
 nif_fild01,0,0	monster	Heirozoist	1510,11,5000
+niflheim,0,0	boss_monster	LORD_OF_DEATH	1373,1,3600000,600000,0
 
 //==================================================
 // nif_fild02 - Vally of Gyoll
