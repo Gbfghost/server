@@ -16824,7 +16824,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ACC_R)+getequiprefinerycnt(EQI_SHADOW_ACC_L);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus bIgnoreDefRace,RC_All;
+         bonus2 bIgnoreDefRaceRate,RC_All,100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
@@ -16836,7 +16836,7 @@ Body:
       .@sum = getequiprefinerycnt(EQI_SHADOW_ARMOR)+getequiprefinerycnt(EQI_SHADOW_SHOES);
       bonus bAtkRate,2;
       if (.@sum >= 18) {
-         bonus bIgnoreDefRace,RC_All;
+         bonus2 bIgnoreDefRaceRate,RC_All,100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Human,-100;
          bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-100;
       }
