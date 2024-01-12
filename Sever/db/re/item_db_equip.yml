@@ -113342,9 +113342,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreDefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-5-1*(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-5-1*(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bAddRace,RC_All,3;
          bonus2 bAddRace,RC_Player_Human,-3;
@@ -113362,9 +113369,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreDefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-5-1*(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-5-1*(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bAddRace,RC_All,3;
          bonus2 bAddRace,RC_Player_Human,-3;
@@ -113379,9 +113393,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreDefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-5-1*(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-5-1*(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bAddRace,RC_All,3;
          bonus2 bAddRace,RC_Player_Human,-3;
@@ -113399,9 +113420,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreDefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Human,-5-(.@r/2);
-      bonus2 bIgnoreDefRaceRate,RC_Player_Doram,-5-(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreDefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bAddRace,RC_All,3;
          bonus2 bAddRace,RC_Player_Human,-3;
@@ -113416,9 +113444,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreMdefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-5-(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-5-(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bMagicAddRace,RC_All,3;
          bonus2 bMagicAddRace,RC_Player_Human,-3;
@@ -113433,9 +113468,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreMdefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-5-(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-5-(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bMagicAddRace,RC_All,3;
          bonus2 bMagicAddRace,RC_Player_Human,-3;
@@ -113450,9 +113492,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreMdefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-5-(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-5-(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bMagicAddRace,RC_All,3;
          bonus2 bMagicAddRace,RC_Player_Human,-3;
@@ -113467,9 +113516,16 @@ Body:
     Refineable: true
     Script: |
       .@r = getrefine();
-      bonus2 bIgnoreMdefRaceRate,RC_All,5+(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-5-(.@r/2);
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-5-(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Formless,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Undead,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Brute,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Plant,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Insect,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Fish,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Demon,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Angel,5+(.@r/2);
+      bonus2 bIgnoreMdefRaceRate,RC_Dragon,5+(.@r/2);
       if (.@r>=10) {
          bonus2 bMagicAddRace,RC_All,3;
          bonus2 bMagicAddRace,RC_Player_Human,-3;
@@ -137328,7 +137384,18 @@ Body:
          }
       }
       autobonus "{ bonus bCritical,30; }",1,10000,BF_WEAPON;
-      autobonus "{ bonus2 bIgnoreMdefRaceRate,RC_All,100; bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-100; bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-100; }",1,10000,BF_MAGIC;
+      autobonus "{ 
+        bonus2 bIgnoreMdefRaceRate,RC_Formless,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Undead,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Brute,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Plant,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Insect,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Fish,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Demon,100;
+        bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Angel,100;
+        bonus2 bIgnoreMdefRaceRate,RC_Dragon,100;
+        }",1,10000,BF_MAGIC;
   - Id: 400154
     AegisName: Survive_Circlet_K_LT
     Name: 生存者頭箍-LT
@@ -166859,9 +166926,16 @@ Body:
       bonus bMatk,180;
       bonus bInt,3;
       bonus bDex,3;
-      bonus2 bIgnoreMdefRaceRate,RC_All,3*.@r;
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Human,-3*.@r;
-      bonus2 bIgnoreMdefRaceRate,RC_Player_Doram,-3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Formless,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Undead,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Brute,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Plant,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Insect,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Fish,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Demon,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_DemiHuman,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Angel,3*.@r;
+      bonus2 bIgnoreMdefRaceRate,RC_Dragon,3*.@r;
       bonus bDelayrate,-3*(.@r/2);
       if (.@r>=7) {
          bonus bVariableCastrate,-7;
