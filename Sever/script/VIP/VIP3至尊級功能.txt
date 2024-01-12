@@ -85,6 +85,7 @@ function	script	membervip3	{
 		  next;
 			switch(select("開啟販售商店","賣出所有您設定的物品","設定販賣物品")){
 				case 1:
+					close;
 					callshop "道具商店",2;
 					end;
 				case 2:
