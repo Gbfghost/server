@@ -245,22 +245,32 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		 1000221, 310188,	// 十字斬首者石II(披肩)	Casting_Robe
 		 1000213, 310180,	// 咒術士石II(披肩)	Casting_Robe
 		 1000217, 310184,	// 皇家禁衛隊石II(披肩)	Casting_Robe
-		 1000304,310265,     // 浪跡披肩II
-		 1000296,310257,       // 盧恩騎士披肩II
-		 //雙重石往下74~
-		 1000300,310261;     // 基因II
+		 1000304, 310265,     // 浪跡披肩II
+		 1000296, 310257,       // 盧恩騎士披肩II
+		 1000300, 310261,     // 基因II
+		 // 以上 < 76 
+		 1000523, 310660,	//廣域石(雙重)
+		 1000521, 310658,	//次等詠唱石(雙重)
+		 1000525, 310663;	//SP吸收石(雙重)
+		 
 	.@size = getarraysize(.@data);
 	for ( .@i = 0; .@i < .@size; .@i += 2 ) {
 		if(countitem(.@data[.@i])> 0){
-		.@gen[getarraysize(.@gen)] = .@data[.@i];
-		.@geneff[getarraysize(.@geneff)] = .@data[.@i+1];}}
-		if(!.@gen){close2;message strcharinfo(0),"您的背包內沒有可以附魔的道具。";end;}
-		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
-		.@e = select(""+.@effect$+"")-1;
-		.@id = .@gen[.@e];
-		.@index = inarray(.@data[0],.@id);
-		if (.@index < 74 ) {
-		.@enchant = .@geneff[.@e];}else { .@enchant2 = .@geneff[.@e];}
+			.@gen[getarraysize(.@gen)] = .@data[.@i];
+			.@geneff[getarraysize(.@geneff)] = .@data[.@i+1];}}
+			if(!.@gen) {
+				close2;message strcharinfo(0),"您的背包內沒有可以附魔的道具。";
+				end;
+			}
+			for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
+			.@e = select(""+.@effect$+"")-1;
+			.@id = .@gen[.@e];
+			.@index = inarray(.@data[0],.@id);
+			if (.@index < 76 ) {
+				.@enchant = .@geneff[.@e];
+			}else { 
+				.@enchant2 = .@geneff[.@e];
+			}
 	if (getequipid(.@part) < 0 || countitem(.@id) < 1) {
 		mes "[雷斯查德]";
 		mes "您必須同時擁有服裝和能力石才能進行附魔。";
@@ -287,7 +297,7 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		mes "[雷斯查德]";
 		mes "漂亮l!!";
 		mes "我真的是自己做的！！";
-		if (.@index < 74 ) {
+		if (.@index < 76 ) {
 			.@card[0] = .@enchant;
 		}else{
 			.@card[1] = .@enchant2;
@@ -297,7 +307,7 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		mes "[雷斯查德]";
 		mes "歐 NO~~~";
 		mes "崩潰!!!!!我無法向世界展示這種失敗！！！";
-		if (.@index < 74 ) {
+		if (.@index < 76 ) {
 			.@card[0] = .@enchant;
 		}else{
 			.@card[1] = .@enchant2;
