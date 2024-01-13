@@ -251,9 +251,8 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 	.@size = getarraysize(.@data);
 	for ( .@i = 0; .@i < .@size; .@i += 2 ) {
 		if(countitem(.@data[.@i])> 0){
-		.@id = .@data[.@i];
 		.@gen[getarraysize(.@gen)] = .@data[.@i];
-		.@geneff[getarraysize(.@gen)] = .@data[.@i+1];}}
+		.@geneff[getarraysize(.@geneff)] = .@data[.@i+1];}}
 		if(!.@gen){close2;message strcharinfo(0),"您的背包內沒有可以附魔的道具。";end;}
 		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
 		.@e = select(""+.@effect$+"")-1;
