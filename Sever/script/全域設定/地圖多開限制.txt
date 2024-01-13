@@ -1,0 +1,46 @@
+/**************************************************\
+Name: 地圖多開限制
+Design by: Jian ROLab.org
+Design Date: 2023-2-9
+Version: 1.0
+Support: rA
+
+V1.0 2023-2-9
+	完成基本功能
+
+\**************************************************/
+
+-	script	map_ip_limit	-1,{
+	function add_map {
+		if(getmapusers(set(.@map$,getarg(0,""))) < 0)
+			return;
+		if(set(.@limit,getarg(1,0)) < 1)
+			return;
+		setd(".limit_"+.@map$),.@limit;
+		setmapflag(.@map$,MF_LOADEVENT);
+		return;
+	}
+end;
+OnInit:
+	// 設定地圖多開 add_map("<地圖>",<同IP限制數量>);
+	add_map("mag_dun02",1);
+end;
+OnPCLoadMapEvent:
+	set .@map$,strcharinfo(3);
+	set .@limit,getd(".limit_"+.@map$);
+	if(.@limit){
+		set .@same_ip,0;
+		set .@ip$,getcharip();
+		set .@usize,getmapunits(BL_PC,.@map$,.@uid);
+		for(set .@i,0; .@i<.@usize; set .@i,.@i+1){
+			if(.@ip$ == getcharip(.@uid[.@i]))
+				set .@same_ip,.@same_ip+1;
+			if(.@same_ip > .@limit){
+				dispbottom "多開判定系統: 在 ["+.@map$+"] 地圖內，相同IP只有 "+.@limit+" 個角色能進入。";
+				warp "SavePoint",0,0;
+				end;
+			}
+		}
+	}
+end;
+}

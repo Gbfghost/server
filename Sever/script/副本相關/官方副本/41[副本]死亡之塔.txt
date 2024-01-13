@@ -1528,7 +1528,7 @@ get422:
 	getitem 940041,10;
 	getitem 930000,5;
 	getitem 1000257,10;	
-	getitem 6909,5;
+	getitem 6909,25;
 	warp "SavePoint",0,0;
 	end;
 OnEnable:

@@ -1,0 +1,32 @@
+uttycty,103,129,3	script	千早愛音	864,{
+	enable_items;
+
+ShowStatus:
+	mes "【角色素質查詢】";
+	mes "- MaxHp:  +" + (readparam(bMaxHPrate)-100) + "%";
+	mes "- MaxSp:  +" + (readparam(bMaxSPrate)-100) + "%";
+	mes "- ATK%:  +" + readparam(bAtkRate) + "%";
+	mes "- MATK%:  +" + (readparam(bMatkRate)-100) + "%";
+	mes "- 遠程物理傷害:  +" + readparam(bLongAtkRate) + "%"; 
+	mes "- 近程物理傷害:  +" + readparam(bShortAtkRate) + "%"; 
+	mes "- 暴擊傷害:  +" + readparam(bCritAtkRate) + "%"; 
+	mes "- 固定詠唱:  " + readparam(bFixedCastrate) + "%";
+	mes "- 變動詠唱:  -" + readparam(bVariableCastrate) + "%";
+	mes "- 技能後延遲:  -" + readparam(bDelayrate) + "%";
+
+	next;
+
+	switch(select("刷新:離開")){
+		case 1:
+			goto ShowStatus;
+			break;
+		case 2:
+			break;
+	}
+	close2;
+	end;
+    
+	OnInit:
+		waitingroom "角色素質查詢",0;
+		end;
+}

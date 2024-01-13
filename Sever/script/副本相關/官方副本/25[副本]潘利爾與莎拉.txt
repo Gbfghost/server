@@ -1940,7 +1940,7 @@ get422:
 	getitem 940025,10;
 	getitem 607,10;// Yggdrasilberry
 	getitem 608,15;// Seed_Of_Yggdrasil
-	getitem 6909,1;
+	getitem 6909,5;
 	warp "SavePoint",0,0;
 	end;
 

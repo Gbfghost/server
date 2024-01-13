@@ -688,7 +688,7 @@ OnMyMobDead:
 get42:
 	end;
 get422:
-	getitem 6909,1;
+	getitem 6909,5;
 	getitem 930000,5;
 	getitem 940007,10;
 	Instance_PassAnnounce;

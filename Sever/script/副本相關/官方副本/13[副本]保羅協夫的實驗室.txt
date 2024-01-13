@@ -1236,7 +1236,7 @@ get42:
 get422:
 	Instance_PassAnnounce;
 	getitem 930000,5;
-	getitem 6909,1;
+	getitem 6909,5;
 	getitem 940013,10;
 	getitem 2582,  1; //Salvage_Cape
 	getitem 18570, 1; //Ancient_Gold_Deco
