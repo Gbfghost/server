@@ -21016,6 +21016,178 @@ Body:
                 Amount: 250
               - Material: Enchant_Ticket
                 Amount: 3
+  - Id: 10001
+    TargetItems:
+      Temporal_Boots_LT_TW: true
+    Reset:
+      Chance: 100000
+      Materials:
+        - Material: M_Dimension_Essence
+          Amount: 1
+    Order:
+      - Slot: 3
+      - Slot: 2
+    Slots:
+      - Slot: 3
+        Materials:
+          - Material: Coagulated_Spell
+            Amount: 50
+          - Material: Contaminated_Magic
+            Amount: 8
+          - Material: Timeoverload_Power_TW
+            Amount: 2
+        Chance: 100000
+        Enchants:
+          - Enchantgrade: 0
+            Items:
+              - Item: Luck6
+                Chance: 16670
+              - Item: Fighting_Spirit7
+                Chance: 16670
+              - Item: Spell5
+                Chance: 16670
+              - Item: Expert_Archer4
+                Chance: 16670
+              - Item: MHP2
+                Chance: 16660
+              - Item: Attack_Delay_4
+                Chance: 16660
+          - Enchantgrade: 1
+            Items:
+              - Item: Luck6
+                Chance: 16670
+              - Item: Fighting_Spirit7
+                Chance: 16670
+              - Item: Spell5
+                Chance: 16670
+              - Item: Expert_Archer4
+                Chance: 16670
+              - Item: MHP2
+                Chance: 16660
+              - Item: Attack_Delay_4
+                Chance: 16660
+          - Enchantgrade: 2
+            Items:
+              - Item: Luck6
+                Chance: 16670
+              - Item: Fighting_Spirit7
+                Chance: 16670
+              - Item: Spell5
+                Chance: 16670
+              - Item: Expert_Archer4
+                Chance: 16670
+              - Item: MHP2
+                Chance: 16660
+              - Item: Attack_Delay_4
+                Chance: 16660
+          - Enchantgrade: 3
+            Items:
+              - Item: Luck6
+                Chance: 16670
+              - Item: Fighting_Spirit7
+                Chance: 16670
+              - Item: Spell5
+                Chance: 16670
+              - Item: Expert_Archer4
+                Chance: 16670
+              - Item: MHP2
+                Chance: 16660
+              - Item: Attack_Delay_4
+                Chance: 16660
+          - Enchantgrade: 4
+            Items:
+              - Item: Luck6
+                Chance: 16670
+              - Item: Fighting_Spirit7
+                Chance: 16670
+              - Item: Spell5
+                Chance: 16670
+              - Item: Expert_Archer4
+                Chance: 16670
+              - Item: MHP2
+                Chance: 16660
+              - Item: Attack_Delay_4
+                Chance: 16660
+      - Slot: 2
+        Materials:
+          - Material: Coagulated_Spell
+            Amount: 50
+          - Material: Contaminated_Magic
+            Amount: 8
+          - Material: Timeoverload_Power_TW
+            Amount: 2
+        Chance: 100000
+        Enchants:
+          - Enchantgrade: 0
+            Items:
+              - Item: Bear's_Power
+                Chance: 16660
+              - Item: Runaway_Magic
+                Chance: 16660
+              - Item: Speed_Of_Light
+                Chance: 16670
+              - Item: Muscle_Fool
+                Chance: 16670
+              - Item: Hawkeye
+                Chance: 16670
+              - Item: Lucky_Day
+                Chance: 16670
+          - Enchantgrade: 1
+            Items:
+              - Item: Bear's_Power
+                Chance: 16660
+              - Item: Runaway_Magic
+                Chance: 16660
+              - Item: Speed_Of_Light
+                Chance: 16670
+              - Item: Muscle_Fool
+                Chance: 16670
+              - Item: Hawkeye
+                Chance: 16670
+              - Item: Lucky_Day
+                Chance: 16670
+          - Enchantgrade: 2
+            Items:
+              - Item: Bear's_Power
+                Chance: 16660
+              - Item: Runaway_Magic
+                Chance: 16660
+              - Item: Speed_Of_Light
+                Chance: 16670
+              - Item: Muscle_Fool
+                Chance: 16670
+              - Item: Hawkeye
+                Chance: 16670
+              - Item: Lucky_Day
+                Chance: 16670
+          - Enchantgrade: 3
+            Items:
+              - Item: Bear's_Power
+                Chance: 16660
+              - Item: Runaway_Magic
+                Chance: 16660
+              - Item: Speed_Of_Light
+                Chance: 16670
+              - Item: Muscle_Fool
+                Chance: 16670
+              - Item: Hawkeye
+                Chance: 16670
+              - Item: Lucky_Day
+                Chance: 16670
+          - Enchantgrade: 4
+            Items:
+              - Item: Bear's_Power
+                Chance: 16660
+              - Item: Runaway_Magic
+                Chance: 16660
+              - Item: Speed_Of_Light
+                Chance: 16670
+              - Item: Muscle_Fool
+                Chance: 16670
+              - Item: Hawkeye
+                Chance: 16670
+              - Item: Lucky_Day
+                Chance: 16670
   - Id: 10002
     TargetItems:
       Ceres_Armor_TW_LT: true
