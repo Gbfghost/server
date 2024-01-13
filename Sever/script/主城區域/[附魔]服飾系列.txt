@@ -285,7 +285,7 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		mes "[雷斯查德]";
 		mes "漂亮l!!";
 		mes "我真的是自己做的！！";
-		.@card[1] = .@enchant;
+		.@card[0] = .@enchant;
 		
 	}
 	else {
