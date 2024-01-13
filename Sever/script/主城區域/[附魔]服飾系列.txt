@@ -209,57 +209,56 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 	mes "哇嗚 ^0000FF" + getitemname(.@equip_id) + "^000000!!! 你有感覺，不是嗎?";
 	mes "棒!! 我已經為升級做好了充分準備！！!";
 	next;
-	setarray .@data$[0],
-		6908, 4807, "只有ASPD+1",	// ASPDStone_Robe	Atk_Speed1
-		6963, 4992, "吸收1％機率對敵人造成HP傷害",	// HPdrainStone_Robe	HPdrain1
-		6964, 4993, "吸收1％機率對敵人造成SP傷害",	// SPdrainStone_Robe	SPdrain1
-		// unknown text
-		 25067, 29056, "",	// CastingStone_Robe	FixedCasting05
-		 25170, 29154, "",	// MinorCastingStone_Robe	FixedCasting03
-		 25302, 29362, "",	// DoubleAttack_Stone	DoubleAttack
-		 25303, 29361, "",	// Critical_Stone_Robe	Fatal_Robe
-		 25306, 29358, "",	// CastStone_Robe	Casting_Robe
-		 25412, 29426, "",	// 修羅	Casting_Robe
-		 25416, 29431, "",	// 遊俠石(披肩)	Casting_Robe
-		 25420, 29435, "",	// 妖術師石(披肩)	Casting_Robe
-		 25448, 29463, "",	// 盧恩騎士石(披肩)	Casting_Robe
-		 25449, 29467, "",	// 基因學者石(披肩)	Casting_Robe
-		 25456, 29471, "",	// 咒術士石(披肩)	Casting_Robe
-		 25493, 29480, "",	// 魅影追蹤者石(披肩)	Casting_Robe
-		 25497, 29484, "",	// 機械工匠石(披肩)	Casting_Robe
-		 25501, 29488, "",	// 浪姬舞者/宮廷樂師石(披肩)	Casting_Robe
-		 25709, 29516, "",	// 大主教石(披肩)	Casting_Robe
-		 25713, 29520, "",	// 皇家禁衛隊石(披肩)	Casting_Robe
-		 25717, 29524, "",	// 十字斬首者石(披肩)	Casting_Robe
-		 25797, 29427, "",	// 修羅石II(披肩)	Casting_Robe
-		 25801, 29614, "",	// 妖術師石II(披肩)	Casting_Robe
-		 25805, 29618, "",	// 魅影追蹤者石II(披肩)	Casting_Robe
-		 25842, 29654, "",	// 獵靈士石(披肩)	Casting_Robe
-		 25849, 29658, "",	// 拳皇石(披肩)	Casting_Robe
-		 25853, 29662, "",	// 日影忍者石(披肩)	Casting_Robe
-		 25854, 29663, "",	// 月影忍者石(披肩)	Casting_Robe
-		 25858, 29667, "",	// 叛亂者石(披肩)	Casting_Robe
-		 25862, 29671, "",	// 喵族石(披肩) 	Casting_Robe
-		 1000015, 310007, "",	// 機械工匠石II(披肩) 	Casting_Robe
-		 1000011, 310003, "",	// 遊俠石II(披肩)	Casting_Robe
-		 1000019, 310011, "",	// 大主教石II(披肩)	Casting_Robe
-		 1000221, 310188, "",	// 十字斬首者石II(披肩)	Casting_Robe
-		 1000213, 310180, "",	// 咒術士石II(披肩)	Casting_Robe
-		 1000217, 310184, "",	// 皇家禁衛隊石II(披肩)	Casting_Robe
-		 1000304,310265, "",     // 浪跡披肩II
-		 1000296,310257,"",       // 盧恩騎士披肩II
-		 1000300,310261, "";     // 基因II
-	.@size = getarraysize(.@data$);
-	for ( .@i = 0; .@i < .@size; .@i += 3 ) {
-		if(countitem(.@data$[.@i])> 0){
-		.@id = atoi(.@data$[.@i]);
-		.@gen[getarraysize(.@gen)] = .@data$[.@i];}}
+	setarray .@data[0],
+		6908, 4807,	// ASPDStone_Robe	Atk_Speed1
+		6963, 4992,	// HPdrainStone_Robe	HPdrain1
+		6964, 4993,	// SPdrainStone_Robe	SPdrain1
+		 25067, 29056,	// CastingStone_Robe	FixedCasting05
+		 25170, 29154,	// MinorCastingStone_Robe	FixedCasting03
+		 25302, 29362,	// DoubleAttack_Stone	DoubleAttack
+		 25303, 29361,	// Critical_Stone_Robe	Fatal_Robe
+		 25306, 29358,	// CastStone_Robe	Casting_Robe
+		 25412, 29426,	// 修羅	Casting_Robe
+		 25416, 29431,	// 遊俠石(披肩)	Casting_Robe
+		 25420, 29435,	// 妖術師石(披肩)	Casting_Robe
+		 25448, 29463,	// 盧恩騎士石(披肩)	Casting_Robe
+		 25449, 29467,	// 基因學者石(披肩)	Casting_Robe
+		 25456, 29471,	// 咒術士石(披肩)	Casting_Robe
+		 25493, 29480,	// 魅影追蹤者石(披肩)	Casting_Robe
+		 25497, 29484,	// 機械工匠石(披肩)	Casting_Robe
+		 25501, 29488,	// 浪姬舞者/宮廷樂師石(披肩)	Casting_Robe
+		 25709, 29516,	// 大主教石(披肩)	Casting_Robe
+		 25713, 29520,	// 皇家禁衛隊石(披肩)	Casting_Robe
+		 25717, 29524,	// 十字斬首者石(披肩)	Casting_Robe
+		 25797, 29427,	// 修羅石II(披肩)	Casting_Robe
+		 25801, 29614,	// 妖術師石II(披肩)	Casting_Robe
+		 25805, 29618,	// 魅影追蹤者石II(披肩)	Casting_Robe
+		 25842, 29654,	// 獵靈士石(披肩)	Casting_Robe
+		 25849, 29658,	// 拳皇石(披肩)	Casting_Robe
+		 25853, 29662,	// 日影忍者石(披肩)	Casting_Robe
+		 25854, 29663,	// 月影忍者石(披肩)	Casting_Robe
+		 25858, 29667,	// 叛亂者石(披肩)	Casting_Robe
+		 25862, 29671,	// 喵族石(披肩) 	Casting_Robe
+		 1000015, 310007,	// 機械工匠石II(披肩) 	Casting_Robe
+		 1000011, 310003,	// 遊俠石II(披肩)	Casting_Robe
+		 1000019, 310011,	// 大主教石II(披肩)	Casting_Robe
+		 1000221, 310188,	// 十字斬首者石II(披肩)	Casting_Robe
+		 1000213, 310180,	// 咒術士石II(披肩)	Casting_Robe
+		 1000217, 310184,	// 皇家禁衛隊石II(披肩)	Casting_Robe
+		 1000304,310265,     // 浪跡披肩II
+		 1000296,310257,       // 盧恩騎士披肩II
+		 1000300,310261;     // 基因II
+	.@size = getarraysize(.@data);
+	for ( .@i = 0; .@i < .@size; .@i += 2 ) {
+		if(countitem(.@data[.@i])> 0){
+		.@id = .@data[.@i];
+		.@gen[getarraysize(.@gen)] = .@data[.@i];}}
 		if(!.@gen){close2;message strcharinfo(0),"您的背包內沒有可以附魔的道具。";end;}
 		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
 		.@e = select(""+.@effect$+"")-1;
 		.@item = .@gen[.@e];
-	.@id = atoi(.@data$[.@e]);
-	.@enchant = atoi(.@data$[.@e+1]);
+	.@id = atoi(.@data[.@e]);
+	.@enchant = atoi(.@data[.@e+1]);
 	if (getequipid(.@part) < 0 || countitem(.@id) < 1) {
 		mes "[雷斯查德]";
 		mes "您必須同時擁有服裝和能力石才能進行附魔。";
