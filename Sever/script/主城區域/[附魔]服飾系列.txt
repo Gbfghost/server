@@ -219,7 +219,6 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		 25302, 29362, "",	// DoubleAttack_Stone	DoubleAttack
 		 25303, 29361, "",	// Critical_Stone_Robe	Fatal_Robe
 		 25306, 29358, "",	// CastStone_Robe	Casting_Robe
-		 
 		 25412, 29426, "",	// 修羅	Casting_Robe
 		 25416, 29431, "",	// 遊俠石(披肩)	Casting_Robe
 		 25420, 29435, "",	// 妖術師石(披肩)	Casting_Robe
@@ -243,28 +242,24 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		 25862, 29671, "",	// 喵族石(披肩) 	Casting_Robe
 		 1000015, 310007, "",	// 機械工匠石II(披肩) 	Casting_Robe
 		 1000011, 310003, "",	// 遊俠石II(披肩)	Casting_Robe
-		1000019, 310011, "",	// 大主教石II(披肩)	Casting_Robe
+		 1000019, 310011, "",	// 大主教石II(披肩)	Casting_Robe
 		 1000221, 310188, "",	// 十字斬首者石II(披肩)	Casting_Robe
 		 1000213, 310180, "",	// 咒術士石II(披肩)	Casting_Robe
-		1000217, 310184, "",	// 皇家禁衛隊石II(披肩)	Casting_Robe
-		1000304,310265, "",     // 浪跡披肩II
-		1000296,310257,"",       // 盧恩騎士披肩II
-		1000300,310261, "";     // 基因II
+		 1000217, 310184, "",	// 皇家禁衛隊石II(披肩)	Casting_Robe
+		 1000304,310265, "",     // 浪跡披肩II
+		 1000296,310257,"",       // 盧恩騎士披肩II
+		 1000300,310261, "";     // 基因II
 	.@size = getarraysize(.@data$);
 	for ( .@i = 0; .@i < .@size; .@i += 3 ) {
+		if(countitem(.@data$[.@i])> 0){
 		.@id = atoi(.@data$[.@i]);
-		.@menu$ += sprintf( "%d. %s (%d) 個:", (.@j+1), getitemname(.@id), countitem(.@id) );
-		.@j++;
-	}
-	.@menu$ += "結束";
-	.@s = (select(.@menu$) - 1) * 3;
-	if (.@s == .@size) {
-		mes "[雷斯查德]";
-		mes "是？你想看更多?";
-		close;
-	}
-	.@id = atoi(.@data$[.@s]);
-	.@enchant = atoi(.@data$[.@s+1]);
+		.@gen[getarraysize(.@gen)] = .@data$[.@i];}}
+		if(!.@ech){close2;message strcharinfo(0),"您的背包內沒有可以附魔的道具。";end;}
+		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
+		.@e = select(""+.@effect$+"")-1;
+		.@item = .@gen[.@e];
+	.@id = atoi(.@data$[.@e]);
+	.@enchant = atoi(.@data$[.@e+1]);
 	if (getequipid(.@part) < 0 || countitem(.@id) < 1) {
 		mes "[雷斯查德]";
 		mes "您必須同時擁有服裝和能力石才能進行附魔。";
@@ -272,7 +267,7 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 	}
 	mes "^FF0000   !!! 警告 !!!^000000";
 	mes "^ff0000此升級不會失敗。^000000";
-	mes "^ff0000如果該物品已經具有額外的能力，我們將重置該物品的能力並給予 " + .@data$[.@s+2] + ".^000000";
+	mes "^ff0000如果該物品已經具有額外的能力，我們將重置該物品的能力.^000000";
 	mes "^ff0000您確定要升級此項目嗎？^000000";
 	next;
 	if (select( "是.", "不要." ) == 2) {
