@@ -247,6 +247,7 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		 1000217, 310184,	// 皇家禁衛隊石II(披肩)	Casting_Robe
 		 1000304,310265,     // 浪跡披肩II
 		 1000296,310257,       // 盧恩騎士披肩II
+		 //雙重石往下74~
 		 1000300,310261;     // 基因II
 	.@size = getarraysize(.@data);
 	for ( .@i = 0; .@i < .@size; .@i += 2 ) {
@@ -257,7 +258,9 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
 		.@e = select(""+.@effect$+"")-1;
 		.@id = .@gen[.@e];
-		.@enchant = .@geneff[.@e];
+		 .@index = inarray(.@data[0],.@id);
+		if (.@index <= 74 ) {
+		.@enchant = .@geneff[.@e];}else { .@enchant2 = .@geneff[.@e];}
 	if (getequipid(.@part) < 0 || countitem(.@id) < 1) {
 		mes "[雷斯查德]";
 		mes "您必須同時擁有服裝和能力石才能進行附魔。";
@@ -285,12 +288,15 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		mes "漂亮l!!";
 		mes "我真的是自己做的！！";
 		.@card[0] = .@enchant;
+		.@card[1] = .@enchant2;
+		
 	}
 	else {
 		mes "[雷斯查德]";
 		mes "歐 NO~~~";
 		mes "崩潰!!!!!我無法向世界展示這種失敗！！！";
 		.@card[0] = 0;
+		.@card[1] = .@enchant2;
 	}
 	getitem2 .@equip_id,1,1,.@equip_refine,0,.@card[0],.@card[1],.@card[2],.@card[3];
 	close;
