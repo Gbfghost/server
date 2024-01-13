@@ -258,8 +258,8 @@ uttycty,28,90,6	script	雷斯查德#cos_ect	4_FROG,{
 		for(.@i=0;.@i<getarraysize(.@gen);.@i++)set .@effect$,.@effect$+"持有^0000ff"+getitemname(.@gen[.@i])+"^000000("+countitem(.@gen[.@i])+")個:";
 		.@e = select(""+.@effect$+"")-1;
 		.@id = .@gen[.@e];
-		 .@index = inarray(.@data[0],.@id);
-		if (.@index <= 74 ) {
+		.@index = inarray(.@data[0],.@id);
+		if (.@index < 74 ) {
 		.@enchant = .@geneff[.@e];}else { .@enchant2 = .@geneff[.@e];}
 	if (getequipid(.@part) < 0 || countitem(.@id) < 1) {
 		mes "[雷斯查德]";
