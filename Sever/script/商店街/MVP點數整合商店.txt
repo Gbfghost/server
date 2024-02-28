@@ -13,7 +13,7 @@ OnNPCKillEvent:
 		if( killedrid == .@mvp[.@i]){
 	set	#randpoint , rand(1,5); 
 	set #MVPPOINTS, #MVPPOINTS+#randpoint;
-	dispbottom "您的 MVP點數 增加 "+#randpoint+" 目前已累計： " + #MVPPOINTS + " 點。";
+	dispbottom "您的 MVP點數 增加 "+.@map$+" 目前已累計： " + #MVPPOINTS + " 點。";
 	//announce "[全服公告] 玩家 '" + strcharinfo(0) + "' 擊殺了MVP魔物 '" + strmobinfo(2, killedrid) + "' 獲得了 "+#randpoint+" 點MVP點數。", bc_all|bc_blue;
 		if(rand(1,100) > 95){getitem 950014,1;}
 		if(rand(1,100) > 95){getitem 950015,1;}
