@@ -89,6 +89,9 @@ OnInit:
 	sellitem(100163, 50000, -1, 0);	
 	sellitemcurrency(1000103, 20);
 	endsellitem();
+	sellitem(6557, 10000000, -1, 0);	 //µºÄR¯Í»H
+	sellitemcurrency(940038, 5);
+	endsellitem();
 
 OnBuyItem:
 end;

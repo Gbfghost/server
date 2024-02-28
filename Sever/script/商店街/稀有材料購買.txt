@@ -39,7 +39,9 @@ OnInit:
 	sellitem(4610,0,-1);      //莎拉卡片
 	sellitemcurrency(940025,200);
     endsellitem();
-	
+	sellitem(27106,0,-1);      //覺醒貝爾卡片
+	sellitemcurrency(940049,200);
+    endsellitem();
 	
 OnBuyItem:
 end;

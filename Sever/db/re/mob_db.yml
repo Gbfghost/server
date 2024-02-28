@@ -114741,6 +114741,9 @@ Body:
       IgnoreMisc: true
       IgnoreRanged: true
     Ai: 02
+    Drops:
+      - Item: 300500
+        Rate: 1
   - Id: 23234
     AegisName: Piske_PET
     Name: Piske_PET
@@ -114776,6 +114779,9 @@ Body:
       IgnoreMisc: true
       IgnoreRanged: true
     Ai: 02
+    Drops:
+      - Item: 300501
+        Rate: 1
   - Id: 31001
     AegisName: MISTRESS_D
     Name: 蜂后[夢魘]

@@ -26445,7 +26445,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26493,7 +26493,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26551,7 +26551,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26607,7 +26607,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26686,7 +26686,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26734,7 +26734,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26792,7 +26792,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:
@@ -26850,7 +26850,7 @@ Body:
       NoDamage: true
       Splash: true
     Flags:
-      IsChorus: true
+      IsEnsemble: true # IsChorus: true
     Hit: Single
     HitCount: 1
     SplashArea:

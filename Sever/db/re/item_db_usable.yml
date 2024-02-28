@@ -1080,7 +1080,7 @@ Body:
     Name: 神秘箱子
     Type: Usable
     Buy: 10000
-    Weight: 200
+    Weight: 0
     Flags:
       BuyingStore: true
       Container: true
@@ -1226,7 +1226,7 @@ Body:
     Name: 神秘紫箱
     Type: Usable
     Buy: 10000
-    Weight: 200
+    Weight: 0
     Flags:
       BuyingStore: true
       Container: true
@@ -17394,7 +17394,7 @@ Body:
       getitem 14586,5;
   - Id: 13858
     AegisName: Spark_Candy_Box10
-    Name: 跳跳糖十個箱子
+    Name: 跳跳糖十個箱子
     Type: Cash
     Buy: 20
     Weight: 10
@@ -26713,7 +26713,7 @@ Body:
       getitem 5563,1;
   - Id: 16245
     AegisName: Tw_April_Scroll
-    Name: 雙十轉蛋
+    Name: 雙十轉蛋
     Type: Usable
     Buy: 20
     Weight: 10
@@ -44943,7 +44943,7 @@ Body:
       getgroupitem(IG_RUNEKNIGHT_S_CUBE);
   - Id: 100324
     AegisName: Guillotinecross_S_Cube
-    Name: 十字斬首者影子技能箱
+    Name: 十字斬首者影子技能箱
     Type: Usable
     Weight: 10
     Flags:
@@ -45998,7 +45998,7 @@ Body:
       sc_end SC_HANDICAPSTATE_DEEPSILENCE;
   - Id: 100518
     AegisName: Tonics
-    Name: 十全大補丸
+    Name: 十全大補丸
     Type: Healing
     Buy: 20
     Weight: 50

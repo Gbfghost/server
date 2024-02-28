@@ -7679,7 +7679,7 @@ Body:
       bonus bStr,getrefine()-6;
   - Id: 4359
     AegisName: B_Eremes_Card
-    Name: 闇●十字刺客 艾勒梅斯卡片
+    Name: 闇●十字刺客 艾勒梅斯卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -7694,7 +7694,7 @@ Body:
       sc_end SC_CLOAKING;
   - Id: 4360
     AegisName: Eremes_Card
-    Name: 闇●十字刺客卡片
+    Name: 闇●十字刺客卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -10778,7 +10778,7 @@ Body:
       bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
   - Id: 4565
     AegisName: Paladin_Card
-    Name: 闇●聖殿十字軍 蘭達卡片
+    Name: 闇●聖殿十字軍 蘭達卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -10879,7 +10879,7 @@ Body:
       skill "RG_CLOSECONFINE",1;
   - Id: 4572
     AegisName: Randel_Card
-    Name: 闇●聖殿十字軍卡片
+    Name: 闇●聖殿十字軍卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -12216,7 +12216,7 @@ Body:
          bonus bAllStats,10;
   - Id: 4674
     AegisName: GuillotineCross_Card
-    Name: 闇●十字斬首者  艾勒梅斯卡片
+    Name: 闇●十字斬首者  艾勒梅斯卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -12416,7 +12416,7 @@ Body:
          bonus bAllStats,10;
   - Id: 4684
     AegisName: Real_Eremes_Card
-    Name: 真●十字斬首者卡片
+    Name: 真●十字斬首者卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -15501,7 +15501,7 @@ Body:
       NoDrop: true
   - Id: 6010
     AegisName: Pickaxe
-    Name: 十字鎬
+    Name: 十字鎬
     Type: Etc
     Weight: 10
     Flags:
@@ -18592,13 +18592,13 @@ Body:
       NoDrop: true
   - Id: 6502
     AegisName: Silver_Cross
-    Name: 純銀十字架
+    Name: 純銀十字架
     Type: Etc
     Trade:
       NoDrop: true
   - Id: 6503
     AegisName: Soul_Protection
-    Name: 驅魔十字架
+    Name: 驅魔十字架
     Type: Etc
     Trade:
       NoDrop: true
@@ -23572,7 +23572,7 @@ Body:
       BuyingStore: true
   - Id: 7318
     AegisName: Old_Pick
-    Name: 老舊的十字鎬
+    Name: 老舊的十字鎬
     Type: Etc
     Buy: 512
     Weight: 10
@@ -30032,7 +30032,7 @@ Body:
       NoDrop: true
   - Id: 25115
     AegisName: Jobmap_cross
-    Name: 轉職站地圖(十字斬首者)
+    Name: 轉職站地圖(十字斬首者)
     Type: Etc
     Trade:
       NoDrop: true
@@ -32140,17 +32140,17 @@ Body:
     Weight: 100
   - Id: 25710
     AegisName: PaladinStone_Top
-    Name: 聖殿十字軍石(頭上)
+    Name: 聖殿十字軍石(頭上)
     Type: Etc
     Weight: 100
   - Id: 25711
     AegisName: PaladinStone_Middle
-    Name: 聖殿十字軍石(頭中)
+    Name: 聖殿十字軍石(頭中)
     Type: Etc
     Weight: 100
   - Id: 25712
     AegisName: PaladinStone_Bottom
-    Name: 聖殿十字軍石(頭下)
+    Name: 聖殿十字軍石(頭下)
     Type: Etc
     Weight: 100
   - Id: 25713
@@ -32160,22 +32160,22 @@ Body:
     Weight: 100
   - Id: 25714
     AegisName: AssacrossStone_Top
-    Name: 十字刺客石(頭上)
+    Name: 十字刺客石(頭上)
     Type: Etc
     Weight: 100
   - Id: 25715
     AegisName: AssacrossStone_Middle
-    Name: 十字刺客石(頭中)
+    Name: 十字刺客石(頭中)
     Type: Etc
     Weight: 100
   - Id: 25716
     AegisName: AssacrossStone_Bottom
-    Name: 十字刺客石(頭下)
+    Name: 十字刺客石(頭下)
     Type: Etc
     Weight: 100
   - Id: 25717
     AegisName: GuillcrossStone_Robe
-    Name: 十字斬首者石(披肩)
+    Name: 十字斬首者石(披肩)
     Type: Etc
     Weight: 100
   - Id: 25723
@@ -33193,7 +33193,7 @@ Body:
          bonus bAllStats,10;
   - Id: 27058
     AegisName: GuillotineCross_Card_J
-    Name: (JRO)闇●十字斬首者  艾勒梅斯卡片
+    Name: (JRO)闇●十字斬首者  艾勒梅斯卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -33383,7 +33383,7 @@ Body:
          bonus bAllStats,10;
   - Id: 27068
     AegisName: Real_Eremes_Card_J
-    Name: (JRO)真●十字斬首者卡片
+    Name: (JRO)真●十字斬首者卡片
     Type: Card
     Buy: 20
     Weight: 10
@@ -35154,7 +35154,7 @@ Body:
       }
   - Id: 27218
     AegisName: SLD_Paladin_Card
-    Name: 封印闇●聖殿十字軍 蘭達卡片
+    Name: 封印闇●聖殿十字軍 蘭達卡片
     Type: Card
     Weight: 10
     Locations:
@@ -39329,21 +39329,21 @@ Body:
       bonus2 bSkillAtk,"AB_ADORAMUS",15;
   - Id: 29517
     AegisName: Paladin_Top
-    Name: 聖殿十字軍石(頭上)
+    Name: 聖殿十字軍石(頭上)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bMaxHPrate,(getskilllv("CR_TRUST")/2);
   - Id: 29518
     AegisName: Paladin_Middle
-    Name: 聖殿十字軍石(頭中)
+    Name: 聖殿十字軍石(頭中)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bLongAtkRate,(getskilllv("KN_SPEARMASTERY")/2);
   - Id: 29519
     AegisName: Paladin_Bottom
-    Name: 聖殿十字軍石(頭下)
+    Name: 聖殿十字軍石(頭下)
     Type: Card
     SubType: Enchant
     Script: |
@@ -39357,28 +39357,28 @@ Body:
       bonus2 bSkillAtk,"LG_BANISHINGPOINT",15;
   - Id: 29521
     AegisName: Assassincross_Top
-    Name: 十字刺客石(頭上)
+    Name: 十字刺客石(頭上)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bBaseAtk,2*getskilllv("AS_KATAR");
   - Id: 29522
     AegisName: Assassincross_Middle
-    Name: 十字刺客石(頭中)
+    Name: 十字刺客石(頭中)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bHit,2*getskilllv("AS_LEFT");
   - Id: 29523
     AegisName: Assassincross_Bottom
-    Name: 十字刺客石(頭下)
+    Name: 十字刺客石(頭下)
     Type: Card
     SubType: Enchant
     Script: |
       bonus2 bSkillAtk,"AS_SONICBLOW",20;
   - Id: 29524
     AegisName: Guillotinecross_Robe
-    Name: 十字斬首者石(披肩)
+    Name: 十字斬首者石(披肩)
     Type: Card
     SubType: Enchant
     Script: |
@@ -41141,7 +41141,7 @@ Body:
       autobonus3 "{ bonus bBaseAtk,40; bonus2 bAddSize,Size_All,15; }",10000,60000,"WS_CARTBOOST","{ specialeffect2 EF_SPELLBREAKER; }";
   - Id: 300034
     AegisName: 300034
-    Name: 戰魂(十字斬首者)1Lv
+    Name: 戰魂(十字斬首者)1Lv
     Type: Card
     SubType: Enchant
     Buy: 10
@@ -41149,7 +41149,7 @@ Body:
       autobonus3 "{ bonus bBaseAtk,20; }",10000,60000,"ASC_EDP","{ specialeffect2 EF_SPELLBREAKER; }";
   - Id: 300035
     AegisName: 300035
-    Name: 戰魂(十字斬首者)2Lv
+    Name: 戰魂(十字斬首者)2Lv
     Type: Card
     SubType: Enchant
     Buy: 10
@@ -41157,7 +41157,7 @@ Body:
       bonus2 bAddSize,Size_All,5; autobonus3 "{ bonus bBaseAtk,30; }",10000,60000,"ASC_EDP","{ specialeffect2 EF_SPELLBREAKER; }";
   - Id: 300036
     AegisName: 300036
-    Name: 戰魂(十字斬首者)3Lv
+    Name: 戰魂(十字斬首者)3Lv
     Type: Card
     SubType: Enchant
     Buy: 10
@@ -46495,7 +46495,7 @@ Body:
       }
   - Id: 310139
     AegisName: Automatic_Orb58
-    Name: 全自動強化結晶體(音速十字斬)
+    Name: 全自動強化結晶體(音速十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -46512,7 +46512,7 @@ Body:
       }
   - Id: 310140
     AegisName: Automatic_Orb59
-    Name: 全自動強化結晶體(十字斬刀刃)
+    Name: 全自動強化結晶體(十字斬刀刃)
     Type: Card
     SubType: Enchant
     Script: |
@@ -47072,7 +47072,7 @@ Body:
       }
   - Id: 310173
     AegisName: Automatic_Orb92
-    Name: 全自動強化結晶體(幽冥十字斬)
+    Name: 全自動強化結晶體(幽冥十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -47218,28 +47218,28 @@ Body:
       bonus2 bSkillAtk,"LG_RAYOFGENESIS",15;
   - Id: 310185
     AegisName: Paladin_Bottom2
-    Name: 聖殿十字軍石II(頭下)
+    Name: 聖殿十字軍石II(頭下)
     Type: Card
     SubType: Enchant
     Script: |
       bonus2 bMagicAtkEle,Ele_Holy,getskilllv("CR_GRANDCROSS");
   - Id: 310186
     AegisName: Paladin_Middle2
-    Name: 聖殿十字軍石II(頭中)
+    Name: 聖殿十字軍石II(頭中)
     Type: Card
     SubType: Enchant
     Script: |
       bonus2 bSkillAtk,"PA_PRESSURE",20;
   - Id: 310187
     AegisName: Paladin_Top2
-    Name: 聖殿十字軍石II(頭上)
+    Name: 聖殿十字軍石II(頭上)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bVariableCastrate,-getskilllv("CR_TRUST");
   - Id: 310188
     AegisName: Guillotinecross_Robe2
-    Name: 十字斬首者石II(披肩)
+    Name: 十字斬首者石II(披肩)
     Type: Card
     SubType: Enchant
     Script: |
@@ -47249,21 +47249,21 @@ Body:
       }
   - Id: 310189
     AegisName: Assassincross_Bottom2
-    Name: 十字刺客石II(頭下)
+    Name: 十字刺客石II(頭下)
     Type: Card
     SubType: Enchant
     Script: |
       bonus2 bAddSize,Size_All,2*getskilllv("ASC_KATAR");
   - Id: 310190
     AegisName: Assassincross_Middle2
-    Name: 十字刺客石II(頭中)
+    Name: 十字刺客石II(頭中)
     Type: Card
     SubType: Enchant
     Script: |
       bonus2 bSkillAtk,"AS_SONICBLOW",20;
   - Id: 310191
     AegisName: Assassincross_Top2
-    Name: 十字刺客石II(頭上)
+    Name: 十字刺客石II(頭上)
     Type: Card
     SubType: Enchant
     Script: |
@@ -49031,7 +49031,7 @@ Body:
       }
   - Id: 310540
     AegisName: Wolf_Orb_Skill_25
-    Name: 狼之寶珠（十字謳歌）
+    Name: 狼之寶珠（十字謳歌）
     Type: Card
     SubType: Enchant
     Script: |
@@ -49501,7 +49501,7 @@ Body:
       }
   - Id: 310562
     AegisName: Wolf_Orb_Skill_47
-    Name: 狼之寶珠（十字飛舞）
+    Name: 狼之寶珠（十字飛舞）
     Type: Card
     SubType: Enchant
     Script: |
@@ -54815,7 +54815,7 @@ Body:
       }
   - Id: 311150
     AegisName: Ice_F_Orb_Skill_13
-    Name: 冰花魔力(音速十字斬)
+    Name: 冰花魔力(音速十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -54837,7 +54837,7 @@ Body:
       }
   - Id: 311151
     AegisName: Ice_F_Orb_Skill_14
-    Name: 冰花魔力(刀刃十字斬)
+    Name: 冰花魔力(刀刃十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -55570,7 +55570,7 @@ Body:
       }
   - Id: 311184
     AegisName: Ice_F_Orb_Skill_47
-    Name: 冰花魔力(十字飛舞)
+    Name: 冰花魔力(十字飛舞)
     Type: Card
     SubType: Enchant
     Script: |
@@ -56059,7 +56059,7 @@ Body:
       }
   - Id: 311214
     AegisName: Glacier_F_Orb_23
-    Name: 雪花魔力(迴旋十字斬)
+    Name: 雪花魔力(迴旋十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -56101,7 +56101,7 @@ Body:
       }
   - Id: 311217
     AegisName: Glacier_F_Orb_26
-    Name: 雪花魔力(十字斬)
+    Name: 雪花魔力(十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -56655,7 +56655,7 @@ Body:
       }
   - Id: 311255
     AegisName: Glacier_F_Orb_64
-    Name: 雪花魔力(幽冥十字斬)
+    Name: 雪花魔力(幽冥十字斬)
     Type: Card
     SubType: Enchant
     Script: |
@@ -56810,7 +56810,7 @@ Body:
       }
   - Id: 311265
     AegisName: Glacier_F_Orb_74
-    Name: 雪花魔力(聖十字攻擊)
+    Name: 雪花魔力(聖十字攻擊)
     Type: Card
     SubType: Enchant
     Script: |
@@ -56974,7 +56974,7 @@ Body:
       }
   - Id: 311278
     AegisName: Glacier_F_Orb_87
-    Name: 雪花魔力(聖十字雨)
+    Name: 雪花魔力(聖十字雨)
     Type: Card
     SubType: Enchant
     Script: |
@@ -58463,21 +58463,21 @@ Body:
       bonus bDelayrate,-(getskilllv("NC_TRAININGAXE")/2);
   - Id: 311433
     AegisName: aegis_311433
-    Name: 十字斬首者石(頭上)
+    Name: 十字斬首者石(頭上)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bDelayrate,-getskilllv("GC_RESEARCHNEWPOISON")/2;
   - Id: 311434
     AegisName: aegis_311434
-    Name: 十字斬首者石(頭中)
+    Name: 十字斬首者石(頭中)
     Type: Card
     SubType: Enchant
     Script: |
       bonus bShortAtkRate,2*getskilllv("GC_DARKILLUSION");
   - Id: 311435
     AegisName: aegis_311435
-    Name: 十字斬首者石(頭下)
+    Name: 十字斬首者石(頭下)
     Type: Card
     SubType: Enchant
     Script: |
@@ -61472,12 +61472,12 @@ Body:
     Weight: 10
   - Id: 1000164
     AegisName: EP17_2_EP13
-    Name: 全自動模組(音速十字斬)
+    Name: 全自動模組(音速十字斬)
     Type: Etc
     Weight: 10
   - Id: 1000165
     AegisName: EP17_2_EP14
-    Name: 全自動模組(十字斬刀刃)
+    Name: 全自動模組(十字斬刀刃)
     Type: Etc
     Weight: 10
   - Id: 1000166
@@ -61642,7 +61642,7 @@ Body:
     Weight: 10
   - Id: 1000198
     AegisName: EP17_2_EP47
-    Name: 全自動模組(幽冥十字斬)
+    Name: 全自動模組(幽冥十字斬)
     Type: Etc
     Weight: 10
   - Id: 1000199
@@ -61702,37 +61702,37 @@ Body:
     Weight: 100
   - Id: 1000218
     AegisName: PaladinStone_Top2
-    Name: 聖殿十字軍石II(頭上)
+    Name: 聖殿十字軍石II(頭上)
     Type: Etc
     Weight: 100
   - Id: 1000219
     AegisName: PaladinStone_Middle2
-    Name: 聖殿十字軍石II(頭中)
+    Name: 聖殿十字軍石II(頭中)
     Type: Etc
     Weight: 100
   - Id: 1000220
     AegisName: PaladinStone_Bottom2
-    Name: 聖殿十字軍石II(頭下)
+    Name: 聖殿十字軍石II(頭下)
     Type: Etc
     Weight: 100
   - Id: 1000221
     AegisName: GuillcrossStone_Robe2
-    Name: 十字斬首者石II(披肩)
+    Name: 十字斬首者石II(披肩)
     Type: Etc
     Weight: 100
   - Id: 1000222
     AegisName: AssacrossStone_Top2
-    Name: 十字刺客石II(頭上)
+    Name: 十字刺客石II(頭上)
     Type: Etc
     Weight: 100
   - Id: 1000223
     AegisName: AssacrossStone_Middle2
-    Name: 十字刺客石II(頭中)
+    Name: 十字刺客石II(頭中)
     Type: Etc
     Weight: 100
   - Id: 1000224
     AegisName: AssacrossStone_Bottom2
-    Name: 十字刺客石II(頭下)
+    Name: 十字刺客石II(頭下)
     Type: Etc
     Weight: 100
   - Id: 1000225
@@ -62631,7 +62631,7 @@ Body:
     Type: Etc
   - Id: 1000486
     AegisName: Conse_F_C_Bow
-    Name: 信徒十字弓圖紙
+    Name: 信徒十字弓圖紙
     Type: Etc
   - Id: 1000487
     AegisName: Conse_F_T_Staff
@@ -63127,7 +63127,7 @@ Body:
     Type: Etc
   - Id: 1000686
     AegisName: Conse_F_C_Humma
-    Name: 信徒十字風魔飛鏢圖紙
+    Name: 信徒十字風魔飛鏢圖紙
     Type: Etc
   - Id: 1000687
     AegisName: Conse_F_Revolver
@@ -63436,11 +63436,11 @@ Body:
     Type: Etc
   - Id: 1000769
     AegisName: Ice_F_Stone_Skill_13
-    Name: 冰花魔石(音速十字斬)
+    Name: 冰花魔石(音速十字斬)
     Type: Etc
   - Id: 1000770
     AegisName: Ice_F_Stone_Skill_14
-    Name: 冰花魔石(刀刃十字斬)
+    Name: 冰花魔石(刀刃十字斬)
     Type: Etc
   - Id: 1000771
     AegisName: Ice_F_Stone_Skill_15
@@ -63572,7 +63572,7 @@ Body:
     Type: Etc
   - Id: 1000803
     AegisName: Ice_F_Stone_Skill_47
-    Name: 冰花魔石(十字飛舞)
+    Name: 冰花魔石(十字飛舞)
     Type: Etc
   - Id: 1000804
     AegisName: Ice_F_Stone_Skill_48
@@ -64131,17 +64131,17 @@ Body:
     Weight: 100
   - Id: 1000974
     AegisName: GuillcrossStone_Top3
-    Name: 十字斬首者石(頭上)
+    Name: 十字斬首者石(頭上)
     Type: Etc
     Weight: 100
   - Id: 1000975
     AegisName: GuillcrossStone_Middle3
-    Name: 十字斬首者石(頭中)
+    Name: 十字斬首者石(頭中)
     Type: Etc
     Weight: 100
   - Id: 1000976
     AegisName: GuillcrossStone_Bottom3
-    Name: 十字斬首者石(頭下)
+    Name: 十字斬首者石(頭下)
     Type: Etc
     Weight: 100
   - Id: 1000983
@@ -65289,7 +65289,7 @@ Body:
          bonus bAllStats,10;
   - Id: 900005
     AegisName: GuillotineCross_Card_
-    Name: 闇●十字斬首者 艾勒梅斯卡片-改
+    Name: 闇●十字斬首者 艾勒梅斯卡片-改
     Type: Card
     Buy: 20
     Weight: 10
@@ -65503,7 +65503,7 @@ Body:
       skill "LK_BERSERK",1;
   - Id: 900015
     AegisName: Paladin_Card_
-    Name: 闇●十字軍 蘭達卡片-改
+    Name: 闇●十字軍 蘭達卡片-改
     Type: Card
     Buy: 20
     Weight: 10
@@ -65518,7 +65518,7 @@ Body:
       bonus5 bAutoSpellWhenHit,"IG_GUARDIAN_SHIELD",5,500,BF_WEAPON,0;
   - Id: 900016
     AegisName: B_Eremes_Card_
-    Name: 闇●十字刺客 艾勒梅斯卡片-改
+    Name: 闇●十字刺客 艾勒梅斯卡片-改
     Type: Card
     Buy: 20
     Weight: 10
@@ -66566,7 +66566,7 @@ Body:
       DropEffect: CLIENT
     Script: |
       bonus2 bAddClass,Class_All,40;
-      bonus3 bAutoSpell,"AB_VITUPERATUM",5,1000;
+      bonus5 bAutoSpell,"AB_VITUPERATUM",5,1000,BF_WEAPON|BF_SHORT,0;
   - Id: 900084
     AegisName: Orc_Load_Card_
     Name: 獸人酋長卡片-改
@@ -66901,10 +66901,9 @@ Body:
       BuyingStore: true
       DropEffect: CLIENT
     Script: |
+      .@r = getrefine();
       bonus bDefRatioAtkClass,Class_All;
-      bonus bSPDrainValue,-1;
-      bonus bDef,-30;
-      bonus bFlee,-30;
+      bonus2 bAddRace,RC_All,.@r*4;
   - Id: 900107
     AegisName: Kraken_Card_
     Name: 魔鬼大烏賊卡片-改
@@ -66960,6 +66959,9 @@ Body:
       bonus2 bSkillAtk,"GN_CART_TORNADO",100;
       bonus2 bSkillAtk,"SN_SHARPSHOOTING",100;
       bonus2 bSkillAtk,"SR_TIGERCANNON",100;
+      bonus2 bSkillAtk,"LG_RAYOFGENESIS",100;
+      bonus2 bSkillAtk,"LG_CANNONSPEAR",100;
+      bonus2 bSkillAtk,"WL_CHAINLIGHTNING",100;
   - Id: 900110
     AegisName: EL_A17T_Card_
     Name: EL-A17T卡片-改
@@ -67509,7 +67511,7 @@ Body:
       changebase Class;
   - Id: 910013
     AegisName: S2_Stone
-    Name: 十字軍幻化石(披肩)
+    Name: 十字軍幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -67700,7 +67702,7 @@ Body:
       changebase Class;
   - Id: 910032
     AegisName: HCAss_Stone
-    Name: 十字刺客幻化石(披肩)
+    Name: 十字刺客幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -67710,7 +67712,7 @@ Body:
       changebase Class;
   - Id: 910033
     AegisName: HSwo2_Stone
-    Name: 聖殿十字軍幻化石(披肩)
+    Name: 聖殿十字軍幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -67830,7 +67832,7 @@ Body:
       changebase Class;
   - Id: 910045
     AegisName: CA_Stone
-    Name: 十字斬首者幻化石(披肩)
+    Name: 十字斬首者幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -67930,7 +67932,7 @@ Body:
       changebase Class;
   - Id: 910055
     AegisName: CS_Stone
-    Name: 十字影武幻化石(披肩)
+    Name: 十字影武幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -68360,7 +68362,7 @@ Body:
       changebase Class;
   - Id: 910098
     AegisName: BSwo2_Stone
-    Name: 十字軍寶寶幻化石(披肩)
+    Name: 十字軍寶寶幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100
@@ -68480,7 +68482,7 @@ Body:
       changebase Class;
   - Id: 910110
     AegisName: BCS_Stone
-    Name: 十字斬首者寶寶幻化石(披肩)
+    Name: 十字斬首者寶寶幻化石(披肩)
     Type: Card
     Buy: 20
     Weight: 100

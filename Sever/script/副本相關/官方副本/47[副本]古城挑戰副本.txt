@@ -1969,7 +1969,7 @@ get422:
 	announce "太狂啦 -  '" + strcharinfo(0) + "' 成功古城挑戰噁心的模式成為噁心的人！", bc_all;
 	getitem 940047,10;
 	getitem 25864,5;
-	getitem 6909,15;
+	getitem 6909,30;
 	warp "SavePoint",0,0;
 	end;
 OnEnable:

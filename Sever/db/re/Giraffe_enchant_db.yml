@@ -21034,8 +21034,6 @@ Body:
             Amount: 50
           - Material: Contaminated_Magic
             Amount: 8
-          - Material: Timeoverload_Power_TW
-            Amount: 2
         Chance: 100000
         Enchants:
           - Enchantgrade: 0

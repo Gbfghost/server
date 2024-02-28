@@ -22489,6 +22489,24 @@ Body:
     Weight: 1
     Script: |
       callfunc "F_Gashapon", 910135;
+  - Id: 910136
+    AegisName: item_910136
+    Name: MVP點數(1點)
+    Type: Usable
+    Buy: 50
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      TradePartner: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      set #MVPPOINTS, #MVPPOINTS+1; dispbottom "您的 M V P 點數 增加 1 目前已累計： " + #MVPPOINTS + " 分。";
   - Id: 22654
     AegisName: Golden_Card
     Name: 黃金卡冊

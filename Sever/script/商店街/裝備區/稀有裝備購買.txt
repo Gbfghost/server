@@ -323,10 +323,10 @@ OnInit:
 	sellitem(400201,.@p,-1);	//信仰之盔 II(皇家禁衛隊)
 	sellitemcurrency(6909,.@meow);
     endsellitem(); 
-	sellitem(400216,.@p,-1);	//信仰之盔(十字斬首者)
+	sellitem(400216,.@p,-1);	//信仰之盔(十字斬首者)
 	sellitemcurrency(6909,.@meow);
     endsellitem(); 
-	sellitem(400217,.@p,-1);	//信仰之盔 II(十字斬首者)
+	sellitem(400217,.@p,-1);	//信仰之盔 II(十字斬首者)
 	sellitemcurrency(6909,.@meow);
     endsellitem(); 
 	sellitem(400218,.@p,-1);	//信仰之盔(妖術師)
@@ -420,7 +420,7 @@ OnInit:
     endsellitem(); 
 	sellitem(420064,.@c,-1);	//貴族手帕
     endsellitem(); 
-	sellitem(400368,.@c,-1);	//RO二十周年限定帽
+	sellitem(400368,.@c,-1);	//RO二十周年限定帽
     endsellitem(); 
 	sellitem(18652,.@c,-1);	//武神之盔
     endsellitem(); 
@@ -764,7 +764,7 @@ OnInit:
 	sellitem(900004,.@p,-1);	//闇●基因學者 普拉梅姆卡片-改
 	sellitemcurrency(4681,.@h);
     endsellitem(); 
-	sellitem(900005,.@p,-1);	//闇●十字斬首者 艾勒梅斯卡片-改
+	sellitem(900005,.@p,-1);	//闇●十字斬首者 艾勒梅斯卡片-改
 	sellitemcurrency(4674,.@h);
     endsellitem(); 
 	sellitem(900006,.@p,-1);	//闇●魅影追蹤者 科迪卡片-改
@@ -794,10 +794,10 @@ OnInit:
 	sellitem(900014,.@p,-1);	//闇●騎士領主 賽依連卡片-改
 	sellitemcurrency(4357,.@h);
     endsellitem(); 
-	sellitem(900015,.@p,-1);	//闇●十字軍 蘭達卡片-改
+	sellitem(900015,.@p,-1);	//闇●十字軍 蘭達卡片-改
 	sellitemcurrency(4565,.@h*5);
     endsellitem(); 
-	sellitem(900016,.@p,-1);	//闇●十字刺客 艾勒梅斯卡片-改
+	sellitem(900016,.@p,-1);	//闇●十字刺客 艾勒梅斯卡片-改
 	sellitemcurrency(4359,.@h);
     endsellitem(); 
 	sellitem(900017,.@p,-1);	//闇●神行太保 科迪卡片-改
@@ -1083,7 +1083,7 @@ OnInit:
 	sellitemcurrency(4527,.@h);
     endsellitem(); 
 	sellitem(900109,.@p,-1);	//齊爾-D-01卡片-改 x
-	sellitemcurrency(4403,.@h);
+	sellitemcurrency(4403,.@h*3);
     endsellitem(); 
 	sellitem(900110,.@p,-1);	//EL-A17T卡片-改 x
 	sellitemcurrency(27305,.@h);
@@ -1097,7 +1097,7 @@ OnInit:
 	sellitem(900113,.@p,-1);	//RSX-0806卡片-改 x
 	sellitemcurrency(4342,.@h);
     endsellitem(); 
-	sellitem(900114,2000000000,-1);	//T W O卡片-改 x
+	sellitem(900114,.@p,-1);	//T W O卡片-改 x
 	sellitemcurrency(27020,.@h);
     endsellitem(); 
 	sellitem(900115,.@p,-1);	//不祥烏龜將軍卡片-改 x
@@ -1314,7 +1314,7 @@ OnInit:
 	 sellitem(4564,.@c,-1);	// 神行太保 科迪
 	sellitemcurrency(27217,.@a);
     endsellitem();
-	 sellitem(4565,.@c,-1);	// 聖殿十字軍 蘭達
+	 sellitem(4565,.@c,-1);	// 聖殿十字軍 蘭達
 	sellitemcurrency(27218,.@a);
     endsellitem();
 	 sellitem(4566,.@c,-1);	// 冷豔舞姬 特蘭提尼

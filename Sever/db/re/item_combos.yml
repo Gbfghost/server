@@ -33440,8 +33440,8 @@ Body:
           - Ultio_Spes_OS
     Script: |
       bonus bMatk,30;
-      .@r = getequiprefinerycnt(EQI_HAND_L);
-      if(.@r >=12){bonus2 bSkillCooldown,AB_ADORAMUS,500;bonus2 bIgnoreMdefRaceRate,RC_Demon,15;bonus2 bIgnoreMdefRaceRate,RC_Undead,15;}
+      .@r = getequiprefinerycnt(EQI_HAND_R);
+      if(.@r >=12){bonus2 bSkillCooldown,"AB_ADORAMUS",-500;bonus2 bIgnoreMdefRaceRate,RC_Demon,15;bonus2 bIgnoreMdefRaceRate,RC_Undead,15;}
   - Combos:
       - Combo:
           - Phoenix_Muffler

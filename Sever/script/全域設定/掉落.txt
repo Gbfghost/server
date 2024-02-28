@@ -1,9 +1,9 @@
 -	script	RandomItem	-1,{
-        // 掉寶加倍五倍
+        // ���撖嗅�����鈭����
 OnNPCKillEvent:
     .@m = killedrid;
     addmonsterdrop .@m,950017,20;
-    // 火2怪 
+    // ���2��� 
     addmonsterdrop 2732,950017,2;
     addmonsterdrop 1382,950017,2;
     addmonsterdrop 1387,950017,2;
@@ -11,5 +11,115 @@ OnNPCKillEvent:
     addmonsterdrop 1384,950017,2;
     addmonsterdrop 1385,950017,2;
     addmonsterdrop 1379,950017,2;
+
+    addmonsterdrop 1038,910136,10000;
+    addmonsterdrop 1039,910136,10000;
+    addmonsterdrop 1046,910136,10000;
+    addmonsterdrop 1059,910136,10000;
+    addmonsterdrop 1086,910136,10000;
+    addmonsterdrop 1087,910136,10000;
+    addmonsterdrop 1112,910136,10000;
+    addmonsterdrop 1115,910136,10000;
+    addmonsterdrop 1147,910136,10000;
+    addmonsterdrop 1150,910136,10000;
+    addmonsterdrop 1157,910136,10000;
+    addmonsterdrop 1159,910136,10000;
+    addmonsterdrop 1190,910136,10000;
+    addmonsterdrop 1251,910136,10000;
+    addmonsterdrop 1252,910136,10000;
+    addmonsterdrop 1272,910136,10000;
+    addmonsterdrop 1312,910136,10000;
+    addmonsterdrop 1373,910136,10000;
+    addmonsterdrop 1389,910136,10000;
+    addmonsterdrop 1418,910136,10000;
+    addmonsterdrop 1492,910136,10000;
+    addmonsterdrop 1511,910136,10000;
+    addmonsterdrop 1518,910136,10000;
+    addmonsterdrop 1583,910136,10000;
+    addmonsterdrop 1623,910136,10000;
+    addmonsterdrop 1630,910136,10000;
+    addmonsterdrop 1646,910136,10000;
+    addmonsterdrop 1647,910136,10000;
+    addmonsterdrop 1648,910136,10000;
+    addmonsterdrop 1649,910136,10000;
+    addmonsterdrop 1650,910136,10000;
+    addmonsterdrop 1651,910136,10000;
+    addmonsterdrop 1658,910136,10000;
+    addmonsterdrop 1685,910136,10000;
+    addmonsterdrop 1688,910136,10000;
+    addmonsterdrop 1708,910136,10000;
+    addmonsterdrop 1719,910136,10000;
+    addmonsterdrop 1734,910136,10000;
+    addmonsterdrop 1751,910136,10000;
+    addmonsterdrop 1768,910136,10000;
+    addmonsterdrop 1779,910136,10000;
+    addmonsterdrop 1785,910136,10000;
+    addmonsterdrop 1832,910136,10000;
+    addmonsterdrop 1871,910136,10000;
+    addmonsterdrop 1874,910136,10000;
+    addmonsterdrop 1885,910136,10000;
+    addmonsterdrop 1917,910136,10000;
+    addmonsterdrop 2068,910136,10000;
+    addmonsterdrop 2087,910136,10000;
+    addmonsterdrop 2156,910136,10000;
+    addmonsterdrop 2165,910136,10000;
+    addmonsterdrop 2202,910136,10000;
+    addmonsterdrop 2235,910136,10000;
+    addmonsterdrop 2236,910136,10000;
+    addmonsterdrop 2237,910136,10000;
+    addmonsterdrop 2238,910136,10000;
+    addmonsterdrop 2239,910136,10000;
+    addmonsterdrop 2240,910136,10000;
+    addmonsterdrop 2241,910136,10000;
+    addmonsterdrop 2244,910136,10000;
+    addmonsterdrop 2249,910136,10000;
+    addmonsterdrop 2251,910136,10000;
+    addmonsterdrop 2253,910136,10000;
+    addmonsterdrop 2255,910136,10000;
+    addmonsterdrop 2362,910136,10000;
+    addmonsterdrop 2441,910136,10000;
+    addmonsterdrop 2442,910136,10000;
+    addmonsterdrop 3074,910136,10000;
+    addmonsterdrop 3220,910136,10000;
+    addmonsterdrop 3221,910136,10000;
+    addmonsterdrop 3222,910136,10000;
+    addmonsterdrop 3223,910136,10000;
+    addmonsterdrop 3224,910136,10000;
+    addmonsterdrop 3225,910136,10000;
+    addmonsterdrop 3240,910136,10000;
+    addmonsterdrop 3241,910136,10000;
+    addmonsterdrop 3242,910136,10000;
+    addmonsterdrop 3243,910136,10000;
+    addmonsterdrop 3244,910136,10000;
+    addmonsterdrop 3245,910136,10000;
+    addmonsterdrop 3246,910136,10000;
+    addmonsterdrop 3505,910136,10000;
+    addmonsterdrop 3741,910136,10000;
+    addmonsterdrop 3757,910136,10000;
+    addmonsterdrop 3758,910136,10000;
+    addmonsterdrop 3796,910136,10000;
+    addmonsterdrop 3804,910136,10000;
+    addmonsterdrop 20260,910136,10000;
+    addmonsterdrop 20273,910136,10000;
+    addmonsterdrop 20277,910136,10000;
+    addmonsterdrop 20381,910136,10000;
+    addmonsterdrop 20419,910136,10000;
+    addmonsterdrop 20421,910136,10000;
+    addmonsterdrop 20422,910136,10000;
+    addmonsterdrop 20520,910136,10000;
+    addmonsterdrop 20601,910136,10000;
+    addmonsterdrop 20610,910136,10000;
+    addmonsterdrop 20611,910136,10000;
+    addmonsterdrop 20618,910136,10000;
+    addmonsterdrop 20811,910136,10000;
+    addmonsterdrop 20928,910136,10000;
+    addmonsterdrop 20934,910136,10000;
+    addmonsterdrop 20943,910136,10000;
+    addmonsterdrop 21301,910136,10000;
+    addmonsterdrop 21395,910136,10000;
+    addmonsterdrop 21537,910136,10000;
+
+
+
    	end;
 }

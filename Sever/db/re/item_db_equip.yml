@@ -95693,15 +95693,15 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 3
-  - Id: 20765
-    AegisName: C_Archangel_Wing
-    Name: (服飾)永恆之翼
-    Type: Armor
-    Locations:
-      Costume_Garment: true
-    ArmorLevel: 1
-    EquipLevelMin: 1
-    View: 49
+  # - Id: 20765
+  #   AegisName: C_Archangel_Wing
+  #   Name: (服飾)永恆之翼
+  #   Type: Armor
+  #   Locations:
+  #     Costume_Garment: true
+  #   ArmorLevel: 1
+  #   EquipLevelMin: 1
+  #   View: 49
   - Id: 20773
     AegisName: Excelion_Wing
     Name: 艾克賽利翁推進翼
@@ -141073,6 +141073,18 @@ Body:
             }
          }
       }
+  - Id: 400604
+    AegisName: C_Ribbon_Beret_B
+    Name: (服飾)黑喵蝴蝶結貝雷帽
+    Type: Armor
+    Buy: 10
+    Locations:
+      Costume_Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    View: 2507
+    Trade:
+      NoDrop: true
   - Id: 400558
     AegisName: C_Snow_Head
     Name: (服飾)雪人DIY
