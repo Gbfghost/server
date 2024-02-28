@@ -10,7 +10,6 @@ OnNPCKillEvent:
 						3222,3223,3224,3225,3240,3241,3242,3243,3244,3245,3246,3505,3741,3757,3758,3796,3804,20260,20273,20277,20381,20419,
 						20421,20422,20520,20601,20610,20611,20618,20811,20928,20934,20943,21301,21395,21537;
 	for( .@i = 0 ; .@i<getarraysize(.@mvp) ; .@i++){
-	if ( true ){
 		if( killedrid == .@mvp[.@i]){
 	set	#randpoint , rand(1,5); 
 	set #MVPPOINTS, #MVPPOINTS+#randpoint;
@@ -19,7 +18,7 @@ OnNPCKillEvent:
 		if(rand(1,100) > 95){getitem 950014,1;}
 		if(rand(1,100) > 95){getitem 950015,1;}
 	}
-	}
+	
 	}
 	end;
 	}
